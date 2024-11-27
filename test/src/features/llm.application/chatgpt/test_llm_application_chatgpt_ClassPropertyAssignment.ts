@@ -10,14 +10,14 @@ export const test_llm_application_chatgpt_ClassPropertyAssignment =
   })(typia.llm.application<ClassPropertyAssignmentApplication, "chatgpt">());
 
 interface ClassPropertyAssignmentApplication {
-  insert(first: ClassPropertyAssignment): Promise<void>;
-  reduce(
-    first: ClassPropertyAssignment,
-    second: ClassPropertyAssignment | null,
-  ): Promise<ClassPropertyAssignment>;
-  coalesce(
-    first: ClassPropertyAssignment | null,
-    second: ClassPropertyAssignment | null,
-    third?: ClassPropertyAssignment | null,
-  ): Promise<ClassPropertyAssignment | null>;
+  insert(p: { first: ClassPropertyAssignment }): Promise<void>;
+  reduce(p: {
+    first: ClassPropertyAssignment;
+    second: ClassPropertyAssignment | null;
+  }): Promise<ClassPropertyAssignment>;
+  coalesce(p: {
+    first: ClassPropertyAssignment | null;
+    second: ClassPropertyAssignment | null;
+    third?: ClassPropertyAssignment | null;
+  }): Promise<ClassPropertyAssignment | null>;
 }

@@ -9,11 +9,14 @@ export const test_llm_application_gemini_ArraySimple = _test_llm_application({
 })(typia.llm.application<ArraySimpleApplication, "gemini">());
 
 interface ArraySimpleApplication {
-  insert(first: ArraySimple): Promise<void>;
-  reduce(first: ArraySimple, second: ArraySimple | null): Promise<ArraySimple>;
-  coalesce(
-    first: ArraySimple | null,
-    second: ArraySimple | null,
-    third?: ArraySimple | null,
-  ): Promise<ArraySimple | null>;
+  insert(p: { first: ArraySimple }): Promise<void>;
+  reduce(p: {
+    first: ArraySimple;
+    second: ArraySimple | null;
+  }): Promise<ArraySimple>;
+  coalesce(p: {
+    first: ArraySimple | null;
+    second: ArraySimple | null;
+    third?: ArraySimple | null;
+  }): Promise<ArraySimple | null>;
 }

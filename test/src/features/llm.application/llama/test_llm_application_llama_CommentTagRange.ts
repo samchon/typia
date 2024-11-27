@@ -11,14 +11,14 @@ export const test_llm_application_llama_CommentTagRange = _test_llm_application(
 )(typia.llm.application<CommentTagRangeApplication, "llama">());
 
 interface CommentTagRangeApplication {
-  insert(first: CommentTagRange): Promise<void>;
-  reduce(
-    first: CommentTagRange,
-    second: CommentTagRange | null,
-  ): Promise<CommentTagRange>;
-  coalesce(
-    first: CommentTagRange | null,
-    second: CommentTagRange | null,
-    third?: CommentTagRange | null,
-  ): Promise<CommentTagRange | null>;
+  insert(p: { first: CommentTagRange }): Promise<void>;
+  reduce(p: {
+    first: CommentTagRange;
+    second: CommentTagRange | null;
+  }): Promise<CommentTagRange>;
+  coalesce(p: {
+    first: CommentTagRange | null;
+    second: CommentTagRange | null;
+    third?: CommentTagRange | null;
+  }): Promise<CommentTagRange | null>;
 }

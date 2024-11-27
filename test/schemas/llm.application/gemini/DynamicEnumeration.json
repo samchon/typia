@@ -1,58 +1,70 @@
 {
   "model": "gemini",
+  "options": {
+    "recursive": 3,
+    "separate": null
+  },
   "functions": [
     {
       "name": "insert",
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
+          "p": {
             "type": "object",
             "properties": {
-              "value": {
+              "first": {
                 "type": "object",
                 "properties": {
-                  "ar": {
-                    "type": "string"
-                  },
-                  "zh-Hans": {
-                    "type": "string"
-                  },
-                  "zh-Hant": {
-                    "type": "string"
-                  },
-                  "en": {
-                    "type": "string"
-                  },
-                  "fr": {
-                    "type": "string"
-                  },
-                  "de": {
-                    "type": "string"
-                  },
-                  "ja": {
-                    "type": "string"
-                  },
-                  "ko": {
-                    "type": "string"
-                  },
-                  "pt": {
-                    "type": "string"
-                  },
-                  "ru": {
-                    "type": "string"
+                  "value": {
+                    "type": "object",
+                    "properties": {
+                      "ar": {
+                        "type": "string"
+                      },
+                      "zh-Hans": {
+                        "type": "string"
+                      },
+                      "zh-Hant": {
+                        "type": "string"
+                      },
+                      "en": {
+                        "type": "string"
+                      },
+                      "fr": {
+                        "type": "string"
+                      },
+                      "de": {
+                        "type": "string"
+                      },
+                      "ja": {
+                        "type": "string"
+                      },
+                      "ko": {
+                        "type": "string"
+                      },
+                      "pt": {
+                        "type": "string"
+                      },
+                      "ru": {
+                        "type": "string"
+                      }
+                    },
+                    "required": []
                   }
                 },
-                "required": []
+                "required": [
+                  "value"
+                ]
               }
             },
             "required": [
-              "value"
+              "first"
             ]
           }
         },
         "required": [
-          "first"
+          "p"
         ]
       },
       "strict": true
@@ -62,99 +74,107 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
+          "p": {
             "type": "object",
             "properties": {
-              "value": {
+              "first": {
                 "type": "object",
                 "properties": {
-                  "ar": {
-                    "type": "string"
-                  },
-                  "zh-Hans": {
-                    "type": "string"
-                  },
-                  "zh-Hant": {
-                    "type": "string"
-                  },
-                  "en": {
-                    "type": "string"
-                  },
-                  "fr": {
-                    "type": "string"
-                  },
-                  "de": {
-                    "type": "string"
-                  },
-                  "ja": {
-                    "type": "string"
-                  },
-                  "ko": {
-                    "type": "string"
-                  },
-                  "pt": {
-                    "type": "string"
-                  },
-                  "ru": {
-                    "type": "string"
+                  "value": {
+                    "type": "object",
+                    "properties": {
+                      "ar": {
+                        "type": "string"
+                      },
+                      "zh-Hans": {
+                        "type": "string"
+                      },
+                      "zh-Hant": {
+                        "type": "string"
+                      },
+                      "en": {
+                        "type": "string"
+                      },
+                      "fr": {
+                        "type": "string"
+                      },
+                      "de": {
+                        "type": "string"
+                      },
+                      "ja": {
+                        "type": "string"
+                      },
+                      "ko": {
+                        "type": "string"
+                      },
+                      "pt": {
+                        "type": "string"
+                      },
+                      "ru": {
+                        "type": "string"
+                      }
+                    },
+                    "required": []
                   }
                 },
-                "required": []
+                "required": [
+                  "value"
+                ]
+              },
+              "second": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "object",
+                    "properties": {
+                      "ar": {
+                        "type": "string"
+                      },
+                      "zh-Hans": {
+                        "type": "string"
+                      },
+                      "zh-Hant": {
+                        "type": "string"
+                      },
+                      "en": {
+                        "type": "string"
+                      },
+                      "fr": {
+                        "type": "string"
+                      },
+                      "de": {
+                        "type": "string"
+                      },
+                      "ja": {
+                        "type": "string"
+                      },
+                      "ko": {
+                        "type": "string"
+                      },
+                      "pt": {
+                        "type": "string"
+                      },
+                      "ru": {
+                        "type": "string"
+                      }
+                    },
+                    "required": []
+                  }
+                },
+                "required": [
+                  "value"
+                ],
+                "nullable": true
               }
             },
             "required": [
-              "value"
+              "first",
+              "second"
             ]
-          },
-          "second": {
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "object",
-                "properties": {
-                  "ar": {
-                    "type": "string"
-                  },
-                  "zh-Hans": {
-                    "type": "string"
-                  },
-                  "zh-Hant": {
-                    "type": "string"
-                  },
-                  "en": {
-                    "type": "string"
-                  },
-                  "fr": {
-                    "type": "string"
-                  },
-                  "de": {
-                    "type": "string"
-                  },
-                  "ja": {
-                    "type": "string"
-                  },
-                  "ko": {
-                    "type": "string"
-                  },
-                  "pt": {
-                    "type": "string"
-                  },
-                  "ru": {
-                    "type": "string"
-                  }
-                },
-                "required": []
-              }
-            },
-            "required": [
-              "value"
-            ],
-            "nullable": true
           }
         },
         "required": [
-          "first",
-          "second"
+          "p"
         ]
       },
       "output": {
@@ -208,145 +228,153 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
+          "p": {
             "type": "object",
             "properties": {
-              "value": {
+              "first": {
                 "type": "object",
                 "properties": {
-                  "ar": {
-                    "type": "string"
-                  },
-                  "zh-Hans": {
-                    "type": "string"
-                  },
-                  "zh-Hant": {
-                    "type": "string"
-                  },
-                  "en": {
-                    "type": "string"
-                  },
-                  "fr": {
-                    "type": "string"
-                  },
-                  "de": {
-                    "type": "string"
-                  },
-                  "ja": {
-                    "type": "string"
-                  },
-                  "ko": {
-                    "type": "string"
-                  },
-                  "pt": {
-                    "type": "string"
-                  },
-                  "ru": {
-                    "type": "string"
+                  "value": {
+                    "type": "object",
+                    "properties": {
+                      "ar": {
+                        "type": "string"
+                      },
+                      "zh-Hans": {
+                        "type": "string"
+                      },
+                      "zh-Hant": {
+                        "type": "string"
+                      },
+                      "en": {
+                        "type": "string"
+                      },
+                      "fr": {
+                        "type": "string"
+                      },
+                      "de": {
+                        "type": "string"
+                      },
+                      "ja": {
+                        "type": "string"
+                      },
+                      "ko": {
+                        "type": "string"
+                      },
+                      "pt": {
+                        "type": "string"
+                      },
+                      "ru": {
+                        "type": "string"
+                      }
+                    },
+                    "required": []
                   }
                 },
-                "required": []
+                "required": [
+                  "value"
+                ],
+                "nullable": true
+              },
+              "second": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "object",
+                    "properties": {
+                      "ar": {
+                        "type": "string"
+                      },
+                      "zh-Hans": {
+                        "type": "string"
+                      },
+                      "zh-Hant": {
+                        "type": "string"
+                      },
+                      "en": {
+                        "type": "string"
+                      },
+                      "fr": {
+                        "type": "string"
+                      },
+                      "de": {
+                        "type": "string"
+                      },
+                      "ja": {
+                        "type": "string"
+                      },
+                      "ko": {
+                        "type": "string"
+                      },
+                      "pt": {
+                        "type": "string"
+                      },
+                      "ru": {
+                        "type": "string"
+                      }
+                    },
+                    "required": []
+                  }
+                },
+                "required": [
+                  "value"
+                ],
+                "nullable": true
+              },
+              "third": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "object",
+                    "properties": {
+                      "ar": {
+                        "type": "string"
+                      },
+                      "zh-Hans": {
+                        "type": "string"
+                      },
+                      "zh-Hant": {
+                        "type": "string"
+                      },
+                      "en": {
+                        "type": "string"
+                      },
+                      "fr": {
+                        "type": "string"
+                      },
+                      "de": {
+                        "type": "string"
+                      },
+                      "ja": {
+                        "type": "string"
+                      },
+                      "ko": {
+                        "type": "string"
+                      },
+                      "pt": {
+                        "type": "string"
+                      },
+                      "ru": {
+                        "type": "string"
+                      }
+                    },
+                    "required": []
+                  }
+                },
+                "required": [
+                  "value"
+                ],
+                "nullable": true
               }
             },
             "required": [
-              "value"
-            ],
-            "nullable": true
-          },
-          "second": {
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "object",
-                "properties": {
-                  "ar": {
-                    "type": "string"
-                  },
-                  "zh-Hans": {
-                    "type": "string"
-                  },
-                  "zh-Hant": {
-                    "type": "string"
-                  },
-                  "en": {
-                    "type": "string"
-                  },
-                  "fr": {
-                    "type": "string"
-                  },
-                  "de": {
-                    "type": "string"
-                  },
-                  "ja": {
-                    "type": "string"
-                  },
-                  "ko": {
-                    "type": "string"
-                  },
-                  "pt": {
-                    "type": "string"
-                  },
-                  "ru": {
-                    "type": "string"
-                  }
-                },
-                "required": []
-              }
-            },
-            "required": [
-              "value"
-            ],
-            "nullable": true
-          },
-          "third": {
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "object",
-                "properties": {
-                  "ar": {
-                    "type": "string"
-                  },
-                  "zh-Hans": {
-                    "type": "string"
-                  },
-                  "zh-Hant": {
-                    "type": "string"
-                  },
-                  "en": {
-                    "type": "string"
-                  },
-                  "fr": {
-                    "type": "string"
-                  },
-                  "de": {
-                    "type": "string"
-                  },
-                  "ja": {
-                    "type": "string"
-                  },
-                  "ko": {
-                    "type": "string"
-                  },
-                  "pt": {
-                    "type": "string"
-                  },
-                  "ru": {
-                    "type": "string"
-                  }
-                },
-                "required": []
-              }
-            },
-            "required": [
-              "value"
-            ],
-            "nullable": true
+              "first",
+              "second"
+            ]
           }
         },
         "required": [
-          "first",
-          "second"
+          "p"
         ]
       },
       "output": {
@@ -396,9 +424,5 @@
       },
       "strict": true
     }
-  ],
-  "options": {
-    "recursive": 3,
-    "separate": null
-  }
+  ]
 }

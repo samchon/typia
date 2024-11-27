@@ -10,14 +10,14 @@ export const test_llm_application_chatgpt_CommentTagArray =
   })(typia.llm.application<CommentTagArrayApplication, "chatgpt">());
 
 interface CommentTagArrayApplication {
-  insert(first: CommentTagArray): Promise<void>;
-  reduce(
-    first: CommentTagArray,
-    second: CommentTagArray | null,
-  ): Promise<CommentTagArray>;
-  coalesce(
-    first: CommentTagArray | null,
-    second: CommentTagArray | null,
-    third?: CommentTagArray | null,
-  ): Promise<CommentTagArray | null>;
+  insert(p: { first: CommentTagArray }): Promise<void>;
+  reduce(p: {
+    first: CommentTagArray;
+    second: CommentTagArray | null;
+  }): Promise<CommentTagArray>;
+  coalesce(p: {
+    first: CommentTagArray | null;
+    second: CommentTagArray | null;
+    third?: CommentTagArray | null;
+  }): Promise<CommentTagArray | null>;
 }

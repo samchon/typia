@@ -10,14 +10,14 @@ export const test_llm_application_gemini_ObjectRecursive =
   })(typia.llm.application<ObjectRecursiveApplication, "gemini">());
 
 interface ObjectRecursiveApplication {
-  insert(first: ObjectRecursive): Promise<void>;
-  reduce(
-    first: ObjectRecursive,
-    second: ObjectRecursive | null,
-  ): Promise<ObjectRecursive>;
-  coalesce(
-    first: ObjectRecursive | null,
-    second: ObjectRecursive | null,
-    third?: ObjectRecursive | null,
-  ): Promise<ObjectRecursive | null>;
+  insert(p: { first: ObjectRecursive }): Promise<void>;
+  reduce(p: {
+    first: ObjectRecursive;
+    second: ObjectRecursive | null;
+  }): Promise<ObjectRecursive>;
+  coalesce(p: {
+    first: ObjectRecursive | null;
+    second: ObjectRecursive | null;
+    third?: ObjectRecursive | null;
+  }): Promise<ObjectRecursive | null>;
 }

@@ -9,11 +9,14 @@ export const test_llm_application_chatgpt_ClassGetter = _test_llm_application({
 })(typia.llm.application<ClassGetterApplication, "chatgpt">());
 
 interface ClassGetterApplication {
-  insert(first: ClassGetter): Promise<void>;
-  reduce(first: ClassGetter, second: ClassGetter | null): Promise<ClassGetter>;
-  coalesce(
-    first: ClassGetter | null,
-    second: ClassGetter | null,
-    third?: ClassGetter | null,
-  ): Promise<ClassGetter | null>;
+  insert(p: { first: ClassGetter }): Promise<void>;
+  reduce(p: {
+    first: ClassGetter;
+    second: ClassGetter | null;
+  }): Promise<ClassGetter>;
+  coalesce(p: {
+    first: ClassGetter | null;
+    second: ClassGetter | null;
+    third?: ClassGetter | null;
+  }): Promise<ClassGetter | null>;
 }

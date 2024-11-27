@@ -10,14 +10,14 @@ export const test_llm_application_claude_ObjectUndefined =
   })(typia.llm.application<ObjectUndefinedApplication, "claude">());
 
 interface ObjectUndefinedApplication {
-  insert(first: ObjectUndefined): Promise<void>;
-  reduce(
-    first: ObjectUndefined,
-    second: ObjectUndefined | null,
-  ): Promise<ObjectUndefined>;
-  coalesce(
-    first: ObjectUndefined | null,
-    second: ObjectUndefined | null,
-    third?: ObjectUndefined | null,
-  ): Promise<ObjectUndefined | null>;
+  insert(p: { first: ObjectUndefined }): Promise<void>;
+  reduce(p: {
+    first: ObjectUndefined;
+    second: ObjectUndefined | null;
+  }): Promise<ObjectUndefined>;
+  coalesce(p: {
+    first: ObjectUndefined | null;
+    second: ObjectUndefined | null;
+    third?: ObjectUndefined | null;
+  }): Promise<ObjectUndefined | null>;
 }

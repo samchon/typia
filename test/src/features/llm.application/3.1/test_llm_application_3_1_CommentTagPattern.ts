@@ -11,14 +11,14 @@ export const test_llm_application_3_1_CommentTagPattern = _test_llm_application(
 )(typia.llm.application<CommentTagPatternApplication, "3.1">());
 
 interface CommentTagPatternApplication {
-  insert(first: CommentTagPattern): Promise<void>;
-  reduce(
-    first: CommentTagPattern,
-    second: CommentTagPattern | null,
-  ): Promise<CommentTagPattern>;
-  coalesce(
-    first: CommentTagPattern | null,
-    second: CommentTagPattern | null,
-    third?: CommentTagPattern | null,
-  ): Promise<CommentTagPattern | null>;
+  insert(p: { first: CommentTagPattern }): Promise<void>;
+  reduce(p: {
+    first: CommentTagPattern;
+    second: CommentTagPattern | null;
+  }): Promise<CommentTagPattern>;
+  coalesce(p: {
+    first: CommentTagPattern | null;
+    second: CommentTagPattern | null;
+    third?: CommentTagPattern | null;
+  }): Promise<CommentTagPattern | null>;
 }

@@ -10,14 +10,14 @@ export const test_llm_application_chatgpt_ArrayRecursive =
   })(typia.llm.application<ArrayRecursiveApplication, "chatgpt">());
 
 interface ArrayRecursiveApplication {
-  insert(first: ArrayRecursive): Promise<void>;
-  reduce(
-    first: ArrayRecursive,
-    second: ArrayRecursive | null,
-  ): Promise<ArrayRecursive>;
-  coalesce(
-    first: ArrayRecursive | null,
-    second: ArrayRecursive | null,
-    third?: ArrayRecursive | null,
-  ): Promise<ArrayRecursive | null>;
+  insert(p: { first: ArrayRecursive }): Promise<void>;
+  reduce(p: {
+    first: ArrayRecursive;
+    second: ArrayRecursive | null;
+  }): Promise<ArrayRecursive>;
+  coalesce(p: {
+    first: ArrayRecursive | null;
+    second: ArrayRecursive | null;
+    third?: ArrayRecursive | null;
+  }): Promise<ArrayRecursive | null>;
 }

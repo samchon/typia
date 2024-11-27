@@ -9,14 +9,14 @@ export const test_llm_application_3_0_TemplateConstant = _test_llm_application({
 })(typia.llm.application<TemplateConstantApplication, "3.0">());
 
 interface TemplateConstantApplication {
-  insert(first: TemplateConstant): Promise<void>;
-  reduce(
-    first: TemplateConstant,
-    second: TemplateConstant | null,
-  ): Promise<TemplateConstant>;
-  coalesce(
-    first: TemplateConstant | null,
-    second: TemplateConstant | null,
-    third?: TemplateConstant | null,
-  ): Promise<TemplateConstant | null>;
+  insert(p: { first: TemplateConstant }): Promise<void>;
+  reduce(p: {
+    first: TemplateConstant;
+    second: TemplateConstant | null;
+  }): Promise<TemplateConstant>;
+  coalesce(p: {
+    first: TemplateConstant | null;
+    second: TemplateConstant | null;
+    third?: TemplateConstant | null;
+  }): Promise<TemplateConstant | null>;
 }

@@ -10,14 +10,14 @@ export const test_llm_application_chatgpt_TemplateConstant =
   })(typia.llm.application<TemplateConstantApplication, "chatgpt">());
 
 interface TemplateConstantApplication {
-  insert(first: TemplateConstant): Promise<void>;
-  reduce(
-    first: TemplateConstant,
-    second: TemplateConstant | null,
-  ): Promise<TemplateConstant>;
-  coalesce(
-    first: TemplateConstant | null,
-    second: TemplateConstant | null,
-    third?: TemplateConstant | null,
-  ): Promise<TemplateConstant | null>;
+  insert(p: { first: TemplateConstant }): Promise<void>;
+  reduce(p: {
+    first: TemplateConstant;
+    second: TemplateConstant | null;
+  }): Promise<TemplateConstant>;
+  coalesce(p: {
+    first: TemplateConstant | null;
+    second: TemplateConstant | null;
+    third?: TemplateConstant | null;
+  }): Promise<TemplateConstant | null>;
 }

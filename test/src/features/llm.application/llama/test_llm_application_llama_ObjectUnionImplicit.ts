@@ -10,14 +10,14 @@ export const test_llm_application_llama_ObjectUnionImplicit =
   })(typia.llm.application<ObjectUnionImplicitApplication, "llama">());
 
 interface ObjectUnionImplicitApplication {
-  insert(first: ObjectUnionImplicit): Promise<void>;
-  reduce(
-    first: ObjectUnionImplicit,
-    second: ObjectUnionImplicit | null,
-  ): Promise<ObjectUnionImplicit>;
-  coalesce(
-    first: ObjectUnionImplicit | null,
-    second: ObjectUnionImplicit | null,
-    third?: ObjectUnionImplicit | null,
-  ): Promise<ObjectUnionImplicit | null>;
+  insert(p: { first: ObjectUnionImplicit }): Promise<void>;
+  reduce(p: {
+    first: ObjectUnionImplicit;
+    second: ObjectUnionImplicit | null;
+  }): Promise<ObjectUnionImplicit>;
+  coalesce(p: {
+    first: ObjectUnionImplicit | null;
+    second: ObjectUnionImplicit | null;
+    third?: ObjectUnionImplicit | null;
+  }): Promise<ObjectUnionImplicit | null>;
 }

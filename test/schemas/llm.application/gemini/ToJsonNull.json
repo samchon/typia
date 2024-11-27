@@ -1,17 +1,29 @@
 {
   "model": "gemini",
+  "options": {
+    "recursive": 3,
+    "separate": null
+  },
   "functions": [
     {
       "name": "insert",
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
-            "type": "null"
+          "p": {
+            "type": "object",
+            "properties": {
+              "first": {
+                "type": "null"
+              }
+            },
+            "required": [
+              "first"
+            ]
           }
         },
         "required": [
-          "first"
+          "p"
         ]
       },
       "strict": true
@@ -21,16 +33,24 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
-            "type": "null"
-          },
-          "second": {
-            "type": "null"
+          "p": {
+            "type": "object",
+            "properties": {
+              "first": {
+                "type": "null"
+              },
+              "second": {
+                "type": "null"
+              }
+            },
+            "required": [
+              "first",
+              "second"
+            ]
           }
         },
         "required": [
-          "first",
-          "second"
+          "p"
         ]
       },
       "output": {
@@ -43,19 +63,27 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
-            "type": "null"
-          },
-          "second": {
-            "type": "null"
-          },
-          "third": {
-            "type": "null"
+          "p": {
+            "type": "object",
+            "properties": {
+              "first": {
+                "type": "null"
+              },
+              "second": {
+                "type": "null"
+              },
+              "third": {
+                "type": "null"
+              }
+            },
+            "required": [
+              "first",
+              "second"
+            ]
           }
         },
         "required": [
-          "first",
-          "second"
+          "p"
         ]
       },
       "output": {
@@ -63,9 +91,5 @@
       },
       "strict": true
     }
-  ],
-  "options": {
-    "recursive": 3,
-    "separate": null
-  }
+  ]
 }

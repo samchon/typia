@@ -10,14 +10,14 @@ export const test_llm_application_chatgpt_ObjectUnionDouble =
   })(typia.llm.application<ObjectUnionDoubleApplication, "chatgpt">());
 
 interface ObjectUnionDoubleApplication {
-  insert(first: ObjectUnionDouble): Promise<void>;
-  reduce(
-    first: ObjectUnionDouble,
-    second: ObjectUnionDouble | null,
-  ): Promise<ObjectUnionDouble>;
-  coalesce(
-    first: ObjectUnionDouble | null,
-    second: ObjectUnionDouble | null,
-    third?: ObjectUnionDouble | null,
-  ): Promise<ObjectUnionDouble | null>;
+  insert(p: { first: ObjectUnionDouble }): Promise<void>;
+  reduce(p: {
+    first: ObjectUnionDouble;
+    second: ObjectUnionDouble | null;
+  }): Promise<ObjectUnionDouble>;
+  coalesce(p: {
+    first: ObjectUnionDouble | null;
+    second: ObjectUnionDouble | null;
+    third?: ObjectUnionDouble | null;
+  }): Promise<ObjectUnionDouble | null>;
 }

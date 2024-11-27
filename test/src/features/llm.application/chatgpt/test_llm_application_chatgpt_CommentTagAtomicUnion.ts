@@ -10,14 +10,14 @@ export const test_llm_application_chatgpt_CommentTagAtomicUnion =
   })(typia.llm.application<CommentTagAtomicUnionApplication, "chatgpt">());
 
 interface CommentTagAtomicUnionApplication {
-  insert(first: CommentTagAtomicUnion): Promise<void>;
-  reduce(
-    first: CommentTagAtomicUnion,
-    second: CommentTagAtomicUnion | null,
-  ): Promise<CommentTagAtomicUnion>;
-  coalesce(
-    first: CommentTagAtomicUnion | null,
-    second: CommentTagAtomicUnion | null,
-    third?: CommentTagAtomicUnion | null,
-  ): Promise<CommentTagAtomicUnion | null>;
+  insert(p: { first: CommentTagAtomicUnion }): Promise<void>;
+  reduce(p: {
+    first: CommentTagAtomicUnion;
+    second: CommentTagAtomicUnion | null;
+  }): Promise<CommentTagAtomicUnion>;
+  coalesce(p: {
+    first: CommentTagAtomicUnion | null;
+    second: CommentTagAtomicUnion | null;
+    third?: CommentTagAtomicUnion | null;
+  }): Promise<CommentTagAtomicUnion | null>;
 }

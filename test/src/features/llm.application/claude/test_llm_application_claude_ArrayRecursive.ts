@@ -11,14 +11,14 @@ export const test_llm_application_claude_ArrayRecursive = _test_llm_application(
 )(typia.llm.application<ArrayRecursiveApplication, "claude">());
 
 interface ArrayRecursiveApplication {
-  insert(first: ArrayRecursive): Promise<void>;
-  reduce(
-    first: ArrayRecursive,
-    second: ArrayRecursive | null,
-  ): Promise<ArrayRecursive>;
-  coalesce(
-    first: ArrayRecursive | null,
-    second: ArrayRecursive | null,
-    third?: ArrayRecursive | null,
-  ): Promise<ArrayRecursive | null>;
+  insert(p: { first: ArrayRecursive }): Promise<void>;
+  reduce(p: {
+    first: ArrayRecursive;
+    second: ArrayRecursive | null;
+  }): Promise<ArrayRecursive>;
+  coalesce(p: {
+    first: ArrayRecursive | null;
+    second: ArrayRecursive | null;
+    third?: ArrayRecursive | null;
+  }): Promise<ArrayRecursive | null>;
 }

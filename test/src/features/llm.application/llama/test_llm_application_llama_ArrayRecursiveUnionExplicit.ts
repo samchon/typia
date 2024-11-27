@@ -10,14 +10,14 @@ export const test_llm_application_llama_ArrayRecursiveUnionExplicit =
   })(typia.llm.application<ArrayRecursiveUnionExplicitApplication, "llama">());
 
 interface ArrayRecursiveUnionExplicitApplication {
-  insert(first: ArrayRecursiveUnionExplicit): Promise<void>;
-  reduce(
-    first: ArrayRecursiveUnionExplicit,
-    second: ArrayRecursiveUnionExplicit | null,
-  ): Promise<ArrayRecursiveUnionExplicit>;
-  coalesce(
-    first: ArrayRecursiveUnionExplicit | null,
-    second: ArrayRecursiveUnionExplicit | null,
-    third?: ArrayRecursiveUnionExplicit | null,
-  ): Promise<ArrayRecursiveUnionExplicit | null>;
+  insert(p: { first: ArrayRecursiveUnionExplicit }): Promise<void>;
+  reduce(p: {
+    first: ArrayRecursiveUnionExplicit;
+    second: ArrayRecursiveUnionExplicit | null;
+  }): Promise<ArrayRecursiveUnionExplicit>;
+  coalesce(p: {
+    first: ArrayRecursiveUnionExplicit | null;
+    second: ArrayRecursiveUnionExplicit | null;
+    third?: ArrayRecursiveUnionExplicit | null;
+  }): Promise<ArrayRecursiveUnionExplicit | null>;
 }

@@ -9,14 +9,14 @@ export const test_llm_application_llama_TemplateAtomic = _test_llm_application({
 })(typia.llm.application<TemplateAtomicApplication, "llama">());
 
 interface TemplateAtomicApplication {
-  insert(first: TemplateAtomic): Promise<void>;
-  reduce(
-    first: TemplateAtomic,
-    second: TemplateAtomic | null,
-  ): Promise<TemplateAtomic>;
-  coalesce(
-    first: TemplateAtomic | null,
-    second: TemplateAtomic | null,
-    third?: TemplateAtomic | null,
-  ): Promise<TemplateAtomic | null>;
+  insert(p: { first: TemplateAtomic }): Promise<void>;
+  reduce(p: {
+    first: TemplateAtomic;
+    second: TemplateAtomic | null;
+  }): Promise<TemplateAtomic>;
+  coalesce(p: {
+    first: TemplateAtomic | null;
+    second: TemplateAtomic | null;
+    third?: TemplateAtomic | null;
+  }): Promise<TemplateAtomic | null>;
 }

@@ -11,14 +11,14 @@ export const test_llm_application_3_0_ObjectDescription = _test_llm_application(
 )(typia.llm.application<ObjectDescriptionApplication, "3.0">());
 
 interface ObjectDescriptionApplication {
-  insert(first: ObjectDescription): Promise<void>;
-  reduce(
-    first: ObjectDescription,
-    second: ObjectDescription | null,
-  ): Promise<ObjectDescription>;
-  coalesce(
-    first: ObjectDescription | null,
-    second: ObjectDescription | null,
-    third?: ObjectDescription | null,
-  ): Promise<ObjectDescription | null>;
+  insert(p: { first: ObjectDescription }): Promise<void>;
+  reduce(p: {
+    first: ObjectDescription;
+    second: ObjectDescription | null;
+  }): Promise<ObjectDescription>;
+  coalesce(p: {
+    first: ObjectDescription | null;
+    second: ObjectDescription | null;
+    third?: ObjectDescription | null;
+  }): Promise<ObjectDescription | null>;
 }

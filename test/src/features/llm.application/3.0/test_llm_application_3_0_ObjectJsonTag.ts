@@ -9,14 +9,14 @@ export const test_llm_application_3_0_ObjectJsonTag = _test_llm_application({
 })(typia.llm.application<ObjectJsonTagApplication, "3.0">());
 
 interface ObjectJsonTagApplication {
-  insert(first: ObjectJsonTag): Promise<void>;
-  reduce(
-    first: ObjectJsonTag,
-    second: ObjectJsonTag | null,
-  ): Promise<ObjectJsonTag>;
-  coalesce(
-    first: ObjectJsonTag | null,
-    second: ObjectJsonTag | null,
-    third?: ObjectJsonTag | null,
-  ): Promise<ObjectJsonTag | null>;
+  insert(p: { first: ObjectJsonTag }): Promise<void>;
+  reduce(p: {
+    first: ObjectJsonTag;
+    second: ObjectJsonTag | null;
+  }): Promise<ObjectJsonTag>;
+  coalesce(p: {
+    first: ObjectJsonTag | null;
+    second: ObjectJsonTag | null;
+    third?: ObjectJsonTag | null;
+  }): Promise<ObjectJsonTag | null>;
 }

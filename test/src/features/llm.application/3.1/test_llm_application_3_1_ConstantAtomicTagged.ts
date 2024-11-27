@@ -10,14 +10,14 @@ export const test_llm_application_3_1_ConstantAtomicTagged =
   })(typia.llm.application<ConstantAtomicTaggedApplication, "3.1">());
 
 interface ConstantAtomicTaggedApplication {
-  insert(first: ConstantAtomicTagged): Promise<void>;
-  reduce(
-    first: ConstantAtomicTagged,
-    second: ConstantAtomicTagged | null,
-  ): Promise<ConstantAtomicTagged>;
-  coalesce(
-    first: ConstantAtomicTagged | null,
-    second: ConstantAtomicTagged | null,
-    third?: ConstantAtomicTagged | null,
-  ): Promise<ConstantAtomicTagged | null>;
+  insert(p: { first: ConstantAtomicTagged }): Promise<void>;
+  reduce(p: {
+    first: ConstantAtomicTagged;
+    second: ConstantAtomicTagged | null;
+  }): Promise<ConstantAtomicTagged>;
+  coalesce(p: {
+    first: ConstantAtomicTagged | null;
+    second: ConstantAtomicTagged | null;
+    third?: ConstantAtomicTagged | null;
+  }): Promise<ConstantAtomicTagged | null>;
 }

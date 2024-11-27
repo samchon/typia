@@ -9,11 +9,14 @@ export const test_llm_application_3_0_TypeTagType = _test_llm_application({
 })(typia.llm.application<TypeTagTypeApplication, "3.0">());
 
 interface TypeTagTypeApplication {
-  insert(first: TypeTagType): Promise<void>;
-  reduce(first: TypeTagType, second: TypeTagType | null): Promise<TypeTagType>;
-  coalesce(
-    first: TypeTagType | null,
-    second: TypeTagType | null,
-    third?: TypeTagType | null,
-  ): Promise<TypeTagType | null>;
+  insert(p: { first: TypeTagType }): Promise<void>;
+  reduce(p: {
+    first: TypeTagType;
+    second: TypeTagType | null;
+  }): Promise<TypeTagType>;
+  coalesce(p: {
+    first: TypeTagType | null;
+    second: TypeTagType | null;
+    third?: TypeTagType | null;
+  }): Promise<TypeTagType | null>;
 }

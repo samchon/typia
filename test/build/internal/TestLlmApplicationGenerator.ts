@@ -62,13 +62,13 @@ export namespace TestLlmApplicationGenerator {
         `  );`,
         ``,
         `interface ${s.name}Application {`,
-        `  insert(first: ${s.name}): Promise<void>;`,
-        `  reduce(first: ${s.name}, second: ${s.name} | null): Promise<${s.name}>;`,
-        `  coalesce(`,
+        `  insert(p: { first: ${s.name} }): Promise<void>;`,
+        `  reduce(p: { first: ${s.name}, second: ${s.name} | null }): Promise<${s.name}>;`,
+        `  coalesce(p: {`,
         `    first: ${s.name} | null,`,
         `    second: ${s.name} | null,`,
         `    third?: ${s.name} | null,`,
-        `  ): Promise<${s.name} | null>;`,
+        `  }): Promise<${s.name} | null>;`,
         `}`,
       ];
       await fs.promises.writeFile(

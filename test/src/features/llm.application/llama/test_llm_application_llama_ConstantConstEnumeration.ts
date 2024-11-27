@@ -10,14 +10,14 @@ export const test_llm_application_llama_ConstantConstEnumeration =
   })(typia.llm.application<ConstantConstEnumerationApplication, "llama">());
 
 interface ConstantConstEnumerationApplication {
-  insert(first: ConstantConstEnumeration): Promise<void>;
-  reduce(
-    first: ConstantConstEnumeration,
-    second: ConstantConstEnumeration | null,
-  ): Promise<ConstantConstEnumeration>;
-  coalesce(
-    first: ConstantConstEnumeration | null,
-    second: ConstantConstEnumeration | null,
-    third?: ConstantConstEnumeration | null,
-  ): Promise<ConstantConstEnumeration | null>;
+  insert(p: { first: ConstantConstEnumeration }): Promise<void>;
+  reduce(p: {
+    first: ConstantConstEnumeration;
+    second: ConstantConstEnumeration | null;
+  }): Promise<ConstantConstEnumeration>;
+  coalesce(p: {
+    first: ConstantConstEnumeration | null;
+    second: ConstantConstEnumeration | null;
+    third?: ConstantConstEnumeration | null;
+  }): Promise<ConstantConstEnumeration | null>;
 }

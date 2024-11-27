@@ -1,71 +1,19 @@
 {
   "model": "claude",
+  "options": {
+    "reference": false,
+    "separate": null
+  },
   "functions": [
     {
       "name": "insert",
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
+          "p": {
             "type": "object",
             "properties": {
-              "email": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "vulnerable": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "email",
-              "name",
-              "vulnerable"
-            ],
-            "additionalProperties": false
-          }
-        },
-        "required": [
-          "first"
-        ],
-        "additionalProperties": false,
-        "$defs": {}
-      },
-      "strict": true
-    },
-    {
-      "name": "reduce",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "first": {
-            "type": "object",
-            "properties": {
-              "email": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "vulnerable": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "email",
-              "name",
-              "vulnerable"
-            ],
-            "additionalProperties": false
-          },
-          "second": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
+              "first": {
                 "type": "object",
                 "properties": {
                   "email": {
@@ -85,12 +33,86 @@
                 ],
                 "additionalProperties": false
               }
-            ]
+            },
+            "required": [
+              "first"
+            ],
+            "additionalProperties": false
           }
         },
         "required": [
-          "first",
-          "second"
+          "p"
+        ],
+        "additionalProperties": false,
+        "$defs": {}
+      },
+      "strict": true
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "p": {
+            "type": "object",
+            "properties": {
+              "first": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "vulnerable": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "email",
+                  "name",
+                  "vulnerable"
+                ],
+                "additionalProperties": false
+              },
+              "second": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "email": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "vulnerable": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "email",
+                      "name",
+                      "vulnerable"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              }
+            },
+            "required": [
+              "first",
+              "second"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "p"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -122,92 +144,101 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "email": {
-                    "type": "string"
+          "p": {
+            "type": "object",
+            "properties": {
+              "first": {
+                "oneOf": [
+                  {
+                    "type": "null"
                   },
-                  "name": {
-                    "type": "string"
-                  },
-                  "vulnerable": {
-                    "type": "boolean"
+                  {
+                    "type": "object",
+                    "properties": {
+                      "email": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "vulnerable": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "email",
+                      "name",
+                      "vulnerable"
+                    ],
+                    "additionalProperties": false
                   }
-                },
-                "required": [
-                  "email",
-                  "name",
-                  "vulnerable"
-                ],
-                "additionalProperties": false
-              }
-            ]
-          },
-          "second": {
-            "oneOf": [
-              {
-                "type": "null"
+                ]
               },
-              {
-                "type": "object",
-                "properties": {
-                  "email": {
-                    "type": "string"
+              "second": {
+                "oneOf": [
+                  {
+                    "type": "null"
                   },
-                  "name": {
-                    "type": "string"
-                  },
-                  "vulnerable": {
-                    "type": "boolean"
+                  {
+                    "type": "object",
+                    "properties": {
+                      "email": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "vulnerable": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "email",
+                      "name",
+                      "vulnerable"
+                    ],
+                    "additionalProperties": false
                   }
-                },
-                "required": [
-                  "email",
-                  "name",
-                  "vulnerable"
-                ],
-                "additionalProperties": false
-              }
-            ]
-          },
-          "third": {
-            "oneOf": [
-              {
-                "type": "null"
+                ]
               },
-              {
-                "type": "object",
-                "properties": {
-                  "email": {
-                    "type": "string"
+              "third": {
+                "oneOf": [
+                  {
+                    "type": "null"
                   },
-                  "name": {
-                    "type": "string"
-                  },
-                  "vulnerable": {
-                    "type": "boolean"
+                  {
+                    "type": "object",
+                    "properties": {
+                      "email": {
+                        "type": "string"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "vulnerable": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "email",
+                      "name",
+                      "vulnerable"
+                    ],
+                    "additionalProperties": false
                   }
-                },
-                "required": [
-                  "email",
-                  "name",
-                  "vulnerable"
-                ],
-                "additionalProperties": false
+                ]
               }
-            ]
+            },
+            "required": [
+              "first",
+              "second",
+              "third"
+            ],
+            "additionalProperties": false
           }
         },
         "required": [
-          "first",
-          "second",
-          "third"
+          "p"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -241,9 +272,5 @@
       },
       "strict": true
     }
-  ],
-  "options": {
-    "reference": false,
-    "separate": null
-  }
+  ]
 }

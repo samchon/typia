@@ -11,14 +11,14 @@ export const test_llm_application_3_0_CommentTagDefault = _test_llm_application(
 )(typia.llm.application<CommentTagDefaultApplication, "3.0">());
 
 interface CommentTagDefaultApplication {
-  insert(first: CommentTagDefault): Promise<void>;
-  reduce(
-    first: CommentTagDefault,
-    second: CommentTagDefault | null,
-  ): Promise<CommentTagDefault>;
-  coalesce(
-    first: CommentTagDefault | null,
-    second: CommentTagDefault | null,
-    third?: CommentTagDefault | null,
-  ): Promise<CommentTagDefault | null>;
+  insert(p: { first: CommentTagDefault }): Promise<void>;
+  reduce(p: {
+    first: CommentTagDefault;
+    second: CommentTagDefault | null;
+  }): Promise<CommentTagDefault>;
+  coalesce(p: {
+    first: CommentTagDefault | null;
+    second: CommentTagDefault | null;
+    third?: CommentTagDefault | null;
+  }): Promise<CommentTagDefault | null>;
 }

@@ -1,30 +1,19 @@
 {
   "model": "gemini",
+  "options": {
+    "recursive": 3,
+    "separate": null
+  },
   "functions": [
     {
       "name": "insert",
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
+          "p": {
             "type": "object",
             "properties": {
-              "boolean": {
-                "type": "boolean"
-              },
-              "number": {
-                "type": "number"
-              },
-              "string": {
-                "type": "string"
-              },
-              "array": {
-                "type": "array",
-                "items": {
-                  "type": "number"
-                }
-              },
-              "object": {
+              "first": {
                 "type": "object",
                 "properties": {
                   "boolean": {
@@ -97,7 +86,29 @@
                                 }
                               },
                               "object": {
-                                "type": "null"
+                                "type": "object",
+                                "properties": {
+                                  "boolean": {
+                                    "type": "boolean"
+                                  },
+                                  "number": {
+                                    "type": "number"
+                                  },
+                                  "string": {
+                                    "type": "string"
+                                  },
+                                  "array": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "object": {
+                                    "type": "null"
+                                  }
+                                },
+                                "required": [],
+                                "nullable": true
                               }
                             },
                             "required": [],
@@ -112,22 +123,23 @@
                     "nullable": true
                   }
                 },
-                "required": [],
-                "nullable": true
+                "required": [
+                  "boolean",
+                  "number",
+                  "string",
+                  "array",
+                  "object"
+                ],
+                "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required"
               }
             },
             "required": [
-              "boolean",
-              "number",
-              "string",
-              "array",
-              "object"
-            ],
-            "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required"
+              "first"
+            ]
           }
         },
         "required": [
-          "first"
+          "p"
         ]
       },
       "strict": true
@@ -137,25 +149,10 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
+          "p": {
             "type": "object",
             "properties": {
-              "boolean": {
-                "type": "boolean"
-              },
-              "number": {
-                "type": "number"
-              },
-              "string": {
-                "type": "string"
-              },
-              "array": {
-                "type": "array",
-                "items": {
-                  "type": "number"
-                }
-              },
-              "object": {
+              "first": {
                 "type": "object",
                 "properties": {
                   "boolean": {
@@ -228,7 +225,29 @@
                                 }
                               },
                               "object": {
-                                "type": "null"
+                                "type": "object",
+                                "properties": {
+                                  "boolean": {
+                                    "type": "boolean"
+                                  },
+                                  "number": {
+                                    "type": "number"
+                                  },
+                                  "string": {
+                                    "type": "string"
+                                  },
+                                  "array": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "object": {
+                                    "type": "null"
+                                  }
+                                },
+                                "required": [],
+                                "nullable": true
                               }
                             },
                             "required": [],
@@ -243,38 +262,16 @@
                     "nullable": true
                   }
                 },
-                "required": [],
-                "nullable": true
-              }
-            },
-            "required": [
-              "boolean",
-              "number",
-              "string",
-              "array",
-              "object"
-            ],
-            "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required"
-          },
-          "second": {
-            "type": "object",
-            "properties": {
-              "boolean": {
-                "type": "boolean"
+                "required": [
+                  "boolean",
+                  "number",
+                  "string",
+                  "array",
+                  "object"
+                ],
+                "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required"
               },
-              "number": {
-                "type": "number"
-              },
-              "string": {
-                "type": "string"
-              },
-              "array": {
-                "type": "array",
-                "items": {
-                  "type": "number"
-                }
-              },
-              "object": {
+              "second": {
                 "type": "object",
                 "properties": {
                   "boolean": {
@@ -347,7 +344,29 @@
                                 }
                               },
                               "object": {
-                                "type": "null"
+                                "type": "object",
+                                "properties": {
+                                  "boolean": {
+                                    "type": "boolean"
+                                  },
+                                  "number": {
+                                    "type": "number"
+                                  },
+                                  "string": {
+                                    "type": "string"
+                                  },
+                                  "array": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "object": {
+                                    "type": "null"
+                                  }
+                                },
+                                "required": [],
+                                "nullable": true
                               }
                             },
                             "required": [],
@@ -362,23 +381,24 @@
                     "nullable": true
                   }
                 },
-                "required": [],
+                "required": [
+                  "boolean",
+                  "number",
+                  "string",
+                  "array",
+                  "object"
+                ],
                 "nullable": true
               }
             },
             "required": [
-              "boolean",
-              "number",
-              "string",
-              "array",
-              "object"
-            ],
-            "nullable": true
+              "first",
+              "second"
+            ]
           }
         },
         "required": [
-          "first",
-          "second"
+          "p"
         ]
       },
       "output": {
@@ -507,25 +527,10 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
+          "p": {
             "type": "object",
             "properties": {
-              "boolean": {
-                "type": "boolean"
-              },
-              "number": {
-                "type": "number"
-              },
-              "string": {
-                "type": "string"
-              },
-              "array": {
-                "type": "array",
-                "items": {
-                  "type": "number"
-                }
-              },
-              "object": {
+              "first": {
                 "type": "object",
                 "properties": {
                   "boolean": {
@@ -598,7 +603,29 @@
                                 }
                               },
                               "object": {
-                                "type": "null"
+                                "type": "object",
+                                "properties": {
+                                  "boolean": {
+                                    "type": "boolean"
+                                  },
+                                  "number": {
+                                    "type": "number"
+                                  },
+                                  "string": {
+                                    "type": "string"
+                                  },
+                                  "array": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "object": {
+                                    "type": "null"
+                                  }
+                                },
+                                "required": [],
+                                "nullable": true
                               }
                             },
                             "required": [],
@@ -613,38 +640,16 @@
                     "nullable": true
                   }
                 },
-                "required": [],
+                "required": [
+                  "boolean",
+                  "number",
+                  "string",
+                  "array",
+                  "object"
+                ],
                 "nullable": true
-              }
-            },
-            "required": [
-              "boolean",
-              "number",
-              "string",
-              "array",
-              "object"
-            ],
-            "nullable": true
-          },
-          "second": {
-            "type": "object",
-            "properties": {
-              "boolean": {
-                "type": "boolean"
               },
-              "number": {
-                "type": "number"
-              },
-              "string": {
-                "type": "string"
-              },
-              "array": {
-                "type": "array",
-                "items": {
-                  "type": "number"
-                }
-              },
-              "object": {
+              "second": {
                 "type": "object",
                 "properties": {
                   "boolean": {
@@ -717,7 +722,29 @@
                                 }
                               },
                               "object": {
-                                "type": "null"
+                                "type": "object",
+                                "properties": {
+                                  "boolean": {
+                                    "type": "boolean"
+                                  },
+                                  "number": {
+                                    "type": "number"
+                                  },
+                                  "string": {
+                                    "type": "string"
+                                  },
+                                  "array": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "object": {
+                                    "type": "null"
+                                  }
+                                },
+                                "required": [],
+                                "nullable": true
                               }
                             },
                             "required": [],
@@ -732,38 +759,16 @@
                     "nullable": true
                   }
                 },
-                "required": [],
+                "required": [
+                  "boolean",
+                  "number",
+                  "string",
+                  "array",
+                  "object"
+                ],
                 "nullable": true
-              }
-            },
-            "required": [
-              "boolean",
-              "number",
-              "string",
-              "array",
-              "object"
-            ],
-            "nullable": true
-          },
-          "third": {
-            "type": "object",
-            "properties": {
-              "boolean": {
-                "type": "boolean"
               },
-              "number": {
-                "type": "number"
-              },
-              "string": {
-                "type": "string"
-              },
-              "array": {
-                "type": "array",
-                "items": {
-                  "type": "number"
-                }
-              },
-              "object": {
+              "third": {
                 "type": "object",
                 "properties": {
                   "boolean": {
@@ -836,7 +841,29 @@
                                 }
                               },
                               "object": {
-                                "type": "null"
+                                "type": "object",
+                                "properties": {
+                                  "boolean": {
+                                    "type": "boolean"
+                                  },
+                                  "number": {
+                                    "type": "number"
+                                  },
+                                  "string": {
+                                    "type": "string"
+                                  },
+                                  "array": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "object": {
+                                    "type": "null"
+                                  }
+                                },
+                                "required": [],
+                                "nullable": true
                               }
                             },
                             "required": [],
@@ -851,23 +878,24 @@
                     "nullable": true
                   }
                 },
-                "required": [],
+                "required": [
+                  "boolean",
+                  "number",
+                  "string",
+                  "array",
+                  "object"
+                ],
                 "nullable": true
               }
             },
             "required": [
-              "boolean",
-              "number",
-              "string",
-              "array",
-              "object"
-            ],
-            "nullable": true
+              "first",
+              "second"
+            ]
           }
         },
         "required": [
-          "first",
-          "second"
+          "p"
         ]
       },
       "output": {
@@ -991,9 +1019,5 @@
       },
       "strict": true
     }
-  ],
-  "options": {
-    "recursive": 3,
-    "separate": null
-  }
+  ]
 }

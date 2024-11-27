@@ -10,14 +10,14 @@ export const test_llm_application_chatgpt_TypeTagDefault =
   })(typia.llm.application<TypeTagDefaultApplication, "chatgpt">());
 
 interface TypeTagDefaultApplication {
-  insert(first: TypeTagDefault): Promise<void>;
-  reduce(
-    first: TypeTagDefault,
-    second: TypeTagDefault | null,
-  ): Promise<TypeTagDefault>;
-  coalesce(
-    first: TypeTagDefault | null,
-    second: TypeTagDefault | null,
-    third?: TypeTagDefault | null,
-  ): Promise<TypeTagDefault | null>;
+  insert(p: { first: TypeTagDefault }): Promise<void>;
+  reduce(p: {
+    first: TypeTagDefault;
+    second: TypeTagDefault | null;
+  }): Promise<TypeTagDefault>;
+  coalesce(p: {
+    first: TypeTagDefault | null;
+    second: TypeTagDefault | null;
+    third?: TypeTagDefault | null;
+  }): Promise<TypeTagDefault | null>;
 }

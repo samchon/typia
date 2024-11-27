@@ -9,8 +9,12 @@ typia.llm.schema<
   | {
       type: "plant";
       leaves: number;
-    }
+    },
+  "gemini"
 >();
-typia.llm.schema<Array<string | number>>();
-typia.llm.schema<Array<number> | Array<string>>();
-typia.llm.schema<string & (tags.Format<"uri"> | tags.Format<"email">)>();
+typia.llm.schema<Array<string | number>, "gemini">();
+typia.llm.schema<Array<number> | Array<string>, "gemini">();
+typia.llm.schema<
+  string & (tags.Format<"uri"> | tags.Format<"email">),
+  "gemini"
+>();

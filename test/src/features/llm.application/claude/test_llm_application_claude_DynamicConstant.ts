@@ -10,14 +10,14 @@ export const test_llm_application_claude_DynamicConstant =
   })(typia.llm.application<DynamicConstantApplication, "claude">());
 
 interface DynamicConstantApplication {
-  insert(first: DynamicConstant): Promise<void>;
-  reduce(
-    first: DynamicConstant,
-    second: DynamicConstant | null,
-  ): Promise<DynamicConstant>;
-  coalesce(
-    first: DynamicConstant | null,
-    second: DynamicConstant | null,
-    third?: DynamicConstant | null,
-  ): Promise<DynamicConstant | null>;
+  insert(p: { first: DynamicConstant }): Promise<void>;
+  reduce(p: {
+    first: DynamicConstant;
+    second: DynamicConstant | null;
+  }): Promise<DynamicConstant>;
+  coalesce(p: {
+    first: DynamicConstant | null;
+    second: DynamicConstant | null;
+    third?: DynamicConstant | null;
+  }): Promise<DynamicConstant | null>;
 }

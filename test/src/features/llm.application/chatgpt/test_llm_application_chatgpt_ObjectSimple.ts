@@ -9,14 +9,14 @@ export const test_llm_application_chatgpt_ObjectSimple = _test_llm_application({
 })(typia.llm.application<ObjectSimpleApplication, "chatgpt">());
 
 interface ObjectSimpleApplication {
-  insert(first: ObjectSimple): Promise<void>;
-  reduce(
-    first: ObjectSimple,
-    second: ObjectSimple | null,
-  ): Promise<ObjectSimple>;
-  coalesce(
-    first: ObjectSimple | null,
-    second: ObjectSimple | null,
-    third?: ObjectSimple | null,
-  ): Promise<ObjectSimple | null>;
+  insert(p: { first: ObjectSimple }): Promise<void>;
+  reduce(p: {
+    first: ObjectSimple;
+    second: ObjectSimple | null;
+  }): Promise<ObjectSimple>;
+  coalesce(p: {
+    first: ObjectSimple | null;
+    second: ObjectSimple | null;
+    third?: ObjectSimple | null;
+  }): Promise<ObjectSimple | null>;
 }

@@ -11,14 +11,14 @@ export const test_llm_application_chatgpt_TypeTagCustom = _test_llm_application(
 )(typia.llm.application<TypeTagCustomApplication, "chatgpt">());
 
 interface TypeTagCustomApplication {
-  insert(first: TypeTagCustom): Promise<void>;
-  reduce(
-    first: TypeTagCustom,
-    second: TypeTagCustom | null,
-  ): Promise<TypeTagCustom>;
-  coalesce(
-    first: TypeTagCustom | null,
-    second: TypeTagCustom | null,
-    third?: TypeTagCustom | null,
-  ): Promise<TypeTagCustom | null>;
+  insert(p: { first: TypeTagCustom }): Promise<void>;
+  reduce(p: {
+    first: TypeTagCustom;
+    second: TypeTagCustom | null;
+  }): Promise<TypeTagCustom>;
+  coalesce(p: {
+    first: TypeTagCustom | null;
+    second: TypeTagCustom | null;
+    third?: TypeTagCustom | null;
+  }): Promise<TypeTagCustom | null>;
 }

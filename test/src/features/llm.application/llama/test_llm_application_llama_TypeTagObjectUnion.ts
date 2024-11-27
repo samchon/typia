@@ -10,14 +10,14 @@ export const test_llm_application_llama_TypeTagObjectUnion =
   })(typia.llm.application<TypeTagObjectUnionApplication, "llama">());
 
 interface TypeTagObjectUnionApplication {
-  insert(first: TypeTagObjectUnion): Promise<void>;
-  reduce(
-    first: TypeTagObjectUnion,
-    second: TypeTagObjectUnion | null,
-  ): Promise<TypeTagObjectUnion>;
-  coalesce(
-    first: TypeTagObjectUnion | null,
-    second: TypeTagObjectUnion | null,
-    third?: TypeTagObjectUnion | null,
-  ): Promise<TypeTagObjectUnion | null>;
+  insert(p: { first: TypeTagObjectUnion }): Promise<void>;
+  reduce(p: {
+    first: TypeTagObjectUnion;
+    second: TypeTagObjectUnion | null;
+  }): Promise<TypeTagObjectUnion>;
+  coalesce(p: {
+    first: TypeTagObjectUnion | null;
+    second: TypeTagObjectUnion | null;
+    third?: TypeTagObjectUnion | null;
+  }): Promise<TypeTagObjectUnion | null>;
 }

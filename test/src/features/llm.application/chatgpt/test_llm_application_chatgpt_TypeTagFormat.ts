@@ -11,14 +11,14 @@ export const test_llm_application_chatgpt_TypeTagFormat = _test_llm_application(
 )(typia.llm.application<TypeTagFormatApplication, "chatgpt">());
 
 interface TypeTagFormatApplication {
-  insert(first: TypeTagFormat): Promise<void>;
-  reduce(
-    first: TypeTagFormat,
-    second: TypeTagFormat | null,
-  ): Promise<TypeTagFormat>;
-  coalesce(
-    first: TypeTagFormat | null,
-    second: TypeTagFormat | null,
-    third?: TypeTagFormat | null,
-  ): Promise<TypeTagFormat | null>;
+  insert(p: { first: TypeTagFormat }): Promise<void>;
+  reduce(p: {
+    first: TypeTagFormat;
+    second: TypeTagFormat | null;
+  }): Promise<TypeTagFormat>;
+  coalesce(p: {
+    first: TypeTagFormat | null;
+    second: TypeTagFormat | null;
+    third?: TypeTagFormat | null;
+  }): Promise<TypeTagFormat | null>;
 }

@@ -1,17 +1,31 @@
 {
   "model": "3.1",
+  "options": {
+    "constraint": false,
+    "reference": false,
+    "separate": null
+  },
   "functions": [
     {
       "name": "insert",
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
-            "$ref": "#/$defs/ArrayRepeatedNullable"
+          "p": {
+            "type": "object",
+            "properties": {
+              "first": {
+                "$ref": "#/$defs/ArrayRepeatedNullable"
+              }
+            },
+            "required": [
+              "first"
+            ],
+            "additionalProperties": false
           }
         },
         "required": [
-          "first"
+          "p"
         ],
         "additionalProperties": false,
         "$defs": {
@@ -46,16 +60,25 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
-            "$ref": "#/$defs/ArrayRepeatedNullable"
-          },
-          "second": {
-            "$ref": "#/$defs/ArrayRepeatedNullable"
+          "p": {
+            "type": "object",
+            "properties": {
+              "first": {
+                "$ref": "#/$defs/ArrayRepeatedNullable"
+              },
+              "second": {
+                "$ref": "#/$defs/ArrayRepeatedNullable"
+              }
+            },
+            "required": [
+              "first",
+              "second"
+            ],
+            "additionalProperties": false
           }
         },
         "required": [
-          "first",
-          "second"
+          "p"
         ],
         "additionalProperties": false,
         "$defs": {
@@ -93,33 +116,29 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
-            "$ref": "#/$defs/ArrayRepeatedNullable"
-          },
-          "second": {
-            "$ref": "#/$defs/ArrayRepeatedNullable"
-          },
-          "third": {
-            "oneOf": [
-              {
-                "type": "null"
+          "p": {
+            "type": "object",
+            "properties": {
+              "first": {
+                "$ref": "#/$defs/ArrayRepeatedNullable"
               },
-              {
-                "type": "string"
+              "second": {
+                "$ref": "#/$defs/ArrayRepeatedNullable"
               },
-              {
-                "type": "number"
-              },
-              {
-                "$ref": "#/$defs/ArrayArrayRepeatedNullable"
+              "third": {
+                "$ref": "#/$defs/ArrayRepeatedNullable"
               }
-            ]
+            },
+            "required": [
+              "first",
+              "second",
+              "third"
+            ],
+            "additionalProperties": false
           }
         },
         "required": [
-          "first",
-          "second",
-          "third"
+          "p"
         ],
         "additionalProperties": false,
         "$defs": {
@@ -152,10 +171,5 @@
       },
       "strict": true
     }
-  ],
-  "options": {
-    "constraint": false,
-    "reference": false,
-    "separate": null
-  }
+  ]
 }

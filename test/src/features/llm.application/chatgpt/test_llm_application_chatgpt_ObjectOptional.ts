@@ -10,14 +10,14 @@ export const test_llm_application_chatgpt_ObjectOptional =
   })(typia.llm.application<ObjectOptionalApplication, "chatgpt">());
 
 interface ObjectOptionalApplication {
-  insert(first: ObjectOptional): Promise<void>;
-  reduce(
-    first: ObjectOptional,
-    second: ObjectOptional | null,
-  ): Promise<ObjectOptional>;
-  coalesce(
-    first: ObjectOptional | null,
-    second: ObjectOptional | null,
-    third?: ObjectOptional | null,
-  ): Promise<ObjectOptional | null>;
+  insert(p: { first: ObjectOptional }): Promise<void>;
+  reduce(p: {
+    first: ObjectOptional;
+    second: ObjectOptional | null;
+  }): Promise<ObjectOptional>;
+  coalesce(p: {
+    first: ObjectOptional | null;
+    second: ObjectOptional | null;
+    third?: ObjectOptional | null;
+  }): Promise<ObjectOptional | null>;
 }

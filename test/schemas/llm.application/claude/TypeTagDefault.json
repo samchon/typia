@@ -1,237 +1,19 @@
 {
   "model": "claude",
+  "options": {
+    "reference": false,
+    "separate": null
+  },
   "functions": [
     {
       "name": "insert",
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
+          "p": {
             "type": "object",
             "properties": {
-              "boolean": {
-                "type": "boolean"
-              },
-              "number": {
-                "type": "number",
-                "default": 1
-              },
-              "string": {
-                "type": "string",
-                "default": "two"
-              },
-              "text": {
-                "type": "string",
-                "default": "Very long text, can you understand it?"
-              },
-              "boolean_and_number_and_string": {
-                "oneOf": [
-                  {
-                    "type": "number",
-                    "default": 1
-                  },
-                  {
-                    "type": "string",
-                    "default": "two"
-                  },
-                  {
-                    "type": "boolean"
-                  }
-                ]
-              },
-              "union_but_boolean": {
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "number"
-                  },
-                  {
-                    "type": "boolean"
-                  }
-                ]
-              },
-              "union_but_number": {
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "number",
-                    "default": 1
-                  },
-                  {
-                    "type": "boolean"
-                  }
-                ]
-              },
-              "union_but_string": {
-                "oneOf": [
-                  {
-                    "type": "number"
-                  },
-                  {
-                    "type": "string",
-                    "default": "two"
-                  },
-                  {
-                    "type": "boolean"
-                  }
-                ]
-              },
-              "boolean_and_number_and_template": {
-                "oneOf": [
-                  {
-                    "type": "string",
-                    "pattern": "^(prefix_(.*))"
-                  },
-                  {
-                    "type": "number",
-                    "default": 2
-                  },
-                  {
-                    "type": "boolean"
-                  }
-                ]
-              }
-            },
-            "required": [
-              "boolean",
-              "number",
-              "string",
-              "text",
-              "boolean_and_number_and_string",
-              "union_but_boolean",
-              "union_but_number",
-              "union_but_string",
-              "boolean_and_number_and_template"
-            ],
-            "additionalProperties": false
-          }
-        },
-        "required": [
-          "first"
-        ],
-        "additionalProperties": false,
-        "$defs": {}
-      },
-      "strict": true
-    },
-    {
-      "name": "reduce",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "first": {
-            "type": "object",
-            "properties": {
-              "boolean": {
-                "type": "boolean"
-              },
-              "number": {
-                "type": "number",
-                "default": 1
-              },
-              "string": {
-                "type": "string",
-                "default": "two"
-              },
-              "text": {
-                "type": "string",
-                "default": "Very long text, can you understand it?"
-              },
-              "boolean_and_number_and_string": {
-                "oneOf": [
-                  {
-                    "type": "number",
-                    "default": 1
-                  },
-                  {
-                    "type": "string",
-                    "default": "two"
-                  },
-                  {
-                    "type": "boolean"
-                  }
-                ]
-              },
-              "union_but_boolean": {
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "number"
-                  },
-                  {
-                    "type": "boolean"
-                  }
-                ]
-              },
-              "union_but_number": {
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "number",
-                    "default": 1
-                  },
-                  {
-                    "type": "boolean"
-                  }
-                ]
-              },
-              "union_but_string": {
-                "oneOf": [
-                  {
-                    "type": "number"
-                  },
-                  {
-                    "type": "string",
-                    "default": "two"
-                  },
-                  {
-                    "type": "boolean"
-                  }
-                ]
-              },
-              "boolean_and_number_and_template": {
-                "oneOf": [
-                  {
-                    "type": "string",
-                    "pattern": "^(prefix_(.*))"
-                  },
-                  {
-                    "type": "number",
-                    "default": 2
-                  },
-                  {
-                    "type": "boolean"
-                  }
-                ]
-              }
-            },
-            "required": [
-              "boolean",
-              "number",
-              "string",
-              "text",
-              "boolean_and_number_and_string",
-              "union_but_boolean",
-              "union_but_number",
-              "union_but_string",
-              "boolean_and_number_and_template"
-            ],
-            "additionalProperties": false
-          },
-          "second": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
+              "first": {
                 "type": "object",
                 "properties": {
                   "boolean": {
@@ -334,12 +116,252 @@
                 ],
                 "additionalProperties": false
               }
-            ]
+            },
+            "required": [
+              "first"
+            ],
+            "additionalProperties": false
           }
         },
         "required": [
-          "first",
-          "second"
+          "p"
+        ],
+        "additionalProperties": false,
+        "$defs": {}
+      },
+      "strict": true
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "p": {
+            "type": "object",
+            "properties": {
+              "first": {
+                "type": "object",
+                "properties": {
+                  "boolean": {
+                    "type": "boolean"
+                  },
+                  "number": {
+                    "type": "number",
+                    "default": 1
+                  },
+                  "string": {
+                    "type": "string",
+                    "default": "two"
+                  },
+                  "text": {
+                    "type": "string",
+                    "default": "Very long text, can you understand it?"
+                  },
+                  "boolean_and_number_and_string": {
+                    "oneOf": [
+                      {
+                        "type": "number",
+                        "default": 1
+                      },
+                      {
+                        "type": "string",
+                        "default": "two"
+                      },
+                      {
+                        "type": "boolean"
+                      }
+                    ]
+                  },
+                  "union_but_boolean": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "boolean"
+                      }
+                    ]
+                  },
+                  "union_but_number": {
+                    "oneOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number",
+                        "default": 1
+                      },
+                      {
+                        "type": "boolean"
+                      }
+                    ]
+                  },
+                  "union_but_string": {
+                    "oneOf": [
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "string",
+                        "default": "two"
+                      },
+                      {
+                        "type": "boolean"
+                      }
+                    ]
+                  },
+                  "boolean_and_number_and_template": {
+                    "oneOf": [
+                      {
+                        "type": "string",
+                        "pattern": "^(prefix_(.*))"
+                      },
+                      {
+                        "type": "number",
+                        "default": 2
+                      },
+                      {
+                        "type": "boolean"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "boolean",
+                  "number",
+                  "string",
+                  "text",
+                  "boolean_and_number_and_string",
+                  "union_but_boolean",
+                  "union_but_number",
+                  "union_but_string",
+                  "boolean_and_number_and_template"
+                ],
+                "additionalProperties": false
+              },
+              "second": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "boolean": {
+                        "type": "boolean"
+                      },
+                      "number": {
+                        "type": "number",
+                        "default": 1
+                      },
+                      "string": {
+                        "type": "string",
+                        "default": "two"
+                      },
+                      "text": {
+                        "type": "string",
+                        "default": "Very long text, can you understand it?"
+                      },
+                      "boolean_and_number_and_string": {
+                        "oneOf": [
+                          {
+                            "type": "number",
+                            "default": 1
+                          },
+                          {
+                            "type": "string",
+                            "default": "two"
+                          },
+                          {
+                            "type": "boolean"
+                          }
+                        ]
+                      },
+                      "union_but_boolean": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "boolean"
+                          }
+                        ]
+                      },
+                      "union_but_number": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number",
+                            "default": 1
+                          },
+                          {
+                            "type": "boolean"
+                          }
+                        ]
+                      },
+                      "union_but_string": {
+                        "oneOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "string",
+                            "default": "two"
+                          },
+                          {
+                            "type": "boolean"
+                          }
+                        ]
+                      },
+                      "boolean_and_number_and_template": {
+                        "oneOf": [
+                          {
+                            "type": "string",
+                            "pattern": "^(prefix_(.*))"
+                          },
+                          {
+                            "type": "number",
+                            "default": 2
+                          },
+                          {
+                            "type": "boolean"
+                          }
+                        ]
+                      }
+                    },
+                    "required": [
+                      "boolean",
+                      "number",
+                      "string",
+                      "text",
+                      "boolean_and_number_and_string",
+                      "union_but_boolean",
+                      "union_but_number",
+                      "union_but_string",
+                      "boolean_and_number_and_template"
+                    ],
+                    "additionalProperties": false
+                  }
+                ]
+              }
+            },
+            "required": [
+              "first",
+              "second"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "p"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -454,341 +476,350 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "first": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "boolean": {
-                    "type": "boolean"
+          "p": {
+            "type": "object",
+            "properties": {
+              "first": {
+                "oneOf": [
+                  {
+                    "type": "null"
                   },
-                  "number": {
-                    "type": "number",
-                    "default": 1
-                  },
-                  "string": {
-                    "type": "string",
-                    "default": "two"
-                  },
-                  "text": {
-                    "type": "string",
-                    "default": "Very long text, can you understand it?"
-                  },
-                  "boolean_and_number_and_string": {
-                    "oneOf": [
-                      {
+                  {
+                    "type": "object",
+                    "properties": {
+                      "boolean": {
+                        "type": "boolean"
+                      },
+                      "number": {
                         "type": "number",
                         "default": 1
                       },
-                      {
+                      "string": {
                         "type": "string",
                         "default": "two"
                       },
-                      {
-                        "type": "boolean"
-                      }
-                    ]
-                  },
-                  "union_but_boolean": {
-                    "oneOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "number"
-                      },
-                      {
-                        "type": "boolean"
-                      }
-                    ]
-                  },
-                  "union_but_number": {
-                    "oneOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "number",
-                        "default": 1
-                      },
-                      {
-                        "type": "boolean"
-                      }
-                    ]
-                  },
-                  "union_but_string": {
-                    "oneOf": [
-                      {
-                        "type": "number"
-                      },
-                      {
+                      "text": {
                         "type": "string",
-                        "default": "two"
+                        "default": "Very long text, can you understand it?"
                       },
-                      {
-                        "type": "boolean"
+                      "boolean_and_number_and_string": {
+                        "oneOf": [
+                          {
+                            "type": "number",
+                            "default": 1
+                          },
+                          {
+                            "type": "string",
+                            "default": "two"
+                          },
+                          {
+                            "type": "boolean"
+                          }
+                        ]
+                      },
+                      "union_but_boolean": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "boolean"
+                          }
+                        ]
+                      },
+                      "union_but_number": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number",
+                            "default": 1
+                          },
+                          {
+                            "type": "boolean"
+                          }
+                        ]
+                      },
+                      "union_but_string": {
+                        "oneOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "string",
+                            "default": "two"
+                          },
+                          {
+                            "type": "boolean"
+                          }
+                        ]
+                      },
+                      "boolean_and_number_and_template": {
+                        "oneOf": [
+                          {
+                            "type": "string",
+                            "pattern": "^(prefix_(.*))"
+                          },
+                          {
+                            "type": "number",
+                            "default": 2
+                          },
+                          {
+                            "type": "boolean"
+                          }
+                        ]
                       }
-                    ]
-                  },
-                  "boolean_and_number_and_template": {
-                    "oneOf": [
-                      {
-                        "type": "string",
-                        "pattern": "^(prefix_(.*))"
-                      },
-                      {
-                        "type": "number",
-                        "default": 2
-                      },
-                      {
-                        "type": "boolean"
-                      }
-                    ]
+                    },
+                    "required": [
+                      "boolean",
+                      "number",
+                      "string",
+                      "text",
+                      "boolean_and_number_and_string",
+                      "union_but_boolean",
+                      "union_but_number",
+                      "union_but_string",
+                      "boolean_and_number_and_template"
+                    ],
+                    "additionalProperties": false
                   }
-                },
-                "required": [
-                  "boolean",
-                  "number",
-                  "string",
-                  "text",
-                  "boolean_and_number_and_string",
-                  "union_but_boolean",
-                  "union_but_number",
-                  "union_but_string",
-                  "boolean_and_number_and_template"
-                ],
-                "additionalProperties": false
-              }
-            ]
-          },
-          "second": {
-            "oneOf": [
-              {
-                "type": "null"
+                ]
               },
-              {
-                "type": "object",
-                "properties": {
-                  "boolean": {
-                    "type": "boolean"
+              "second": {
+                "oneOf": [
+                  {
+                    "type": "null"
                   },
-                  "number": {
-                    "type": "number",
-                    "default": 1
-                  },
-                  "string": {
-                    "type": "string",
-                    "default": "two"
-                  },
-                  "text": {
-                    "type": "string",
-                    "default": "Very long text, can you understand it?"
-                  },
-                  "boolean_and_number_and_string": {
-                    "oneOf": [
-                      {
+                  {
+                    "type": "object",
+                    "properties": {
+                      "boolean": {
+                        "type": "boolean"
+                      },
+                      "number": {
                         "type": "number",
                         "default": 1
                       },
-                      {
+                      "string": {
                         "type": "string",
                         "default": "two"
                       },
-                      {
-                        "type": "boolean"
-                      }
-                    ]
-                  },
-                  "union_but_boolean": {
-                    "oneOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "number"
-                      },
-                      {
-                        "type": "boolean"
-                      }
-                    ]
-                  },
-                  "union_but_number": {
-                    "oneOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "number",
-                        "default": 1
-                      },
-                      {
-                        "type": "boolean"
-                      }
-                    ]
-                  },
-                  "union_but_string": {
-                    "oneOf": [
-                      {
-                        "type": "number"
-                      },
-                      {
+                      "text": {
                         "type": "string",
-                        "default": "two"
+                        "default": "Very long text, can you understand it?"
                       },
-                      {
-                        "type": "boolean"
+                      "boolean_and_number_and_string": {
+                        "oneOf": [
+                          {
+                            "type": "number",
+                            "default": 1
+                          },
+                          {
+                            "type": "string",
+                            "default": "two"
+                          },
+                          {
+                            "type": "boolean"
+                          }
+                        ]
+                      },
+                      "union_but_boolean": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "boolean"
+                          }
+                        ]
+                      },
+                      "union_but_number": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number",
+                            "default": 1
+                          },
+                          {
+                            "type": "boolean"
+                          }
+                        ]
+                      },
+                      "union_but_string": {
+                        "oneOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "string",
+                            "default": "two"
+                          },
+                          {
+                            "type": "boolean"
+                          }
+                        ]
+                      },
+                      "boolean_and_number_and_template": {
+                        "oneOf": [
+                          {
+                            "type": "string",
+                            "pattern": "^(prefix_(.*))"
+                          },
+                          {
+                            "type": "number",
+                            "default": 2
+                          },
+                          {
+                            "type": "boolean"
+                          }
+                        ]
                       }
-                    ]
-                  },
-                  "boolean_and_number_and_template": {
-                    "oneOf": [
-                      {
-                        "type": "string",
-                        "pattern": "^(prefix_(.*))"
-                      },
-                      {
-                        "type": "number",
-                        "default": 2
-                      },
-                      {
-                        "type": "boolean"
-                      }
-                    ]
+                    },
+                    "required": [
+                      "boolean",
+                      "number",
+                      "string",
+                      "text",
+                      "boolean_and_number_and_string",
+                      "union_but_boolean",
+                      "union_but_number",
+                      "union_but_string",
+                      "boolean_and_number_and_template"
+                    ],
+                    "additionalProperties": false
                   }
-                },
-                "required": [
-                  "boolean",
-                  "number",
-                  "string",
-                  "text",
-                  "boolean_and_number_and_string",
-                  "union_but_boolean",
-                  "union_but_number",
-                  "union_but_string",
-                  "boolean_and_number_and_template"
-                ],
-                "additionalProperties": false
-              }
-            ]
-          },
-          "third": {
-            "oneOf": [
-              {
-                "type": "null"
+                ]
               },
-              {
-                "type": "object",
-                "properties": {
-                  "boolean": {
-                    "type": "boolean"
+              "third": {
+                "oneOf": [
+                  {
+                    "type": "null"
                   },
-                  "number": {
-                    "type": "number",
-                    "default": 1
-                  },
-                  "string": {
-                    "type": "string",
-                    "default": "two"
-                  },
-                  "text": {
-                    "type": "string",
-                    "default": "Very long text, can you understand it?"
-                  },
-                  "boolean_and_number_and_string": {
-                    "oneOf": [
-                      {
+                  {
+                    "type": "object",
+                    "properties": {
+                      "boolean": {
+                        "type": "boolean"
+                      },
+                      "number": {
                         "type": "number",
                         "default": 1
                       },
-                      {
+                      "string": {
                         "type": "string",
                         "default": "two"
                       },
-                      {
-                        "type": "boolean"
-                      }
-                    ]
-                  },
-                  "union_but_boolean": {
-                    "oneOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "number"
-                      },
-                      {
-                        "type": "boolean"
-                      }
-                    ]
-                  },
-                  "union_but_number": {
-                    "oneOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "number",
-                        "default": 1
-                      },
-                      {
-                        "type": "boolean"
-                      }
-                    ]
-                  },
-                  "union_but_string": {
-                    "oneOf": [
-                      {
-                        "type": "number"
-                      },
-                      {
+                      "text": {
                         "type": "string",
-                        "default": "two"
+                        "default": "Very long text, can you understand it?"
                       },
-                      {
-                        "type": "boolean"
+                      "boolean_and_number_and_string": {
+                        "oneOf": [
+                          {
+                            "type": "number",
+                            "default": 1
+                          },
+                          {
+                            "type": "string",
+                            "default": "two"
+                          },
+                          {
+                            "type": "boolean"
+                          }
+                        ]
+                      },
+                      "union_but_boolean": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "boolean"
+                          }
+                        ]
+                      },
+                      "union_but_number": {
+                        "oneOf": [
+                          {
+                            "type": "string"
+                          },
+                          {
+                            "type": "number",
+                            "default": 1
+                          },
+                          {
+                            "type": "boolean"
+                          }
+                        ]
+                      },
+                      "union_but_string": {
+                        "oneOf": [
+                          {
+                            "type": "number"
+                          },
+                          {
+                            "type": "string",
+                            "default": "two"
+                          },
+                          {
+                            "type": "boolean"
+                          }
+                        ]
+                      },
+                      "boolean_and_number_and_template": {
+                        "oneOf": [
+                          {
+                            "type": "string",
+                            "pattern": "^(prefix_(.*))"
+                          },
+                          {
+                            "type": "number",
+                            "default": 2
+                          },
+                          {
+                            "type": "boolean"
+                          }
+                        ]
                       }
-                    ]
-                  },
-                  "boolean_and_number_and_template": {
-                    "oneOf": [
-                      {
-                        "type": "string",
-                        "pattern": "^(prefix_(.*))"
-                      },
-                      {
-                        "type": "number",
-                        "default": 2
-                      },
-                      {
-                        "type": "boolean"
-                      }
-                    ]
+                    },
+                    "required": [
+                      "boolean",
+                      "number",
+                      "string",
+                      "text",
+                      "boolean_and_number_and_string",
+                      "union_but_boolean",
+                      "union_but_number",
+                      "union_but_string",
+                      "boolean_and_number_and_template"
+                    ],
+                    "additionalProperties": false
                   }
-                },
-                "required": [
-                  "boolean",
-                  "number",
-                  "string",
-                  "text",
-                  "boolean_and_number_and_string",
-                  "union_but_boolean",
-                  "union_but_number",
-                  "union_but_string",
-                  "boolean_and_number_and_template"
-                ],
-                "additionalProperties": false
+                ]
               }
-            ]
+            },
+            "required": [
+              "first",
+              "second",
+              "third"
+            ],
+            "additionalProperties": false
           }
         },
         "required": [
-          "first",
-          "second",
-          "third"
+          "p"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -905,9 +936,5 @@
       },
       "strict": true
     }
-  ],
-  "options": {
-    "reference": false,
-    "separate": null
-  }
+  ]
 }

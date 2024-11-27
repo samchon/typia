@@ -10,14 +10,14 @@ export const test_llm_application_claude_ArrayRepeatedRequired =
   })(typia.llm.application<ArrayRepeatedRequiredApplication, "claude">());
 
 interface ArrayRepeatedRequiredApplication {
-  insert(first: ArrayRepeatedRequired): Promise<void>;
-  reduce(
-    first: ArrayRepeatedRequired,
-    second: ArrayRepeatedRequired | null,
-  ): Promise<ArrayRepeatedRequired>;
-  coalesce(
-    first: ArrayRepeatedRequired | null,
-    second: ArrayRepeatedRequired | null,
-    third?: ArrayRepeatedRequired | null,
-  ): Promise<ArrayRepeatedRequired | null>;
+  insert(p: { first: ArrayRepeatedRequired }): Promise<void>;
+  reduce(p: {
+    first: ArrayRepeatedRequired;
+    second: ArrayRepeatedRequired | null;
+  }): Promise<ArrayRepeatedRequired>;
+  coalesce(p: {
+    first: ArrayRepeatedRequired | null;
+    second: ArrayRepeatedRequired | null;
+    third?: ArrayRepeatedRequired | null;
+  }): Promise<ArrayRepeatedRequired | null>;
 }

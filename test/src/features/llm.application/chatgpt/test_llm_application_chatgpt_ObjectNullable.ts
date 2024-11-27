@@ -10,14 +10,14 @@ export const test_llm_application_chatgpt_ObjectNullable =
   })(typia.llm.application<ObjectNullableApplication, "chatgpt">());
 
 interface ObjectNullableApplication {
-  insert(first: ObjectNullable): Promise<void>;
-  reduce(
-    first: ObjectNullable,
-    second: ObjectNullable | null,
-  ): Promise<ObjectNullable>;
-  coalesce(
-    first: ObjectNullable | null,
-    second: ObjectNullable | null,
-    third?: ObjectNullable | null,
-  ): Promise<ObjectNullable | null>;
+  insert(p: { first: ObjectNullable }): Promise<void>;
+  reduce(p: {
+    first: ObjectNullable;
+    second: ObjectNullable | null;
+  }): Promise<ObjectNullable>;
+  coalesce(p: {
+    first: ObjectNullable | null;
+    second: ObjectNullable | null;
+    third?: ObjectNullable | null;
+  }): Promise<ObjectNullable | null>;
 }
