@@ -13,6 +13,7 @@ export namespace LlmParametersProgrammer {
   export const write = <Model extends ILlmSchema.Model>(props: {
     model: Model;
     metadata: Metadata;
+    config?: Partial<ILlmSchema.ModelConfig[Model]>;
   }): ILlmSchema.ModelParameters[Model] => {
     const collection: IJsonSchemaCollection<"3.1"> =
       JsonSchemasProgrammer.write({
@@ -32,7 +33,10 @@ export namespace LlmParametersProgrammer {
 
     const parameters: ILlmSchema.ModelParameters[Model] | null =
       LlmSchemaConverter.parameters(props.model)({
-        config: LlmSchemaConverter.defaultConfig(props.model) as any,
+        config: {
+          ...LlmSchemaConverter.defaultConfig(props.model),
+          ...props.config,
+        } as any,
         components: collection.components,
         schema,
       }) as ILlmSchema.ModelParameters[Model] | null;

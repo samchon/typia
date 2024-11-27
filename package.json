@@ -1,6 +1,6 @@
 {
   "name": "typia",
-  "version": "7.0.0-dev.20241127-4",
+  "version": "7.0.0-dev.20241127-5",
   "description": "Superfast runtime validators with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",

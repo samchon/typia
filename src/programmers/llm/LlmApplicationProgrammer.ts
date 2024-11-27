@@ -89,6 +89,7 @@ export namespace LlmApplicationProgrammer {
   export const write = <Model extends ILlmSchema.Model>(props: {
     model: Model;
     metadata: Metadata;
+    config?: Partial<ILlmSchema.ModelConfig[Model]>;
   }): ILlmApplication<Model> => {
     const errors: string[] = validate(props.model)(props.metadata, {
       top: true,
@@ -110,6 +111,11 @@ export namespace LlmApplicationProgrammer {
       });
     return {
       model: props.model,
+      options: {
+        ...LlmSchemaConverter.defaultConfig(props.model),
+        ...props.config,
+        separate: null,
+      },
       functions: application.functions.map((func) =>
         writeFunction({
           model: props.model,
@@ -117,10 +123,6 @@ export namespace LlmApplicationProgrammer {
           function: func,
         }),
       ),
-      options: {
-        ...LlmSchemaConverter.defaultConfig(props.model),
-        separate: null,
-      },
     };
   };
 
