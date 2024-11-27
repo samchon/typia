@@ -34,6 +34,7 @@ import { ILlmApplication, ILlmSchema } from "@samchon/openapi";
  *
  * @template App Target class or interface type collecting the functions to call
  * @template Model LLM schema model
+ * @template Config Configuration of LLM schema composition
  * @param options Options for the LLM application construction
  * @returns Application of LLM function calling schemas
  * @reference https://platform.openai.com/docs/guides/function-calling
@@ -75,12 +76,17 @@ export function application(
  *
  * @template App Target class or interface type collecting the functions to call
  * @template Model LLM schema model
+ * @template Config Configuration of LLM schema composition
  * @param options Options for the LLM application construction
  * @returns Application of LLM function calling schemas
  * @reference https://platform.openai.com/docs/guides/function-calling
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function application<App extends object, Model extends ILlmSchema.Model>(
+export function application<
+  App extends object,
+  Model extends ILlmSchema.Model,
+  Config extends Partial<ILlmSchema.ModelConfig[Model]> = {},
+>(
   options?: Partial<Pick<ILlmApplication.IOptions<Model>, "separate">>,
 ): ILlmApplication<Model>;
 
@@ -113,6 +119,7 @@ export function application(): never {
  *
  * @template Parameters Target parameters type
  * @template Model LLM schema model
+ * @template Config Configuration of LLM schema composition
  * @returns LLM parameters schema
  * @reference https://platform.openai.com/docs/guides/function-calling
  * @reference https://platform.openai.com/docs/guides/structured-outputs
@@ -139,6 +146,7 @@ export function parameters(): never;
  *
  * @template Parameters Target parameters type
  * @template Model LLM schema model
+ * @template Config Configuration of LLM schema composition
  * @returns LLM parameters schema
  * @reference https://platform.openai.com/docs/guides/function-calling
  * @reference https://platform.openai.com/docs/guides/structured-outputs
@@ -146,6 +154,7 @@ export function parameters(): never;
 export function parameters<
   Parameters extends object,
   Model extends ILlmSchema.Model,
+  Config extends Partial<ILlmSchema.ModelConfig[Model]> = {},
 >(): ILlmSchema.ModelParameters[Model];
 
 /**
@@ -188,6 +197,7 @@ export function parameters(): never {
  *
  * @template T Target type
  * @template Model LLM schema model
+ * @template Config Configuration of LLM schema composition
  * @returns LLM schema
  * @reference https://platform.openai.com/docs/guides/function-calling
  * @reference https://platform.openai.com/docs/guides/structured-outputs
@@ -226,12 +236,17 @@ export function schema(): never;
  *
  * @template T Target type
  * @template Model LLM schema model
+ * @template Config Configuration of LLM schema composition
  * @param $defs Definitions of named schemas if the model is `chatgpt`
  * @returns LLM schema
  * @reference https://platform.openai.com/docs/guides/function-calling
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function schema<T, Model extends ILlmSchema.Model>(
+export function schema<
+  T,
+  Model extends ILlmSchema.Model,
+  Config extends Partial<ILlmSchema.ModelConfig[Model]> = {},
+>(
   ...$defs: Extract<
     ILlmSchema.ModelSchema[Model],
     { $ref: string }
