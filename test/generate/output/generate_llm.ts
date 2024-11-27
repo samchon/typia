@@ -211,6 +211,10 @@ export const parameters = {
 export const application = (() => {
   const app = {
     model: "llama",
+    options: {
+      reference: false,
+      separate: null,
+    },
     functions: [
       {
         name: "establishCompany",
@@ -788,10 +792,6 @@ export const application = (() => {
         strict: true,
       },
     ],
-    options: {
-      reference: false,
-      separate: null,
-    },
   } as __ILlmApplication<"llama">;
   __typia_transform__llmApplicationFinalize._llmApplicationFinalize(app, {
     separate: (schema) =>
