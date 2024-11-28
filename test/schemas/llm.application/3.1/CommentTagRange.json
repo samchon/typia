@@ -69,21 +69,18 @@
                         "greater_less_equal",
                         "greater_equal_less_equal",
                         "equal"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 },
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               }
             },
             "required": [
               "first"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -157,15 +154,13 @@
                         "greater_less_equal",
                         "greater_equal_less_equal",
                         "equal"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 },
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               },
               "second": {
                 "oneOf": [
@@ -227,15 +222,13 @@
                             "greater_less_equal",
                             "greater_equal_less_equal",
                             "equal"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       }
                     },
                     "required": [
                       "value"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               }
@@ -243,8 +236,7 @@
             "required": [
               "first",
               "second"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -308,15 +300,13 @@
                 "greater_less_equal",
                 "greater_equal_less_equal",
                 "equal"
-              ],
-              "additionalProperties": false
+              ]
             }
           }
         },
         "required": [
           "value"
-        ],
-        "additionalProperties": false
+        ]
       },
       "strict": true
     },
@@ -388,15 +378,13 @@
                             "greater_less_equal",
                             "greater_equal_less_equal",
                             "equal"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       }
                     },
                     "required": [
                       "value"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               },
@@ -460,15 +448,13 @@
                             "greater_less_equal",
                             "greater_equal_less_equal",
                             "equal"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       }
                     },
                     "required": [
                       "value"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               },
@@ -532,15 +518,13 @@
                             "greater_less_equal",
                             "greater_equal_less_equal",
                             "equal"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       }
                     },
                     "required": [
                       "value"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               }
@@ -549,8 +533,7 @@
               "first",
               "second",
               "third"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -619,15 +602,13 @@
                     "greater_less_equal",
                     "greater_equal_less_equal",
                     "equal"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               }
             },
             "required": [
               "value"
-            ],
-            "additionalProperties": false
+            ]
           }
         ]
       },

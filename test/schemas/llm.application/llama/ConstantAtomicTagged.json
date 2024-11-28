@@ -42,14 +42,12 @@
                 "required": [
                   "id",
                   "age"
-                ],
-                "additionalProperties": false
+                ]
               }
             },
             "required": [
               "first"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -97,8 +95,7 @@
                 "required": [
                   "id",
                   "age"
-                ],
-                "additionalProperties": false
+                ]
               },
               "second": {
                 "oneOf": [
@@ -134,8 +131,7 @@
                     "required": [
                       "id",
                       "age"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               }
@@ -143,8 +139,7 @@
             "required": [
               "first",
               "second"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -182,8 +177,7 @@
         "required": [
           "id",
           "age"
-        ],
-        "additionalProperties": false
+        ]
       },
       "strict": true
     },
@@ -229,8 +223,7 @@
                     "required": [
                       "id",
                       "age"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               },
@@ -268,8 +261,7 @@
                     "required": [
                       "id",
                       "age"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               },
@@ -307,8 +299,7 @@
                     "required": [
                       "id",
                       "age"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               }
@@ -317,8 +308,7 @@
               "first",
               "second",
               "third"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -361,8 +351,7 @@
             "required": [
               "id",
               "age"
-            ],
-            "additionalProperties": false
+            ]
           }
         ]
       },

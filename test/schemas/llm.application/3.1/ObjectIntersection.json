@@ -31,14 +31,12 @@
                   "email",
                   "name",
                   "vulnerable"
-                ],
-                "additionalProperties": false
+                ]
               }
             },
             "required": [
               "first"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -74,8 +72,7 @@
                   "email",
                   "name",
                   "vulnerable"
-                ],
-                "additionalProperties": false
+                ]
               },
               "second": {
                 "oneOf": [
@@ -99,8 +96,7 @@
                       "email",
                       "name",
                       "vulnerable"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               }
@@ -108,8 +104,7 @@
             "required": [
               "first",
               "second"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -135,8 +130,7 @@
           "email",
           "name",
           "vulnerable"
-        ],
-        "additionalProperties": false
+        ]
       },
       "strict": true
     },
@@ -170,8 +164,7 @@
                       "email",
                       "name",
                       "vulnerable"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               },
@@ -197,8 +190,7 @@
                       "email",
                       "name",
                       "vulnerable"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               },
@@ -224,8 +216,7 @@
                       "email",
                       "name",
                       "vulnerable"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               }
@@ -234,8 +225,7 @@
               "first",
               "second",
               "third"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -266,8 +256,7 @@
               "email",
               "name",
               "vulnerable"
-            ],
-            "additionalProperties": false
+            ]
           }
         ]
       },

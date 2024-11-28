@@ -60,15 +60,13 @@
                     "minItems",
                     "maxItems",
                     "both"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               }
             },
             "required": [
               "first"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -133,8 +131,7 @@
                     "minItems",
                     "maxItems",
                     "both"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               },
               "second": {
@@ -188,8 +185,7 @@
                         "minItems",
                         "maxItems",
                         "both"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 ]
@@ -198,8 +194,7 @@
             "required": [
               "first",
               "second"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -254,8 +249,7 @@
             "minItems",
             "maxItems",
             "both"
-          ],
-          "additionalProperties": false
+          ]
         }
       },
       "strict": true
@@ -319,8 +313,7 @@
                         "minItems",
                         "maxItems",
                         "both"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 ]
@@ -376,8 +369,7 @@
                         "minItems",
                         "maxItems",
                         "both"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 ]
@@ -433,8 +425,7 @@
                         "minItems",
                         "maxItems",
                         "both"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 ]
@@ -444,8 +435,7 @@
               "first",
               "second",
               "third"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -505,8 +495,7 @@
                 "minItems",
                 "maxItems",
                 "both"
-              ],
-              "additionalProperties": false
+              ]
             }
           }
         ]

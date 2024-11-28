@@ -37,8 +37,7 @@
                       "limit",
                       "total_count",
                       "total_pages"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   "data": {
                     "type": "array",
@@ -55,22 +54,19 @@
                       "required": [
                         "name",
                         "age"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 },
                 "required": [
                   "pagination",
                   "data"
-                ],
-                "additionalProperties": false
+                ]
               }
             },
             "required": [
               "first"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -113,8 +109,7 @@
                       "limit",
                       "total_count",
                       "total_pages"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   "data": {
                     "type": "array",
@@ -131,16 +126,14 @@
                       "required": [
                         "name",
                         "age"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 },
                 "required": [
                   "pagination",
                   "data"
-                ],
-                "additionalProperties": false
+                ]
               },
               "second": {
                 "oneOf": [
@@ -171,8 +164,7 @@
                           "limit",
                           "total_count",
                           "total_pages"
-                        ],
-                        "additionalProperties": false
+                        ]
                       },
                       "data": {
                         "type": "array",
@@ -189,16 +181,14 @@
                           "required": [
                             "name",
                             "age"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       }
                     },
                     "required": [
                       "pagination",
                       "data"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               }
@@ -206,8 +196,7 @@
             "required": [
               "first",
               "second"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -240,8 +229,7 @@
               "limit",
               "total_count",
               "total_pages"
-            ],
-            "additionalProperties": false
+            ]
           },
           "data": {
             "type": "array",
@@ -258,16 +246,14 @@
               "required": [
                 "name",
                 "age"
-              ],
-              "additionalProperties": false
+              ]
             }
           }
         },
         "required": [
           "pagination",
           "data"
-        ],
-        "additionalProperties": false
+        ]
       },
       "strict": true
     },
@@ -308,8 +294,7 @@
                           "limit",
                           "total_count",
                           "total_pages"
-                        ],
-                        "additionalProperties": false
+                        ]
                       },
                       "data": {
                         "type": "array",
@@ -326,16 +311,14 @@
                           "required": [
                             "name",
                             "age"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       }
                     },
                     "required": [
                       "pagination",
                       "data"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               },
@@ -368,8 +351,7 @@
                           "limit",
                           "total_count",
                           "total_pages"
-                        ],
-                        "additionalProperties": false
+                        ]
                       },
                       "data": {
                         "type": "array",
@@ -386,16 +368,14 @@
                           "required": [
                             "name",
                             "age"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       }
                     },
                     "required": [
                       "pagination",
                       "data"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               },
@@ -428,8 +408,7 @@
                           "limit",
                           "total_count",
                           "total_pages"
-                        ],
-                        "additionalProperties": false
+                        ]
                       },
                       "data": {
                         "type": "array",
@@ -446,16 +425,14 @@
                           "required": [
                             "name",
                             "age"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       }
                     },
                     "required": [
                       "pagination",
                       "data"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               }
@@ -464,8 +441,7 @@
               "first",
               "second",
               "third"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -503,8 +479,7 @@
                   "limit",
                   "total_count",
                   "total_pages"
-                ],
-                "additionalProperties": false
+                ]
               },
               "data": {
                 "type": "array",
@@ -521,16 +496,14 @@
                   "required": [
                     "name",
                     "age"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               }
             },
             "required": [
               "pagination",
               "data"
-            ],
-            "additionalProperties": false
+            ]
           }
         ]
       },

@@ -23,8 +23,7 @@
             },
             "required": [
               "first"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -73,8 +72,7 @@
                   "height",
                   "url",
                   "size"
-                ],
-                "additionalProperties": false
+                ]
               },
               {
                 "type": "object",
@@ -101,8 +99,7 @@
                   "path",
                   "size",
                   "content"
-                ],
-                "additionalProperties": false
+                ]
               },
               {
                 "type": "object",
@@ -129,8 +126,7 @@
                   "path",
                   "size",
                   "count"
-                ],
-                "additionalProperties": false
+                ]
               },
               {
                 "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IShortcut"
@@ -161,8 +157,7 @@
               "name",
               "path",
               "children"
-            ],
-            "additionalProperties": false
+            ]
           },
           "ArrayRecursiveUnionImplicit.ISharedDirectory": {
             "type": "object",
@@ -199,8 +194,7 @@
               "name",
               "path",
               "children"
-            ],
-            "additionalProperties": false
+            ]
           },
           "ArrayRecursiveUnionImplicit.IShortcut": {
             "type": "object",
@@ -223,8 +217,7 @@
               "name",
               "path",
               "target"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       },
@@ -261,8 +254,7 @@
             "required": [
               "first",
               "second"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -311,8 +303,7 @@
                   "height",
                   "url",
                   "size"
-                ],
-                "additionalProperties": false
+                ]
               },
               {
                 "type": "object",
@@ -339,8 +330,7 @@
                   "path",
                   "size",
                   "content"
-                ],
-                "additionalProperties": false
+                ]
               },
               {
                 "type": "object",
@@ -367,8 +357,7 @@
                   "path",
                   "size",
                   "count"
-                ],
-                "additionalProperties": false
+                ]
               },
               {
                 "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IShortcut"
@@ -399,8 +388,7 @@
               "name",
               "path",
               "children"
-            ],
-            "additionalProperties": false
+            ]
           },
           "ArrayRecursiveUnionImplicit.ISharedDirectory": {
             "type": "object",
@@ -437,8 +425,7 @@
               "name",
               "path",
               "children"
-            ],
-            "additionalProperties": false
+            ]
           },
           "ArrayRecursiveUnionImplicit.IShortcut": {
             "type": "object",
@@ -461,8 +448,7 @@
               "name",
               "path",
               "target"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       },
@@ -526,8 +512,7 @@
               "first",
               "second",
               "third"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -576,8 +561,7 @@
                   "height",
                   "url",
                   "size"
-                ],
-                "additionalProperties": false
+                ]
               },
               {
                 "type": "object",
@@ -604,8 +588,7 @@
                   "path",
                   "size",
                   "content"
-                ],
-                "additionalProperties": false
+                ]
               },
               {
                 "type": "object",
@@ -632,8 +615,7 @@
                   "path",
                   "size",
                   "count"
-                ],
-                "additionalProperties": false
+                ]
               },
               {
                 "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IShortcut"
@@ -664,8 +646,7 @@
               "name",
               "path",
               "children"
-            ],
-            "additionalProperties": false
+            ]
           },
           "ArrayRecursiveUnionImplicit.ISharedDirectory": {
             "type": "object",
@@ -702,8 +683,7 @@
               "name",
               "path",
               "children"
-            ],
-            "additionalProperties": false
+            ]
           },
           "ArrayRecursiveUnionImplicit.IShortcut": {
             "type": "object",
@@ -726,8 +706,7 @@
               "name",
               "path",
               "target"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       },

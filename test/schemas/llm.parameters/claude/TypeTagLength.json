@@ -39,15 +39,13 @@
               "maximum",
               "minimum_and_maximum",
               "equal"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       },
       "required": [
         "value"
-      ],
-      "additionalProperties": false
+      ]
     },
     "nullable": {
       "oneOf": [
@@ -92,15 +90,13 @@
                   "maximum",
                   "minimum_and_maximum",
                   "equal"
-                ],
-                "additionalProperties": false
+                ]
               }
             }
           },
           "required": [
             "value"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -142,15 +138,13 @@
               "maximum",
               "minimum_and_maximum",
               "equal"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       },
       "required": [
         "value"
-      ],
-      "additionalProperties": false
+      ]
     },
     "faint": {
       "oneOf": [
@@ -195,15 +189,13 @@
                   "maximum",
                   "minimum_and_maximum",
                   "equal"
-                ],
-                "additionalProperties": false
+                ]
               }
             }
           },
           "required": [
             "value"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -247,15 +239,13 @@
                 "maximum",
                 "minimum_and_maximum",
                 "equal"
-              ],
-              "additionalProperties": false
+              ]
             }
           }
         },
         "required": [
           "value"
-        ],
-        "additionalProperties": false
+        ]
       }
     }
   },
@@ -266,6 +256,5 @@
     "faint",
     "array"
   ],
-  "additionalProperties": false,
   "$defs": {}
 }

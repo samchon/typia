@@ -25,14 +25,12 @@
                 },
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               }
             },
             "required": [
               "first"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -89,8 +87,7 @@
                       "size",
                       "type",
                       "extension"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   {
                     "type": "object",
@@ -125,8 +122,7 @@
                       "content",
                       "type",
                       "extension"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   {
                     "type": "object",
@@ -161,8 +157,7 @@
                       "count",
                       "type",
                       "extension"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   {
                     "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer.IShortcut"
@@ -172,8 +167,7 @@
             },
             "required": [
               "value"
-            ],
-            "additionalProperties": false
+            ]
           },
           "ArrayRecursiveUnionExplicitPointer.IDirectory": {
             "type": "object",
@@ -203,8 +197,7 @@
               "path",
               "children",
               "type"
-            ],
-            "additionalProperties": false
+            ]
           },
           "ArrayRecursiveUnionExplicitPointer.IShortcut": {
             "type": "object",
@@ -235,8 +228,7 @@
               "target",
               "type",
               "extension"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       },
@@ -262,8 +254,7 @@
                 },
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               },
               "second": {
                 "oneOf": [
@@ -282,8 +273,7 @@
                     },
                     "required": [
                       "value"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               }
@@ -291,8 +281,7 @@
             "required": [
               "first",
               "second"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -349,8 +338,7 @@
                       "size",
                       "type",
                       "extension"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   {
                     "type": "object",
@@ -385,8 +373,7 @@
                       "content",
                       "type",
                       "extension"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   {
                     "type": "object",
@@ -421,8 +408,7 @@
                       "count",
                       "type",
                       "extension"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   {
                     "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer.IShortcut"
@@ -432,8 +418,7 @@
             },
             "required": [
               "value"
-            ],
-            "additionalProperties": false
+            ]
           },
           "ArrayRecursiveUnionExplicitPointer.IDirectory": {
             "type": "object",
@@ -463,8 +448,7 @@
               "path",
               "children",
               "type"
-            ],
-            "additionalProperties": false
+            ]
           },
           "ArrayRecursiveUnionExplicitPointer.IShortcut": {
             "type": "object",
@@ -495,8 +479,7 @@
               "target",
               "type",
               "extension"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       },
@@ -512,8 +495,7 @@
         },
         "required": [
           "value"
-        ],
-        "additionalProperties": false
+        ]
       },
       "strict": true
     },
@@ -542,8 +524,7 @@
                     },
                     "required": [
                       "value"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               },
@@ -564,8 +545,7 @@
                     },
                     "required": [
                       "value"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               },
@@ -586,8 +566,7 @@
                     },
                     "required": [
                       "value"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               }
@@ -596,8 +575,7 @@
               "first",
               "second",
               "third"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -654,8 +632,7 @@
                       "size",
                       "type",
                       "extension"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   {
                     "type": "object",
@@ -690,8 +667,7 @@
                       "content",
                       "type",
                       "extension"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   {
                     "type": "object",
@@ -726,8 +702,7 @@
                       "count",
                       "type",
                       "extension"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   {
                     "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer.IShortcut"
@@ -737,8 +712,7 @@
             },
             "required": [
               "value"
-            ],
-            "additionalProperties": false
+            ]
           },
           "ArrayRecursiveUnionExplicitPointer.IDirectory": {
             "type": "object",
@@ -768,8 +742,7 @@
               "path",
               "children",
               "type"
-            ],
-            "additionalProperties": false
+            ]
           },
           "ArrayRecursiveUnionExplicitPointer.IShortcut": {
             "type": "object",
@@ -800,8 +773,7 @@
               "target",
               "type",
               "extension"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       },
@@ -822,8 +794,7 @@
             },
             "required": [
               "value"
-            ],
-            "additionalProperties": false
+            ]
           }
         ]
       },

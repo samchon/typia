@@ -81,15 +81,13 @@
                     "sex",
                     "age",
                     "dead"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               }
             },
             "required": [
               "first"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -176,8 +174,7 @@
                     "sex",
                     "age",
                     "dead"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               },
               "second": {
@@ -253,8 +250,7 @@
                         "sex",
                         "age",
                         "dead"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 ]
@@ -263,8 +259,7 @@
             "required": [
               "first",
               "second"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -341,8 +336,7 @@
             "sex",
             "age",
             "dead"
-          ],
-          "additionalProperties": false
+          ]
         }
       },
       "strict": true
@@ -428,8 +422,7 @@
                         "sex",
                         "age",
                         "dead"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 ]
@@ -507,8 +500,7 @@
                         "sex",
                         "age",
                         "dead"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 ]
@@ -586,8 +578,7 @@
                         "sex",
                         "age",
                         "dead"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 ]
@@ -597,8 +588,7 @@
               "first",
               "second",
               "third"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -680,8 +670,7 @@
                 "sex",
                 "age",
                 "dead"
-              ],
-              "additionalProperties": false
+              ]
             }
           }
         ]

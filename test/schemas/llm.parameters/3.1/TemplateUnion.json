@@ -58,8 +58,7 @@
                     },
                     "required": [
                       "name"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               }
@@ -69,15 +68,13 @@
               "postfix",
               "middle",
               "mixed"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       },
       "required": [
         "value"
-      ],
-      "additionalProperties": false
+      ]
     },
     "nullable": {
       "oneOf": [
@@ -141,8 +138,7 @@
                         },
                         "required": [
                           "name"
-                        ],
-                        "additionalProperties": false
+                        ]
                       }
                     ]
                   }
@@ -152,15 +148,13 @@
                   "postfix",
                   "middle",
                   "mixed"
-                ],
-                "additionalProperties": false
+                ]
               }
             }
           },
           "required": [
             "value"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -221,8 +215,7 @@
                     },
                     "required": [
                       "name"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               }
@@ -232,15 +225,13 @@
               "postfix",
               "middle",
               "mixed"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       },
       "required": [
         "value"
-      ],
-      "additionalProperties": false
+      ]
     },
     "faint": {
       "oneOf": [
@@ -304,8 +295,7 @@
                         },
                         "required": [
                           "name"
-                        ],
-                        "additionalProperties": false
+                        ]
                       }
                     ]
                   }
@@ -315,15 +305,13 @@
                   "postfix",
                   "middle",
                   "mixed"
-                ],
-                "additionalProperties": false
+                ]
               }
             }
           },
           "required": [
             "value"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -386,8 +374,7 @@
                       },
                       "required": [
                         "name"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   ]
                 }
@@ -397,15 +384,13 @@
                 "postfix",
                 "middle",
                 "mixed"
-              ],
-              "additionalProperties": false
+              ]
             }
           }
         },
         "required": [
           "value"
-        ],
-        "additionalProperties": false
+        ]
       }
     }
   },
@@ -416,6 +401,5 @@
     "faint",
     "array"
   ],
-  "additionalProperties": false,
   "$defs": {}
 }

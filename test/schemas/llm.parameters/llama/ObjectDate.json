@@ -66,8 +66,7 @@
         "datetime",
         "time",
         "duration"
-      ],
-      "additionalProperties": false
+      ]
     },
     "nullable": {
       "oneOf": [
@@ -139,8 +138,7 @@
             "datetime",
             "time",
             "duration"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -209,8 +207,7 @@
         "datetime",
         "time",
         "duration"
-      ],
-      "additionalProperties": false
+      ]
     },
     "faint": {
       "oneOf": [
@@ -282,8 +279,7 @@
             "datetime",
             "time",
             "duration"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -354,8 +350,7 @@
           "datetime",
           "time",
           "duration"
-        ],
-        "additionalProperties": false
+        ]
       }
     }
   },
@@ -366,6 +361,5 @@
     "faint",
     "array"
   ],
-  "additionalProperties": false,
   "$defs": {}
 }

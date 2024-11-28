@@ -41,7 +41,6 @@
     "faint",
     "array"
   ],
-  "additionalProperties": false,
   "$defs": {
     "ArrayRecursive.ICategory": {
       "type": "object",
@@ -74,8 +73,7 @@
           "required": [
             "time",
             "zone"
-          ],
-          "additionalProperties": false
+          ]
         }
       },
       "required": [
@@ -84,8 +82,7 @@
         "code",
         "sequence",
         "created_at"
-      ],
-      "additionalProperties": false
+      ]
     }
   }
 }

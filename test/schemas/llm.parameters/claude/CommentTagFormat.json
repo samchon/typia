@@ -116,8 +116,7 @@
         "duration",
         "jsonPointer",
         "relativeJsonPointer"
-      ],
-      "additionalProperties": false
+      ]
     },
     "nullable": {
       "oneOf": [
@@ -239,8 +238,7 @@
             "duration",
             "jsonPointer",
             "relativeJsonPointer"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -359,8 +357,7 @@
         "duration",
         "jsonPointer",
         "relativeJsonPointer"
-      ],
-      "additionalProperties": false
+      ]
     },
     "faint": {
       "oneOf": [
@@ -482,8 +479,7 @@
             "duration",
             "jsonPointer",
             "relativeJsonPointer"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -604,8 +600,7 @@
           "duration",
           "jsonPointer",
           "relativeJsonPointer"
-        ],
-        "additionalProperties": false
+        ]
       }
     }
   },
@@ -616,6 +611,5 @@
     "faint",
     "array"
   ],
-  "additionalProperties": false,
   "$defs": {}
 }

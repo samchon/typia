@@ -40,13 +40,11 @@
           "int64",
           "uint64",
           "float"
-        ],
-        "additionalProperties": false
+        ]
       }
     }
   },
   "required": [
     "value"
-  ],
-  "additionalProperties": false
+  ]
 }

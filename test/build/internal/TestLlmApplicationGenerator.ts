@@ -35,11 +35,12 @@ export namespace TestLlmApplicationGenerator {
         "utf8",
       );
       if (
-        v31.includes(`"additionalProperties": {`) === true ||
-        v31.includes(`"additionalProperties": true`) === true ||
-        v31.includes(`"prefixItems":`) === true
+        (model === "chatgpt" || model === "gemini") &&
+        (v31.includes(`"additionalProperties": {`) === true ||
+          v31.includes(`"additionalProperties": true`) === true)
       )
         continue;
+      else if (v31.includes(`"prefixItems":`) === true) continue;
       else if (model === "gemini") {
         // GEMINI DOES NOT SUPPORT UNION TYPE
         const json: string = await fs.promises.readFile(

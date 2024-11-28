@@ -41,14 +41,12 @@
                   "description",
                   "title",
                   "complicate_title"
-                ],
-                "additionalProperties": false
+                ]
               }
             },
             "required": [
               "first"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -95,8 +93,7 @@
                   "description",
                   "title",
                   "complicate_title"
-                ],
-                "additionalProperties": false
+                ]
               },
               "second": {
                 "oneOf": [
@@ -131,8 +128,7 @@
                       "description",
                       "title",
                       "complicate_title"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               }
@@ -140,8 +136,7 @@
             "required": [
               "first",
               "second"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -178,8 +173,7 @@
           "description",
           "title",
           "complicate_title"
-        ],
-        "additionalProperties": false
+        ]
       },
       "strict": true
     },
@@ -224,8 +218,7 @@
                       "description",
                       "title",
                       "complicate_title"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               },
@@ -262,8 +255,7 @@
                       "description",
                       "title",
                       "complicate_title"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               },
@@ -300,8 +292,7 @@
                       "description",
                       "title",
                       "complicate_title"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               }
@@ -310,8 +301,7 @@
               "first",
               "second",
               "third"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -353,8 +343,7 @@
               "description",
               "title",
               "complicate_title"
-            ],
-            "additionalProperties": false
+            ]
           }
         ]
       },

@@ -18,8 +18,7 @@
         "email",
         "name",
         "vulnerable"
-      ],
-      "additionalProperties": false
+      ]
     },
     "nullable": {
       "oneOf": [
@@ -43,8 +42,7 @@
             "email",
             "name",
             "vulnerable"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -65,8 +63,7 @@
         "email",
         "name",
         "vulnerable"
-      ],
-      "additionalProperties": false
+      ]
     },
     "faint": {
       "oneOf": [
@@ -90,8 +87,7 @@
             "email",
             "name",
             "vulnerable"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -114,8 +110,7 @@
           "email",
           "name",
           "vulnerable"
-        ],
-        "additionalProperties": false
+        ]
       }
     }
   },
@@ -126,6 +121,5 @@
     "faint",
     "array"
   ],
-  "additionalProperties": false,
   "$defs": {}
 }

@@ -22,8 +22,7 @@
         "name",
         "email",
         "sequence"
-      ],
-      "additionalProperties": false
+      ]
     },
     "nullable": {
       "oneOf": [
@@ -51,8 +50,7 @@
             "name",
             "email",
             "sequence"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -77,8 +75,7 @@
         "name",
         "email",
         "sequence"
-      ],
-      "additionalProperties": false
+      ]
     },
     "faint": {
       "oneOf": [
@@ -106,8 +103,7 @@
             "name",
             "email",
             "sequence"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -134,8 +130,7 @@
           "name",
           "email",
           "sequence"
-        ],
-        "additionalProperties": false
+        ]
       }
     }
   },
@@ -146,6 +141,5 @@
     "faint",
     "array"
   ],
-  "additionalProperties": false,
   "$defs": {}
 }

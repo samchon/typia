@@ -13,6 +13,5 @@
   "required": [
     "id",
     "age"
-  ],
-  "additionalProperties": false
+  ]
 }

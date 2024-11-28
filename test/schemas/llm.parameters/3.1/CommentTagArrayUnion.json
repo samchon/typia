@@ -47,8 +47,7 @@
           "minItems",
           "maxItems",
           "both"
-        ],
-        "additionalProperties": false
+        ]
       }
     },
     "nullable": {
@@ -102,8 +101,7 @@
               "minItems",
               "maxItems",
               "both"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       ]
@@ -154,8 +152,7 @@
           "minItems",
           "maxItems",
           "both"
-        ],
-        "additionalProperties": false
+        ]
       }
     },
     "faint": {
@@ -209,8 +206,7 @@
               "minItems",
               "maxItems",
               "both"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       ]
@@ -263,8 +259,7 @@
             "minItems",
             "maxItems",
             "both"
-          ],
-          "additionalProperties": false
+          ]
         }
       }
     }
@@ -276,6 +271,5 @@
     "faint",
     "array"
   ],
-  "additionalProperties": false,
   "$defs": {}
 }

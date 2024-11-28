@@ -23,8 +23,7 @@
             },
             "required": [
               "first"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -78,8 +77,7 @@
                   "size",
                   "type",
                   "extension"
-                ],
-                "additionalProperties": false
+                ]
               },
               {
                 "type": "object",
@@ -114,8 +112,7 @@
                   "content",
                   "type",
                   "extension"
-                ],
-                "additionalProperties": false
+                ]
               },
               {
                 "type": "object",
@@ -150,8 +147,7 @@
                   "count",
                   "type",
                   "extension"
-                ],
-                "additionalProperties": false
+                ]
               },
               {
                 "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IShortcut"
@@ -186,8 +182,7 @@
               "path",
               "children",
               "type"
-            ],
-            "additionalProperties": false
+            ]
           },
           "ArrayRecursiveUnionExplicit.IShortcut": {
             "type": "object",
@@ -218,8 +213,7 @@
               "target",
               "type",
               "extension"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       },
@@ -256,8 +250,7 @@
             "required": [
               "first",
               "second"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -311,8 +304,7 @@
                   "size",
                   "type",
                   "extension"
-                ],
-                "additionalProperties": false
+                ]
               },
               {
                 "type": "object",
@@ -347,8 +339,7 @@
                   "content",
                   "type",
                   "extension"
-                ],
-                "additionalProperties": false
+                ]
               },
               {
                 "type": "object",
@@ -383,8 +374,7 @@
                   "count",
                   "type",
                   "extension"
-                ],
-                "additionalProperties": false
+                ]
               },
               {
                 "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IShortcut"
@@ -419,8 +409,7 @@
               "path",
               "children",
               "type"
-            ],
-            "additionalProperties": false
+            ]
           },
           "ArrayRecursiveUnionExplicit.IShortcut": {
             "type": "object",
@@ -451,8 +440,7 @@
               "target",
               "type",
               "extension"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       },
@@ -516,8 +504,7 @@
               "first",
               "second",
               "third"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -571,8 +558,7 @@
                   "size",
                   "type",
                   "extension"
-                ],
-                "additionalProperties": false
+                ]
               },
               {
                 "type": "object",
@@ -607,8 +593,7 @@
                   "content",
                   "type",
                   "extension"
-                ],
-                "additionalProperties": false
+                ]
               },
               {
                 "type": "object",
@@ -643,8 +628,7 @@
                   "count",
                   "type",
                   "extension"
-                ],
-                "additionalProperties": false
+                ]
               },
               {
                 "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IShortcut"
@@ -679,8 +663,7 @@
               "path",
               "children",
               "type"
-            ],
-            "additionalProperties": false
+            ]
           },
           "ArrayRecursiveUnionExplicit.IShortcut": {
             "type": "object",
@@ -711,8 +694,7 @@
               "target",
               "type",
               "extension"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       },

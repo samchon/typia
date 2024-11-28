@@ -22,13 +22,11 @@
         },
         "required": [
           "value"
-        ],
-        "additionalProperties": false
+        ]
       }
     }
   },
   "required": [
     "value"
-  ],
-  "additionalProperties": false
+  ]
 }

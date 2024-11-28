@@ -66,21 +66,18 @@
                         "both",
                         "equal",
                         "unique"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 },
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               }
             },
             "required": [
               "first"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -152,15 +149,13 @@
                         "both",
                         "equal",
                         "unique"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 },
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               },
               "second": {
                 "oneOf": [
@@ -220,15 +215,13 @@
                             "both",
                             "equal",
                             "unique"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       }
                     },
                     "required": [
                       "value"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               }
@@ -236,8 +229,7 @@
             "required": [
               "first",
               "second"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -299,15 +291,13 @@
                 "both",
                 "equal",
                 "unique"
-              ],
-              "additionalProperties": false
+              ]
             }
           }
         },
         "required": [
           "value"
-        ],
-        "additionalProperties": false
+        ]
       },
       "strict": true
     },
@@ -377,15 +367,13 @@
                             "both",
                             "equal",
                             "unique"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       }
                     },
                     "required": [
                       "value"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               },
@@ -447,15 +435,13 @@
                             "both",
                             "equal",
                             "unique"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       }
                     },
                     "required": [
                       "value"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               },
@@ -517,15 +503,13 @@
                             "both",
                             "equal",
                             "unique"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       }
                     },
                     "required": [
                       "value"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               }
@@ -534,8 +518,7 @@
               "first",
               "second",
               "third"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -602,15 +585,13 @@
                     "both",
                     "equal",
                     "unique"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               }
             },
             "required": [
               "value"
-            ],
-            "additionalProperties": false
+            ]
           }
         ]
       },

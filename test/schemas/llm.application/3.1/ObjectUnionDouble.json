@@ -30,8 +30,7 @@
                           },
                           "required": [
                             "x"
-                          ],
-                          "additionalProperties": false
+                          ]
                         },
                         "child": {
                           "oneOf": [
@@ -47,14 +46,12 @@
                                   },
                                   "required": [
                                     "y"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
                               },
                               "required": [
                                 "value"
-                              ],
-                              "additionalProperties": false
+                              ]
                             },
                             {
                               "type": "object",
@@ -68,14 +65,12 @@
                                   },
                                   "required": [
                                     "y"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
                               },
                               "required": [
                                 "value"
-                              ],
-                              "additionalProperties": false
+                              ]
                             }
                           ]
                         }
@@ -83,8 +78,7 @@
                       "required": [
                         "value",
                         "child"
-                      ],
-                      "additionalProperties": false
+                      ]
                     },
                     {
                       "type": "object",
@@ -98,8 +92,7 @@
                           },
                           "required": [
                             "x"
-                          ],
-                          "additionalProperties": false
+                          ]
                         },
                         "child": {
                           "oneOf": [
@@ -118,14 +111,12 @@
                                   },
                                   "required": [
                                     "y"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
                               },
                               "required": [
                                 "value"
-                              ],
-                              "additionalProperties": false
+                              ]
                             },
                             {
                               "type": "object",
@@ -139,14 +130,12 @@
                                   },
                                   "required": [
                                     "y"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
                               },
                               "required": [
                                 "value"
-                              ],
-                              "additionalProperties": false
+                              ]
                             }
                           ]
                         }
@@ -154,8 +143,7 @@
                       "required": [
                         "value",
                         "child"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   ]
                 }
@@ -163,8 +151,7 @@
             },
             "required": [
               "first"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -199,8 +186,7 @@
                           },
                           "required": [
                             "x"
-                          ],
-                          "additionalProperties": false
+                          ]
                         },
                         "child": {
                           "oneOf": [
@@ -216,14 +202,12 @@
                                   },
                                   "required": [
                                     "y"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
                               },
                               "required": [
                                 "value"
-                              ],
-                              "additionalProperties": false
+                              ]
                             },
                             {
                               "type": "object",
@@ -237,14 +221,12 @@
                                   },
                                   "required": [
                                     "y"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
                               },
                               "required": [
                                 "value"
-                              ],
-                              "additionalProperties": false
+                              ]
                             }
                           ]
                         }
@@ -252,8 +234,7 @@
                       "required": [
                         "value",
                         "child"
-                      ],
-                      "additionalProperties": false
+                      ]
                     },
                     {
                       "type": "object",
@@ -267,8 +248,7 @@
                           },
                           "required": [
                             "x"
-                          ],
-                          "additionalProperties": false
+                          ]
                         },
                         "child": {
                           "oneOf": [
@@ -287,14 +267,12 @@
                                   },
                                   "required": [
                                     "y"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
                               },
                               "required": [
                                 "value"
-                              ],
-                              "additionalProperties": false
+                              ]
                             },
                             {
                               "type": "object",
@@ -308,14 +286,12 @@
                                   },
                                   "required": [
                                     "y"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
                               },
                               "required": [
                                 "value"
-                              ],
-                              "additionalProperties": false
+                              ]
                             }
                           ]
                         }
@@ -323,8 +299,7 @@
                       "required": [
                         "value",
                         "child"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   ]
                 }
@@ -350,8 +325,7 @@
                               },
                               "required": [
                                 "x"
-                              ],
-                              "additionalProperties": false
+                              ]
                             },
                             "child": {
                               "oneOf": [
@@ -367,14 +341,12 @@
                                       },
                                       "required": [
                                         "y"
-                                      ],
-                                      "additionalProperties": false
+                                      ]
                                     }
                                   },
                                   "required": [
                                     "value"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 },
                                 {
                                   "type": "object",
@@ -388,14 +360,12 @@
                                       },
                                       "required": [
                                         "y"
-                                      ],
-                                      "additionalProperties": false
+                                      ]
                                     }
                                   },
                                   "required": [
                                     "value"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
                               ]
                             }
@@ -403,8 +373,7 @@
                           "required": [
                             "value",
                             "child"
-                          ],
-                          "additionalProperties": false
+                          ]
                         },
                         {
                           "type": "object",
@@ -418,8 +387,7 @@
                               },
                               "required": [
                                 "x"
-                              ],
-                              "additionalProperties": false
+                              ]
                             },
                             "child": {
                               "oneOf": [
@@ -438,14 +406,12 @@
                                       },
                                       "required": [
                                         "y"
-                                      ],
-                                      "additionalProperties": false
+                                      ]
                                     }
                                   },
                                   "required": [
                                     "value"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 },
                                 {
                                   "type": "object",
@@ -459,14 +425,12 @@
                                       },
                                       "required": [
                                         "y"
-                                      ],
-                                      "additionalProperties": false
+                                      ]
                                     }
                                   },
                                   "required": [
                                     "value"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
                               ]
                             }
@@ -474,8 +438,7 @@
                           "required": [
                             "value",
                             "child"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       ]
                     }
@@ -486,8 +449,7 @@
             "required": [
               "first",
               "second"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -512,8 +474,7 @@
                   },
                   "required": [
                     "x"
-                  ],
-                  "additionalProperties": false
+                  ]
                 },
                 "child": {
                   "oneOf": [
@@ -529,14 +490,12 @@
                           },
                           "required": [
                             "y"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       },
                       "required": [
                         "value"
-                      ],
-                      "additionalProperties": false
+                      ]
                     },
                     {
                       "type": "object",
@@ -550,14 +509,12 @@
                           },
                           "required": [
                             "y"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       },
                       "required": [
                         "value"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   ]
                 }
@@ -565,8 +522,7 @@
               "required": [
                 "value",
                 "child"
-              ],
-              "additionalProperties": false
+              ]
             },
             {
               "type": "object",
@@ -580,8 +536,7 @@
                   },
                   "required": [
                     "x"
-                  ],
-                  "additionalProperties": false
+                  ]
                 },
                 "child": {
                   "oneOf": [
@@ -600,14 +555,12 @@
                           },
                           "required": [
                             "y"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       },
                       "required": [
                         "value"
-                      ],
-                      "additionalProperties": false
+                      ]
                     },
                     {
                       "type": "object",
@@ -621,14 +574,12 @@
                           },
                           "required": [
                             "y"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       },
                       "required": [
                         "value"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   ]
                 }
@@ -636,8 +587,7 @@
               "required": [
                 "value",
                 "child"
-              ],
-              "additionalProperties": false
+              ]
             }
           ]
         }
@@ -673,8 +623,7 @@
                               },
                               "required": [
                                 "x"
-                              ],
-                              "additionalProperties": false
+                              ]
                             },
                             "child": {
                               "oneOf": [
@@ -690,14 +639,12 @@
                                       },
                                       "required": [
                                         "y"
-                                      ],
-                                      "additionalProperties": false
+                                      ]
                                     }
                                   },
                                   "required": [
                                     "value"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 },
                                 {
                                   "type": "object",
@@ -711,14 +658,12 @@
                                       },
                                       "required": [
                                         "y"
-                                      ],
-                                      "additionalProperties": false
+                                      ]
                                     }
                                   },
                                   "required": [
                                     "value"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
                               ]
                             }
@@ -726,8 +671,7 @@
                           "required": [
                             "value",
                             "child"
-                          ],
-                          "additionalProperties": false
+                          ]
                         },
                         {
                           "type": "object",
@@ -741,8 +685,7 @@
                               },
                               "required": [
                                 "x"
-                              ],
-                              "additionalProperties": false
+                              ]
                             },
                             "child": {
                               "oneOf": [
@@ -761,14 +704,12 @@
                                       },
                                       "required": [
                                         "y"
-                                      ],
-                                      "additionalProperties": false
+                                      ]
                                     }
                                   },
                                   "required": [
                                     "value"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 },
                                 {
                                   "type": "object",
@@ -782,14 +723,12 @@
                                       },
                                       "required": [
                                         "y"
-                                      ],
-                                      "additionalProperties": false
+                                      ]
                                     }
                                   },
                                   "required": [
                                     "value"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
                               ]
                             }
@@ -797,8 +736,7 @@
                           "required": [
                             "value",
                             "child"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       ]
                     }
@@ -826,8 +764,7 @@
                               },
                               "required": [
                                 "x"
-                              ],
-                              "additionalProperties": false
+                              ]
                             },
                             "child": {
                               "oneOf": [
@@ -843,14 +780,12 @@
                                       },
                                       "required": [
                                         "y"
-                                      ],
-                                      "additionalProperties": false
+                                      ]
                                     }
                                   },
                                   "required": [
                                     "value"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 },
                                 {
                                   "type": "object",
@@ -864,14 +799,12 @@
                                       },
                                       "required": [
                                         "y"
-                                      ],
-                                      "additionalProperties": false
+                                      ]
                                     }
                                   },
                                   "required": [
                                     "value"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
                               ]
                             }
@@ -879,8 +812,7 @@
                           "required": [
                             "value",
                             "child"
-                          ],
-                          "additionalProperties": false
+                          ]
                         },
                         {
                           "type": "object",
@@ -894,8 +826,7 @@
                               },
                               "required": [
                                 "x"
-                              ],
-                              "additionalProperties": false
+                              ]
                             },
                             "child": {
                               "oneOf": [
@@ -914,14 +845,12 @@
                                       },
                                       "required": [
                                         "y"
-                                      ],
-                                      "additionalProperties": false
+                                      ]
                                     }
                                   },
                                   "required": [
                                     "value"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 },
                                 {
                                   "type": "object",
@@ -935,14 +864,12 @@
                                       },
                                       "required": [
                                         "y"
-                                      ],
-                                      "additionalProperties": false
+                                      ]
                                     }
                                   },
                                   "required": [
                                     "value"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
                               ]
                             }
@@ -950,8 +877,7 @@
                           "required": [
                             "value",
                             "child"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       ]
                     }
@@ -979,8 +905,7 @@
                               },
                               "required": [
                                 "x"
-                              ],
-                              "additionalProperties": false
+                              ]
                             },
                             "child": {
                               "oneOf": [
@@ -996,14 +921,12 @@
                                       },
                                       "required": [
                                         "y"
-                                      ],
-                                      "additionalProperties": false
+                                      ]
                                     }
                                   },
                                   "required": [
                                     "value"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 },
                                 {
                                   "type": "object",
@@ -1017,14 +940,12 @@
                                       },
                                       "required": [
                                         "y"
-                                      ],
-                                      "additionalProperties": false
+                                      ]
                                     }
                                   },
                                   "required": [
                                     "value"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
                               ]
                             }
@@ -1032,8 +953,7 @@
                           "required": [
                             "value",
                             "child"
-                          ],
-                          "additionalProperties": false
+                          ]
                         },
                         {
                           "type": "object",
@@ -1047,8 +967,7 @@
                               },
                               "required": [
                                 "x"
-                              ],
-                              "additionalProperties": false
+                              ]
                             },
                             "child": {
                               "oneOf": [
@@ -1067,14 +986,12 @@
                                       },
                                       "required": [
                                         "y"
-                                      ],
-                                      "additionalProperties": false
+                                      ]
                                     }
                                   },
                                   "required": [
                                     "value"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 },
                                 {
                                   "type": "object",
@@ -1088,14 +1005,12 @@
                                       },
                                       "required": [
                                         "y"
-                                      ],
-                                      "additionalProperties": false
+                                      ]
                                     }
                                   },
                                   "required": [
                                     "value"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
                               ]
                             }
@@ -1103,8 +1018,7 @@
                           "required": [
                             "value",
                             "child"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       ]
                     }
@@ -1116,8 +1030,7 @@
               "first",
               "second",
               "third"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -1147,8 +1060,7 @@
                       },
                       "required": [
                         "x"
-                      ],
-                      "additionalProperties": false
+                      ]
                     },
                     "child": {
                       "oneOf": [
@@ -1164,14 +1076,12 @@
                               },
                               "required": [
                                 "y"
-                              ],
-                              "additionalProperties": false
+                              ]
                             }
                           },
                           "required": [
                             "value"
-                          ],
-                          "additionalProperties": false
+                          ]
                         },
                         {
                           "type": "object",
@@ -1185,14 +1095,12 @@
                               },
                               "required": [
                                 "y"
-                              ],
-                              "additionalProperties": false
+                              ]
                             }
                           },
                           "required": [
                             "value"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       ]
                     }
@@ -1200,8 +1108,7 @@
                   "required": [
                     "value",
                     "child"
-                  ],
-                  "additionalProperties": false
+                  ]
                 },
                 {
                   "type": "object",
@@ -1215,8 +1122,7 @@
                       },
                       "required": [
                         "x"
-                      ],
-                      "additionalProperties": false
+                      ]
                     },
                     "child": {
                       "oneOf": [
@@ -1235,14 +1141,12 @@
                               },
                               "required": [
                                 "y"
-                              ],
-                              "additionalProperties": false
+                              ]
                             }
                           },
                           "required": [
                             "value"
-                          ],
-                          "additionalProperties": false
+                          ]
                         },
                         {
                           "type": "object",
@@ -1256,14 +1160,12 @@
                               },
                               "required": [
                                 "y"
-                              ],
-                              "additionalProperties": false
+                              ]
                             }
                           },
                           "required": [
                             "value"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       ]
                     }
@@ -1271,8 +1173,7 @@
                   "required": [
                     "value",
                     "child"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               ]
             }

@@ -4,8 +4,7 @@
     "regular": {
       "type": "object",
       "properties": {},
-      "required": [],
-      "additionalProperties": false
+      "required": []
     },
     "nullable": {
       "oneOf": [
@@ -15,16 +14,14 @@
         {
           "type": "object",
           "properties": {},
-          "required": [],
-          "additionalProperties": false
+          "required": []
         }
       ]
     },
     "optional": {
       "type": "object",
       "properties": {},
-      "required": [],
-      "additionalProperties": false
+      "required": []
     },
     "faint": {
       "oneOf": [
@@ -34,8 +31,7 @@
         {
           "type": "object",
           "properties": {},
-          "required": [],
-          "additionalProperties": false
+          "required": []
         }
       ]
     },
@@ -44,8 +40,7 @@
       "items": {
         "type": "object",
         "properties": {},
-        "required": [],
-        "additionalProperties": false
+        "required": []
       }
     }
   },
@@ -56,6 +51,5 @@
     "faint",
     "array"
   ],
-  "additionalProperties": false,
   "$defs": {}
 }

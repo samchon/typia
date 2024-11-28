@@ -25,8 +25,7 @@
               "id",
               "mobile",
               "name"
-            ],
-            "additionalProperties": false
+            ]
           },
           {
             "type": "object",
@@ -45,8 +44,7 @@
               "manufacturer",
               "brand",
               "name"
-            ],
-            "additionalProperties": false
+            ]
           },
           {
             "type": "string"
@@ -71,8 +69,7 @@
               "id",
               "mobile",
               "name"
-            ],
-            "additionalProperties": false
+            ]
           }
         ]
       }
@@ -106,8 +103,7 @@
                   "id",
                   "mobile",
                   "name"
-                ],
-                "additionalProperties": false
+                ]
               },
               {
                 "type": "object",
@@ -126,8 +122,7 @@
                   "manufacturer",
                   "brand",
                   "name"
-                ],
-                "additionalProperties": false
+                ]
               },
               {
                 "type": "string"
@@ -152,8 +147,7 @@
                   "id",
                   "mobile",
                   "name"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
@@ -184,8 +178,7 @@
               "id",
               "mobile",
               "name"
-            ],
-            "additionalProperties": false
+            ]
           },
           {
             "type": "object",
@@ -204,8 +197,7 @@
               "manufacturer",
               "brand",
               "name"
-            ],
-            "additionalProperties": false
+            ]
           },
           {
             "type": "string"
@@ -230,8 +222,7 @@
               "id",
               "mobile",
               "name"
-            ],
-            "additionalProperties": false
+            ]
           }
         ]
       }
@@ -265,8 +256,7 @@
                   "id",
                   "mobile",
                   "name"
-                ],
-                "additionalProperties": false
+                ]
               },
               {
                 "type": "object",
@@ -285,8 +275,7 @@
                   "manufacturer",
                   "brand",
                   "name"
-                ],
-                "additionalProperties": false
+                ]
               },
               {
                 "type": "string"
@@ -311,8 +300,7 @@
                   "id",
                   "mobile",
                   "name"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
@@ -345,8 +333,7 @@
                 "id",
                 "mobile",
                 "name"
-              ],
-              "additionalProperties": false
+              ]
             },
             {
               "type": "object",
@@ -365,8 +352,7 @@
                 "manufacturer",
                 "brand",
                 "name"
-              ],
-              "additionalProperties": false
+              ]
             },
             {
               "type": "string"
@@ -391,8 +377,7 @@
                 "id",
                 "mobile",
                 "name"
-              ],
-              "additionalProperties": false
+              ]
             }
           ]
         }
@@ -406,6 +391,5 @@
     "faint",
     "array"
   ],
-  "additionalProperties": false,
   "$defs": {}
 }

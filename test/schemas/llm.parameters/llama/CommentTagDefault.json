@@ -119,8 +119,7 @@
         "union_but_string",
         "vulnerable_range",
         "boolean_and_number_and_template"
-      ],
-      "additionalProperties": false
+      ]
     },
     "nullable": {
       "oneOf": [
@@ -245,8 +244,7 @@
             "union_but_string",
             "vulnerable_range",
             "boolean_and_number_and_template"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -368,8 +366,7 @@
         "union_but_string",
         "vulnerable_range",
         "boolean_and_number_and_template"
-      ],
-      "additionalProperties": false
+      ]
     },
     "faint": {
       "oneOf": [
@@ -494,8 +491,7 @@
             "union_but_string",
             "vulnerable_range",
             "boolean_and_number_and_template"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -619,8 +615,7 @@
           "union_but_string",
           "vulnerable_range",
           "boolean_and_number_and_template"
-        ],
-        "additionalProperties": false
+        ]
       }
     }
   },
@@ -631,6 +626,5 @@
     "faint",
     "array"
   ],
-  "additionalProperties": false,
   "$defs": {}
 }

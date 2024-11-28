@@ -36,13 +36,11 @@
           "maximum",
           "minimum_and_maximum",
           "equal"
-        ],
-        "additionalProperties": false
+        ]
       }
     }
   },
   "required": [
     "value"
-  ],
-  "additionalProperties": false
+  ]
 }

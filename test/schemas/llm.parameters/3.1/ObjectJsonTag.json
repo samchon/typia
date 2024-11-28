@@ -29,8 +29,7 @@
         "description",
         "title",
         "complicate_title"
-      ],
-      "additionalProperties": false
+      ]
     },
     "nullable": {
       "oneOf": [
@@ -65,8 +64,7 @@
             "description",
             "title",
             "complicate_title"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -98,8 +96,7 @@
         "description",
         "title",
         "complicate_title"
-      ],
-      "additionalProperties": false
+      ]
     },
     "faint": {
       "oneOf": [
@@ -134,8 +131,7 @@
             "description",
             "title",
             "complicate_title"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -169,8 +165,7 @@
           "description",
           "title",
           "complicate_title"
-        ],
-        "additionalProperties": false
+        ]
       }
     }
   },
@@ -181,6 +176,5 @@
     "faint",
     "array"
   ],
-  "additionalProperties": false,
   "$defs": {}
 }

@@ -21,8 +21,7 @@
             "x",
             "y",
             "z"
-          ],
-          "additionalProperties": false
+          ]
         },
         "position": {
           "type": "object",
@@ -41,8 +40,7 @@
             "x",
             "y",
             "z"
-          ],
-          "additionalProperties": false
+          ]
         },
         "rotate": {
           "type": "object",
@@ -61,8 +59,7 @@
             "x",
             "y",
             "z"
-          ],
-          "additionalProperties": false
+          ]
         },
         "pivot": {
           "type": "object",
@@ -81,8 +78,7 @@
             "x",
             "y",
             "z"
-          ],
-          "additionalProperties": false
+          ]
         }
       },
       "required": [
@@ -90,8 +86,7 @@
         "position",
         "rotate",
         "pivot"
-      ],
-      "additionalProperties": false
+      ]
     },
     "nullable": {
       "oneOf": [
@@ -118,8 +113,7 @@
                 "x",
                 "y",
                 "z"
-              ],
-              "additionalProperties": false
+              ]
             },
             "position": {
               "type": "object",
@@ -138,8 +132,7 @@
                 "x",
                 "y",
                 "z"
-              ],
-              "additionalProperties": false
+              ]
             },
             "rotate": {
               "type": "object",
@@ -158,8 +151,7 @@
                 "x",
                 "y",
                 "z"
-              ],
-              "additionalProperties": false
+              ]
             },
             "pivot": {
               "type": "object",
@@ -178,8 +170,7 @@
                 "x",
                 "y",
                 "z"
-              ],
-              "additionalProperties": false
+              ]
             }
           },
           "required": [
@@ -187,8 +178,7 @@
             "position",
             "rotate",
             "pivot"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -212,8 +202,7 @@
             "x",
             "y",
             "z"
-          ],
-          "additionalProperties": false
+          ]
         },
         "position": {
           "type": "object",
@@ -232,8 +221,7 @@
             "x",
             "y",
             "z"
-          ],
-          "additionalProperties": false
+          ]
         },
         "rotate": {
           "type": "object",
@@ -252,8 +240,7 @@
             "x",
             "y",
             "z"
-          ],
-          "additionalProperties": false
+          ]
         },
         "pivot": {
           "type": "object",
@@ -272,8 +259,7 @@
             "x",
             "y",
             "z"
-          ],
-          "additionalProperties": false
+          ]
         }
       },
       "required": [
@@ -281,8 +267,7 @@
         "position",
         "rotate",
         "pivot"
-      ],
-      "additionalProperties": false
+      ]
     },
     "faint": {
       "oneOf": [
@@ -309,8 +294,7 @@
                 "x",
                 "y",
                 "z"
-              ],
-              "additionalProperties": false
+              ]
             },
             "position": {
               "type": "object",
@@ -329,8 +313,7 @@
                 "x",
                 "y",
                 "z"
-              ],
-              "additionalProperties": false
+              ]
             },
             "rotate": {
               "type": "object",
@@ -349,8 +332,7 @@
                 "x",
                 "y",
                 "z"
-              ],
-              "additionalProperties": false
+              ]
             },
             "pivot": {
               "type": "object",
@@ -369,8 +351,7 @@
                 "x",
                 "y",
                 "z"
-              ],
-              "additionalProperties": false
+              ]
             }
           },
           "required": [
@@ -378,8 +359,7 @@
             "position",
             "rotate",
             "pivot"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -405,8 +385,7 @@
               "x",
               "y",
               "z"
-            ],
-            "additionalProperties": false
+            ]
           },
           "position": {
             "type": "object",
@@ -425,8 +404,7 @@
               "x",
               "y",
               "z"
-            ],
-            "additionalProperties": false
+            ]
           },
           "rotate": {
             "type": "object",
@@ -445,8 +423,7 @@
               "x",
               "y",
               "z"
-            ],
-            "additionalProperties": false
+            ]
           },
           "pivot": {
             "type": "object",
@@ -465,8 +442,7 @@
               "x",
               "y",
               "z"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -474,8 +450,7 @@
           "position",
           "rotate",
           "pivot"
-        ],
-        "additionalProperties": false
+        ]
       }
     }
   },
@@ -486,6 +461,5 @@
     "faint",
     "array"
   ],
-  "additionalProperties": false,
   "$defs": {}
 }

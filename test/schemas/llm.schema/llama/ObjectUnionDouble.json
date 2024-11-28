@@ -14,8 +14,7 @@
             },
             "required": [
               "x"
-            ],
-            "additionalProperties": false
+            ]
           },
           "child": {
             "oneOf": [
@@ -31,14 +30,12 @@
                     },
                     "required": [
                       "y"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 },
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               },
               {
                 "type": "object",
@@ -52,14 +49,12 @@
                     },
                     "required": [
                       "y"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 },
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
@@ -67,8 +62,7 @@
         "required": [
           "value",
           "child"
-        ],
-        "additionalProperties": false
+        ]
       },
       {
         "type": "object",
@@ -82,8 +76,7 @@
             },
             "required": [
               "x"
-            ],
-            "additionalProperties": false
+            ]
           },
           "child": {
             "oneOf": [
@@ -102,14 +95,12 @@
                     },
                     "required": [
                       "y"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 },
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               },
               {
                 "type": "object",
@@ -123,14 +114,12 @@
                     },
                     "required": [
                       "y"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 },
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
@@ -138,8 +127,7 @@
         "required": [
           "value",
           "child"
-        ],
-        "additionalProperties": false
+        ]
       }
     ]
   }

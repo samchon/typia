@@ -39,14 +39,12 @@
                   "note",
                   "editable",
                   "incremental"
-                ],
-                "additionalProperties": false
+                ]
               }
             },
             "required": [
               "first"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -90,8 +88,7 @@
                   "note",
                   "editable",
                   "incremental"
-                ],
-                "additionalProperties": false
+                ]
               },
               "second": {
                 "oneOf": [
@@ -123,8 +120,7 @@
                       "note",
                       "editable",
                       "incremental"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               }
@@ -132,8 +128,7 @@
             "required": [
               "first",
               "second"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -167,8 +162,7 @@
           "note",
           "editable",
           "incremental"
-        ],
-        "additionalProperties": false
+        ]
       },
       "strict": true
     },
@@ -210,8 +204,7 @@
                       "note",
                       "editable",
                       "incremental"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               },
@@ -245,8 +238,7 @@
                       "note",
                       "editable",
                       "incremental"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               },
@@ -280,8 +272,7 @@
                       "note",
                       "editable",
                       "incremental"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               }
@@ -290,8 +281,7 @@
               "first",
               "second",
               "third"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -330,8 +320,7 @@
               "note",
               "editable",
               "incremental"
-            ],
-            "additionalProperties": false
+            ]
           }
         ]
       },

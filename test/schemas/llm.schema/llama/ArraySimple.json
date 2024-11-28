@@ -28,8 +28,7 @@
             "name",
             "body",
             "rank"
-          ],
-          "additionalProperties": false
+          ]
         }
       }
     },
@@ -37,7 +36,6 @@
       "name",
       "email",
       "hobbies"
-    ],
-    "additionalProperties": false
+    ]
   }
 }

@@ -83,6 +83,5 @@
     "both2",
     "both3",
     "union"
-  ],
-  "additionalProperties": false
+  ]
 }
