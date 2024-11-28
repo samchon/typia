@@ -29,8 +29,7 @@
             },
             "required": [
               "key"
-            ],
-            "additionalProperties": false
+            ]
           }
         ]
       }
@@ -68,8 +67,7 @@
                 },
                 "required": [
                   "key"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
@@ -104,8 +102,7 @@
             },
             "required": [
               "key"
-            ],
-            "additionalProperties": false
+            ]
           }
         ]
       }
@@ -143,8 +140,7 @@
                 },
                 "required": [
                   "key"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
@@ -181,8 +177,7 @@
               },
               "required": [
                 "key"
-              ],
-              "additionalProperties": false
+              ]
             }
           ]
         }
@@ -196,6 +191,5 @@
     "faint",
     "array"
   ],
-  "additionalProperties": false,
   "$defs": {}
 }

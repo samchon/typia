@@ -21,8 +21,7 @@
       },
       "required": [
         "matrix"
-      ],
-      "additionalProperties": false
+      ]
     },
     "nullable": {
       "oneOf": [
@@ -49,8 +48,7 @@
           },
           "required": [
             "matrix"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -74,8 +72,7 @@
       },
       "required": [
         "matrix"
-      ],
-      "additionalProperties": false
+      ]
     },
     "faint": {
       "oneOf": [
@@ -102,8 +99,7 @@
           },
           "required": [
             "matrix"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -129,8 +125,7 @@
         },
         "required": [
           "matrix"
-        ],
-        "additionalProperties": false
+        ]
       }
     }
   },
@@ -141,6 +136,5 @@
     "faint",
     "array"
   ],
-  "additionalProperties": false,
   "$defs": {}
 }

@@ -86,8 +86,7 @@
         "both2",
         "both3",
         "union"
-      ],
-      "additionalProperties": false
+      ]
     },
     "nullable": {
       "oneOf": [
@@ -179,8 +178,7 @@
             "both2",
             "both3",
             "union"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -269,8 +267,7 @@
         "both2",
         "both3",
         "union"
-      ],
-      "additionalProperties": false
+      ]
     },
     "faint": {
       "oneOf": [
@@ -362,8 +359,7 @@
             "both2",
             "both3",
             "union"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -454,8 +450,7 @@
           "both2",
           "both3",
           "union"
-        ],
-        "additionalProperties": false
+        ]
       }
     }
   },
@@ -466,6 +461,5 @@
     "faint",
     "array"
   ],
-  "additionalProperties": false,
   "$defs": {}
 }

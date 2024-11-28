@@ -26,8 +26,7 @@
         "note",
         "editable",
         "incremental"
-      ],
-      "additionalProperties": false
+      ]
     },
     "nullable": {
       "oneOf": [
@@ -59,8 +58,7 @@
             "note",
             "editable",
             "incremental"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -89,8 +87,7 @@
         "note",
         "editable",
         "incremental"
-      ],
-      "additionalProperties": false
+      ]
     },
     "faint": {
       "oneOf": [
@@ -122,8 +119,7 @@
             "note",
             "editable",
             "incremental"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -154,8 +150,7 @@
           "note",
           "editable",
           "incremental"
-        ],
-        "additionalProperties": false
+        ]
       }
     }
   },
@@ -166,6 +161,5 @@
     "faint",
     "array"
   ],
-  "additionalProperties": false,
   "$defs": {}
 }

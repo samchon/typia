@@ -22,8 +22,7 @@
               "x",
               "y",
               "type"
-            ],
-            "additionalProperties": false
+            ]
           },
           {
             "type": "object",
@@ -41,8 +40,7 @@
                 "required": [
                   "x",
                   "y"
-                ],
-                "additionalProperties": false
+                ]
               },
               "p2": {
                 "type": "object",
@@ -57,8 +55,7 @@
                 "required": [
                   "x",
                   "y"
-                ],
-                "additionalProperties": false
+                ]
               },
               "type": {
                 "const": "line"
@@ -68,8 +65,7 @@
               "p1",
               "p2",
               "type"
-            ],
-            "additionalProperties": false
+            ]
           },
           {
             "type": "object",
@@ -87,8 +83,7 @@
                 "required": [
                   "x",
                   "y"
-                ],
-                "additionalProperties": false
+                ]
               },
               "p2": {
                 "type": "object",
@@ -103,8 +98,7 @@
                 "required": [
                   "x",
                   "y"
-                ],
-                "additionalProperties": false
+                ]
               },
               "p3": {
                 "type": "object",
@@ -119,8 +113,7 @@
                 "required": [
                   "x",
                   "y"
-                ],
-                "additionalProperties": false
+                ]
               },
               "type": {
                 "const": "triangle"
@@ -131,8 +124,7 @@
               "p2",
               "p3",
               "type"
-            ],
-            "additionalProperties": false
+            ]
           },
           {
             "type": "object",
@@ -150,8 +142,7 @@
                 "required": [
                   "x",
                   "y"
-                ],
-                "additionalProperties": false
+                ]
               },
               "p2": {
                 "type": "object",
@@ -166,8 +157,7 @@
                 "required": [
                   "x",
                   "y"
-                ],
-                "additionalProperties": false
+                ]
               },
               "p3": {
                 "type": "object",
@@ -182,8 +172,7 @@
                 "required": [
                   "x",
                   "y"
-                ],
-                "additionalProperties": false
+                ]
               },
               "p4": {
                 "type": "object",
@@ -198,8 +187,7 @@
                 "required": [
                   "x",
                   "y"
-                ],
-                "additionalProperties": false
+                ]
               },
               "type": {
                 "const": "rectangle"
@@ -211,8 +199,7 @@
               "p3",
               "p4",
               "type"
-            ],
-            "additionalProperties": false
+            ]
           },
           {
             "type": "object",
@@ -232,8 +219,7 @@
                   "required": [
                     "x",
                     "y"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               },
               "type": {
@@ -243,8 +229,7 @@
             "required": [
               "points",
               "type"
-            ],
-            "additionalProperties": false
+            ]
           },
           {
             "type": "object",
@@ -267,15 +252,13 @@
                       "required": [
                         "x",
                         "y"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 },
                 "required": [
                   "points"
-                ],
-                "additionalProperties": false
+                ]
               },
               "inner": {
                 "type": "array",
@@ -297,15 +280,13 @@
                         "required": [
                           "x",
                           "y"
-                        ],
-                        "additionalProperties": false
+                        ]
                       }
                     }
                   },
                   "required": [
                     "points"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               },
               "type": {
@@ -316,8 +297,7 @@
               "outer",
               "inner",
               "type"
-            ],
-            "additionalProperties": false
+            ]
           },
           {
             "type": "object",
@@ -335,8 +315,7 @@
                 "required": [
                   "x",
                   "y"
-                ],
-                "additionalProperties": false
+                ]
               },
               "radius": {
                 "type": "number"
@@ -349,8 +328,7 @@
               "centroid",
               "radius",
               "type"
-            ],
-            "additionalProperties": false
+            ]
           }
         ]
       }
@@ -381,8 +359,7 @@
                   "x",
                   "y",
                   "type"
-                ],
-                "additionalProperties": false
+                ]
               },
               {
                 "type": "object",
@@ -400,8 +377,7 @@
                     "required": [
                       "x",
                       "y"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   "p2": {
                     "type": "object",
@@ -416,8 +392,7 @@
                     "required": [
                       "x",
                       "y"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   "type": {
                     "const": "line"
@@ -427,8 +402,7 @@
                   "p1",
                   "p2",
                   "type"
-                ],
-                "additionalProperties": false
+                ]
               },
               {
                 "type": "object",
@@ -446,8 +420,7 @@
                     "required": [
                       "x",
                       "y"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   "p2": {
                     "type": "object",
@@ -462,8 +435,7 @@
                     "required": [
                       "x",
                       "y"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   "p3": {
                     "type": "object",
@@ -478,8 +450,7 @@
                     "required": [
                       "x",
                       "y"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   "type": {
                     "const": "triangle"
@@ -490,8 +461,7 @@
                   "p2",
                   "p3",
                   "type"
-                ],
-                "additionalProperties": false
+                ]
               },
               {
                 "type": "object",
@@ -509,8 +479,7 @@
                     "required": [
                       "x",
                       "y"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   "p2": {
                     "type": "object",
@@ -525,8 +494,7 @@
                     "required": [
                       "x",
                       "y"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   "p3": {
                     "type": "object",
@@ -541,8 +509,7 @@
                     "required": [
                       "x",
                       "y"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   "p4": {
                     "type": "object",
@@ -557,8 +524,7 @@
                     "required": [
                       "x",
                       "y"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   "type": {
                     "const": "rectangle"
@@ -570,8 +536,7 @@
                   "p3",
                   "p4",
                   "type"
-                ],
-                "additionalProperties": false
+                ]
               },
               {
                 "type": "object",
@@ -591,8 +556,7 @@
                       "required": [
                         "x",
                         "y"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   },
                   "type": {
@@ -602,8 +566,7 @@
                 "required": [
                   "points",
                   "type"
-                ],
-                "additionalProperties": false
+                ]
               },
               {
                 "type": "object",
@@ -626,15 +589,13 @@
                           "required": [
                             "x",
                             "y"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       }
                     },
                     "required": [
                       "points"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   "inner": {
                     "type": "array",
@@ -656,15 +617,13 @@
                             "required": [
                               "x",
                               "y"
-                            ],
-                            "additionalProperties": false
+                            ]
                           }
                         }
                       },
                       "required": [
                         "points"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   },
                   "type": {
@@ -675,8 +634,7 @@
                   "outer",
                   "inner",
                   "type"
-                ],
-                "additionalProperties": false
+                ]
               },
               {
                 "type": "object",
@@ -694,8 +652,7 @@
                     "required": [
                       "x",
                       "y"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   "radius": {
                     "type": "number"
@@ -708,8 +665,7 @@
                   "centroid",
                   "radius",
                   "type"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
@@ -737,8 +693,7 @@
               "x",
               "y",
               "type"
-            ],
-            "additionalProperties": false
+            ]
           },
           {
             "type": "object",
@@ -756,8 +711,7 @@
                 "required": [
                   "x",
                   "y"
-                ],
-                "additionalProperties": false
+                ]
               },
               "p2": {
                 "type": "object",
@@ -772,8 +726,7 @@
                 "required": [
                   "x",
                   "y"
-                ],
-                "additionalProperties": false
+                ]
               },
               "type": {
                 "const": "line"
@@ -783,8 +736,7 @@
               "p1",
               "p2",
               "type"
-            ],
-            "additionalProperties": false
+            ]
           },
           {
             "type": "object",
@@ -802,8 +754,7 @@
                 "required": [
                   "x",
                   "y"
-                ],
-                "additionalProperties": false
+                ]
               },
               "p2": {
                 "type": "object",
@@ -818,8 +769,7 @@
                 "required": [
                   "x",
                   "y"
-                ],
-                "additionalProperties": false
+                ]
               },
               "p3": {
                 "type": "object",
@@ -834,8 +784,7 @@
                 "required": [
                   "x",
                   "y"
-                ],
-                "additionalProperties": false
+                ]
               },
               "type": {
                 "const": "triangle"
@@ -846,8 +795,7 @@
               "p2",
               "p3",
               "type"
-            ],
-            "additionalProperties": false
+            ]
           },
           {
             "type": "object",
@@ -865,8 +813,7 @@
                 "required": [
                   "x",
                   "y"
-                ],
-                "additionalProperties": false
+                ]
               },
               "p2": {
                 "type": "object",
@@ -881,8 +828,7 @@
                 "required": [
                   "x",
                   "y"
-                ],
-                "additionalProperties": false
+                ]
               },
               "p3": {
                 "type": "object",
@@ -897,8 +843,7 @@
                 "required": [
                   "x",
                   "y"
-                ],
-                "additionalProperties": false
+                ]
               },
               "p4": {
                 "type": "object",
@@ -913,8 +858,7 @@
                 "required": [
                   "x",
                   "y"
-                ],
-                "additionalProperties": false
+                ]
               },
               "type": {
                 "const": "rectangle"
@@ -926,8 +870,7 @@
               "p3",
               "p4",
               "type"
-            ],
-            "additionalProperties": false
+            ]
           },
           {
             "type": "object",
@@ -947,8 +890,7 @@
                   "required": [
                     "x",
                     "y"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               },
               "type": {
@@ -958,8 +900,7 @@
             "required": [
               "points",
               "type"
-            ],
-            "additionalProperties": false
+            ]
           },
           {
             "type": "object",
@@ -982,15 +923,13 @@
                       "required": [
                         "x",
                         "y"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 },
                 "required": [
                   "points"
-                ],
-                "additionalProperties": false
+                ]
               },
               "inner": {
                 "type": "array",
@@ -1012,15 +951,13 @@
                         "required": [
                           "x",
                           "y"
-                        ],
-                        "additionalProperties": false
+                        ]
                       }
                     }
                   },
                   "required": [
                     "points"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               },
               "type": {
@@ -1031,8 +968,7 @@
               "outer",
               "inner",
               "type"
-            ],
-            "additionalProperties": false
+            ]
           },
           {
             "type": "object",
@@ -1050,8 +986,7 @@
                 "required": [
                   "x",
                   "y"
-                ],
-                "additionalProperties": false
+                ]
               },
               "radius": {
                 "type": "number"
@@ -1064,8 +999,7 @@
               "centroid",
               "radius",
               "type"
-            ],
-            "additionalProperties": false
+            ]
           }
         ]
       }
@@ -1096,8 +1030,7 @@
                   "x",
                   "y",
                   "type"
-                ],
-                "additionalProperties": false
+                ]
               },
               {
                 "type": "object",
@@ -1115,8 +1048,7 @@
                     "required": [
                       "x",
                       "y"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   "p2": {
                     "type": "object",
@@ -1131,8 +1063,7 @@
                     "required": [
                       "x",
                       "y"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   "type": {
                     "const": "line"
@@ -1142,8 +1073,7 @@
                   "p1",
                   "p2",
                   "type"
-                ],
-                "additionalProperties": false
+                ]
               },
               {
                 "type": "object",
@@ -1161,8 +1091,7 @@
                     "required": [
                       "x",
                       "y"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   "p2": {
                     "type": "object",
@@ -1177,8 +1106,7 @@
                     "required": [
                       "x",
                       "y"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   "p3": {
                     "type": "object",
@@ -1193,8 +1121,7 @@
                     "required": [
                       "x",
                       "y"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   "type": {
                     "const": "triangle"
@@ -1205,8 +1132,7 @@
                   "p2",
                   "p3",
                   "type"
-                ],
-                "additionalProperties": false
+                ]
               },
               {
                 "type": "object",
@@ -1224,8 +1150,7 @@
                     "required": [
                       "x",
                       "y"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   "p2": {
                     "type": "object",
@@ -1240,8 +1165,7 @@
                     "required": [
                       "x",
                       "y"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   "p3": {
                     "type": "object",
@@ -1256,8 +1180,7 @@
                     "required": [
                       "x",
                       "y"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   "p4": {
                     "type": "object",
@@ -1272,8 +1195,7 @@
                     "required": [
                       "x",
                       "y"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   "type": {
                     "const": "rectangle"
@@ -1285,8 +1207,7 @@
                   "p3",
                   "p4",
                   "type"
-                ],
-                "additionalProperties": false
+                ]
               },
               {
                 "type": "object",
@@ -1306,8 +1227,7 @@
                       "required": [
                         "x",
                         "y"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   },
                   "type": {
@@ -1317,8 +1237,7 @@
                 "required": [
                   "points",
                   "type"
-                ],
-                "additionalProperties": false
+                ]
               },
               {
                 "type": "object",
@@ -1341,15 +1260,13 @@
                           "required": [
                             "x",
                             "y"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       }
                     },
                     "required": [
                       "points"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   "inner": {
                     "type": "array",
@@ -1371,15 +1288,13 @@
                             "required": [
                               "x",
                               "y"
-                            ],
-                            "additionalProperties": false
+                            ]
                           }
                         }
                       },
                       "required": [
                         "points"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   },
                   "type": {
@@ -1390,8 +1305,7 @@
                   "outer",
                   "inner",
                   "type"
-                ],
-                "additionalProperties": false
+                ]
               },
               {
                 "type": "object",
@@ -1409,8 +1323,7 @@
                     "required": [
                       "x",
                       "y"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   "radius": {
                     "type": "number"
@@ -1423,8 +1336,7 @@
                   "centroid",
                   "radius",
                   "type"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
@@ -1454,8 +1366,7 @@
                 "x",
                 "y",
                 "type"
-              ],
-              "additionalProperties": false
+              ]
             },
             {
               "type": "object",
@@ -1473,8 +1384,7 @@
                   "required": [
                     "x",
                     "y"
-                  ],
-                  "additionalProperties": false
+                  ]
                 },
                 "p2": {
                   "type": "object",
@@ -1489,8 +1399,7 @@
                   "required": [
                     "x",
                     "y"
-                  ],
-                  "additionalProperties": false
+                  ]
                 },
                 "type": {
                   "const": "line"
@@ -1500,8 +1409,7 @@
                 "p1",
                 "p2",
                 "type"
-              ],
-              "additionalProperties": false
+              ]
             },
             {
               "type": "object",
@@ -1519,8 +1427,7 @@
                   "required": [
                     "x",
                     "y"
-                  ],
-                  "additionalProperties": false
+                  ]
                 },
                 "p2": {
                   "type": "object",
@@ -1535,8 +1442,7 @@
                   "required": [
                     "x",
                     "y"
-                  ],
-                  "additionalProperties": false
+                  ]
                 },
                 "p3": {
                   "type": "object",
@@ -1551,8 +1457,7 @@
                   "required": [
                     "x",
                     "y"
-                  ],
-                  "additionalProperties": false
+                  ]
                 },
                 "type": {
                   "const": "triangle"
@@ -1563,8 +1468,7 @@
                 "p2",
                 "p3",
                 "type"
-              ],
-              "additionalProperties": false
+              ]
             },
             {
               "type": "object",
@@ -1582,8 +1486,7 @@
                   "required": [
                     "x",
                     "y"
-                  ],
-                  "additionalProperties": false
+                  ]
                 },
                 "p2": {
                   "type": "object",
@@ -1598,8 +1501,7 @@
                   "required": [
                     "x",
                     "y"
-                  ],
-                  "additionalProperties": false
+                  ]
                 },
                 "p3": {
                   "type": "object",
@@ -1614,8 +1516,7 @@
                   "required": [
                     "x",
                     "y"
-                  ],
-                  "additionalProperties": false
+                  ]
                 },
                 "p4": {
                   "type": "object",
@@ -1630,8 +1531,7 @@
                   "required": [
                     "x",
                     "y"
-                  ],
-                  "additionalProperties": false
+                  ]
                 },
                 "type": {
                   "const": "rectangle"
@@ -1643,8 +1543,7 @@
                 "p3",
                 "p4",
                 "type"
-              ],
-              "additionalProperties": false
+              ]
             },
             {
               "type": "object",
@@ -1664,8 +1563,7 @@
                     "required": [
                       "x",
                       "y"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 },
                 "type": {
@@ -1675,8 +1573,7 @@
               "required": [
                 "points",
                 "type"
-              ],
-              "additionalProperties": false
+              ]
             },
             {
               "type": "object",
@@ -1699,15 +1596,13 @@
                         "required": [
                           "x",
                           "y"
-                        ],
-                        "additionalProperties": false
+                        ]
                       }
                     }
                   },
                   "required": [
                     "points"
-                  ],
-                  "additionalProperties": false
+                  ]
                 },
                 "inner": {
                   "type": "array",
@@ -1729,15 +1624,13 @@
                           "required": [
                             "x",
                             "y"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       }
                     },
                     "required": [
                       "points"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 },
                 "type": {
@@ -1748,8 +1641,7 @@
                 "outer",
                 "inner",
                 "type"
-              ],
-              "additionalProperties": false
+              ]
             },
             {
               "type": "object",
@@ -1767,8 +1659,7 @@
                   "required": [
                     "x",
                     "y"
-                  ],
-                  "additionalProperties": false
+                  ]
                 },
                 "radius": {
                   "type": "number"
@@ -1781,8 +1672,7 @@
                 "centroid",
                 "radius",
                 "type"
-              ],
-              "additionalProperties": false
+              ]
             }
           ]
         }
@@ -1796,6 +1686,5 @@
     "faint",
     "array"
   ],
-  "additionalProperties": false,
   "$defs": {}
 }

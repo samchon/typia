@@ -45,8 +45,7 @@
                       "required": [
                         "id",
                         "name"
-                      ],
-                      "additionalProperties": false
+                      ]
                     },
                     "grade": {
                       "type": "number"
@@ -59,15 +58,13 @@
                     "classroom",
                     "grade",
                     "unknown"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               }
             },
             "required": [
               "first"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -117,8 +114,7 @@
                       "required": [
                         "id",
                         "name"
-                      ],
-                      "additionalProperties": false
+                      ]
                     },
                     "grade": {
                       "type": "number"
@@ -131,8 +127,7 @@
                     "classroom",
                     "grade",
                     "unknown"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               },
               "second": {
@@ -171,8 +166,7 @@
                           "required": [
                             "id",
                             "name"
-                          ],
-                          "additionalProperties": false
+                          ]
                         },
                         "grade": {
                           "type": "number"
@@ -185,8 +179,7 @@
                         "classroom",
                         "grade",
                         "unknown"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 ]
@@ -195,8 +188,7 @@
             "required": [
               "first",
               "second"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -236,8 +228,7 @@
               "required": [
                 "id",
                 "name"
-              ],
-              "additionalProperties": false
+              ]
             },
             "grade": {
               "type": "number"
@@ -250,8 +241,7 @@
             "classroom",
             "grade",
             "unknown"
-          ],
-          "additionalProperties": false
+          ]
         }
       },
       "strict": true
@@ -300,8 +290,7 @@
                           "required": [
                             "id",
                             "name"
-                          ],
-                          "additionalProperties": false
+                          ]
                         },
                         "grade": {
                           "type": "number"
@@ -314,8 +303,7 @@
                         "classroom",
                         "grade",
                         "unknown"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 ]
@@ -356,8 +344,7 @@
                           "required": [
                             "id",
                             "name"
-                          ],
-                          "additionalProperties": false
+                          ]
                         },
                         "grade": {
                           "type": "number"
@@ -370,8 +357,7 @@
                         "classroom",
                         "grade",
                         "unknown"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 ]
@@ -412,8 +398,7 @@
                           "required": [
                             "id",
                             "name"
-                          ],
-                          "additionalProperties": false
+                          ]
                         },
                         "grade": {
                           "type": "number"
@@ -426,8 +411,7 @@
                         "classroom",
                         "grade",
                         "unknown"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 ]
@@ -437,8 +421,7 @@
               "first",
               "second",
               "third"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -483,8 +466,7 @@
                   "required": [
                     "id",
                     "name"
-                  ],
-                  "additionalProperties": false
+                  ]
                 },
                 "grade": {
                   "type": "number"
@@ -497,8 +479,7 @@
                 "classroom",
                 "grade",
                 "unknown"
-              ],
-              "additionalProperties": false
+              ]
             }
           }
         ]

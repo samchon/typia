@@ -79,14 +79,12 @@
                   "datetime",
                   "time",
                   "duration"
-                ],
-                "additionalProperties": false
+                ]
               }
             },
             "required": [
               "first"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -170,8 +168,7 @@
                   "datetime",
                   "time",
                   "duration"
-                ],
-                "additionalProperties": false
+                ]
               },
               "second": {
                 "oneOf": [
@@ -243,8 +240,7 @@
                       "datetime",
                       "time",
                       "duration"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               }
@@ -252,8 +248,7 @@
             "required": [
               "first",
               "second"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -327,8 +322,7 @@
           "datetime",
           "time",
           "duration"
-        ],
-        "additionalProperties": false
+        ]
       },
       "strict": true
     },
@@ -410,8 +404,7 @@
                       "datetime",
                       "time",
                       "duration"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               },
@@ -485,8 +478,7 @@
                       "datetime",
                       "time",
                       "duration"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               },
@@ -560,8 +552,7 @@
                       "datetime",
                       "time",
                       "duration"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               }
@@ -570,8 +561,7 @@
               "first",
               "second",
               "third"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -650,8 +640,7 @@
               "datetime",
               "time",
               "duration"
-            ],
-            "additionalProperties": false
+            ]
           }
         ]
       },

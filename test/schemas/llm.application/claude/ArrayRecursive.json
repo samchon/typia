@@ -19,8 +19,7 @@
             },
             "required": [
               "first"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -59,8 +58,7 @@
                 "required": [
                   "time",
                   "zone"
-                ],
-                "additionalProperties": false
+                ]
               }
             },
             "required": [
@@ -69,8 +67,7 @@
               "code",
               "sequence",
               "created_at"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       },
@@ -101,8 +98,7 @@
             "required": [
               "first",
               "second"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -141,8 +137,7 @@
                 "required": [
                   "time",
                   "zone"
-                ],
-                "additionalProperties": false
+                ]
               }
             },
             "required": [
@@ -151,8 +146,7 @@
               "code",
               "sequence",
               "created_at"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       },
@@ -204,8 +198,7 @@
               "first",
               "second",
               "third"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -244,8 +237,7 @@
                 "required": [
                   "time",
                   "zone"
-                ],
-                "additionalProperties": false
+                ]
               }
             },
             "required": [
@@ -254,8 +246,7 @@
               "code",
               "sequence",
               "created_at"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       },

@@ -56,7 +56,6 @@
     "faint",
     "array"
   ],
-  "additionalProperties": false,
   "$defs": {
     "ArrayRecursiveUnionExplicit.IBucket": {
       "oneOf": [
@@ -104,8 +103,7 @@
             "size",
             "type",
             "extension"
-          ],
-          "additionalProperties": false
+          ]
         },
         {
           "type": "object",
@@ -140,8 +138,7 @@
             "content",
             "type",
             "extension"
-          ],
-          "additionalProperties": false
+          ]
         },
         {
           "type": "object",
@@ -176,8 +173,7 @@
             "count",
             "type",
             "extension"
-          ],
-          "additionalProperties": false
+          ]
         },
         {
           "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IShortcut"
@@ -212,8 +208,7 @@
         "path",
         "children",
         "type"
-      ],
-      "additionalProperties": false
+      ]
     },
     "ArrayRecursiveUnionExplicit.IShortcut": {
       "type": "object",
@@ -244,8 +239,7 @@
         "target",
         "type",
         "extension"
-      ],
-      "additionalProperties": false
+      ]
     }
   }
 }

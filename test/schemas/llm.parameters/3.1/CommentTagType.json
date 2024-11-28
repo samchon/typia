@@ -43,15 +43,13 @@
               "int64",
               "uint64",
               "float"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       },
       "required": [
         "value"
-      ],
-      "additionalProperties": false
+      ]
     },
     "nullable": {
       "oneOf": [
@@ -100,15 +98,13 @@
                   "int64",
                   "uint64",
                   "float"
-                ],
-                "additionalProperties": false
+                ]
               }
             }
           },
           "required": [
             "value"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -154,15 +150,13 @@
               "int64",
               "uint64",
               "float"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       },
       "required": [
         "value"
-      ],
-      "additionalProperties": false
+      ]
     },
     "faint": {
       "oneOf": [
@@ -211,15 +205,13 @@
                   "int64",
                   "uint64",
                   "float"
-                ],
-                "additionalProperties": false
+                ]
               }
             }
           },
           "required": [
             "value"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -267,15 +259,13 @@
                 "int64",
                 "uint64",
                 "float"
-              ],
-              "additionalProperties": false
+              ]
             }
           }
         },
         "required": [
           "value"
-        ],
-        "additionalProperties": false
+        ]
       }
     }
   },
@@ -286,6 +276,5 @@
     "faint",
     "array"
   ],
-  "additionalProperties": false,
   "$defs": {}
 }

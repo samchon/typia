@@ -26,8 +26,7 @@
           "x",
           "y",
           "slope"
-        ],
-        "additionalProperties": false
+        ]
       },
       {
         "type": "object",
@@ -56,8 +55,7 @@
               "x",
               "y",
               "slope"
-            ],
-            "additionalProperties": false
+            ]
           },
           "p2": {
             "type": "object",
@@ -83,8 +81,7 @@
               "x",
               "y",
               "slope"
-            ],
-            "additionalProperties": false
+            ]
           },
           "width": {
             "oneOf": [
@@ -112,8 +109,7 @@
           "p2",
           "width",
           "distance"
-        ],
-        "additionalProperties": false
+        ]
       },
       {
         "type": "object",
@@ -142,8 +138,7 @@
               "x",
               "y",
               "slope"
-            ],
-            "additionalProperties": false
+            ]
           },
           "p2": {
             "type": "object",
@@ -169,8 +164,7 @@
               "x",
               "y",
               "slope"
-            ],
-            "additionalProperties": false
+            ]
           },
           "p3": {
             "type": "object",
@@ -196,8 +190,7 @@
               "x",
               "y",
               "slope"
-            ],
-            "additionalProperties": false
+            ]
           },
           "width": {
             "oneOf": [
@@ -237,8 +230,7 @@
           "width",
           "height",
           "area"
-        ],
-        "additionalProperties": false
+        ]
       },
       {
         "type": "object",
@@ -267,8 +259,7 @@
               "x",
               "y",
               "slope"
-            ],
-            "additionalProperties": false
+            ]
           },
           "p2": {
             "type": "object",
@@ -294,8 +285,7 @@
               "x",
               "y",
               "slope"
-            ],
-            "additionalProperties": false
+            ]
           },
           "p3": {
             "type": "object",
@@ -321,8 +311,7 @@
               "x",
               "y",
               "slope"
-            ],
-            "additionalProperties": false
+            ]
           },
           "p4": {
             "type": "object",
@@ -348,8 +337,7 @@
               "x",
               "y",
               "slope"
-            ],
-            "additionalProperties": false
+            ]
           },
           "width": {
             "oneOf": [
@@ -390,8 +378,7 @@
           "width",
           "height",
           "area"
-        ],
-        "additionalProperties": false
+        ]
       },
       {
         "type": "object",
@@ -422,8 +409,7 @@
                 "x",
                 "y",
                 "slope"
-              ],
-              "additionalProperties": false
+              ]
             }
           },
           "length": {
@@ -440,8 +426,7 @@
         "required": [
           "points",
           "length"
-        ],
-        "additionalProperties": false
+        ]
       },
       {
         "type": "object",
@@ -475,8 +460,7 @@
                     "x",
                     "y",
                     "slope"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               },
               "length": {
@@ -493,8 +477,7 @@
             "required": [
               "points",
               "length"
-            ],
-            "additionalProperties": false
+            ]
           },
           "inner": {
             "type": "array",
@@ -527,8 +510,7 @@
                       "x",
                       "y",
                       "slope"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 },
                 "length": {
@@ -545,8 +527,7 @@
               "required": [
                 "points",
                 "length"
-              ],
-              "additionalProperties": false
+              ]
             }
           },
           "area": {
@@ -564,8 +545,7 @@
           "outer",
           "inner",
           "area"
-        ],
-        "additionalProperties": false
+        ]
       },
       {
         "type": "object",
@@ -597,8 +577,7 @@
               "x",
               "y",
               "slope"
-            ],
-            "additionalProperties": false
+            ]
           },
           "area": {
             "oneOf": [
@@ -615,8 +594,7 @@
           "radius",
           "centroid",
           "area"
-        ],
-        "additionalProperties": false
+        ]
       }
     ]
   }

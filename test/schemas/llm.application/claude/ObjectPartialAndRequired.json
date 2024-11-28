@@ -19,8 +19,7 @@
             },
             "required": [
               "first"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -63,8 +62,7 @@
               "boolean",
               "object",
               "array"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       },
@@ -95,8 +93,7 @@
             "required": [
               "first",
               "second"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -139,8 +136,7 @@
               "boolean",
               "object",
               "array"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       },
@@ -192,8 +188,7 @@
               "first",
               "second",
               "third"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -236,8 +231,7 @@
               "boolean",
               "object",
               "array"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       },

@@ -37,8 +37,7 @@
                         "id",
                         "mobile",
                         "name"
-                      ],
-                      "additionalProperties": false
+                      ]
                     },
                     {
                       "type": "object",
@@ -57,8 +56,7 @@
                         "manufacturer",
                         "brand",
                         "name"
-                      ],
-                      "additionalProperties": false
+                      ]
                     },
                     {
                       "type": "string"
@@ -83,8 +81,7 @@
                         "id",
                         "mobile",
                         "name"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   ]
                 }
@@ -92,8 +89,7 @@
             },
             "required": [
               "first"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -136,8 +132,7 @@
                         "id",
                         "mobile",
                         "name"
-                      ],
-                      "additionalProperties": false
+                      ]
                     },
                     {
                       "type": "object",
@@ -156,8 +151,7 @@
                         "manufacturer",
                         "brand",
                         "name"
-                      ],
-                      "additionalProperties": false
+                      ]
                     },
                     {
                       "type": "string"
@@ -182,8 +176,7 @@
                         "id",
                         "mobile",
                         "name"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   ]
                 }
@@ -217,8 +210,7 @@
                             "id",
                             "mobile",
                             "name"
-                          ],
-                          "additionalProperties": false
+                          ]
                         },
                         {
                           "type": "object",
@@ -237,8 +229,7 @@
                             "manufacturer",
                             "brand",
                             "name"
-                          ],
-                          "additionalProperties": false
+                          ]
                         },
                         {
                           "type": "string"
@@ -263,8 +254,7 @@
                             "id",
                             "mobile",
                             "name"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       ]
                     }
@@ -275,8 +265,7 @@
             "required": [
               "first",
               "second"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -309,8 +298,7 @@
                 "id",
                 "mobile",
                 "name"
-              ],
-              "additionalProperties": false
+              ]
             },
             {
               "type": "object",
@@ -329,8 +317,7 @@
                 "manufacturer",
                 "brand",
                 "name"
-              ],
-              "additionalProperties": false
+              ]
             },
             {
               "type": "string"
@@ -355,8 +342,7 @@
                 "id",
                 "mobile",
                 "name"
-              ],
-              "additionalProperties": false
+              ]
             }
           ]
         }
@@ -400,8 +386,7 @@
                             "id",
                             "mobile",
                             "name"
-                          ],
-                          "additionalProperties": false
+                          ]
                         },
                         {
                           "type": "object",
@@ -420,8 +405,7 @@
                             "manufacturer",
                             "brand",
                             "name"
-                          ],
-                          "additionalProperties": false
+                          ]
                         },
                         {
                           "type": "string"
@@ -446,8 +430,7 @@
                             "id",
                             "mobile",
                             "name"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       ]
                     }
@@ -483,8 +466,7 @@
                             "id",
                             "mobile",
                             "name"
-                          ],
-                          "additionalProperties": false
+                          ]
                         },
                         {
                           "type": "object",
@@ -503,8 +485,7 @@
                             "manufacturer",
                             "brand",
                             "name"
-                          ],
-                          "additionalProperties": false
+                          ]
                         },
                         {
                           "type": "string"
@@ -529,8 +510,7 @@
                             "id",
                             "mobile",
                             "name"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       ]
                     }
@@ -566,8 +546,7 @@
                             "id",
                             "mobile",
                             "name"
-                          ],
-                          "additionalProperties": false
+                          ]
                         },
                         {
                           "type": "object",
@@ -586,8 +565,7 @@
                             "manufacturer",
                             "brand",
                             "name"
-                          ],
-                          "additionalProperties": false
+                          ]
                         },
                         {
                           "type": "string"
@@ -612,8 +590,7 @@
                             "id",
                             "mobile",
                             "name"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       ]
                     }
@@ -625,8 +602,7 @@
               "first",
               "second",
               "third"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -664,8 +640,7 @@
                     "id",
                     "mobile",
                     "name"
-                  ],
-                  "additionalProperties": false
+                  ]
                 },
                 {
                   "type": "object",
@@ -684,8 +659,7 @@
                     "manufacturer",
                     "brand",
                     "name"
-                  ],
-                  "additionalProperties": false
+                  ]
                 },
                 {
                   "type": "string"
@@ -710,8 +684,7 @@
                     "id",
                     "mobile",
                     "name"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               ]
             }

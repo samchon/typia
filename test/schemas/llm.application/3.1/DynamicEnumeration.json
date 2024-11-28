@@ -62,20 +62,17 @@
                       "ko",
                       "pt",
                       "ru"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 },
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               }
             },
             "required": [
               "first"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -142,14 +139,12 @@
                       "ko",
                       "pt",
                       "ru"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 },
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               },
               "second": {
                 "oneOf": [
@@ -204,14 +199,12 @@
                           "ko",
                           "pt",
                           "ru"
-                        ],
-                        "additionalProperties": false
+                        ]
                       }
                     },
                     "required": [
                       "value"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               }
@@ -219,8 +212,7 @@
             "required": [
               "first",
               "second"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -277,14 +269,12 @@
               "ko",
               "pt",
               "ru"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
           "value"
-        ],
-        "additionalProperties": false
+        ]
       },
       "strict": true
     },
@@ -349,14 +339,12 @@
                           "ko",
                           "pt",
                           "ru"
-                        ],
-                        "additionalProperties": false
+                        ]
                       }
                     },
                     "required": [
                       "value"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               },
@@ -413,14 +401,12 @@
                           "ko",
                           "pt",
                           "ru"
-                        ],
-                        "additionalProperties": false
+                        ]
                       }
                     },
                     "required": [
                       "value"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               },
@@ -477,14 +463,12 @@
                           "ko",
                           "pt",
                           "ru"
-                        ],
-                        "additionalProperties": false
+                        ]
                       }
                     },
                     "required": [
                       "value"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               }
@@ -493,8 +477,7 @@
               "first",
               "second",
               "third"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -556,14 +539,12 @@
                   "ko",
                   "pt",
                   "ru"
-                ],
-                "additionalProperties": false
+                ]
               }
             },
             "required": [
               "value"
-            ],
-            "additionalProperties": false
+            ]
           }
         ]
       },

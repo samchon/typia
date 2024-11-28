@@ -41,7 +41,6 @@
     "faint",
     "array"
   ],
-  "additionalProperties": false,
   "$defs": {
     "ObjectPartialAndRequired": {
       "type": "object",
@@ -78,8 +77,7 @@
         "boolean",
         "object",
         "array"
-      ],
-      "additionalProperties": false
+      ]
     }
   }
 }

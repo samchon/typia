@@ -26,14 +26,12 @@
                 "required": [
                   "name",
                   "age"
-                ],
-                "additionalProperties": false
+                ]
               }
             },
             "required": [
               "first"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -65,8 +63,7 @@
                 "required": [
                   "name",
                   "age"
-                ],
-                "additionalProperties": false
+                ]
               },
               "second": {
                 "oneOf": [
@@ -86,8 +83,7 @@
                     "required": [
                       "name",
                       "age"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               }
@@ -95,8 +91,7 @@
             "required": [
               "first",
               "second"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -118,8 +113,7 @@
         "required": [
           "name",
           "age"
-        ],
-        "additionalProperties": false
+        ]
       },
       "strict": true
     },
@@ -149,8 +143,7 @@
                     "required": [
                       "name",
                       "age"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               },
@@ -172,8 +165,7 @@
                     "required": [
                       "name",
                       "age"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               },
@@ -195,8 +187,7 @@
                     "required": [
                       "name",
                       "age"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               }
@@ -205,8 +196,7 @@
               "first",
               "second",
               "third"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -233,8 +223,7 @@
             "required": [
               "name",
               "age"
-            ],
-            "additionalProperties": false
+            ]
           }
         ]
       },

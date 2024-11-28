@@ -46,7 +46,9 @@ export namespace LlmApplicationProgrammer {
       const object: MetadataObjectType | undefined = metadata.objects[0]?.type;
       if (object !== undefined) {
         if (object.properties.some((p) => p.key.isSoleLiteral() === false))
-          output.push("LLM application does not allow dynamic keys.");
+          output.push(
+            "LLM application does not allow dynamic keys on class/interface type.",
+          );
         let least: boolean = false;
         for (const p of object.properties) {
           const value: Metadata = p.value;

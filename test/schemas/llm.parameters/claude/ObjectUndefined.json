@@ -32,8 +32,7 @@
             "required": [
               "id",
               "name"
-            ],
-            "additionalProperties": false
+            ]
           },
           "grade": {
             "type": "number"
@@ -46,8 +45,7 @@
           "classroom",
           "grade",
           "unknown"
-        ],
-        "additionalProperties": false
+        ]
       }
     },
     "nullable": {
@@ -86,8 +84,7 @@
                 "required": [
                   "id",
                   "name"
-                ],
-                "additionalProperties": false
+                ]
               },
               "grade": {
                 "type": "number"
@@ -100,8 +97,7 @@
               "classroom",
               "grade",
               "unknown"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       ]
@@ -137,8 +133,7 @@
             "required": [
               "id",
               "name"
-            ],
-            "additionalProperties": false
+            ]
           },
           "grade": {
             "type": "number"
@@ -151,8 +146,7 @@
           "classroom",
           "grade",
           "unknown"
-        ],
-        "additionalProperties": false
+        ]
       }
     },
     "faint": {
@@ -191,8 +185,7 @@
                 "required": [
                   "id",
                   "name"
-                ],
-                "additionalProperties": false
+                ]
               },
               "grade": {
                 "type": "number"
@@ -205,8 +198,7 @@
               "classroom",
               "grade",
               "unknown"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       ]
@@ -244,8 +236,7 @@
               "required": [
                 "id",
                 "name"
-              ],
-              "additionalProperties": false
+              ]
             },
             "grade": {
               "type": "number"
@@ -258,8 +249,7 @@
             "classroom",
             "grade",
             "unknown"
-          ],
-          "additionalProperties": false
+          ]
         }
       }
     }
@@ -271,6 +261,5 @@
     "faint",
     "array"
   ],
-  "additionalProperties": false,
   "$defs": {}
 }

@@ -99,14 +99,12 @@
                   "both2",
                   "both3",
                   "union"
-                ],
-                "additionalProperties": false
+                ]
               }
             },
             "required": [
               "first"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -210,8 +208,7 @@
                   "both2",
                   "both3",
                   "union"
-                ],
-                "additionalProperties": false
+                ]
               },
               "second": {
                 "oneOf": [
@@ -303,8 +300,7 @@
                       "both2",
                       "both3",
                       "union"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               }
@@ -312,8 +308,7 @@
             "required": [
               "first",
               "second"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -407,8 +402,7 @@
           "both2",
           "both3",
           "union"
-        ],
-        "additionalProperties": false
+        ]
       },
       "strict": true
     },
@@ -510,8 +504,7 @@
                       "both2",
                       "both3",
                       "union"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               },
@@ -605,8 +598,7 @@
                       "both2",
                       "both3",
                       "union"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               },
@@ -700,8 +692,7 @@
                       "both2",
                       "both3",
                       "union"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               }
@@ -710,8 +701,7 @@
               "first",
               "second",
               "third"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -810,8 +800,7 @@
               "both2",
               "both3",
               "union"
-            ],
-            "additionalProperties": false
+            ]
           }
         ]
       },

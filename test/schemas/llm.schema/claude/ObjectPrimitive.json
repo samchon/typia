@@ -50,8 +50,7 @@
           "extension",
           "url",
           "created_at"
-        ],
-        "additionalProperties": false
+        ]
       }
     },
     "secret": {
@@ -69,6 +68,5 @@
     "files",
     "secret",
     "created_at"
-  ],
-  "additionalProperties": false
+  ]
 }

@@ -1,0 +1,225 @@
+{
+  "model": "3.1",
+  "options": {
+    "constraint": false,
+    "reference": false,
+    "separate": null
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "p": {
+            "type": "object",
+            "properties": {
+              "first": {
+                "$ref": "#/$defs/DynamicTree"
+              }
+            },
+            "required": [
+              "first"
+            ]
+          }
+        },
+        "required": [
+          "p"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "DynamicTree": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "sequence": {
+                "type": "number"
+              },
+              "children": {
+                "$ref": "#/$defs/RecordstringDynamicTree"
+              }
+            },
+            "required": [
+              "id",
+              "sequence",
+              "children"
+            ]
+          },
+          "RecordstringDynamicTree": {
+            "description": "Construct a type with a set of properties K of type T",
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "additionalProperties": {
+              "$ref": "#/$defs/DynamicTree"
+            }
+          }
+        }
+      },
+      "strict": true
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "p": {
+            "type": "object",
+            "properties": {
+              "first": {
+                "$ref": "#/$defs/DynamicTree"
+              },
+              "second": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/$defs/DynamicTree"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "first",
+              "second"
+            ]
+          }
+        },
+        "required": [
+          "p"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "DynamicTree": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "sequence": {
+                "type": "number"
+              },
+              "children": {
+                "$ref": "#/$defs/RecordstringDynamicTree"
+              }
+            },
+            "required": [
+              "id",
+              "sequence",
+              "children"
+            ]
+          },
+          "RecordstringDynamicTree": {
+            "description": "Construct a type with a set of properties K of type T",
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "additionalProperties": {
+              "$ref": "#/$defs/DynamicTree"
+            }
+          }
+        }
+      },
+      "output": {
+        "$ref": "#/$defs/DynamicTree"
+      },
+      "strict": true
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "p": {
+            "type": "object",
+            "properties": {
+              "first": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/$defs/DynamicTree"
+                  }
+                ]
+              },
+              "second": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/$defs/DynamicTree"
+                  }
+                ]
+              },
+              "third": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/$defs/DynamicTree"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "first",
+              "second",
+              "third"
+            ]
+          }
+        },
+        "required": [
+          "p"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "DynamicTree": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "sequence": {
+                "type": "number"
+              },
+              "children": {
+                "$ref": "#/$defs/RecordstringDynamicTree"
+              }
+            },
+            "required": [
+              "id",
+              "sequence",
+              "children"
+            ]
+          },
+          "RecordstringDynamicTree": {
+            "description": "Construct a type with a set of properties K of type T",
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "additionalProperties": {
+              "$ref": "#/$defs/DynamicTree"
+            }
+          }
+        }
+      },
+      "output": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/DynamicTree"
+          }
+        ]
+      },
+      "strict": true
+    }
+  ]
+}

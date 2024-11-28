@@ -23,6 +23,5 @@
     "note",
     "editable",
     "incremental"
-  ],
-  "additionalProperties": false
+  ]
 }

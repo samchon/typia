@@ -63,6 +63,5 @@
     "datetime",
     "time",
     "duration"
-  ],
-  "additionalProperties": false
+  ]
 }

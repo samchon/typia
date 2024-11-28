@@ -23,6 +23,5 @@
     "dollar",
     "postfix",
     "powerOf"
-  ],
-  "additionalProperties": false
+  ]
 }

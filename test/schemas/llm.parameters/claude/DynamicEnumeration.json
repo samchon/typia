@@ -49,14 +49,12 @@
             "ko",
             "pt",
             "ru"
-          ],
-          "additionalProperties": false
+          ]
         }
       },
       "required": [
         "value"
-      ],
-      "additionalProperties": false
+      ]
     },
     "nullable": {
       "oneOf": [
@@ -111,14 +109,12 @@
                 "ko",
                 "pt",
                 "ru"
-              ],
-              "additionalProperties": false
+              ]
             }
           },
           "required": [
             "value"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -170,14 +166,12 @@
             "ko",
             "pt",
             "ru"
-          ],
-          "additionalProperties": false
+          ]
         }
       },
       "required": [
         "value"
-      ],
-      "additionalProperties": false
+      ]
     },
     "faint": {
       "oneOf": [
@@ -232,14 +226,12 @@
                 "ko",
                 "pt",
                 "ru"
-              ],
-              "additionalProperties": false
+              ]
             }
           },
           "required": [
             "value"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -293,14 +285,12 @@
               "ko",
               "pt",
               "ru"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
           "value"
-        ],
-        "additionalProperties": false
+        ]
       }
     }
   },
@@ -311,6 +301,5 @@
     "faint",
     "array"
   ],
-  "additionalProperties": false,
   "$defs": {}
 }

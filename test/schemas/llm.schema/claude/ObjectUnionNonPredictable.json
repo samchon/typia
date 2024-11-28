@@ -23,14 +23,12 @@
                         },
                         "required": [
                           "value"
-                        ],
-                        "additionalProperties": false
+                        ]
                       }
                     },
                     "required": [
                       "value"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   {
                     "type": "object",
@@ -44,14 +42,12 @@
                         },
                         "required": [
                           "value"
-                        ],
-                        "additionalProperties": false
+                        ]
                       }
                     },
                     "required": [
                       "value"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   {
                     "type": "object",
@@ -65,33 +61,28 @@
                         },
                         "required": [
                           "value"
-                        ],
-                        "additionalProperties": false
+                        ]
                       }
                     },
                     "required": [
                       "value"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               }
             },
             "required": [
               "value"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
           "value"
-        ],
-        "additionalProperties": false
+        ]
       }
     }
   },
   "required": [
     "value"
-  ],
-  "additionalProperties": false
+  ]
 }

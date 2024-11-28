@@ -31,8 +31,7 @@
                 "name",
                 "body",
                 "rank"
-              ],
-              "additionalProperties": false
+              ]
             }
           }
         },
@@ -40,8 +39,7 @@
           "name",
           "email",
           "hobbies"
-        ],
-        "additionalProperties": false
+        ]
       }
     },
     "nullable": {
@@ -79,8 +77,7 @@
                     "name",
                     "body",
                     "rank"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               }
             },
@@ -88,8 +85,7 @@
               "name",
               "email",
               "hobbies"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       ]
@@ -124,8 +120,7 @@
                 "name",
                 "body",
                 "rank"
-              ],
-              "additionalProperties": false
+              ]
             }
           }
         },
@@ -133,8 +128,7 @@
           "name",
           "email",
           "hobbies"
-        ],
-        "additionalProperties": false
+        ]
       }
     },
     "faint": {
@@ -172,8 +166,7 @@
                     "name",
                     "body",
                     "rank"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               }
             },
@@ -181,8 +174,7 @@
               "name",
               "email",
               "hobbies"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       ]
@@ -219,8 +211,7 @@
                   "name",
                   "body",
                   "rank"
-                ],
-                "additionalProperties": false
+                ]
               }
             }
           },
@@ -228,8 +219,7 @@
             "name",
             "email",
             "hobbies"
-          ],
-          "additionalProperties": false
+          ]
         }
       }
     }
@@ -241,6 +231,5 @@
     "faint",
     "array"
   ],
-  "additionalProperties": false,
   "$defs": {}
 }

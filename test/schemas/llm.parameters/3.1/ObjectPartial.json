@@ -37,8 +37,7 @@
         "string",
         "array",
         "object"
-      ],
-      "additionalProperties": false
+      ]
     },
     "nullable": {
       "oneOf": [
@@ -81,8 +80,7 @@
             "array",
             "object"
           ],
-          "description": "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional",
-          "additionalProperties": false
+          "description": "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional"
         }
       ]
     },
@@ -122,8 +120,7 @@
         "string",
         "array",
         "object"
-      ],
-      "additionalProperties": false
+      ]
     },
     "faint": {
       "oneOf": [
@@ -166,8 +163,7 @@
             "array",
             "object"
           ],
-          "description": "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional",
-          "additionalProperties": false
+          "description": "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional"
         }
       ]
     },
@@ -209,8 +205,7 @@
           "string",
           "array",
           "object"
-        ],
-        "additionalProperties": false
+        ]
       }
     }
   },
@@ -221,7 +216,6 @@
     "faint",
     "array"
   ],
-  "additionalProperties": false,
   "$defs": {
     "ObjectPartial.IBase": {
       "type": "object",
@@ -258,8 +252,7 @@
         "string",
         "array",
         "object"
-      ],
-      "additionalProperties": false
+      ]
     }
   }
 }

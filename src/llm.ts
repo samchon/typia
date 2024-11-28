@@ -32,6 +32,19 @@ import { ILlmApplication, ILlmSchema } from "@samchon/openapi";
  * humand and LLM sides' parameters into one through {@link HttpLlm.mergeParameters}
  * before the actual LLM function call execution.
  *
+ * Here is the list of available `Model` types with their corresponding LLM schema.
+ * Reading the following list, and determine the `Model` type considering the
+ * characteristics of the target LLM provider.
+ *
+ * - LLM provider schemas
+ *   - `chatgpt`: [`IChatGptSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IChatGptSchema.ts)
+ *   - `claude`: [`IClaudeSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IClaudeSchema.ts)
+ *   - `gemini`: [`IGeminiSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IGeminiSchema.ts)
+ *   - `llama`: [`ILlamaSchema`](https://github.com/samchon/openapi/blob/master/src/structures/ILlamaSchema.ts)
+ * - Midldle layer schemas
+ *   - `3.0`: [`ILlmSchemaV3`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3.ts)
+ *   - `3.1`: [`ILlmSchemaV3_1`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3_1.ts)
+ *
  * @template App Target class or interface type collecting the functions to call
  * @template Model LLM schema model
  * @template Config Configuration of LLM schema composition
@@ -73,6 +86,19 @@ export function application(
  * so that the parameters are separated to human and LLM sides, you can merge these
  * humand and LLM sides' parameters into one through {@link HttpLlm.mergeParameters}
  * before the actual LLM function call execution.
+ *
+ * Here is the list of available `Model` types with their corresponding LLM schema.
+ * Reading the following list, and determine the `Model` type considering the
+ * characteristics of the target LLM provider.
+ *
+ * - LLM provider schemas
+ *   - `chatgpt`: [`IChatGptSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IChatGptSchema.ts)
+ *   - `claude`: [`IClaudeSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IClaudeSchema.ts)
+ *   - `gemini`: [`IGeminiSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IGeminiSchema.ts)
+ *   - `llama`: [`ILlamaSchema`](https://github.com/samchon/openapi/blob/master/src/structures/ILlamaSchema.ts)
+ * - Midldle layer schemas
+ *   - `3.0`: [`ILlmSchemaV3`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3.ts)
+ *   - `3.1`: [`ILlmSchemaV3_1`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3_1.ts)
  *
  * @template App Target class or interface type collecting the functions to call
  * @template Model LLM schema model
@@ -117,6 +143,19 @@ export function application(): never {
  * text, by filling the parameters from the conversation (maybe chatting text) with user
  * (human).
  *
+ * Here is the list of available `Model` types with their corresponding LLM schema.
+ * Reading the following list, and determine the `Model` type considering the
+ * characteristics of the target LLM provider.
+ *
+ * - LLM provider schemas
+ *   - `chatgpt`: [`IChatGptSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IChatGptSchema.ts)
+ *   - `claude`: [`IClaudeSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IClaudeSchema.ts)
+ *   - `gemini`: [`IGeminiSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IGeminiSchema.ts)
+ *   - `llama`: [`ILlamaSchema`](https://github.com/samchon/openapi/blob/master/src/structures/ILlamaSchema.ts)
+ * - Midldle layer schemas
+ *   - `3.0`: [`ILlmSchemaV3`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3.ts)
+ *   - `3.1`: [`ILlmSchemaV3_1`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3_1.ts)
+ *
  * @template Parameters Target parameters type
  * @template Model LLM schema model
  * @template Config Configuration of LLM schema composition
@@ -143,6 +182,19 @@ export function parameters(): never;
  * that LLM (Large Language Model) can generate a structured output, not only a plain
  * text, by filling the parameters from the conversation (maybe chatting text) with user
  * (human).
+ *
+ * Here is the list of available `Model` types with their corresponding LLM schema.
+ * Reading the following list, and determine the `Model` type considering the
+ * characteristics of the target LLM provider.
+ *
+ * - LLM provider schemas
+ *   - `chatgpt`: [`IChatGptSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IChatGptSchema.ts)
+ *   - `claude`: [`IClaudeSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IClaudeSchema.ts)
+ *   - `gemini`: [`IGeminiSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IGeminiSchema.ts)
+ *   - `llama`: [`ILlamaSchema`](https://github.com/samchon/openapi/blob/master/src/structures/ILlamaSchema.ts)
+ * - Midldle layer schemas
+ *   - `3.0`: [`ILlmSchemaV3`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3.ts)
+ *   - `3.1`: [`ILlmSchemaV3_1`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3_1.ts)
  *
  * @template Parameters Target parameters type
  * @template Model LLM schema model
@@ -174,7 +226,9 @@ export function parameters(): never {
  * from a TypeScript type.
  *
  * The returned {@link ILlmSchema} type would be specified by the `Model` argument,
- * and here is the list of available `Model` types with their corresponding LLM schema:
+ * and here is the list of available `Model` types with their corresponding LLM schema.
+ * Reading the following list, and determine the `Model` type considering the
+ * characteristics of the target LLM provider.
  *
  * - LLM provider schemas
  *   - `chatgpt`: [`IChatGptSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IChatGptSchema.ts)

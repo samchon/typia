@@ -131,14 +131,12 @@
                   "union_but_string",
                   "vulnerable_range",
                   "boolean_and_number_and_template"
-                ],
-                "additionalProperties": false
+                ]
               }
             },
             "required": [
               "first"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -275,8 +273,7 @@
                   "union_but_string",
                   "vulnerable_range",
                   "boolean_and_number_and_template"
-                ],
-                "additionalProperties": false
+                ]
               },
               "second": {
                 "oneOf": [
@@ -401,8 +398,7 @@
                       "union_but_string",
                       "vulnerable_range",
                       "boolean_and_number_and_template"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               }
@@ -410,8 +406,7 @@
             "required": [
               "first",
               "second"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -538,8 +533,7 @@
           "union_but_string",
           "vulnerable_range",
           "boolean_and_number_and_template"
-        ],
-        "additionalProperties": false
+        ]
       },
       "strict": true
     },
@@ -674,8 +668,7 @@
                       "union_but_string",
                       "vulnerable_range",
                       "boolean_and_number_and_template"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               },
@@ -802,8 +795,7 @@
                       "union_but_string",
                       "vulnerable_range",
                       "boolean_and_number_and_template"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               },
@@ -930,8 +922,7 @@
                       "union_but_string",
                       "vulnerable_range",
                       "boolean_and_number_and_template"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               }
@@ -940,8 +931,7 @@
               "first",
               "second",
               "third"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -1073,8 +1063,7 @@
               "union_but_string",
               "vulnerable_range",
               "boolean_and_number_and_template"
-            ],
-            "additionalProperties": false
+            ]
           }
         ]
       },

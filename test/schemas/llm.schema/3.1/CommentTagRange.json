@@ -53,13 +53,11 @@
           "greater_less_equal",
           "greater_equal_less_equal",
           "equal"
-        ],
-        "additionalProperties": false
+        ]
       }
     }
   },
   "required": [
     "value"
-  ],
-  "additionalProperties": false
+  ]
 }

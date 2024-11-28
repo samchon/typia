@@ -44,8 +44,7 @@
                           "name",
                           "body",
                           "rank"
-                        ],
-                        "additionalProperties": false
+                        ]
                       }
                     }
                   },
@@ -53,15 +52,13 @@
                     "name",
                     "email",
                     "hobbies"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               }
             },
             "required": [
               "first"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -110,8 +107,7 @@
                           "name",
                           "body",
                           "rank"
-                        ],
-                        "additionalProperties": false
+                        ]
                       }
                     }
                   },
@@ -119,8 +115,7 @@
                     "name",
                     "email",
                     "hobbies"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               },
               "second": {
@@ -158,8 +153,7 @@
                               "name",
                               "body",
                               "rank"
-                            ],
-                            "additionalProperties": false
+                            ]
                           }
                         }
                       },
@@ -167,8 +161,7 @@
                         "name",
                         "email",
                         "hobbies"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 ]
@@ -177,8 +170,7 @@
             "required": [
               "first",
               "second"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -217,8 +209,7 @@
                   "name",
                   "body",
                   "rank"
-                ],
-                "additionalProperties": false
+                ]
               }
             }
           },
@@ -226,8 +217,7 @@
             "name",
             "email",
             "hobbies"
-          ],
-          "additionalProperties": false
+          ]
         }
       },
       "strict": true
@@ -275,8 +265,7 @@
                               "name",
                               "body",
                               "rank"
-                            ],
-                            "additionalProperties": false
+                            ]
                           }
                         }
                       },
@@ -284,8 +273,7 @@
                         "name",
                         "email",
                         "hobbies"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 ]
@@ -325,8 +313,7 @@
                               "name",
                               "body",
                               "rank"
-                            ],
-                            "additionalProperties": false
+                            ]
                           }
                         }
                       },
@@ -334,8 +321,7 @@
                         "name",
                         "email",
                         "hobbies"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 ]
@@ -375,8 +361,7 @@
                               "name",
                               "body",
                               "rank"
-                            ],
-                            "additionalProperties": false
+                            ]
                           }
                         }
                       },
@@ -384,8 +369,7 @@
                         "name",
                         "email",
                         "hobbies"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 ]
@@ -395,8 +379,7 @@
               "first",
               "second",
               "third"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -440,8 +423,7 @@
                       "name",
                       "body",
                       "rank"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 }
               },
@@ -449,8 +431,7 @@
                 "name",
                 "email",
                 "hobbies"
-              ],
-              "additionalProperties": false
+              ]
             }
           }
         ]

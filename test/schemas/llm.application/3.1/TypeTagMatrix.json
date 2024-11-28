@@ -32,14 +32,12 @@
                 },
                 "required": [
                   "matrix"
-                ],
-                "additionalProperties": false
+                ]
               }
             },
             "required": [
               "first"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -76,8 +74,7 @@
                 },
                 "required": [
                   "matrix"
-                ],
-                "additionalProperties": false
+                ]
               },
               "second": {
                 "oneOf": [
@@ -102,8 +99,7 @@
                     },
                     "required": [
                       "matrix"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               }
@@ -111,8 +107,7 @@
             "required": [
               "first",
               "second"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -139,8 +134,7 @@
         },
         "required": [
           "matrix"
-        ],
-        "additionalProperties": false
+        ]
       },
       "strict": true
     },
@@ -175,8 +169,7 @@
                     },
                     "required": [
                       "matrix"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               },
@@ -203,8 +196,7 @@
                     },
                     "required": [
                       "matrix"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               },
@@ -231,8 +223,7 @@
                     },
                     "required": [
                       "matrix"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               }
@@ -241,8 +232,7 @@
               "first",
               "second",
               "third"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -274,8 +264,7 @@
             },
             "required": [
               "matrix"
-            ],
-            "additionalProperties": false
+            ]
           }
         ]
       },

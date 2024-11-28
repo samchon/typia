@@ -68,13 +68,11 @@
           "prefix",
           "postfix",
           "combined"
-        ],
-        "additionalProperties": false
+        ]
       }
     }
   },
   "required": [
     "value"
-  ],
-  "additionalProperties": false
+  ]
 }

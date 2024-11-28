@@ -41,7 +41,6 @@
     "faint",
     "array"
   ],
-  "additionalProperties": false,
   "$defs": {
     "ObjectRecursive.IDepartment": {
       "type": "object",
@@ -81,8 +80,7 @@
           "required": [
             "time",
             "zone"
-          ],
-          "additionalProperties": false
+          ]
         }
       },
       "required": [
@@ -92,8 +90,7 @@
         "name",
         "sequence",
         "created_at"
-      ],
-      "additionalProperties": false
+      ]
     }
   }
 }

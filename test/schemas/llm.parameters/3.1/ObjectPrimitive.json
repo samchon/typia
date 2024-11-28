@@ -53,8 +53,7 @@
               "extension",
               "url",
               "created_at"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "secret": {
@@ -72,8 +71,7 @@
         "files",
         "secret",
         "created_at"
-      ],
-      "additionalProperties": false
+      ]
     },
     "nullable": {
       "oneOf": [
@@ -132,8 +130,7 @@
                   "extension",
                   "url",
                   "created_at"
-                ],
-                "additionalProperties": false
+                ]
               }
             },
             "secret": {
@@ -151,8 +148,7 @@
             "files",
             "secret",
             "created_at"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -208,8 +204,7 @@
               "extension",
               "url",
               "created_at"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "secret": {
@@ -227,8 +222,7 @@
         "files",
         "secret",
         "created_at"
-      ],
-      "additionalProperties": false
+      ]
     },
     "faint": {
       "oneOf": [
@@ -287,8 +281,7 @@
                   "extension",
                   "url",
                   "created_at"
-                ],
-                "additionalProperties": false
+                ]
               }
             },
             "secret": {
@@ -306,8 +299,7 @@
             "files",
             "secret",
             "created_at"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -365,8 +357,7 @@
                 "extension",
                 "url",
                 "created_at"
-              ],
-              "additionalProperties": false
+              ]
             }
           },
           "secret": {
@@ -384,8 +375,7 @@
           "files",
           "secret",
           "created_at"
-        ],
-        "additionalProperties": false
+        ]
       }
     }
   },
@@ -396,6 +386,5 @@
     "faint",
     "array"
   ],
-  "additionalProperties": false,
   "$defs": {}
 }

@@ -37,14 +37,12 @@
                   "id",
                   "name",
                   "dead"
-                ],
-                "additionalProperties": false
+                ]
               }
             },
             "required": [
               "first"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -87,8 +85,7 @@
                   "id",
                   "name",
                   "dead"
-                ],
-                "additionalProperties": false
+                ]
               },
               "second": {
                 "oneOf": [
@@ -119,8 +116,7 @@
                       "id",
                       "name",
                       "dead"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               }
@@ -128,8 +124,7 @@
             "required": [
               "first",
               "second"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -162,8 +157,7 @@
           "id",
           "name",
           "dead"
-        ],
-        "additionalProperties": false
+        ]
       },
       "strict": true
     },
@@ -204,8 +198,7 @@
                       "id",
                       "name",
                       "dead"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               },
@@ -238,8 +231,7 @@
                       "id",
                       "name",
                       "dead"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               },
@@ -272,8 +264,7 @@
                       "id",
                       "name",
                       "dead"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               }
@@ -282,8 +273,7 @@
               "first",
               "second",
               "third"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -321,8 +311,7 @@
               "id",
               "name",
               "dead"
-            ],
-            "additionalProperties": false
+            ]
           }
         ]
       },

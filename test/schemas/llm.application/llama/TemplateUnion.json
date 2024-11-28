@@ -70,8 +70,7 @@
                               },
                               "required": [
                                 "name"
-                              ],
-                              "additionalProperties": false
+                              ]
                             }
                           ]
                         }
@@ -81,21 +80,18 @@
                         "postfix",
                         "middle",
                         "mixed"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 },
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               }
             },
             "required": [
               "first"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -171,8 +167,7 @@
                               },
                               "required": [
                                 "name"
-                              ],
-                              "additionalProperties": false
+                              ]
                             }
                           ]
                         }
@@ -182,15 +177,13 @@
                         "postfix",
                         "middle",
                         "mixed"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 },
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               },
               "second": {
                 "oneOf": [
@@ -254,8 +247,7 @@
                                   },
                                   "required": [
                                     "name"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
                               ]
                             }
@@ -265,15 +257,13 @@
                             "postfix",
                             "middle",
                             "mixed"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       }
                     },
                     "required": [
                       "value"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               }
@@ -281,8 +271,7 @@
             "required": [
               "first",
               "second"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -348,8 +337,7 @@
                       },
                       "required": [
                         "name"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   ]
                 }
@@ -359,15 +347,13 @@
                 "postfix",
                 "middle",
                 "mixed"
-              ],
-              "additionalProperties": false
+              ]
             }
           }
         },
         "required": [
           "value"
-        ],
-        "additionalProperties": false
+        ]
       },
       "strict": true
     },
@@ -441,8 +427,7 @@
                                   },
                                   "required": [
                                     "name"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
                               ]
                             }
@@ -452,15 +437,13 @@
                             "postfix",
                             "middle",
                             "mixed"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       }
                     },
                     "required": [
                       "value"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               },
@@ -526,8 +509,7 @@
                                   },
                                   "required": [
                                     "name"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
                               ]
                             }
@@ -537,15 +519,13 @@
                             "postfix",
                             "middle",
                             "mixed"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       }
                     },
                     "required": [
                       "value"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               },
@@ -611,8 +591,7 @@
                                   },
                                   "required": [
                                     "name"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
                               ]
                             }
@@ -622,15 +601,13 @@
                             "postfix",
                             "middle",
                             "mixed"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       }
                     },
                     "required": [
                       "value"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               }
@@ -639,8 +616,7 @@
               "first",
               "second",
               "third"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -711,8 +687,7 @@
                           },
                           "required": [
                             "name"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       ]
                     }
@@ -722,15 +697,13 @@
                     "postfix",
                     "middle",
                     "mixed"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               }
             },
             "required": [
               "value"
-            ],
-            "additionalProperties": false
+            ]
           }
         ]
       },

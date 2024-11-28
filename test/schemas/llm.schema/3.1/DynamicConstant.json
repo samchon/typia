@@ -22,12 +22,10 @@
         "b",
         "c",
         "d"
-      ],
-      "additionalProperties": false
+      ]
     }
   },
   "required": [
     "value"
-  ],
-  "additionalProperties": false
+  ]
 }

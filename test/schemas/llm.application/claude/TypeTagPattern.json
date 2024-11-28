@@ -38,14 +38,12 @@
                   "email",
                   "ipv4",
                   "ipv6"
-                ],
-                "additionalProperties": false
+                ]
               }
             },
             "required": [
               "first"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -89,8 +87,7 @@
                   "email",
                   "ipv4",
                   "ipv6"
-                ],
-                "additionalProperties": false
+                ]
               },
               "second": {
                 "oneOf": [
@@ -122,8 +119,7 @@
                       "email",
                       "ipv4",
                       "ipv6"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               }
@@ -131,8 +127,7 @@
             "required": [
               "first",
               "second"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -166,8 +161,7 @@
           "email",
           "ipv4",
           "ipv6"
-        ],
-        "additionalProperties": false
+        ]
       },
       "strict": true
     },
@@ -209,8 +203,7 @@
                       "email",
                       "ipv4",
                       "ipv6"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               },
@@ -244,8 +237,7 @@
                       "email",
                       "ipv4",
                       "ipv6"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               },
@@ -279,8 +271,7 @@
                       "email",
                       "ipv4",
                       "ipv6"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               }
@@ -289,8 +280,7 @@
               "first",
               "second",
               "third"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -329,8 +319,7 @@
               "email",
               "ipv4",
               "ipv6"
-            ],
-            "additionalProperties": false
+            ]
           }
         ]
       },

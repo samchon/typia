@@ -16,6 +16,5 @@
   },
   "required": [
     "matrix"
-  ],
-  "additionalProperties": false
+  ]
 }

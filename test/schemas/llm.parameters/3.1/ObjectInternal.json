@@ -14,8 +14,7 @@
       "required": [
         "id",
         "name"
-      ],
-      "additionalProperties": false
+      ]
     },
     "nullable": {
       "oneOf": [
@@ -35,8 +34,7 @@
           "required": [
             "id",
             "name"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -53,8 +51,7 @@
       "required": [
         "id",
         "name"
-      ],
-      "additionalProperties": false
+      ]
     },
     "faint": {
       "oneOf": [
@@ -74,8 +71,7 @@
           "required": [
             "id",
             "name"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -94,8 +90,7 @@
         "required": [
           "id",
           "name"
-        ],
-        "additionalProperties": false
+        ]
       }
     }
   },
@@ -106,6 +101,5 @@
     "faint",
     "array"
   ],
-  "additionalProperties": false,
   "$defs": {}
 }
