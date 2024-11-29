@@ -11,48 +11,40 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
-            "type": "object",
-            "properties": {
-              "first": {
-                "type": "array",
-                "items": {
-                  "oneOf": [
-                    {
-                      "type": "object",
-                      "properties": {
-                        "value": {
-                          "description": "@minimum 3",
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "value"
-                      ]
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "value": {
-                          "description": "@minLength 3\n@maxLength 7",
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "value"
-                      ]
+          "first": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "description": "@minimum 3",
+                      "type": "number"
                     }
+                  },
+                  "required": [
+                    "value"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "description": "@minLength 3\n@maxLength 7",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "value"
                   ]
                 }
-              }
-            },
-            "required": [
-              "first"
-            ]
+              ]
+            }
           }
         },
         "required": [
-          "p"
+          "first"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -64,10 +56,43 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
-            "type": "object",
-            "properties": {
-              "first": {
+          "first": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "description": "@minimum 3",
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "description": "@minLength 3\n@maxLength 7",
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ]
+                }
+              ]
+            }
+          },
+          "second": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
                 "type": "array",
                 "items": {
                   "oneOf": [
@@ -97,54 +122,13 @@
                     }
                   ]
                 }
-              },
-              "second": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "array",
-                    "items": {
-                      "oneOf": [
-                        {
-                          "type": "object",
-                          "properties": {
-                            "value": {
-                              "description": "@minimum 3",
-                              "type": "number"
-                            }
-                          },
-                          "required": [
-                            "value"
-                          ]
-                        },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "value": {
-                              "description": "@minLength 3\n@maxLength 7",
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "value"
-                          ]
-                        }
-                      ]
-                    }
-                  }
-                ]
               }
-            },
-            "required": [
-              "first",
-              "second"
             ]
           }
         },
         "required": [
-          "p"
+          "first",
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -187,133 +171,125 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
-            "type": "object",
-            "properties": {
-              "first": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "array",
-                    "items": {
-                      "oneOf": [
-                        {
-                          "type": "object",
-                          "properties": {
-                            "value": {
-                              "description": "@minimum 3",
-                              "type": "number"
-                            }
-                          },
-                          "required": [
-                            "value"
-                          ]
-                        },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "value": {
-                              "description": "@minLength 3\n@maxLength 7",
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "value"
-                          ]
-                        }
-                      ]
-                    }
-                  }
-                ]
+          "first": {
+            "oneOf": [
+              {
+                "type": "null"
               },
-              "second": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "array",
-                    "items": {
-                      "oneOf": [
-                        {
-                          "type": "object",
-                          "properties": {
-                            "value": {
-                              "description": "@minimum 3",
-                              "type": "number"
-                            }
-                          },
-                          "required": [
-                            "value"
-                          ]
-                        },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "value": {
-                              "description": "@minLength 3\n@maxLength 7",
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "value"
-                          ]
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "value": {
+                          "description": "@minimum 3",
+                          "type": "number"
                         }
+                      },
+                      "required": [
+                        "value"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "value": {
+                          "description": "@minLength 3\n@maxLength 7",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "value"
                       ]
                     }
-                  }
-                ]
-              },
-              "third": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "array",
-                    "items": {
-                      "oneOf": [
-                        {
-                          "type": "object",
-                          "properties": {
-                            "value": {
-                              "description": "@minimum 3",
-                              "type": "number"
-                            }
-                          },
-                          "required": [
-                            "value"
-                          ]
-                        },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "value": {
-                              "description": "@minLength 3\n@maxLength 7",
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "value"
-                          ]
-                        }
-                      ]
-                    }
-                  }
-                ]
+                  ]
+                }
               }
-            },
-            "required": [
-              "first",
-              "second",
-              "third"
+            ]
+          },
+          "second": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "value": {
+                          "description": "@minimum 3",
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "value"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "value": {
+                          "description": "@minLength 3\n@maxLength 7",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "value"
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "third": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "value": {
+                          "description": "@minimum 3",
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "value"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "value": {
+                          "description": "@minLength 3\n@maxLength 7",
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "value"
+                      ]
+                    }
+                  ]
+                }
+              }
             ]
           }
         },
         "required": [
-          "p"
+          "first",
+          "second",
+          "third"
         ],
         "additionalProperties": false,
         "$defs": {}

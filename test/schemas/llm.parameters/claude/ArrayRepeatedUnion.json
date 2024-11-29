@@ -351,6 +351,7 @@
     "faint",
     "array"
   ],
+  "additionalProperties": false,
   "$defs": {
     "ArrayRepeatedUnion": {
       "oneOf": [

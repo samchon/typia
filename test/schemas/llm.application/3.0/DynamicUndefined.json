@@ -11,24 +11,15 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
+          "first": {
             "type": "object",
-            "properties": {
-              "first": {
-                "type": "object",
-                "properties": {},
-                "required": [],
-                "additionalProperties": false
-              }
-            },
-            "required": [
-              "first"
-            ],
+            "properties": {},
+            "required": [],
             "additionalProperties": false
           }
         },
         "required": [
-          "p"
+          "first"
         ],
         "additionalProperties": false
       },
@@ -39,32 +30,23 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
+          "first": {
             "type": "object",
-            "properties": {
-              "first": {
-                "type": "object",
-                "properties": {},
-                "required": [],
-                "additionalProperties": false
-              },
-              "second": {
-                "type": "object",
-                "properties": {},
-                "required": [],
-                "additionalProperties": false,
-                "nullable": true
-              }
-            },
-            "required": [
-              "first",
-              "second"
-            ],
+            "properties": {},
+            "required": [],
             "additionalProperties": false
+          },
+          "second": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "additionalProperties": false,
+            "nullable": true
           }
         },
         "required": [
-          "p"
+          "first",
+          "second"
         ],
         "additionalProperties": false
       },
@@ -81,40 +63,31 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
+          "first": {
             "type": "object",
-            "properties": {
-              "first": {
-                "type": "object",
-                "properties": {},
-                "required": [],
-                "additionalProperties": false,
-                "nullable": true
-              },
-              "second": {
-                "type": "object",
-                "properties": {},
-                "required": [],
-                "additionalProperties": false,
-                "nullable": true
-              },
-              "third": {
-                "type": "object",
-                "properties": {},
-                "required": [],
-                "additionalProperties": false,
-                "nullable": true
-              }
-            },
-            "required": [
-              "first",
-              "second"
-            ],
-            "additionalProperties": false
+            "properties": {},
+            "required": [],
+            "additionalProperties": false,
+            "nullable": true
+          },
+          "second": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "additionalProperties": false,
+            "nullable": true
+          },
+          "third": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "additionalProperties": false,
+            "nullable": true
           }
         },
         "required": [
-          "p"
+          "first",
+          "second"
         ],
         "additionalProperties": false
       },

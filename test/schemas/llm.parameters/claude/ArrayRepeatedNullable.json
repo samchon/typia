@@ -53,6 +53,7 @@
     "faint",
     "array"
   ],
+  "additionalProperties": false,
   "$defs": {
     "ArrayRepeatedNullable": {
       "oneOf": [

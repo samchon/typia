@@ -11,48 +11,40 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
+          "first": {
             "type": "object",
             "properties": {
-              "first": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "oneOf": [
-                      {
-                        "const": "latest"
-                      },
-                      {
-                        "type": "string",
-                        "description": "@format uuid"
-                      }
-                    ]
+              "id": {
+                "oneOf": [
+                  {
+                    "const": "latest"
                   },
-                  "age": {
-                    "oneOf": [
-                      {
-                        "const": -1
-                      },
-                      {
-                        "type": "integer",
-                        "description": "@maximum 100"
-                      }
-                    ]
+                  {
+                    "type": "string",
+                    "description": "@format uuid"
                   }
-                },
-                "required": [
-                  "id",
-                  "age"
+                ]
+              },
+              "age": {
+                "oneOf": [
+                  {
+                    "const": -1
+                  },
+                  {
+                    "type": "integer",
+                    "description": "@maximum 100"
+                  }
                 ]
               }
             },
             "required": [
-              "first"
+              "id",
+              "age"
             ]
           }
         },
         "required": [
-          "p"
+          "first"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -64,10 +56,43 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
+          "first": {
             "type": "object",
             "properties": {
-              "first": {
+              "id": {
+                "oneOf": [
+                  {
+                    "const": "latest"
+                  },
+                  {
+                    "type": "string",
+                    "description": "@format uuid"
+                  }
+                ]
+              },
+              "age": {
+                "oneOf": [
+                  {
+                    "const": -1
+                  },
+                  {
+                    "type": "integer",
+                    "description": "@maximum 100"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "age"
+            ]
+          },
+          "second": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
                 "type": "object",
                 "properties": {
                   "id": {
@@ -97,54 +122,13 @@
                   "id",
                   "age"
                 ]
-              },
-              "second": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "oneOf": [
-                          {
-                            "const": "latest"
-                          },
-                          {
-                            "type": "string",
-                            "description": "@format uuid"
-                          }
-                        ]
-                      },
-                      "age": {
-                        "oneOf": [
-                          {
-                            "const": -1
-                          },
-                          {
-                            "type": "integer",
-                            "description": "@maximum 100"
-                          }
-                        ]
-                      }
-                    },
-                    "required": [
-                      "id",
-                      "age"
-                    ]
-                  }
-                ]
               }
-            },
-            "required": [
-              "first",
-              "second"
             ]
           }
         },
         "required": [
-          "p"
+          "first",
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -187,133 +171,125 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
-            "type": "object",
-            "properties": {
-              "first": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "oneOf": [
-                          {
-                            "const": "latest"
-                          },
-                          {
-                            "type": "string",
-                            "description": "@format uuid"
-                          }
-                        ]
-                      },
-                      "age": {
-                        "oneOf": [
-                          {
-                            "const": -1
-                          },
-                          {
-                            "type": "integer",
-                            "description": "@maximum 100"
-                          }
-                        ]
-                      }
-                    },
-                    "required": [
-                      "id",
-                      "age"
-                    ]
-                  }
-                ]
+          "first": {
+            "oneOf": [
+              {
+                "type": "null"
               },
-              "second": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "oneOf": [
-                          {
-                            "const": "latest"
-                          },
-                          {
-                            "type": "string",
-                            "description": "@format uuid"
-                          }
-                        ]
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "oneOf": [
+                      {
+                        "const": "latest"
                       },
-                      "age": {
-                        "oneOf": [
-                          {
-                            "const": -1
-                          },
-                          {
-                            "type": "integer",
-                            "description": "@maximum 100"
-                          }
-                        ]
+                      {
+                        "type": "string",
+                        "description": "@format uuid"
                       }
-                    },
-                    "required": [
-                      "id",
-                      "age"
+                    ]
+                  },
+                  "age": {
+                    "oneOf": [
+                      {
+                        "const": -1
+                      },
+                      {
+                        "type": "integer",
+                        "description": "@maximum 100"
+                      }
                     ]
                   }
-                ]
-              },
-              "third": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "oneOf": [
-                          {
-                            "const": "latest"
-                          },
-                          {
-                            "type": "string",
-                            "description": "@format uuid"
-                          }
-                        ]
-                      },
-                      "age": {
-                        "oneOf": [
-                          {
-                            "const": -1
-                          },
-                          {
-                            "type": "integer",
-                            "description": "@maximum 100"
-                          }
-                        ]
-                      }
-                    },
-                    "required": [
-                      "id",
-                      "age"
-                    ]
-                  }
+                },
+                "required": [
+                  "id",
+                  "age"
                 ]
               }
-            },
-            "required": [
-              "first",
-              "second",
-              "third"
+            ]
+          },
+          "second": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "oneOf": [
+                      {
+                        "const": "latest"
+                      },
+                      {
+                        "type": "string",
+                        "description": "@format uuid"
+                      }
+                    ]
+                  },
+                  "age": {
+                    "oneOf": [
+                      {
+                        "const": -1
+                      },
+                      {
+                        "type": "integer",
+                        "description": "@maximum 100"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "id",
+                  "age"
+                ]
+              }
+            ]
+          },
+          "third": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "oneOf": [
+                      {
+                        "const": "latest"
+                      },
+                      {
+                        "type": "string",
+                        "description": "@format uuid"
+                      }
+                    ]
+                  },
+                  "age": {
+                    "oneOf": [
+                      {
+                        "const": -1
+                      },
+                      {
+                        "type": "integer",
+                        "description": "@maximum 100"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "id",
+                  "age"
+                ]
+              }
             ]
           }
         },
         "required": [
-          "p"
+          "first",
+          "second",
+          "third"
         ],
         "additionalProperties": false,
         "$defs": {}

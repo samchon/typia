@@ -10,32 +10,24 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
+          "first": {
             "type": "object",
             "properties": {
-              "first": {
-                "type": "object",
-                "properties": {
-                  "something-interesting-do-you-want?": {
-                    "type": "string"
-                  },
-                  "or-something-crazy-do-you-want?": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "something-interesting-do-you-want?",
-                  "or-something-crazy-do-you-want?"
-                ]
+              "something-interesting-do-you-want?": {
+                "type": "string"
+              },
+              "or-something-crazy-do-you-want?": {
+                "type": "string"
               }
             },
             "required": [
-              "first"
+              "something-interesting-do-you-want?",
+              "or-something-crazy-do-you-want?"
             ]
           }
         },
         "required": [
-          "p"
+          "first"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -47,10 +39,27 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
+          "first": {
             "type": "object",
             "properties": {
-              "first": {
+              "something-interesting-do-you-want?": {
+                "type": "string"
+              },
+              "or-something-crazy-do-you-want?": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "something-interesting-do-you-want?",
+              "or-something-crazy-do-you-want?"
+            ]
+          },
+          "second": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
                 "type": "object",
                 "properties": {
                   "something-interesting-do-you-want?": {
@@ -64,38 +73,13 @@
                   "something-interesting-do-you-want?",
                   "or-something-crazy-do-you-want?"
                 ]
-              },
-              "second": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "something-interesting-do-you-want?": {
-                        "type": "string"
-                      },
-                      "or-something-crazy-do-you-want?": {
-                        "type": "string"
-                      }
-                    },
-                    "required": [
-                      "something-interesting-do-you-want?",
-                      "or-something-crazy-do-you-want?"
-                    ]
-                  }
-                ]
               }
-            },
-            "required": [
-              "first",
-              "second"
             ]
           }
         },
         "required": [
-          "p"
+          "first",
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -122,85 +106,77 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
-            "type": "object",
-            "properties": {
-              "first": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "something-interesting-do-you-want?": {
-                        "type": "string"
-                      },
-                      "or-something-crazy-do-you-want?": {
-                        "type": "string"
-                      }
-                    },
-                    "required": [
-                      "something-interesting-do-you-want?",
-                      "or-something-crazy-do-you-want?"
-                    ]
-                  }
-                ]
+          "first": {
+            "oneOf": [
+              {
+                "type": "null"
               },
-              "second": {
-                "oneOf": [
-                  {
-                    "type": "null"
+              {
+                "type": "object",
+                "properties": {
+                  "something-interesting-do-you-want?": {
+                    "type": "string"
                   },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "something-interesting-do-you-want?": {
-                        "type": "string"
-                      },
-                      "or-something-crazy-do-you-want?": {
-                        "type": "string"
-                      }
-                    },
-                    "required": [
-                      "something-interesting-do-you-want?",
-                      "or-something-crazy-do-you-want?"
-                    ]
+                  "or-something-crazy-do-you-want?": {
+                    "type": "string"
                   }
-                ]
-              },
-              "third": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "something-interesting-do-you-want?": {
-                        "type": "string"
-                      },
-                      "or-something-crazy-do-you-want?": {
-                        "type": "string"
-                      }
-                    },
-                    "required": [
-                      "something-interesting-do-you-want?",
-                      "or-something-crazy-do-you-want?"
-                    ]
-                  }
+                },
+                "required": [
+                  "something-interesting-do-you-want?",
+                  "or-something-crazy-do-you-want?"
                 ]
               }
-            },
-            "required": [
-              "first",
-              "second",
-              "third"
+            ]
+          },
+          "second": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "something-interesting-do-you-want?": {
+                    "type": "string"
+                  },
+                  "or-something-crazy-do-you-want?": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "something-interesting-do-you-want?",
+                  "or-something-crazy-do-you-want?"
+                ]
+              }
+            ]
+          },
+          "third": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "something-interesting-do-you-want?": {
+                    "type": "string"
+                  },
+                  "or-something-crazy-do-you-want?": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "something-interesting-do-you-want?",
+                  "or-something-crazy-do-you-want?"
+                ]
+              }
             ]
           }
         },
         "required": [
-          "p"
+          "first",
+          "second",
+          "third"
         ],
         "additionalProperties": false,
         "$defs": {}

@@ -11,34 +11,26 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
+          "first": {
             "type": "object",
             "properties": {
-              "first": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "description": "@default something",
-                    "type": "string"
-                  },
-                  "age": {
-                    "description": "@default 20",
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "id",
-                  "age"
-                ]
+              "id": {
+                "description": "@default something",
+                "type": "string"
+              },
+              "age": {
+                "description": "@default 20",
+                "type": "number"
               }
             },
             "required": [
-              "first"
+              "id",
+              "age"
             ]
           }
         },
         "required": [
-          "p"
+          "first"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -50,10 +42,29 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
+          "first": {
             "type": "object",
             "properties": {
-              "first": {
+              "id": {
+                "description": "@default something",
+                "type": "string"
+              },
+              "age": {
+                "description": "@default 20",
+                "type": "number"
+              }
+            },
+            "required": [
+              "id",
+              "age"
+            ]
+          },
+          "second": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
                 "type": "object",
                 "properties": {
                   "id": {
@@ -69,40 +80,13 @@
                   "id",
                   "age"
                 ]
-              },
-              "second": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "description": "@default something",
-                        "type": "string"
-                      },
-                      "age": {
-                        "description": "@default 20",
-                        "type": "number"
-                      }
-                    },
-                    "required": [
-                      "id",
-                      "age"
-                    ]
-                  }
-                ]
               }
-            },
-            "required": [
-              "first",
-              "second"
             ]
           }
         },
         "required": [
-          "p"
+          "first",
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -131,91 +115,83 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
-            "type": "object",
-            "properties": {
-              "first": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "description": "@default something",
-                        "type": "string"
-                      },
-                      "age": {
-                        "description": "@default 20",
-                        "type": "number"
-                      }
-                    },
-                    "required": [
-                      "id",
-                      "age"
-                    ]
-                  }
-                ]
+          "first": {
+            "oneOf": [
+              {
+                "type": "null"
               },
-              "second": {
-                "oneOf": [
-                  {
-                    "type": "null"
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "description": "@default something",
+                    "type": "string"
                   },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "description": "@default something",
-                        "type": "string"
-                      },
-                      "age": {
-                        "description": "@default 20",
-                        "type": "number"
-                      }
-                    },
-                    "required": [
-                      "id",
-                      "age"
-                    ]
+                  "age": {
+                    "description": "@default 20",
+                    "type": "number"
                   }
-                ]
-              },
-              "third": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "description": "@default something",
-                        "type": "string"
-                      },
-                      "age": {
-                        "description": "@default 20",
-                        "type": "number"
-                      }
-                    },
-                    "required": [
-                      "id",
-                      "age"
-                    ]
-                  }
+                },
+                "required": [
+                  "id",
+                  "age"
                 ]
               }
-            },
-            "required": [
-              "first",
-              "second",
-              "third"
+            ]
+          },
+          "second": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "description": "@default something",
+                    "type": "string"
+                  },
+                  "age": {
+                    "description": "@default 20",
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "id",
+                  "age"
+                ]
+              }
+            ]
+          },
+          "third": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "description": "@default something",
+                    "type": "string"
+                  },
+                  "age": {
+                    "description": "@default 20",
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "id",
+                  "age"
+                ]
+              }
             ]
           }
         },
         "required": [
-          "p"
+          "first",
+          "second",
+          "third"
         ],
         "additionalProperties": false,
         "$defs": {}

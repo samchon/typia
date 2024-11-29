@@ -10,61 +10,53 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
+          "first": {
             "type": "object",
             "properties": {
-              "first": {
+              "value": {
                 "type": "object",
                 "properties": {
-                  "value": {
-                    "type": "object",
-                    "properties": {
-                      "ar": {
-                        "type": "string"
-                      },
-                      "zh-Hans": {
-                        "type": "string"
-                      },
-                      "zh-Hant": {
-                        "type": "string"
-                      },
-                      "en": {
-                        "type": "string"
-                      },
-                      "fr": {
-                        "type": "string"
-                      },
-                      "de": {
-                        "type": "string"
-                      },
-                      "ja": {
-                        "type": "string"
-                      },
-                      "ko": {
-                        "type": "string"
-                      },
-                      "pt": {
-                        "type": "string"
-                      },
-                      "ru": {
-                        "type": "string"
-                      }
-                    },
-                    "required": []
+                  "ar": {
+                    "type": "string"
+                  },
+                  "zh-Hans": {
+                    "type": "string"
+                  },
+                  "zh-Hant": {
+                    "type": "string"
+                  },
+                  "en": {
+                    "type": "string"
+                  },
+                  "fr": {
+                    "type": "string"
+                  },
+                  "de": {
+                    "type": "string"
+                  },
+                  "ja": {
+                    "type": "string"
+                  },
+                  "ko": {
+                    "type": "string"
+                  },
+                  "pt": {
+                    "type": "string"
+                  },
+                  "ru": {
+                    "type": "string"
                   }
                 },
-                "required": [
-                  "value"
-                ]
+                "required": []
               }
             },
             "required": [
-              "first"
+              "value"
             ]
           }
         },
         "required": [
-          "p"
+          "first"
         ]
       },
       "strict": true
@@ -74,107 +66,99 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
+          "first": {
             "type": "object",
             "properties": {
-              "first": {
+              "value": {
                 "type": "object",
                 "properties": {
-                  "value": {
-                    "type": "object",
-                    "properties": {
-                      "ar": {
-                        "type": "string"
-                      },
-                      "zh-Hans": {
-                        "type": "string"
-                      },
-                      "zh-Hant": {
-                        "type": "string"
-                      },
-                      "en": {
-                        "type": "string"
-                      },
-                      "fr": {
-                        "type": "string"
-                      },
-                      "de": {
-                        "type": "string"
-                      },
-                      "ja": {
-                        "type": "string"
-                      },
-                      "ko": {
-                        "type": "string"
-                      },
-                      "pt": {
-                        "type": "string"
-                      },
-                      "ru": {
-                        "type": "string"
-                      }
-                    },
-                    "required": []
+                  "ar": {
+                    "type": "string"
+                  },
+                  "zh-Hans": {
+                    "type": "string"
+                  },
+                  "zh-Hant": {
+                    "type": "string"
+                  },
+                  "en": {
+                    "type": "string"
+                  },
+                  "fr": {
+                    "type": "string"
+                  },
+                  "de": {
+                    "type": "string"
+                  },
+                  "ja": {
+                    "type": "string"
+                  },
+                  "ko": {
+                    "type": "string"
+                  },
+                  "pt": {
+                    "type": "string"
+                  },
+                  "ru": {
+                    "type": "string"
                   }
                 },
-                "required": [
-                  "value"
-                ]
-              },
-              "second": {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "object",
-                    "properties": {
-                      "ar": {
-                        "type": "string"
-                      },
-                      "zh-Hans": {
-                        "type": "string"
-                      },
-                      "zh-Hant": {
-                        "type": "string"
-                      },
-                      "en": {
-                        "type": "string"
-                      },
-                      "fr": {
-                        "type": "string"
-                      },
-                      "de": {
-                        "type": "string"
-                      },
-                      "ja": {
-                        "type": "string"
-                      },
-                      "ko": {
-                        "type": "string"
-                      },
-                      "pt": {
-                        "type": "string"
-                      },
-                      "ru": {
-                        "type": "string"
-                      }
-                    },
-                    "required": []
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "nullable": true
+                "required": []
               }
             },
             "required": [
-              "first",
-              "second"
+              "value"
             ]
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "object",
+                "properties": {
+                  "ar": {
+                    "type": "string"
+                  },
+                  "zh-Hans": {
+                    "type": "string"
+                  },
+                  "zh-Hant": {
+                    "type": "string"
+                  },
+                  "en": {
+                    "type": "string"
+                  },
+                  "fr": {
+                    "type": "string"
+                  },
+                  "de": {
+                    "type": "string"
+                  },
+                  "ja": {
+                    "type": "string"
+                  },
+                  "ko": {
+                    "type": "string"
+                  },
+                  "pt": {
+                    "type": "string"
+                  },
+                  "ru": {
+                    "type": "string"
+                  }
+                },
+                "required": []
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "nullable": true
           }
         },
         "required": [
-          "p"
+          "first",
+          "second"
         ]
       },
       "output": {
@@ -228,153 +212,145 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
+          "first": {
             "type": "object",
             "properties": {
-              "first": {
+              "value": {
                 "type": "object",
                 "properties": {
-                  "value": {
-                    "type": "object",
-                    "properties": {
-                      "ar": {
-                        "type": "string"
-                      },
-                      "zh-Hans": {
-                        "type": "string"
-                      },
-                      "zh-Hant": {
-                        "type": "string"
-                      },
-                      "en": {
-                        "type": "string"
-                      },
-                      "fr": {
-                        "type": "string"
-                      },
-                      "de": {
-                        "type": "string"
-                      },
-                      "ja": {
-                        "type": "string"
-                      },
-                      "ko": {
-                        "type": "string"
-                      },
-                      "pt": {
-                        "type": "string"
-                      },
-                      "ru": {
-                        "type": "string"
-                      }
-                    },
-                    "required": []
+                  "ar": {
+                    "type": "string"
+                  },
+                  "zh-Hans": {
+                    "type": "string"
+                  },
+                  "zh-Hant": {
+                    "type": "string"
+                  },
+                  "en": {
+                    "type": "string"
+                  },
+                  "fr": {
+                    "type": "string"
+                  },
+                  "de": {
+                    "type": "string"
+                  },
+                  "ja": {
+                    "type": "string"
+                  },
+                  "ko": {
+                    "type": "string"
+                  },
+                  "pt": {
+                    "type": "string"
+                  },
+                  "ru": {
+                    "type": "string"
                   }
                 },
-                "required": [
-                  "value"
-                ],
-                "nullable": true
-              },
-              "second": {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "object",
-                    "properties": {
-                      "ar": {
-                        "type": "string"
-                      },
-                      "zh-Hans": {
-                        "type": "string"
-                      },
-                      "zh-Hant": {
-                        "type": "string"
-                      },
-                      "en": {
-                        "type": "string"
-                      },
-                      "fr": {
-                        "type": "string"
-                      },
-                      "de": {
-                        "type": "string"
-                      },
-                      "ja": {
-                        "type": "string"
-                      },
-                      "ko": {
-                        "type": "string"
-                      },
-                      "pt": {
-                        "type": "string"
-                      },
-                      "ru": {
-                        "type": "string"
-                      }
-                    },
-                    "required": []
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "nullable": true
-              },
-              "third": {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "object",
-                    "properties": {
-                      "ar": {
-                        "type": "string"
-                      },
-                      "zh-Hans": {
-                        "type": "string"
-                      },
-                      "zh-Hant": {
-                        "type": "string"
-                      },
-                      "en": {
-                        "type": "string"
-                      },
-                      "fr": {
-                        "type": "string"
-                      },
-                      "de": {
-                        "type": "string"
-                      },
-                      "ja": {
-                        "type": "string"
-                      },
-                      "ko": {
-                        "type": "string"
-                      },
-                      "pt": {
-                        "type": "string"
-                      },
-                      "ru": {
-                        "type": "string"
-                      }
-                    },
-                    "required": []
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "nullable": true
+                "required": []
               }
             },
             "required": [
-              "first",
-              "second"
-            ]
+              "value"
+            ],
+            "nullable": true
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "object",
+                "properties": {
+                  "ar": {
+                    "type": "string"
+                  },
+                  "zh-Hans": {
+                    "type": "string"
+                  },
+                  "zh-Hant": {
+                    "type": "string"
+                  },
+                  "en": {
+                    "type": "string"
+                  },
+                  "fr": {
+                    "type": "string"
+                  },
+                  "de": {
+                    "type": "string"
+                  },
+                  "ja": {
+                    "type": "string"
+                  },
+                  "ko": {
+                    "type": "string"
+                  },
+                  "pt": {
+                    "type": "string"
+                  },
+                  "ru": {
+                    "type": "string"
+                  }
+                },
+                "required": []
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "nullable": true
+          },
+          "third": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "object",
+                "properties": {
+                  "ar": {
+                    "type": "string"
+                  },
+                  "zh-Hans": {
+                    "type": "string"
+                  },
+                  "zh-Hant": {
+                    "type": "string"
+                  },
+                  "en": {
+                    "type": "string"
+                  },
+                  "fr": {
+                    "type": "string"
+                  },
+                  "de": {
+                    "type": "string"
+                  },
+                  "ja": {
+                    "type": "string"
+                  },
+                  "ko": {
+                    "type": "string"
+                  },
+                  "pt": {
+                    "type": "string"
+                  },
+                  "ru": {
+                    "type": "string"
+                  }
+                },
+                "required": []
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "nullable": true
           }
         },
         "required": [
-          "p"
+          "first",
+          "second"
         ]
       },
       "output": {

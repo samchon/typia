@@ -10,175 +10,167 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
+          "first": {
             "type": "object",
             "properties": {
-              "first": {
-                "type": "object",
-                "properties": {
-                  "children": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "children": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "children": {
-                                "type": "array",
-                                "items": {
+              "children": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "children": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "children": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "children": {
+                                  "type": "array",
+                                  "items": {},
+                                  "maxItems": 0
+                                },
+                                "id": {
+                                  "type": "number"
+                                },
+                                "code": {
+                                  "type": "string"
+                                },
+                                "sequence": {
+                                  "type": "number"
+                                },
+                                "created_at": {
                                   "type": "object",
                                   "properties": {
-                                    "children": {
-                                      "type": "array",
-                                      "items": {},
-                                      "maxItems": 0
-                                    },
-                                    "id": {
+                                    "time": {
                                       "type": "number"
                                     },
-                                    "code": {
-                                      "type": "string"
-                                    },
-                                    "sequence": {
+                                    "zone": {
                                       "type": "number"
-                                    },
-                                    "created_at": {
-                                      "type": "object",
-                                      "properties": {
-                                        "time": {
-                                          "type": "number"
-                                        },
-                                        "zone": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "time",
-                                        "zone"
-                                      ]
                                     }
                                   },
                                   "required": [
-                                    "children",
-                                    "id",
-                                    "code",
-                                    "sequence",
-                                    "created_at"
+                                    "time",
+                                    "zone"
                                   ]
                                 }
                               },
-                              "id": {
+                              "required": [
+                                "children",
+                                "id",
+                                "code",
+                                "sequence",
+                                "created_at"
+                              ]
+                            }
+                          },
+                          "id": {
+                            "type": "number"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "sequence": {
+                            "type": "number"
+                          },
+                          "created_at": {
+                            "type": "object",
+                            "properties": {
+                              "time": {
                                 "type": "number"
                               },
-                              "code": {
-                                "type": "string"
-                              },
-                              "sequence": {
+                              "zone": {
                                 "type": "number"
-                              },
-                              "created_at": {
-                                "type": "object",
-                                "properties": {
-                                  "time": {
-                                    "type": "number"
-                                  },
-                                  "zone": {
-                                    "type": "number"
-                                  }
-                                },
-                                "required": [
-                                  "time",
-                                  "zone"
-                                ]
                               }
                             },
                             "required": [
-                              "children",
-                              "id",
-                              "code",
-                              "sequence",
-                              "created_at"
+                              "time",
+                              "zone"
                             ]
                           }
                         },
-                        "id": {
+                        "required": [
+                          "children",
+                          "id",
+                          "code",
+                          "sequence",
+                          "created_at"
+                        ]
+                      }
+                    },
+                    "id": {
+                      "type": "number"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "sequence": {
+                      "type": "number"
+                    },
+                    "created_at": {
+                      "type": "object",
+                      "properties": {
+                        "time": {
                           "type": "number"
                         },
-                        "code": {
-                          "type": "string"
-                        },
-                        "sequence": {
+                        "zone": {
                           "type": "number"
-                        },
-                        "created_at": {
-                          "type": "object",
-                          "properties": {
-                            "time": {
-                              "type": "number"
-                            },
-                            "zone": {
-                              "type": "number"
-                            }
-                          },
-                          "required": [
-                            "time",
-                            "zone"
-                          ]
                         }
                       },
                       "required": [
-                        "children",
-                        "id",
-                        "code",
-                        "sequence",
-                        "created_at"
+                        "time",
+                        "zone"
                       ]
                     }
                   },
-                  "id": {
+                  "required": [
+                    "children",
+                    "id",
+                    "code",
+                    "sequence",
+                    "created_at"
+                  ]
+                }
+              },
+              "id": {
+                "type": "number"
+              },
+              "code": {
+                "type": "string"
+              },
+              "sequence": {
+                "type": "number"
+              },
+              "created_at": {
+                "type": "object",
+                "properties": {
+                  "time": {
                     "type": "number"
                   },
-                  "code": {
-                    "type": "string"
-                  },
-                  "sequence": {
+                  "zone": {
                     "type": "number"
-                  },
-                  "created_at": {
-                    "type": "object",
-                    "properties": {
-                      "time": {
-                        "type": "number"
-                      },
-                      "zone": {
-                        "type": "number"
-                      }
-                    },
-                    "required": [
-                      "time",
-                      "zone"
-                    ]
                   }
                 },
                 "required": [
-                  "children",
-                  "id",
-                  "code",
-                  "sequence",
-                  "created_at"
+                  "time",
+                  "zone"
                 ]
               }
             },
             "required": [
-              "first"
+              "children",
+              "id",
+              "code",
+              "sequence",
+              "created_at"
             ]
           }
         },
         "required": [
-          "p"
+          "first"
         ]
       },
       "strict": true
@@ -188,335 +180,327 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
+          "first": {
             "type": "object",
             "properties": {
-              "first": {
-                "type": "object",
-                "properties": {
-                  "children": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "children": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "children": {
-                                "type": "array",
-                                "items": {
+              "children": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "children": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "children": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "children": {
+                                  "type": "array",
+                                  "items": {},
+                                  "maxItems": 0
+                                },
+                                "id": {
+                                  "type": "number"
+                                },
+                                "code": {
+                                  "type": "string"
+                                },
+                                "sequence": {
+                                  "type": "number"
+                                },
+                                "created_at": {
                                   "type": "object",
                                   "properties": {
-                                    "children": {
-                                      "type": "array",
-                                      "items": {},
-                                      "maxItems": 0
-                                    },
-                                    "id": {
+                                    "time": {
                                       "type": "number"
                                     },
-                                    "code": {
-                                      "type": "string"
-                                    },
-                                    "sequence": {
+                                    "zone": {
                                       "type": "number"
-                                    },
-                                    "created_at": {
-                                      "type": "object",
-                                      "properties": {
-                                        "time": {
-                                          "type": "number"
-                                        },
-                                        "zone": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "time",
-                                        "zone"
-                                      ]
                                     }
                                   },
                                   "required": [
-                                    "children",
-                                    "id",
-                                    "code",
-                                    "sequence",
-                                    "created_at"
+                                    "time",
+                                    "zone"
                                   ]
                                 }
                               },
-                              "id": {
+                              "required": [
+                                "children",
+                                "id",
+                                "code",
+                                "sequence",
+                                "created_at"
+                              ]
+                            }
+                          },
+                          "id": {
+                            "type": "number"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "sequence": {
+                            "type": "number"
+                          },
+                          "created_at": {
+                            "type": "object",
+                            "properties": {
+                              "time": {
                                 "type": "number"
                               },
-                              "code": {
-                                "type": "string"
-                              },
-                              "sequence": {
+                              "zone": {
                                 "type": "number"
-                              },
-                              "created_at": {
-                                "type": "object",
-                                "properties": {
-                                  "time": {
-                                    "type": "number"
-                                  },
-                                  "zone": {
-                                    "type": "number"
-                                  }
-                                },
-                                "required": [
-                                  "time",
-                                  "zone"
-                                ]
                               }
                             },
                             "required": [
-                              "children",
-                              "id",
-                              "code",
-                              "sequence",
-                              "created_at"
+                              "time",
+                              "zone"
                             ]
                           }
                         },
-                        "id": {
+                        "required": [
+                          "children",
+                          "id",
+                          "code",
+                          "sequence",
+                          "created_at"
+                        ]
+                      }
+                    },
+                    "id": {
+                      "type": "number"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "sequence": {
+                      "type": "number"
+                    },
+                    "created_at": {
+                      "type": "object",
+                      "properties": {
+                        "time": {
                           "type": "number"
                         },
-                        "code": {
-                          "type": "string"
-                        },
-                        "sequence": {
+                        "zone": {
                           "type": "number"
-                        },
-                        "created_at": {
-                          "type": "object",
-                          "properties": {
-                            "time": {
-                              "type": "number"
-                            },
-                            "zone": {
-                              "type": "number"
-                            }
-                          },
-                          "required": [
-                            "time",
-                            "zone"
-                          ]
                         }
                       },
                       "required": [
-                        "children",
-                        "id",
-                        "code",
-                        "sequence",
-                        "created_at"
+                        "time",
+                        "zone"
                       ]
                     }
                   },
-                  "id": {
-                    "type": "number"
-                  },
-                  "code": {
-                    "type": "string"
-                  },
-                  "sequence": {
-                    "type": "number"
-                  },
-                  "created_at": {
-                    "type": "object",
-                    "properties": {
-                      "time": {
-                        "type": "number"
-                      },
-                      "zone": {
-                        "type": "number"
-                      }
-                    },
-                    "required": [
-                      "time",
-                      "zone"
-                    ]
-                  }
-                },
-                "required": [
-                  "children",
-                  "id",
-                  "code",
-                  "sequence",
-                  "created_at"
-                ]
+                  "required": [
+                    "children",
+                    "id",
+                    "code",
+                    "sequence",
+                    "created_at"
+                  ]
+                }
               },
-              "second": {
+              "id": {
+                "type": "number"
+              },
+              "code": {
+                "type": "string"
+              },
+              "sequence": {
+                "type": "number"
+              },
+              "created_at": {
                 "type": "object",
                 "properties": {
-                  "children": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "children": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "children": {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {
-                                    "children": {
-                                      "type": "array",
-                                      "items": {},
-                                      "maxItems": 0
-                                    },
-                                    "id": {
-                                      "type": "number"
-                                    },
-                                    "code": {
-                                      "type": "string"
-                                    },
-                                    "sequence": {
-                                      "type": "number"
-                                    },
-                                    "created_at": {
-                                      "type": "object",
-                                      "properties": {
-                                        "time": {
-                                          "type": "number"
-                                        },
-                                        "zone": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "time",
-                                        "zone"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "children",
-                                    "id",
-                                    "code",
-                                    "sequence",
-                                    "created_at"
-                                  ]
-                                }
-                              },
-                              "id": {
-                                "type": "number"
-                              },
-                              "code": {
-                                "type": "string"
-                              },
-                              "sequence": {
-                                "type": "number"
-                              },
-                              "created_at": {
-                                "type": "object",
-                                "properties": {
-                                  "time": {
-                                    "type": "number"
-                                  },
-                                  "zone": {
-                                    "type": "number"
-                                  }
-                                },
-                                "required": [
-                                  "time",
-                                  "zone"
-                                ]
-                              }
-                            },
-                            "required": [
-                              "children",
-                              "id",
-                              "code",
-                              "sequence",
-                              "created_at"
-                            ]
-                          }
-                        },
-                        "id": {
-                          "type": "number"
-                        },
-                        "code": {
-                          "type": "string"
-                        },
-                        "sequence": {
-                          "type": "number"
-                        },
-                        "created_at": {
-                          "type": "object",
-                          "properties": {
-                            "time": {
-                              "type": "number"
-                            },
-                            "zone": {
-                              "type": "number"
-                            }
-                          },
-                          "required": [
-                            "time",
-                            "zone"
-                          ]
-                        }
-                      },
-                      "required": [
-                        "children",
-                        "id",
-                        "code",
-                        "sequence",
-                        "created_at"
-                      ]
-                    }
-                  },
-                  "id": {
+                  "time": {
                     "type": "number"
                   },
-                  "code": {
-                    "type": "string"
-                  },
-                  "sequence": {
+                  "zone": {
                     "type": "number"
-                  },
-                  "created_at": {
-                    "type": "object",
-                    "properties": {
-                      "time": {
-                        "type": "number"
-                      },
-                      "zone": {
-                        "type": "number"
-                      }
-                    },
-                    "required": [
-                      "time",
-                      "zone"
-                    ]
                   }
                 },
                 "required": [
-                  "children",
-                  "id",
-                  "code",
-                  "sequence",
-                  "created_at"
-                ],
-                "nullable": true
+                  "time",
+                  "zone"
+                ]
               }
             },
             "required": [
-              "first",
-              "second"
+              "children",
+              "id",
+              "code",
+              "sequence",
+              "created_at"
             ]
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "children": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "children": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "children": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "children": {
+                                  "type": "array",
+                                  "items": {},
+                                  "maxItems": 0
+                                },
+                                "id": {
+                                  "type": "number"
+                                },
+                                "code": {
+                                  "type": "string"
+                                },
+                                "sequence": {
+                                  "type": "number"
+                                },
+                                "created_at": {
+                                  "type": "object",
+                                  "properties": {
+                                    "time": {
+                                      "type": "number"
+                                    },
+                                    "zone": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "time",
+                                    "zone"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "children",
+                                "id",
+                                "code",
+                                "sequence",
+                                "created_at"
+                              ]
+                            }
+                          },
+                          "id": {
+                            "type": "number"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "sequence": {
+                            "type": "number"
+                          },
+                          "created_at": {
+                            "type": "object",
+                            "properties": {
+                              "time": {
+                                "type": "number"
+                              },
+                              "zone": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "time",
+                              "zone"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "children",
+                          "id",
+                          "code",
+                          "sequence",
+                          "created_at"
+                        ]
+                      }
+                    },
+                    "id": {
+                      "type": "number"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "sequence": {
+                      "type": "number"
+                    },
+                    "created_at": {
+                      "type": "object",
+                      "properties": {
+                        "time": {
+                          "type": "number"
+                        },
+                        "zone": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "time",
+                        "zone"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "children",
+                    "id",
+                    "code",
+                    "sequence",
+                    "created_at"
+                  ]
+                }
+              },
+              "id": {
+                "type": "number"
+              },
+              "code": {
+                "type": "string"
+              },
+              "sequence": {
+                "type": "number"
+              },
+              "created_at": {
+                "type": "object",
+                "properties": {
+                  "time": {
+                    "type": "number"
+                  },
+                  "zone": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "time",
+                  "zone"
+                ]
+              }
+            },
+            "required": [
+              "children",
+              "id",
+              "code",
+              "sequence",
+              "created_at"
+            ],
+            "nullable": true
           }
         },
         "required": [
-          "p"
+          "first",
+          "second"
         ]
       },
       "output": {
@@ -684,495 +668,487 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
+          "first": {
             "type": "object",
             "properties": {
-              "first": {
-                "type": "object",
-                "properties": {
-                  "children": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "children": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "children": {
-                                "type": "array",
-                                "items": {
+              "children": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "children": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "children": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "children": {
+                                  "type": "array",
+                                  "items": {},
+                                  "maxItems": 0
+                                },
+                                "id": {
+                                  "type": "number"
+                                },
+                                "code": {
+                                  "type": "string"
+                                },
+                                "sequence": {
+                                  "type": "number"
+                                },
+                                "created_at": {
                                   "type": "object",
                                   "properties": {
-                                    "children": {
-                                      "type": "array",
-                                      "items": {},
-                                      "maxItems": 0
-                                    },
-                                    "id": {
+                                    "time": {
                                       "type": "number"
                                     },
-                                    "code": {
-                                      "type": "string"
-                                    },
-                                    "sequence": {
+                                    "zone": {
                                       "type": "number"
-                                    },
-                                    "created_at": {
-                                      "type": "object",
-                                      "properties": {
-                                        "time": {
-                                          "type": "number"
-                                        },
-                                        "zone": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "time",
-                                        "zone"
-                                      ]
                                     }
                                   },
                                   "required": [
-                                    "children",
-                                    "id",
-                                    "code",
-                                    "sequence",
-                                    "created_at"
+                                    "time",
+                                    "zone"
                                   ]
                                 }
                               },
-                              "id": {
+                              "required": [
+                                "children",
+                                "id",
+                                "code",
+                                "sequence",
+                                "created_at"
+                              ]
+                            }
+                          },
+                          "id": {
+                            "type": "number"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "sequence": {
+                            "type": "number"
+                          },
+                          "created_at": {
+                            "type": "object",
+                            "properties": {
+                              "time": {
                                 "type": "number"
                               },
-                              "code": {
-                                "type": "string"
-                              },
-                              "sequence": {
+                              "zone": {
                                 "type": "number"
-                              },
-                              "created_at": {
-                                "type": "object",
-                                "properties": {
-                                  "time": {
-                                    "type": "number"
-                                  },
-                                  "zone": {
-                                    "type": "number"
-                                  }
-                                },
-                                "required": [
-                                  "time",
-                                  "zone"
-                                ]
                               }
                             },
                             "required": [
-                              "children",
-                              "id",
-                              "code",
-                              "sequence",
-                              "created_at"
+                              "time",
+                              "zone"
                             ]
                           }
                         },
-                        "id": {
+                        "required": [
+                          "children",
+                          "id",
+                          "code",
+                          "sequence",
+                          "created_at"
+                        ]
+                      }
+                    },
+                    "id": {
+                      "type": "number"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "sequence": {
+                      "type": "number"
+                    },
+                    "created_at": {
+                      "type": "object",
+                      "properties": {
+                        "time": {
                           "type": "number"
                         },
-                        "code": {
-                          "type": "string"
-                        },
-                        "sequence": {
+                        "zone": {
                           "type": "number"
-                        },
-                        "created_at": {
-                          "type": "object",
-                          "properties": {
-                            "time": {
-                              "type": "number"
-                            },
-                            "zone": {
-                              "type": "number"
-                            }
-                          },
-                          "required": [
-                            "time",
-                            "zone"
-                          ]
                         }
                       },
                       "required": [
-                        "children",
-                        "id",
-                        "code",
-                        "sequence",
-                        "created_at"
+                        "time",
+                        "zone"
                       ]
                     }
                   },
-                  "id": {
-                    "type": "number"
-                  },
-                  "code": {
-                    "type": "string"
-                  },
-                  "sequence": {
-                    "type": "number"
-                  },
-                  "created_at": {
-                    "type": "object",
-                    "properties": {
-                      "time": {
-                        "type": "number"
-                      },
-                      "zone": {
-                        "type": "number"
-                      }
-                    },
-                    "required": [
-                      "time",
-                      "zone"
-                    ]
-                  }
-                },
-                "required": [
-                  "children",
-                  "id",
-                  "code",
-                  "sequence",
-                  "created_at"
-                ],
-                "nullable": true
+                  "required": [
+                    "children",
+                    "id",
+                    "code",
+                    "sequence",
+                    "created_at"
+                  ]
+                }
               },
-              "second": {
-                "type": "object",
-                "properties": {
-                  "children": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "children": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "children": {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {
-                                    "children": {
-                                      "type": "array",
-                                      "items": {},
-                                      "maxItems": 0
-                                    },
-                                    "id": {
-                                      "type": "number"
-                                    },
-                                    "code": {
-                                      "type": "string"
-                                    },
-                                    "sequence": {
-                                      "type": "number"
-                                    },
-                                    "created_at": {
-                                      "type": "object",
-                                      "properties": {
-                                        "time": {
-                                          "type": "number"
-                                        },
-                                        "zone": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "time",
-                                        "zone"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "children",
-                                    "id",
-                                    "code",
-                                    "sequence",
-                                    "created_at"
-                                  ]
-                                }
-                              },
-                              "id": {
-                                "type": "number"
-                              },
-                              "code": {
-                                "type": "string"
-                              },
-                              "sequence": {
-                                "type": "number"
-                              },
-                              "created_at": {
-                                "type": "object",
-                                "properties": {
-                                  "time": {
-                                    "type": "number"
-                                  },
-                                  "zone": {
-                                    "type": "number"
-                                  }
-                                },
-                                "required": [
-                                  "time",
-                                  "zone"
-                                ]
-                              }
-                            },
-                            "required": [
-                              "children",
-                              "id",
-                              "code",
-                              "sequence",
-                              "created_at"
-                            ]
-                          }
-                        },
-                        "id": {
-                          "type": "number"
-                        },
-                        "code": {
-                          "type": "string"
-                        },
-                        "sequence": {
-                          "type": "number"
-                        },
-                        "created_at": {
-                          "type": "object",
-                          "properties": {
-                            "time": {
-                              "type": "number"
-                            },
-                            "zone": {
-                              "type": "number"
-                            }
-                          },
-                          "required": [
-                            "time",
-                            "zone"
-                          ]
-                        }
-                      },
-                      "required": [
-                        "children",
-                        "id",
-                        "code",
-                        "sequence",
-                        "created_at"
-                      ]
-                    }
-                  },
-                  "id": {
-                    "type": "number"
-                  },
-                  "code": {
-                    "type": "string"
-                  },
-                  "sequence": {
-                    "type": "number"
-                  },
-                  "created_at": {
-                    "type": "object",
-                    "properties": {
-                      "time": {
-                        "type": "number"
-                      },
-                      "zone": {
-                        "type": "number"
-                      }
-                    },
-                    "required": [
-                      "time",
-                      "zone"
-                    ]
-                  }
-                },
-                "required": [
-                  "children",
-                  "id",
-                  "code",
-                  "sequence",
-                  "created_at"
-                ],
-                "nullable": true
+              "id": {
+                "type": "number"
               },
-              "third": {
+              "code": {
+                "type": "string"
+              },
+              "sequence": {
+                "type": "number"
+              },
+              "created_at": {
                 "type": "object",
                 "properties": {
-                  "children": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "children": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "children": {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {
-                                    "children": {
-                                      "type": "array",
-                                      "items": {},
-                                      "maxItems": 0
-                                    },
-                                    "id": {
-                                      "type": "number"
-                                    },
-                                    "code": {
-                                      "type": "string"
-                                    },
-                                    "sequence": {
-                                      "type": "number"
-                                    },
-                                    "created_at": {
-                                      "type": "object",
-                                      "properties": {
-                                        "time": {
-                                          "type": "number"
-                                        },
-                                        "zone": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "time",
-                                        "zone"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "children",
-                                    "id",
-                                    "code",
-                                    "sequence",
-                                    "created_at"
-                                  ]
-                                }
-                              },
-                              "id": {
-                                "type": "number"
-                              },
-                              "code": {
-                                "type": "string"
-                              },
-                              "sequence": {
-                                "type": "number"
-                              },
-                              "created_at": {
-                                "type": "object",
-                                "properties": {
-                                  "time": {
-                                    "type": "number"
-                                  },
-                                  "zone": {
-                                    "type": "number"
-                                  }
-                                },
-                                "required": [
-                                  "time",
-                                  "zone"
-                                ]
-                              }
-                            },
-                            "required": [
-                              "children",
-                              "id",
-                              "code",
-                              "sequence",
-                              "created_at"
-                            ]
-                          }
-                        },
-                        "id": {
-                          "type": "number"
-                        },
-                        "code": {
-                          "type": "string"
-                        },
-                        "sequence": {
-                          "type": "number"
-                        },
-                        "created_at": {
-                          "type": "object",
-                          "properties": {
-                            "time": {
-                              "type": "number"
-                            },
-                            "zone": {
-                              "type": "number"
-                            }
-                          },
-                          "required": [
-                            "time",
-                            "zone"
-                          ]
-                        }
-                      },
-                      "required": [
-                        "children",
-                        "id",
-                        "code",
-                        "sequence",
-                        "created_at"
-                      ]
-                    }
-                  },
-                  "id": {
+                  "time": {
                     "type": "number"
                   },
-                  "code": {
-                    "type": "string"
-                  },
-                  "sequence": {
+                  "zone": {
                     "type": "number"
-                  },
-                  "created_at": {
-                    "type": "object",
-                    "properties": {
-                      "time": {
-                        "type": "number"
-                      },
-                      "zone": {
-                        "type": "number"
-                      }
-                    },
-                    "required": [
-                      "time",
-                      "zone"
-                    ]
                   }
                 },
                 "required": [
-                  "children",
-                  "id",
-                  "code",
-                  "sequence",
-                  "created_at"
-                ],
-                "nullable": true
+                  "time",
+                  "zone"
+                ]
               }
             },
             "required": [
-              "first",
-              "second"
-            ]
+              "children",
+              "id",
+              "code",
+              "sequence",
+              "created_at"
+            ],
+            "nullable": true
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "children": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "children": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "children": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "children": {
+                                  "type": "array",
+                                  "items": {},
+                                  "maxItems": 0
+                                },
+                                "id": {
+                                  "type": "number"
+                                },
+                                "code": {
+                                  "type": "string"
+                                },
+                                "sequence": {
+                                  "type": "number"
+                                },
+                                "created_at": {
+                                  "type": "object",
+                                  "properties": {
+                                    "time": {
+                                      "type": "number"
+                                    },
+                                    "zone": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "time",
+                                    "zone"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "children",
+                                "id",
+                                "code",
+                                "sequence",
+                                "created_at"
+                              ]
+                            }
+                          },
+                          "id": {
+                            "type": "number"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "sequence": {
+                            "type": "number"
+                          },
+                          "created_at": {
+                            "type": "object",
+                            "properties": {
+                              "time": {
+                                "type": "number"
+                              },
+                              "zone": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "time",
+                              "zone"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "children",
+                          "id",
+                          "code",
+                          "sequence",
+                          "created_at"
+                        ]
+                      }
+                    },
+                    "id": {
+                      "type": "number"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "sequence": {
+                      "type": "number"
+                    },
+                    "created_at": {
+                      "type": "object",
+                      "properties": {
+                        "time": {
+                          "type": "number"
+                        },
+                        "zone": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "time",
+                        "zone"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "children",
+                    "id",
+                    "code",
+                    "sequence",
+                    "created_at"
+                  ]
+                }
+              },
+              "id": {
+                "type": "number"
+              },
+              "code": {
+                "type": "string"
+              },
+              "sequence": {
+                "type": "number"
+              },
+              "created_at": {
+                "type": "object",
+                "properties": {
+                  "time": {
+                    "type": "number"
+                  },
+                  "zone": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "time",
+                  "zone"
+                ]
+              }
+            },
+            "required": [
+              "children",
+              "id",
+              "code",
+              "sequence",
+              "created_at"
+            ],
+            "nullable": true
+          },
+          "third": {
+            "type": "object",
+            "properties": {
+              "children": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "children": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "children": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "children": {
+                                  "type": "array",
+                                  "items": {},
+                                  "maxItems": 0
+                                },
+                                "id": {
+                                  "type": "number"
+                                },
+                                "code": {
+                                  "type": "string"
+                                },
+                                "sequence": {
+                                  "type": "number"
+                                },
+                                "created_at": {
+                                  "type": "object",
+                                  "properties": {
+                                    "time": {
+                                      "type": "number"
+                                    },
+                                    "zone": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "time",
+                                    "zone"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "children",
+                                "id",
+                                "code",
+                                "sequence",
+                                "created_at"
+                              ]
+                            }
+                          },
+                          "id": {
+                            "type": "number"
+                          },
+                          "code": {
+                            "type": "string"
+                          },
+                          "sequence": {
+                            "type": "number"
+                          },
+                          "created_at": {
+                            "type": "object",
+                            "properties": {
+                              "time": {
+                                "type": "number"
+                              },
+                              "zone": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "time",
+                              "zone"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "children",
+                          "id",
+                          "code",
+                          "sequence",
+                          "created_at"
+                        ]
+                      }
+                    },
+                    "id": {
+                      "type": "number"
+                    },
+                    "code": {
+                      "type": "string"
+                    },
+                    "sequence": {
+                      "type": "number"
+                    },
+                    "created_at": {
+                      "type": "object",
+                      "properties": {
+                        "time": {
+                          "type": "number"
+                        },
+                        "zone": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "time",
+                        "zone"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "children",
+                    "id",
+                    "code",
+                    "sequence",
+                    "created_at"
+                  ]
+                }
+              },
+              "id": {
+                "type": "number"
+              },
+              "code": {
+                "type": "string"
+              },
+              "sequence": {
+                "type": "number"
+              },
+              "created_at": {
+                "type": "object",
+                "properties": {
+                  "time": {
+                    "type": "number"
+                  },
+                  "zone": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "time",
+                  "zone"
+                ]
+              }
+            },
+            "required": [
+              "children",
+              "id",
+              "code",
+              "sequence",
+              "created_at"
+            ],
+            "nullable": true
           }
         },
         "required": [
-          "p"
+          "first",
+          "second"
         ]
       },
       "output": {

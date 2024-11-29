@@ -10,65 +10,57 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
+          "first": {
             "type": "object",
             "properties": {
-              "first": {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "int": {
-                          "type": "integer",
-                          "description": "Integer value."
-                        },
-                        "uint": {
-                          "type": "integer",
-                          "description": "Unsigned integer value."
-                        },
-                        "int32": {
-                          "type": "integer"
-                        },
-                        "uint32": {
-                          "type": "integer"
-                        },
-                        "int64": {
-                          "type": "integer"
-                        },
-                        "uint64": {
-                          "type": "integer"
-                        },
-                        "float": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "int",
-                        "uint",
-                        "int32",
-                        "uint32",
-                        "int64",
-                        "uint64",
-                        "float"
-                      ]
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "int": {
+                      "type": "integer",
+                      "description": "Integer value."
+                    },
+                    "uint": {
+                      "type": "integer",
+                      "description": "Unsigned integer value."
+                    },
+                    "int32": {
+                      "type": "integer"
+                    },
+                    "uint32": {
+                      "type": "integer"
+                    },
+                    "int64": {
+                      "type": "integer"
+                    },
+                    "uint64": {
+                      "type": "integer"
+                    },
+                    "float": {
+                      "type": "number"
                     }
-                  }
-                },
-                "required": [
-                  "value"
-                ]
+                  },
+                  "required": [
+                    "int",
+                    "uint",
+                    "int32",
+                    "uint32",
+                    "int64",
+                    "uint64",
+                    "float"
+                  ]
+                }
               }
             },
             "required": [
-              "first"
+              "value"
             ]
           }
         },
         "required": [
-          "p"
+          "first"
         ]
       },
       "strict": true
@@ -78,115 +70,107 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
+          "first": {
             "type": "object",
             "properties": {
-              "first": {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "int": {
-                          "type": "integer",
-                          "description": "Integer value."
-                        },
-                        "uint": {
-                          "type": "integer",
-                          "description": "Unsigned integer value."
-                        },
-                        "int32": {
-                          "type": "integer"
-                        },
-                        "uint32": {
-                          "type": "integer"
-                        },
-                        "int64": {
-                          "type": "integer"
-                        },
-                        "uint64": {
-                          "type": "integer"
-                        },
-                        "float": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "int",
-                        "uint",
-                        "int32",
-                        "uint32",
-                        "int64",
-                        "uint64",
-                        "float"
-                      ]
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "int": {
+                      "type": "integer",
+                      "description": "Integer value."
+                    },
+                    "uint": {
+                      "type": "integer",
+                      "description": "Unsigned integer value."
+                    },
+                    "int32": {
+                      "type": "integer"
+                    },
+                    "uint32": {
+                      "type": "integer"
+                    },
+                    "int64": {
+                      "type": "integer"
+                    },
+                    "uint64": {
+                      "type": "integer"
+                    },
+                    "float": {
+                      "type": "number"
                     }
-                  }
-                },
-                "required": [
-                  "value"
-                ]
-              },
-              "second": {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "int": {
-                          "type": "integer",
-                          "description": "Integer value."
-                        },
-                        "uint": {
-                          "type": "integer",
-                          "description": "Unsigned integer value."
-                        },
-                        "int32": {
-                          "type": "integer"
-                        },
-                        "uint32": {
-                          "type": "integer"
-                        },
-                        "int64": {
-                          "type": "integer"
-                        },
-                        "uint64": {
-                          "type": "integer"
-                        },
-                        "float": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "int",
-                        "uint",
-                        "int32",
-                        "uint32",
-                        "int64",
-                        "uint64",
-                        "float"
-                      ]
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "nullable": true
+                  },
+                  "required": [
+                    "int",
+                    "uint",
+                    "int32",
+                    "uint32",
+                    "int64",
+                    "uint64",
+                    "float"
+                  ]
+                }
               }
             },
             "required": [
-              "first",
-              "second"
+              "value"
             ]
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "int": {
+                      "type": "integer",
+                      "description": "Integer value."
+                    },
+                    "uint": {
+                      "type": "integer",
+                      "description": "Unsigned integer value."
+                    },
+                    "int32": {
+                      "type": "integer"
+                    },
+                    "uint32": {
+                      "type": "integer"
+                    },
+                    "int64": {
+                      "type": "integer"
+                    },
+                    "uint64": {
+                      "type": "integer"
+                    },
+                    "float": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "int",
+                    "uint",
+                    "int32",
+                    "uint32",
+                    "int64",
+                    "uint64",
+                    "float"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "nullable": true
           }
         },
         "required": [
-          "p"
+          "first",
+          "second"
         ]
       },
       "output": {
@@ -244,165 +228,157 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
+          "first": {
             "type": "object",
             "properties": {
-              "first": {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "int": {
-                          "type": "integer",
-                          "description": "Integer value."
-                        },
-                        "uint": {
-                          "type": "integer",
-                          "description": "Unsigned integer value."
-                        },
-                        "int32": {
-                          "type": "integer"
-                        },
-                        "uint32": {
-                          "type": "integer"
-                        },
-                        "int64": {
-                          "type": "integer"
-                        },
-                        "uint64": {
-                          "type": "integer"
-                        },
-                        "float": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "int",
-                        "uint",
-                        "int32",
-                        "uint32",
-                        "int64",
-                        "uint64",
-                        "float"
-                      ]
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "int": {
+                      "type": "integer",
+                      "description": "Integer value."
+                    },
+                    "uint": {
+                      "type": "integer",
+                      "description": "Unsigned integer value."
+                    },
+                    "int32": {
+                      "type": "integer"
+                    },
+                    "uint32": {
+                      "type": "integer"
+                    },
+                    "int64": {
+                      "type": "integer"
+                    },
+                    "uint64": {
+                      "type": "integer"
+                    },
+                    "float": {
+                      "type": "number"
                     }
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "nullable": true
-              },
-              "second": {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "int": {
-                          "type": "integer",
-                          "description": "Integer value."
-                        },
-                        "uint": {
-                          "type": "integer",
-                          "description": "Unsigned integer value."
-                        },
-                        "int32": {
-                          "type": "integer"
-                        },
-                        "uint32": {
-                          "type": "integer"
-                        },
-                        "int64": {
-                          "type": "integer"
-                        },
-                        "uint64": {
-                          "type": "integer"
-                        },
-                        "float": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "int",
-                        "uint",
-                        "int32",
-                        "uint32",
-                        "int64",
-                        "uint64",
-                        "float"
-                      ]
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "nullable": true
-              },
-              "third": {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "int": {
-                          "type": "integer",
-                          "description": "Integer value."
-                        },
-                        "uint": {
-                          "type": "integer",
-                          "description": "Unsigned integer value."
-                        },
-                        "int32": {
-                          "type": "integer"
-                        },
-                        "uint32": {
-                          "type": "integer"
-                        },
-                        "int64": {
-                          "type": "integer"
-                        },
-                        "uint64": {
-                          "type": "integer"
-                        },
-                        "float": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "int",
-                        "uint",
-                        "int32",
-                        "uint32",
-                        "int64",
-                        "uint64",
-                        "float"
-                      ]
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "nullable": true
+                  },
+                  "required": [
+                    "int",
+                    "uint",
+                    "int32",
+                    "uint32",
+                    "int64",
+                    "uint64",
+                    "float"
+                  ]
+                }
               }
             },
             "required": [
-              "first",
-              "second"
-            ]
+              "value"
+            ],
+            "nullable": true
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "int": {
+                      "type": "integer",
+                      "description": "Integer value."
+                    },
+                    "uint": {
+                      "type": "integer",
+                      "description": "Unsigned integer value."
+                    },
+                    "int32": {
+                      "type": "integer"
+                    },
+                    "uint32": {
+                      "type": "integer"
+                    },
+                    "int64": {
+                      "type": "integer"
+                    },
+                    "uint64": {
+                      "type": "integer"
+                    },
+                    "float": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "int",
+                    "uint",
+                    "int32",
+                    "uint32",
+                    "int64",
+                    "uint64",
+                    "float"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "nullable": true
+          },
+          "third": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "int": {
+                      "type": "integer",
+                      "description": "Integer value."
+                    },
+                    "uint": {
+                      "type": "integer",
+                      "description": "Unsigned integer value."
+                    },
+                    "int32": {
+                      "type": "integer"
+                    },
+                    "uint32": {
+                      "type": "integer"
+                    },
+                    "int64": {
+                      "type": "integer"
+                    },
+                    "uint64": {
+                      "type": "integer"
+                    },
+                    "float": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "int",
+                    "uint",
+                    "int32",
+                    "uint32",
+                    "int64",
+                    "uint64",
+                    "float"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "nullable": true
           }
         },
         "required": [
-          "p"
+          "first",
+          "second"
         ]
       },
       "output": {

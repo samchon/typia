@@ -96,6 +96,7 @@
     "faint",
     "array"
   ],
+  "additionalProperties": false,
   "$defs": {
     "ArrayRecursiveUnionExplicitPointer.IBucket": {
       "type": "object",

@@ -216,6 +216,7 @@
     "faint",
     "array"
   ],
+  "additionalProperties": false,
   "$defs": {
     "ObjectPartial.IBase": {
       "type": "object",

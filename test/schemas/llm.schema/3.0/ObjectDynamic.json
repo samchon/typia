@@ -2,5 +2,17 @@
   "type": "object",
   "properties": {},
   "required": [],
-  "additionalProperties": false
+  "additionalProperties": {
+    "oneOf": [
+      {
+        "type": "string"
+      },
+      {
+        "type": "number"
+      },
+      {
+        "type": "boolean"
+      }
+    ]
+  }
 }

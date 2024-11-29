@@ -11,21 +11,12 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
-            "type": "object",
-            "properties": {
-              "first": {
-                "type": "null"
-              }
-            },
-            "required": [
-              "first"
-            ],
-            "additionalProperties": false
+          "first": {
+            "type": "null"
           }
         },
         "required": [
-          "p"
+          "first"
         ],
         "additionalProperties": false
       },
@@ -36,25 +27,16 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
-            "type": "object",
-            "properties": {
-              "first": {
-                "type": "null"
-              },
-              "second": {
-                "type": "null"
-              }
-            },
-            "required": [
-              "first",
-              "second"
-            ],
-            "additionalProperties": false
+          "first": {
+            "type": "null"
+          },
+          "second": {
+            "type": "null"
           }
         },
         "required": [
-          "p"
+          "first",
+          "second"
         ],
         "additionalProperties": false
       },
@@ -68,28 +50,19 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
-            "type": "object",
-            "properties": {
-              "first": {
-                "type": "null"
-              },
-              "second": {
-                "type": "null"
-              },
-              "third": {
-                "type": "null"
-              }
-            },
-            "required": [
-              "first",
-              "second"
-            ],
-            "additionalProperties": false
+          "first": {
+            "type": "null"
+          },
+          "second": {
+            "type": "null"
+          },
+          "third": {
+            "type": "null"
           }
         },
         "required": [
-          "p"
+          "first",
+          "second"
         ],
         "additionalProperties": false
       },

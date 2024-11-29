@@ -11,60 +11,51 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
-            "type": "object",
-            "properties": {
-              "first": {
-                "type": "array",
-                "items": {
-                  "oneOf": [
-                    {
-                      "type": "object",
-                      "properties": {
-                        "key": {
-                          "type": "string",
-                          "enum": [
-                            "key"
-                          ]
-                        }
-                      },
-                      "required": [
-                        "key"
-                      ],
-                      "additionalProperties": false
-                    },
-                    {
-                      "type": "boolean",
-                      "enum": [
-                        false
-                      ]
-                    },
-                    {
-                      "type": "number",
-                      "enum": [
-                        1,
-                        2
-                      ]
-                    },
-                    {
+          "first": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "key": {
                       "type": "string",
                       "enum": [
-                        "three",
-                        "four"
+                        "key"
                       ]
                     }
+                  },
+                  "required": [
+                    "key"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "boolean",
+                  "enum": [
+                    false
+                  ]
+                },
+                {
+                  "type": "number",
+                  "enum": [
+                    1,
+                    2
+                  ]
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "three",
+                    "four"
                   ]
                 }
-              }
-            },
-            "required": [
-              "first"
-            ],
-            "additionalProperties": false
+              ]
+            }
           }
         },
         "required": [
-          "p"
+          "first"
         ],
         "additionalProperties": false
       },
@@ -75,104 +66,95 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
-            "type": "object",
-            "properties": {
-              "first": {
-                "type": "array",
-                "items": {
-                  "oneOf": [
-                    {
-                      "type": "object",
-                      "properties": {
-                        "key": {
-                          "type": "string",
-                          "enum": [
-                            "key"
-                          ]
-                        }
-                      },
-                      "required": [
-                        "key"
-                      ],
-                      "additionalProperties": false
-                    },
-                    {
-                      "type": "boolean",
-                      "enum": [
-                        false
-                      ]
-                    },
-                    {
-                      "type": "number",
-                      "enum": [
-                        1,
-                        2
-                      ]
-                    },
-                    {
+          "first": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "key": {
                       "type": "string",
                       "enum": [
-                        "three",
-                        "four"
-                      ]
-                    }
-                  ]
-                }
-              },
-              "second": {
-                "type": "array",
-                "items": {
-                  "oneOf": [
-                    {
-                      "type": "object",
-                      "properties": {
-                        "key": {
-                          "type": "string",
-                          "enum": [
-                            "key"
-                          ]
-                        }
-                      },
-                      "required": [
                         "key"
-                      ],
-                      "additionalProperties": false
-                    },
-                    {
-                      "type": "boolean",
-                      "enum": [
-                        false
-                      ]
-                    },
-                    {
-                      "type": "number",
-                      "enum": [
-                        1,
-                        2
-                      ]
-                    },
-                    {
-                      "type": "string",
-                      "enum": [
-                        "three",
-                        "four"
                       ]
                     }
+                  },
+                  "required": [
+                    "key"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "boolean",
+                  "enum": [
+                    false
                   ]
                 },
-                "nullable": true
-              }
+                {
+                  "type": "number",
+                  "enum": [
+                    1,
+                    2
+                  ]
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "three",
+                    "four"
+                  ]
+                }
+              ]
+            }
+          },
+          "second": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "key": {
+                      "type": "string",
+                      "enum": [
+                        "key"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "key"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "boolean",
+                  "enum": [
+                    false
+                  ]
+                },
+                {
+                  "type": "number",
+                  "enum": [
+                    1,
+                    2
+                  ]
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "three",
+                    "four"
+                  ]
+                }
+              ]
             },
-            "required": [
-              "first",
-              "second"
-            ],
-            "additionalProperties": false
+            "nullable": true
           }
         },
         "required": [
-          "p"
+          "first",
+          "second"
         ],
         "additionalProperties": false
       },
@@ -225,148 +207,139 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
-            "type": "object",
-            "properties": {
-              "first": {
-                "type": "array",
-                "items": {
-                  "oneOf": [
-                    {
-                      "type": "object",
-                      "properties": {
-                        "key": {
-                          "type": "string",
-                          "enum": [
-                            "key"
-                          ]
-                        }
-                      },
-                      "required": [
-                        "key"
-                      ],
-                      "additionalProperties": false
-                    },
-                    {
-                      "type": "boolean",
-                      "enum": [
-                        false
-                      ]
-                    },
-                    {
-                      "type": "number",
-                      "enum": [
-                        1,
-                        2
-                      ]
-                    },
-                    {
+          "first": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "key": {
                       "type": "string",
                       "enum": [
-                        "three",
-                        "four"
-                      ]
-                    }
-                  ]
-                },
-                "nullable": true
-              },
-              "second": {
-                "type": "array",
-                "items": {
-                  "oneOf": [
-                    {
-                      "type": "object",
-                      "properties": {
-                        "key": {
-                          "type": "string",
-                          "enum": [
-                            "key"
-                          ]
-                        }
-                      },
-                      "required": [
                         "key"
-                      ],
-                      "additionalProperties": false
-                    },
-                    {
-                      "type": "boolean",
-                      "enum": [
-                        false
-                      ]
-                    },
-                    {
-                      "type": "number",
-                      "enum": [
-                        1,
-                        2
-                      ]
-                    },
-                    {
-                      "type": "string",
-                      "enum": [
-                        "three",
-                        "four"
                       ]
                     }
+                  },
+                  "required": [
+                    "key"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "boolean",
+                  "enum": [
+                    false
                   ]
                 },
-                "nullable": true
-              },
-              "third": {
-                "type": "array",
-                "items": {
-                  "oneOf": [
-                    {
-                      "type": "object",
-                      "properties": {
-                        "key": {
-                          "type": "string",
-                          "enum": [
-                            "key"
-                          ]
-                        }
-                      },
-                      "required": [
-                        "key"
-                      ],
-                      "additionalProperties": false
-                    },
-                    {
-                      "type": "boolean",
-                      "enum": [
-                        false
-                      ]
-                    },
-                    {
-                      "type": "number",
-                      "enum": [
-                        1,
-                        2
-                      ]
-                    },
-                    {
-                      "type": "string",
-                      "enum": [
-                        "three",
-                        "four"
-                      ]
-                    }
+                {
+                  "type": "number",
+                  "enum": [
+                    1,
+                    2
                   ]
                 },
-                "nullable": true
-              }
+                {
+                  "type": "string",
+                  "enum": [
+                    "three",
+                    "four"
+                  ]
+                }
+              ]
             },
-            "required": [
-              "first",
-              "second"
-            ],
-            "additionalProperties": false
+            "nullable": true
+          },
+          "second": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "key": {
+                      "type": "string",
+                      "enum": [
+                        "key"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "key"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "boolean",
+                  "enum": [
+                    false
+                  ]
+                },
+                {
+                  "type": "number",
+                  "enum": [
+                    1,
+                    2
+                  ]
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "three",
+                    "four"
+                  ]
+                }
+              ]
+            },
+            "nullable": true
+          },
+          "third": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "key": {
+                      "type": "string",
+                      "enum": [
+                        "key"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "key"
+                  ],
+                  "additionalProperties": false
+                },
+                {
+                  "type": "boolean",
+                  "enum": [
+                    false
+                  ]
+                },
+                {
+                  "type": "number",
+                  "enum": [
+                    1,
+                    2
+                  ]
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "three",
+                    "four"
+                  ]
+                }
+              ]
+            },
+            "nullable": true
           }
         },
         "required": [
-          "p"
+          "first",
+          "second"
         ],
         "additionalProperties": false
       },
