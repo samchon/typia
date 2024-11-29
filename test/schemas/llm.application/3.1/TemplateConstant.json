@@ -11,95 +11,87 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
+          "first": {
             "type": "object",
             "properties": {
-              "first": {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "prefix": {
-                          "oneOf": [
-                            {
-                              "const": "prefix_A"
-                            },
-                            {
-                              "const": "prefix_B"
-                            },
-                            {
-                              "const": "prefix_C"
-                            }
-                          ]
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "prefix": {
+                      "oneOf": [
+                        {
+                          "const": "prefix_A"
                         },
-                        "postfix": {
-                          "oneOf": [
-                            {
-                              "const": "1_postfix"
-                            },
-                            {
-                              "const": "2_postfix"
-                            },
-                            {
-                              "const": "3_postfix"
-                            }
-                          ]
+                        {
+                          "const": "prefix_B"
                         },
-                        "combined": {
-                          "oneOf": [
-                            {
-                              "const": "the_1_value_with_label_A"
-                            },
-                            {
-                              "const": "the_1_value_with_label_B"
-                            },
-                            {
-                              "const": "the_1_value_with_label_C"
-                            },
-                            {
-                              "const": "the_2_value_with_label_A"
-                            },
-                            {
-                              "const": "the_2_value_with_label_B"
-                            },
-                            {
-                              "const": "the_2_value_with_label_C"
-                            },
-                            {
-                              "const": "the_3_value_with_label_A"
-                            },
-                            {
-                              "const": "the_3_value_with_label_B"
-                            },
-                            {
-                              "const": "the_3_value_with_label_C"
-                            }
-                          ]
+                        {
+                          "const": "prefix_C"
                         }
-                      },
-                      "required": [
-                        "prefix",
-                        "postfix",
-                        "combined"
+                      ]
+                    },
+                    "postfix": {
+                      "oneOf": [
+                        {
+                          "const": "1_postfix"
+                        },
+                        {
+                          "const": "2_postfix"
+                        },
+                        {
+                          "const": "3_postfix"
+                        }
+                      ]
+                    },
+                    "combined": {
+                      "oneOf": [
+                        {
+                          "const": "the_1_value_with_label_A"
+                        },
+                        {
+                          "const": "the_1_value_with_label_B"
+                        },
+                        {
+                          "const": "the_1_value_with_label_C"
+                        },
+                        {
+                          "const": "the_2_value_with_label_A"
+                        },
+                        {
+                          "const": "the_2_value_with_label_B"
+                        },
+                        {
+                          "const": "the_2_value_with_label_C"
+                        },
+                        {
+                          "const": "the_3_value_with_label_A"
+                        },
+                        {
+                          "const": "the_3_value_with_label_B"
+                        },
+                        {
+                          "const": "the_3_value_with_label_C"
+                        }
                       ]
                     }
-                  }
-                },
-                "required": [
-                  "value"
-                ]
+                  },
+                  "required": [
+                    "prefix",
+                    "postfix",
+                    "combined"
+                  ]
+                }
               }
             },
             "required": [
-              "first"
+              "value"
             ]
           }
         },
         "required": [
-          "p"
+          "first"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -111,10 +103,90 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
+          "first": {
             "type": "object",
             "properties": {
-              "first": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "prefix": {
+                      "oneOf": [
+                        {
+                          "const": "prefix_A"
+                        },
+                        {
+                          "const": "prefix_B"
+                        },
+                        {
+                          "const": "prefix_C"
+                        }
+                      ]
+                    },
+                    "postfix": {
+                      "oneOf": [
+                        {
+                          "const": "1_postfix"
+                        },
+                        {
+                          "const": "2_postfix"
+                        },
+                        {
+                          "const": "3_postfix"
+                        }
+                      ]
+                    },
+                    "combined": {
+                      "oneOf": [
+                        {
+                          "const": "the_1_value_with_label_A"
+                        },
+                        {
+                          "const": "the_1_value_with_label_B"
+                        },
+                        {
+                          "const": "the_1_value_with_label_C"
+                        },
+                        {
+                          "const": "the_2_value_with_label_A"
+                        },
+                        {
+                          "const": "the_2_value_with_label_B"
+                        },
+                        {
+                          "const": "the_2_value_with_label_C"
+                        },
+                        {
+                          "const": "the_3_value_with_label_A"
+                        },
+                        {
+                          "const": "the_3_value_with_label_B"
+                        },
+                        {
+                          "const": "the_3_value_with_label_C"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "prefix",
+                    "postfix",
+                    "combined"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "second": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
                 "type": "object",
                 "properties": {
                   "value": {
@@ -191,101 +263,13 @@
                 "required": [
                   "value"
                 ]
-              },
-              "second": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "value": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "prefix": {
-                              "oneOf": [
-                                {
-                                  "const": "prefix_A"
-                                },
-                                {
-                                  "const": "prefix_B"
-                                },
-                                {
-                                  "const": "prefix_C"
-                                }
-                              ]
-                            },
-                            "postfix": {
-                              "oneOf": [
-                                {
-                                  "const": "1_postfix"
-                                },
-                                {
-                                  "const": "2_postfix"
-                                },
-                                {
-                                  "const": "3_postfix"
-                                }
-                              ]
-                            },
-                            "combined": {
-                              "oneOf": [
-                                {
-                                  "const": "the_1_value_with_label_A"
-                                },
-                                {
-                                  "const": "the_1_value_with_label_B"
-                                },
-                                {
-                                  "const": "the_1_value_with_label_C"
-                                },
-                                {
-                                  "const": "the_2_value_with_label_A"
-                                },
-                                {
-                                  "const": "the_2_value_with_label_B"
-                                },
-                                {
-                                  "const": "the_2_value_with_label_C"
-                                },
-                                {
-                                  "const": "the_3_value_with_label_A"
-                                },
-                                {
-                                  "const": "the_3_value_with_label_B"
-                                },
-                                {
-                                  "const": "the_3_value_with_label_C"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "prefix",
-                            "postfix",
-                            "combined"
-                          ]
-                        }
-                      }
-                    },
-                    "required": [
-                      "value"
-                    ]
-                  }
-                ]
               }
-            },
-            "required": [
-              "first",
-              "second"
             ]
           }
         },
         "required": [
-          "p"
+          "first",
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -375,274 +359,266 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
-            "type": "object",
-            "properties": {
-              "first": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "value": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "prefix": {
-                              "oneOf": [
-                                {
-                                  "const": "prefix_A"
-                                },
-                                {
-                                  "const": "prefix_B"
-                                },
-                                {
-                                  "const": "prefix_C"
-                                }
-                              ]
-                            },
-                            "postfix": {
-                              "oneOf": [
-                                {
-                                  "const": "1_postfix"
-                                },
-                                {
-                                  "const": "2_postfix"
-                                },
-                                {
-                                  "const": "3_postfix"
-                                }
-                              ]
-                            },
-                            "combined": {
-                              "oneOf": [
-                                {
-                                  "const": "the_1_value_with_label_A"
-                                },
-                                {
-                                  "const": "the_1_value_with_label_B"
-                                },
-                                {
-                                  "const": "the_1_value_with_label_C"
-                                },
-                                {
-                                  "const": "the_2_value_with_label_A"
-                                },
-                                {
-                                  "const": "the_2_value_with_label_B"
-                                },
-                                {
-                                  "const": "the_2_value_with_label_C"
-                                },
-                                {
-                                  "const": "the_3_value_with_label_A"
-                                },
-                                {
-                                  "const": "the_3_value_with_label_B"
-                                },
-                                {
-                                  "const": "the_3_value_with_label_C"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "prefix",
-                            "postfix",
-                            "combined"
-                          ]
-                        }
-                      }
-                    },
-                    "required": [
-                      "value"
-                    ]
-                  }
-                ]
+          "first": {
+            "oneOf": [
+              {
+                "type": "null"
               },
-              "second": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "value": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "prefix": {
-                              "oneOf": [
-                                {
-                                  "const": "prefix_A"
-                                },
-                                {
-                                  "const": "prefix_B"
-                                },
-                                {
-                                  "const": "prefix_C"
-                                }
-                              ]
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "prefix": {
+                          "oneOf": [
+                            {
+                              "const": "prefix_A"
                             },
-                            "postfix": {
-                              "oneOf": [
-                                {
-                                  "const": "1_postfix"
-                                },
-                                {
-                                  "const": "2_postfix"
-                                },
-                                {
-                                  "const": "3_postfix"
-                                }
-                              ]
+                            {
+                              "const": "prefix_B"
                             },
-                            "combined": {
-                              "oneOf": [
-                                {
-                                  "const": "the_1_value_with_label_A"
-                                },
-                                {
-                                  "const": "the_1_value_with_label_B"
-                                },
-                                {
-                                  "const": "the_1_value_with_label_C"
-                                },
-                                {
-                                  "const": "the_2_value_with_label_A"
-                                },
-                                {
-                                  "const": "the_2_value_with_label_B"
-                                },
-                                {
-                                  "const": "the_2_value_with_label_C"
-                                },
-                                {
-                                  "const": "the_3_value_with_label_A"
-                                },
-                                {
-                                  "const": "the_3_value_with_label_B"
-                                },
-                                {
-                                  "const": "the_3_value_with_label_C"
-                                }
-                              ]
+                            {
+                              "const": "prefix_C"
                             }
-                          },
-                          "required": [
-                            "prefix",
-                            "postfix",
-                            "combined"
+                          ]
+                        },
+                        "postfix": {
+                          "oneOf": [
+                            {
+                              "const": "1_postfix"
+                            },
+                            {
+                              "const": "2_postfix"
+                            },
+                            {
+                              "const": "3_postfix"
+                            }
+                          ]
+                        },
+                        "combined": {
+                          "oneOf": [
+                            {
+                              "const": "the_1_value_with_label_A"
+                            },
+                            {
+                              "const": "the_1_value_with_label_B"
+                            },
+                            {
+                              "const": "the_1_value_with_label_C"
+                            },
+                            {
+                              "const": "the_2_value_with_label_A"
+                            },
+                            {
+                              "const": "the_2_value_with_label_B"
+                            },
+                            {
+                              "const": "the_2_value_with_label_C"
+                            },
+                            {
+                              "const": "the_3_value_with_label_A"
+                            },
+                            {
+                              "const": "the_3_value_with_label_B"
+                            },
+                            {
+                              "const": "the_3_value_with_label_C"
+                            }
                           ]
                         }
-                      }
-                    },
-                    "required": [
-                      "value"
-                    ]
+                      },
+                      "required": [
+                        "prefix",
+                        "postfix",
+                        "combined"
+                      ]
+                    }
                   }
-                ]
-              },
-              "third": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "value": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "prefix": {
-                              "oneOf": [
-                                {
-                                  "const": "prefix_A"
-                                },
-                                {
-                                  "const": "prefix_B"
-                                },
-                                {
-                                  "const": "prefix_C"
-                                }
-                              ]
-                            },
-                            "postfix": {
-                              "oneOf": [
-                                {
-                                  "const": "1_postfix"
-                                },
-                                {
-                                  "const": "2_postfix"
-                                },
-                                {
-                                  "const": "3_postfix"
-                                }
-                              ]
-                            },
-                            "combined": {
-                              "oneOf": [
-                                {
-                                  "const": "the_1_value_with_label_A"
-                                },
-                                {
-                                  "const": "the_1_value_with_label_B"
-                                },
-                                {
-                                  "const": "the_1_value_with_label_C"
-                                },
-                                {
-                                  "const": "the_2_value_with_label_A"
-                                },
-                                {
-                                  "const": "the_2_value_with_label_B"
-                                },
-                                {
-                                  "const": "the_2_value_with_label_C"
-                                },
-                                {
-                                  "const": "the_3_value_with_label_A"
-                                },
-                                {
-                                  "const": "the_3_value_with_label_B"
-                                },
-                                {
-                                  "const": "the_3_value_with_label_C"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "prefix",
-                            "postfix",
-                            "combined"
-                          ]
-                        }
-                      }
-                    },
-                    "required": [
-                      "value"
-                    ]
-                  }
+                },
+                "required": [
+                  "value"
                 ]
               }
-            },
-            "required": [
-              "first",
-              "second",
-              "third"
+            ]
+          },
+          "second": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "prefix": {
+                          "oneOf": [
+                            {
+                              "const": "prefix_A"
+                            },
+                            {
+                              "const": "prefix_B"
+                            },
+                            {
+                              "const": "prefix_C"
+                            }
+                          ]
+                        },
+                        "postfix": {
+                          "oneOf": [
+                            {
+                              "const": "1_postfix"
+                            },
+                            {
+                              "const": "2_postfix"
+                            },
+                            {
+                              "const": "3_postfix"
+                            }
+                          ]
+                        },
+                        "combined": {
+                          "oneOf": [
+                            {
+                              "const": "the_1_value_with_label_A"
+                            },
+                            {
+                              "const": "the_1_value_with_label_B"
+                            },
+                            {
+                              "const": "the_1_value_with_label_C"
+                            },
+                            {
+                              "const": "the_2_value_with_label_A"
+                            },
+                            {
+                              "const": "the_2_value_with_label_B"
+                            },
+                            {
+                              "const": "the_2_value_with_label_C"
+                            },
+                            {
+                              "const": "the_3_value_with_label_A"
+                            },
+                            {
+                              "const": "the_3_value_with_label_B"
+                            },
+                            {
+                              "const": "the_3_value_with_label_C"
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "prefix",
+                        "postfix",
+                        "combined"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "value"
+                ]
+              }
+            ]
+          },
+          "third": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "prefix": {
+                          "oneOf": [
+                            {
+                              "const": "prefix_A"
+                            },
+                            {
+                              "const": "prefix_B"
+                            },
+                            {
+                              "const": "prefix_C"
+                            }
+                          ]
+                        },
+                        "postfix": {
+                          "oneOf": [
+                            {
+                              "const": "1_postfix"
+                            },
+                            {
+                              "const": "2_postfix"
+                            },
+                            {
+                              "const": "3_postfix"
+                            }
+                          ]
+                        },
+                        "combined": {
+                          "oneOf": [
+                            {
+                              "const": "the_1_value_with_label_A"
+                            },
+                            {
+                              "const": "the_1_value_with_label_B"
+                            },
+                            {
+                              "const": "the_1_value_with_label_C"
+                            },
+                            {
+                              "const": "the_2_value_with_label_A"
+                            },
+                            {
+                              "const": "the_2_value_with_label_B"
+                            },
+                            {
+                              "const": "the_2_value_with_label_C"
+                            },
+                            {
+                              "const": "the_3_value_with_label_A"
+                            },
+                            {
+                              "const": "the_3_value_with_label_B"
+                            },
+                            {
+                              "const": "the_3_value_with_label_C"
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "prefix",
+                        "postfix",
+                        "combined"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "value"
+                ]
+              }
             ]
           }
         },
         "required": [
-          "p"
+          "first",
+          "second",
+          "third"
         ],
         "additionalProperties": false,
         "$defs": {}

@@ -11,21 +11,75 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
+          "first": {
             "type": "object",
             "properties": {
-              "first": {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "manufacturer": {
                       "type": "object",
                       "properties": {
+                        "type": {
+                          "const": "manufacturer"
+                        },
                         "name": {
                           "type": "string"
+                        }
+                      },
+                      "required": [
+                        "type",
+                        "name"
+                      ]
+                    },
+                    "brand": {
+                      "oneOf": [
+                        {
+                          "type": "null"
                         },
-                        "manufacturer": {
+                        {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "const": "brand"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "type",
+                            "name"
+                          ]
+                        }
+                      ]
+                    },
+                    "similar": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "const": "brand"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "type",
+                            "name"
+                          ]
+                        },
+                        {
                           "type": "object",
                           "properties": {
                             "type": {
@@ -39,88 +93,26 @@
                             "type",
                             "name"
                           ]
-                        },
-                        "brand": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "const": "brand"
-                                },
-                                "name": {
-                                  "type": "string"
-                                }
-                              },
-                              "required": [
-                                "type",
-                                "name"
-                              ]
-                            }
-                          ]
-                        },
-                        "similar": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "const": "brand"
-                                },
-                                "name": {
-                                  "type": "string"
-                                }
-                              },
-                              "required": [
-                                "type",
-                                "name"
-                              ]
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "const": "manufacturer"
-                                },
-                                "name": {
-                                  "type": "string"
-                                }
-                              },
-                              "required": [
-                                "type",
-                                "name"
-                              ]
-                            }
-                          ]
                         }
-                      },
-                      "required": [
-                        "name",
-                        "manufacturer",
-                        "brand",
-                        "similar"
                       ]
                     }
-                  }
-                },
-                "required": [
-                  "value"
-                ]
+                  },
+                  "required": [
+                    "name",
+                    "manufacturer",
+                    "brand",
+                    "similar"
+                  ]
+                }
               }
             },
             "required": [
-              "first"
+              "value"
             ]
           }
         },
         "required": [
-          "p"
+          "first"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -132,10 +124,111 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
+          "first": {
             "type": "object",
             "properties": {
-              "first": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "manufacturer": {
+                      "type": "object",
+                      "properties": {
+                        "type": {
+                          "const": "manufacturer"
+                        },
+                        "name": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "type",
+                        "name"
+                      ]
+                    },
+                    "brand": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "const": "brand"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "type",
+                            "name"
+                          ]
+                        }
+                      ]
+                    },
+                    "similar": {
+                      "oneOf": [
+                        {
+                          "type": "null"
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "const": "brand"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "type",
+                            "name"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "const": "manufacturer"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "type",
+                            "name"
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "name",
+                    "manufacturer",
+                    "brand",
+                    "similar"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "second": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
                 "type": "object",
                 "properties": {
                   "value": {
@@ -233,122 +326,13 @@
                 "required": [
                   "value"
                 ]
-              },
-              "second": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "value": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "name": {
-                              "type": "string"
-                            },
-                            "manufacturer": {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "const": "manufacturer"
-                                },
-                                "name": {
-                                  "type": "string"
-                                }
-                              },
-                              "required": [
-                                "type",
-                                "name"
-                              ]
-                            },
-                            "brand": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "type": {
-                                      "const": "brand"
-                                    },
-                                    "name": {
-                                      "type": "string"
-                                    }
-                                  },
-                                  "required": [
-                                    "type",
-                                    "name"
-                                  ]
-                                }
-                              ]
-                            },
-                            "similar": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "type": {
-                                      "const": "brand"
-                                    },
-                                    "name": {
-                                      "type": "string"
-                                    }
-                                  },
-                                  "required": [
-                                    "type",
-                                    "name"
-                                  ]
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "type": {
-                                      "const": "manufacturer"
-                                    },
-                                    "name": {
-                                      "type": "string"
-                                    }
-                                  },
-                                  "required": [
-                                    "type",
-                                    "name"
-                                  ]
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "name",
-                            "manufacturer",
-                            "brand",
-                            "similar"
-                          ]
-                        }
-                      }
-                    },
-                    "required": [
-                      "value"
-                    ]
-                  }
-                ]
               }
-            },
-            "required": [
-              "first",
-              "second"
             ]
           }
         },
         "required": [
-          "p"
+          "first",
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -459,132 +443,80 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
-            "type": "object",
-            "properties": {
-              "first": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "value": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "name": {
-                              "type": "string"
-                            },
-                            "manufacturer": {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "const": "manufacturer"
-                                },
-                                "name": {
-                                  "type": "string"
-                                }
-                              },
-                              "required": [
-                                "type",
-                                "name"
-                              ]
-                            },
-                            "brand": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "type": {
-                                      "const": "brand"
-                                    },
-                                    "name": {
-                                      "type": "string"
-                                    }
-                                  },
-                                  "required": [
-                                    "type",
-                                    "name"
-                                  ]
-                                }
-                              ]
-                            },
-                            "similar": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "type": {
-                                      "const": "brand"
-                                    },
-                                    "name": {
-                                      "type": "string"
-                                    }
-                                  },
-                                  "required": [
-                                    "type",
-                                    "name"
-                                  ]
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "type": {
-                                      "const": "manufacturer"
-                                    },
-                                    "name": {
-                                      "type": "string"
-                                    }
-                                  },
-                                  "required": [
-                                    "type",
-                                    "name"
-                                  ]
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "name",
-                            "manufacturer",
-                            "brand",
-                            "similar"
-                          ]
-                        }
-                      }
-                    },
-                    "required": [
-                      "value"
-                    ]
-                  }
-                ]
+          "first": {
+            "oneOf": [
+              {
+                "type": "null"
               },
-              "second": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "value": {
-                        "type": "array",
-                        "items": {
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "manufacturer": {
                           "type": "object",
                           "properties": {
+                            "type": {
+                              "const": "manufacturer"
+                            },
                             "name": {
                               "type": "string"
+                            }
+                          },
+                          "required": [
+                            "type",
+                            "name"
+                          ]
+                        },
+                        "brand": {
+                          "oneOf": [
+                            {
+                              "type": "null"
                             },
-                            "manufacturer": {
+                            {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "const": "brand"
+                                },
+                                "name": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "type",
+                                "name"
+                              ]
+                            }
+                          ]
+                        },
+                        "similar": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "const": "brand"
+                                },
+                                "name": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "type",
+                                "name"
+                              ]
+                            },
+                            {
                               "type": "object",
                               "properties": {
                                 "type": {
@@ -598,198 +530,242 @@
                                 "type",
                                 "name"
                               ]
-                            },
-                            "brand": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "type": {
-                                      "const": "brand"
-                                    },
-                                    "name": {
-                                      "type": "string"
-                                    }
-                                  },
-                                  "required": [
-                                    "type",
-                                    "name"
-                                  ]
-                                }
-                              ]
-                            },
-                            "similar": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "type": {
-                                      "const": "brand"
-                                    },
-                                    "name": {
-                                      "type": "string"
-                                    }
-                                  },
-                                  "required": [
-                                    "type",
-                                    "name"
-                                  ]
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "type": {
-                                      "const": "manufacturer"
-                                    },
-                                    "name": {
-                                      "type": "string"
-                                    }
-                                  },
-                                  "required": [
-                                    "type",
-                                    "name"
-                                  ]
-                                }
-                              ]
                             }
-                          },
-                          "required": [
-                            "name",
-                            "manufacturer",
-                            "brand",
-                            "similar"
                           ]
                         }
-                      }
-                    },
-                    "required": [
-                      "value"
-                    ]
+                      },
+                      "required": [
+                        "name",
+                        "manufacturer",
+                        "brand",
+                        "similar"
+                      ]
+                    }
                   }
-                ]
-              },
-              "third": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "value": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "name": {
-                              "type": "string"
-                            },
-                            "manufacturer": {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "const": "manufacturer"
-                                },
-                                "name": {
-                                  "type": "string"
-                                }
-                              },
-                              "required": [
-                                "type",
-                                "name"
-                              ]
-                            },
-                            "brand": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "type": {
-                                      "const": "brand"
-                                    },
-                                    "name": {
-                                      "type": "string"
-                                    }
-                                  },
-                                  "required": [
-                                    "type",
-                                    "name"
-                                  ]
-                                }
-                              ]
-                            },
-                            "similar": {
-                              "oneOf": [
-                                {
-                                  "type": "null"
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "type": {
-                                      "const": "brand"
-                                    },
-                                    "name": {
-                                      "type": "string"
-                                    }
-                                  },
-                                  "required": [
-                                    "type",
-                                    "name"
-                                  ]
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "type": {
-                                      "const": "manufacturer"
-                                    },
-                                    "name": {
-                                      "type": "string"
-                                    }
-                                  },
-                                  "required": [
-                                    "type",
-                                    "name"
-                                  ]
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "name",
-                            "manufacturer",
-                            "brand",
-                            "similar"
-                          ]
-                        }
-                      }
-                    },
-                    "required": [
-                      "value"
-                    ]
-                  }
+                },
+                "required": [
+                  "value"
                 ]
               }
-            },
-            "required": [
-              "first",
-              "second",
-              "third"
+            ]
+          },
+          "second": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "manufacturer": {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "const": "manufacturer"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "type",
+                            "name"
+                          ]
+                        },
+                        "brand": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "const": "brand"
+                                },
+                                "name": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "type",
+                                "name"
+                              ]
+                            }
+                          ]
+                        },
+                        "similar": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "const": "brand"
+                                },
+                                "name": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "type",
+                                "name"
+                              ]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "const": "manufacturer"
+                                },
+                                "name": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "type",
+                                "name"
+                              ]
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "manufacturer",
+                        "brand",
+                        "similar"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "value"
+                ]
+              }
+            ]
+          },
+          "third": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        },
+                        "manufacturer": {
+                          "type": "object",
+                          "properties": {
+                            "type": {
+                              "const": "manufacturer"
+                            },
+                            "name": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "type",
+                            "name"
+                          ]
+                        },
+                        "brand": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "const": "brand"
+                                },
+                                "name": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "type",
+                                "name"
+                              ]
+                            }
+                          ]
+                        },
+                        "similar": {
+                          "oneOf": [
+                            {
+                              "type": "null"
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "const": "brand"
+                                },
+                                "name": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "type",
+                                "name"
+                              ]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "type": {
+                                  "const": "manufacturer"
+                                },
+                                "name": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "type",
+                                "name"
+                              ]
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "name",
+                        "manufacturer",
+                        "brand",
+                        "similar"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "value"
+                ]
+              }
             ]
           }
         },
         "required": [
-          "p"
+          "first",
+          "second",
+          "third"
         ],
         "additionalProperties": false,
         "$defs": {}

@@ -10,22 +10,14 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
+          "first": {
             "type": "object",
-            "properties": {
-              "first": {
-                "type": "object",
-                "properties": {},
-                "required": []
-              }
-            },
-            "required": [
-              "first"
-            ]
+            "properties": {},
+            "required": []
           }
         },
         "required": [
-          "p"
+          "first"
         ]
       },
       "strict": true
@@ -35,29 +27,21 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
+          "first": {
             "type": "object",
-            "properties": {
-              "first": {
-                "type": "object",
-                "properties": {},
-                "required": []
-              },
-              "second": {
-                "type": "object",
-                "properties": {},
-                "required": [],
-                "nullable": true
-              }
-            },
-            "required": [
-              "first",
-              "second"
-            ]
+            "properties": {},
+            "required": []
+          },
+          "second": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "nullable": true
           }
         },
         "required": [
-          "p"
+          "first",
+          "second"
         ]
       },
       "output": {
@@ -72,36 +56,28 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
+          "first": {
             "type": "object",
-            "properties": {
-              "first": {
-                "type": "object",
-                "properties": {},
-                "required": [],
-                "nullable": true
-              },
-              "second": {
-                "type": "object",
-                "properties": {},
-                "required": [],
-                "nullable": true
-              },
-              "third": {
-                "type": "object",
-                "properties": {},
-                "required": [],
-                "nullable": true
-              }
-            },
-            "required": [
-              "first",
-              "second"
-            ]
+            "properties": {},
+            "required": [],
+            "nullable": true
+          },
+          "second": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "nullable": true
+          },
+          "third": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "nullable": true
           }
         },
         "required": [
-          "p"
+          "first",
+          "second"
         ]
       },
       "output": {

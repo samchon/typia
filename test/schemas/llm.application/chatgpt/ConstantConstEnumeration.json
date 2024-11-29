@@ -10,40 +10,31 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
-            "type": "object",
-            "properties": {
-              "first": {
-                "type": "array",
-                "items": {
-                  "anyOf": [
-                    {
-                      "type": "number",
-                      "enum": [
-                        0,
-                        1,
-                        2
-                      ]
-                    },
-                    {
-                      "type": "string",
-                      "enum": [
-                        "Three",
-                        "Four"
-                      ]
-                    }
+          "first": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "type": "number",
+                  "enum": [
+                    0,
+                    1,
+                    2
+                  ]
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "Three",
+                    "Four"
                   ]
                 }
-              }
-            },
-            "required": [
-              "first"
-            ],
-            "additionalProperties": false
+              ]
+            }
           }
         },
         "required": [
-          "p"
+          "first"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -55,10 +46,34 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
-            "type": "object",
-            "properties": {
-              "first": {
+          "first": {
+            "type": "array",
+            "items": {
+              "anyOf": [
+                {
+                  "type": "number",
+                  "enum": [
+                    0,
+                    1,
+                    2
+                  ]
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "Three",
+                    "Four"
+                  ]
+                }
+              ]
+            }
+          },
+          "second": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
                 "type": "array",
                 "items": {
                   "anyOf": [
@@ -79,46 +94,13 @@
                     }
                   ]
                 }
-              },
-              "second": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "array",
-                    "items": {
-                      "anyOf": [
-                        {
-                          "type": "number",
-                          "enum": [
-                            0,
-                            1,
-                            2
-                          ]
-                        },
-                        {
-                          "type": "string",
-                          "enum": [
-                            "Three",
-                            "Four"
-                          ]
-                        }
-                      ]
-                    }
-                  }
-                ]
               }
-            },
-            "required": [
-              "first",
-              "second"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
-          "p"
+          "first",
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -152,107 +134,98 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
-            "type": "object",
-            "properties": {
-              "first": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "array",
-                    "items": {
-                      "anyOf": [
-                        {
-                          "type": "number",
-                          "enum": [
-                            0,
-                            1,
-                            2
-                          ]
-                        },
-                        {
-                          "type": "string",
-                          "enum": [
-                            "Three",
-                            "Four"
-                          ]
-                        }
-                      ]
-                    }
-                  }
-                ]
+          "first": {
+            "anyOf": [
+              {
+                "type": "null"
               },
-              "second": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "array",
-                    "items": {
-                      "anyOf": [
-                        {
-                          "type": "number",
-                          "enum": [
-                            0,
-                            1,
-                            2
-                          ]
-                        },
-                        {
-                          "type": "string",
-                          "enum": [
-                            "Three",
-                            "Four"
-                          ]
-                        }
+              {
+                "type": "array",
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "enum": [
+                        0,
+                        1,
+                        2
+                      ]
+                    },
+                    {
+                      "type": "string",
+                      "enum": [
+                        "Three",
+                        "Four"
                       ]
                     }
-                  }
-                ]
-              },
-              "third": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "array",
-                    "items": {
-                      "anyOf": [
-                        {
-                          "type": "number",
-                          "enum": [
-                            0,
-                            1,
-                            2
-                          ]
-                        },
-                        {
-                          "type": "string",
-                          "enum": [
-                            "Three",
-                            "Four"
-                          ]
-                        }
-                      ]
-                    }
-                  }
-                ]
+                  ]
+                }
               }
-            },
-            "required": [
-              "first",
-              "second",
-              "third"
-            ],
-            "additionalProperties": false
+            ]
+          },
+          "second": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "enum": [
+                        0,
+                        1,
+                        2
+                      ]
+                    },
+                    {
+                      "type": "string",
+                      "enum": [
+                        "Three",
+                        "Four"
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "third": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "anyOf": [
+                    {
+                      "type": "number",
+                      "enum": [
+                        0,
+                        1,
+                        2
+                      ]
+                    },
+                    {
+                      "type": "string",
+                      "enum": [
+                        "Three",
+                        "Four"
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
           }
         },
         "required": [
-          "p"
+          "first",
+          "second",
+          "third"
         ],
         "additionalProperties": false,
         "$defs": {}

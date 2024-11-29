@@ -8,7 +8,9 @@
           "type": "object",
           "properties": {},
           "required": [],
-          "additionalProperties": false
+          "additionalProperties": {
+            "type": "number"
+          }
         }
       },
       "required": [
@@ -23,7 +25,9 @@
           "type": "object",
           "properties": {},
           "required": [],
-          "additionalProperties": false
+          "additionalProperties": {
+            "type": "number"
+          }
         }
       },
       "required": [
@@ -39,7 +43,9 @@
           "type": "object",
           "properties": {},
           "required": [],
-          "additionalProperties": false
+          "additionalProperties": {
+            "type": "number"
+          }
         }
       },
       "required": [
@@ -54,7 +60,9 @@
           "type": "object",
           "properties": {},
           "required": [],
-          "additionalProperties": false
+          "additionalProperties": {
+            "type": "number"
+          }
         }
       },
       "required": [
@@ -72,7 +80,9 @@
             "type": "object",
             "properties": {},
             "required": [],
-            "additionalProperties": false
+            "additionalProperties": {
+              "type": "number"
+            }
           }
         },
         "required": [

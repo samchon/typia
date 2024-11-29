@@ -186,5 +186,6 @@
     "faint",
     "array"
   ],
+  "additionalProperties": false,
   "$defs": {}
 }

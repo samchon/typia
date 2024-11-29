@@ -11,10 +11,25 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
+          "first": {
             "type": "object",
             "properties": {
-              "first": {
+              "boolean": {
+                "type": "boolean"
+              },
+              "number": {
+                "type": "number"
+              },
+              "string": {
+                "type": "string"
+              },
+              "array": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              },
+              "object": {
                 "type": "object",
                 "properties": {
                   "boolean": {
@@ -87,36 +102,7 @@
                                 }
                               },
                               "object": {
-                                "type": "object",
-                                "properties": {
-                                  "boolean": {
-                                    "type": "boolean"
-                                  },
-                                  "number": {
-                                    "type": "number"
-                                  },
-                                  "string": {
-                                    "type": "string"
-                                  },
-                                  "array": {
-                                    "type": "array",
-                                    "items": {
-                                      "type": "number"
-                                    }
-                                  },
-                                  "object": {
-                                    "type": "null"
-                                  }
-                                },
-                                "required": [
-                                  "boolean",
-                                  "number",
-                                  "string",
-                                  "array",
-                                  "object"
-                                ],
-                                "additionalProperties": false,
-                                "nullable": true
+                                "type": "null"
                               }
                             },
                             "required": [
@@ -152,19 +138,24 @@
                     "nullable": true
                   }
                 },
-                "required": [],
-                "description": "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional",
-                "additionalProperties": false
+                "required": [
+                  "boolean",
+                  "number",
+                  "string",
+                  "array",
+                  "object"
+                ],
+                "additionalProperties": false,
+                "nullable": true
               }
             },
-            "required": [
-              "first"
-            ],
+            "required": [],
+            "description": "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional",
             "additionalProperties": false
           }
         },
         "required": [
-          "p"
+          "first"
         ],
         "additionalProperties": false
       },
@@ -175,152 +166,25 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
+          "first": {
             "type": "object",
             "properties": {
-              "first": {
-                "type": "object",
-                "properties": {
-                  "boolean": {
-                    "type": "boolean"
-                  },
-                  "number": {
-                    "type": "number"
-                  },
-                  "string": {
-                    "type": "string"
-                  },
-                  "array": {
-                    "type": "array",
-                    "items": {
-                      "type": "number"
-                    }
-                  },
-                  "object": {
-                    "type": "object",
-                    "properties": {
-                      "boolean": {
-                        "type": "boolean"
-                      },
-                      "number": {
-                        "type": "number"
-                      },
-                      "string": {
-                        "type": "string"
-                      },
-                      "array": {
-                        "type": "array",
-                        "items": {
-                          "type": "number"
-                        }
-                      },
-                      "object": {
-                        "type": "object",
-                        "properties": {
-                          "boolean": {
-                            "type": "boolean"
-                          },
-                          "number": {
-                            "type": "number"
-                          },
-                          "string": {
-                            "type": "string"
-                          },
-                          "array": {
-                            "type": "array",
-                            "items": {
-                              "type": "number"
-                            }
-                          },
-                          "object": {
-                            "type": "object",
-                            "properties": {
-                              "boolean": {
-                                "type": "boolean"
-                              },
-                              "number": {
-                                "type": "number"
-                              },
-                              "string": {
-                                "type": "string"
-                              },
-                              "array": {
-                                "type": "array",
-                                "items": {
-                                  "type": "number"
-                                }
-                              },
-                              "object": {
-                                "type": "object",
-                                "properties": {
-                                  "boolean": {
-                                    "type": "boolean"
-                                  },
-                                  "number": {
-                                    "type": "number"
-                                  },
-                                  "string": {
-                                    "type": "string"
-                                  },
-                                  "array": {
-                                    "type": "array",
-                                    "items": {
-                                      "type": "number"
-                                    }
-                                  },
-                                  "object": {
-                                    "type": "null"
-                                  }
-                                },
-                                "required": [
-                                  "boolean",
-                                  "number",
-                                  "string",
-                                  "array",
-                                  "object"
-                                ],
-                                "additionalProperties": false,
-                                "nullable": true
-                              }
-                            },
-                            "required": [
-                              "boolean",
-                              "number",
-                              "string",
-                              "array",
-                              "object"
-                            ],
-                            "additionalProperties": false,
-                            "nullable": true
-                          }
-                        },
-                        "required": [
-                          "boolean",
-                          "number",
-                          "string",
-                          "array",
-                          "object"
-                        ],
-                        "additionalProperties": false,
-                        "nullable": true
-                      }
-                    },
-                    "required": [
-                      "boolean",
-                      "number",
-                      "string",
-                      "array",
-                      "object"
-                    ],
-                    "additionalProperties": false,
-                    "nullable": true
-                  }
-                },
-                "required": [],
-                "description": "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional",
-                "additionalProperties": false
+              "boolean": {
+                "type": "boolean"
               },
-              "second": {
+              "number": {
+                "type": "number"
+              },
+              "string": {
+                "type": "string"
+              },
+              "array": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              },
+              "object": {
                 "type": "object",
                 "properties": {
                   "boolean": {
@@ -393,36 +257,7 @@
                                 }
                               },
                               "object": {
-                                "type": "object",
-                                "properties": {
-                                  "boolean": {
-                                    "type": "boolean"
-                                  },
-                                  "number": {
-                                    "type": "number"
-                                  },
-                                  "string": {
-                                    "type": "string"
-                                  },
-                                  "array": {
-                                    "type": "array",
-                                    "items": {
-                                      "type": "number"
-                                    }
-                                  },
-                                  "object": {
-                                    "type": "null"
-                                  }
-                                },
-                                "required": [
-                                  "boolean",
-                                  "number",
-                                  "string",
-                                  "array",
-                                  "object"
-                                ],
-                                "additionalProperties": false,
-                                "nullable": true
+                                "type": "null"
                               }
                             },
                             "required": [
@@ -458,20 +293,167 @@
                     "nullable": true
                   }
                 },
-                "required": [],
+                "required": [
+                  "boolean",
+                  "number",
+                  "string",
+                  "array",
+                  "object"
+                ],
                 "additionalProperties": false,
                 "nullable": true
               }
             },
-            "required": [
-              "first",
-              "second"
-            ],
+            "required": [],
+            "description": "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional",
             "additionalProperties": false
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "boolean": {
+                "type": "boolean"
+              },
+              "number": {
+                "type": "number"
+              },
+              "string": {
+                "type": "string"
+              },
+              "array": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              },
+              "object": {
+                "type": "object",
+                "properties": {
+                  "boolean": {
+                    "type": "boolean"
+                  },
+                  "number": {
+                    "type": "number"
+                  },
+                  "string": {
+                    "type": "string"
+                  },
+                  "array": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "object": {
+                    "type": "object",
+                    "properties": {
+                      "boolean": {
+                        "type": "boolean"
+                      },
+                      "number": {
+                        "type": "number"
+                      },
+                      "string": {
+                        "type": "string"
+                      },
+                      "array": {
+                        "type": "array",
+                        "items": {
+                          "type": "number"
+                        }
+                      },
+                      "object": {
+                        "type": "object",
+                        "properties": {
+                          "boolean": {
+                            "type": "boolean"
+                          },
+                          "number": {
+                            "type": "number"
+                          },
+                          "string": {
+                            "type": "string"
+                          },
+                          "array": {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            }
+                          },
+                          "object": {
+                            "type": "object",
+                            "properties": {
+                              "boolean": {
+                                "type": "boolean"
+                              },
+                              "number": {
+                                "type": "number"
+                              },
+                              "string": {
+                                "type": "string"
+                              },
+                              "array": {
+                                "type": "array",
+                                "items": {
+                                  "type": "number"
+                                }
+                              },
+                              "object": {
+                                "type": "null"
+                              }
+                            },
+                            "required": [
+                              "boolean",
+                              "number",
+                              "string",
+                              "array",
+                              "object"
+                            ],
+                            "additionalProperties": false,
+                            "nullable": true
+                          }
+                        },
+                        "required": [
+                          "boolean",
+                          "number",
+                          "string",
+                          "array",
+                          "object"
+                        ],
+                        "additionalProperties": false,
+                        "nullable": true
+                      }
+                    },
+                    "required": [
+                      "boolean",
+                      "number",
+                      "string",
+                      "array",
+                      "object"
+                    ],
+                    "additionalProperties": false,
+                    "nullable": true
+                  }
+                },
+                "required": [
+                  "boolean",
+                  "number",
+                  "string",
+                  "array",
+                  "object"
+                ],
+                "additionalProperties": false,
+                "nullable": true
+              }
+            },
+            "required": [],
+            "additionalProperties": false,
+            "nullable": true
           }
         },
         "required": [
-          "p"
+          "first",
+          "second"
         ],
         "additionalProperties": false
       },
@@ -624,294 +606,25 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
+          "first": {
             "type": "object",
             "properties": {
-              "first": {
-                "type": "object",
-                "properties": {
-                  "boolean": {
-                    "type": "boolean"
-                  },
-                  "number": {
-                    "type": "number"
-                  },
-                  "string": {
-                    "type": "string"
-                  },
-                  "array": {
-                    "type": "array",
-                    "items": {
-                      "type": "number"
-                    }
-                  },
-                  "object": {
-                    "type": "object",
-                    "properties": {
-                      "boolean": {
-                        "type": "boolean"
-                      },
-                      "number": {
-                        "type": "number"
-                      },
-                      "string": {
-                        "type": "string"
-                      },
-                      "array": {
-                        "type": "array",
-                        "items": {
-                          "type": "number"
-                        }
-                      },
-                      "object": {
-                        "type": "object",
-                        "properties": {
-                          "boolean": {
-                            "type": "boolean"
-                          },
-                          "number": {
-                            "type": "number"
-                          },
-                          "string": {
-                            "type": "string"
-                          },
-                          "array": {
-                            "type": "array",
-                            "items": {
-                              "type": "number"
-                            }
-                          },
-                          "object": {
-                            "type": "object",
-                            "properties": {
-                              "boolean": {
-                                "type": "boolean"
-                              },
-                              "number": {
-                                "type": "number"
-                              },
-                              "string": {
-                                "type": "string"
-                              },
-                              "array": {
-                                "type": "array",
-                                "items": {
-                                  "type": "number"
-                                }
-                              },
-                              "object": {
-                                "type": "object",
-                                "properties": {
-                                  "boolean": {
-                                    "type": "boolean"
-                                  },
-                                  "number": {
-                                    "type": "number"
-                                  },
-                                  "string": {
-                                    "type": "string"
-                                  },
-                                  "array": {
-                                    "type": "array",
-                                    "items": {
-                                      "type": "number"
-                                    }
-                                  },
-                                  "object": {
-                                    "type": "null"
-                                  }
-                                },
-                                "required": [
-                                  "boolean",
-                                  "number",
-                                  "string",
-                                  "array",
-                                  "object"
-                                ],
-                                "additionalProperties": false,
-                                "nullable": true
-                              }
-                            },
-                            "required": [
-                              "boolean",
-                              "number",
-                              "string",
-                              "array",
-                              "object"
-                            ],
-                            "additionalProperties": false,
-                            "nullable": true
-                          }
-                        },
-                        "required": [
-                          "boolean",
-                          "number",
-                          "string",
-                          "array",
-                          "object"
-                        ],
-                        "additionalProperties": false,
-                        "nullable": true
-                      }
-                    },
-                    "required": [
-                      "boolean",
-                      "number",
-                      "string",
-                      "array",
-                      "object"
-                    ],
-                    "additionalProperties": false,
-                    "nullable": true
-                  }
-                },
-                "required": [],
-                "additionalProperties": false,
-                "nullable": true
+              "boolean": {
+                "type": "boolean"
               },
-              "second": {
-                "type": "object",
-                "properties": {
-                  "boolean": {
-                    "type": "boolean"
-                  },
-                  "number": {
-                    "type": "number"
-                  },
-                  "string": {
-                    "type": "string"
-                  },
-                  "array": {
-                    "type": "array",
-                    "items": {
-                      "type": "number"
-                    }
-                  },
-                  "object": {
-                    "type": "object",
-                    "properties": {
-                      "boolean": {
-                        "type": "boolean"
-                      },
-                      "number": {
-                        "type": "number"
-                      },
-                      "string": {
-                        "type": "string"
-                      },
-                      "array": {
-                        "type": "array",
-                        "items": {
-                          "type": "number"
-                        }
-                      },
-                      "object": {
-                        "type": "object",
-                        "properties": {
-                          "boolean": {
-                            "type": "boolean"
-                          },
-                          "number": {
-                            "type": "number"
-                          },
-                          "string": {
-                            "type": "string"
-                          },
-                          "array": {
-                            "type": "array",
-                            "items": {
-                              "type": "number"
-                            }
-                          },
-                          "object": {
-                            "type": "object",
-                            "properties": {
-                              "boolean": {
-                                "type": "boolean"
-                              },
-                              "number": {
-                                "type": "number"
-                              },
-                              "string": {
-                                "type": "string"
-                              },
-                              "array": {
-                                "type": "array",
-                                "items": {
-                                  "type": "number"
-                                }
-                              },
-                              "object": {
-                                "type": "object",
-                                "properties": {
-                                  "boolean": {
-                                    "type": "boolean"
-                                  },
-                                  "number": {
-                                    "type": "number"
-                                  },
-                                  "string": {
-                                    "type": "string"
-                                  },
-                                  "array": {
-                                    "type": "array",
-                                    "items": {
-                                      "type": "number"
-                                    }
-                                  },
-                                  "object": {
-                                    "type": "null"
-                                  }
-                                },
-                                "required": [
-                                  "boolean",
-                                  "number",
-                                  "string",
-                                  "array",
-                                  "object"
-                                ],
-                                "additionalProperties": false,
-                                "nullable": true
-                              }
-                            },
-                            "required": [
-                              "boolean",
-                              "number",
-                              "string",
-                              "array",
-                              "object"
-                            ],
-                            "additionalProperties": false,
-                            "nullable": true
-                          }
-                        },
-                        "required": [
-                          "boolean",
-                          "number",
-                          "string",
-                          "array",
-                          "object"
-                        ],
-                        "additionalProperties": false,
-                        "nullable": true
-                      }
-                    },
-                    "required": [
-                      "boolean",
-                      "number",
-                      "string",
-                      "array",
-                      "object"
-                    ],
-                    "additionalProperties": false,
-                    "nullable": true
-                  }
-                },
-                "required": [],
-                "additionalProperties": false,
-                "nullable": true
+              "number": {
+                "type": "number"
               },
-              "third": {
+              "string": {
+                "type": "string"
+              },
+              "array": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              },
+              "object": {
                 "type": "object",
                 "properties": {
                   "boolean": {
@@ -984,36 +697,7 @@
                                 }
                               },
                               "object": {
-                                "type": "object",
-                                "properties": {
-                                  "boolean": {
-                                    "type": "boolean"
-                                  },
-                                  "number": {
-                                    "type": "number"
-                                  },
-                                  "string": {
-                                    "type": "string"
-                                  },
-                                  "array": {
-                                    "type": "array",
-                                    "items": {
-                                      "type": "number"
-                                    }
-                                  },
-                                  "object": {
-                                    "type": "null"
-                                  }
-                                },
-                                "required": [
-                                  "boolean",
-                                  "number",
-                                  "string",
-                                  "array",
-                                  "object"
-                                ],
-                                "additionalProperties": false,
-                                "nullable": true
+                                "type": "null"
                               }
                             },
                             "required": [
@@ -1049,20 +733,309 @@
                     "nullable": true
                   }
                 },
-                "required": [],
+                "required": [
+                  "boolean",
+                  "number",
+                  "string",
+                  "array",
+                  "object"
+                ],
                 "additionalProperties": false,
                 "nullable": true
               }
             },
-            "required": [
-              "first",
-              "second"
-            ],
-            "additionalProperties": false
+            "required": [],
+            "additionalProperties": false,
+            "nullable": true
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "boolean": {
+                "type": "boolean"
+              },
+              "number": {
+                "type": "number"
+              },
+              "string": {
+                "type": "string"
+              },
+              "array": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              },
+              "object": {
+                "type": "object",
+                "properties": {
+                  "boolean": {
+                    "type": "boolean"
+                  },
+                  "number": {
+                    "type": "number"
+                  },
+                  "string": {
+                    "type": "string"
+                  },
+                  "array": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "object": {
+                    "type": "object",
+                    "properties": {
+                      "boolean": {
+                        "type": "boolean"
+                      },
+                      "number": {
+                        "type": "number"
+                      },
+                      "string": {
+                        "type": "string"
+                      },
+                      "array": {
+                        "type": "array",
+                        "items": {
+                          "type": "number"
+                        }
+                      },
+                      "object": {
+                        "type": "object",
+                        "properties": {
+                          "boolean": {
+                            "type": "boolean"
+                          },
+                          "number": {
+                            "type": "number"
+                          },
+                          "string": {
+                            "type": "string"
+                          },
+                          "array": {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            }
+                          },
+                          "object": {
+                            "type": "object",
+                            "properties": {
+                              "boolean": {
+                                "type": "boolean"
+                              },
+                              "number": {
+                                "type": "number"
+                              },
+                              "string": {
+                                "type": "string"
+                              },
+                              "array": {
+                                "type": "array",
+                                "items": {
+                                  "type": "number"
+                                }
+                              },
+                              "object": {
+                                "type": "null"
+                              }
+                            },
+                            "required": [
+                              "boolean",
+                              "number",
+                              "string",
+                              "array",
+                              "object"
+                            ],
+                            "additionalProperties": false,
+                            "nullable": true
+                          }
+                        },
+                        "required": [
+                          "boolean",
+                          "number",
+                          "string",
+                          "array",
+                          "object"
+                        ],
+                        "additionalProperties": false,
+                        "nullable": true
+                      }
+                    },
+                    "required": [
+                      "boolean",
+                      "number",
+                      "string",
+                      "array",
+                      "object"
+                    ],
+                    "additionalProperties": false,
+                    "nullable": true
+                  }
+                },
+                "required": [
+                  "boolean",
+                  "number",
+                  "string",
+                  "array",
+                  "object"
+                ],
+                "additionalProperties": false,
+                "nullable": true
+              }
+            },
+            "required": [],
+            "additionalProperties": false,
+            "nullable": true
+          },
+          "third": {
+            "type": "object",
+            "properties": {
+              "boolean": {
+                "type": "boolean"
+              },
+              "number": {
+                "type": "number"
+              },
+              "string": {
+                "type": "string"
+              },
+              "array": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              },
+              "object": {
+                "type": "object",
+                "properties": {
+                  "boolean": {
+                    "type": "boolean"
+                  },
+                  "number": {
+                    "type": "number"
+                  },
+                  "string": {
+                    "type": "string"
+                  },
+                  "array": {
+                    "type": "array",
+                    "items": {
+                      "type": "number"
+                    }
+                  },
+                  "object": {
+                    "type": "object",
+                    "properties": {
+                      "boolean": {
+                        "type": "boolean"
+                      },
+                      "number": {
+                        "type": "number"
+                      },
+                      "string": {
+                        "type": "string"
+                      },
+                      "array": {
+                        "type": "array",
+                        "items": {
+                          "type": "number"
+                        }
+                      },
+                      "object": {
+                        "type": "object",
+                        "properties": {
+                          "boolean": {
+                            "type": "boolean"
+                          },
+                          "number": {
+                            "type": "number"
+                          },
+                          "string": {
+                            "type": "string"
+                          },
+                          "array": {
+                            "type": "array",
+                            "items": {
+                              "type": "number"
+                            }
+                          },
+                          "object": {
+                            "type": "object",
+                            "properties": {
+                              "boolean": {
+                                "type": "boolean"
+                              },
+                              "number": {
+                                "type": "number"
+                              },
+                              "string": {
+                                "type": "string"
+                              },
+                              "array": {
+                                "type": "array",
+                                "items": {
+                                  "type": "number"
+                                }
+                              },
+                              "object": {
+                                "type": "null"
+                              }
+                            },
+                            "required": [
+                              "boolean",
+                              "number",
+                              "string",
+                              "array",
+                              "object"
+                            ],
+                            "additionalProperties": false,
+                            "nullable": true
+                          }
+                        },
+                        "required": [
+                          "boolean",
+                          "number",
+                          "string",
+                          "array",
+                          "object"
+                        ],
+                        "additionalProperties": false,
+                        "nullable": true
+                      }
+                    },
+                    "required": [
+                      "boolean",
+                      "number",
+                      "string",
+                      "array",
+                      "object"
+                    ],
+                    "additionalProperties": false,
+                    "nullable": true
+                  }
+                },
+                "required": [
+                  "boolean",
+                  "number",
+                  "string",
+                  "array",
+                  "object"
+                ],
+                "additionalProperties": false,
+                "nullable": true
+              }
+            },
+            "required": [],
+            "additionalProperties": false,
+            "nullable": true
           }
         },
         "required": [
-          "p"
+          "first",
+          "second"
         ],
         "additionalProperties": false
       },

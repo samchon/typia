@@ -10,67 +10,58 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
-            "type": "object",
-            "properties": {
-              "first": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "name": {
+          "first": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "professor": {
+                  "anyOf": [
+                    {
                       "type": "string"
                     },
-                    "professor": {
-                      "anyOf": [
-                        {
-                          "type": "string"
-                        },
-                        {
-                          "type": "number"
-                        }
-                      ]
-                    },
-                    "classroom": {
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "string"
-                        },
-                        "name": {
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "id",
-                        "name"
-                      ],
-                      "additionalProperties": false
-                    },
-                    "grade": {
+                    {
                       "type": "number"
+                    }
+                  ]
+                },
+                "classroom": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
                     },
-                    "unknown": {}
+                    "name": {
+                      "type": "string"
+                    }
                   },
                   "required": [
-                    "name",
-                    "professor",
-                    "classroom",
-                    "grade",
-                    "unknown"
+                    "id",
+                    "name"
                   ],
                   "additionalProperties": false
-                }
-              }
-            },
-            "required": [
-              "first"
-            ],
-            "additionalProperties": false
+                },
+                "grade": {
+                  "type": "number"
+                },
+                "unknown": {}
+              },
+              "required": [
+                "name",
+                "professor",
+                "classroom",
+                "grade",
+                "unknown"
+              ],
+              "additionalProperties": false
+            }
           }
         },
         "required": [
-          "p"
+          "first"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -82,10 +73,61 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
-            "type": "object",
-            "properties": {
-              "first": {
+          "first": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "professor": {
+                  "anyOf": [
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ]
+                },
+                "classroom": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name"
+                  ],
+                  "additionalProperties": false
+                },
+                "grade": {
+                  "type": "number"
+                },
+                "unknown": {}
+              },
+              "required": [
+                "name",
+                "professor",
+                "classroom",
+                "grade",
+                "unknown"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "second": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
                 "type": "array",
                 "items": {
                   "type": "object",
@@ -133,73 +175,13 @@
                   ],
                   "additionalProperties": false
                 }
-              },
-              "second": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "name": {
-                          "type": "string"
-                        },
-                        "professor": {
-                          "anyOf": [
-                            {
-                              "type": "string"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        },
-                        "classroom": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "type": "string"
-                            },
-                            "name": {
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "id",
-                            "name"
-                          ],
-                          "additionalProperties": false
-                        },
-                        "grade": {
-                          "type": "number"
-                        },
-                        "unknown": {}
-                      },
-                      "required": [
-                        "name",
-                        "professor",
-                        "classroom",
-                        "grade",
-                        "unknown"
-                      ],
-                      "additionalProperties": false
-                    }
-                  }
-                ]
               }
-            },
-            "required": [
-              "first",
-              "second"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
-          "p"
+          "first",
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -260,188 +242,179 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
-            "type": "object",
-            "properties": {
-              "first": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "name": {
-                          "type": "string"
-                        },
-                        "professor": {
-                          "anyOf": [
-                            {
-                              "type": "string"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        },
-                        "classroom": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "type": "string"
-                            },
-                            "name": {
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "id",
-                            "name"
-                          ],
-                          "additionalProperties": false
-                        },
-                        "grade": {
-                          "type": "number"
-                        },
-                        "unknown": {}
-                      },
-                      "required": [
-                        "name",
-                        "professor",
-                        "classroom",
-                        "grade",
-                        "unknown"
-                      ],
-                      "additionalProperties": false
-                    }
-                  }
-                ]
+          "first": {
+            "anyOf": [
+              {
+                "type": "null"
               },
-              "second": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "name": {
+              {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "professor": {
+                      "anyOf": [
+                        {
                           "type": "string"
                         },
-                        "professor": {
-                          "anyOf": [
-                            {
-                              "type": "string"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        },
-                        "classroom": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "type": "string"
-                            },
-                            "name": {
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "id",
-                            "name"
-                          ],
-                          "additionalProperties": false
-                        },
-                        "grade": {
+                        {
                           "type": "number"
-                        },
-                        "unknown": {}
-                      },
-                      "required": [
-                        "name",
-                        "professor",
-                        "classroom",
-                        "grade",
-                        "unknown"
-                      ],
-                      "additionalProperties": false
-                    }
-                  }
-                ]
-              },
-              "third": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "array",
-                    "items": {
+                        }
+                      ]
+                    },
+                    "classroom": {
                       "type": "object",
                       "properties": {
-                        "name": {
+                        "id": {
                           "type": "string"
                         },
-                        "professor": {
-                          "anyOf": [
-                            {
-                              "type": "string"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        },
-                        "classroom": {
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "type": "string"
-                            },
-                            "name": {
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "id",
-                            "name"
-                          ],
-                          "additionalProperties": false
-                        },
-                        "grade": {
-                          "type": "number"
-                        },
-                        "unknown": {}
+                        "name": {
+                          "type": "string"
+                        }
                       },
                       "required": [
-                        "name",
-                        "professor",
-                        "classroom",
-                        "grade",
-                        "unknown"
+                        "id",
+                        "name"
                       ],
                       "additionalProperties": false
-                    }
-                  }
-                ]
+                    },
+                    "grade": {
+                      "type": "number"
+                    },
+                    "unknown": {}
+                  },
+                  "required": [
+                    "name",
+                    "professor",
+                    "classroom",
+                    "grade",
+                    "unknown"
+                  ],
+                  "additionalProperties": false
+                }
               }
-            },
-            "required": [
-              "first",
-              "second",
-              "third"
-            ],
-            "additionalProperties": false
+            ]
+          },
+          "second": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "professor": {
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ]
+                    },
+                    "classroom": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "grade": {
+                      "type": "number"
+                    },
+                    "unknown": {}
+                  },
+                  "required": [
+                    "name",
+                    "professor",
+                    "classroom",
+                    "grade",
+                    "unknown"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            ]
+          },
+          "third": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "name": {
+                      "type": "string"
+                    },
+                    "professor": {
+                      "anyOf": [
+                        {
+                          "type": "string"
+                        },
+                        {
+                          "type": "number"
+                        }
+                      ]
+                    },
+                    "classroom": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "grade": {
+                      "type": "number"
+                    },
+                    "unknown": {}
+                  },
+                  "required": [
+                    "name",
+                    "professor",
+                    "classroom",
+                    "grade",
+                    "unknown"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            ]
           }
         },
         "required": [
-          "p"
+          "first",
+          "second",
+          "third"
         ],
         "additionalProperties": false,
         "$defs": {}

@@ -10,44 +10,36 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
+          "first": {
             "type": "object",
             "properties": {
-              "first": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string",
-                    "format": "uuid"
-                  },
-                  "dollar": {
-                    "x-typia-monetary": "dollar",
-                    "type": "string"
-                  },
-                  "postfix": {
-                    "x-typia-postfix": "abcd",
-                    "type": "string"
-                  },
-                  "powerOf": {
-                    "x-typia-powerOf": 2,
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "id",
-                  "dollar",
-                  "postfix",
-                  "powerOf"
-                ]
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "dollar": {
+                "x-typia-monetary": "dollar",
+                "type": "string"
+              },
+              "postfix": {
+                "x-typia-postfix": "abcd",
+                "type": "string"
+              },
+              "powerOf": {
+                "x-typia-powerOf": 2,
+                "type": "number"
               }
             },
             "required": [
-              "first"
+              "id",
+              "dollar",
+              "postfix",
+              "powerOf"
             ]
           }
         },
         "required": [
-          "p"
+          "first"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -59,10 +51,39 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
+          "first": {
             "type": "object",
             "properties": {
-              "first": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "dollar": {
+                "x-typia-monetary": "dollar",
+                "type": "string"
+              },
+              "postfix": {
+                "x-typia-postfix": "abcd",
+                "type": "string"
+              },
+              "powerOf": {
+                "x-typia-powerOf": 2,
+                "type": "number"
+              }
+            },
+            "required": [
+              "id",
+              "dollar",
+              "postfix",
+              "powerOf"
+            ]
+          },
+          "second": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
                 "type": "object",
                 "properties": {
                   "id": {
@@ -88,50 +109,13 @@
                   "postfix",
                   "powerOf"
                 ]
-              },
-              "second": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "string",
-                        "format": "uuid"
-                      },
-                      "dollar": {
-                        "x-typia-monetary": "dollar",
-                        "type": "string"
-                      },
-                      "postfix": {
-                        "x-typia-postfix": "abcd",
-                        "type": "string"
-                      },
-                      "powerOf": {
-                        "x-typia-powerOf": 2,
-                        "type": "number"
-                      }
-                    },
-                    "required": [
-                      "id",
-                      "dollar",
-                      "postfix",
-                      "powerOf"
-                    ]
-                  }
-                ]
               }
-            },
-            "required": [
-              "first",
-              "second"
             ]
           }
         },
         "required": [
-          "p"
+          "first",
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -170,121 +154,113 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
-            "type": "object",
-            "properties": {
-              "first": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "string",
-                        "format": "uuid"
-                      },
-                      "dollar": {
-                        "x-typia-monetary": "dollar",
-                        "type": "string"
-                      },
-                      "postfix": {
-                        "x-typia-postfix": "abcd",
-                        "type": "string"
-                      },
-                      "powerOf": {
-                        "x-typia-powerOf": 2,
-                        "type": "number"
-                      }
-                    },
-                    "required": [
-                      "id",
-                      "dollar",
-                      "postfix",
-                      "powerOf"
-                    ]
-                  }
-                ]
+          "first": {
+            "oneOf": [
+              {
+                "type": "null"
               },
-              "second": {
-                "oneOf": [
-                  {
-                    "type": "null"
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid"
                   },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "string",
-                        "format": "uuid"
-                      },
-                      "dollar": {
-                        "x-typia-monetary": "dollar",
-                        "type": "string"
-                      },
-                      "postfix": {
-                        "x-typia-postfix": "abcd",
-                        "type": "string"
-                      },
-                      "powerOf": {
-                        "x-typia-powerOf": 2,
-                        "type": "number"
-                      }
-                    },
-                    "required": [
-                      "id",
-                      "dollar",
-                      "postfix",
-                      "powerOf"
-                    ]
-                  }
-                ]
-              },
-              "third": {
-                "oneOf": [
-                  {
-                    "type": "null"
+                  "dollar": {
+                    "x-typia-monetary": "dollar",
+                    "type": "string"
                   },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "id": {
-                        "type": "string",
-                        "format": "uuid"
-                      },
-                      "dollar": {
-                        "x-typia-monetary": "dollar",
-                        "type": "string"
-                      },
-                      "postfix": {
-                        "x-typia-postfix": "abcd",
-                        "type": "string"
-                      },
-                      "powerOf": {
-                        "x-typia-powerOf": 2,
-                        "type": "number"
-                      }
-                    },
-                    "required": [
-                      "id",
-                      "dollar",
-                      "postfix",
-                      "powerOf"
-                    ]
+                  "postfix": {
+                    "x-typia-postfix": "abcd",
+                    "type": "string"
+                  },
+                  "powerOf": {
+                    "x-typia-powerOf": 2,
+                    "type": "number"
                   }
+                },
+                "required": [
+                  "id",
+                  "dollar",
+                  "postfix",
+                  "powerOf"
                 ]
               }
-            },
-            "required": [
-              "first",
-              "second",
-              "third"
+            ]
+          },
+          "second": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "dollar": {
+                    "x-typia-monetary": "dollar",
+                    "type": "string"
+                  },
+                  "postfix": {
+                    "x-typia-postfix": "abcd",
+                    "type": "string"
+                  },
+                  "powerOf": {
+                    "x-typia-powerOf": 2,
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "id",
+                  "dollar",
+                  "postfix",
+                  "powerOf"
+                ]
+              }
+            ]
+          },
+          "third": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "dollar": {
+                    "x-typia-monetary": "dollar",
+                    "type": "string"
+                  },
+                  "postfix": {
+                    "x-typia-postfix": "abcd",
+                    "type": "string"
+                  },
+                  "powerOf": {
+                    "x-typia-powerOf": 2,
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "id",
+                  "dollar",
+                  "postfix",
+                  "powerOf"
+                ]
+              }
             ]
           }
         },
         "required": [
-          "p"
+          "first",
+          "second",
+          "third"
         ],
         "additionalProperties": false,
         "$defs": {}

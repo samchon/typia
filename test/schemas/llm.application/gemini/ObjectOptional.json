@@ -10,35 +10,27 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
+          "first": {
             "type": "object",
             "properties": {
-              "first": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "email": {
-                    "type": "string"
-                  },
-                  "sequence": {
-                    "type": "number"
-                  }
-                },
-                "required": []
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "sequence": {
+                "type": "number"
               }
             },
-            "required": [
-              "first"
-            ]
+            "required": []
           }
         },
         "required": [
-          "p"
+          "first"
         ]
       },
       "strict": true
@@ -48,55 +40,47 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
+          "first": {
             "type": "object",
             "properties": {
-              "first": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "email": {
-                    "type": "string"
-                  },
-                  "sequence": {
-                    "type": "number"
-                  }
-                },
-                "required": []
+              "id": {
+                "type": "string"
               },
-              "second": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "email": {
-                    "type": "string"
-                  },
-                  "sequence": {
-                    "type": "number"
-                  }
-                },
-                "required": [],
-                "nullable": true
+              "name": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "sequence": {
+                "type": "number"
               }
             },
-            "required": [
-              "first",
-              "second"
-            ]
+            "required": []
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "sequence": {
+                "type": "number"
+              }
+            },
+            "required": [],
+            "nullable": true
           }
         },
         "required": [
-          "p"
+          "first",
+          "second"
         ]
       },
       "output": {
@@ -124,75 +108,67 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
+          "first": {
             "type": "object",
             "properties": {
-              "first": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "email": {
-                    "type": "string"
-                  },
-                  "sequence": {
-                    "type": "number"
-                  }
-                },
-                "required": [],
-                "nullable": true
+              "id": {
+                "type": "string"
               },
-              "second": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "email": {
-                    "type": "string"
-                  },
-                  "sequence": {
-                    "type": "number"
-                  }
-                },
-                "required": [],
-                "nullable": true
+              "name": {
+                "type": "string"
               },
-              "third": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "email": {
-                    "type": "string"
-                  },
-                  "sequence": {
-                    "type": "number"
-                  }
-                },
-                "required": [],
-                "nullable": true
+              "email": {
+                "type": "string"
+              },
+              "sequence": {
+                "type": "number"
               }
             },
-            "required": [
-              "first",
-              "second"
-            ]
+            "required": [],
+            "nullable": true
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "sequence": {
+                "type": "number"
+              }
+            },
+            "required": [],
+            "nullable": true
+          },
+          "third": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "sequence": {
+                "type": "number"
+              }
+            },
+            "required": [],
+            "nullable": true
           }
         },
         "required": [
-          "p"
+          "first",
+          "second"
         ]
       },
       "output": {

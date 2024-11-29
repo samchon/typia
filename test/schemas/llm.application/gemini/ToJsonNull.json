@@ -10,20 +10,12 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
-            "type": "object",
-            "properties": {
-              "first": {
-                "type": "null"
-              }
-            },
-            "required": [
-              "first"
-            ]
+          "first": {
+            "type": "null"
           }
         },
         "required": [
-          "p"
+          "first"
         ]
       },
       "strict": true
@@ -33,24 +25,16 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
-            "type": "object",
-            "properties": {
-              "first": {
-                "type": "null"
-              },
-              "second": {
-                "type": "null"
-              }
-            },
-            "required": [
-              "first",
-              "second"
-            ]
+          "first": {
+            "type": "null"
+          },
+          "second": {
+            "type": "null"
           }
         },
         "required": [
-          "p"
+          "first",
+          "second"
         ]
       },
       "output": {
@@ -63,27 +47,19 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
-            "type": "object",
-            "properties": {
-              "first": {
-                "type": "null"
-              },
-              "second": {
-                "type": "null"
-              },
-              "third": {
-                "type": "null"
-              }
-            },
-            "required": [
-              "first",
-              "second"
-            ]
+          "first": {
+            "type": "null"
+          },
+          "second": {
+            "type": "null"
+          },
+          "third": {
+            "type": "null"
           }
         },
         "required": [
-          "p"
+          "first",
+          "second"
         ]
       },
       "output": {

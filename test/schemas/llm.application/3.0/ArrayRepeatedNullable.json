@@ -11,84 +11,75 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
-            "type": "object",
-            "properties": {
-              "first": {
-                "oneOf": [
-                  {
-                    "type": "string",
-                    "nullable": true
-                  },
-                  {
-                    "type": "number",
-                    "nullable": true
-                  },
-                  {
-                    "type": "array",
-                    "items": {
-                      "oneOf": [
-                        {
-                          "type": "string",
-                          "nullable": true
-                        },
-                        {
-                          "type": "number",
-                          "nullable": true
-                        },
-                        {
-                          "type": "array",
-                          "items": {
-                            "oneOf": [
-                              {
-                                "type": "string",
-                                "nullable": true
-                              },
-                              {
-                                "type": "number",
-                                "nullable": true
-                              },
-                              {
-                                "type": "array",
-                                "items": {
-                                  "oneOf": [
-                                    {
-                                      "type": "string",
-                                      "nullable": true
-                                    },
-                                    {
-                                      "type": "number",
-                                      "nullable": true
-                                    },
-                                    {
-                                      "type": "array",
-                                      "items": {},
-                                      "maxItems": 0,
-                                      "nullable": true
-                                    }
-                                  ]
-                                },
-                                "nullable": true
-                              }
-                            ]
-                          },
-                          "nullable": true
-                        }
-                      ]
+          "first": {
+            "oneOf": [
+              {
+                "type": "string",
+                "nullable": true
+              },
+              {
+                "type": "number",
+                "nullable": true
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "string",
+                      "nullable": true
                     },
-                    "nullable": true
-                  }
-                ]
+                    {
+                      "type": "number",
+                      "nullable": true
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "oneOf": [
+                          {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          {
+                            "type": "number",
+                            "nullable": true
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "oneOf": [
+                                {
+                                  "type": "string",
+                                  "nullable": true
+                                },
+                                {
+                                  "type": "number",
+                                  "nullable": true
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {},
+                                  "maxItems": 0,
+                                  "nullable": true
+                                }
+                              ]
+                            },
+                            "nullable": true
+                          }
+                        ]
+                      },
+                      "nullable": true
+                    }
+                  ]
+                },
+                "nullable": true
               }
-            },
-            "required": [
-              "first"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
-          "p"
+          "first"
         ],
         "additionalProperties": false
       },
@@ -99,151 +90,142 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
-            "type": "object",
-            "properties": {
-              "first": {
-                "oneOf": [
-                  {
-                    "type": "string",
-                    "nullable": true
-                  },
-                  {
-                    "type": "number",
-                    "nullable": true
-                  },
-                  {
-                    "type": "array",
-                    "items": {
-                      "oneOf": [
-                        {
-                          "type": "string",
-                          "nullable": true
-                        },
-                        {
-                          "type": "number",
-                          "nullable": true
-                        },
-                        {
-                          "type": "array",
-                          "items": {
-                            "oneOf": [
-                              {
-                                "type": "string",
-                                "nullable": true
-                              },
-                              {
-                                "type": "number",
-                                "nullable": true
-                              },
-                              {
-                                "type": "array",
-                                "items": {
-                                  "oneOf": [
-                                    {
-                                      "type": "string",
-                                      "nullable": true
-                                    },
-                                    {
-                                      "type": "number",
-                                      "nullable": true
-                                    },
-                                    {
-                                      "type": "array",
-                                      "items": {},
-                                      "maxItems": 0,
-                                      "nullable": true
-                                    }
-                                  ]
-                                },
-                                "nullable": true
-                              }
-                            ]
-                          },
-                          "nullable": true
-                        }
-                      ]
-                    },
-                    "nullable": true
-                  }
-                ]
+          "first": {
+            "oneOf": [
+              {
+                "type": "string",
+                "nullable": true
               },
-              "second": {
-                "oneOf": [
-                  {
-                    "type": "string",
-                    "nullable": true
-                  },
-                  {
-                    "type": "number",
-                    "nullable": true
-                  },
-                  {
-                    "type": "array",
-                    "items": {
-                      "oneOf": [
-                        {
-                          "type": "string",
-                          "nullable": true
-                        },
-                        {
-                          "type": "number",
-                          "nullable": true
-                        },
-                        {
-                          "type": "array",
-                          "items": {
-                            "oneOf": [
-                              {
-                                "type": "string",
-                                "nullable": true
-                              },
-                              {
-                                "type": "number",
-                                "nullable": true
-                              },
-                              {
-                                "type": "array",
-                                "items": {
-                                  "oneOf": [
-                                    {
-                                      "type": "string",
-                                      "nullable": true
-                                    },
-                                    {
-                                      "type": "number",
-                                      "nullable": true
-                                    },
-                                    {
-                                      "type": "array",
-                                      "items": {},
-                                      "maxItems": 0,
-                                      "nullable": true
-                                    }
-                                  ]
-                                },
-                                "nullable": true
-                              }
-                            ]
-                          },
-                          "nullable": true
-                        }
-                      ]
+              {
+                "type": "number",
+                "nullable": true
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "string",
+                      "nullable": true
                     },
-                    "nullable": true
-                  }
-                ]
+                    {
+                      "type": "number",
+                      "nullable": true
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "oneOf": [
+                          {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          {
+                            "type": "number",
+                            "nullable": true
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "oneOf": [
+                                {
+                                  "type": "string",
+                                  "nullable": true
+                                },
+                                {
+                                  "type": "number",
+                                  "nullable": true
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {},
+                                  "maxItems": 0,
+                                  "nullable": true
+                                }
+                              ]
+                            },
+                            "nullable": true
+                          }
+                        ]
+                      },
+                      "nullable": true
+                    }
+                  ]
+                },
+                "nullable": true
               }
-            },
-            "required": [
-              "first",
-              "second"
-            ],
-            "additionalProperties": false
+            ]
+          },
+          "second": {
+            "oneOf": [
+              {
+                "type": "string",
+                "nullable": true
+              },
+              {
+                "type": "number",
+                "nullable": true
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    {
+                      "type": "number",
+                      "nullable": true
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "oneOf": [
+                          {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          {
+                            "type": "number",
+                            "nullable": true
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "oneOf": [
+                                {
+                                  "type": "string",
+                                  "nullable": true
+                                },
+                                {
+                                  "type": "number",
+                                  "nullable": true
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {},
+                                  "maxItems": 0,
+                                  "nullable": true
+                                }
+                              ]
+                            },
+                            "nullable": true
+                          }
+                        ]
+                      },
+                      "nullable": true
+                    }
+                  ]
+                },
+                "nullable": true
+              }
+            ]
           }
         },
         "required": [
-          "p"
+          "first",
+          "second"
         ],
         "additionalProperties": false
       },
@@ -320,217 +302,208 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
-            "type": "object",
-            "properties": {
-              "first": {
-                "oneOf": [
-                  {
-                    "type": "string",
-                    "nullable": true
-                  },
-                  {
-                    "type": "number",
-                    "nullable": true
-                  },
-                  {
-                    "type": "array",
-                    "items": {
-                      "oneOf": [
-                        {
-                          "type": "string",
-                          "nullable": true
-                        },
-                        {
-                          "type": "number",
-                          "nullable": true
-                        },
-                        {
-                          "type": "array",
-                          "items": {
-                            "oneOf": [
-                              {
-                                "type": "string",
-                                "nullable": true
-                              },
-                              {
-                                "type": "number",
-                                "nullable": true
-                              },
-                              {
-                                "type": "array",
-                                "items": {
-                                  "oneOf": [
-                                    {
-                                      "type": "string",
-                                      "nullable": true
-                                    },
-                                    {
-                                      "type": "number",
-                                      "nullable": true
-                                    },
-                                    {
-                                      "type": "array",
-                                      "items": {},
-                                      "maxItems": 0,
-                                      "nullable": true
-                                    }
-                                  ]
-                                },
-                                "nullable": true
-                              }
-                            ]
-                          },
-                          "nullable": true
-                        }
-                      ]
-                    },
-                    "nullable": true
-                  }
-                ]
+          "first": {
+            "oneOf": [
+              {
+                "type": "string",
+                "nullable": true
               },
-              "second": {
-                "oneOf": [
-                  {
-                    "type": "string",
-                    "nullable": true
-                  },
-                  {
-                    "type": "number",
-                    "nullable": true
-                  },
-                  {
-                    "type": "array",
-                    "items": {
-                      "oneOf": [
-                        {
-                          "type": "string",
-                          "nullable": true
-                        },
-                        {
-                          "type": "number",
-                          "nullable": true
-                        },
-                        {
-                          "type": "array",
-                          "items": {
-                            "oneOf": [
-                              {
-                                "type": "string",
-                                "nullable": true
-                              },
-                              {
-                                "type": "number",
-                                "nullable": true
-                              },
-                              {
-                                "type": "array",
-                                "items": {
-                                  "oneOf": [
-                                    {
-                                      "type": "string",
-                                      "nullable": true
-                                    },
-                                    {
-                                      "type": "number",
-                                      "nullable": true
-                                    },
-                                    {
-                                      "type": "array",
-                                      "items": {},
-                                      "maxItems": 0,
-                                      "nullable": true
-                                    }
-                                  ]
-                                },
-                                "nullable": true
-                              }
-                            ]
-                          },
-                          "nullable": true
-                        }
-                      ]
-                    },
-                    "nullable": true
-                  }
-                ]
+              {
+                "type": "number",
+                "nullable": true
               },
-              "third": {
-                "oneOf": [
-                  {
-                    "type": "string",
-                    "nullable": true
-                  },
-                  {
-                    "type": "number",
-                    "nullable": true
-                  },
-                  {
-                    "type": "array",
-                    "items": {
-                      "oneOf": [
-                        {
-                          "type": "string",
-                          "nullable": true
-                        },
-                        {
-                          "type": "number",
-                          "nullable": true
-                        },
-                        {
-                          "type": "array",
-                          "items": {
-                            "oneOf": [
-                              {
-                                "type": "string",
-                                "nullable": true
-                              },
-                              {
-                                "type": "number",
-                                "nullable": true
-                              },
-                              {
-                                "type": "array",
-                                "items": {
-                                  "oneOf": [
-                                    {
-                                      "type": "string",
-                                      "nullable": true
-                                    },
-                                    {
-                                      "type": "number",
-                                      "nullable": true
-                                    },
-                                    {
-                                      "type": "array",
-                                      "items": {},
-                                      "maxItems": 0,
-                                      "nullable": true
-                                    }
-                                  ]
-                                },
-                                "nullable": true
-                              }
-                            ]
-                          },
-                          "nullable": true
-                        }
-                      ]
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "string",
+                      "nullable": true
                     },
-                    "nullable": true
-                  }
-                ]
+                    {
+                      "type": "number",
+                      "nullable": true
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "oneOf": [
+                          {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          {
+                            "type": "number",
+                            "nullable": true
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "oneOf": [
+                                {
+                                  "type": "string",
+                                  "nullable": true
+                                },
+                                {
+                                  "type": "number",
+                                  "nullable": true
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {},
+                                  "maxItems": 0,
+                                  "nullable": true
+                                }
+                              ]
+                            },
+                            "nullable": true
+                          }
+                        ]
+                      },
+                      "nullable": true
+                    }
+                  ]
+                },
+                "nullable": true
               }
-            },
-            "required": [
-              "first",
-              "second"
-            ],
-            "additionalProperties": false
+            ]
+          },
+          "second": {
+            "oneOf": [
+              {
+                "type": "string",
+                "nullable": true
+              },
+              {
+                "type": "number",
+                "nullable": true
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    {
+                      "type": "number",
+                      "nullable": true
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "oneOf": [
+                          {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          {
+                            "type": "number",
+                            "nullable": true
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "oneOf": [
+                                {
+                                  "type": "string",
+                                  "nullable": true
+                                },
+                                {
+                                  "type": "number",
+                                  "nullable": true
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {},
+                                  "maxItems": 0,
+                                  "nullable": true
+                                }
+                              ]
+                            },
+                            "nullable": true
+                          }
+                        ]
+                      },
+                      "nullable": true
+                    }
+                  ]
+                },
+                "nullable": true
+              }
+            ]
+          },
+          "third": {
+            "oneOf": [
+              {
+                "type": "string",
+                "nullable": true
+              },
+              {
+                "type": "number",
+                "nullable": true
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    {
+                      "type": "number",
+                      "nullable": true
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "oneOf": [
+                          {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          {
+                            "type": "number",
+                            "nullable": true
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "oneOf": [
+                                {
+                                  "type": "string",
+                                  "nullable": true
+                                },
+                                {
+                                  "type": "number",
+                                  "nullable": true
+                                },
+                                {
+                                  "type": "array",
+                                  "items": {},
+                                  "maxItems": 0,
+                                  "nullable": true
+                                }
+                              ]
+                            },
+                            "nullable": true
+                          }
+                        ]
+                      },
+                      "nullable": true
+                    }
+                  ]
+                },
+                "nullable": true
+              }
+            ]
           }
         },
         "required": [
-          "p"
+          "first",
+          "second"
         ],
         "additionalProperties": false
       },

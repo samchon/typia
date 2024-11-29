@@ -11,20 +11,12 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
-            "type": "object",
-            "properties": {
-              "first": {
-                "$ref": "#/$defs/ObjectRecursive.IDepartment"
-              }
-            },
-            "required": [
-              "first"
-            ]
+          "first": {
+            "$ref": "#/$defs/ObjectRecursive.IDepartment"
           }
         },
         "required": [
-          "p"
+          "first"
         ],
         "additionalProperties": false,
         "$defs": {
@@ -87,31 +79,23 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
-            "type": "object",
-            "properties": {
-              "first": {
-                "$ref": "#/$defs/ObjectRecursive.IDepartment"
+          "first": {
+            "$ref": "#/$defs/ObjectRecursive.IDepartment"
+          },
+          "second": {
+            "oneOf": [
+              {
+                "type": "null"
               },
-              "second": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "$ref": "#/$defs/ObjectRecursive.IDepartment"
-                  }
-                ]
+              {
+                "$ref": "#/$defs/ObjectRecursive.IDepartment"
               }
-            },
-            "required": [
-              "first",
-              "second"
             ]
           }
         },
         "required": [
-          "p"
+          "first",
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {
@@ -177,49 +161,41 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
-            "type": "object",
-            "properties": {
-              "first": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "$ref": "#/$defs/ObjectRecursive.IDepartment"
-                  }
-                ]
+          "first": {
+            "oneOf": [
+              {
+                "type": "null"
               },
-              "second": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "$ref": "#/$defs/ObjectRecursive.IDepartment"
-                  }
-                ]
-              },
-              "third": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "$ref": "#/$defs/ObjectRecursive.IDepartment"
-                  }
-                ]
+              {
+                "$ref": "#/$defs/ObjectRecursive.IDepartment"
               }
-            },
-            "required": [
-              "first",
-              "second",
-              "third"
+            ]
+          },
+          "second": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/ObjectRecursive.IDepartment"
+              }
+            ]
+          },
+          "third": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/ObjectRecursive.IDepartment"
+              }
             ]
           }
         },
         "required": [
-          "p"
+          "first",
+          "second",
+          "third"
         ],
         "additionalProperties": false,
         "$defs": {

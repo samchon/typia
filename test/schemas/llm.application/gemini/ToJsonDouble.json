@@ -10,32 +10,24 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
+          "first": {
             "type": "object",
             "properties": {
-              "first": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number"
-                  },
-                  "flag": {
-                    "type": "boolean"
-                  }
-                },
-                "required": [
-                  "id",
-                  "flag"
-                ]
+              "id": {
+                "type": "number"
+              },
+              "flag": {
+                "type": "boolean"
               }
             },
             "required": [
-              "first"
+              "id",
+              "flag"
             ]
           }
         },
         "required": [
-          "p"
+          "first"
         ]
       },
       "strict": true
@@ -45,49 +37,41 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
+          "first": {
             "type": "object",
             "properties": {
-              "first": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number"
-                  },
-                  "flag": {
-                    "type": "boolean"
-                  }
-                },
-                "required": [
-                  "id",
-                  "flag"
-                ]
+              "id": {
+                "type": "number"
               },
-              "second": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number"
-                  },
-                  "flag": {
-                    "type": "boolean"
-                  }
-                },
-                "required": [
-                  "id",
-                  "flag"
-                ],
-                "nullable": true
+              "flag": {
+                "type": "boolean"
               }
             },
             "required": [
-              "first",
-              "second"
+              "id",
+              "flag"
             ]
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "flag": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id",
+              "flag"
+            ],
+            "nullable": true
           }
         },
         "required": [
-          "p"
+          "first",
+          "second"
         ]
       },
       "output": {
@@ -112,66 +96,58 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
+          "first": {
             "type": "object",
             "properties": {
-              "first": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number"
-                  },
-                  "flag": {
-                    "type": "boolean"
-                  }
-                },
-                "required": [
-                  "id",
-                  "flag"
-                ],
-                "nullable": true
+              "id": {
+                "type": "number"
               },
-              "second": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number"
-                  },
-                  "flag": {
-                    "type": "boolean"
-                  }
-                },
-                "required": [
-                  "id",
-                  "flag"
-                ],
-                "nullable": true
-              },
-              "third": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number"
-                  },
-                  "flag": {
-                    "type": "boolean"
-                  }
-                },
-                "required": [
-                  "id",
-                  "flag"
-                ],
-                "nullable": true
+              "flag": {
+                "type": "boolean"
               }
             },
             "required": [
-              "first",
-              "second"
-            ]
+              "id",
+              "flag"
+            ],
+            "nullable": true
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "flag": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id",
+              "flag"
+            ],
+            "nullable": true
+          },
+          "third": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "flag": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id",
+              "flag"
+            ],
+            "nullable": true
           }
         },
         "required": [
-          "p"
+          "first",
+          "second"
         ]
       },
       "output": {

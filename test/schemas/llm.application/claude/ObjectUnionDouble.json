@@ -10,151 +10,143 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
-            "type": "object",
-            "properties": {
-              "first": {
-                "type": "array",
-                "items": {
-                  "oneOf": [
-                    {
+          "first": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "value": {
                       "type": "object",
                       "properties": {
-                        "value": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            }
-                          },
-                          "required": [
-                            "x"
-                          ]
-                        },
-                        "child": {
-                          "oneOf": [
-                            {
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "type": "object",
-                                  "properties": {
-                                    "y": {
-                                      "type": "number"
-                                    }
-                                  },
-                                  "required": [
-                                    "y"
-                                  ]
-                                }
-                              },
-                              "required": [
-                                "value"
-                              ]
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "type": "object",
-                                  "properties": {
-                                    "y": {
-                                      "type": "boolean"
-                                    }
-                                  },
-                                  "required": [
-                                    "y"
-                                  ]
-                                }
-                              },
-                              "required": [
-                                "value"
-                              ]
-                            }
-                          ]
+                        "x": {
+                          "type": "number"
                         }
                       },
                       "required": [
-                        "value",
-                        "child"
+                        "x"
                       ]
                     },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "value": {
+                    "child": {
+                      "oneOf": [
+                        {
                           "type": "object",
                           "properties": {
-                            "x": {
-                              "type": "string"
+                            "value": {
+                              "type": "object",
+                              "properties": {
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "y"
+                              ]
                             }
                           },
                           "required": [
-                            "x"
+                            "value"
                           ]
                         },
-                        "child": {
-                          "oneOf": [
-                            {
+                        {
+                          "type": "object",
+                          "properties": {
+                            "value": {
                               "type": "object",
                               "properties": {
-                                "value": {
-                                  "type": "object",
-                                  "properties": {
-                                    "y": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "number"
-                                      }
-                                    }
-                                  },
-                                  "required": [
-                                    "y"
-                                  ]
+                                "y": {
+                                  "type": "boolean"
                                 }
                               },
                               "required": [
-                                "value"
-                              ]
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "type": "object",
-                                  "properties": {
-                                    "y": {
-                                      "type": "string"
-                                    }
-                                  },
-                                  "required": [
-                                    "y"
-                                  ]
-                                }
-                              },
-                              "required": [
-                                "value"
+                                "y"
                               ]
                             }
+                          },
+                          "required": [
+                            "value"
                           ]
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "child"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "string"
                         }
                       },
                       "required": [
-                        "value",
-                        "child"
+                        "x"
+                      ]
+                    },
+                    "child": {
+                      "oneOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "value": {
+                              "type": "object",
+                              "properties": {
+                                "y": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "number"
+                                  }
+                                }
+                              },
+                              "required": [
+                                "y"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "value"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "value": {
+                              "type": "object",
+                              "properties": {
+                                "y": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "y"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "value"
+                          ]
+                        }
                       ]
                     }
+                  },
+                  "required": [
+                    "value",
+                    "child"
                   ]
                 }
-              }
-            },
-            "required": [
-              "first"
-            ]
+              ]
+            }
           }
         },
         "required": [
-          "p"
+          "first"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -166,10 +158,146 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
-            "type": "object",
-            "properties": {
-              "first": {
+          "first": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x"
+                      ]
+                    },
+                    "child": {
+                      "oneOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "value": {
+                              "type": "object",
+                              "properties": {
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "y"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "value"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "value": {
+                              "type": "object",
+                              "properties": {
+                                "y": {
+                                  "type": "boolean"
+                                }
+                              },
+                              "required": [
+                                "y"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "value"
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "child"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "x"
+                      ]
+                    },
+                    "child": {
+                      "oneOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "value": {
+                              "type": "object",
+                              "properties": {
+                                "y": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "number"
+                                  }
+                                }
+                              },
+                              "required": [
+                                "y"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "value"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "value": {
+                              "type": "object",
+                              "properties": {
+                                "y": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "y"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "value"
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "value",
+                    "child"
+                  ]
+                }
+              ]
+            }
+          },
+          "second": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
                 "type": "array",
                 "items": {
                   "oneOf": [
@@ -302,157 +430,13 @@
                     }
                   ]
                 }
-              },
-              "second": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "array",
-                    "items": {
-                      "oneOf": [
-                        {
-                          "type": "object",
-                          "properties": {
-                            "value": {
-                              "type": "object",
-                              "properties": {
-                                "x": {
-                                  "type": "number"
-                                }
-                              },
-                              "required": [
-                                "x"
-                              ]
-                            },
-                            "child": {
-                              "oneOf": [
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "object",
-                                      "properties": {
-                                        "y": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "y"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ]
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "object",
-                                      "properties": {
-                                        "y": {
-                                          "type": "boolean"
-                                        }
-                                      },
-                                      "required": [
-                                        "y"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ]
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "value",
-                            "child"
-                          ]
-                        },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "value": {
-                              "type": "object",
-                              "properties": {
-                                "x": {
-                                  "type": "string"
-                                }
-                              },
-                              "required": [
-                                "x"
-                              ]
-                            },
-                            "child": {
-                              "oneOf": [
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "object",
-                                      "properties": {
-                                        "y": {
-                                          "type": "array",
-                                          "items": {
-                                            "type": "number"
-                                          }
-                                        }
-                                      },
-                                      "required": [
-                                        "y"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ]
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "object",
-                                      "properties": {
-                                        "y": {
-                                          "type": "string"
-                                        }
-                                      },
-                                      "required": [
-                                        "y"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ]
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "value",
-                            "child"
-                          ]
-                        }
-                      ]
-                    }
-                  }
-                ]
               }
-            },
-            "required": [
-              "first",
-              "second"
             ]
           }
         },
         "required": [
-          "p"
+          "first",
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -598,442 +582,434 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
-            "type": "object",
-            "properties": {
-              "first": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "array",
-                    "items": {
-                      "oneOf": [
-                        {
-                          "type": "object",
-                          "properties": {
-                            "value": {
-                              "type": "object",
-                              "properties": {
-                                "x": {
-                                  "type": "number"
-                                }
-                              },
-                              "required": [
-                                "x"
-                              ]
-                            },
-                            "child": {
-                              "oneOf": [
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "object",
-                                      "properties": {
-                                        "y": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "y"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ]
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "object",
-                                      "properties": {
-                                        "y": {
-                                          "type": "boolean"
-                                        }
-                                      },
-                                      "required": [
-                                        "y"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ]
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "value",
-                            "child"
-                          ]
-                        },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "value": {
-                              "type": "object",
-                              "properties": {
-                                "x": {
-                                  "type": "string"
-                                }
-                              },
-                              "required": [
-                                "x"
-                              ]
-                            },
-                            "child": {
-                              "oneOf": [
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "object",
-                                      "properties": {
-                                        "y": {
-                                          "type": "array",
-                                          "items": {
-                                            "type": "number"
-                                          }
-                                        }
-                                      },
-                                      "required": [
-                                        "y"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ]
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "object",
-                                      "properties": {
-                                        "y": {
-                                          "type": "string"
-                                        }
-                                      },
-                                      "required": [
-                                        "y"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ]
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "value",
-                            "child"
-                          ]
-                        }
-                      ]
-                    }
-                  }
-                ]
+          "first": {
+            "oneOf": [
+              {
+                "type": "null"
               },
-              "second": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "array",
-                    "items": {
-                      "oneOf": [
-                        {
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "value": {
                           "type": "object",
                           "properties": {
-                            "value": {
-                              "type": "object",
-                              "properties": {
-                                "x": {
-                                  "type": "number"
-                                }
-                              },
-                              "required": [
-                                "x"
-                              ]
-                            },
-                            "child": {
-                              "oneOf": [
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "object",
-                                      "properties": {
-                                        "y": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "y"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ]
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "object",
-                                      "properties": {
-                                        "y": {
-                                          "type": "boolean"
-                                        }
-                                      },
-                                      "required": [
-                                        "y"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ]
-                                }
-                              ]
+                            "x": {
+                              "type": "number"
                             }
                           },
                           "required": [
-                            "value",
-                            "child"
+                            "x"
                           ]
                         },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "value": {
+                        "child": {
+                          "oneOf": [
+                            {
                               "type": "object",
                               "properties": {
-                                "x": {
-                                  "type": "string"
+                                "value": {
+                                  "type": "object",
+                                  "properties": {
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "y"
+                                  ]
                                 }
                               },
                               "required": [
-                                "x"
+                                "value"
                               ]
                             },
-                            "child": {
-                              "oneOf": [
-                                {
+                            {
+                              "type": "object",
+                              "properties": {
+                                "value": {
                                   "type": "object",
                                   "properties": {
-                                    "value": {
-                                      "type": "object",
-                                      "properties": {
-                                        "y": {
-                                          "type": "array",
-                                          "items": {
-                                            "type": "number"
-                                          }
-                                        }
-                                      },
-                                      "required": [
-                                        "y"
-                                      ]
+                                    "y": {
+                                      "type": "boolean"
                                     }
                                   },
                                   "required": [
-                                    "value"
-                                  ]
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "object",
-                                      "properties": {
-                                        "y": {
-                                          "type": "string"
-                                        }
-                                      },
-                                      "required": [
-                                        "y"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
+                                    "y"
                                   ]
                                 }
+                              },
+                              "required": [
+                                "value"
                               ]
                             }
-                          },
-                          "required": [
-                            "value",
-                            "child"
                           ]
                         }
+                      },
+                      "required": [
+                        "value",
+                        "child"
                       ]
-                    }
-                  }
-                ]
-              },
-              "third": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "array",
-                    "items": {
-                      "oneOf": [
-                        {
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "value": {
                           "type": "object",
                           "properties": {
-                            "value": {
-                              "type": "object",
-                              "properties": {
-                                "x": {
-                                  "type": "number"
-                                }
-                              },
-                              "required": [
-                                "x"
-                              ]
-                            },
-                            "child": {
-                              "oneOf": [
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "object",
-                                      "properties": {
-                                        "y": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "y"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ]
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "object",
-                                      "properties": {
-                                        "y": {
-                                          "type": "boolean"
-                                        }
-                                      },
-                                      "required": [
-                                        "y"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ]
-                                }
-                              ]
+                            "x": {
+                              "type": "string"
                             }
                           },
                           "required": [
-                            "value",
-                            "child"
+                            "x"
                           ]
                         },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "value": {
+                        "child": {
+                          "oneOf": [
+                            {
                               "type": "object",
                               "properties": {
-                                "x": {
-                                  "type": "string"
+                                "value": {
+                                  "type": "object",
+                                  "properties": {
+                                    "y": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "number"
+                                      }
+                                    }
+                                  },
+                                  "required": [
+                                    "y"
+                                  ]
                                 }
                               },
                               "required": [
-                                "x"
+                                "value"
                               ]
                             },
-                            "child": {
-                              "oneOf": [
-                                {
+                            {
+                              "type": "object",
+                              "properties": {
+                                "value": {
                                   "type": "object",
                                   "properties": {
-                                    "value": {
-                                      "type": "object",
-                                      "properties": {
-                                        "y": {
-                                          "type": "array",
-                                          "items": {
-                                            "type": "number"
-                                          }
-                                        }
-                                      },
-                                      "required": [
-                                        "y"
-                                      ]
+                                    "y": {
+                                      "type": "string"
                                     }
                                   },
                                   "required": [
-                                    "value"
-                                  ]
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "object",
-                                      "properties": {
-                                        "y": {
-                                          "type": "string"
-                                        }
-                                      },
-                                      "required": [
-                                        "y"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
+                                    "y"
                                   ]
                                 }
+                              },
+                              "required": [
+                                "value"
                               ]
                             }
-                          },
-                          "required": [
-                            "value",
-                            "child"
                           ]
                         }
+                      },
+                      "required": [
+                        "value",
+                        "child"
                       ]
                     }
-                  }
-                ]
+                  ]
+                }
               }
-            },
-            "required": [
-              "first",
-              "second",
-              "third"
+            ]
+          },
+          "second": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "value": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x"
+                          ]
+                        },
+                        "child": {
+                          "oneOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "value": {
+                                  "type": "object",
+                                  "properties": {
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "y"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "value"
+                              ]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "value": {
+                                  "type": "object",
+                                  "properties": {
+                                    "y": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "y"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "value"
+                              ]
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "value",
+                        "child"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "value": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "x"
+                          ]
+                        },
+                        "child": {
+                          "oneOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "value": {
+                                  "type": "object",
+                                  "properties": {
+                                    "y": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "number"
+                                      }
+                                    }
+                                  },
+                                  "required": [
+                                    "y"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "value"
+                              ]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "value": {
+                                  "type": "object",
+                                  "properties": {
+                                    "y": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "y"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "value"
+                              ]
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "value",
+                        "child"
+                      ]
+                    }
+                  ]
+                }
+              }
+            ]
+          },
+          "third": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "value": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x"
+                          ]
+                        },
+                        "child": {
+                          "oneOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "value": {
+                                  "type": "object",
+                                  "properties": {
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "y"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "value"
+                              ]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "value": {
+                                  "type": "object",
+                                  "properties": {
+                                    "y": {
+                                      "type": "boolean"
+                                    }
+                                  },
+                                  "required": [
+                                    "y"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "value"
+                              ]
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "value",
+                        "child"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "value": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "x"
+                          ]
+                        },
+                        "child": {
+                          "oneOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "value": {
+                                  "type": "object",
+                                  "properties": {
+                                    "y": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "number"
+                                      }
+                                    }
+                                  },
+                                  "required": [
+                                    "y"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "value"
+                              ]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "value": {
+                                  "type": "object",
+                                  "properties": {
+                                    "y": {
+                                      "type": "string"
+                                    }
+                                  },
+                                  "required": [
+                                    "y"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "value"
+                              ]
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "value",
+                        "child"
+                      ]
+                    }
+                  ]
+                }
+              }
             ]
           }
         },
         "required": [
-          "p"
+          "first",
+          "second",
+          "third"
         ],
         "additionalProperties": false,
         "$defs": {}

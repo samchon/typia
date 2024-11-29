@@ -10,361 +10,353 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
+          "first": {
             "type": "object",
             "properties": {
-              "first": {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "oneOf": [
-                      {
-                        "type": "object",
-                        "properties": {
-                          "writer": {
-                            "type": "string"
+              "value": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "writer": {
+                        "type": "string"
+                      },
+                      "answer": {
+                        "oneOf": [
+                          {
+                            "type": "null"
                           },
-                          "answer": {
-                            "oneOf": [
-                              {
-                                "type": "null"
+                          {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
                               },
-                              {
-                                "type": "object",
-                                "properties": {
-                                  "id": {
-                                    "type": "string"
-                                  },
-                                  "hit": {
-                                    "type": "number"
-                                  },
-                                  "contents": {
-                                    "type": "array",
-                                    "items": {
-                                      "type": "object",
-                                      "properties": {
-                                        "id": {
-                                          "type": "string"
-                                        },
-                                        "created_at": {
-                                          "type": "string"
-                                        },
-                                        "title": {
-                                          "type": "string"
-                                        },
-                                        "body": {
-                                          "type": "string"
-                                        },
-                                        "files": {
-                                          "type": "array",
-                                          "items": {
-                                            "type": "object",
-                                            "properties": {
-                                              "name": {
-                                                "type": "string"
+                              "hit": {
+                                "type": "number"
+                              },
+                              "contents": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "id": {
+                                      "type": "string"
+                                    },
+                                    "created_at": {
+                                      "type": "string"
+                                    },
+                                    "title": {
+                                      "type": "string"
+                                    },
+                                    "body": {
+                                      "type": "string"
+                                    },
+                                    "files": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "object",
+                                        "properties": {
+                                          "name": {
+                                            "type": "string"
+                                          },
+                                          "extension": {
+                                            "oneOf": [
+                                              {
+                                                "type": "null"
                                               },
-                                              "extension": {
-                                                "oneOf": [
-                                                  {
-                                                    "type": "null"
-                                                  },
-                                                  {
-                                                    "type": "string"
-                                                  }
-                                                ]
-                                              },
-                                              "url": {
+                                              {
                                                 "type": "string"
                                               }
-                                            },
-                                            "required": [
-                                              "name",
-                                              "extension",
-                                              "url"
                                             ]
-                                          }
-                                        }
-                                      },
-                                      "required": [
-                                        "id",
-                                        "created_at",
-                                        "title",
-                                        "body",
-                                        "files"
-                                      ]
-                                    }
-                                  },
-                                  "created_at": {
-                                    "type": "string"
-                                  }
-                                },
-                                "required": [
-                                  "id",
-                                  "hit",
-                                  "contents",
-                                  "created_at"
-                                ]
-                              }
-                            ]
-                          },
-                          "id": {
-                            "type": "string"
-                          },
-                          "hit": {
-                            "type": "number"
-                          },
-                          "contents": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "id": {
-                                  "type": "string"
-                                },
-                                "created_at": {
-                                  "type": "string"
-                                },
-                                "title": {
-                                  "type": "string"
-                                },
-                                "body": {
-                                  "type": "string"
-                                },
-                                "files": {
-                                  "type": "array",
-                                  "items": {
-                                    "type": "object",
-                                    "properties": {
-                                      "name": {
-                                        "type": "string"
-                                      },
-                                      "extension": {
-                                        "oneOf": [
-                                          {
-                                            "type": "null"
                                           },
-                                          {
+                                          "url": {
                                             "type": "string"
                                           }
+                                        },
+                                        "required": [
+                                          "name",
+                                          "extension",
+                                          "url"
                                         ]
-                                      },
-                                      "url": {
-                                        "type": "string"
                                       }
-                                    },
-                                    "required": [
-                                      "name",
-                                      "extension",
-                                      "url"
-                                    ]
-                                  }
+                                    }
+                                  },
+                                  "required": [
+                                    "id",
+                                    "created_at",
+                                    "title",
+                                    "body",
+                                    "files"
+                                  ]
                                 }
                               },
-                              "required": [
-                                "id",
-                                "created_at",
-                                "title",
-                                "body",
-                                "files"
-                              ]
-                            }
-                          },
-                          "created_at": {
-                            "type": "string"
+                              "created_at": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "hit",
+                              "contents",
+                              "created_at"
+                            ]
                           }
-                        },
-                        "required": [
-                          "writer",
-                          "answer",
-                          "id",
-                          "hit",
-                          "contents",
-                          "created_at"
                         ]
                       },
-                      {
-                        "type": "object",
-                        "properties": {
-                          "writer": {
-                            "type": "string"
-                          },
-                          "answer": {
-                            "oneOf": [
-                              {
-                                "type": "null"
-                              },
-                              {
+                      "id": {
+                        "type": "string"
+                      },
+                      "hit": {
+                        "type": "number"
+                      },
+                      "contents": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "created_at": {
+                              "type": "string"
+                            },
+                            "title": {
+                              "type": "string"
+                            },
+                            "body": {
+                              "type": "string"
+                            },
+                            "files": {
+                              "type": "array",
+                              "items": {
                                 "type": "object",
                                 "properties": {
-                                  "id": {
+                                  "name": {
                                     "type": "string"
                                   },
-                                  "hit": {
-                                    "type": "number"
-                                  },
-                                  "contents": {
-                                    "type": "array",
-                                    "items": {
-                                      "type": "object",
-                                      "properties": {
-                                        "id": {
-                                          "type": "string"
-                                        },
-                                        "created_at": {
-                                          "type": "string"
-                                        },
-                                        "title": {
-                                          "type": "string"
-                                        },
-                                        "body": {
-                                          "type": "string"
-                                        },
-                                        "files": {
-                                          "type": "array",
-                                          "items": {
-                                            "type": "object",
-                                            "properties": {
-                                              "name": {
-                                                "type": "string"
-                                              },
-                                              "extension": {
-                                                "oneOf": [
-                                                  {
-                                                    "type": "null"
-                                                  },
-                                                  {
-                                                    "type": "string"
-                                                  }
-                                                ]
-                                              },
-                                              "url": {
-                                                "type": "string"
-                                              }
-                                            },
-                                            "required": [
-                                              "name",
-                                              "extension",
-                                              "url"
-                                            ]
-                                          }
-                                        }
+                                  "extension": {
+                                    "oneOf": [
+                                      {
+                                        "type": "null"
                                       },
-                                      "required": [
-                                        "id",
-                                        "created_at",
-                                        "title",
-                                        "body",
-                                        "files"
-                                      ]
-                                    }
+                                      {
+                                        "type": "string"
+                                      }
+                                    ]
                                   },
-                                  "created_at": {
+                                  "url": {
                                     "type": "string"
                                   }
                                 },
                                 "required": [
-                                  "id",
-                                  "hit",
-                                  "contents",
-                                  "created_at"
+                                  "name",
+                                  "extension",
+                                  "url"
                                 ]
                               }
-                            ]
-                          },
-                          "id": {
-                            "type": "string"
-                          },
-                          "hit": {
-                            "type": "number"
-                          },
-                          "contents": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "score": {
-                                  "type": "number"
-                                },
-                                "id": {
-                                  "type": "string"
-                                },
-                                "created_at": {
-                                  "type": "string"
-                                },
-                                "title": {
-                                  "type": "string"
-                                },
-                                "body": {
-                                  "type": "string"
-                                },
-                                "files": {
-                                  "type": "array",
-                                  "items": {
-                                    "type": "object",
-                                    "properties": {
-                                      "name": {
-                                        "type": "string"
-                                      },
-                                      "extension": {
-                                        "oneOf": [
-                                          {
-                                            "type": "null"
-                                          },
-                                          {
-                                            "type": "string"
-                                          }
-                                        ]
-                                      },
-                                      "url": {
-                                        "type": "string"
-                                      }
-                                    },
-                                    "required": [
-                                      "name",
-                                      "extension",
-                                      "url"
-                                    ]
-                                  }
-                                }
-                              },
-                              "required": [
-                                "score",
-                                "id",
-                                "created_at",
-                                "title",
-                                "body",
-                                "files"
-                              ]
                             }
                           },
-                          "created_at": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "writer",
-                          "answer",
-                          "id",
-                          "hit",
-                          "contents",
-                          "created_at"
-                        ]
+                          "required": [
+                            "id",
+                            "created_at",
+                            "title",
+                            "body",
+                            "files"
+                          ]
+                        }
+                      },
+                      "created_at": {
+                        "type": "string"
                       }
+                    },
+                    "required": [
+                      "writer",
+                      "answer",
+                      "id",
+                      "hit",
+                      "contents",
+                      "created_at"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "writer": {
+                        "type": "string"
+                      },
+                      "answer": {
+                        "oneOf": [
+                          {
+                            "type": "null"
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "hit": {
+                                "type": "number"
+                              },
+                              "contents": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "id": {
+                                      "type": "string"
+                                    },
+                                    "created_at": {
+                                      "type": "string"
+                                    },
+                                    "title": {
+                                      "type": "string"
+                                    },
+                                    "body": {
+                                      "type": "string"
+                                    },
+                                    "files": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "object",
+                                        "properties": {
+                                          "name": {
+                                            "type": "string"
+                                          },
+                                          "extension": {
+                                            "oneOf": [
+                                              {
+                                                "type": "null"
+                                              },
+                                              {
+                                                "type": "string"
+                                              }
+                                            ]
+                                          },
+                                          "url": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "name",
+                                          "extension",
+                                          "url"
+                                        ]
+                                      }
+                                    }
+                                  },
+                                  "required": [
+                                    "id",
+                                    "created_at",
+                                    "title",
+                                    "body",
+                                    "files"
+                                  ]
+                                }
+                              },
+                              "created_at": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "hit",
+                              "contents",
+                              "created_at"
+                            ]
+                          }
+                        ]
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "hit": {
+                        "type": "number"
+                      },
+                      "contents": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "score": {
+                              "type": "number"
+                            },
+                            "id": {
+                              "type": "string"
+                            },
+                            "created_at": {
+                              "type": "string"
+                            },
+                            "title": {
+                              "type": "string"
+                            },
+                            "body": {
+                              "type": "string"
+                            },
+                            "files": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "extension": {
+                                    "oneOf": [
+                                      {
+                                        "type": "null"
+                                      },
+                                      {
+                                        "type": "string"
+                                      }
+                                    ]
+                                  },
+                                  "url": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "name",
+                                  "extension",
+                                  "url"
+                                ]
+                              }
+                            }
+                          },
+                          "required": [
+                            "score",
+                            "id",
+                            "created_at",
+                            "title",
+                            "body",
+                            "files"
+                          ]
+                        }
+                      },
+                      "created_at": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "writer",
+                      "answer",
+                      "id",
+                      "hit",
+                      "contents",
+                      "created_at"
                     ]
                   }
-                },
-                "required": [
-                  "value"
                 ]
               }
             },
             "required": [
-              "first"
+              "value"
             ]
           }
         },
         "required": [
-          "p"
+          "first"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -376,10 +368,356 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
+          "first": {
             "type": "object",
             "properties": {
-              "first": {
+              "value": {
+                "oneOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "writer": {
+                        "type": "string"
+                      },
+                      "answer": {
+                        "oneOf": [
+                          {
+                            "type": "null"
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "hit": {
+                                "type": "number"
+                              },
+                              "contents": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "id": {
+                                      "type": "string"
+                                    },
+                                    "created_at": {
+                                      "type": "string"
+                                    },
+                                    "title": {
+                                      "type": "string"
+                                    },
+                                    "body": {
+                                      "type": "string"
+                                    },
+                                    "files": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "object",
+                                        "properties": {
+                                          "name": {
+                                            "type": "string"
+                                          },
+                                          "extension": {
+                                            "oneOf": [
+                                              {
+                                                "type": "null"
+                                              },
+                                              {
+                                                "type": "string"
+                                              }
+                                            ]
+                                          },
+                                          "url": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "name",
+                                          "extension",
+                                          "url"
+                                        ]
+                                      }
+                                    }
+                                  },
+                                  "required": [
+                                    "id",
+                                    "created_at",
+                                    "title",
+                                    "body",
+                                    "files"
+                                  ]
+                                }
+                              },
+                              "created_at": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "hit",
+                              "contents",
+                              "created_at"
+                            ]
+                          }
+                        ]
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "hit": {
+                        "type": "number"
+                      },
+                      "contents": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "created_at": {
+                              "type": "string"
+                            },
+                            "title": {
+                              "type": "string"
+                            },
+                            "body": {
+                              "type": "string"
+                            },
+                            "files": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "extension": {
+                                    "oneOf": [
+                                      {
+                                        "type": "null"
+                                      },
+                                      {
+                                        "type": "string"
+                                      }
+                                    ]
+                                  },
+                                  "url": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "name",
+                                  "extension",
+                                  "url"
+                                ]
+                              }
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "created_at",
+                            "title",
+                            "body",
+                            "files"
+                          ]
+                        }
+                      },
+                      "created_at": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "writer",
+                      "answer",
+                      "id",
+                      "hit",
+                      "contents",
+                      "created_at"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "writer": {
+                        "type": "string"
+                      },
+                      "answer": {
+                        "oneOf": [
+                          {
+                            "type": "null"
+                          },
+                          {
+                            "type": "object",
+                            "properties": {
+                              "id": {
+                                "type": "string"
+                              },
+                              "hit": {
+                                "type": "number"
+                              },
+                              "contents": {
+                                "type": "array",
+                                "items": {
+                                  "type": "object",
+                                  "properties": {
+                                    "id": {
+                                      "type": "string"
+                                    },
+                                    "created_at": {
+                                      "type": "string"
+                                    },
+                                    "title": {
+                                      "type": "string"
+                                    },
+                                    "body": {
+                                      "type": "string"
+                                    },
+                                    "files": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "object",
+                                        "properties": {
+                                          "name": {
+                                            "type": "string"
+                                          },
+                                          "extension": {
+                                            "oneOf": [
+                                              {
+                                                "type": "null"
+                                              },
+                                              {
+                                                "type": "string"
+                                              }
+                                            ]
+                                          },
+                                          "url": {
+                                            "type": "string"
+                                          }
+                                        },
+                                        "required": [
+                                          "name",
+                                          "extension",
+                                          "url"
+                                        ]
+                                      }
+                                    }
+                                  },
+                                  "required": [
+                                    "id",
+                                    "created_at",
+                                    "title",
+                                    "body",
+                                    "files"
+                                  ]
+                                }
+                              },
+                              "created_at": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "id",
+                              "hit",
+                              "contents",
+                              "created_at"
+                            ]
+                          }
+                        ]
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "hit": {
+                        "type": "number"
+                      },
+                      "contents": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "score": {
+                              "type": "number"
+                            },
+                            "id": {
+                              "type": "string"
+                            },
+                            "created_at": {
+                              "type": "string"
+                            },
+                            "title": {
+                              "type": "string"
+                            },
+                            "body": {
+                              "type": "string"
+                            },
+                            "files": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "extension": {
+                                    "oneOf": [
+                                      {
+                                        "type": "null"
+                                      },
+                                      {
+                                        "type": "string"
+                                      }
+                                    ]
+                                  },
+                                  "url": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "name",
+                                  "extension",
+                                  "url"
+                                ]
+                              }
+                            }
+                          },
+                          "required": [
+                            "score",
+                            "id",
+                            "created_at",
+                            "title",
+                            "body",
+                            "files"
+                          ]
+                        }
+                      },
+                      "created_at": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "writer",
+                      "answer",
+                      "id",
+                      "hit",
+                      "contents",
+                      "created_at"
+                    ]
+                  }
+                ]
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "second": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
                 "type": "object",
                 "properties": {
                   "value": {
@@ -722,367 +1060,13 @@
                 "required": [
                   "value"
                 ]
-              },
-              "second": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "value": {
-                        "oneOf": [
-                          {
-                            "type": "object",
-                            "properties": {
-                              "writer": {
-                                "type": "string"
-                              },
-                              "answer": {
-                                "oneOf": [
-                                  {
-                                    "type": "null"
-                                  },
-                                  {
-                                    "type": "object",
-                                    "properties": {
-                                      "id": {
-                                        "type": "string"
-                                      },
-                                      "hit": {
-                                        "type": "number"
-                                      },
-                                      "contents": {
-                                        "type": "array",
-                                        "items": {
-                                          "type": "object",
-                                          "properties": {
-                                            "id": {
-                                              "type": "string"
-                                            },
-                                            "created_at": {
-                                              "type": "string"
-                                            },
-                                            "title": {
-                                              "type": "string"
-                                            },
-                                            "body": {
-                                              "type": "string"
-                                            },
-                                            "files": {
-                                              "type": "array",
-                                              "items": {
-                                                "type": "object",
-                                                "properties": {
-                                                  "name": {
-                                                    "type": "string"
-                                                  },
-                                                  "extension": {
-                                                    "oneOf": [
-                                                      {
-                                                        "type": "null"
-                                                      },
-                                                      {
-                                                        "type": "string"
-                                                      }
-                                                    ]
-                                                  },
-                                                  "url": {
-                                                    "type": "string"
-                                                  }
-                                                },
-                                                "required": [
-                                                  "name",
-                                                  "extension",
-                                                  "url"
-                                                ]
-                                              }
-                                            }
-                                          },
-                                          "required": [
-                                            "id",
-                                            "created_at",
-                                            "title",
-                                            "body",
-                                            "files"
-                                          ]
-                                        }
-                                      },
-                                      "created_at": {
-                                        "type": "string"
-                                      }
-                                    },
-                                    "required": [
-                                      "id",
-                                      "hit",
-                                      "contents",
-                                      "created_at"
-                                    ]
-                                  }
-                                ]
-                              },
-                              "id": {
-                                "type": "string"
-                              },
-                              "hit": {
-                                "type": "number"
-                              },
-                              "contents": {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {
-                                    "id": {
-                                      "type": "string"
-                                    },
-                                    "created_at": {
-                                      "type": "string"
-                                    },
-                                    "title": {
-                                      "type": "string"
-                                    },
-                                    "body": {
-                                      "type": "string"
-                                    },
-                                    "files": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "object",
-                                        "properties": {
-                                          "name": {
-                                            "type": "string"
-                                          },
-                                          "extension": {
-                                            "oneOf": [
-                                              {
-                                                "type": "null"
-                                              },
-                                              {
-                                                "type": "string"
-                                              }
-                                            ]
-                                          },
-                                          "url": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "required": [
-                                          "name",
-                                          "extension",
-                                          "url"
-                                        ]
-                                      }
-                                    }
-                                  },
-                                  "required": [
-                                    "id",
-                                    "created_at",
-                                    "title",
-                                    "body",
-                                    "files"
-                                  ]
-                                }
-                              },
-                              "created_at": {
-                                "type": "string"
-                              }
-                            },
-                            "required": [
-                              "writer",
-                              "answer",
-                              "id",
-                              "hit",
-                              "contents",
-                              "created_at"
-                            ]
-                          },
-                          {
-                            "type": "object",
-                            "properties": {
-                              "writer": {
-                                "type": "string"
-                              },
-                              "answer": {
-                                "oneOf": [
-                                  {
-                                    "type": "null"
-                                  },
-                                  {
-                                    "type": "object",
-                                    "properties": {
-                                      "id": {
-                                        "type": "string"
-                                      },
-                                      "hit": {
-                                        "type": "number"
-                                      },
-                                      "contents": {
-                                        "type": "array",
-                                        "items": {
-                                          "type": "object",
-                                          "properties": {
-                                            "id": {
-                                              "type": "string"
-                                            },
-                                            "created_at": {
-                                              "type": "string"
-                                            },
-                                            "title": {
-                                              "type": "string"
-                                            },
-                                            "body": {
-                                              "type": "string"
-                                            },
-                                            "files": {
-                                              "type": "array",
-                                              "items": {
-                                                "type": "object",
-                                                "properties": {
-                                                  "name": {
-                                                    "type": "string"
-                                                  },
-                                                  "extension": {
-                                                    "oneOf": [
-                                                      {
-                                                        "type": "null"
-                                                      },
-                                                      {
-                                                        "type": "string"
-                                                      }
-                                                    ]
-                                                  },
-                                                  "url": {
-                                                    "type": "string"
-                                                  }
-                                                },
-                                                "required": [
-                                                  "name",
-                                                  "extension",
-                                                  "url"
-                                                ]
-                                              }
-                                            }
-                                          },
-                                          "required": [
-                                            "id",
-                                            "created_at",
-                                            "title",
-                                            "body",
-                                            "files"
-                                          ]
-                                        }
-                                      },
-                                      "created_at": {
-                                        "type": "string"
-                                      }
-                                    },
-                                    "required": [
-                                      "id",
-                                      "hit",
-                                      "contents",
-                                      "created_at"
-                                    ]
-                                  }
-                                ]
-                              },
-                              "id": {
-                                "type": "string"
-                              },
-                              "hit": {
-                                "type": "number"
-                              },
-                              "contents": {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {
-                                    "score": {
-                                      "type": "number"
-                                    },
-                                    "id": {
-                                      "type": "string"
-                                    },
-                                    "created_at": {
-                                      "type": "string"
-                                    },
-                                    "title": {
-                                      "type": "string"
-                                    },
-                                    "body": {
-                                      "type": "string"
-                                    },
-                                    "files": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "object",
-                                        "properties": {
-                                          "name": {
-                                            "type": "string"
-                                          },
-                                          "extension": {
-                                            "oneOf": [
-                                              {
-                                                "type": "null"
-                                              },
-                                              {
-                                                "type": "string"
-                                              }
-                                            ]
-                                          },
-                                          "url": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "required": [
-                                          "name",
-                                          "extension",
-                                          "url"
-                                        ]
-                                      }
-                                    }
-                                  },
-                                  "required": [
-                                    "score",
-                                    "id",
-                                    "created_at",
-                                    "title",
-                                    "body",
-                                    "files"
-                                  ]
-                                }
-                              },
-                              "created_at": {
-                                "type": "string"
-                              }
-                            },
-                            "required": [
-                              "writer",
-                              "answer",
-                              "id",
-                              "hit",
-                              "contents",
-                              "created_at"
-                            ]
-                          }
-                        ]
-                      }
-                    },
-                    "required": [
-                      "value"
-                    ]
-                  }
-                ]
               }
-            },
-            "required": [
-              "first",
-              "second"
             ]
           }
         },
         "required": [
-          "p"
+          "first",
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -1438,1072 +1422,1064 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
-            "type": "object",
-            "properties": {
-              "first": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "value": {
-                        "oneOf": [
-                          {
-                            "type": "object",
-                            "properties": {
-                              "writer": {
-                                "type": "string"
-                              },
-                              "answer": {
-                                "oneOf": [
-                                  {
-                                    "type": "null"
-                                  },
-                                  {
-                                    "type": "object",
-                                    "properties": {
-                                      "id": {
-                                        "type": "string"
-                                      },
-                                      "hit": {
-                                        "type": "number"
-                                      },
-                                      "contents": {
-                                        "type": "array",
-                                        "items": {
-                                          "type": "object",
-                                          "properties": {
-                                            "id": {
-                                              "type": "string"
-                                            },
-                                            "created_at": {
-                                              "type": "string"
-                                            },
-                                            "title": {
-                                              "type": "string"
-                                            },
-                                            "body": {
-                                              "type": "string"
-                                            },
-                                            "files": {
-                                              "type": "array",
-                                              "items": {
-                                                "type": "object",
-                                                "properties": {
-                                                  "name": {
-                                                    "type": "string"
-                                                  },
-                                                  "extension": {
-                                                    "oneOf": [
-                                                      {
-                                                        "type": "null"
-                                                      },
-                                                      {
-                                                        "type": "string"
-                                                      }
-                                                    ]
-                                                  },
-                                                  "url": {
-                                                    "type": "string"
-                                                  }
-                                                },
-                                                "required": [
-                                                  "name",
-                                                  "extension",
-                                                  "url"
-                                                ]
-                                              }
-                                            }
-                                          },
-                                          "required": [
-                                            "id",
-                                            "created_at",
-                                            "title",
-                                            "body",
-                                            "files"
-                                          ]
-                                        }
-                                      },
-                                      "created_at": {
-                                        "type": "string"
-                                      }
-                                    },
-                                    "required": [
-                                      "id",
-                                      "hit",
-                                      "contents",
-                                      "created_at"
-                                    ]
-                                  }
-                                ]
-                              },
-                              "id": {
-                                "type": "string"
-                              },
-                              "hit": {
-                                "type": "number"
-                              },
-                              "contents": {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {
-                                    "id": {
-                                      "type": "string"
-                                    },
-                                    "created_at": {
-                                      "type": "string"
-                                    },
-                                    "title": {
-                                      "type": "string"
-                                    },
-                                    "body": {
-                                      "type": "string"
-                                    },
-                                    "files": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "object",
-                                        "properties": {
-                                          "name": {
-                                            "type": "string"
-                                          },
-                                          "extension": {
-                                            "oneOf": [
-                                              {
-                                                "type": "null"
-                                              },
-                                              {
-                                                "type": "string"
-                                              }
-                                            ]
-                                          },
-                                          "url": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "required": [
-                                          "name",
-                                          "extension",
-                                          "url"
-                                        ]
-                                      }
-                                    }
-                                  },
-                                  "required": [
-                                    "id",
-                                    "created_at",
-                                    "title",
-                                    "body",
-                                    "files"
-                                  ]
-                                }
-                              },
-                              "created_at": {
-                                "type": "string"
-                              }
-                            },
-                            "required": [
-                              "writer",
-                              "answer",
-                              "id",
-                              "hit",
-                              "contents",
-                              "created_at"
-                            ]
-                          },
-                          {
-                            "type": "object",
-                            "properties": {
-                              "writer": {
-                                "type": "string"
-                              },
-                              "answer": {
-                                "oneOf": [
-                                  {
-                                    "type": "null"
-                                  },
-                                  {
-                                    "type": "object",
-                                    "properties": {
-                                      "id": {
-                                        "type": "string"
-                                      },
-                                      "hit": {
-                                        "type": "number"
-                                      },
-                                      "contents": {
-                                        "type": "array",
-                                        "items": {
-                                          "type": "object",
-                                          "properties": {
-                                            "id": {
-                                              "type": "string"
-                                            },
-                                            "created_at": {
-                                              "type": "string"
-                                            },
-                                            "title": {
-                                              "type": "string"
-                                            },
-                                            "body": {
-                                              "type": "string"
-                                            },
-                                            "files": {
-                                              "type": "array",
-                                              "items": {
-                                                "type": "object",
-                                                "properties": {
-                                                  "name": {
-                                                    "type": "string"
-                                                  },
-                                                  "extension": {
-                                                    "oneOf": [
-                                                      {
-                                                        "type": "null"
-                                                      },
-                                                      {
-                                                        "type": "string"
-                                                      }
-                                                    ]
-                                                  },
-                                                  "url": {
-                                                    "type": "string"
-                                                  }
-                                                },
-                                                "required": [
-                                                  "name",
-                                                  "extension",
-                                                  "url"
-                                                ]
-                                              }
-                                            }
-                                          },
-                                          "required": [
-                                            "id",
-                                            "created_at",
-                                            "title",
-                                            "body",
-                                            "files"
-                                          ]
-                                        }
-                                      },
-                                      "created_at": {
-                                        "type": "string"
-                                      }
-                                    },
-                                    "required": [
-                                      "id",
-                                      "hit",
-                                      "contents",
-                                      "created_at"
-                                    ]
-                                  }
-                                ]
-                              },
-                              "id": {
-                                "type": "string"
-                              },
-                              "hit": {
-                                "type": "number"
-                              },
-                              "contents": {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {
-                                    "score": {
-                                      "type": "number"
-                                    },
-                                    "id": {
-                                      "type": "string"
-                                    },
-                                    "created_at": {
-                                      "type": "string"
-                                    },
-                                    "title": {
-                                      "type": "string"
-                                    },
-                                    "body": {
-                                      "type": "string"
-                                    },
-                                    "files": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "object",
-                                        "properties": {
-                                          "name": {
-                                            "type": "string"
-                                          },
-                                          "extension": {
-                                            "oneOf": [
-                                              {
-                                                "type": "null"
-                                              },
-                                              {
-                                                "type": "string"
-                                              }
-                                            ]
-                                          },
-                                          "url": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "required": [
-                                          "name",
-                                          "extension",
-                                          "url"
-                                        ]
-                                      }
-                                    }
-                                  },
-                                  "required": [
-                                    "score",
-                                    "id",
-                                    "created_at",
-                                    "title",
-                                    "body",
-                                    "files"
-                                  ]
-                                }
-                              },
-                              "created_at": {
-                                "type": "string"
-                              }
-                            },
-                            "required": [
-                              "writer",
-                              "answer",
-                              "id",
-                              "hit",
-                              "contents",
-                              "created_at"
-                            ]
-                          }
-                        ]
-                      }
-                    },
-                    "required": [
-                      "value"
-                    ]
-                  }
-                ]
+          "first": {
+            "oneOf": [
+              {
+                "type": "null"
               },
-              "second": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "value": {
-                        "oneOf": [
-                          {
-                            "type": "object",
-                            "properties": {
-                              "writer": {
-                                "type": "string"
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "oneOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "writer": {
+                            "type": "string"
+                          },
+                          "answer": {
+                            "oneOf": [
+                              {
+                                "type": "null"
                               },
-                              "answer": {
-                                "oneOf": [
-                                  {
-                                    "type": "null"
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "string"
                                   },
-                                  {
-                                    "type": "object",
-                                    "properties": {
-                                      "id": {
-                                        "type": "string"
-                                      },
-                                      "hit": {
-                                        "type": "number"
-                                      },
-                                      "contents": {
-                                        "type": "array",
-                                        "items": {
-                                          "type": "object",
-                                          "properties": {
-                                            "id": {
-                                              "type": "string"
-                                            },
-                                            "created_at": {
-                                              "type": "string"
-                                            },
-                                            "title": {
-                                              "type": "string"
-                                            },
-                                            "body": {
-                                              "type": "string"
-                                            },
-                                            "files": {
-                                              "type": "array",
-                                              "items": {
-                                                "type": "object",
-                                                "properties": {
-                                                  "name": {
-                                                    "type": "string"
+                                  "hit": {
+                                    "type": "number"
+                                  },
+                                  "contents": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "id": {
+                                          "type": "string"
+                                        },
+                                        "created_at": {
+                                          "type": "string"
+                                        },
+                                        "title": {
+                                          "type": "string"
+                                        },
+                                        "body": {
+                                          "type": "string"
+                                        },
+                                        "files": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "object",
+                                            "properties": {
+                                              "name": {
+                                                "type": "string"
+                                              },
+                                              "extension": {
+                                                "oneOf": [
+                                                  {
+                                                    "type": "null"
                                                   },
-                                                  "extension": {
-                                                    "oneOf": [
-                                                      {
-                                                        "type": "null"
-                                                      },
-                                                      {
-                                                        "type": "string"
-                                                      }
-                                                    ]
-                                                  },
-                                                  "url": {
+                                                  {
                                                     "type": "string"
                                                   }
-                                                },
-                                                "required": [
-                                                  "name",
-                                                  "extension",
-                                                  "url"
                                                 ]
-                                              }
-                                            }
-                                          },
-                                          "required": [
-                                            "id",
-                                            "created_at",
-                                            "title",
-                                            "body",
-                                            "files"
-                                          ]
-                                        }
-                                      },
-                                      "created_at": {
-                                        "type": "string"
-                                      }
-                                    },
-                                    "required": [
-                                      "id",
-                                      "hit",
-                                      "contents",
-                                      "created_at"
-                                    ]
-                                  }
-                                ]
-                              },
-                              "id": {
-                                "type": "string"
-                              },
-                              "hit": {
-                                "type": "number"
-                              },
-                              "contents": {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {
-                                    "id": {
-                                      "type": "string"
-                                    },
-                                    "created_at": {
-                                      "type": "string"
-                                    },
-                                    "title": {
-                                      "type": "string"
-                                    },
-                                    "body": {
-                                      "type": "string"
-                                    },
-                                    "files": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "object",
-                                        "properties": {
-                                          "name": {
-                                            "type": "string"
-                                          },
-                                          "extension": {
-                                            "oneOf": [
-                                              {
-                                                "type": "null"
                                               },
-                                              {
+                                              "url": {
                                                 "type": "string"
                                               }
+                                            },
+                                            "required": [
+                                              "name",
+                                              "extension",
+                                              "url"
                                             ]
-                                          },
-                                          "url": {
-                                            "type": "string"
                                           }
-                                        },
-                                        "required": [
-                                          "name",
-                                          "extension",
-                                          "url"
-                                        ]
-                                      }
+                                        }
+                                      },
+                                      "required": [
+                                        "id",
+                                        "created_at",
+                                        "title",
+                                        "body",
+                                        "files"
+                                      ]
                                     }
                                   },
-                                  "required": [
-                                    "id",
-                                    "created_at",
-                                    "title",
-                                    "body",
-                                    "files"
-                                  ]
-                                }
-                              },
-                              "created_at": {
-                                "type": "string"
+                                  "created_at": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "id",
+                                  "hit",
+                                  "contents",
+                                  "created_at"
+                                ]
                               }
-                            },
-                            "required": [
-                              "writer",
-                              "answer",
-                              "id",
-                              "hit",
-                              "contents",
-                              "created_at"
                             ]
                           },
-                          {
-                            "type": "object",
-                            "properties": {
-                              "writer": {
-                                "type": "string"
-                              },
-                              "answer": {
-                                "oneOf": [
-                                  {
-                                    "type": "null"
-                                  },
-                                  {
+                          "id": {
+                            "type": "string"
+                          },
+                          "hit": {
+                            "type": "number"
+                          },
+                          "contents": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "created_at": {
+                                  "type": "string"
+                                },
+                                "title": {
+                                  "type": "string"
+                                },
+                                "body": {
+                                  "type": "string"
+                                },
+                                "files": {
+                                  "type": "array",
+                                  "items": {
                                     "type": "object",
                                     "properties": {
-                                      "id": {
+                                      "name": {
                                         "type": "string"
                                       },
-                                      "hit": {
-                                        "type": "number"
-                                      },
-                                      "contents": {
-                                        "type": "array",
-                                        "items": {
-                                          "type": "object",
-                                          "properties": {
-                                            "id": {
-                                              "type": "string"
-                                            },
-                                            "created_at": {
-                                              "type": "string"
-                                            },
-                                            "title": {
-                                              "type": "string"
-                                            },
-                                            "body": {
-                                              "type": "string"
-                                            },
-                                            "files": {
-                                              "type": "array",
-                                              "items": {
-                                                "type": "object",
-                                                "properties": {
-                                                  "name": {
-                                                    "type": "string"
-                                                  },
-                                                  "extension": {
-                                                    "oneOf": [
-                                                      {
-                                                        "type": "null"
-                                                      },
-                                                      {
-                                                        "type": "string"
-                                                      }
-                                                    ]
-                                                  },
-                                                  "url": {
-                                                    "type": "string"
-                                                  }
-                                                },
-                                                "required": [
-                                                  "name",
-                                                  "extension",
-                                                  "url"
-                                                ]
-                                              }
-                                            }
+                                      "extension": {
+                                        "oneOf": [
+                                          {
+                                            "type": "null"
                                           },
-                                          "required": [
-                                            "id",
-                                            "created_at",
-                                            "title",
-                                            "body",
-                                            "files"
-                                          ]
-                                        }
+                                          {
+                                            "type": "string"
+                                          }
+                                        ]
                                       },
-                                      "created_at": {
+                                      "url": {
                                         "type": "string"
                                       }
                                     },
                                     "required": [
-                                      "id",
-                                      "hit",
-                                      "contents",
-                                      "created_at"
+                                      "name",
+                                      "extension",
+                                      "url"
                                     ]
                                   }
-                                ]
-                              },
-                              "id": {
-                                "type": "string"
-                              },
-                              "hit": {
-                                "type": "number"
-                              },
-                              "contents": {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {
-                                    "score": {
-                                      "type": "number"
-                                    },
-                                    "id": {
-                                      "type": "string"
-                                    },
-                                    "created_at": {
-                                      "type": "string"
-                                    },
-                                    "title": {
-                                      "type": "string"
-                                    },
-                                    "body": {
-                                      "type": "string"
-                                    },
-                                    "files": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "object",
-                                        "properties": {
-                                          "name": {
-                                            "type": "string"
-                                          },
-                                          "extension": {
-                                            "oneOf": [
-                                              {
-                                                "type": "null"
-                                              },
-                                              {
-                                                "type": "string"
-                                              }
-                                            ]
-                                          },
-                                          "url": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "required": [
-                                          "name",
-                                          "extension",
-                                          "url"
-                                        ]
-                                      }
-                                    }
-                                  },
-                                  "required": [
-                                    "score",
-                                    "id",
-                                    "created_at",
-                                    "title",
-                                    "body",
-                                    "files"
-                                  ]
                                 }
                               },
-                              "created_at": {
-                                "type": "string"
-                              }
-                            },
-                            "required": [
-                              "writer",
-                              "answer",
-                              "id",
-                              "hit",
-                              "contents",
-                              "created_at"
-                            ]
+                              "required": [
+                                "id",
+                                "created_at",
+                                "title",
+                                "body",
+                                "files"
+                              ]
+                            }
+                          },
+                          "created_at": {
+                            "type": "string"
                           }
+                        },
+                        "required": [
+                          "writer",
+                          "answer",
+                          "id",
+                          "hit",
+                          "contents",
+                          "created_at"
                         ]
-                      }
-                    },
-                    "required": [
-                      "value"
-                    ]
-                  }
-                ]
-              },
-              "third": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "value": {
-                        "oneOf": [
-                          {
-                            "type": "object",
-                            "properties": {
-                              "writer": {
-                                "type": "string"
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "writer": {
+                            "type": "string"
+                          },
+                          "answer": {
+                            "oneOf": [
+                              {
+                                "type": "null"
                               },
-                              "answer": {
-                                "oneOf": [
-                                  {
-                                    "type": "null"
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "string"
                                   },
-                                  {
-                                    "type": "object",
-                                    "properties": {
-                                      "id": {
-                                        "type": "string"
-                                      },
-                                      "hit": {
-                                        "type": "number"
-                                      },
-                                      "contents": {
-                                        "type": "array",
-                                        "items": {
-                                          "type": "object",
-                                          "properties": {
-                                            "id": {
-                                              "type": "string"
-                                            },
-                                            "created_at": {
-                                              "type": "string"
-                                            },
-                                            "title": {
-                                              "type": "string"
-                                            },
-                                            "body": {
-                                              "type": "string"
-                                            },
-                                            "files": {
-                                              "type": "array",
-                                              "items": {
-                                                "type": "object",
-                                                "properties": {
-                                                  "name": {
-                                                    "type": "string"
+                                  "hit": {
+                                    "type": "number"
+                                  },
+                                  "contents": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "id": {
+                                          "type": "string"
+                                        },
+                                        "created_at": {
+                                          "type": "string"
+                                        },
+                                        "title": {
+                                          "type": "string"
+                                        },
+                                        "body": {
+                                          "type": "string"
+                                        },
+                                        "files": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "object",
+                                            "properties": {
+                                              "name": {
+                                                "type": "string"
+                                              },
+                                              "extension": {
+                                                "oneOf": [
+                                                  {
+                                                    "type": "null"
                                                   },
-                                                  "extension": {
-                                                    "oneOf": [
-                                                      {
-                                                        "type": "null"
-                                                      },
-                                                      {
-                                                        "type": "string"
-                                                      }
-                                                    ]
-                                                  },
-                                                  "url": {
+                                                  {
                                                     "type": "string"
                                                   }
-                                                },
-                                                "required": [
-                                                  "name",
-                                                  "extension",
-                                                  "url"
                                                 ]
-                                              }
-                                            }
-                                          },
-                                          "required": [
-                                            "id",
-                                            "created_at",
-                                            "title",
-                                            "body",
-                                            "files"
-                                          ]
-                                        }
-                                      },
-                                      "created_at": {
-                                        "type": "string"
-                                      }
-                                    },
-                                    "required": [
-                                      "id",
-                                      "hit",
-                                      "contents",
-                                      "created_at"
-                                    ]
-                                  }
-                                ]
-                              },
-                              "id": {
-                                "type": "string"
-                              },
-                              "hit": {
-                                "type": "number"
-                              },
-                              "contents": {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {
-                                    "id": {
-                                      "type": "string"
-                                    },
-                                    "created_at": {
-                                      "type": "string"
-                                    },
-                                    "title": {
-                                      "type": "string"
-                                    },
-                                    "body": {
-                                      "type": "string"
-                                    },
-                                    "files": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "object",
-                                        "properties": {
-                                          "name": {
-                                            "type": "string"
-                                          },
-                                          "extension": {
-                                            "oneOf": [
-                                              {
-                                                "type": "null"
                                               },
-                                              {
+                                              "url": {
                                                 "type": "string"
                                               }
+                                            },
+                                            "required": [
+                                              "name",
+                                              "extension",
+                                              "url"
                                             ]
-                                          },
-                                          "url": {
-                                            "type": "string"
                                           }
-                                        },
-                                        "required": [
-                                          "name",
-                                          "extension",
-                                          "url"
-                                        ]
-                                      }
+                                        }
+                                      },
+                                      "required": [
+                                        "id",
+                                        "created_at",
+                                        "title",
+                                        "body",
+                                        "files"
+                                      ]
                                     }
                                   },
-                                  "required": [
-                                    "id",
-                                    "created_at",
-                                    "title",
-                                    "body",
-                                    "files"
-                                  ]
-                                }
-                              },
-                              "created_at": {
-                                "type": "string"
+                                  "created_at": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "id",
+                                  "hit",
+                                  "contents",
+                                  "created_at"
+                                ]
                               }
-                            },
-                            "required": [
-                              "writer",
-                              "answer",
-                              "id",
-                              "hit",
-                              "contents",
-                              "created_at"
                             ]
                           },
-                          {
-                            "type": "object",
-                            "properties": {
-                              "writer": {
-                                "type": "string"
-                              },
-                              "answer": {
-                                "oneOf": [
-                                  {
-                                    "type": "null"
-                                  },
-                                  {
+                          "id": {
+                            "type": "string"
+                          },
+                          "hit": {
+                            "type": "number"
+                          },
+                          "contents": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "score": {
+                                  "type": "number"
+                                },
+                                "id": {
+                                  "type": "string"
+                                },
+                                "created_at": {
+                                  "type": "string"
+                                },
+                                "title": {
+                                  "type": "string"
+                                },
+                                "body": {
+                                  "type": "string"
+                                },
+                                "files": {
+                                  "type": "array",
+                                  "items": {
                                     "type": "object",
                                     "properties": {
-                                      "id": {
+                                      "name": {
                                         "type": "string"
                                       },
-                                      "hit": {
-                                        "type": "number"
-                                      },
-                                      "contents": {
-                                        "type": "array",
-                                        "items": {
-                                          "type": "object",
-                                          "properties": {
-                                            "id": {
-                                              "type": "string"
-                                            },
-                                            "created_at": {
-                                              "type": "string"
-                                            },
-                                            "title": {
-                                              "type": "string"
-                                            },
-                                            "body": {
-                                              "type": "string"
-                                            },
-                                            "files": {
-                                              "type": "array",
-                                              "items": {
-                                                "type": "object",
-                                                "properties": {
-                                                  "name": {
-                                                    "type": "string"
-                                                  },
-                                                  "extension": {
-                                                    "oneOf": [
-                                                      {
-                                                        "type": "null"
-                                                      },
-                                                      {
-                                                        "type": "string"
-                                                      }
-                                                    ]
-                                                  },
-                                                  "url": {
-                                                    "type": "string"
-                                                  }
-                                                },
-                                                "required": [
-                                                  "name",
-                                                  "extension",
-                                                  "url"
-                                                ]
-                                              }
-                                            }
+                                      "extension": {
+                                        "oneOf": [
+                                          {
+                                            "type": "null"
                                           },
-                                          "required": [
-                                            "id",
-                                            "created_at",
-                                            "title",
-                                            "body",
-                                            "files"
-                                          ]
-                                        }
+                                          {
+                                            "type": "string"
+                                          }
+                                        ]
                                       },
-                                      "created_at": {
+                                      "url": {
                                         "type": "string"
                                       }
                                     },
                                     "required": [
-                                      "id",
-                                      "hit",
-                                      "contents",
-                                      "created_at"
+                                      "name",
+                                      "extension",
+                                      "url"
                                     ]
                                   }
-                                ]
-                              },
-                              "id": {
-                                "type": "string"
-                              },
-                              "hit": {
-                                "type": "number"
-                              },
-                              "contents": {
-                                "type": "array",
-                                "items": {
-                                  "type": "object",
-                                  "properties": {
-                                    "score": {
-                                      "type": "number"
-                                    },
-                                    "id": {
-                                      "type": "string"
-                                    },
-                                    "created_at": {
-                                      "type": "string"
-                                    },
-                                    "title": {
-                                      "type": "string"
-                                    },
-                                    "body": {
-                                      "type": "string"
-                                    },
-                                    "files": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "object",
-                                        "properties": {
-                                          "name": {
-                                            "type": "string"
-                                          },
-                                          "extension": {
-                                            "oneOf": [
-                                              {
-                                                "type": "null"
-                                              },
-                                              {
-                                                "type": "string"
-                                              }
-                                            ]
-                                          },
-                                          "url": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "required": [
-                                          "name",
-                                          "extension",
-                                          "url"
-                                        ]
-                                      }
-                                    }
-                                  },
-                                  "required": [
-                                    "score",
-                                    "id",
-                                    "created_at",
-                                    "title",
-                                    "body",
-                                    "files"
-                                  ]
                                 }
                               },
-                              "created_at": {
-                                "type": "string"
-                              }
-                            },
-                            "required": [
-                              "writer",
-                              "answer",
-                              "id",
-                              "hit",
-                              "contents",
-                              "created_at"
-                            ]
+                              "required": [
+                                "score",
+                                "id",
+                                "created_at",
+                                "title",
+                                "body",
+                                "files"
+                              ]
+                            }
+                          },
+                          "created_at": {
+                            "type": "string"
                           }
+                        },
+                        "required": [
+                          "writer",
+                          "answer",
+                          "id",
+                          "hit",
+                          "contents",
+                          "created_at"
                         ]
                       }
-                    },
-                    "required": [
-                      "value"
                     ]
                   }
+                },
+                "required": [
+                  "value"
                 ]
               }
-            },
-            "required": [
-              "first",
-              "second",
-              "third"
+            ]
+          },
+          "second": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "oneOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "writer": {
+                            "type": "string"
+                          },
+                          "answer": {
+                            "oneOf": [
+                              {
+                                "type": "null"
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "string"
+                                  },
+                                  "hit": {
+                                    "type": "number"
+                                  },
+                                  "contents": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "id": {
+                                          "type": "string"
+                                        },
+                                        "created_at": {
+                                          "type": "string"
+                                        },
+                                        "title": {
+                                          "type": "string"
+                                        },
+                                        "body": {
+                                          "type": "string"
+                                        },
+                                        "files": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "object",
+                                            "properties": {
+                                              "name": {
+                                                "type": "string"
+                                              },
+                                              "extension": {
+                                                "oneOf": [
+                                                  {
+                                                    "type": "null"
+                                                  },
+                                                  {
+                                                    "type": "string"
+                                                  }
+                                                ]
+                                              },
+                                              "url": {
+                                                "type": "string"
+                                              }
+                                            },
+                                            "required": [
+                                              "name",
+                                              "extension",
+                                              "url"
+                                            ]
+                                          }
+                                        }
+                                      },
+                                      "required": [
+                                        "id",
+                                        "created_at",
+                                        "title",
+                                        "body",
+                                        "files"
+                                      ]
+                                    }
+                                  },
+                                  "created_at": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "id",
+                                  "hit",
+                                  "contents",
+                                  "created_at"
+                                ]
+                              }
+                            ]
+                          },
+                          "id": {
+                            "type": "string"
+                          },
+                          "hit": {
+                            "type": "number"
+                          },
+                          "contents": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "created_at": {
+                                  "type": "string"
+                                },
+                                "title": {
+                                  "type": "string"
+                                },
+                                "body": {
+                                  "type": "string"
+                                },
+                                "files": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "extension": {
+                                        "oneOf": [
+                                          {
+                                            "type": "null"
+                                          },
+                                          {
+                                            "type": "string"
+                                          }
+                                        ]
+                                      },
+                                      "url": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "name",
+                                      "extension",
+                                      "url"
+                                    ]
+                                  }
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "created_at",
+                                "title",
+                                "body",
+                                "files"
+                              ]
+                            }
+                          },
+                          "created_at": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "writer",
+                          "answer",
+                          "id",
+                          "hit",
+                          "contents",
+                          "created_at"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "writer": {
+                            "type": "string"
+                          },
+                          "answer": {
+                            "oneOf": [
+                              {
+                                "type": "null"
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "string"
+                                  },
+                                  "hit": {
+                                    "type": "number"
+                                  },
+                                  "contents": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "id": {
+                                          "type": "string"
+                                        },
+                                        "created_at": {
+                                          "type": "string"
+                                        },
+                                        "title": {
+                                          "type": "string"
+                                        },
+                                        "body": {
+                                          "type": "string"
+                                        },
+                                        "files": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "object",
+                                            "properties": {
+                                              "name": {
+                                                "type": "string"
+                                              },
+                                              "extension": {
+                                                "oneOf": [
+                                                  {
+                                                    "type": "null"
+                                                  },
+                                                  {
+                                                    "type": "string"
+                                                  }
+                                                ]
+                                              },
+                                              "url": {
+                                                "type": "string"
+                                              }
+                                            },
+                                            "required": [
+                                              "name",
+                                              "extension",
+                                              "url"
+                                            ]
+                                          }
+                                        }
+                                      },
+                                      "required": [
+                                        "id",
+                                        "created_at",
+                                        "title",
+                                        "body",
+                                        "files"
+                                      ]
+                                    }
+                                  },
+                                  "created_at": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "id",
+                                  "hit",
+                                  "contents",
+                                  "created_at"
+                                ]
+                              }
+                            ]
+                          },
+                          "id": {
+                            "type": "string"
+                          },
+                          "hit": {
+                            "type": "number"
+                          },
+                          "contents": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "score": {
+                                  "type": "number"
+                                },
+                                "id": {
+                                  "type": "string"
+                                },
+                                "created_at": {
+                                  "type": "string"
+                                },
+                                "title": {
+                                  "type": "string"
+                                },
+                                "body": {
+                                  "type": "string"
+                                },
+                                "files": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "extension": {
+                                        "oneOf": [
+                                          {
+                                            "type": "null"
+                                          },
+                                          {
+                                            "type": "string"
+                                          }
+                                        ]
+                                      },
+                                      "url": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "name",
+                                      "extension",
+                                      "url"
+                                    ]
+                                  }
+                                }
+                              },
+                              "required": [
+                                "score",
+                                "id",
+                                "created_at",
+                                "title",
+                                "body",
+                                "files"
+                              ]
+                            }
+                          },
+                          "created_at": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "writer",
+                          "answer",
+                          "id",
+                          "hit",
+                          "contents",
+                          "created_at"
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "value"
+                ]
+              }
+            ]
+          },
+          "third": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "oneOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "writer": {
+                            "type": "string"
+                          },
+                          "answer": {
+                            "oneOf": [
+                              {
+                                "type": "null"
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "string"
+                                  },
+                                  "hit": {
+                                    "type": "number"
+                                  },
+                                  "contents": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "id": {
+                                          "type": "string"
+                                        },
+                                        "created_at": {
+                                          "type": "string"
+                                        },
+                                        "title": {
+                                          "type": "string"
+                                        },
+                                        "body": {
+                                          "type": "string"
+                                        },
+                                        "files": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "object",
+                                            "properties": {
+                                              "name": {
+                                                "type": "string"
+                                              },
+                                              "extension": {
+                                                "oneOf": [
+                                                  {
+                                                    "type": "null"
+                                                  },
+                                                  {
+                                                    "type": "string"
+                                                  }
+                                                ]
+                                              },
+                                              "url": {
+                                                "type": "string"
+                                              }
+                                            },
+                                            "required": [
+                                              "name",
+                                              "extension",
+                                              "url"
+                                            ]
+                                          }
+                                        }
+                                      },
+                                      "required": [
+                                        "id",
+                                        "created_at",
+                                        "title",
+                                        "body",
+                                        "files"
+                                      ]
+                                    }
+                                  },
+                                  "created_at": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "id",
+                                  "hit",
+                                  "contents",
+                                  "created_at"
+                                ]
+                              }
+                            ]
+                          },
+                          "id": {
+                            "type": "string"
+                          },
+                          "hit": {
+                            "type": "number"
+                          },
+                          "contents": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "id": {
+                                  "type": "string"
+                                },
+                                "created_at": {
+                                  "type": "string"
+                                },
+                                "title": {
+                                  "type": "string"
+                                },
+                                "body": {
+                                  "type": "string"
+                                },
+                                "files": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "extension": {
+                                        "oneOf": [
+                                          {
+                                            "type": "null"
+                                          },
+                                          {
+                                            "type": "string"
+                                          }
+                                        ]
+                                      },
+                                      "url": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "name",
+                                      "extension",
+                                      "url"
+                                    ]
+                                  }
+                                }
+                              },
+                              "required": [
+                                "id",
+                                "created_at",
+                                "title",
+                                "body",
+                                "files"
+                              ]
+                            }
+                          },
+                          "created_at": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "writer",
+                          "answer",
+                          "id",
+                          "hit",
+                          "contents",
+                          "created_at"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "writer": {
+                            "type": "string"
+                          },
+                          "answer": {
+                            "oneOf": [
+                              {
+                                "type": "null"
+                              },
+                              {
+                                "type": "object",
+                                "properties": {
+                                  "id": {
+                                    "type": "string"
+                                  },
+                                  "hit": {
+                                    "type": "number"
+                                  },
+                                  "contents": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "id": {
+                                          "type": "string"
+                                        },
+                                        "created_at": {
+                                          "type": "string"
+                                        },
+                                        "title": {
+                                          "type": "string"
+                                        },
+                                        "body": {
+                                          "type": "string"
+                                        },
+                                        "files": {
+                                          "type": "array",
+                                          "items": {
+                                            "type": "object",
+                                            "properties": {
+                                              "name": {
+                                                "type": "string"
+                                              },
+                                              "extension": {
+                                                "oneOf": [
+                                                  {
+                                                    "type": "null"
+                                                  },
+                                                  {
+                                                    "type": "string"
+                                                  }
+                                                ]
+                                              },
+                                              "url": {
+                                                "type": "string"
+                                              }
+                                            },
+                                            "required": [
+                                              "name",
+                                              "extension",
+                                              "url"
+                                            ]
+                                          }
+                                        }
+                                      },
+                                      "required": [
+                                        "id",
+                                        "created_at",
+                                        "title",
+                                        "body",
+                                        "files"
+                                      ]
+                                    }
+                                  },
+                                  "created_at": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "id",
+                                  "hit",
+                                  "contents",
+                                  "created_at"
+                                ]
+                              }
+                            ]
+                          },
+                          "id": {
+                            "type": "string"
+                          },
+                          "hit": {
+                            "type": "number"
+                          },
+                          "contents": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "score": {
+                                  "type": "number"
+                                },
+                                "id": {
+                                  "type": "string"
+                                },
+                                "created_at": {
+                                  "type": "string"
+                                },
+                                "title": {
+                                  "type": "string"
+                                },
+                                "body": {
+                                  "type": "string"
+                                },
+                                "files": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "name": {
+                                        "type": "string"
+                                      },
+                                      "extension": {
+                                        "oneOf": [
+                                          {
+                                            "type": "null"
+                                          },
+                                          {
+                                            "type": "string"
+                                          }
+                                        ]
+                                      },
+                                      "url": {
+                                        "type": "string"
+                                      }
+                                    },
+                                    "required": [
+                                      "name",
+                                      "extension",
+                                      "url"
+                                    ]
+                                  }
+                                }
+                              },
+                              "required": [
+                                "score",
+                                "id",
+                                "created_at",
+                                "title",
+                                "body",
+                                "files"
+                              ]
+                            }
+                          },
+                          "created_at": {
+                            "type": "string"
+                          }
+                        },
+                        "required": [
+                          "writer",
+                          "answer",
+                          "id",
+                          "hit",
+                          "contents",
+                          "created_at"
+                        ]
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "value"
+                ]
+              }
             ]
           }
         },
         "required": [
-          "p"
+          "first",
+          "second",
+          "third"
         ],
         "additionalProperties": false,
         "$defs": {}

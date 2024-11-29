@@ -11,20 +11,35 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
+          "first": {
             "type": "object",
             "properties": {
-              "first": {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "value": {
-                          "oneOf": [
-                            {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "oneOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "p1": {
                               "type": "object",
                               "properties": {
                                 "x": {
@@ -39,172 +54,225 @@
                                 "y"
                               ]
                             },
-                            {
+                            "p2": {
                               "type": "object",
                               "properties": {
-                                "p1": {
-                                  "type": "object",
-                                  "properties": {
-                                    "x": {
-                                      "type": "number"
-                                    },
-                                    "y": {
-                                      "type": "number"
-                                    }
-                                  },
-                                  "required": [
-                                    "x",
-                                    "y"
-                                  ]
+                                "x": {
+                                  "type": "number"
                                 },
-                                "p2": {
-                                  "type": "object",
-                                  "properties": {
-                                    "x": {
-                                      "type": "number"
-                                    },
-                                    "y": {
-                                      "type": "number"
-                                    }
-                                  },
-                                  "required": [
-                                    "x",
-                                    "y"
-                                  ]
+                                "y": {
+                                  "type": "number"
                                 }
                               },
                               "required": [
-                                "p1",
-                                "p2"
+                                "x",
+                                "y"
                               ]
-                            },
-                            {
+                            }
+                          },
+                          "required": [
+                            "p1",
+                            "p2"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "p1": {
                               "type": "object",
                               "properties": {
-                                "p1": {
-                                  "type": "object",
-                                  "properties": {
-                                    "x": {
-                                      "type": "number"
-                                    },
-                                    "y": {
-                                      "type": "number"
-                                    }
-                                  },
-                                  "required": [
-                                    "x",
-                                    "y"
-                                  ]
+                                "x": {
+                                  "type": "number"
                                 },
-                                "p2": {
-                                  "type": "object",
-                                  "properties": {
-                                    "x": {
-                                      "type": "number"
-                                    },
-                                    "y": {
-                                      "type": "number"
-                                    }
-                                  },
-                                  "required": [
-                                    "x",
-                                    "y"
-                                  ]
-                                },
-                                "p3": {
-                                  "type": "object",
-                                  "properties": {
-                                    "x": {
-                                      "type": "number"
-                                    },
-                                    "y": {
-                                      "type": "number"
-                                    }
-                                  },
-                                  "required": [
-                                    "x",
-                                    "y"
-                                  ]
+                                "y": {
+                                  "type": "number"
                                 }
                               },
                               "required": [
-                                "p1",
-                                "p2",
-                                "p3"
+                                "x",
+                                "y"
                               ]
                             },
-                            {
+                            "p2": {
                               "type": "object",
                               "properties": {
-                                "p1": {
-                                  "type": "object",
-                                  "properties": {
-                                    "x": {
-                                      "type": "number"
-                                    },
-                                    "y": {
-                                      "type": "number"
-                                    }
-                                  },
-                                  "required": [
-                                    "x",
-                                    "y"
-                                  ]
+                                "x": {
+                                  "type": "number"
                                 },
-                                "p2": {
-                                  "type": "object",
-                                  "properties": {
-                                    "x": {
-                                      "type": "number"
-                                    },
-                                    "y": {
-                                      "type": "number"
-                                    }
-                                  },
-                                  "required": [
-                                    "x",
-                                    "y"
-                                  ]
-                                },
-                                "p3": {
-                                  "type": "object",
-                                  "properties": {
-                                    "x": {
-                                      "type": "number"
-                                    },
-                                    "y": {
-                                      "type": "number"
-                                    }
-                                  },
-                                  "required": [
-                                    "x",
-                                    "y"
-                                  ]
-                                },
-                                "p4": {
-                                  "type": "object",
-                                  "properties": {
-                                    "x": {
-                                      "type": "number"
-                                    },
-                                    "y": {
-                                      "type": "number"
-                                    }
-                                  },
-                                  "required": [
-                                    "x",
-                                    "y"
-                                  ]
+                                "y": {
+                                  "type": "number"
                                 }
                               },
                               "required": [
-                                "p1",
-                                "p2",
-                                "p3",
-                                "p4"
+                                "x",
+                                "y"
                               ]
                             },
-                            {
+                            "p3": {
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "p1",
+                            "p2",
+                            "p3"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "p1": {
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            },
+                            "p2": {
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            },
+                            "p3": {
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            },
+                            "p4": {
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "p1",
+                            "p2",
+                            "p3",
+                            "p4"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "points": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "x": {
+                                    "type": "number"
+                                  },
+                                  "y": {
+                                    "type": "number"
+                                  }
+                                },
+                                "required": [
+                                  "x",
+                                  "y"
+                                ]
+                              }
+                            }
+                          },
+                          "required": [
+                            "points"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "outer": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "x": {
+                                    "type": "number"
+                                  },
+                                  "y": {
+                                    "type": "number"
+                                  }
+                                },
+                                "required": [
+                                  "x",
+                                  "y"
+                                ]
+                              }
+                            },
+                            "inner": {
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "outer",
+                            "inner"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "outer": {
                               "type": "object",
                               "properties": {
                                 "points": {
@@ -230,160 +298,84 @@
                                 "points"
                               ]
                             },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "outer": {
-                                  "type": "array",
-                                  "items": {
-                                    "type": "object",
-                                    "properties": {
-                                      "x": {
-                                        "type": "number"
-                                      },
-                                      "y": {
-                                        "type": "number"
-                                      }
-                                    },
-                                    "required": [
-                                      "x",
-                                      "y"
-                                    ]
-                                  }
-                                },
-                                "inner": {
-                                  "type": "object",
-                                  "properties": {
-                                    "x": {
-                                      "type": "number"
-                                    },
-                                    "y": {
-                                      "type": "number"
-                                    }
-                                  },
-                                  "required": [
-                                    "x",
-                                    "y"
-                                  ]
-                                }
-                              },
-                              "required": [
-                                "outer",
-                                "inner"
-                              ]
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "outer": {
-                                  "type": "object",
-                                  "properties": {
-                                    "points": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "object",
-                                        "properties": {
-                                          "x": {
-                                            "type": "number"
-                                          },
-                                          "y": {
-                                            "type": "number"
-                                          }
+                            "inner": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "points": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "x": {
+                                          "type": "number"
                                         },
-                                        "required": [
-                                          "x",
-                                          "y"
-                                        ]
-                                      }
-                                    }
-                                  },
-                                  "required": [
-                                    "points"
-                                  ]
-                                },
-                                "inner": {
-                                  "type": "array",
-                                  "items": {
-                                    "type": "object",
-                                    "properties": {
-                                      "points": {
-                                        "type": "array",
-                                        "items": {
-                                          "type": "object",
-                                          "properties": {
-                                            "x": {
-                                              "type": "number"
-                                            },
-                                            "y": {
-                                              "type": "number"
-                                            }
-                                          },
-                                          "required": [
-                                            "x",
-                                            "y"
-                                          ]
+                                        "y": {
+                                          "type": "number"
                                         }
-                                      }
-                                    },
-                                    "required": [
-                                      "points"
-                                    ]
+                                      },
+                                      "required": [
+                                        "x",
+                                        "y"
+                                      ]
+                                    }
                                   }
-                                }
-                              },
-                              "required": [
-                                "outer",
-                                "inner"
-                              ]
-                            },
-                            {
+                                },
+                                "required": [
+                                  "points"
+                                ]
+                              }
+                            }
+                          },
+                          "required": [
+                            "outer",
+                            "inner"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "centroid": {
                               "type": "object",
                               "properties": {
-                                "centroid": {
-                                  "type": "object",
-                                  "properties": {
-                                    "x": {
-                                      "type": "number"
-                                    },
-                                    "y": {
-                                      "type": "number"
-                                    }
-                                  },
-                                  "required": [
-                                    "x",
-                                    "y"
-                                  ]
+                                "x": {
+                                  "type": "number"
                                 },
-                                "radius": {
+                                "y": {
                                   "type": "number"
                                 }
                               },
                               "required": [
-                                "centroid",
-                                "radius"
+                                "x",
+                                "y"
                               ]
+                            },
+                            "radius": {
+                              "type": "number"
                             }
+                          },
+                          "required": [
+                            "centroid",
+                            "radius"
                           ]
                         }
-                      },
-                      "required": [
-                        "value"
                       ]
                     }
-                  }
-                },
-                "required": [
-                  "value"
-                ]
+                  },
+                  "required": [
+                    "value"
+                  ]
+                }
               }
             },
             "required": [
-              "first"
+              "value"
             ]
           }
         },
         "required": [
-          "p"
+          "first"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -395,10 +387,374 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
+          "first": {
             "type": "object",
             "properties": {
-              "first": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "oneOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "p1": {
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            },
+                            "p2": {
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "p1",
+                            "p2"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "p1": {
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            },
+                            "p2": {
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            },
+                            "p3": {
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "p1",
+                            "p2",
+                            "p3"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "p1": {
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            },
+                            "p2": {
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            },
+                            "p3": {
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            },
+                            "p4": {
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "p1",
+                            "p2",
+                            "p3",
+                            "p4"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "points": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "x": {
+                                    "type": "number"
+                                  },
+                                  "y": {
+                                    "type": "number"
+                                  }
+                                },
+                                "required": [
+                                  "x",
+                                  "y"
+                                ]
+                              }
+                            }
+                          },
+                          "required": [
+                            "points"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "outer": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "x": {
+                                    "type": "number"
+                                  },
+                                  "y": {
+                                    "type": "number"
+                                  }
+                                },
+                                "required": [
+                                  "x",
+                                  "y"
+                                ]
+                              }
+                            },
+                            "inner": {
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            }
+                          },
+                          "required": [
+                            "outer",
+                            "inner"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "outer": {
+                              "type": "object",
+                              "properties": {
+                                "points": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "x": {
+                                        "type": "number"
+                                      },
+                                      "y": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "required": [
+                                      "x",
+                                      "y"
+                                    ]
+                                  }
+                                }
+                              },
+                              "required": [
+                                "points"
+                              ]
+                            },
+                            "inner": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "points": {
+                                    "type": "array",
+                                    "items": {
+                                      "type": "object",
+                                      "properties": {
+                                        "x": {
+                                          "type": "number"
+                                        },
+                                        "y": {
+                                          "type": "number"
+                                        }
+                                      },
+                                      "required": [
+                                        "x",
+                                        "y"
+                                      ]
+                                    }
+                                  }
+                                },
+                                "required": [
+                                  "points"
+                                ]
+                              }
+                            }
+                          },
+                          "required": [
+                            "outer",
+                            "inner"
+                          ]
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "centroid": {
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            },
+                            "radius": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "centroid",
+                            "radius"
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "second": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
                 "type": "object",
                 "properties": {
                   "value": {
@@ -759,385 +1115,13 @@
                 "required": [
                   "value"
                 ]
-              },
-              "second": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "value": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "value": {
-                              "oneOf": [
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "x": {
-                                      "type": "number"
-                                    },
-                                    "y": {
-                                      "type": "number"
-                                    }
-                                  },
-                                  "required": [
-                                    "x",
-                                    "y"
-                                  ]
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "p1": {
-                                      "type": "object",
-                                      "properties": {
-                                        "x": {
-                                          "type": "number"
-                                        },
-                                        "y": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "x",
-                                        "y"
-                                      ]
-                                    },
-                                    "p2": {
-                                      "type": "object",
-                                      "properties": {
-                                        "x": {
-                                          "type": "number"
-                                        },
-                                        "y": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "x",
-                                        "y"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "p1",
-                                    "p2"
-                                  ]
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "p1": {
-                                      "type": "object",
-                                      "properties": {
-                                        "x": {
-                                          "type": "number"
-                                        },
-                                        "y": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "x",
-                                        "y"
-                                      ]
-                                    },
-                                    "p2": {
-                                      "type": "object",
-                                      "properties": {
-                                        "x": {
-                                          "type": "number"
-                                        },
-                                        "y": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "x",
-                                        "y"
-                                      ]
-                                    },
-                                    "p3": {
-                                      "type": "object",
-                                      "properties": {
-                                        "x": {
-                                          "type": "number"
-                                        },
-                                        "y": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "x",
-                                        "y"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "p1",
-                                    "p2",
-                                    "p3"
-                                  ]
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "p1": {
-                                      "type": "object",
-                                      "properties": {
-                                        "x": {
-                                          "type": "number"
-                                        },
-                                        "y": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "x",
-                                        "y"
-                                      ]
-                                    },
-                                    "p2": {
-                                      "type": "object",
-                                      "properties": {
-                                        "x": {
-                                          "type": "number"
-                                        },
-                                        "y": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "x",
-                                        "y"
-                                      ]
-                                    },
-                                    "p3": {
-                                      "type": "object",
-                                      "properties": {
-                                        "x": {
-                                          "type": "number"
-                                        },
-                                        "y": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "x",
-                                        "y"
-                                      ]
-                                    },
-                                    "p4": {
-                                      "type": "object",
-                                      "properties": {
-                                        "x": {
-                                          "type": "number"
-                                        },
-                                        "y": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "x",
-                                        "y"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "p1",
-                                    "p2",
-                                    "p3",
-                                    "p4"
-                                  ]
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "points": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "object",
-                                        "properties": {
-                                          "x": {
-                                            "type": "number"
-                                          },
-                                          "y": {
-                                            "type": "number"
-                                          }
-                                        },
-                                        "required": [
-                                          "x",
-                                          "y"
-                                        ]
-                                      }
-                                    }
-                                  },
-                                  "required": [
-                                    "points"
-                                  ]
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "outer": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "object",
-                                        "properties": {
-                                          "x": {
-                                            "type": "number"
-                                          },
-                                          "y": {
-                                            "type": "number"
-                                          }
-                                        },
-                                        "required": [
-                                          "x",
-                                          "y"
-                                        ]
-                                      }
-                                    },
-                                    "inner": {
-                                      "type": "object",
-                                      "properties": {
-                                        "x": {
-                                          "type": "number"
-                                        },
-                                        "y": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "x",
-                                        "y"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "outer",
-                                    "inner"
-                                  ]
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "outer": {
-                                      "type": "object",
-                                      "properties": {
-                                        "points": {
-                                          "type": "array",
-                                          "items": {
-                                            "type": "object",
-                                            "properties": {
-                                              "x": {
-                                                "type": "number"
-                                              },
-                                              "y": {
-                                                "type": "number"
-                                              }
-                                            },
-                                            "required": [
-                                              "x",
-                                              "y"
-                                            ]
-                                          }
-                                        }
-                                      },
-                                      "required": [
-                                        "points"
-                                      ]
-                                    },
-                                    "inner": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "object",
-                                        "properties": {
-                                          "points": {
-                                            "type": "array",
-                                            "items": {
-                                              "type": "object",
-                                              "properties": {
-                                                "x": {
-                                                  "type": "number"
-                                                },
-                                                "y": {
-                                                  "type": "number"
-                                                }
-                                              },
-                                              "required": [
-                                                "x",
-                                                "y"
-                                              ]
-                                            }
-                                          }
-                                        },
-                                        "required": [
-                                          "points"
-                                        ]
-                                      }
-                                    }
-                                  },
-                                  "required": [
-                                    "outer",
-                                    "inner"
-                                  ]
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "centroid": {
-                                      "type": "object",
-                                      "properties": {
-                                        "x": {
-                                          "type": "number"
-                                        },
-                                        "y": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "x",
-                                        "y"
-                                      ]
-                                    },
-                                    "radius": {
-                                      "type": "number"
-                                    }
-                                  },
-                                  "required": [
-                                    "centroid",
-                                    "radius"
-                                  ]
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "value"
-                          ]
-                        }
-                      }
-                    },
-                    "required": [
-                      "value"
-                    ]
-                  }
-                ]
               }
-            },
-            "required": [
-              "first",
-              "second"
             ]
           }
         },
         "required": [
-          "p"
+          "first",
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -1511,394 +1495,40 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
-            "type": "object",
-            "properties": {
-              "first": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "value": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "value": {
-                              "oneOf": [
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "x": {
-                                      "type": "number"
-                                    },
-                                    "y": {
-                                      "type": "number"
-                                    }
-                                  },
-                                  "required": [
-                                    "x",
-                                    "y"
-                                  ]
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "p1": {
-                                      "type": "object",
-                                      "properties": {
-                                        "x": {
-                                          "type": "number"
-                                        },
-                                        "y": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "x",
-                                        "y"
-                                      ]
-                                    },
-                                    "p2": {
-                                      "type": "object",
-                                      "properties": {
-                                        "x": {
-                                          "type": "number"
-                                        },
-                                        "y": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "x",
-                                        "y"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "p1",
-                                    "p2"
-                                  ]
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "p1": {
-                                      "type": "object",
-                                      "properties": {
-                                        "x": {
-                                          "type": "number"
-                                        },
-                                        "y": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "x",
-                                        "y"
-                                      ]
-                                    },
-                                    "p2": {
-                                      "type": "object",
-                                      "properties": {
-                                        "x": {
-                                          "type": "number"
-                                        },
-                                        "y": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "x",
-                                        "y"
-                                      ]
-                                    },
-                                    "p3": {
-                                      "type": "object",
-                                      "properties": {
-                                        "x": {
-                                          "type": "number"
-                                        },
-                                        "y": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "x",
-                                        "y"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "p1",
-                                    "p2",
-                                    "p3"
-                                  ]
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "p1": {
-                                      "type": "object",
-                                      "properties": {
-                                        "x": {
-                                          "type": "number"
-                                        },
-                                        "y": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "x",
-                                        "y"
-                                      ]
-                                    },
-                                    "p2": {
-                                      "type": "object",
-                                      "properties": {
-                                        "x": {
-                                          "type": "number"
-                                        },
-                                        "y": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "x",
-                                        "y"
-                                      ]
-                                    },
-                                    "p3": {
-                                      "type": "object",
-                                      "properties": {
-                                        "x": {
-                                          "type": "number"
-                                        },
-                                        "y": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "x",
-                                        "y"
-                                      ]
-                                    },
-                                    "p4": {
-                                      "type": "object",
-                                      "properties": {
-                                        "x": {
-                                          "type": "number"
-                                        },
-                                        "y": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "x",
-                                        "y"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "p1",
-                                    "p2",
-                                    "p3",
-                                    "p4"
-                                  ]
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "points": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "object",
-                                        "properties": {
-                                          "x": {
-                                            "type": "number"
-                                          },
-                                          "y": {
-                                            "type": "number"
-                                          }
-                                        },
-                                        "required": [
-                                          "x",
-                                          "y"
-                                        ]
-                                      }
-                                    }
-                                  },
-                                  "required": [
-                                    "points"
-                                  ]
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "outer": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "object",
-                                        "properties": {
-                                          "x": {
-                                            "type": "number"
-                                          },
-                                          "y": {
-                                            "type": "number"
-                                          }
-                                        },
-                                        "required": [
-                                          "x",
-                                          "y"
-                                        ]
-                                      }
-                                    },
-                                    "inner": {
-                                      "type": "object",
-                                      "properties": {
-                                        "x": {
-                                          "type": "number"
-                                        },
-                                        "y": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "x",
-                                        "y"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "outer",
-                                    "inner"
-                                  ]
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "outer": {
-                                      "type": "object",
-                                      "properties": {
-                                        "points": {
-                                          "type": "array",
-                                          "items": {
-                                            "type": "object",
-                                            "properties": {
-                                              "x": {
-                                                "type": "number"
-                                              },
-                                              "y": {
-                                                "type": "number"
-                                              }
-                                            },
-                                            "required": [
-                                              "x",
-                                              "y"
-                                            ]
-                                          }
-                                        }
-                                      },
-                                      "required": [
-                                        "points"
-                                      ]
-                                    },
-                                    "inner": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "object",
-                                        "properties": {
-                                          "points": {
-                                            "type": "array",
-                                            "items": {
-                                              "type": "object",
-                                              "properties": {
-                                                "x": {
-                                                  "type": "number"
-                                                },
-                                                "y": {
-                                                  "type": "number"
-                                                }
-                                              },
-                                              "required": [
-                                                "x",
-                                                "y"
-                                              ]
-                                            }
-                                          }
-                                        },
-                                        "required": [
-                                          "points"
-                                        ]
-                                      }
-                                    }
-                                  },
-                                  "required": [
-                                    "outer",
-                                    "inner"
-                                  ]
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "centroid": {
-                                      "type": "object",
-                                      "properties": {
-                                        "x": {
-                                          "type": "number"
-                                        },
-                                        "y": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "x",
-                                        "y"
-                                      ]
-                                    },
-                                    "radius": {
-                                      "type": "number"
-                                    }
-                                  },
-                                  "required": [
-                                    "centroid",
-                                    "radius"
-                                  ]
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "value"
-                          ]
-                        }
-                      }
-                    },
-                    "required": [
-                      "value"
-                    ]
-                  }
-                ]
+          "first": {
+            "oneOf": [
+              {
+                "type": "null"
               },
-              "second": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "value": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "value": {
-                              "oneOf": [
-                                {
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "value": {
+                          "oneOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "p1": {
                                   "type": "object",
                                   "properties": {
                                     "x": {
@@ -1913,172 +1543,225 @@
                                     "y"
                                   ]
                                 },
-                                {
+                                "p2": {
                                   "type": "object",
                                   "properties": {
-                                    "p1": {
-                                      "type": "object",
-                                      "properties": {
-                                        "x": {
-                                          "type": "number"
-                                        },
-                                        "y": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "x",
-                                        "y"
-                                      ]
+                                    "x": {
+                                      "type": "number"
                                     },
-                                    "p2": {
-                                      "type": "object",
-                                      "properties": {
-                                        "x": {
-                                          "type": "number"
-                                        },
-                                        "y": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "x",
-                                        "y"
-                                      ]
+                                    "y": {
+                                      "type": "number"
                                     }
                                   },
                                   "required": [
-                                    "p1",
-                                    "p2"
+                                    "x",
+                                    "y"
                                   ]
-                                },
-                                {
+                                }
+                              },
+                              "required": [
+                                "p1",
+                                "p2"
+                              ]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "p1": {
                                   "type": "object",
                                   "properties": {
-                                    "p1": {
-                                      "type": "object",
-                                      "properties": {
-                                        "x": {
-                                          "type": "number"
-                                        },
-                                        "y": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "x",
-                                        "y"
-                                      ]
+                                    "x": {
+                                      "type": "number"
                                     },
-                                    "p2": {
-                                      "type": "object",
-                                      "properties": {
-                                        "x": {
-                                          "type": "number"
-                                        },
-                                        "y": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "x",
-                                        "y"
-                                      ]
-                                    },
-                                    "p3": {
-                                      "type": "object",
-                                      "properties": {
-                                        "x": {
-                                          "type": "number"
-                                        },
-                                        "y": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "x",
-                                        "y"
-                                      ]
+                                    "y": {
+                                      "type": "number"
                                     }
                                   },
                                   "required": [
-                                    "p1",
-                                    "p2",
-                                    "p3"
+                                    "x",
+                                    "y"
                                   ]
                                 },
-                                {
+                                "p2": {
                                   "type": "object",
                                   "properties": {
-                                    "p1": {
-                                      "type": "object",
-                                      "properties": {
-                                        "x": {
-                                          "type": "number"
-                                        },
-                                        "y": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "x",
-                                        "y"
-                                      ]
+                                    "x": {
+                                      "type": "number"
                                     },
-                                    "p2": {
-                                      "type": "object",
-                                      "properties": {
-                                        "x": {
-                                          "type": "number"
-                                        },
-                                        "y": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "x",
-                                        "y"
-                                      ]
-                                    },
-                                    "p3": {
-                                      "type": "object",
-                                      "properties": {
-                                        "x": {
-                                          "type": "number"
-                                        },
-                                        "y": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "x",
-                                        "y"
-                                      ]
-                                    },
-                                    "p4": {
-                                      "type": "object",
-                                      "properties": {
-                                        "x": {
-                                          "type": "number"
-                                        },
-                                        "y": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "x",
-                                        "y"
-                                      ]
+                                    "y": {
+                                      "type": "number"
                                     }
                                   },
                                   "required": [
-                                    "p1",
-                                    "p2",
-                                    "p3",
-                                    "p4"
+                                    "x",
+                                    "y"
                                   ]
                                 },
-                                {
+                                "p3": {
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "p1",
+                                "p2",
+                                "p3"
+                              ]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "p1": {
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "p2": {
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "p3": {
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "p4": {
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "p1",
+                                "p2",
+                                "p3",
+                                "p4"
+                              ]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "points": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "x": {
+                                        "type": "number"
+                                      },
+                                      "y": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "required": [
+                                      "x",
+                                      "y"
+                                    ]
+                                  }
+                                }
+                              },
+                              "required": [
+                                "points"
+                              ]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "outer": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "x": {
+                                        "type": "number"
+                                      },
+                                      "y": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "required": [
+                                      "x",
+                                      "y"
+                                    ]
+                                  }
+                                },
+                                "inner": {
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "outer",
+                                "inner"
+                              ]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "outer": {
                                   "type": "object",
                                   "properties": {
                                     "points": {
@@ -2104,170 +1787,45 @@
                                     "points"
                                   ]
                                 },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "outer": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "object",
-                                        "properties": {
-                                          "x": {
-                                            "type": "number"
-                                          },
-                                          "y": {
-                                            "type": "number"
-                                          }
-                                        },
-                                        "required": [
-                                          "x",
-                                          "y"
-                                        ]
-                                      }
-                                    },
-                                    "inner": {
-                                      "type": "object",
-                                      "properties": {
-                                        "x": {
-                                          "type": "number"
-                                        },
-                                        "y": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "x",
-                                        "y"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "outer",
-                                    "inner"
-                                  ]
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "outer": {
-                                      "type": "object",
-                                      "properties": {
-                                        "points": {
-                                          "type": "array",
-                                          "items": {
-                                            "type": "object",
-                                            "properties": {
-                                              "x": {
-                                                "type": "number"
-                                              },
-                                              "y": {
-                                                "type": "number"
-                                              }
+                                "inner": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "points": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "object",
+                                          "properties": {
+                                            "x": {
+                                              "type": "number"
                                             },
-                                            "required": [
-                                              "x",
-                                              "y"
-                                            ]
-                                          }
-                                        }
-                                      },
-                                      "required": [
-                                        "points"
-                                      ]
-                                    },
-                                    "inner": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "object",
-                                        "properties": {
-                                          "points": {
-                                            "type": "array",
-                                            "items": {
-                                              "type": "object",
-                                              "properties": {
-                                                "x": {
-                                                  "type": "number"
-                                                },
-                                                "y": {
-                                                  "type": "number"
-                                                }
-                                              },
-                                              "required": [
-                                                "x",
-                                                "y"
-                                              ]
+                                            "y": {
+                                              "type": "number"
                                             }
-                                          }
-                                        },
-                                        "required": [
-                                          "points"
-                                        ]
-                                      }
-                                    }
-                                  },
-                                  "required": [
-                                    "outer",
-                                    "inner"
-                                  ]
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "centroid": {
-                                      "type": "object",
-                                      "properties": {
-                                        "x": {
-                                          "type": "number"
-                                        },
-                                        "y": {
-                                          "type": "number"
+                                          },
+                                          "required": [
+                                            "x",
+                                            "y"
+                                          ]
                                         }
-                                      },
-                                      "required": [
-                                        "x",
-                                        "y"
-                                      ]
+                                      }
                                     },
-                                    "radius": {
-                                      "type": "number"
-                                    }
-                                  },
-                                  "required": [
-                                    "centroid",
-                                    "radius"
-                                  ]
+                                    "required": [
+                                      "points"
+                                    ]
+                                  }
                                 }
+                              },
+                              "required": [
+                                "outer",
+                                "inner"
                               ]
-                            }
-                          },
-                          "required": [
-                            "value"
-                          ]
-                        }
-                      }
-                    },
-                    "required": [
-                      "value"
-                    ]
-                  }
-                ]
-              },
-              "third": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "value": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "value": {
-                              "oneOf": [
-                                {
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "centroid": {
                                   "type": "object",
                                   "properties": {
                                     "x": {
@@ -2282,355 +1840,773 @@
                                     "y"
                                   ]
                                 },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "p1": {
-                                      "type": "object",
-                                      "properties": {
-                                        "x": {
-                                          "type": "number"
-                                        },
-                                        "y": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "x",
-                                        "y"
-                                      ]
-                                    },
-                                    "p2": {
-                                      "type": "object",
-                                      "properties": {
-                                        "x": {
-                                          "type": "number"
-                                        },
-                                        "y": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "x",
-                                        "y"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "p1",
-                                    "p2"
-                                  ]
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "p1": {
-                                      "type": "object",
-                                      "properties": {
-                                        "x": {
-                                          "type": "number"
-                                        },
-                                        "y": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "x",
-                                        "y"
-                                      ]
-                                    },
-                                    "p2": {
-                                      "type": "object",
-                                      "properties": {
-                                        "x": {
-                                          "type": "number"
-                                        },
-                                        "y": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "x",
-                                        "y"
-                                      ]
-                                    },
-                                    "p3": {
-                                      "type": "object",
-                                      "properties": {
-                                        "x": {
-                                          "type": "number"
-                                        },
-                                        "y": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "x",
-                                        "y"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "p1",
-                                    "p2",
-                                    "p3"
-                                  ]
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "p1": {
-                                      "type": "object",
-                                      "properties": {
-                                        "x": {
-                                          "type": "number"
-                                        },
-                                        "y": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "x",
-                                        "y"
-                                      ]
-                                    },
-                                    "p2": {
-                                      "type": "object",
-                                      "properties": {
-                                        "x": {
-                                          "type": "number"
-                                        },
-                                        "y": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "x",
-                                        "y"
-                                      ]
-                                    },
-                                    "p3": {
-                                      "type": "object",
-                                      "properties": {
-                                        "x": {
-                                          "type": "number"
-                                        },
-                                        "y": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "x",
-                                        "y"
-                                      ]
-                                    },
-                                    "p4": {
-                                      "type": "object",
-                                      "properties": {
-                                        "x": {
-                                          "type": "number"
-                                        },
-                                        "y": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "x",
-                                        "y"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "p1",
-                                    "p2",
-                                    "p3",
-                                    "p4"
-                                  ]
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "points": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "object",
-                                        "properties": {
-                                          "x": {
-                                            "type": "number"
-                                          },
-                                          "y": {
-                                            "type": "number"
-                                          }
-                                        },
-                                        "required": [
-                                          "x",
-                                          "y"
-                                        ]
-                                      }
-                                    }
-                                  },
-                                  "required": [
-                                    "points"
-                                  ]
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "outer": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "object",
-                                        "properties": {
-                                          "x": {
-                                            "type": "number"
-                                          },
-                                          "y": {
-                                            "type": "number"
-                                          }
-                                        },
-                                        "required": [
-                                          "x",
-                                          "y"
-                                        ]
-                                      }
-                                    },
-                                    "inner": {
-                                      "type": "object",
-                                      "properties": {
-                                        "x": {
-                                          "type": "number"
-                                        },
-                                        "y": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "x",
-                                        "y"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "outer",
-                                    "inner"
-                                  ]
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "outer": {
-                                      "type": "object",
-                                      "properties": {
-                                        "points": {
-                                          "type": "array",
-                                          "items": {
-                                            "type": "object",
-                                            "properties": {
-                                              "x": {
-                                                "type": "number"
-                                              },
-                                              "y": {
-                                                "type": "number"
-                                              }
-                                            },
-                                            "required": [
-                                              "x",
-                                              "y"
-                                            ]
-                                          }
-                                        }
-                                      },
-                                      "required": [
-                                        "points"
-                                      ]
-                                    },
-                                    "inner": {
-                                      "type": "array",
-                                      "items": {
-                                        "type": "object",
-                                        "properties": {
-                                          "points": {
-                                            "type": "array",
-                                            "items": {
-                                              "type": "object",
-                                              "properties": {
-                                                "x": {
-                                                  "type": "number"
-                                                },
-                                                "y": {
-                                                  "type": "number"
-                                                }
-                                              },
-                                              "required": [
-                                                "x",
-                                                "y"
-                                              ]
-                                            }
-                                          }
-                                        },
-                                        "required": [
-                                          "points"
-                                        ]
-                                      }
-                                    }
-                                  },
-                                  "required": [
-                                    "outer",
-                                    "inner"
-                                  ]
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "centroid": {
-                                      "type": "object",
-                                      "properties": {
-                                        "x": {
-                                          "type": "number"
-                                        },
-                                        "y": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "x",
-                                        "y"
-                                      ]
-                                    },
-                                    "radius": {
-                                      "type": "number"
-                                    }
-                                  },
-                                  "required": [
-                                    "centroid",
-                                    "radius"
-                                  ]
+                                "radius": {
+                                  "type": "number"
                                 }
+                              },
+                              "required": [
+                                "centroid",
+                                "radius"
                               ]
                             }
-                          },
-                          "required": [
-                            "value"
                           ]
                         }
-                      }
-                    },
-                    "required": [
-                      "value"
-                    ]
+                      },
+                      "required": [
+                        "value"
+                      ]
+                    }
                   }
+                },
+                "required": [
+                  "value"
                 ]
               }
-            },
-            "required": [
-              "first",
-              "second",
-              "third"
+            ]
+          },
+          "second": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "value": {
+                          "oneOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "p1": {
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "p2": {
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "p1",
+                                "p2"
+                              ]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "p1": {
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "p2": {
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "p3": {
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "p1",
+                                "p2",
+                                "p3"
+                              ]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "p1": {
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "p2": {
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "p3": {
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "p4": {
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "p1",
+                                "p2",
+                                "p3",
+                                "p4"
+                              ]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "points": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "x": {
+                                        "type": "number"
+                                      },
+                                      "y": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "required": [
+                                      "x",
+                                      "y"
+                                    ]
+                                  }
+                                }
+                              },
+                              "required": [
+                                "points"
+                              ]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "outer": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "x": {
+                                        "type": "number"
+                                      },
+                                      "y": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "required": [
+                                      "x",
+                                      "y"
+                                    ]
+                                  }
+                                },
+                                "inner": {
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "outer",
+                                "inner"
+                              ]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "outer": {
+                                  "type": "object",
+                                  "properties": {
+                                    "points": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "object",
+                                        "properties": {
+                                          "x": {
+                                            "type": "number"
+                                          },
+                                          "y": {
+                                            "type": "number"
+                                          }
+                                        },
+                                        "required": [
+                                          "x",
+                                          "y"
+                                        ]
+                                      }
+                                    }
+                                  },
+                                  "required": [
+                                    "points"
+                                  ]
+                                },
+                                "inner": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "points": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "object",
+                                          "properties": {
+                                            "x": {
+                                              "type": "number"
+                                            },
+                                            "y": {
+                                              "type": "number"
+                                            }
+                                          },
+                                          "required": [
+                                            "x",
+                                            "y"
+                                          ]
+                                        }
+                                      }
+                                    },
+                                    "required": [
+                                      "points"
+                                    ]
+                                  }
+                                }
+                              },
+                              "required": [
+                                "outer",
+                                "inner"
+                              ]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "centroid": {
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "radius": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "centroid",
+                                "radius"
+                              ]
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "value"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "value"
+                ]
+              }
+            ]
+          },
+          "third": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "value": {
+                          "oneOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "p1": {
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "p2": {
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "p1",
+                                "p2"
+                              ]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "p1": {
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "p2": {
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "p3": {
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "p1",
+                                "p2",
+                                "p3"
+                              ]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "p1": {
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "p2": {
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "p3": {
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "p4": {
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "p1",
+                                "p2",
+                                "p3",
+                                "p4"
+                              ]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "points": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "x": {
+                                        "type": "number"
+                                      },
+                                      "y": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "required": [
+                                      "x",
+                                      "y"
+                                    ]
+                                  }
+                                }
+                              },
+                              "required": [
+                                "points"
+                              ]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "outer": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "x": {
+                                        "type": "number"
+                                      },
+                                      "y": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "required": [
+                                      "x",
+                                      "y"
+                                    ]
+                                  }
+                                },
+                                "inner": {
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                }
+                              },
+                              "required": [
+                                "outer",
+                                "inner"
+                              ]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "outer": {
+                                  "type": "object",
+                                  "properties": {
+                                    "points": {
+                                      "type": "array",
+                                      "items": {
+                                        "type": "object",
+                                        "properties": {
+                                          "x": {
+                                            "type": "number"
+                                          },
+                                          "y": {
+                                            "type": "number"
+                                          }
+                                        },
+                                        "required": [
+                                          "x",
+                                          "y"
+                                        ]
+                                      }
+                                    }
+                                  },
+                                  "required": [
+                                    "points"
+                                  ]
+                                },
+                                "inner": {
+                                  "type": "array",
+                                  "items": {
+                                    "type": "object",
+                                    "properties": {
+                                      "points": {
+                                        "type": "array",
+                                        "items": {
+                                          "type": "object",
+                                          "properties": {
+                                            "x": {
+                                              "type": "number"
+                                            },
+                                            "y": {
+                                              "type": "number"
+                                            }
+                                          },
+                                          "required": [
+                                            "x",
+                                            "y"
+                                          ]
+                                        }
+                                      }
+                                    },
+                                    "required": [
+                                      "points"
+                                    ]
+                                  }
+                                }
+                              },
+                              "required": [
+                                "outer",
+                                "inner"
+                              ]
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "centroid": {
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "radius": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "centroid",
+                                "radius"
+                              ]
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "value"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "value"
+                ]
+              }
             ]
           }
         },
         "required": [
-          "p"
+          "first",
+          "second",
+          "third"
         ],
         "additionalProperties": false,
         "$defs": {}

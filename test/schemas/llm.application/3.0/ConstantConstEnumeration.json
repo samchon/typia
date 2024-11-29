@@ -11,40 +11,31 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
-            "type": "object",
-            "properties": {
-              "first": {
-                "type": "array",
-                "items": {
-                  "oneOf": [
-                    {
-                      "type": "number",
-                      "enum": [
-                        0,
-                        1,
-                        2
-                      ]
-                    },
-                    {
-                      "type": "string",
-                      "enum": [
-                        "Three",
-                        "Four"
-                      ]
-                    }
+          "first": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "number",
+                  "enum": [
+                    0,
+                    1,
+                    2
+                  ]
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "Three",
+                    "Four"
                   ]
                 }
-              }
-            },
-            "required": [
-              "first"
-            ],
-            "additionalProperties": false
+              ]
+            }
           }
         },
         "required": [
-          "p"
+          "first"
         ],
         "additionalProperties": false
       },
@@ -55,64 +46,55 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
-            "type": "object",
-            "properties": {
-              "first": {
-                "type": "array",
-                "items": {
-                  "oneOf": [
-                    {
-                      "type": "number",
-                      "enum": [
-                        0,
-                        1,
-                        2
-                      ]
-                    },
-                    {
-                      "type": "string",
-                      "enum": [
-                        "Three",
-                        "Four"
-                      ]
-                    }
-                  ]
-                }
-              },
-              "second": {
-                "type": "array",
-                "items": {
-                  "oneOf": [
-                    {
-                      "type": "number",
-                      "enum": [
-                        0,
-                        1,
-                        2
-                      ]
-                    },
-                    {
-                      "type": "string",
-                      "enum": [
-                        "Three",
-                        "Four"
-                      ]
-                    }
+          "first": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "number",
+                  "enum": [
+                    0,
+                    1,
+                    2
                   ]
                 },
-                "nullable": true
-              }
+                {
+                  "type": "string",
+                  "enum": [
+                    "Three",
+                    "Four"
+                  ]
+                }
+              ]
+            }
+          },
+          "second": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "number",
+                  "enum": [
+                    0,
+                    1,
+                    2
+                  ]
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "Three",
+                    "Four"
+                  ]
+                }
+              ]
             },
-            "required": [
-              "first",
-              "second"
-            ],
-            "additionalProperties": false
+            "nullable": true
           }
         },
         "required": [
-          "p"
+          "first",
+          "second"
         ],
         "additionalProperties": false
       },
@@ -145,88 +127,79 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
-            "type": "object",
-            "properties": {
-              "first": {
-                "type": "array",
-                "items": {
-                  "oneOf": [
-                    {
-                      "type": "number",
-                      "enum": [
-                        0,
-                        1,
-                        2
-                      ]
-                    },
-                    {
-                      "type": "string",
-                      "enum": [
-                        "Three",
-                        "Four"
-                      ]
-                    }
+          "first": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "number",
+                  "enum": [
+                    0,
+                    1,
+                    2
                   ]
                 },
-                "nullable": true
-              },
-              "second": {
-                "type": "array",
-                "items": {
-                  "oneOf": [
-                    {
-                      "type": "number",
-                      "enum": [
-                        0,
-                        1,
-                        2
-                      ]
-                    },
-                    {
-                      "type": "string",
-                      "enum": [
-                        "Three",
-                        "Four"
-                      ]
-                    }
+                {
+                  "type": "string",
+                  "enum": [
+                    "Three",
+                    "Four"
                   ]
-                },
-                "nullable": true
-              },
-              "third": {
-                "type": "array",
-                "items": {
-                  "oneOf": [
-                    {
-                      "type": "number",
-                      "enum": [
-                        0,
-                        1,
-                        2
-                      ]
-                    },
-                    {
-                      "type": "string",
-                      "enum": [
-                        "Three",
-                        "Four"
-                      ]
-                    }
-                  ]
-                },
-                "nullable": true
-              }
+                }
+              ]
             },
-            "required": [
-              "first",
-              "second"
-            ],
-            "additionalProperties": false
+            "nullable": true
+          },
+          "second": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "number",
+                  "enum": [
+                    0,
+                    1,
+                    2
+                  ]
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "Three",
+                    "Four"
+                  ]
+                }
+              ]
+            },
+            "nullable": true
+          },
+          "third": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "number",
+                  "enum": [
+                    0,
+                    1,
+                    2
+                  ]
+                },
+                {
+                  "type": "string",
+                  "enum": [
+                    "Three",
+                    "Four"
+                  ]
+                }
+              ]
+            },
+            "nullable": true
           }
         },
         "required": [
-          "p"
+          "first",
+          "second"
         ],
         "additionalProperties": false
       },

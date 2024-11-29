@@ -10,137 +10,128 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
+          "first": {
             "type": "object",
             "properties": {
-              "first": {
-                "type": "object",
-                "properties": {
-                  "boolean": {
-                    "title": "Default tag on `boolean` typed value",
-                    "description": "Default tag on `boolean` typed value.",
+              "boolean": {
+                "title": "Default tag on `boolean` typed value",
+                "description": "Default tag on `boolean` typed value.",
+                "type": "boolean"
+              },
+              "number": {
+                "title": "Default tag on `number` typed value",
+                "description": "Default tag on `number` typed value.",
+                "type": "number"
+              },
+              "string": {
+                "title": "Default tag on `string` typed value",
+                "description": "Default tag on `string` typed value.",
+                "type": "string"
+              },
+              "text": {
+                "title": "Default tag on `string` typed value with long characters",
+                "description": "Default tag on `string` typed value with long characters.",
+                "type": "string"
+              },
+              "boolean_and_number_and_string": {
+                "title": "Default value on union typed property",
+                "description": "Default value on union typed property.",
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
                     "type": "boolean"
-                  },
-                  "number": {
-                    "title": "Default tag on `number` typed value",
-                    "description": "Default tag on `number` typed value.",
-                    "type": "number"
-                  },
-                  "string": {
-                    "title": "Default tag on `string` typed value",
-                    "description": "Default tag on `string` typed value.",
-                    "type": "string"
-                  },
-                  "text": {
-                    "title": "Default tag on `string` typed value with long characters",
-                    "description": "Default tag on `string` typed value with long characters.",
-                    "type": "string"
-                  },
-                  "boolean_and_number_and_string": {
-                    "title": "Default value on union typed property",
-                    "description": "Default value on union typed property.",
-                    "anyOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "number"
-                      },
-                      {
-                        "type": "boolean"
-                      }
-                    ]
-                  },
-                  "union_but_boolean": {
-                    "title": "Default value on union typed property",
-                    "description": "Default value on union typed property.",
-                    "anyOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "number"
-                      },
-                      {
-                        "type": "boolean"
-                      }
-                    ]
-                  },
-                  "union_but_number": {
-                    "title": "Default value on union typed property",
-                    "description": "Default value on union typed property.",
-                    "anyOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "number"
-                      },
-                      {
-                        "type": "boolean"
-                      }
-                    ]
-                  },
-                  "union_but_string": {
-                    "title": "Default value on union typed property",
-                    "description": "Default value on union typed property.",
-                    "anyOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "number"
-                      },
-                      {
-                        "type": "boolean"
-                      }
-                    ]
-                  },
-                  "vulnerable_range": {
-                    "title": "Default value on union typed property",
-                    "description": "Default value on union typed property.\n\n\n@minimum 3\n@maximum 5",
-                    "type": "number"
-                  },
-                  "boolean_and_number_and_template": {
-                    "title": "Default value on union typed property",
-                    "description": "Default value on union typed property.",
-                    "anyOf": [
-                      {
-                        "type": "string",
-                        "description": "@pattern ^(prefix_(.*))"
-                      },
-                      {
-                        "type": "number"
-                      },
-                      {
-                        "type": "boolean"
-                      }
-                    ]
                   }
-                },
-                "required": [
-                  "boolean",
-                  "number",
-                  "string",
-                  "text",
-                  "boolean_and_number_and_string",
-                  "union_but_boolean",
-                  "union_but_number",
-                  "union_but_string",
-                  "vulnerable_range",
-                  "boolean_and_number_and_template"
-                ],
-                "additionalProperties": false
+                ]
+              },
+              "union_but_boolean": {
+                "title": "Default value on union typed property",
+                "description": "Default value on union typed property.",
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  }
+                ]
+              },
+              "union_but_number": {
+                "title": "Default value on union typed property",
+                "description": "Default value on union typed property.",
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  }
+                ]
+              },
+              "union_but_string": {
+                "title": "Default value on union typed property",
+                "description": "Default value on union typed property.",
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  }
+                ]
+              },
+              "vulnerable_range": {
+                "title": "Default value on union typed property",
+                "description": "Default value on union typed property.\n\n\n@minimum 3\n@maximum 5",
+                "type": "number"
+              },
+              "boolean_and_number_and_template": {
+                "title": "Default value on union typed property",
+                "description": "Default value on union typed property.",
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "description": "@pattern ^(prefix_(.*))"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  }
+                ]
               }
             },
             "required": [
-              "first"
+              "boolean",
+              "number",
+              "string",
+              "text",
+              "boolean_and_number_and_string",
+              "union_but_boolean",
+              "union_but_number",
+              "union_but_string",
+              "vulnerable_range",
+              "boolean_and_number_and_template"
             ],
             "additionalProperties": false
           }
         },
         "required": [
-          "p"
+          "first"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -152,10 +143,131 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
+          "first": {
             "type": "object",
             "properties": {
-              "first": {
+              "boolean": {
+                "title": "Default tag on `boolean` typed value",
+                "description": "Default tag on `boolean` typed value.",
+                "type": "boolean"
+              },
+              "number": {
+                "title": "Default tag on `number` typed value",
+                "description": "Default tag on `number` typed value.",
+                "type": "number"
+              },
+              "string": {
+                "title": "Default tag on `string` typed value",
+                "description": "Default tag on `string` typed value.",
+                "type": "string"
+              },
+              "text": {
+                "title": "Default tag on `string` typed value with long characters",
+                "description": "Default tag on `string` typed value with long characters.",
+                "type": "string"
+              },
+              "boolean_and_number_and_string": {
+                "title": "Default value on union typed property",
+                "description": "Default value on union typed property.",
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  }
+                ]
+              },
+              "union_but_boolean": {
+                "title": "Default value on union typed property",
+                "description": "Default value on union typed property.",
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  }
+                ]
+              },
+              "union_but_number": {
+                "title": "Default value on union typed property",
+                "description": "Default value on union typed property.",
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  }
+                ]
+              },
+              "union_but_string": {
+                "title": "Default value on union typed property",
+                "description": "Default value on union typed property.",
+                "anyOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  }
+                ]
+              },
+              "vulnerable_range": {
+                "title": "Default value on union typed property",
+                "description": "Default value on union typed property.\n\n\n@minimum 3\n@maximum 5",
+                "type": "number"
+              },
+              "boolean_and_number_and_template": {
+                "title": "Default value on union typed property",
+                "description": "Default value on union typed property.",
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "description": "@pattern ^(prefix_(.*))"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "boolean",
+              "number",
+              "string",
+              "text",
+              "boolean_and_number_and_string",
+              "union_but_boolean",
+              "union_but_number",
+              "union_but_string",
+              "vulnerable_range",
+              "boolean_and_number_and_template"
+            ],
+            "additionalProperties": false
+          },
+          "second": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
                 "type": "object",
                 "properties": {
                   "boolean": {
@@ -273,143 +385,13 @@
                   "boolean_and_number_and_template"
                 ],
                 "additionalProperties": false
-              },
-              "second": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "boolean": {
-                        "title": "Default tag on `boolean` typed value",
-                        "description": "Default tag on `boolean` typed value.",
-                        "type": "boolean"
-                      },
-                      "number": {
-                        "title": "Default tag on `number` typed value",
-                        "description": "Default tag on `number` typed value.",
-                        "type": "number"
-                      },
-                      "string": {
-                        "title": "Default tag on `string` typed value",
-                        "description": "Default tag on `string` typed value.",
-                        "type": "string"
-                      },
-                      "text": {
-                        "title": "Default tag on `string` typed value with long characters",
-                        "description": "Default tag on `string` typed value with long characters.",
-                        "type": "string"
-                      },
-                      "boolean_and_number_and_string": {
-                        "title": "Default value on union typed property",
-                        "description": "Default value on union typed property.",
-                        "anyOf": [
-                          {
-                            "type": "string"
-                          },
-                          {
-                            "type": "number"
-                          },
-                          {
-                            "type": "boolean"
-                          }
-                        ]
-                      },
-                      "union_but_boolean": {
-                        "title": "Default value on union typed property",
-                        "description": "Default value on union typed property.",
-                        "anyOf": [
-                          {
-                            "type": "string"
-                          },
-                          {
-                            "type": "number"
-                          },
-                          {
-                            "type": "boolean"
-                          }
-                        ]
-                      },
-                      "union_but_number": {
-                        "title": "Default value on union typed property",
-                        "description": "Default value on union typed property.",
-                        "anyOf": [
-                          {
-                            "type": "string"
-                          },
-                          {
-                            "type": "number"
-                          },
-                          {
-                            "type": "boolean"
-                          }
-                        ]
-                      },
-                      "union_but_string": {
-                        "title": "Default value on union typed property",
-                        "description": "Default value on union typed property.",
-                        "anyOf": [
-                          {
-                            "type": "string"
-                          },
-                          {
-                            "type": "number"
-                          },
-                          {
-                            "type": "boolean"
-                          }
-                        ]
-                      },
-                      "vulnerable_range": {
-                        "title": "Default value on union typed property",
-                        "description": "Default value on union typed property.\n\n\n@minimum 3\n@maximum 5",
-                        "type": "number"
-                      },
-                      "boolean_and_number_and_template": {
-                        "title": "Default value on union typed property",
-                        "description": "Default value on union typed property.",
-                        "anyOf": [
-                          {
-                            "type": "string",
-                            "description": "@pattern ^(prefix_(.*))"
-                          },
-                          {
-                            "type": "number"
-                          },
-                          {
-                            "type": "boolean"
-                          }
-                        ]
-                      }
-                    },
-                    "required": [
-                      "boolean",
-                      "number",
-                      "string",
-                      "text",
-                      "boolean_and_number_and_string",
-                      "union_but_boolean",
-                      "union_but_number",
-                      "union_but_string",
-                      "vulnerable_range",
-                      "boolean_and_number_and_template"
-                    ],
-                    "additionalProperties": false
-                  }
-                ]
               }
-            },
-            "required": [
-              "first",
-              "second"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
-          "p"
+          "first",
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -540,398 +522,389 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
-            "type": "object",
-            "properties": {
-              "first": {
-                "anyOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "boolean": {
-                        "title": "Default tag on `boolean` typed value",
-                        "description": "Default tag on `boolean` typed value.",
-                        "type": "boolean"
-                      },
-                      "number": {
-                        "title": "Default tag on `number` typed value",
-                        "description": "Default tag on `number` typed value.",
-                        "type": "number"
-                      },
-                      "string": {
-                        "title": "Default tag on `string` typed value",
-                        "description": "Default tag on `string` typed value.",
-                        "type": "string"
-                      },
-                      "text": {
-                        "title": "Default tag on `string` typed value with long characters",
-                        "description": "Default tag on `string` typed value with long characters.",
-                        "type": "string"
-                      },
-                      "boolean_and_number_and_string": {
-                        "title": "Default value on union typed property",
-                        "description": "Default value on union typed property.",
-                        "anyOf": [
-                          {
-                            "type": "string"
-                          },
-                          {
-                            "type": "number"
-                          },
-                          {
-                            "type": "boolean"
-                          }
-                        ]
-                      },
-                      "union_but_boolean": {
-                        "title": "Default value on union typed property",
-                        "description": "Default value on union typed property.",
-                        "anyOf": [
-                          {
-                            "type": "string"
-                          },
-                          {
-                            "type": "number"
-                          },
-                          {
-                            "type": "boolean"
-                          }
-                        ]
-                      },
-                      "union_but_number": {
-                        "title": "Default value on union typed property",
-                        "description": "Default value on union typed property.",
-                        "anyOf": [
-                          {
-                            "type": "string"
-                          },
-                          {
-                            "type": "number"
-                          },
-                          {
-                            "type": "boolean"
-                          }
-                        ]
-                      },
-                      "union_but_string": {
-                        "title": "Default value on union typed property",
-                        "description": "Default value on union typed property.",
-                        "anyOf": [
-                          {
-                            "type": "string"
-                          },
-                          {
-                            "type": "number"
-                          },
-                          {
-                            "type": "boolean"
-                          }
-                        ]
-                      },
-                      "vulnerable_range": {
-                        "title": "Default value on union typed property",
-                        "description": "Default value on union typed property.\n\n\n@minimum 3\n@maximum 5",
-                        "type": "number"
-                      },
-                      "boolean_and_number_and_template": {
-                        "title": "Default value on union typed property",
-                        "description": "Default value on union typed property.",
-                        "anyOf": [
-                          {
-                            "type": "string",
-                            "description": "@pattern ^(prefix_(.*))"
-                          },
-                          {
-                            "type": "number"
-                          },
-                          {
-                            "type": "boolean"
-                          }
-                        ]
-                      }
-                    },
-                    "required": [
-                      "boolean",
-                      "number",
-                      "string",
-                      "text",
-                      "boolean_and_number_and_string",
-                      "union_but_boolean",
-                      "union_but_number",
-                      "union_but_string",
-                      "vulnerable_range",
-                      "boolean_and_number_and_template"
-                    ],
-                    "additionalProperties": false
-                  }
-                ]
+          "first": {
+            "anyOf": [
+              {
+                "type": "null"
               },
-              "second": {
-                "anyOf": [
-                  {
-                    "type": "null"
+              {
+                "type": "object",
+                "properties": {
+                  "boolean": {
+                    "title": "Default tag on `boolean` typed value",
+                    "description": "Default tag on `boolean` typed value.",
+                    "type": "boolean"
                   },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "boolean": {
-                        "title": "Default tag on `boolean` typed value",
-                        "description": "Default tag on `boolean` typed value.",
-                        "type": "boolean"
-                      },
-                      "number": {
-                        "title": "Default tag on `number` typed value",
-                        "description": "Default tag on `number` typed value.",
-                        "type": "number"
-                      },
-                      "string": {
-                        "title": "Default tag on `string` typed value",
-                        "description": "Default tag on `string` typed value.",
-                        "type": "string"
-                      },
-                      "text": {
-                        "title": "Default tag on `string` typed value with long characters",
-                        "description": "Default tag on `string` typed value with long characters.",
-                        "type": "string"
-                      },
-                      "boolean_and_number_and_string": {
-                        "title": "Default value on union typed property",
-                        "description": "Default value on union typed property.",
-                        "anyOf": [
-                          {
-                            "type": "string"
-                          },
-                          {
-                            "type": "number"
-                          },
-                          {
-                            "type": "boolean"
-                          }
-                        ]
-                      },
-                      "union_but_boolean": {
-                        "title": "Default value on union typed property",
-                        "description": "Default value on union typed property.",
-                        "anyOf": [
-                          {
-                            "type": "string"
-                          },
-                          {
-                            "type": "number"
-                          },
-                          {
-                            "type": "boolean"
-                          }
-                        ]
-                      },
-                      "union_but_number": {
-                        "title": "Default value on union typed property",
-                        "description": "Default value on union typed property.",
-                        "anyOf": [
-                          {
-                            "type": "string"
-                          },
-                          {
-                            "type": "number"
-                          },
-                          {
-                            "type": "boolean"
-                          }
-                        ]
-                      },
-                      "union_but_string": {
-                        "title": "Default value on union typed property",
-                        "description": "Default value on union typed property.",
-                        "anyOf": [
-                          {
-                            "type": "string"
-                          },
-                          {
-                            "type": "number"
-                          },
-                          {
-                            "type": "boolean"
-                          }
-                        ]
-                      },
-                      "vulnerable_range": {
-                        "title": "Default value on union typed property",
-                        "description": "Default value on union typed property.\n\n\n@minimum 3\n@maximum 5",
-                        "type": "number"
-                      },
-                      "boolean_and_number_and_template": {
-                        "title": "Default value on union typed property",
-                        "description": "Default value on union typed property.",
-                        "anyOf": [
-                          {
-                            "type": "string",
-                            "description": "@pattern ^(prefix_(.*))"
-                          },
-                          {
-                            "type": "number"
-                          },
-                          {
-                            "type": "boolean"
-                          }
-                        ]
-                      }
-                    },
-                    "required": [
-                      "boolean",
-                      "number",
-                      "string",
-                      "text",
-                      "boolean_and_number_and_string",
-                      "union_but_boolean",
-                      "union_but_number",
-                      "union_but_string",
-                      "vulnerable_range",
-                      "boolean_and_number_and_template"
-                    ],
-                    "additionalProperties": false
-                  }
-                ]
-              },
-              "third": {
-                "anyOf": [
-                  {
-                    "type": "null"
+                  "number": {
+                    "title": "Default tag on `number` typed value",
+                    "description": "Default tag on `number` typed value.",
+                    "type": "number"
                   },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "boolean": {
-                        "title": "Default tag on `boolean` typed value",
-                        "description": "Default tag on `boolean` typed value.",
+                  "string": {
+                    "title": "Default tag on `string` typed value",
+                    "description": "Default tag on `string` typed value.",
+                    "type": "string"
+                  },
+                  "text": {
+                    "title": "Default tag on `string` typed value with long characters",
+                    "description": "Default tag on `string` typed value with long characters.",
+                    "type": "string"
+                  },
+                  "boolean_and_number_and_string": {
+                    "title": "Default value on union typed property",
+                    "description": "Default value on union typed property.",
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
                         "type": "boolean"
-                      },
-                      "number": {
-                        "title": "Default tag on `number` typed value",
-                        "description": "Default tag on `number` typed value.",
-                        "type": "number"
-                      },
-                      "string": {
-                        "title": "Default tag on `string` typed value",
-                        "description": "Default tag on `string` typed value.",
-                        "type": "string"
-                      },
-                      "text": {
-                        "title": "Default tag on `string` typed value with long characters",
-                        "description": "Default tag on `string` typed value with long characters.",
-                        "type": "string"
-                      },
-                      "boolean_and_number_and_string": {
-                        "title": "Default value on union typed property",
-                        "description": "Default value on union typed property.",
-                        "anyOf": [
-                          {
-                            "type": "string"
-                          },
-                          {
-                            "type": "number"
-                          },
-                          {
-                            "type": "boolean"
-                          }
-                        ]
-                      },
-                      "union_but_boolean": {
-                        "title": "Default value on union typed property",
-                        "description": "Default value on union typed property.",
-                        "anyOf": [
-                          {
-                            "type": "string"
-                          },
-                          {
-                            "type": "number"
-                          },
-                          {
-                            "type": "boolean"
-                          }
-                        ]
-                      },
-                      "union_but_number": {
-                        "title": "Default value on union typed property",
-                        "description": "Default value on union typed property.",
-                        "anyOf": [
-                          {
-                            "type": "string"
-                          },
-                          {
-                            "type": "number"
-                          },
-                          {
-                            "type": "boolean"
-                          }
-                        ]
-                      },
-                      "union_but_string": {
-                        "title": "Default value on union typed property",
-                        "description": "Default value on union typed property.",
-                        "anyOf": [
-                          {
-                            "type": "string"
-                          },
-                          {
-                            "type": "number"
-                          },
-                          {
-                            "type": "boolean"
-                          }
-                        ]
-                      },
-                      "vulnerable_range": {
-                        "title": "Default value on union typed property",
-                        "description": "Default value on union typed property.\n\n\n@minimum 3\n@maximum 5",
-                        "type": "number"
-                      },
-                      "boolean_and_number_and_template": {
-                        "title": "Default value on union typed property",
-                        "description": "Default value on union typed property.",
-                        "anyOf": [
-                          {
-                            "type": "string",
-                            "description": "@pattern ^(prefix_(.*))"
-                          },
-                          {
-                            "type": "number"
-                          },
-                          {
-                            "type": "boolean"
-                          }
-                        ]
                       }
-                    },
-                    "required": [
-                      "boolean",
-                      "number",
-                      "string",
-                      "text",
-                      "boolean_and_number_and_string",
-                      "union_but_boolean",
-                      "union_but_number",
-                      "union_but_string",
-                      "vulnerable_range",
-                      "boolean_and_number_and_template"
-                    ],
-                    "additionalProperties": false
+                    ]
+                  },
+                  "union_but_boolean": {
+                    "title": "Default value on union typed property",
+                    "description": "Default value on union typed property.",
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "boolean"
+                      }
+                    ]
+                  },
+                  "union_but_number": {
+                    "title": "Default value on union typed property",
+                    "description": "Default value on union typed property.",
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "boolean"
+                      }
+                    ]
+                  },
+                  "union_but_string": {
+                    "title": "Default value on union typed property",
+                    "description": "Default value on union typed property.",
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "boolean"
+                      }
+                    ]
+                  },
+                  "vulnerable_range": {
+                    "title": "Default value on union typed property",
+                    "description": "Default value on union typed property.\n\n\n@minimum 3\n@maximum 5",
+                    "type": "number"
+                  },
+                  "boolean_and_number_and_template": {
+                    "title": "Default value on union typed property",
+                    "description": "Default value on union typed property.",
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "description": "@pattern ^(prefix_(.*))"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "boolean"
+                      }
+                    ]
                   }
-                ]
+                },
+                "required": [
+                  "boolean",
+                  "number",
+                  "string",
+                  "text",
+                  "boolean_and_number_and_string",
+                  "union_but_boolean",
+                  "union_but_number",
+                  "union_but_string",
+                  "vulnerable_range",
+                  "boolean_and_number_and_template"
+                ],
+                "additionalProperties": false
               }
-            },
-            "required": [
-              "first",
-              "second",
-              "third"
-            ],
-            "additionalProperties": false
+            ]
+          },
+          "second": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "boolean": {
+                    "title": "Default tag on `boolean` typed value",
+                    "description": "Default tag on `boolean` typed value.",
+                    "type": "boolean"
+                  },
+                  "number": {
+                    "title": "Default tag on `number` typed value",
+                    "description": "Default tag on `number` typed value.",
+                    "type": "number"
+                  },
+                  "string": {
+                    "title": "Default tag on `string` typed value",
+                    "description": "Default tag on `string` typed value.",
+                    "type": "string"
+                  },
+                  "text": {
+                    "title": "Default tag on `string` typed value with long characters",
+                    "description": "Default tag on `string` typed value with long characters.",
+                    "type": "string"
+                  },
+                  "boolean_and_number_and_string": {
+                    "title": "Default value on union typed property",
+                    "description": "Default value on union typed property.",
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "boolean"
+                      }
+                    ]
+                  },
+                  "union_but_boolean": {
+                    "title": "Default value on union typed property",
+                    "description": "Default value on union typed property.",
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "boolean"
+                      }
+                    ]
+                  },
+                  "union_but_number": {
+                    "title": "Default value on union typed property",
+                    "description": "Default value on union typed property.",
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "boolean"
+                      }
+                    ]
+                  },
+                  "union_but_string": {
+                    "title": "Default value on union typed property",
+                    "description": "Default value on union typed property.",
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "boolean"
+                      }
+                    ]
+                  },
+                  "vulnerable_range": {
+                    "title": "Default value on union typed property",
+                    "description": "Default value on union typed property.\n\n\n@minimum 3\n@maximum 5",
+                    "type": "number"
+                  },
+                  "boolean_and_number_and_template": {
+                    "title": "Default value on union typed property",
+                    "description": "Default value on union typed property.",
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "description": "@pattern ^(prefix_(.*))"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "boolean"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "boolean",
+                  "number",
+                  "string",
+                  "text",
+                  "boolean_and_number_and_string",
+                  "union_but_boolean",
+                  "union_but_number",
+                  "union_but_string",
+                  "vulnerable_range",
+                  "boolean_and_number_and_template"
+                ],
+                "additionalProperties": false
+              }
+            ]
+          },
+          "third": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "boolean": {
+                    "title": "Default tag on `boolean` typed value",
+                    "description": "Default tag on `boolean` typed value.",
+                    "type": "boolean"
+                  },
+                  "number": {
+                    "title": "Default tag on `number` typed value",
+                    "description": "Default tag on `number` typed value.",
+                    "type": "number"
+                  },
+                  "string": {
+                    "title": "Default tag on `string` typed value",
+                    "description": "Default tag on `string` typed value.",
+                    "type": "string"
+                  },
+                  "text": {
+                    "title": "Default tag on `string` typed value with long characters",
+                    "description": "Default tag on `string` typed value with long characters.",
+                    "type": "string"
+                  },
+                  "boolean_and_number_and_string": {
+                    "title": "Default value on union typed property",
+                    "description": "Default value on union typed property.",
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "boolean"
+                      }
+                    ]
+                  },
+                  "union_but_boolean": {
+                    "title": "Default value on union typed property",
+                    "description": "Default value on union typed property.",
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "boolean"
+                      }
+                    ]
+                  },
+                  "union_but_number": {
+                    "title": "Default value on union typed property",
+                    "description": "Default value on union typed property.",
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "boolean"
+                      }
+                    ]
+                  },
+                  "union_but_string": {
+                    "title": "Default value on union typed property",
+                    "description": "Default value on union typed property.",
+                    "anyOf": [
+                      {
+                        "type": "string"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "boolean"
+                      }
+                    ]
+                  },
+                  "vulnerable_range": {
+                    "title": "Default value on union typed property",
+                    "description": "Default value on union typed property.\n\n\n@minimum 3\n@maximum 5",
+                    "type": "number"
+                  },
+                  "boolean_and_number_and_template": {
+                    "title": "Default value on union typed property",
+                    "description": "Default value on union typed property.",
+                    "anyOf": [
+                      {
+                        "type": "string",
+                        "description": "@pattern ^(prefix_(.*))"
+                      },
+                      {
+                        "type": "number"
+                      },
+                      {
+                        "type": "boolean"
+                      }
+                    ]
+                  }
+                },
+                "required": [
+                  "boolean",
+                  "number",
+                  "string",
+                  "text",
+                  "boolean_and_number_and_string",
+                  "union_but_boolean",
+                  "union_but_number",
+                  "union_but_string",
+                  "vulnerable_range",
+                  "boolean_and_number_and_template"
+                ],
+                "additionalProperties": false
+              }
+            ]
           }
         },
         "required": [
-          "p"
+          "first",
+          "second",
+          "third"
         ],
         "additionalProperties": false,
         "$defs": {}

@@ -10,29 +10,21 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
-            "type": "object",
-            "properties": {
-              "first": {
+          "first": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
                 "type": "array",
                 "items": {
-                  "type": "array",
-                  "items": {
-                    "type": "array",
-                    "items": {
-                      "type": "number"
-                    }
-                  }
+                  "type": "number"
                 }
               }
-            },
-            "required": [
-              "first"
-            ]
+            }
           }
         },
         "required": [
-          "p"
+          "first"
         ]
       },
       "strict": true
@@ -42,43 +34,35 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
-            "type": "object",
-            "properties": {
-              "first": {
+          "first": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
                 "type": "array",
                 "items": {
-                  "type": "array",
-                  "items": {
-                    "type": "array",
-                    "items": {
-                      "type": "number"
-                    }
-                  }
+                  "type": "number"
                 }
-              },
-              "second": {
+              }
+            }
+          },
+          "second": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
                 "type": "array",
                 "items": {
-                  "type": "array",
-                  "items": {
-                    "type": "array",
-                    "items": {
-                      "type": "number"
-                    }
-                  }
-                },
-                "nullable": true
+                  "type": "number"
+                }
               }
             },
-            "required": [
-              "first",
-              "second"
-            ]
+            "nullable": true
           }
         },
         "required": [
-          "p"
+          "first",
+          "second"
         ]
       },
       "output": {
@@ -100,57 +84,49 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
-            "type": "object",
-            "properties": {
-              "first": {
+          "first": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
                 "type": "array",
                 "items": {
-                  "type": "array",
-                  "items": {
-                    "type": "array",
-                    "items": {
-                      "type": "number"
-                    }
-                  }
-                },
-                "nullable": true
-              },
-              "second": {
-                "type": "array",
-                "items": {
-                  "type": "array",
-                  "items": {
-                    "type": "array",
-                    "items": {
-                      "type": "number"
-                    }
-                  }
-                },
-                "nullable": true
-              },
-              "third": {
-                "type": "array",
-                "items": {
-                  "type": "array",
-                  "items": {
-                    "type": "array",
-                    "items": {
-                      "type": "number"
-                    }
-                  }
-                },
-                "nullable": true
+                  "type": "number"
+                }
               }
             },
-            "required": [
-              "first",
-              "second"
-            ]
+            "nullable": true
+          },
+          "second": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              }
+            },
+            "nullable": true
+          },
+          "third": {
+            "type": "array",
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              }
+            },
+            "nullable": true
           }
         },
         "required": [
-          "p"
+          "first",
+          "second"
         ]
       },
       "output": {

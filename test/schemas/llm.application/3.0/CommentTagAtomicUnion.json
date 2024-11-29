@@ -11,51 +11,42 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
+          "first": {
             "type": "object",
             "properties": {
-              "first": {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "value": {
-                          "oneOf": [
-                            {
-                              "type": "string",
-                              "description": "@minLength 3\n@maxLength 7"
-                            },
-                            {
-                              "type": "number",
-                              "description": "@minimum 3"
-                            }
-                          ]
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "oneOf": [
+                        {
+                          "type": "string",
+                          "description": "@minLength 3\n@maxLength 7"
+                        },
+                        {
+                          "type": "number",
+                          "description": "@minimum 3"
                         }
-                      },
-                      "required": [
-                        "value"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "additionalProperties": false
+                  },
+                  "required": [
+                    "value"
+                  ],
+                  "additionalProperties": false
+                }
               }
             },
             "required": [
-              "first"
+              "value"
             ],
             "additionalProperties": false
           }
         },
         "required": [
-          "p"
+          "first"
         ],
         "additionalProperties": false
       },
@@ -66,86 +57,77 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
+          "first": {
             "type": "object",
             "properties": {
-              "first": {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "value": {
-                          "oneOf": [
-                            {
-                              "type": "string",
-                              "description": "@minLength 3\n@maxLength 7"
-                            },
-                            {
-                              "type": "number",
-                              "description": "@minimum 3"
-                            }
-                          ]
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "oneOf": [
+                        {
+                          "type": "string",
+                          "description": "@minLength 3\n@maxLength 7"
+                        },
+                        {
+                          "type": "number",
+                          "description": "@minimum 3"
                         }
-                      },
-                      "required": [
-                        "value"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "additionalProperties": false
-              },
-              "second": {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "value": {
-                          "oneOf": [
-                            {
-                              "type": "string",
-                              "description": "@minLength 3\n@maxLength 7"
-                            },
-                            {
-                              "type": "number",
-                              "description": "@minimum 3"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "value"
-                      ],
-                      "additionalProperties": false
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "additionalProperties": false,
-                "nullable": true
+                  },
+                  "required": [
+                    "value"
+                  ],
+                  "additionalProperties": false
+                }
               }
             },
             "required": [
-              "first",
-              "second"
+              "value"
             ],
             "additionalProperties": false
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "oneOf": [
+                        {
+                          "type": "string",
+                          "description": "@minLength 3\n@maxLength 7"
+                        },
+                        {
+                          "type": "number",
+                          "description": "@minimum 3"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "additionalProperties": false,
+            "nullable": true
           }
         },
         "required": [
-          "p"
+          "first",
+          "second"
         ],
         "additionalProperties": false
       },
@@ -189,121 +171,112 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
+          "first": {
             "type": "object",
             "properties": {
-              "first": {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "value": {
-                          "oneOf": [
-                            {
-                              "type": "string",
-                              "description": "@minLength 3\n@maxLength 7"
-                            },
-                            {
-                              "type": "number",
-                              "description": "@minimum 3"
-                            }
-                          ]
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "oneOf": [
+                        {
+                          "type": "string",
+                          "description": "@minLength 3\n@maxLength 7"
+                        },
+                        {
+                          "type": "number",
+                          "description": "@minimum 3"
                         }
-                      },
-                      "required": [
-                        "value"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "additionalProperties": false,
-                "nullable": true
-              },
-              "second": {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "value": {
-                          "oneOf": [
-                            {
-                              "type": "string",
-                              "description": "@minLength 3\n@maxLength 7"
-                            },
-                            {
-                              "type": "number",
-                              "description": "@minimum 3"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "value"
-                      ],
-                      "additionalProperties": false
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "additionalProperties": false,
-                "nullable": true
-              },
-              "third": {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "type": "object",
-                      "properties": {
-                        "value": {
-                          "oneOf": [
-                            {
-                              "type": "string",
-                              "description": "@minLength 3\n@maxLength 7"
-                            },
-                            {
-                              "type": "number",
-                              "description": "@minimum 3"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "value"
-                      ],
-                      "additionalProperties": false
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "additionalProperties": false,
-                "nullable": true
+                  },
+                  "required": [
+                    "value"
+                  ],
+                  "additionalProperties": false
+                }
               }
             },
             "required": [
-              "first",
-              "second"
+              "value"
             ],
-            "additionalProperties": false
+            "additionalProperties": false,
+            "nullable": true
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "oneOf": [
+                        {
+                          "type": "string",
+                          "description": "@minLength 3\n@maxLength 7"
+                        },
+                        {
+                          "type": "number",
+                          "description": "@minimum 3"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "additionalProperties": false,
+            "nullable": true
+          },
+          "third": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "oneOf": [
+                        {
+                          "type": "string",
+                          "description": "@minLength 3\n@maxLength 7"
+                        },
+                        {
+                          "type": "number",
+                          "description": "@minimum 3"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "additionalProperties": false,
+            "nullable": true
           }
         },
         "required": [
-          "p"
+          "first",
+          "second"
         ],
         "additionalProperties": false
       },

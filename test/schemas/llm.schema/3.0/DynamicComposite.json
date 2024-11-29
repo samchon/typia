@@ -12,5 +12,17 @@
     "id",
     "name"
   ],
-  "additionalProperties": false
+  "additionalProperties": {
+    "oneOf": [
+      {
+        "type": "number"
+      },
+      {
+        "type": "string"
+      },
+      {
+        "type": "boolean"
+      }
+    ]
+  }
 }

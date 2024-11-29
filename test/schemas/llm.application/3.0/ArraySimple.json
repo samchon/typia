@@ -11,61 +11,52 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
-            "type": "object",
-            "properties": {
-              "first": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string"
-                    },
-                    "email": {
-                      "type": "string"
-                    },
-                    "hobbies": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "name": {
-                            "type": "string"
-                          },
-                          "body": {
-                            "type": "string"
-                          },
-                          "rank": {
-                            "type": "number"
-                          }
-                        },
-                        "required": [
-                          "name",
-                          "body",
-                          "rank"
-                        ],
-                        "additionalProperties": false
+          "first": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "hobbies": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "body": {
+                        "type": "string"
+                      },
+                      "rank": {
+                        "type": "number"
                       }
-                    }
-                  },
-                  "required": [
-                    "name",
-                    "email",
-                    "hobbies"
-                  ],
-                  "additionalProperties": false
+                    },
+                    "required": [
+                      "name",
+                      "body",
+                      "rank"
+                    ],
+                    "additionalProperties": false
+                  }
                 }
-              }
-            },
-            "required": [
-              "first"
-            ],
-            "additionalProperties": false
+              },
+              "required": [
+                "name",
+                "email",
+                "hobbies"
+              ],
+              "additionalProperties": false
+            }
           }
         },
         "required": [
-          "p"
+          "first"
         ],
         "additionalProperties": false
       },
@@ -76,106 +67,97 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
-            "type": "object",
-            "properties": {
-              "first": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string"
-                    },
-                    "email": {
-                      "type": "string"
-                    },
-                    "hobbies": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "name": {
-                            "type": "string"
-                          },
-                          "body": {
-                            "type": "string"
-                          },
-                          "rank": {
-                            "type": "number"
-                          }
-                        },
-                        "required": [
-                          "name",
-                          "body",
-                          "rank"
-                        ],
-                        "additionalProperties": false
+          "first": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "hobbies": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "body": {
+                        "type": "string"
+                      },
+                      "rank": {
+                        "type": "number"
                       }
-                    }
-                  },
-                  "required": [
-                    "name",
-                    "email",
-                    "hobbies"
-                  ],
-                  "additionalProperties": false
+                    },
+                    "required": [
+                      "name",
+                      "body",
+                      "rank"
+                    ],
+                    "additionalProperties": false
+                  }
                 }
               },
-              "second": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string"
-                    },
-                    "email": {
-                      "type": "string"
-                    },
-                    "hobbies": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "name": {
-                            "type": "string"
-                          },
-                          "body": {
-                            "type": "string"
-                          },
-                          "rank": {
-                            "type": "number"
-                          }
-                        },
-                        "required": [
-                          "name",
-                          "body",
-                          "rank"
-                        ],
-                        "additionalProperties": false
-                      }
-                    }
-                  },
-                  "required": [
-                    "name",
-                    "email",
-                    "hobbies"
-                  ],
-                  "additionalProperties": false
+              "required": [
+                "name",
+                "email",
+                "hobbies"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "second": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
                 },
-                "nullable": true
-              }
+                "email": {
+                  "type": "string"
+                },
+                "hobbies": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "body": {
+                        "type": "string"
+                      },
+                      "rank": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "body",
+                      "rank"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "name",
+                "email",
+                "hobbies"
+              ],
+              "additionalProperties": false
             },
-            "required": [
-              "first",
-              "second"
-            ],
-            "additionalProperties": false
+            "nullable": true
           }
         },
         "required": [
-          "p"
+          "first",
+          "second"
         ],
         "additionalProperties": false
       },
@@ -229,151 +211,142 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
-            "type": "object",
-            "properties": {
-              "first": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string"
-                    },
-                    "email": {
-                      "type": "string"
-                    },
-                    "hobbies": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "name": {
-                            "type": "string"
-                          },
-                          "body": {
-                            "type": "string"
-                          },
-                          "rank": {
-                            "type": "number"
-                          }
-                        },
-                        "required": [
-                          "name",
-                          "body",
-                          "rank"
-                        ],
-                        "additionalProperties": false
-                      }
-                    }
-                  },
-                  "required": [
-                    "name",
-                    "email",
-                    "hobbies"
-                  ],
-                  "additionalProperties": false
+          "first": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
                 },
-                "nullable": true
+                "email": {
+                  "type": "string"
+                },
+                "hobbies": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "body": {
+                        "type": "string"
+                      },
+                      "rank": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "body",
+                      "rank"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
               },
-              "second": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string"
-                    },
-                    "email": {
-                      "type": "string"
-                    },
-                    "hobbies": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "name": {
-                            "type": "string"
-                          },
-                          "body": {
-                            "type": "string"
-                          },
-                          "rank": {
-                            "type": "number"
-                          }
-                        },
-                        "required": [
-                          "name",
-                          "body",
-                          "rank"
-                        ],
-                        "additionalProperties": false
-                      }
-                    }
-                  },
-                  "required": [
-                    "name",
-                    "email",
-                    "hobbies"
-                  ],
-                  "additionalProperties": false
-                },
-                "nullable": true
-              },
-              "third": {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string"
-                    },
-                    "email": {
-                      "type": "string"
-                    },
-                    "hobbies": {
-                      "type": "array",
-                      "items": {
-                        "type": "object",
-                        "properties": {
-                          "name": {
-                            "type": "string"
-                          },
-                          "body": {
-                            "type": "string"
-                          },
-                          "rank": {
-                            "type": "number"
-                          }
-                        },
-                        "required": [
-                          "name",
-                          "body",
-                          "rank"
-                        ],
-                        "additionalProperties": false
-                      }
-                    }
-                  },
-                  "required": [
-                    "name",
-                    "email",
-                    "hobbies"
-                  ],
-                  "additionalProperties": false
-                },
-                "nullable": true
-              }
+              "required": [
+                "name",
+                "email",
+                "hobbies"
+              ],
+              "additionalProperties": false
             },
-            "required": [
-              "first",
-              "second"
-            ],
-            "additionalProperties": false
+            "nullable": true
+          },
+          "second": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "hobbies": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "body": {
+                        "type": "string"
+                      },
+                      "rank": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "body",
+                      "rank"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "name",
+                "email",
+                "hobbies"
+              ],
+              "additionalProperties": false
+            },
+            "nullable": true
+          },
+          "third": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "hobbies": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "body": {
+                        "type": "string"
+                      },
+                      "rank": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "body",
+                      "rank"
+                    ],
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "name",
+                "email",
+                "hobbies"
+              ],
+              "additionalProperties": false
+            },
+            "nullable": true
           }
         },
         "required": [
-          "p"
+          "first",
+          "second"
         ],
         "additionalProperties": false
       },

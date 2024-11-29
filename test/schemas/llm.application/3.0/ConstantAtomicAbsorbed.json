@@ -11,36 +11,27 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
+          "first": {
             "type": "object",
             "properties": {
-              "first": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string",
-                    "description": "@default something"
-                  },
-                  "age": {
-                    "type": "number",
-                    "description": "@default 20"
-                  }
-                },
-                "required": [
-                  "id",
-                  "age"
-                ],
-                "additionalProperties": false
+              "id": {
+                "type": "string",
+                "description": "@default something"
+              },
+              "age": {
+                "type": "number",
+                "description": "@default 20"
               }
             },
             "required": [
-              "first"
+              "id",
+              "age"
             ],
             "additionalProperties": false
           }
         },
         "required": [
-          "p"
+          "first"
         ],
         "additionalProperties": false
       },
@@ -51,56 +42,47 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
+          "first": {
             "type": "object",
             "properties": {
-              "first": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string",
-                    "description": "@default something"
-                  },
-                  "age": {
-                    "type": "number",
-                    "description": "@default 20"
-                  }
-                },
-                "required": [
-                  "id",
-                  "age"
-                ],
-                "additionalProperties": false
+              "id": {
+                "type": "string",
+                "description": "@default something"
               },
-              "second": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string",
-                    "description": "@default something"
-                  },
-                  "age": {
-                    "type": "number",
-                    "description": "@default 20"
-                  }
-                },
-                "required": [
-                  "id",
-                  "age"
-                ],
-                "additionalProperties": false,
-                "nullable": true
+              "age": {
+                "type": "number",
+                "description": "@default 20"
               }
             },
             "required": [
-              "first",
-              "second"
+              "id",
+              "age"
             ],
             "additionalProperties": false
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "@default something"
+              },
+              "age": {
+                "type": "number",
+                "description": "@default 20"
+              }
+            },
+            "required": [
+              "id",
+              "age"
+            ],
+            "additionalProperties": false,
+            "nullable": true
           }
         },
         "required": [
-          "p"
+          "first",
+          "second"
         ],
         "additionalProperties": false
       },
@@ -129,76 +111,67 @@
       "parameters": {
         "type": "object",
         "properties": {
-          "p": {
+          "first": {
             "type": "object",
             "properties": {
-              "first": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string",
-                    "description": "@default something"
-                  },
-                  "age": {
-                    "type": "number",
-                    "description": "@default 20"
-                  }
-                },
-                "required": [
-                  "id",
-                  "age"
-                ],
-                "additionalProperties": false,
-                "nullable": true
+              "id": {
+                "type": "string",
+                "description": "@default something"
               },
-              "second": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string",
-                    "description": "@default something"
-                  },
-                  "age": {
-                    "type": "number",
-                    "description": "@default 20"
-                  }
-                },
-                "required": [
-                  "id",
-                  "age"
-                ],
-                "additionalProperties": false,
-                "nullable": true
-              },
-              "third": {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string",
-                    "description": "@default something"
-                  },
-                  "age": {
-                    "type": "number",
-                    "description": "@default 20"
-                  }
-                },
-                "required": [
-                  "id",
-                  "age"
-                ],
-                "additionalProperties": false,
-                "nullable": true
+              "age": {
+                "type": "number",
+                "description": "@default 20"
               }
             },
             "required": [
-              "first",
-              "second"
+              "id",
+              "age"
             ],
-            "additionalProperties": false
+            "additionalProperties": false,
+            "nullable": true
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "@default something"
+              },
+              "age": {
+                "type": "number",
+                "description": "@default 20"
+              }
+            },
+            "required": [
+              "id",
+              "age"
+            ],
+            "additionalProperties": false,
+            "nullable": true
+          },
+          "third": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "@default something"
+              },
+              "age": {
+                "type": "number",
+                "description": "@default 20"
+              }
+            },
+            "required": [
+              "id",
+              "age"
+            ],
+            "additionalProperties": false,
+            "nullable": true
           }
         },
         "required": [
-          "p"
+          "first",
+          "second"
         ],
         "additionalProperties": false
       },

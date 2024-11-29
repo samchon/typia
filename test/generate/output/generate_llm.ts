@@ -148,6 +148,7 @@ export const parameters = {
     },
   },
   required: ["company", "department", "employee"],
+  additionalProperties: false,
   $defs: {
     IDepartment: {
       type: "object",
@@ -216,46 +217,40 @@ export const application = (() => {
         parameters: {
           type: "object",
           properties: {
-            props: {
+            company: {
               type: "object",
               properties: {
-                company: {
-                  type: "object",
-                  properties: {
-                    id: {
-                      type: "string",
-                      format: "uuid",
-                    },
-                    serial: {
-                      type: "number",
-                    },
-                    name: {
-                      type: "string",
-                    },
-                    established_at: {
-                      type: "string",
-                      format: "date-time",
-                    },
-                    departments: {
-                      type: "array",
-                      items: {
-                        $ref: "#/$defs/IDepartment",
-                      },
-                    },
+                id: {
+                  type: "string",
+                  format: "uuid",
+                },
+                serial: {
+                  type: "number",
+                },
+                name: {
+                  type: "string",
+                },
+                established_at: {
+                  type: "string",
+                  format: "date-time",
+                },
+                departments: {
+                  type: "array",
+                  items: {
+                    $ref: "#/$defs/IDepartment",
                   },
-                  required: [
-                    "id",
-                    "serial",
-                    "name",
-                    "established_at",
-                    "departments",
-                  ],
                 },
               },
-              required: ["company"],
+              required: [
+                "id",
+                "serial",
+                "name",
+                "established_at",
+                "departments",
+              ],
             },
           },
-          required: ["props"],
+          required: ["company"],
           additionalProperties: false,
           $defs: {
             IDepartment: {
@@ -352,49 +347,43 @@ export const application = (() => {
         parameters: {
           type: "object",
           properties: {
-            props: {
+            company: {
               type: "object",
               properties: {
-                company: {
-                  type: "object",
-                  properties: {
-                    id: {
-                      type: "string",
-                      format: "uuid",
-                    },
-                    serial: {
-                      type: "number",
-                    },
-                    name: {
-                      type: "string",
-                    },
-                    established_at: {
-                      type: "string",
-                      format: "date-time",
-                    },
-                    departments: {
-                      type: "array",
-                      items: {
-                        $ref: "#/$defs/IDepartment",
-                      },
-                    },
-                  },
-                  required: [
-                    "id",
-                    "serial",
-                    "name",
-                    "established_at",
-                    "departments",
-                  ],
+                id: {
+                  type: "string",
+                  format: "uuid",
                 },
-                department: {
-                  $ref: "#/$defs/IDepartment",
+                serial: {
+                  type: "number",
+                },
+                name: {
+                  type: "string",
+                },
+                established_at: {
+                  type: "string",
+                  format: "date-time",
+                },
+                departments: {
+                  type: "array",
+                  items: {
+                    $ref: "#/$defs/IDepartment",
+                  },
                 },
               },
-              required: ["company", "department"],
+              required: [
+                "id",
+                "serial",
+                "name",
+                "established_at",
+                "departments",
+              ],
+            },
+            department: {
+              $ref: "#/$defs/IDepartment",
             },
           },
-          required: ["props"],
+          required: ["company", "department"],
           additionalProperties: false,
           $defs: {
             IDepartment: {
@@ -468,72 +457,66 @@ export const application = (() => {
         parameters: {
           type: "object",
           properties: {
-            props: {
+            company: {
               type: "object",
               properties: {
-                company: {
-                  type: "object",
-                  properties: {
-                    id: {
-                      type: "string",
-                      format: "uuid",
-                    },
-                    serial: {
-                      type: "number",
-                    },
-                    name: {
-                      type: "string",
-                    },
-                    established_at: {
-                      type: "string",
-                      format: "date-time",
-                    },
-                    departments: {
-                      type: "array",
-                      items: {
-                        $ref: "#/$defs/IDepartment",
-                      },
-                    },
-                  },
-                  required: [
-                    "id",
-                    "serial",
-                    "name",
-                    "established_at",
-                    "departments",
-                  ],
+                id: {
+                  type: "string",
+                  format: "uuid",
                 },
-                department: {
-                  $ref: "#/$defs/IDepartment",
+                serial: {
+                  type: "number",
                 },
-                employee: {
-                  type: "object",
-                  properties: {
-                    id: {
-                      type: "string",
-                      format: "uuid",
-                    },
-                    name: {
-                      type: "string",
-                    },
-                    age: {
-                      type: "number",
-                    },
-                    grade: {
-                      type: "number",
-                    },
-                    employeed_at: {
-                      type: "string",
-                      format: "date-time",
-                    },
+                name: {
+                  type: "string",
+                },
+                established_at: {
+                  type: "string",
+                  format: "date-time",
+                },
+                departments: {
+                  type: "array",
+                  items: {
+                    $ref: "#/$defs/IDepartment",
                   },
-                  required: ["id", "name", "age", "grade", "employeed_at"],
                 },
               },
-              required: ["company", "department", "employee"],
+              required: [
+                "id",
+                "serial",
+                "name",
+                "established_at",
+                "departments",
+              ],
+            },
+            department: {
+              $ref: "#/$defs/IDepartment",
+            },
+            employee: {
+              type: "object",
+              properties: {
+                id: {
+                  type: "string",
+                  format: "uuid",
+                },
+                name: {
+                  type: "string",
+                },
+                age: {
+                  type: "number",
+                },
+                grade: {
+                  type: "number",
+                },
+                employeed_at: {
+                  type: "string",
+                  format: "date-time",
+                },
+              },
+              required: ["id", "name", "age", "grade", "employeed_at"],
             },
           },
-          required: ["props"],
+          required: ["company", "department", "employee"],
           additionalProperties: false,
           $defs: {
             IDepartment: {
@@ -627,76 +610,70 @@ export const application = (() => {
         parameters: {
           type: "object",
           properties: {
-            props: {
-              type: "object",
-              properties: {
-                entity: {
-                  oneOf: [
-                    {
-                      type: "object",
-                      properties: {
-                        id: {
-                          type: "string",
-                          format: "uuid",
-                        },
-                        serial: {
-                          type: "number",
-                        },
-                        name: {
-                          type: "string",
-                        },
-                        established_at: {
-                          type: "string",
-                          format: "date-time",
-                        },
-                        departments: {
-                          type: "array",
-                          items: {
-                            $ref: "#/$defs/IDepartment",
-                          },
-                        },
+            entity: {
+              oneOf: [
+                {
+                  type: "object",
+                  properties: {
+                    id: {
+                      type: "string",
+                      format: "uuid",
+                    },
+                    serial: {
+                      type: "number",
+                    },
+                    name: {
+                      type: "string",
+                    },
+                    established_at: {
+                      type: "string",
+                      format: "date-time",
+                    },
+                    departments: {
+                      type: "array",
+                      items: {
+                        $ref: "#/$defs/IDepartment",
                       },
-                      required: [
-                        "id",
-                        "serial",
-                        "name",
-                        "established_at",
-                        "departments",
-                      ],
                     },
-                    {
-                      $ref: "#/$defs/IDepartment",
-                    },
-                    {
-                      type: "object",
-                      properties: {
-                        id: {
-                          type: "string",
-                          format: "uuid",
-                        },
-                        name: {
-                          type: "string",
-                        },
-                        age: {
-                          type: "number",
-                        },
-                        grade: {
-                          type: "number",
-                        },
-                        employeed_at: {
-                          type: "string",
-                          format: "date-time",
-                        },
-                      },
-                      required: ["id", "name", "age", "grade", "employeed_at"],
-                    },
+                  },
+                  required: [
+                    "id",
+                    "serial",
+                    "name",
+                    "established_at",
+                    "departments",
                   ],
                 },
-              },
-              required: ["entity"],
+                {
+                  $ref: "#/$defs/IDepartment",
+                },
+                {
+                  type: "object",
+                  properties: {
+                    id: {
+                      type: "string",
+                      format: "uuid",
+                    },
+                    name: {
+                      type: "string",
+                    },
+                    age: {
+                      type: "number",
+                    },
+                    grade: {
+                      type: "number",
+                    },
+                    employeed_at: {
+                      type: "string",
+                      format: "date-time",
+                    },
+                  },
+                  required: ["id", "name", "age", "grade", "employeed_at"],
+                },
+              ],
             },
           },
-          required: ["props"],
+          required: ["entity"],
           additionalProperties: false,
           $defs: {
             IDepartment: {
