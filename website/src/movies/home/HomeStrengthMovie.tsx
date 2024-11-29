@@ -7,7 +7,13 @@ import HomeStrengthSectionMovie from "./HomeStrengthSectionMovie";
 const sections: HomeStrengthSectionMovie.Props[] = [
   {
     title: "Super-fast Runtime Validator",
-    subTitle: <HomeCodeBlock method="assert" color="rgb(191, 64, 191)" />,
+    subTitle: (
+      <HomeCodeBlock
+        method="assert"
+        color="rgb(191, 64, 191)"
+        argument={true}
+      />
+    ),
     description: (
       <React.Fragment>
         <p>
@@ -35,6 +41,7 @@ const sections: HomeStrengthSectionMovie.Props[] = [
         namespace="json"
         method="stringify"
         color="rgb(191, 64, 191)"
+        argument={true}
       />
     ),
     description: (
@@ -62,6 +69,7 @@ const sections: HomeStrengthSectionMovie.Props[] = [
         method="application"
         template="App"
         color="rgb(191, 64, 191)"
+        argument={false}
       />
     ),
     description: (
@@ -89,6 +97,7 @@ const sections: HomeStrengthSectionMovie.Props[] = [
         namespace="protobuf"
         method="encode"
         color="rgb(191, 64, 191)"
+        argument={true}
       />
     ),
     description: (
@@ -113,7 +122,13 @@ const sections: HomeStrengthSectionMovie.Props[] = [
   },
   {
     title: "Random Data Generator",
-    subTitle: <HomeCodeBlock method="random" color="rgb(191, 64, 191)" />,
+    subTitle: (
+      <HomeCodeBlock
+        method="random"
+        color="rgb(191, 64, 191)"
+        argument={false}
+      />
+    ),
     description: (
       <React.Fragment>
         <p>Universal random generator.</p>
