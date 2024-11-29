@@ -18,6 +18,8 @@ export const iterate_metadata_intersection = (
 
   // COSTRUCT FAKE METADATA LIST
   const commit: MetadataCollection = props.collection.clone();
+  props.collection["options"] = undefined;
+
   const fakeErrors: MetadataFactory.IError[] = [];
   const children: Metadata[] = props.type.types.map((t) =>
     explore_metadata({
@@ -39,16 +41,16 @@ export const iterate_metadata_intersection = (
   );
 
   // ERROR OR ANY TYPE CASE
-  const escape = () => {
+  const escape = (out: boolean) => {
     Object.assign(props.collection, commit);
-    return false;
+    return out;
   };
   if (fakeErrors.length) {
     props.errors.push(...fakeErrors);
-    return true;
-  } else if (children.length === 0) return escape();
+    return escape(true);
+  } else if (children.length === 0) return escape(false);
   else if (children.some((m) => m.any === true || m.size() === 0))
-    return escape();
+    return escape(false);
 
   // PREPARE MEATDATAS AND TAGS
   const indexes: number[] = [];
@@ -73,7 +75,7 @@ export const iterate_metadata_intersection = (
       explore: { ...props.explore },
       messages: ["nonsensible intersection"],
     });
-    return true;
+    return escape(true);
   };
 
   // NO METADATA CASE
@@ -84,14 +86,14 @@ export const iterate_metadata_intersection = (
         explore: { ...props.explore },
         messages: ["type tag cannot be standalone"],
       });
-      return true;
-    } else return escape();
+      return escape(true);
+    } else return escape(false);
   // ONLY OBJECTS CASE
   else if (
     metadatas.every((m) => m.objects.length === 1) &&
     tagObjects.length === 0
   )
-    return escape();
+    return escape(false);
   else if (metadatas.length !== 1) {
     const indexes: number[] = metadatas
       .map((m, i) =>
