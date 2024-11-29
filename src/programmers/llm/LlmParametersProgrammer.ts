@@ -5,6 +5,8 @@ import { MetadataFactory } from "../../factories/MetadataFactory";
 
 import { Metadata } from "../../schemas/metadata/Metadata";
 
+import { TransformerError } from "../../transformers/TransformerError";
+
 import { IJsonSchemaCollection } from "../../module";
 import { JsonSchemasProgrammer } from "../json/JsonSchemasProgrammer";
 import { LlmSchemaProgrammer } from "./LlmSchemaProgrammer";
@@ -31,6 +33,7 @@ export namespace LlmParametersProgrammer {
       throw new Error("Unreachable code. Failed to find the object schema.");
     })();
 
+    const errors: string[] = [];
     const parameters: ILlmSchema.ModelParameters[Model] | null =
       LlmSchemaConverter.parameters(props.model)({
         config: {
@@ -39,9 +42,15 @@ export namespace LlmParametersProgrammer {
         } as any,
         components: collection.components,
         schema,
+        errors,
       }) as ILlmSchema.ModelParameters[Model] | null;
     if (parameters === null)
-      throw new Error("Failed to convert JSON schema to LLM schema.");
+      throw new TransformerError({
+        code: "typia.llm.parameters",
+        message:
+          "failed to convert JSON schema to LLM schema.\n\n" +
+          errors.map((str) => `  - ${str}`).join("\n"),
+      });
     return parameters;
   };
 

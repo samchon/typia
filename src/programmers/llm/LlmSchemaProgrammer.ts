@@ -4,6 +4,8 @@ import { LlmSchemaConverter } from "@samchon/openapi/lib/converters/LlmSchemaCon
 import { IJsonSchemaCollection } from "../../schemas/json/IJsonSchemaCollection";
 import { Metadata } from "../../schemas/metadata/Metadata";
 
+import { TransformerError } from "../../transformers/TransformerError";
+
 import { AtomicPredicator } from "../helpers/AtomicPredicator";
 import { json_schema_bigint } from "../internal/json_schema_bigint";
 import { json_schema_boolean } from "../internal/json_schema_boolean";
@@ -31,6 +33,7 @@ export namespace LlmSchemaProgrammer {
       });
 
     const $defs: Record<string, ILlmSchema.ModelSchema[Model]> = {};
+    const errors: string[] = [];
     const schema: ILlmSchema.ModelSchema[Model] | null =
       LlmSchemaConverter.schema(props.model)({
         config: {
@@ -40,9 +43,15 @@ export namespace LlmSchemaProgrammer {
         components: collection.components,
         schema: collection.schemas[0]!,
         $defs: $defs as any,
+        errors,
       }) as ILlmSchema.ModelSchema[Model] | null;
     if (schema === null)
-      throw new Error("Failed to convert JSON schema to LLM schema.");
+      throw new TransformerError({
+        code: "typia.llm.schema",
+        message:
+          "failed to convert JSON schema to LLM schema.\n\n" +
+          errors.map((str) => `  - ${str}`).join("\n"),
+      });
     return {
       model: props.model,
       $defs,
