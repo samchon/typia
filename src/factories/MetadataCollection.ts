@@ -26,9 +26,7 @@ export class MetadataCollection {
   private recursive_array_index_: number;
   private recursive_tuple_index_: number;
 
-  public constructor(
-    private readonly options?: Partial<MetadataCollection.IOptions>,
-  ) {
+  public constructor(private options?: Partial<MetadataCollection.IOptions>) {
     this.objects_ = new Map();
     this.object_unions_ = new Map();
     this.aliases_ = new Map();

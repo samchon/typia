@@ -25,7 +25,7 @@ export namespace json {
   export function assertStringify<T>(input: T): string; // safe and faster
 }
 
-// LLM FUNCTION CALLING APPLICATION
+// LLM FUNCTION CALLING SCHEMA
 export namespace llm {
   // application schema from a class or interface type
   export function application<App, Model>(): ILlmApplication<Model>;
@@ -49,7 +49,7 @@ Typia is a transformer library supporting below features:
 
   - Super-fast Runtime Validators
   - Enhanced JSON functions
-  - LLM function calling application composer
+  - LLM function calling application schema
   - Protocol Buffer encoder and decoder
   - Random data generator
 
@@ -106,6 +106,7 @@ Check out the document in the [website](https://typia.io/docs/):
     - [`parse()` functions](https://typia.io/docs/json/parse/)
   - LLM Function Calling
     - [`application()` function](https://typia.io/docs/llm/application/)
+    - [`parameters()` function](https://typia.io/docs/llm/parameters/)
     - [`schema()` function](https://typia.io/docs/llm/schema/)
   - Protocol Buffer
     - [Message Schema](https://typia.io/docs/protobuf/message)
