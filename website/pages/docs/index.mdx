@@ -53,6 +53,15 @@ export namespace json {
   export function assertStringify<T>(input: T): string; // safe and faster
 }
 
+// LLM FUNCTION CALLING SCHEMA
+export namespace llm {
+  // application schema from a class or interface type
+  export function application<App, Model>(): ILlmApplication<Model>;
+  // structured output
+  export function parameters<P, Moodel>(): ILlmSchema.IParameters<Model>; 
+  export function schema<T, Model>(): ILlmSchema<Model>; // type schema
+}
+
 // PROTOCOL BUFFER
 export namespace protobuf {
   export function message<T>(): string; // Protocol Buffer message
@@ -68,6 +77,7 @@ Typia is a transformer library supporting below features:
 
   - Super-fast Runtime Validators
   - Enhanced JSON functions
+  - LLM function calling application schema
   - Protocol Buffer encoder and decoder
   - Random data generator
 
