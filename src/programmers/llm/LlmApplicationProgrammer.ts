@@ -1,5 +1,5 @@
 import { ILlmApplication, ILlmSchema, OpenApi } from "@samchon/openapi";
-import { LlmSchemaConverter } from "@samchon/openapi/lib/converters/LlmSchemaConverter";
+import { LlmSchemaComposer } from "@samchon/openapi/lib/composers/LlmSchemaComposer";
 import { ILlmFunction } from "@samchon/openapi/lib/structures/ILlmFunction";
 
 import { MetadataFactory } from "../../factories/MetadataFactory";
@@ -151,7 +151,7 @@ export namespace LlmApplicationProgrammer {
     return {
       model: props.model,
       options: {
-        ...LlmSchemaConverter.defaultConfig(props.model),
+        ...LlmSchemaComposer.defaultConfig(props.model),
         ...props.config,
         separate: null,
       },
@@ -221,8 +221,8 @@ export namespace LlmApplicationProgrammer {
   }): ILlmSchema.ModelParameters[Model] | null => {
     const schema = props.function.parameters[0]?.schema;
     if (!schema) return null;
-    return LlmSchemaConverter.parameters(props.model)({
-      config: LlmSchemaConverter.defaultConfig(props.model) as any,
+    return LlmSchemaComposer.parameters(props.model)({
+      config: LlmSchemaComposer.defaultConfig(props.model) as any,
       components: props.components,
       schema: schema as
         | OpenApi.IJsonSchema.IObject
@@ -241,8 +241,8 @@ export namespace LlmApplicationProgrammer {
     accessor: string;
   }): ILlmSchema.ModelSchema[Model] | null | undefined => {
     if (props.schema === null) return undefined;
-    return LlmSchemaConverter.schema(props.model)({
-      config: LlmSchemaConverter.defaultConfig(props.model) as any,
+    return LlmSchemaComposer.schema(props.model)({
+      config: LlmSchemaComposer.defaultConfig(props.model) as any,
       components: props.components,
       schema: props.schema,
       $defs: (props.parameters as any).$defs,

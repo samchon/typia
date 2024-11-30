@@ -1,5 +1,5 @@
 import { ILlmSchema } from "@samchon/openapi";
-import { LlmSchemaConverter } from "@samchon/openapi/lib/converters/LlmSchemaConverter";
+import { LlmSchemaComposer } from "@samchon/openapi/lib/composers/LlmSchemaComposer";
 import ts from "typescript";
 
 import { MetadataCollection } from "../../factories/MetadataCollection";
@@ -116,7 +116,7 @@ export namespace LlmModelPredicator {
       : props.checker.typeToString(type);
     if (
       typeof value !== "string" ||
-      LlmSchemaConverter.defaultConfig(value as "3.0") === undefined
+      LlmSchemaComposer.defaultConfig(value as "3.0") === undefined
     )
       throw new TransformerError({
         code: "typia.llm.schema",
