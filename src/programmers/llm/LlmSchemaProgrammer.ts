@@ -1,5 +1,5 @@
 import { ILlmSchema } from "@samchon/openapi";
-import { LlmSchemaConverter } from "@samchon/openapi/lib/converters/LlmSchemaConverter";
+import { LlmSchemaComposer } from "@samchon/openapi/lib/composers/LlmSchemaComposer";
 
 import { IJsonSchemaCollection } from "../../schemas/json/IJsonSchemaCollection";
 import { Metadata } from "../../schemas/metadata/Metadata";
@@ -35,9 +35,9 @@ export namespace LlmSchemaProgrammer {
     const $defs: Record<string, ILlmSchema.ModelSchema[Model]> = {};
     const errors: string[] = [];
     const schema: ILlmSchema.ModelSchema[Model] | null =
-      LlmSchemaConverter.schema(props.model)({
+      LlmSchemaComposer.schema(props.model)({
         config: {
-          ...LlmSchemaConverter.defaultConfig(props.model),
+          ...LlmSchemaComposer.defaultConfig(props.model),
           ...props.config,
         } as any,
         components: collection.components,
