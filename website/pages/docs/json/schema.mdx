@@ -1,17 +1,17 @@
 import { Tabs, Tab } from 'nextra-theme-docs'
 
-## `application()` function
+## `schemas()` function
 <Tabs items={[
   <code>typia</code>, 
-  <code>IJsonApplication.ts</code>, 
+  <code>IJsonCollection.ts</code>, 
 ]}>
   <Tab>
 ```typescript copy
 export namespace json {
-  export function application<
+  export function schemas<
     Schemas extends unknown[],
     Version extends "3.0" | "3.1" = "3.1",
-  >(): IJsonApplication<Version>;
+  >(): IJsonCollection<Version>;
 }
 ```
   </Tab>
@@ -19,9 +19,9 @@ export namespace json {
 ```typescript copy
 import type { OpenApi, OpenApiV3 } from "@samchon/openapi";
 
-export type IJsonApplication<Version extends "3.0" | "3.1" = "3.1"> =
-  Version extends "3.0" ? IJsonApplication.IV3_0 : IJsonApplication.IV3_1;
-export namespace IJsonApplication {
+export type IJsonCollection<Version extends "3.0" | "3.1" = "3.1"> =
+  Version extends "3.0" ? IJsonCollection.IV3_0 : IJsonCollection.IV3_1;
+export namespace IJsonCollection {
   export interface IV3_0 {
     version: "3.0";
     schemas: OpenApiV3.IJsonSchema[];
@@ -40,13 +40,13 @@ export namespace IJsonApplication {
 JSON schema generator.
 
   - Definitions:
-    - [`IJsonApplication`](https://github.com/samchon/typia/blob/master/src/schemas/json/IJsonApplication.ts)
+    - [`IJsonCollection`](https://github.com/samchon/typia/blob/master/src/schemas/json/IJsonCollection.ts)
     - [OpenAPI v3.0](https://github.com/samchon/openapi/blob/master/src/OpenApiV3.ts)
     - [OpenAPI v3.1](https://github.com/samchon/openapi/blob/master/src/OpenApi.ts)
 
-When you need JSON schema, do not write it by yourself, but just call `typia.json.application()` function. 
+When you need JSON schema, do not write it by yourself, but just call `typia.json.schemas()` function. 
 
-If you call the `typia.json.application()` with specialization of target `Schemas`, `typia` will analyze your `Schemas` and generate JSON schema definition in the compilation level. However, note that, JSON schema definitions of "OpenAPI v3.0" and "OpenAPI v3.1" are a little bit different. Therefore, you have to consider which value to assign in the `Version` argument.
+If you call the `typia.json.schemas()` with specialization of target `Schemas`, `typia` will analyze your `Schemas` and generate JSON schema definition in the compilation level. However, note that, JSON schema definitions of "OpenAPI v3.0" and "OpenAPI v3.1" are a little bit different. Therefore, you have to consider which value to assign in the `Version` argument.
 
   - Swagger can't express tuple type
   - Swagger can't express pattern property
@@ -56,7 +56,7 @@ If you call the `typia.json.application()` with specialization of target `Schema
 ```typescript copy filename="examples/src/application.ts" showLineNumbers
 import typia, { tags } from "typia";
 
-export const MemberSchema = typia.json.application<[IMember], "3.0">();
+export const MemberSchema = typia.json.schemas<[IMember], "3.0">();
 
 interface IMember {
   /**
@@ -150,7 +150,7 @@ Let's see how those [type tags](../validators/tags/#type-tags), comment tags and
 ```typescript copy filename="examples/src/application-comment-tags.ts" showLineNumbers
 import typia, { tags } from "typia";
 
-export const SpecialTagSchema = typia.json.application<[Special], "3.1">();
+export const SpecialTagSchema = typia.json.schemas<[Special], "3.1">();
 
 interface Special {
   /**
@@ -336,7 +336,7 @@ interface IAccount {
   balance: number & Monetary<"dollar">;
 };
  
-typia.json.application<[IAccount]>();
+typia.json.schemas<[IAccount]>();
 ```
   </Tab>
   <Tab>
@@ -383,7 +383,7 @@ So if you use `bigint` type in one of your onetarget schemas, `typia` will make 
 
 <Tabs items={["TypeScript Source Code", "Console Output"]}>
   <Tab>
-```typescript filename="json.application.ts" copy showLineNumbers 
+```typescript filename="json.schemas.ts" copy showLineNumbers 
 import typia, { tags } from "typia";
 
 interface Something {
@@ -395,12 +395,12 @@ interface Nested {
   uint64: bigint & tags.Type<"uint64">;
 }
 
-typia.json.application<[Something]>();
+typia.json.schemas<[Something]>();
 ```
   </Tab>
   <Tab>
 ```bash
-main.ts:12:1 - error TS(typia.json.application): unsupported type detected
+main.ts:12:1 - error TS(typia.json.schemas): unsupported type detected
 
 - Something.bigint: bigint
   - JSON does not support bigint type.
@@ -418,17 +418,17 @@ Also, if you put any type of native classes like `Map` or `Uint8Array`, it would
 
 <Tabs items={["TypeScript Source Code", "Console Output"]}>
   <Tab>
-```typescript filename="json.application.native.ts" showLineNumbers copy
+```typescript filename="json.schemas.native.ts" showLineNumbers copy
 import typia from "typia";
 
 interface Native {
   date: Date;
 }
-typia.json.application<[Native]>();
+typia.json.schemas<[Native]>();
 ```
   </Tab>
   <Tab>
-```typescript filename="json.application.native.js" showLineNumbers
+```typescript filename="json.schemas.native.js" showLineNumbers
 import typia from "typia";
 ({
   version: "3.1",
