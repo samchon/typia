@@ -1,5 +1,5 @@
 import { ILlmSchema, OpenApi, OpenApiTypeChecker } from "@samchon/openapi";
-import { LlmSchemaConverter } from "@samchon/openapi/lib/converters/LlmSchemaConverter";
+import { LlmSchemaComposer } from "@samchon/openapi/lib/composers/LlmSchemaComposer";
 
 import { MetadataFactory } from "../../factories/MetadataFactory";
 
@@ -35,9 +35,9 @@ export namespace LlmParametersProgrammer {
 
     const errors: string[] = [];
     const parameters: ILlmSchema.ModelParameters[Model] | null =
-      LlmSchemaConverter.parameters(props.model)({
+      LlmSchemaComposer.parameters(props.model)({
         config: {
-          ...LlmSchemaConverter.defaultConfig(props.model),
+          ...LlmSchemaComposer.defaultConfig(props.model),
           ...props.config,
         } as any,
         components: collection.components,
