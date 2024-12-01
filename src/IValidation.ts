@@ -5,7 +5,6 @@ export namespace IValidation {
   export interface ISuccess<T = unknown> {
     success: true;
     data: T;
-    errors: [];
   }
 
   export interface IFailure {

@@ -48,8 +48,8 @@ export function random<T>(g?: Partial<IRandomGenerator>): T;
 Typia is a transformer library supporting below features:
 
   - Super-fast Runtime Validators
-  - Enhanced JSON functions
-  - LLM function calling application schema
+  - Enhanced JSON schema and serde functions
+  - LLM function calling schema and structured output
   - Protocol Buffer encoder and decoder
   - Random data generator
 
