@@ -1,4 +1,10 @@
-import { ILlmApplication, ILlmSchema, OpenApi } from "@samchon/openapi";
+import {
+  ILlmApplication,
+  ILlmSchema,
+  IOpenApiSchemaError,
+  IResult,
+  OpenApi,
+} from "@samchon/openapi";
 import { LlmSchemaComposer } from "@samchon/openapi/lib/composers/LlmSchemaComposer";
 import { ILlmFunction } from "@samchon/openapi/lib/structures/ILlmFunction";
 
@@ -221,15 +227,25 @@ export namespace LlmApplicationProgrammer {
   }): ILlmSchema.ModelParameters[Model] | null => {
     const schema = props.function.parameters[0]?.schema;
     if (!schema) return null;
-    return LlmSchemaComposer.parameters(props.model)({
+
+    const result: IResult<
+      ILlmSchema.ModelParameters[Model],
+      IOpenApiSchemaError
+    > = LlmSchemaComposer.parameters(props.model)({
       config: LlmSchemaComposer.defaultConfig(props.model) as any,
       components: props.components,
       schema: schema as
         | OpenApi.IJsonSchema.IObject
         | OpenApi.IJsonSchema.IReference,
-      errors: props.errors,
       accessor: props.accessor,
-    }) as ILlmSchema.ModelParameters[Model] | null;
+    }) as IResult<ILlmSchema.ModelParameters[Model], IOpenApiSchemaError>;
+    if (result.success === false) {
+      props.errors.push(
+        ...result.error.reasons.map((r) => `  - ${r.accessor}: ${r.message}`),
+      );
+      return null;
+    }
+    return result.value;
   };
 
   const writeOutput = <Model extends ILlmSchema.Model>(props: {
@@ -241,13 +257,20 @@ export namespace LlmApplicationProgrammer {
     accessor: string;
   }): ILlmSchema.ModelSchema[Model] | null | undefined => {
     if (props.schema === null) return undefined;
-    return LlmSchemaComposer.schema(props.model)({
-      config: LlmSchemaComposer.defaultConfig(props.model) as any,
-      components: props.components,
-      schema: props.schema,
-      $defs: (props.parameters as any).$defs,
-      errors: props.errors,
-      accessor: props.accessor,
-    }) as ILlmSchema.ModelSchema[Model] | null;
+    const result: IResult<ILlmSchema.ModelSchema[Model], IOpenApiSchemaError> =
+      LlmSchemaComposer.schema(props.model)({
+        config: LlmSchemaComposer.defaultConfig(props.model) as any,
+        components: props.components,
+        schema: props.schema,
+        $defs: (props.parameters as any).$defs,
+        accessor: props.accessor,
+      }) as IResult<ILlmSchema.ModelSchema[Model], IOpenApiSchemaError>;
+    if (result.success === false) {
+      props.errors.push(
+        ...result.error.reasons.map((r) => `  - ${r.accessor}: ${r.message}`),
+      );
+      return null;
+    }
+    return result.value;
   };
 }
