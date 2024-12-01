@@ -1,4 +1,10 @@
-import { ILlmSchema, OpenApi, OpenApiTypeChecker } from "@samchon/openapi";
+import {
+  ILlmSchema,
+  IOpenApiSchemaError,
+  IResult,
+  OpenApi,
+  OpenApiTypeChecker,
+} from "@samchon/openapi";
 import { LlmSchemaComposer } from "@samchon/openapi/lib/composers/LlmSchemaComposer";
 
 import { MetadataFactory } from "../../factories/MetadataFactory";
@@ -33,25 +39,27 @@ export namespace LlmParametersProgrammer {
       throw new Error("Unreachable code. Failed to find the object schema.");
     })();
 
-    const errors: string[] = [];
-    const parameters: ILlmSchema.ModelParameters[Model] | null =
-      LlmSchemaComposer.parameters(props.model)({
-        config: {
-          ...LlmSchemaComposer.defaultConfig(props.model),
-          ...props.config,
-        } as any,
-        components: collection.components,
-        schema,
-        errors,
-      }) as ILlmSchema.ModelParameters[Model] | null;
-    if (parameters === null)
+    const result: IResult<
+      ILlmSchema.ModelParameters[Model],
+      IOpenApiSchemaError
+    > = LlmSchemaComposer.parameters(props.model)({
+      config: {
+        ...LlmSchemaComposer.defaultConfig(props.model),
+        ...props.config,
+      } as any,
+      components: collection.components,
+      schema,
+    }) as IResult<ILlmSchema.ModelParameters[Model], IOpenApiSchemaError>;
+    if (result.success === false)
       throw new TransformerError({
         code: "typia.llm.parameters",
         message:
           "failed to convert JSON schema to LLM schema.\n\n" +
-          errors.map((str) => `  - ${str}`).join("\n"),
+          result.error.reasons
+            .map((r) => `  - ${r.accessor}: ${r.message}`)
+            .join("\n"),
       });
-    return parameters;
+    return result.value;
   };
 
   export const validate =

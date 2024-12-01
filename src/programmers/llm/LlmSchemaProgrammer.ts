@@ -1,4 +1,4 @@
-import { ILlmSchema } from "@samchon/openapi";
+import { ILlmSchema, IOpenApiSchemaError, IResult } from "@samchon/openapi";
 import { LlmSchemaComposer } from "@samchon/openapi/lib/composers/LlmSchemaComposer";
 
 import { IJsonSchemaCollection } from "../../schemas/json/IJsonSchemaCollection";
@@ -33,8 +33,7 @@ export namespace LlmSchemaProgrammer {
       });
 
     const $defs: Record<string, ILlmSchema.ModelSchema[Model]> = {};
-    const errors: string[] = [];
-    const schema: ILlmSchema.ModelSchema[Model] | null =
+    const result: IResult<ILlmSchema.ModelSchema[Model], IOpenApiSchemaError> =
       LlmSchemaComposer.schema(props.model)({
         config: {
           ...LlmSchemaComposer.defaultConfig(props.model),
@@ -43,19 +42,20 @@ export namespace LlmSchemaProgrammer {
         components: collection.components,
         schema: collection.schemas[0]!,
         $defs: $defs as any,
-        errors,
-      }) as ILlmSchema.ModelSchema[Model] | null;
-    if (schema === null)
+      }) as IResult<ILlmSchema.ModelSchema[Model], IOpenApiSchemaError>;
+    if (result.success === false)
       throw new TransformerError({
         code: "typia.llm.schema",
         message:
           "failed to convert JSON schema to LLM schema.\n\n" +
-          errors.map((str) => `  - ${str}`).join("\n"),
+          result.error.reasons
+            .map((r) => `  - ${r.accessor}: ${r.message}`)
+            .join("\n"),
       });
     return {
       model: props.model,
       $defs,
-      schema,
+      schema: result.value,
     };
   };
 
