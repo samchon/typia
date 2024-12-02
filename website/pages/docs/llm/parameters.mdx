@@ -235,107 +235,74 @@ export namespace ILlmFunction {
   </Tab>
   <Tab>
 ```typescript filename="@samchon/openapi" showLineNumbers
-import { ILlmSchema } from "./ILlmSchema";
+import { IChatGptSchema } from "./IChatGptSchema";
+import { IClaudeSchema } from "./IClaudeSchema";
+import { IGeminiSchema } from "./IGeminiSchema";
+import { ILlamaSchema } from "./ILlamaSchema";
+import { ILlmSchemaV3 } from "./ILlmSchemaV3";
+import { ILlmSchemaV3_1 } from "./ILlmSchemaV3_1";
 
 /**
- * LLM function metadata.
+ * The schemas for the LLM function calling.
  *
- * `ILlmFunction` is an interface representing a function metadata,
- * which has been used for the LLM (Language Large Model) function
- * calling. Also, it's a function structure containing the function
- * {@link name}, {@link parameters} and {@link output return type}.
+ * `ILlmSchema` is an union type collecting every the schemas for the
+ * LLM function calling.
  *
- * If you provide this `ILlmFunction` data to the LLM provider like "OpenAI",
- * the "OpenAI" will compose a function arguments by analyzing conversations
- * with the user. With the LLM composed arguments, you can execute the function
- * and get the result.
+ * Select a proper schema type according to the LLM provider you're using.
  *
- * By the way, do not ensure that LLM will always provide the correct
- * arguments. The LLM of present age is not perfect, so that you would
- * better to validate the arguments before executing the function.
- * I recommend you to validate the arguments before execution by using
- * [`typia`](https://github.com/samchon/typia) library.
- *
+ * @template Model Name of the target LLM model
  * @reference https://platform.openai.com/docs/guides/function-calling
+ * @reference https://platform.openai.com/docs/guides/structured-outputs
  * @author Jeongho Nam - https://github.com/samchon
  */
-export interface ILlmFunction<Model extends ILlmSchema.Model> {
-  /**
-   * Representative name of the function.
-   */
-  name: string;
+export type ILlmSchema<Model extends ILlmSchema.Model = ILlmSchema.Model> =
+  ILlmSchema.ModelSchema[Model];
 
-  /**
-   * List of parameter types.
-   */
-  parameters: ILlmSchema.ModelParameters[Model];
-
-  /**
-   * Collection of separated parameters.
-   */
-  separated?: ILlmFunction.ISeparated<ILlmSchema.ModelParameters[Model]>;
-
-  /**
-   * Expected return type.
-   *
-   * If the function returns nothing (`void`), the `output` value would
-   * be `undefined`.
-   */
-  output?: ILlmSchema.ModelSchema[Model];
-
-  /**
-   * Whether the function schema types are strict or not.
-   *
-   * Newly added specification to "OpenAI" at 2024-08-07.
-   *
-   * @reference https://openai.com/index/introducing-structured-outputs-in-the-api/
-   */
-  strict: true;
-
-  /**
-   * Description of the function.
-   *
-   * For reference, the `description` is very important property to teach
-   * the purpose of the function to the LLM (Language Large Model), and
-   * LLM actually determines which function to call by the description.
-   *
-   * Also, when the LLM conversates with the user, the `description` is
-   * used to explain the function to the user. Therefore, the `description`
-   * property has the highest priroity, and you have to consider it.
-   */
-  description?: string | undefined;
-
-  /**
-   * Whether the function is deprecated or not.
-   *
-   * If the `deprecated` is `true`, the function is not recommended to use.
-   *
-   * LLM (Large Language Model) may not use the deprecated function.
-   */
-  deprecated?: boolean | undefined;
-
-  /**
-   * Category tags for the function.
-   *
-   * You can fill this property by the `@tag ${name}` comment tag.
-   */
-  tags?: string[];
-}
-export namespace ILlmFunction {
-  /**
-   * Collection of separated parameters.
-   */
-  export interface ISeparated<Parameters extends ILlmSchema.IParameters> {
-    /**
-     * Parameters that would be composed by the LLM.
-     */
-    llm: Parameters | null;
-
-    /**
-     * Parameters that would be composed by the human.
-     */
-    human: Parameters | null;
+export namespace ILlmSchema {
+  export type Model = "chatgpt" | "claude" | "gemini" | "llama" | "3.0" | "3.1";
+  export interface ModelConfig {
+    chatgpt: IChatGptSchema.IConfig;
+    claude: IClaudeSchema.IConfig;
+    gemini: IGeminiSchema.IConfig;
+    llama: ILlamaSchema.IConfig;
+    "3.0": ILlmSchemaV3.IConfig;
+    "3.1": ILlmSchemaV3_1.IConfig;
   }
+  export interface ModelParameters {
+    chatgpt: IChatGptSchema.IParameters;
+    claude: IClaudeSchema.IParameters;
+    gemini: IGeminiSchema.IParameters;
+    llama: ILlamaSchema.IParameters;
+    "3.0": ILlmSchemaV3.IParameters;
+    "3.1": ILlmSchemaV3_1.IParameters;
+  }
+  export interface ModelSchema {
+    chatgpt: IChatGptSchema;
+    claude: IClaudeSchema;
+    gemini: IGeminiSchema;
+    llama: ILlamaSchema;
+    "3.0": ILlmSchemaV3;
+    "3.1": ILlmSchemaV3_1;
+  }
+
+  /**
+   * Type of function parameters.
+   *
+   * `ILlmSchema.IParameters` is a type defining a function's pamameters
+   * as a keyworded object type.
+   *
+   * It also can be utilized for the structured output metadata.
+   *
+   * @reference https://platform.openai.com/docs/guides/structured-outputs
+   */
+  export type IParameters<Model extends ILlmSchema.Model = ILlmSchema.Model> =
+    ILlmSchema.ModelParameters[Model];
+
+  /**
+   * Configuration for the LLM schema composition.
+   */
+  export type IConfig<Model extends ILlmSchema.Model = ILlmSchema.Model> =
+    ILlmSchema.ModelConfig[Model];
 }
 ```
   </Tab>
