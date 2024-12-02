@@ -69,21 +69,19 @@ interface IMember {
   </Tab>
   <Tab>
 ```javascript filename="examples/bin/check.js" showLineNumbers {2-16}
+import * as __typia_transform__isFormatUuid from "typia/lib/internal/_isFormatUuid.js";
+import * as __typia_transform__isFormatEmail from "typia/lib/internal/_isFormatEmail.js";
 import typia from "typia";
 export const check = (() => {
-  const $io0 = (input) =>
+  const _io0 = (input) =>
     "string" === typeof input.id &&
-    /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
-      input.id,
-    ) &&
+    __typia_transform__isFormatUuid._isFormatUuid(input.id) &&
     "string" === typeof input.email &&
-    /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i.test(
-      input.email,
-    ) &&
+    __typia_transform__isFormatEmail._isFormatEmail(input.email) &&
     "number" === typeof input.age &&
     19 < input.age &&
     input.age <= 100;
-  return (input) => "object" === typeof input && null !== input && $io0(input);
+  return (input) => "object" === typeof input && null !== input && _io0(input);
 })();
 ```
   </Tab>

@@ -59,11 +59,13 @@ func(4, 5);
   </Tab>
   <Tab>
 ```javascript filename="examples/bin/assertFunction.js" showLineNumbers
+import * as __typia_transform__functionalTypeGuardErrorFactory from "typia/lib/internal/_functionalTypeGuardErrorFactory.js";
+import * as __typia_transform__assertGuard from "typia/lib/internal/_assertGuard.js";
 import typia from "typia";
 const func = (() => {
-  const errorFactoryWrapper = typia.functional.assertFunction.errorFactory;
+  const errorFactoryWrapper =
+    __typia_transform__functionalTypeGuardErrorFactory._functionalTypeGuardErrorFactory;
   const __assert_param_0 = (() => {
-    const $guard = typia.functional.assertFunction.guard;
     const __is = (input) => "number" === typeof input;
     let _errorFactory;
     return (
@@ -80,9 +82,10 @@ const func = (() => {
         _errorFactory = errorFactory;
         ((input, _path, _exceptionable = true) =>
           "number" === typeof input ||
-          $guard(
+          __typia_transform__assertGuard._assertGuard(
             true,
             {
+              method: "typia.functional.assertFunction",
               path: _path + "",
               expected: "number",
               value: input,
@@ -94,7 +97,6 @@ const func = (() => {
     };
   })();
   const __assert_param_1 = (() => {
-    const $guard = typia.functional.assertFunction.guard;
     const __is = (input) => "number" === typeof input;
     let _errorFactory;
     return (
@@ -111,9 +113,10 @@ const func = (() => {
         _errorFactory = errorFactory;
         ((input, _path, _exceptionable = true) =>
           "number" === typeof input ||
-          $guard(
+          __typia_transform__assertGuard._assertGuard(
             true,
             {
+              method: "typia.functional.assertFunction",
               path: _path + "",
               expected: "number",
               value: input,
@@ -125,7 +128,6 @@ const func = (() => {
     };
   })();
   const __assert_return = (() => {
-    const $guard = typia.functional.assertFunction.guard;
     const __is = (input) => "number" === typeof input;
     let _errorFactory;
     return (
@@ -140,9 +142,10 @@ const func = (() => {
         _errorFactory = errorFactory;
         ((input, _path, _exceptionable = true) =>
           "number" === typeof input ||
-          $guard(
+          __typia_transform__assertGuard._assertGuard(
             true,
             {
+              method: "typia.functional.assertFunction",
               path: _path + "",
               expected: "number",
               value: input,
@@ -210,6 +213,7 @@ func(4, 5);
   <Tab>
 ```javascript filename="examples/bin/isFunction.js" showLineNumbers
 import typia from "typia";
+import typia from "typia";
 const func = (() => {
   const __is_param_0 = (() => {
     return (input) => "number" === typeof input;
@@ -260,6 +264,7 @@ func(4, 5);
   </Tab>
   <Tab>
 ```javascript filename="examples/bin/validateFunction.js" showLineNumbers
+import * as __typia_transform__validateReport from "typia/lib/internal/_validateReport.js";
 import typia from "typia";
 const func = (() => {
   const __validate_param_0 = (() => {
@@ -269,7 +274,7 @@ const func = (() => {
     return (input) => {
       if (false === __is(input)) {
         errors = [];
-        $report = typia.functional.validateFunction.report(errors);
+        $report = __typia_transform__validateReport._validateReport(errors);
         ((input, _path, _exceptionable = true) =>
           "number" === typeof input ||
           $report(true, {
@@ -298,7 +303,7 @@ const func = (() => {
     return (input) => {
       if (false === __is(input)) {
         errors = [];
-        $report = typia.functional.validateFunction.report(errors);
+        $report = __typia_transform__validateReport._validateReport(errors);
         ((input, _path, _exceptionable = true) =>
           "number" === typeof input ||
           $report(true, {
@@ -327,7 +332,7 @@ const func = (() => {
     return (input) => {
       if (false === __is(input)) {
         errors = [];
-        $report = typia.functional.validateFunction.report(errors);
+        $report = __typia_transform__validateReport._validateReport(errors);
         ((input, _path, _exceptionable = true) =>
           "number" === typeof input ||
           $report(true, {
