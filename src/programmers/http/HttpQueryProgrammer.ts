@@ -25,8 +25,6 @@ import { FunctionProgrammer } from "../helpers/FunctionProgrammer";
 import { HttpMetadataUtil } from "../helpers/HttpMetadataUtil";
 
 export namespace HttpQueryProgrammer {
-  export const INPUT_TYPE = "string | URLSearchParams";
-
   export interface IProps extends IProgrammerProps {
     allowOptional?: boolean;
   }
@@ -74,7 +72,13 @@ export namespace HttpQueryProgrammer {
         [
           IdentifierFactory.parameter(
             "input",
-            ts.factory.createTypeReferenceNode(INPUT_TYPE),
+            ts.factory.createUnionTypeNode([
+              ts.factory.createTypeReferenceNode("string"),
+              props.context.importer.type({
+                file: "typia",
+                name: "IReadableURLSearchParams",
+              }),
+            ]),
           ),
         ],
         props.context.importer.type({
@@ -195,7 +199,10 @@ export namespace HttpQueryProgrammer {
               undefined,
               [input],
             ),
-            ts.factory.createTypeReferenceNode("URLSearchParams"),
+            props.context.importer.type({
+              file: "typia",
+              name: "IReadableURLSearchParams",
+            }),
           ),
         ),
       ),
