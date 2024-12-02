@@ -1,12 +1,10 @@
-import {
-  type ILlmApplication as __ILlmApplication,
-  type ILlmSchema as __ILlmSchema,
-} from "@samchon/openapi";
 import { LlmTypeCheckerV3_1 } from "@samchon/openapi";
 import typia, { tags } from "typia";
 import * as __typia_transform__llmApplicationFinalize from "typia/lib/internal/_llmApplicationFinalize.js";
 
-export const schema = (($defs: Record<string, __ILlmSchema<"chatgpt">>) => {
+export const schema = ((
+  $defs: Record<string, import("@samchon/openapi").ILlmSchema<"chatgpt">>,
+) => {
   Object.assign($defs, {
     IDepartment: {
       type: "object",
@@ -62,7 +60,7 @@ export const schema = (($defs: Record<string, __ILlmSchema<"chatgpt">>) => {
       required: ["id", "code", "sales", "created_at", "children", "employees"],
       additionalProperties: false,
     },
-  } as Record<string, __ILlmSchema<"chatgpt">>);
+  } as Record<string, import("@samchon/openapi").ILlmSchema<"chatgpt">>);
   return {
     type: "object",
     properties: {
@@ -89,7 +87,7 @@ export const schema = (($defs: Record<string, __ILlmSchema<"chatgpt">>) => {
     },
     required: ["id", "serial", "name", "established_at", "departments"],
     additionalProperties: false,
-  } as __ILlmSchema<"chatgpt">;
+  } as import("@samchon/openapi").ILlmSchema<"chatgpt">;
 })({});
 export const parameters = {
   type: "object",
@@ -203,7 +201,7 @@ export const parameters = {
       required: ["id", "code", "sales", "created_at", "children", "employees"],
     },
   },
-} as __ILlmSchema.IParameters<"claude">;
+} as import("@samchon/openapi").ILlmSchema.IParameters<"claude">;
 export const application = (() => {
   const app = {
     model: "llama",
@@ -744,7 +742,7 @@ export const application = (() => {
         strict: true,
       },
     ],
-  } as __ILlmApplication<"llama">;
+  } as import("@samchon/openapi").ILlmApplication<"llama">;
   __typia_transform__llmApplicationFinalize._llmApplicationFinalize(app, {
     separate: (schema) =>
       LlmTypeCheckerV3_1.isString(schema) && schema.format === "date-time",

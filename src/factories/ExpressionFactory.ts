@@ -175,7 +175,6 @@ export namespace ExpressionFactory {
               file,
               name,
               alias: null,
-              type: false,
             });
           } else if (
             node.expression.getText() === "$importNamespace" &&
@@ -188,7 +187,6 @@ export namespace ExpressionFactory {
             return props.importer.namespace({
               file,
               name,
-              type: false,
             });
           } else if (
             node.expression.getText() === "$importDefault" &&
