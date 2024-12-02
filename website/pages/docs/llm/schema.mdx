@@ -3,13 +3,29 @@ import { Callout, Tabs, Tab } from 'nextra-theme-docs'
 ## `schema()` function
 <Tabs items={[
     <code>typia</code>,
-    <code>ILlmSchema</code>,
-    <code>ILlmFunction</code>,
     <code>ILlmApplication</code>,
+    <code>ILlmFunction</code>,
+    <code>ILlmSchema</code>,
   ]}>
   <Tab>
-```typescript filename="typia" showLineNumbers {2-14}
+```typescript filename="typia" showLineNumbers {18-30}
 export namespace llm {
+  // LLM FUNCTION CALLING APPLICATION SCHEMA
+  export function application<
+    App extends Record<string, any>,
+    Model extends ILlmSchema.Model,
+    Config extends Partial<ILlmSchema.ModelConfig[Model]> = {},
+  >(
+    options?: Partial<Pick<ILlmApplication.IOptions<Model>, "separate">>,
+  ): ILlmApplication<Model>;
+
+  // STRUCTURED OUTPUT
+  export function parameters<
+    Parameters extends Record<string, any>,
+    Model extends ILlmSchema.Model,
+    Config extends Partial<ILlmSchema.ModelConfig[Model]> = {},
+  >(): ILlmSchema.ModelParameters[Model];
+
   // TYPE SCHEMA
   export function schema<
     T,
@@ -23,27 +39,202 @@ export namespace llm {
       ? []
       : [Record<string, ILlmSchema.ModelSchema[Model]>]
   ): ILlmSchema.ModelSchema[Model];
-
-  // STRUCTURED OUTPUT
-  export function parameters<
-    Parameters extends Record<string, any>,
-    Model extends ILlmSchema.Model,
-    Config extends Partial<ILlmSchema.ModelConfig[Model]> = {},
-  >(): ILlmSchema.ModelParameters[Model];
-
-  // LLM FUNCTION CALLING APPLICATION SCHEMA
-  export function application<
-    App extends Record<string, any>,
-    Model extends ILlmSchema.Model,
-    Config extends Partial<ILlmSchema.ModelConfig[Model]> = {},
-  >(
-    options?: Partial<Pick<ILlmApplication.IOptions<Model>, "separate">>,
-  ): ILlmApplication<Model>;
 }
 ```
   </Tab>
   <Tab>
-```typescript
+```typescript filename="@samchon/openapi" showLineNumbers
+import { IGeminiSchema } from "./IGeminiSchema";
+import { ILlmFunction } from "./ILlmFunction";
+import { ILlmSchema } from "./ILlmSchema";
+
+/**
+ * Application of LLM function calling.
+ *
+ * `ILlmApplication` is a data structure representing a collection of
+ * {@link ILlmFunction LLM function calling schemas}, composed from a native
+ * TypeScript class (or interface) type by the `typia.llm.application<App, Model>()`
+ * function.
+ *
+ * Also, there can be some parameters (or their nested properties) which must be
+ * composed by Human, not by LLM. File uploading feature or some sensitive information
+ * like secrety key (password) are the examples. In that case, you can separate the
+ * function parameters to both LLM and human sides by configuring the
+ * {@link ILlmApplication.IOptions.separate} property. The separated parameters are
+ * assigned to the {@link ILlmFunction.separated} property.
+ *
+ * For reference, when both LLM and Human filled parameter values to call, you can
+ * merge them by calling the {@link HttpLlm.mergeParameters} function. In other words,
+ * if you've configured the {@link ILlmApplication.IOptions.separate} property, you
+ * have to merge the separated parameters before the funtion call execution.
+ *
+ * @reference https://platform.openai.com/docs/guides/function-calling
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export interface ILlmApplication<Model extends ILlmSchema.Model> {
+  /**
+   * Model of the LLM.
+   */
+  model: Model;
+
+  /**
+   * List of function metadata.
+   *
+   * List of function metadata that can be used for the LLM function call.
+   */
+  functions: ILlmFunction<Model>[];
+
+  /**
+   * Configuration for the application.
+   */
+  options: ILlmApplication.IOptions<Model>;
+}
+export namespace ILlmApplication {
+  /**
+   * Options for application composition.
+   */
+  export type IOptions<Model extends ILlmSchema.Model> = {
+    /**
+     * Separator function for the parameters.
+     *
+     * When composing parameter arguments through LLM function call,
+     * there can be a case that some parameters must be composed by human,
+     * or LLM cannot understand the parameter.
+     *
+     * For example, if the parameter type has configured
+     * {@link IGeminiSchema.IString.contentMediaType} which indicates file
+     * uploading, it must be composed by human, not by LLM
+     * (Large Language Model).
+     *
+     * In that case, if you configure this property with a function that
+     * predicating whether the schema value must be composed by human or
+     * not, the parameters would be separated into two parts.
+     *
+     * - {@link ILlmFunction.separated.llm}
+     * - {@link ILlmFunction.separated.human}
+     *
+     * When writing the function, note that returning value `true` means
+     * to be a human composing the value, and `false` means to LLM
+     * composing the value. Also, when predicating the schema, it would
+     * better to utilize the {@link GeminiTypeChecker} like features.
+     *
+     * @param schema Schema to be separated.
+     * @returns Whether the schema value must be composed by human or not.
+     * @default null
+     */
+    separate: null | ((schema: ILlmSchema.ModelSchema[Model]) => boolean);
+  } & ILlmSchema.ModelConfig[Model];
+}
+```
+  </Tab>
+  <Tab>
+```typescript filename="@samchon/openapi" showLineNumbers
+import { ILlmSchema } from "./ILlmSchema";
+
+/**
+ * LLM function metadata.
+ *
+ * `ILlmFunction` is an interface representing a function metadata,
+ * which has been used for the LLM (Language Large Model) function
+ * calling. Also, it's a function structure containing the function
+ * {@link name}, {@link parameters} and {@link output return type}.
+ *
+ * If you provide this `ILlmFunction` data to the LLM provider like "OpenAI",
+ * the "OpenAI" will compose a function arguments by analyzing conversations
+ * with the user. With the LLM composed arguments, you can execute the function
+ * and get the result.
+ *
+ * By the way, do not ensure that LLM will always provide the correct
+ * arguments. The LLM of present age is not perfect, so that you would
+ * better to validate the arguments before executing the function.
+ * I recommend you to validate the arguments before execution by using
+ * [`typia`](https://github.com/samchon/typia) library.
+ *
+ * @reference https://platform.openai.com/docs/guides/function-calling
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export interface ILlmFunction<Model extends ILlmSchema.Model> {
+  /**
+   * Representative name of the function.
+   */
+  name: string;
+
+  /**
+   * List of parameter types.
+   */
+  parameters: ILlmSchema.ModelParameters[Model];
+
+  /**
+   * Collection of separated parameters.
+   */
+  separated?: ILlmFunction.ISeparated<Model>;
+
+  /**
+   * Expected return type.
+   *
+   * If the function returns nothing (`void`), the `output` value would
+   * be `undefined`.
+   */
+  output?: ILlmSchema.ModelSchema[Model];
+
+  /**
+   * Whether the function schema types are strict or not.
+   *
+   * Newly added specification to "OpenAI" at 2024-08-07.
+   *
+   * @reference https://openai.com/index/introducing-structured-outputs-in-the-api/
+   */
+  strict: true;
+
+  /**
+   * Description of the function.
+   *
+   * For reference, the `description` is very important property to teach
+   * the purpose of the function to the LLM (Language Large Model), and
+   * LLM actually determines which function to call by the description.
+   *
+   * Also, when the LLM conversates with the user, the `description` is
+   * used to explain the function to the user. Therefore, the `description`
+   * property has the highest priroity, and you have to consider it.
+   */
+  description?: string | undefined;
+
+  /**
+   * Whether the function is deprecated or not.
+   *
+   * If the `deprecated` is `true`, the function is not recommended to use.
+   *
+   * LLM (Large Language Model) may not use the deprecated function.
+   */
+  deprecated?: boolean | undefined;
+
+  /**
+   * Category tags for the function.
+   *
+   * You can fill this property by the `@tag ${name}` comment tag.
+   */
+  tags?: string[];
+}
+export namespace ILlmFunction {
+  /**
+   * Collection of separated parameters.
+   */
+  export interface ISeparated<Model extends ILlmSchema.Model> {
+    /**
+     * Parameters that would be composed by the LLM.
+     */
+    llm: ILlmSchema.ModelParameters[Model] | null;
+
+    /**
+     * Parameters that would be composed by the human.
+     */
+    human: ILlmSchema.ModelParameters[Model] | null;
+  }
+}
+```
+  </Tab>
+  <Tab>
+```typescript filename="@samchon/openapi" showLineNumbers
 import { ILlmSchema } from "./ILlmSchema";
 
 /**
@@ -152,7 +343,7 @@ export namespace ILlmFunction {
 
 Type schema in the LLM function calling application.
 
-`typia.llm.schema<T, Model>()` is a function generating type schema which is used in the LLM (Large Language Model) function calling application schema, especially in the [`typia.llm.parameters<Parameters, Model>()`](./parameters) and [`typia.llm.application<App, Model>()`](./application) functions. 
+`typia.llm.schema<T, Model>()` is a function generating type schema which is used in the LLM (Large Language Model) function calling application schema or structured output, especially composed by the [`typia.llm.parameters<Parameters, Model>()`](./parameters) and [`typia.llm.application<App, Model>()`](./application) functions. 
 
 Return value type `ILlmSchema` is similar with the JSON schema definition. However, its detailed specification becomes different by the LLM provider model you've chosen. Here is the list of LLM schema definitions of each model. Determine one of them carefully reading the LLM schema definitions.
 
@@ -166,13 +357,16 @@ Return value type `ILlmSchema` is similar with the JSON schema definition. Howev
     - [`ILlmSchemaV3_1`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3_1.ts): middle layer based on OpenAPI v3.1 specification
 
 <Callout type="info">
-**LLM Function Calling**
+**LLM Function Calling** and **Structured Output**
 
 LLM selects proper function and fill arguments.
 
 In nowadays, most LLM (Large Language Model) like OpenAI are supporting "function calling" feature. The "LLM function calling" means that LLM automatically selects a proper function and fills parameter values from conversation with the user (may by chatting text).
 
-https://platform.openai.com/docs/guides/function-calling
+Structured output is another feature of LLM. The "structured output" means that LLM automatically transforms the output conversation into a structured data format like JSON.
+
+- https://platform.openai.com/docs/guides/function-calling
+- https://platform.openai.com/docs/guides/structured-outputs
 </Callout>
 
 

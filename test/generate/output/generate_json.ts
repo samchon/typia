@@ -1,4 +1,3 @@
-import { type IJsonSchemaCollection as __IJsonSchemaCollection } from "typia";
 import typia, { tags } from "typia";
 import * as __typia_transform__assertGuard from "typia/lib/internal/_assertGuard.js";
 import * as __typia_transform__isFormatEmail from "typia/lib/internal/_isFormatEmail.js";
@@ -97,7 +96,7 @@ export const collection = {
       $ref: "#/components/schemas/ICitizen",
     },
   ],
-} as __IJsonSchemaCollection<"3.1">;
+} as import("typia").IJsonSchemaCollection<"3.1">;
 export const createStringify = (() => {
   const _so0 = (input: any): any =>
     `{"id":${__typia_transform__jsonStringifyString._jsonStringifyString(input.id)},"name":${__typia_transform__jsonStringifyString._jsonStringifyString(input.name)},"email":${__typia_transform__jsonStringifyString._jsonStringifyString(input.email)},"age":${__typia_transform__jsonStringifyNumber._jsonStringifyNumber(input.age)},"motto":${__typia_transform__jsonStringifyString._jsonStringifyString(input.motto)},"birthdate":${__typia_transform__jsonStringifyString._jsonStringifyString(input.birthdate.toJSON())},"died_at":${null !== input.died_at ? __typia_transform__jsonStringifyString._jsonStringifyString(input.died_at.toJSON()) : "null"},"parent":${null !== input.parent ? _so0(input.parent) : "null"},"children":${`[${input.children.map((elem: any) => _so0(elem)).join(",")}]`}}`;

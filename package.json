@@ -1,6 +1,6 @@
 {
   "name": "typia",
-  "version": "7.0.0-dev.20241202",
+  "version": "7.0.0-dev.20241202-4",
   "description": "Superfast runtime validators with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -41,7 +41,7 @@
   },
   "homepage": "https://typia.io",
   "dependencies": {
-    "@samchon/openapi": "^2.0.0-dev.20241202-2",
+    "@samchon/openapi": "^2.0.0",
     "commander": "^10.0.0",
     "comment-json": "^4.2.3",
     "inquirer": "^8.2.5",
@@ -50,7 +50,7 @@
   },
   "peerDependencies": {
     "typescript": ">=4.8.0 <5.7.0",
-    "@samchon/openapi": ">=2.0.0-dev.20241202-2 < 3.0.0"
+    "@samchon/openapi": ">=2.0.0 <3.0.0"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^26.0.1",
@@ -110,11 +110,12 @@
     "protobuf",
     "llm",
     "llm-function-calling",
+    "structured-output",
     "openai",
     "chatgpt",
-    "llama",
+    "claude",
     "gemini",
-    "claude"
+    "llama"
   ],
   "private": true
 }

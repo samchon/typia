@@ -95,19 +95,15 @@ export namespace JsonSchemasTransformer {
     });
     return ts.factory.createAsExpression(
       LiteralFactory.write(app),
-      ts.factory.createTypeReferenceNode(
-        props.context.importer.instance({
-          name: "IJsonSchemaCollection",
-          file: "typia",
-          type: true,
-          alias: "__IJsonSchemaCollection",
-        }).text,
-        [
+      props.context.importer.type({
+        file: "typia",
+        name: "IJsonSchemaCollection",
+        arguments: [
           ts.factory.createLiteralTypeNode(
             ts.factory.createStringLiteral(version),
           ),
         ],
-      ),
+      }),
     );
   };
 
