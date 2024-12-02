@@ -239,79 +239,65 @@ interface IClerk {
   </Tab>
   <Tab>
 ```javascript filename="examples/bin/assertClone.js" showLineNumbers {67-325}
+import * as __typia_transform__randomFormatUuid from "typia/lib/internal/_randomFormatUuid.js";
+import * as __typia_transform__randomString from "typia/lib/internal/_randomString.js";
+import * as __typia_transform__randomInteger from "typia/lib/internal/_randomInteger.js";
+import * as __typia_transform__randomArray from "typia/lib/internal/_randomArray.js";
+import * as __typia_transform__randomNumber from "typia/lib/internal/_randomNumber.js";
+import * as __typia_transform__randomFormatDate from "typia/lib/internal/_randomFormatDate.js";
+import * as __typia_transform__assertGuard from "typia/lib/internal/_assertGuard.js";
 import typia from "typia";
-const department = ((generator) => {
-  const $generator = typia.random.generator;
-  const $ro0 = (_recursive = false, _depth = 0) => ({
-    id:
-      (generator?.customs ?? $generator.customs)?.string?.([
-        {
-          name: 'Format<"uuid">',
-          kind: "format",
-          value: "uuid",
-        },
-      ]) ?? (generator?.uuid ?? $generator.uuid)(),
-    name:
-      (generator?.customs ?? $generator.customs)?.string?.([
-        {
-          name: "MinLength<3>",
-          kind: "minLength",
-          value: 3,
-        },
-      ]) ??
-      (generator?.string ?? $generator.string)(
-        (generator?.integer ?? $generator.integer)(3, 25),
-      ),
-    limit:
-      (generator?.customs ?? $generator.customs)?.number?.([
-        {
-          name: 'Type<"int32">',
-          kind: "type",
-          value: "int32",
-        },
-      ]) ?? (generator?.integer ?? $generator.integer)(0, 100),
-    clerks: (generator?.array ?? $generator.array)(() =>
-      $ro1(_recursive, _recursive ? 1 + _depth : _depth),
+const department = (() => {
+  const _ro0 = (_recursive = false, _depth = 0) => ({
+    id: (
+      _generator?.uuid ?? __typia_transform__randomFormatUuid._randomFormatUuid
+    )(),
+    name: (_generator?.string ?? __typia_transform__randomString._randomString)(
+      {
+        type: "string",
+        minLength: 3,
+      },
     ),
+    limit: (
+      _generator?.integer ?? __typia_transform__randomInteger._randomInteger
+    )({
+      type: "integer",
+    }),
+    clerks: (_generator?.array ?? __typia_transform__randomArray._randomArray)({
+      type: "array",
+      element: () => _ro1(_recursive, _recursive ? 1 + _depth : _depth),
+    }),
   });
-  const $ro1 = (_recursive = false, _depth = 0) => ({
-    name:
-      (generator?.customs ?? $generator.customs)?.string?.([]) ??
-      (generator?.string ?? $generator.string)(),
-    age:
-      (generator?.customs ?? $generator.customs)?.number?.([
-        {
-          name: "ExclusiveMinimum<19>",
-          kind: "exclusiveMinimum",
-          value: 19,
-        },
-        {
-          name: "Maximum<100>",
-          kind: "maximum",
-          value: 100,
-        },
-      ]) ?? (generator?.number ?? $generator.number)(19, 100),
-    authority:
-      (generator?.customs ?? $generator.customs)?.number?.([]) ??
-      (generator?.number ?? $generator.number)(0, 100),
-    joined_at:
-      (generator?.customs ?? $generator.customs)?.string?.([
-        {
-          name: 'Format<"date">',
-          kind: "format",
-          value: "date",
-        },
-      ]) ?? (generator?.date ?? $generator.date)(),
+  const _ro1 = (_recursive = false, _depth = 0) => ({
+    name: (_generator?.string ?? __typia_transform__randomString._randomString)(
+      {
+        type: "string",
+      },
+    ),
+    age: (_generator?.number ?? __typia_transform__randomNumber._randomNumber)({
+      type: "number",
+      exclusiveMinimum: true,
+      minimum: 19,
+      maximum: 100,
+    }),
+    authority: (
+      _generator?.number ?? __typia_transform__randomNumber._randomNumber
+    )({
+      type: "number",
+    }),
+    joined_at: (
+      _generator?.date ?? __typia_transform__randomFormatDate._randomFormatDate
+    )(),
   });
-  return $ro0();
-})();
+  let _generator;
+  return (generator) => {
+    _generator = generator;
+    return _ro0();
+  };
+})()();
 const cloned = (() => {
-  const $guard = typia.misc.assertClone.guard;
-  const $cp0 = (input) =>
-    input.map((elem) =>
-      "object" === typeof elem && null !== elem ? $co1(elem) : elem,
-    );
-  const $io0 = (input) =>
+  const _cp0 = (input) => input.map((elem) => _co1(elem));
+  const _io0 = (input) =>
     "string" === typeof input.id &&
     /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
       input.id,
@@ -324,9 +310,9 @@ const cloned = (() => {
     input.limit <= 2147483647 &&
     Array.isArray(input.clerks) &&
     input.clerks.every(
-      (elem) => "object" === typeof elem && null !== elem && $io1(elem),
+      (elem) => "object" === typeof elem && null !== elem && _io1(elem),
     );
-  const $io1 = (input) =>
+  const _io1 = (input) =>
     "string" === typeof input.name &&
     "number" === typeof input.age &&
     19 < input.age &&
@@ -334,23 +320,25 @@ const cloned = (() => {
     "number" === typeof input.authority &&
     "string" === typeof input.joined_at &&
     /^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/.test(input.joined_at);
-  const $ao0 = (input, _path, _exceptionable = true) =>
+  const _ao0 = (input, _path, _exceptionable = true) =>
     (("string" === typeof input.id &&
       (/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
         input.id,
       ) ||
-        $guard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
+            method: "typia.misc.assertClone",
             path: _path + ".id",
             expected: 'string & Format<"uuid">',
             value: input.id,
           },
           _errorFactory,
         ))) ||
-      $guard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
+          method: "typia.misc.assertClone",
           path: _path + ".id",
           expected: '(string & Format<"uuid">)',
           value: input.id,
@@ -359,18 +347,20 @@ const cloned = (() => {
       )) &&
     (("string" === typeof input.name &&
       (3 <= input.name.length ||
-        $guard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
+            method: "typia.misc.assertClone",
             path: _path + ".name",
             expected: "string & MinLength<3>",
             value: input.name,
           },
           _errorFactory,
         ))) ||
-      $guard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
+          method: "typia.misc.assertClone",
           path: _path + ".name",
           expected: "(string & MinLength<3>)",
           value: input.name,
@@ -381,18 +371,20 @@ const cloned = (() => {
       ((Math.floor(input.limit) === input.limit &&
         -2147483648 <= input.limit &&
         input.limit <= 2147483647) ||
-        $guard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
+            method: "typia.misc.assertClone",
             path: _path + ".limit",
             expected: 'number & Type<"int32">',
             value: input.limit,
           },
           _errorFactory,
         ))) ||
-      $guard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
+          method: "typia.misc.assertClone",
           path: _path + ".limit",
           expected: '(number & Type<"int32">)',
           value: input.limit,
@@ -400,9 +392,10 @@ const cloned = (() => {
         _errorFactory,
       )) &&
     (((Array.isArray(input.clerks) ||
-      $guard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
+          method: "typia.misc.assertClone",
           path: _path + ".clerks",
           expected: "Array<IClerk>",
           value: input.clerks,
@@ -412,23 +405,25 @@ const cloned = (() => {
       input.clerks.every(
         (elem, _index2) =>
           ((("object" === typeof elem && null !== elem) ||
-            $guard(
+            __typia_transform__assertGuard._assertGuard(
               _exceptionable,
               {
+                method: "typia.misc.assertClone",
                 path: _path + ".clerks[" + _index2 + "]",
                 expected: "IClerk",
                 value: elem,
               },
               _errorFactory,
             )) &&
-            $ao1(
+            _ao1(
               elem,
               _path + ".clerks[" + _index2 + "]",
               true && _exceptionable,
             )) ||
-          $guard(
+          __typia_transform__assertGuard._assertGuard(
             _exceptionable,
             {
+              method: "typia.misc.assertClone",
               path: _path + ".clerks[" + _index2 + "]",
               expected: "IClerk",
               value: elem,
@@ -436,20 +431,22 @@ const cloned = (() => {
             _errorFactory,
           ),
       )) ||
-      $guard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
+          method: "typia.misc.assertClone",
           path: _path + ".clerks",
           expected: "Array<IClerk>",
           value: input.clerks,
         },
         _errorFactory,
       ));
-  const $ao1 = (input, _path, _exceptionable = true) =>
+  const _ao1 = (input, _path, _exceptionable = true) =>
     ("string" === typeof input.name ||
-      $guard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
+          method: "typia.misc.assertClone",
           path: _path + ".name",
           expected: "string",
           value: input.name,
@@ -458,9 +455,10 @@ const cloned = (() => {
       )) &&
     (("number" === typeof input.age &&
       (19 < input.age ||
-        $guard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
+            method: "typia.misc.assertClone",
             path: _path + ".age",
             expected: "number & ExclusiveMinimum<19>",
             value: input.age,
@@ -468,18 +466,20 @@ const cloned = (() => {
           _errorFactory,
         )) &&
       (input.age <= 100 ||
-        $guard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
+            method: "typia.misc.assertClone",
             path: _path + ".age",
             expected: "number & Maximum<100>",
             value: input.age,
           },
           _errorFactory,
         ))) ||
-      $guard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
+          method: "typia.misc.assertClone",
           path: _path + ".age",
           expected: "(number & ExclusiveMinimum<19> & Maximum<100>)",
           value: input.age,
@@ -487,9 +487,10 @@ const cloned = (() => {
         _errorFactory,
       )) &&
     ("number" === typeof input.authority ||
-      $guard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
+          method: "typia.misc.assertClone",
           path: _path + ".authority",
           expected: "number",
           value: input.authority,
@@ -500,57 +501,61 @@ const cloned = (() => {
       (/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/.test(
         input.joined_at,
       ) ||
-        $guard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
+            method: "typia.misc.assertClone",
             path: _path + ".joined_at",
             expected: 'string & Format<"date">',
             value: input.joined_at,
           },
           _errorFactory,
         ))) ||
-      $guard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
+          method: "typia.misc.assertClone",
           path: _path + ".joined_at",
           expected: '(string & Format<"date">)',
           value: input.joined_at,
         },
         _errorFactory,
       ));
-  const $co0 = (input) => ({
+  const _co0 = (input) => ({
     id: input.id,
     name: input.name,
     limit: input.limit,
-    clerks: Array.isArray(input.clerks) ? $cp0(input.clerks) : input.clerks,
+    clerks: _cp0(input.clerks),
   });
-  const $co1 = (input) => ({
+  const _co1 = (input) => ({
     name: input.name,
     age: input.age,
     authority: input.authority,
     joined_at: input.joined_at,
   });
   const __is = (input) =>
-    "object" === typeof input && null !== input && $io0(input);
+    "object" === typeof input && null !== input && _io0(input);
   let _errorFactory;
   const __assert = (input, errorFactory) => {
     if (false === __is(input)) {
       _errorFactory = errorFactory;
       ((input, _path, _exceptionable = true) =>
         ((("object" === typeof input && null !== input) ||
-          $guard(
+          __typia_transform__assertGuard._assertGuard(
             true,
             {
+              method: "typia.misc.assertClone",
               path: _path + "",
               expected: "IDepartment",
               value: input,
             },
             _errorFactory,
           )) &&
-          $ao0(input, _path + "", true)) ||
-        $guard(
+          _ao0(input, _path + "", true)) ||
+        __typia_transform__assertGuard._assertGuard(
           true,
           {
+            method: "typia.misc.assertClone",
             path: _path + "",
             expected: "IDepartment",
             value: input,
@@ -560,8 +565,7 @@ const cloned = (() => {
     }
     return input;
   };
-  const __clone = (input) =>
-    "object" === typeof input && null !== input ? $co0(input) : input;
+  const __clone = (input) => _co0(input);
   return (input, errorFactory) => __clone(__assert(input, errorFactory));
 })()(department);
 console.log(cloned);
@@ -678,79 +682,68 @@ interface IClerk {
   </Tab>
   <Tab>
 ```javascript filename="examples/bin/assertPrune.js" showLineNumbers {67-334}
+import * as __typia_transform__randomFormatUuid from "typia/lib/internal/_randomFormatUuid.js";
+import * as __typia_transform__randomString from "typia/lib/internal/_randomString.js";
+import * as __typia_transform__randomInteger from "typia/lib/internal/_randomInteger.js";
+import * as __typia_transform__randomArray from "typia/lib/internal/_randomArray.js";
+import * as __typia_transform__randomNumber from "typia/lib/internal/_randomNumber.js";
+import * as __typia_transform__randomFormatDate from "typia/lib/internal/_randomFormatDate.js";
+import * as __typia_transform__assertGuard from "typia/lib/internal/_assertGuard.js";
 import typia from "typia";
-const department = ((generator) => {
-  const $generator = typia.random.generator;
-  const $ro0 = (_recursive = false, _depth = 0) => ({
-    id:
-      (generator?.customs ?? $generator.customs)?.string?.([
-        {
-          name: 'Format<"uuid">',
-          kind: "format",
-          value: "uuid",
-        },
-      ]) ?? (generator?.uuid ?? $generator.uuid)(),
-    name:
-      (generator?.customs ?? $generator.customs)?.string?.([
-        {
-          name: "MinLength<3>",
-          kind: "minLength",
-          value: 3,
-        },
-      ]) ??
-      (generator?.string ?? $generator.string)(
-        (generator?.integer ?? $generator.integer)(3, 25),
-      ),
-    limit:
-      (generator?.customs ?? $generator.customs)?.number?.([
-        {
-          name: 'Type<"int32">',
-          kind: "type",
-          value: "int32",
-        },
-      ]) ?? (generator?.integer ?? $generator.integer)(0, 100),
-    clerks: (generator?.array ?? $generator.array)(() =>
-      $ro1(_recursive, _recursive ? 1 + _depth : _depth),
+const department = (() => {
+  const _ro0 = (_recursive = false, _depth = 0) => ({
+    id: (
+      _generator?.uuid ?? __typia_transform__randomFormatUuid._randomFormatUuid
+    )(),
+    name: (_generator?.string ?? __typia_transform__randomString._randomString)(
+      {
+        type: "string",
+        minLength: 3,
+      },
     ),
+    limit: (
+      _generator?.integer ?? __typia_transform__randomInteger._randomInteger
+    )({
+      type: "integer",
+    }),
+    clerks: (_generator?.array ?? __typia_transform__randomArray._randomArray)({
+      type: "array",
+      element: () => _ro1(_recursive, _recursive ? 1 + _depth : _depth),
+    }),
   });
-  const $ro1 = (_recursive = false, _depth = 0) => ({
-    name:
-      (generator?.customs ?? $generator.customs)?.string?.([]) ??
-      (generator?.string ?? $generator.string)(),
-    age:
-      (generator?.customs ?? $generator.customs)?.number?.([
-        {
-          name: "ExclusiveMinimum<19>",
-          kind: "exclusiveMinimum",
-          value: 19,
-        },
-        {
-          name: "Maximum<100>",
-          kind: "maximum",
-          value: 100,
-        },
-      ]) ?? (generator?.number ?? $generator.number)(19, 100),
-    authority:
-      (generator?.customs ?? $generator.customs)?.number?.([]) ??
-      (generator?.number ?? $generator.number)(0, 100),
-    joined_at:
-      (generator?.customs ?? $generator.customs)?.string?.([
-        {
-          name: 'Format<"date">',
-          kind: "format",
-          value: "date",
-        },
-      ]) ?? (generator?.date ?? $generator.date)(),
+  const _ro1 = (_recursive = false, _depth = 0) => ({
+    name: (_generator?.string ?? __typia_transform__randomString._randomString)(
+      {
+        type: "string",
+      },
+    ),
+    age: (_generator?.number ?? __typia_transform__randomNumber._randomNumber)({
+      type: "number",
+      exclusiveMinimum: true,
+      minimum: 19,
+      maximum: 100,
+    }),
+    authority: (
+      _generator?.number ?? __typia_transform__randomNumber._randomNumber
+    )({
+      type: "number",
+    }),
+    joined_at: (
+      _generator?.date ?? __typia_transform__randomFormatDate._randomFormatDate
+    )(),
   });
-  return $ro0();
-})();
+  let _generator;
+  return (generator) => {
+    _generator = generator;
+    return _ro0();
+  };
+})()();
 const pruned = (() => {
-  const $guard = typia.misc.assertPrune.guard;
-  const $pp0 = (input) =>
+  const _pp0 = (input) =>
     input.forEach((elem) => {
-      if ("object" === typeof elem && null !== elem) $po1(elem);
+      if ("object" === typeof elem && null !== elem) _po1(elem);
     });
-  const $io0 = (input) =>
+  const _io0 = (input) =>
     "string" === typeof input.id &&
     /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
       input.id,
@@ -763,9 +756,9 @@ const pruned = (() => {
     input.limit <= 2147483647 &&
     Array.isArray(input.clerks) &&
     input.clerks.every(
-      (elem) => "object" === typeof elem && null !== elem && $io1(elem),
+      (elem) => "object" === typeof elem && null !== elem && _io1(elem),
     );
-  const $io1 = (input) =>
+  const _io1 = (input) =>
     "string" === typeof input.name &&
     "number" === typeof input.age &&
     19 < input.age &&
@@ -773,23 +766,25 @@ const pruned = (() => {
     "number" === typeof input.authority &&
     "string" === typeof input.joined_at &&
     /^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/.test(input.joined_at);
-  const $ao0 = (input, _path, _exceptionable = true) =>
+  const _ao0 = (input, _path, _exceptionable = true) =>
     (("string" === typeof input.id &&
       (/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
         input.id,
       ) ||
-        $guard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
+            method: "typia.misc.assertPrune",
             path: _path + ".id",
             expected: 'string & Format<"uuid">',
             value: input.id,
           },
           _errorFactory,
         ))) ||
-      $guard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
+          method: "typia.misc.assertPrune",
           path: _path + ".id",
           expected: '(string & Format<"uuid">)',
           value: input.id,
@@ -798,18 +793,20 @@ const pruned = (() => {
       )) &&
     (("string" === typeof input.name &&
       (3 <= input.name.length ||
-        $guard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
+            method: "typia.misc.assertPrune",
             path: _path + ".name",
             expected: "string & MinLength<3>",
             value: input.name,
           },
           _errorFactory,
         ))) ||
-      $guard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
+          method: "typia.misc.assertPrune",
           path: _path + ".name",
           expected: "(string & MinLength<3>)",
           value: input.name,
@@ -820,18 +817,20 @@ const pruned = (() => {
       ((Math.floor(input.limit) === input.limit &&
         -2147483648 <= input.limit &&
         input.limit <= 2147483647) ||
-        $guard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
+            method: "typia.misc.assertPrune",
             path: _path + ".limit",
             expected: 'number & Type<"int32">',
             value: input.limit,
           },
           _errorFactory,
         ))) ||
-      $guard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
+          method: "typia.misc.assertPrune",
           path: _path + ".limit",
           expected: '(number & Type<"int32">)',
           value: input.limit,
@@ -839,9 +838,10 @@ const pruned = (() => {
         _errorFactory,
       )) &&
     (((Array.isArray(input.clerks) ||
-      $guard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
+          method: "typia.misc.assertPrune",
           path: _path + ".clerks",
           expected: "Array<IClerk>",
           value: input.clerks,
@@ -851,23 +851,25 @@ const pruned = (() => {
       input.clerks.every(
         (elem, _index2) =>
           ((("object" === typeof elem && null !== elem) ||
-            $guard(
+            __typia_transform__assertGuard._assertGuard(
               _exceptionable,
               {
+                method: "typia.misc.assertPrune",
                 path: _path + ".clerks[" + _index2 + "]",
                 expected: "IClerk",
                 value: elem,
               },
               _errorFactory,
             )) &&
-            $ao1(
+            _ao1(
               elem,
               _path + ".clerks[" + _index2 + "]",
               true && _exceptionable,
             )) ||
-          $guard(
+          __typia_transform__assertGuard._assertGuard(
             _exceptionable,
             {
+              method: "typia.misc.assertPrune",
               path: _path + ".clerks[" + _index2 + "]",
               expected: "IClerk",
               value: elem,
@@ -875,20 +877,22 @@ const pruned = (() => {
             _errorFactory,
           ),
       )) ||
-      $guard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
+          method: "typia.misc.assertPrune",
           path: _path + ".clerks",
           expected: "Array<IClerk>",
           value: input.clerks,
         },
         _errorFactory,
       ));
-  const $ao1 = (input, _path, _exceptionable = true) =>
+  const _ao1 = (input, _path, _exceptionable = true) =>
     ("string" === typeof input.name ||
-      $guard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
+          method: "typia.misc.assertPrune",
           path: _path + ".name",
           expected: "string",
           value: input.name,
@@ -897,9 +901,10 @@ const pruned = (() => {
       )) &&
     (("number" === typeof input.age &&
       (19 < input.age ||
-        $guard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
+            method: "typia.misc.assertPrune",
             path: _path + ".age",
             expected: "number & ExclusiveMinimum<19>",
             value: input.age,
@@ -907,18 +912,20 @@ const pruned = (() => {
           _errorFactory,
         )) &&
       (input.age <= 100 ||
-        $guard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
+            method: "typia.misc.assertPrune",
             path: _path + ".age",
             expected: "number & Maximum<100>",
             value: input.age,
           },
           _errorFactory,
         ))) ||
-      $guard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
+          method: "typia.misc.assertPrune",
           path: _path + ".age",
           expected: "(number & ExclusiveMinimum<19> & Maximum<100>)",
           value: input.age,
@@ -926,9 +933,10 @@ const pruned = (() => {
         _errorFactory,
       )) &&
     ("number" === typeof input.authority ||
-      $guard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
+          method: "typia.misc.assertPrune",
           path: _path + ".authority",
           expected: "number",
           value: input.authority,
@@ -939,33 +947,35 @@ const pruned = (() => {
       (/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/.test(
         input.joined_at,
       ) ||
-        $guard(
+        __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
+            method: "typia.misc.assertPrune",
             path: _path + ".joined_at",
             expected: 'string & Format<"date">',
             value: input.joined_at,
           },
           _errorFactory,
         ))) ||
-      $guard(
+      __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
+          method: "typia.misc.assertPrune",
           path: _path + ".joined_at",
           expected: '(string & Format<"date">)',
           value: input.joined_at,
         },
         _errorFactory,
       ));
-  const $po0 = (input) => {
-    if (Array.isArray(input.clerks)) $pp0(input.clerks);
+  const _po0 = (input) => {
+    if (Array.isArray(input.clerks)) _pp0(input.clerks);
     for (const key of Object.keys(input)) {
       if ("id" === key || "name" === key || "limit" === key || "clerks" === key)
         continue;
       delete input[key];
     }
   };
-  const $po1 = (input) => {
+  const _po1 = (input) => {
     for (const key of Object.keys(input)) {
       if (
         "name" === key ||
@@ -978,26 +988,28 @@ const pruned = (() => {
     }
   };
   const __is = (input) =>
-    "object" === typeof input && null !== input && $io0(input);
+    "object" === typeof input && null !== input && _io0(input);
   let _errorFactory;
   const __assert = (input, errorFactory) => {
     if (false === __is(input)) {
       _errorFactory = errorFactory;
       ((input, _path, _exceptionable = true) =>
         ((("object" === typeof input && null !== input) ||
-          $guard(
+          __typia_transform__assertGuard._assertGuard(
             true,
             {
+              method: "typia.misc.assertPrune",
               path: _path + "",
               expected: "IDepartment",
               value: input,
             },
             _errorFactory,
           )) &&
-          $ao0(input, _path + "", true)) ||
-        $guard(
+          _ao0(input, _path + "", true)) ||
+        __typia_transform__assertGuard._assertGuard(
           true,
           {
+            method: "typia.misc.assertPrune",
             path: _path + "",
             expected: "IDepartment",
             value: input,
@@ -1008,9 +1020,13 @@ const pruned = (() => {
     return input;
   };
   const __prune = (input) => {
-    if ("object" === typeof input && null !== input) $po0(input);
+    if ("object" === typeof input && null !== input) _po0(input);
   };
-  return (input, errorFactory) => __prune(__assert(input, errorFactory));
+  return (input, errorFactory) => {
+    input = __assert(input, errorFactory);
+    __prune(input);
+    return input;
+  };
 })()(department);
 console.log(pruned);
 ```
@@ -1991,24 +2007,42 @@ typia.http.createQuery<IQuery>();
   </Tab>
   <Tab>
 ```javascript filename="examples/bin/query.js" showLineNumbers
+import * as __typia_transform__httpQueryParseURLSearchParams from "typia/lib/internal/_httpQueryParseURLSearchParams.js";
+import * as __typia_transform__httpQueryReadNumber from "typia/lib/internal/_httpQueryReadNumber.js";
+import * as __typia_transform__httpQueryReadBoolean from "typia/lib/internal/_httpQueryReadBoolean.js";
+import * as __typia_transform__httpQueryReadString from "typia/lib/internal/_httpQueryReadString.js";
+import * as __typia_transform__httpQueryReadArray from "typia/lib/internal/_httpQueryReadArray.js";
 import typia from "typia";
 (() => {
-  const $params = typia.http.createQuery.params;
-  const $number = typia.http.createQuery.number;
-  const $boolean = typia.http.createQuery.boolean;
-  const $string = typia.http.createQuery.string;
-  const $array = typia.http.createQuery.array;
   return (input) => {
-    input = $params(input);
+    input =
+      __typia_transform__httpQueryParseURLSearchParams._httpQueryParseURLSearchParams(
+        input,
+      );
     const output = {
-      limit: $number(input.get("limit")) ?? undefined,
-      enforce: $boolean(input.get("enforce")),
-      values: $array(
-        input.getAll("values").map((elem) => $string(elem)),
+      limit:
+        __typia_transform__httpQueryReadNumber._httpQueryReadNumber(
+          input.get("limit"),
+        ) ?? undefined,
+      enforce: __typia_transform__httpQueryReadBoolean._httpQueryReadBoolean(
+        input.get("enforce"),
+      ),
+      values: __typia_transform__httpQueryReadArray._httpQueryReadArray(
+        input
+          .getAll("values")
+          .map((elem) =>
+            __typia_transform__httpQueryReadString._httpQueryReadString(elem),
+          ),
         undefined,
       ),
-      atomic: $string(input.get("atomic")),
-      indexes: input.getAll("indexes").map((elem) => $number(elem)),
+      atomic: __typia_transform__httpQueryReadString._httpQueryReadString(
+        input.get("atomic"),
+      ),
+      indexes: input
+        .getAll("indexes")
+        .map((elem) =>
+          __typia_transform__httpQueryReadNumber._httpQueryReadNumber(elem),
+        ),
     };
     return output;
   };
@@ -2263,30 +2297,41 @@ typia.http.createHeaders<IHeaders>();
   </Tab>
   <Tab>
 ```javascript filename="examples/bin/headers.js" showLineNumbers
+import * as __typia_transform__httpHeaderReadNumber from "typia/lib/internal/_httpHeaderReadNumber.js";
+import * as __typia_transform__httpHeaderReadBoolean from "typia/lib/internal/_httpHeaderReadBoolean.js";
 import typia from "typia";
 (() => {
-  const $number = typia.http.createHeaders.number;
-  const $boolean = typia.http.createHeaders.boolean;
-  const $string = typia.http.createHeaders.string;
   return (input) => {
     const output = {
       "x-Category": input["x-category"],
       "x-MEMO": input["x-memo"],
       "x-nAmE": input["x-name"],
       "x-ValUes": Array.isArray(input["x-values"])
-        ? input["x-values"].map($number)
-        : input["x-values"]?.split(", ")?.map($number) ?? [],
+        ? input["x-values"].map(
+            __typia_transform__httpHeaderReadNumber._httpHeaderReadNumber,
+          )
+        : (input["x-values"]
+            ?.split(", ")
+            ?.map(
+              __typia_transform__httpHeaderReadNumber._httpHeaderReadNumber,
+            ) ?? []),
       "x-FlAgS": Array.isArray(input["x-flags"])
-        ? input["x-flags"].map($boolean)
-        : input["x-flags"]?.split(", ")?.map($boolean) ?? [],
+        ? input["x-flags"].map(
+            __typia_transform__httpHeaderReadBoolean._httpHeaderReadBoolean,
+          )
+        : (input["x-flags"]
+            ?.split(", ")
+            ?.map(
+              __typia_transform__httpHeaderReadBoolean._httpHeaderReadBoolean,
+            ) ?? []),
       "X-Descriptions": Array.isArray(input["x-descriptions"])
-        ? input["x-descriptions"].map($string)
-        : input["x-descriptions"]?.split(", ")?.map($string) ?? [],
+        ? input["x-descriptions"].map((str) => str.trim())
+        : (input["x-descriptions"]?.split(", ")?.map((str) => str.trim()) ??
+          []),
     };
     return output;
   };
 })();
-
 ```
   </Tab>
 </Tabs>
@@ -2335,37 +2380,38 @@ typia.http.createParameter<number & tags.Type<"uint32">>();
   </Tab>
   <Tab>
 ```javascript filename="examples/bin/parameter.js" showLineNumbers
+import * as __typia_transform__isFormatUuid from "typia/lib/internal/_isFormatUuid.js";
+import * as __typia_transform__assertGuard from "typia/lib/internal/_assertGuard.js";
+import * as __typia_transform__httpParameterReadString from "typia/lib/internal/_httpParameterReadString.js";
+import * as __typia_transform__isTypeUint32 from "typia/lib/internal/_isTypeUint32.js";
+import * as __typia_transform__httpParameterReadNumber from "typia/lib/internal/_httpParameterReadNumber.js";
 import typia from "typia";
 (input) => {
-  const $string = typia.http.createParameter.string;
   const assert = (() => {
-    const $guard = typia.http.createParameter.guard;
     const __is = (input) =>
       "string" === typeof input &&
-      /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
-        input,
-      );
+      __typia_transform__isFormatUuid._isFormatUuid(input);
     let _errorFactory;
     return (input, errorFactory) => {
       if (false === __is(input)) {
         _errorFactory = errorFactory;
         ((input, _path, _exceptionable = true) =>
           ("string" === typeof input &&
-            (/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
-              input,
-            ) ||
-              $guard(
+            (__typia_transform__isFormatUuid._isFormatUuid(input) ||
+              __typia_transform__assertGuard._assertGuard(
                 true,
                 {
+                  method: "typia.http.createParameter",
                   path: _path + "",
                   expected: 'string & Format<"uuid">',
                   value: input,
                 },
                 _errorFactory,
               ))) ||
-          $guard(
+          __typia_transform__assertGuard._assertGuard(
             true,
             {
+              method: "typia.http.createParameter",
               path: _path + "",
               expected: '(string & Format<"uuid">)',
               value: input,
@@ -2376,39 +2422,36 @@ import typia from "typia";
       return input;
     };
   })();
-  const value = $string(input);
+  const value =
+    __typia_transform__httpParameterReadString._httpParameterReadString(input);
   return assert(value);
 };
 (input) => {
-  const $number = typia.http.createParameter.number;
   const assert = (() => {
-    const $guard = typia.http.createParameter.guard;
     const __is = (input) =>
       "number" === typeof input &&
-      Math.floor(input) === input &&
-      0 <= input &&
-      input <= 4294967295;
+      __typia_transform__isTypeUint32._isTypeUint32(input);
     let _errorFactory;
     return (input, errorFactory) => {
       if (false === __is(input)) {
         _errorFactory = errorFactory;
         ((input, _path, _exceptionable = true) =>
           ("number" === typeof input &&
-            ((Math.floor(input) === input &&
-              0 <= input &&
-              input <= 4294967295) ||
-              $guard(
+            (__typia_transform__isTypeUint32._isTypeUint32(input) ||
+              __typia_transform__assertGuard._assertGuard(
                 true,
                 {
+                  method: "typia.http.createParameter",
                   path: _path + "",
                   expected: 'number & Type<"uint32">',
                   value: input,
                 },
                 _errorFactory,
               ))) ||
-          $guard(
+          __typia_transform__assertGuard._assertGuard(
             true,
             {
+              method: "typia.http.createParameter",
               path: _path + "",
               expected: '(number & Type<"uint32">)',
               value: input,
@@ -2419,7 +2462,8 @@ import typia from "typia";
       return input;
     };
   })();
-  const value = $number(input);
+  const value =
+    __typia_transform__httpParameterReadNumber._httpParameterReadNumber(input);
   return assert(value);
 };
 ```
