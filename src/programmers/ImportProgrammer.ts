@@ -25,19 +25,13 @@ export class ImportProgrammer {
   public instance(props: ImportProgrammer.IInstance): ts.Identifier {
     const alias: string = props.alias ?? props.name;
     const asset: IAsset = this.take(props.file);
-    const instance: ImportProgrammer.IInstance = MapUtil.take(
-      asset.instances,
-      alias,
-      () => props,
-    );
-    instance.type ||= props.type;
+    MapUtil.take(asset.instances, alias, () => props);
     return ts.factory.createIdentifier(alias);
   }
 
   public namespace(props: ImportProgrammer.INamespace): ts.Identifier {
     const asset: IAsset = this.take(props.file);
     asset.namespace ??= props;
-    asset.namespace.type ||= props.type;
     return ts.factory.createIdentifier(asset.namespace.name);
   }
 
@@ -67,7 +61,6 @@ export class ImportProgrammer {
       this.namespace({
         file: `typia/lib/internal/${name}.js`,
         name: this.alias(name),
-        type: false,
       }),
       name,
     );
@@ -144,7 +137,7 @@ export class ImportProgrammer {
                 ? ts.factory.createNamedImports(
                     [...asset.instances.values()].map((ins) =>
                       ts.factory.createImportSpecifier(
-                        ins.type,
+                        false,
                         ins.alias || ins.alias === ins.name
                           ? ts.factory.createIdentifier(ins.name)
                           : undefined,
@@ -177,12 +170,10 @@ export namespace ImportProgrammer {
     file: string;
     name: string;
     alias: string | null;
-    type: boolean;
   }
   export interface INamespace {
     file: string;
     name: string;
-    type: boolean;
   }
 }
 

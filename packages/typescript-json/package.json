@@ -1,6 +1,6 @@
 {
   "name": "typescript-json",
-  "version": "7.0.0-dev.20241202",
+  "version": "7.0.0-dev.20241202-3",
   "description": "Superfast runtime validators with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -37,11 +37,11 @@
   },
   "homepage": "https://typia.io",
   "dependencies": {
-    "typia": "7.0.0-dev.20241202"
+    "typia": "7.0.0-dev.20241202-3"
   },
   "peerDependencies": {
     "typescript": ">=4.8.0 <5.7.0",
-    "@samchon/openapi": ">=2.0.0-dev.20241202-2 < 3.0.0"
+    "@samchon/openapi": ">=2.0.0 <3.0.0"
   },
   "stackblitz": {
     "startCommand": "npm install && npm run test"
@@ -83,10 +83,11 @@
     "protobuf",
     "llm",
     "llm-function-calling",
+    "structured-output",
     "openai",
     "chatgpt",
-    "llama",
+    "claude",
     "gemini",
-    "claude"
+    "llama"
   ]
 }

@@ -73,19 +73,15 @@ export namespace LlmApplicationTransformer {
       });
     const literal: ts.Expression = ts.factory.createAsExpression(
       LiteralFactory.write(schema),
-      ts.factory.createTypeReferenceNode(
-        props.context.importer.instance({
-          name: "ILlmApplication",
-          file: "@samchon/openapi",
-          type: true,
-          alias: "__ILlmApplication",
-        }).text,
-        [
+      props.context.importer.type({
+        file: "@samchon/openapi",
+        name: "ILlmApplication",
+        arguments: [
           ts.factory.createLiteralTypeNode(
             ts.factory.createStringLiteral(model),
           ),
         ],
-      ),
+      }),
     );
     if (!props.expression.arguments?.[0]) return literal;
 

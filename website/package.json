@@ -26,7 +26,7 @@
     "@mui/icons-material": "^5.15.4",
     "@mui/material": "^5.12.0",
     "@rollup/browser": "^4.13.0",
-    "@samchon/openapi": "^2.0.0-dev.20241130",
+    "@samchon/openapi": "latest",
     "lz-string": "^1.5.0",
     "monaco-editor": "^0.50.0",
     "next": "^14.2.3",
@@ -39,7 +39,7 @@
     "tgrid": "^1.0.3",
     "tstl": "^3.0.0",
     "typescript": "^5.6.3",
-    "typia": "^7.0.0-dev.20241129"
+    "typia": "latest"
   },
   "devDependencies": {
     "@rspack/cli": "^1.0.0",
