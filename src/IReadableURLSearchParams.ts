@@ -1,7 +1,7 @@
 /**
  * Interface for a readable URLSearchParams object.
  *
- * This interface is a subset of the URLSearchParams interface,
+ * This interface is a subset of the {@link URLSearchParams} interface,
  * designed especially for the [Hono.JS](https://hono.dev/) libray.
  *
  * @author https://github.com/miyaji255
