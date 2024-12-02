@@ -1,6 +1,6 @@
 import { Atomic } from "./typings/Atomic";
 
-import type { IReadableURLSearchParams } from "./IReadableURLSearchParams";
+import { IReadableURLSearchParams } from "./IReadableURLSearchParams";
 import { IValidation } from "./IValidation";
 import { Resolved } from "./Resolved";
 import { TypeGuardError } from "./TypeGuardError";
@@ -204,7 +204,7 @@ export function validateFormData(): never {
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function query<T extends object>(
+export function query<T extends object>(
   input: string | IReadableURLSearchParams,
 ): Resolved<T>;
 
@@ -244,8 +244,8 @@ export function query(): never {
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertQuery<T extends object>(
-  input: string | IReadableURLSearchParams,hParams,
+export function assertQuery<T extends object>(
+  input: string | IReadableURLSearchParams,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): Resolved<T>;
 
@@ -283,7 +283,7 @@ export function assertQuery(): never {
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function isQuery<T extends object>(
+export function isQuery<T extends object>(
   input: string | IReadableURLSearchParams,
 ): Resolved<T> | null;
 
@@ -322,7 +322,7 @@ export function isQuery(): never {
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function validateQuery<T extends object>(
+export function validateQuery<T extends object>(
   input: string | IReadableURLSearchParams,
 ): IValidation<Resolved<T>>;
 
@@ -760,14 +760,16 @@ export function createQuery(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createQuery<T extends object>(): (
+export function createQuery<T extends object>(): (
   input: string | IReadableURLSearchParams,
 ) => T;
 
 /**
  * @internal
  */
-function createQuery<T>(): (input: string | IReadableURLSearchParams) => T {
+export function createQuery<T>(): (
+  input: string | IReadableURLSearchParams,
+) => T {
   halt("createQuery");
 }
 
@@ -801,7 +803,7 @@ export function createAssertQuery<T extends object>(
 /**
  * @internal
  */
-function createAssertQuery<T>(): (
+export function createAssertQuery<T>(): (
   input: string | IReadableURLSearchParams,
 ) => T {
   halt("createAssertQuery");
@@ -826,14 +828,14 @@ export function createIsQuery(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createIsQuery<T extends object>(): (
+export function createIsQuery<T extends object>(): (
   input: string | IReadableURLSearchParams,
 ) => T | null;
 
 /**
  * @internal
  */
-function createIsQuery<T>(): (
+export function createIsQuery<T>(): (
   input: string | IReadableURLSearchParams,
 ) => T | null {
   halt("createIsQuery");
@@ -858,14 +860,14 @@ export function createValidateQuery(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createValidateQuery<T extends object>(): (
+export function createValidateQuery<T extends object>(): (
   input: string | IReadableURLSearchParams,
 ) => IValidation<Resolved<T>>;
 
 /**
  * @internal
  */
-function createValidateQuery<T>(): (
+export function createValidateQuery<T>(): (
   input: string | IReadableURLSearchParams,
 ) => IValidation<Resolved<T>> {
   halt("createValidateQuery");
