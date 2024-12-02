@@ -19,7 +19,7 @@ export namespace TypiaSetupWizard {
 
     // PREPARE ASSETS
     const pack: PackageManager = await PackageManager.mount();
-    const args: IArguments = await ArgumentParser.parse(pack)(inquiry);
+    const args: IArguments = await ArgumentParser.parse(pack, inquiry);
 
     // INSTALL TYPESCRIPT COMPILERS
     pack.install({
@@ -158,8 +158,13 @@ export namespace TypiaSetupWizard {
     "npm" | "pnpm" | "yarn" | "bun" | null
   > => {
     const result: DetectResult | null = await detect({ cwd: process.cwd() });
-    if (result?.name === "npm") return null; // NPM case is still selectable
-    return result?.name ?? null;
+    switch (result?.name) {
+      case "npm":
+      case "deno":
+        return null; // NPM case is still selectable & Deno is not supported
+      default:
+        return result?.name ?? null;
+    }
   };
 
   const getTypeScriptVersion = async (): Promise<string> => {

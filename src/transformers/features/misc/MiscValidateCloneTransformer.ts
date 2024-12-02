@@ -1,9 +1,13 @@
 import { MiscValidateCloneProgrammer } from "../../../programmers/misc/MiscValidateCloneProgrammer";
 
+import { ITransformProps } from "../../ITransformProps";
 import { GenericTransformer } from "../../internal/GenericTransformer";
 
 export namespace MiscValidateCloneTransformer {
-  export const transform = GenericTransformer.scalar("misc.validatClone")(
-    (project) => (modulo) => MiscValidateCloneProgrammer.write(project)(modulo),
-  );
+  export const transform = (props: ITransformProps) =>
+    GenericTransformer.scalar({
+      ...props,
+      method: "misc.validatClone",
+      write: MiscValidateCloneProgrammer.write,
+    });
 }

@@ -1,10 +1,15 @@
+import { IMetadataAlias } from "./IMetadataAlias";
+import { IMetadataArray } from "./IMetadataArray";
 import { IMetadataAtomic } from "./IMetadataAtomic";
 import { IMetadataConstant } from "./IMetadataConstant";
-import { IMetadataEntry } from "./IMetadataEntry";
 import { IMetadataEscaped } from "./IMetadataEscaped";
 import { IMetadataFunction } from "./IMetadataFunction";
+import { IMetadataMap } from "./IMetadataMap";
+import { IMetadataNative } from "./IMetadataNative";
+import { IMetadataObject } from "./IMetadataObject";
+import { IMetadataSet } from "./IMetadataSet";
 import { IMetadataTemplate } from "./IMetadataTemplate";
-import { IMetadataTypeTag } from "./IMetadataTypeTag";
+import { IMetadataTuple } from "./IMetadataTuple";
 
 export interface IMetadata {
   any: boolean;
@@ -19,18 +24,12 @@ export interface IMetadata {
   escaped: IMetadataEscaped | null;
 
   rest: IMetadata | null;
-  arrays: {
-    name: string;
-    tags: IMetadataTypeTag[][];
-  }[];
-  tuples: {
-    name: string;
-    tags: IMetadataTypeTag[][];
-  }[];
-  objects: string[];
-  aliases: string[];
+  arrays: IMetadataArray[];
+  tuples: IMetadataTuple[];
+  objects: IMetadataObject[];
+  aliases: IMetadataAlias[];
 
-  natives: string[];
-  sets: IMetadata[];
-  maps: IMetadataEntry[];
+  natives: IMetadataNative[];
+  sets: IMetadataSet[];
+  maps: IMetadataMap[];
 }

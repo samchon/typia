@@ -4,49 +4,68 @@ import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
-import { IProject } from "../../transformers/IProject";
+import { IProgrammerProps } from "../../transformers/IProgrammerProps";
+import { ITypiaContext } from "../../transformers/ITypiaContext";
 
 import { FeatureProgrammer } from "../FeatureProgrammer";
 import { ValidateProgrammer } from "../ValidateProgrammer";
-import { FunctionImporter } from "../helpers/FunctionImporter";
+import { FunctionProgrammer } from "../helpers/FunctionProgrammer";
 
 export namespace JsonValidateParseProgrammer {
   export const decompose = (props: {
-    project: IProject;
+    context: ITypiaContext;
     modulo: ts.LeftHandSideExpression;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     type: ts.Type;
     name: string | undefined;
   }): FeatureProgrammer.IDecomposed => {
     const validate: FeatureProgrammer.IDecomposed =
       ValidateProgrammer.decompose({
         ...props,
-        project: {
-          ...props.project,
+        context: {
+          ...props.context,
           options: {
-            ...props.project.options,
+            ...props.context.options,
             functional: false,
             numeric: false,
           },
         },
-        equals: false,
+        config: {
+          equals: false,
+        },
       });
     return {
       functions: validate.functions,
       statements: [
         ...validate.statements,
-        StatementFactory.constant("__validate", validate.arrow),
+        StatementFactory.constant({
+          name: "__validate",
+          value: validate.arrow,
+        }),
       ],
       arrow: ts.factory.createArrowFunction(
         undefined,
         undefined,
         [IdentifierFactory.parameter("input", TypeFactory.keyword("string"))],
-        ts.factory.createTypeReferenceNode(
-          `typia.IValidation<typia.Primitive<${
-            props.name ??
-            TypeFactory.getFullName(props.project.checker)(props.type)
-          }>>`,
-        ),
+        props.context.importer.type({
+          file: "typia",
+          name: "IValidation",
+          arguments: [
+            props.context.importer.type({
+              file: "typia",
+              name: "Primitive",
+              arguments: [
+                ts.factory.createTypeReferenceNode(
+                  props.name ??
+                    TypeFactory.getFullName({
+                      checker: props.context.checker,
+                      type: props.type,
+                    }),
+                ),
+              ],
+            }),
+          ],
+        }),
         undefined,
         ts.factory.createAsExpression(
           ts.factory.createCallExpression(
@@ -66,22 +85,21 @@ export namespace JsonValidateParseProgrammer {
     };
   };
 
-  export const write =
-    (project: IProject) =>
-    (modulo: ts.LeftHandSideExpression) =>
-    (type: ts.Type, name?: string): ts.CallExpression => {
-      const importer: FunctionImporter = new FunctionImporter(modulo.getText());
-      const result: FeatureProgrammer.IDecomposed = decompose({
-        project,
-        modulo,
-        importer,
-        type,
-        name,
-      });
-      return FeatureProgrammer.writeDecomposed({
-        modulo,
-        importer,
-        result,
-      });
-    };
+  export const write = (props: IProgrammerProps): ts.CallExpression => {
+    const functor: FunctionProgrammer = new FunctionProgrammer(
+      props.modulo.getText(),
+    );
+    const result: FeatureProgrammer.IDecomposed = decompose({
+      context: props.context,
+      modulo: props.modulo,
+      functor,
+      type: props.type,
+      name: props.name,
+    });
+    return FeatureProgrammer.writeDecomposed({
+      modulo: props.modulo,
+      functor,
+      result,
+    });
+  };
 }

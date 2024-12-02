@@ -1,5 +1,3 @@
-import * as Namespace from "./functional/Namespace";
-
 import { AssertionGuard } from "./AssertionGuard";
 import { IRandomGenerator } from "./IRandomGenerator";
 import { IValidation } from "./IValidation";
@@ -18,6 +16,7 @@ export * as tags from "./tags";
 
 export * from "./schemas/metadata/IJsDocTagInfo";
 export * from "./schemas/json/IJsonApplication";
+export * from "./schemas/json/IJsonSchemaCollection";
 export * from "./AssertionGuard";
 export * from "./IRandomGenerator";
 export * from "./IValidation";
@@ -56,7 +55,7 @@ export * from "./SnakeCase";
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assert<T>(
+export function assert<T>(
   input: T,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): T;
@@ -83,7 +82,7 @@ function assert<T>(
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assert<T>(
+export function assert<T>(
   input: unknown,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): T;
@@ -91,14 +90,9 @@ function assert<T>(
 /**
  * @internal
  */
-function assert(): never {
+export function assert(): never {
   halt("assert");
 }
-const assertPure = /** @__PURE__ */ Object.assign<typeof assert, {}>(
-  assert,
-  /** @__PURE__ */ Namespace.assert("assert"),
-);
-export { assertPure as assert };
 
 /**
  * Assertion guard of a value type.
@@ -125,7 +119,7 @@ export { assertPure as assert };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertGuard<T>(
+export function assertGuard<T>(
   input: T,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): asserts input is T;
@@ -155,7 +149,7 @@ function assertGuard<T>(
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertGuard<T>(
+export function assertGuard<T>(
   input: unknown,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): asserts input is T;
@@ -163,14 +157,9 @@ function assertGuard<T>(
 /**
  * @internal
  */
-function assertGuard(): never {
+export function assertGuard(): never {
   halt("assertGuard");
 }
-const assertGuardPure = /** @__PURE__ */ Object.assign<typeof assertGuard, {}>(
-  assertGuard,
-  /** @__PURE__ */ Namespace.assert("assertGuard"),
-);
-export { assertGuardPure as assertGuard };
 
 /**
  * Tests a value type.
@@ -195,7 +184,7 @@ export { assertGuardPure as assertGuard };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function is<T>(input: T): input is T;
+export function is<T>(input: T): input is T;
 
 /**
  * Tests a value type.
@@ -219,19 +208,14 @@ function is<T>(input: T): input is T;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function is<T>(input: unknown): input is T;
+export function is<T>(input: unknown): input is T;
 
 /**
  * @internal
  */
-function is(): never {
+export function is(): never {
   halt("is");
 }
-const isPure = /** @__PURE__ */ Object.assign<typeof is, {}>(
-  is,
-  /** @__PURE__ */ Namespace.assert("is"),
-);
-export { isPure as is };
 
 /**
  * Validates a value type.
@@ -256,7 +240,7 @@ export { isPure as is };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function validate<T>(input: T): IValidation<T>;
+export function validate<T>(input: T): IValidation<T>;
 
 /**
  * Validates a value type.
@@ -281,19 +265,14 @@ function validate<T>(input: T): IValidation<T>;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function validate<T>(input: unknown): IValidation<T>;
+export function validate<T>(input: unknown): IValidation<T>;
 
 /**
  * @internal
  */
-function validate(): never {
+export function validate(): never {
   halt("validate");
 }
-const validatePure = /** @__PURE__ */ Object.assign<typeof validate, {}>(
-  validate,
-  /** @__PURE__ */ Namespace.validate(),
-);
-export { validatePure as validate };
 
 /* -----------------------------------------------------------
     STRICT VALIDATORS
@@ -322,7 +301,7 @@ export { validatePure as validate };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertEquals<T>(
+export function assertEquals<T>(
   input: T,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): T;
@@ -351,7 +330,7 @@ function assertEquals<T>(
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertEquals<T>(
+export function assertEquals<T>(
   input: unknown,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): T;
@@ -359,14 +338,9 @@ function assertEquals<T>(
 /**
  * @internal
  */
-function assertEquals(): never {
+export function assertEquals(): never {
   halt("assertEquals");
 }
-const assertEqualsPure = /** @__PURE__ */ Object.assign<
-  typeof assertEquals,
-  {}
->(assertEquals, /** @__PURE__ */ Namespace.assert("assertEquals"));
-export { assertEqualsPure as assertEquals };
 
 /**
  * Assertion guard of a type with equality.
@@ -396,7 +370,7 @@ export { assertEqualsPure as assertEquals };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertGuardEquals<T>(
+export function assertGuardEquals<T>(
   input: T,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): asserts input is T;
@@ -429,7 +403,7 @@ function assertGuardEquals<T>(
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertGuardEquals<T>(
+export function assertGuardEquals<T>(
   input: unknown,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): asserts input is T;
@@ -437,14 +411,9 @@ function assertGuardEquals<T>(
 /**
  * @internal
  */
-function assertGuardEquals(): never {
+export function assertGuardEquals(): never {
   halt("assertGuardEquals");
 }
-const assertGuardEqualsPure = /** @__PURE__ */ Object.assign<
-  typeof assertGuardEquals,
-  {}
->(assertGuardEquals, /** @__PURE__ */ Namespace.assert("assertGuardEquals"));
-export { assertGuardEqualsPure as assertGuardEquals };
 
 /**
  * Tests equality between a value and its type.
@@ -469,7 +438,7 @@ export { assertGuardEqualsPure as assertGuardEquals };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function equals<T>(input: T): input is T;
+export function equals<T>(input: T): input is T;
 
 /**
  * Tests equality between a value and its type.
@@ -494,19 +463,14 @@ function equals<T>(input: T): input is T;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function equals<T>(input: unknown): input is T;
+export function equals<T>(input: unknown): input is T;
 
 /**
  * @internal
  */
-function equals(): never {
+export function equals(): never {
   halt("equals");
 }
-const equalsPure = /** @__PURE__ */ Object.assign<typeof equals, {}>(
-  equals,
-  /** @__PURE__ */ Namespace.is(),
-);
-export { equalsPure as equals };
 
 /**
  * Validates equality between a value and its type.
@@ -532,7 +496,7 @@ export { equalsPure as equals };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function validateEquals<T>(input: T): IValidation<T>;
+export function validateEquals<T>(input: T): IValidation<T>;
 
 /**
  * Validates equality between a value and its type.
@@ -558,19 +522,14 @@ function validateEquals<T>(input: T): IValidation<T>;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function validateEquals<T>(input: unknown): IValidation<T>;
+export function validateEquals<T>(input: unknown): IValidation<T>;
 
 /**
  * @internal
  */
-function validateEquals(): never {
+export function validateEquals(): never {
   halt("validateEquals");
 }
-const validateEqualsPure = /** @__PURE__ */ Object.assign<
-  typeof validateEquals,
-  {}
->(validateEquals, /** @__PURE__ */ Namespace.validate());
-export { validateEqualsPure as validateEquals };
 
 /* -----------------------------------------------------------
     RANDOM
@@ -593,7 +552,7 @@ export { validateEqualsPure as validateEquals };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function random(generator?: Partial<IRandomGenerator>): never;
+export function random(generator?: Partial<IRandomGenerator>): never;
 
 /**
  * Generate random data.
@@ -611,19 +570,14 @@ function random(generator?: Partial<IRandomGenerator>): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function random<T>(generator?: Partial<IRandomGenerator>): Resolved<T>;
+export function random<T>(generator?: Partial<IRandomGenerator>): Resolved<T>;
 
 /**
  * @internal
  */
-function random(): never {
+export function random(): never {
   halt("random");
 }
-const randomPure = /** @__PURE__ */ Object.assign<typeof random, {}>(
-  random,
-  /** @__PURE__ */ Namespace.random(),
-);
-export { randomPure as random };
 
 /* -----------------------------------------------------------
     FACTORY FUNCTIONS
@@ -638,7 +592,7 @@ export { randomPure as random };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssert(
+export function createAssert(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): never;
 
@@ -651,21 +605,16 @@ function createAssert(
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssert<T>(
+export function createAssert<T>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): (input: unknown) => T;
 
 /**
  * @internal
  */
-function createAssert<T>(): (input: unknown) => T {
+export function createAssert<T>(): (input: unknown) => T {
   halt("createAssert");
 }
-const createAssertPure = /** @__PURE__ */ Object.assign<
-  typeof createAssert,
-  {}
->(createAssert, assertPure);
-export { createAssertPure as createAssert };
 
 /**
  * Creates a reusable {@link assertGuard} function.
@@ -692,7 +641,7 @@ export { createAssertPure as createAssert };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertGuard(
+export function createAssertGuard(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): never;
 
@@ -720,21 +669,16 @@ function createAssertGuard(
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertGuard<T>(
+export function createAssertGuard<T>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): (input: unknown) => AssertionGuard<T>;
 
 /**
  * @internal
  */
-function createAssertGuard<T>(): (input: unknown) => AssertionGuard<T> {
+export function createAssertGuard<T>(): (input: unknown) => AssertionGuard<T> {
   halt("createAssertGuard");
 }
-const createAssertGuardPure = /** @__PURE__ */ Object.assign<
-  typeof createAssertGuard,
-  {}
->(createAssertGuard, assertGuardPure);
-export { createAssertGuardPure as createAssertGuard };
 
 /**
  * Creates a reusable {@link is} function.
@@ -745,7 +689,7 @@ export { createAssertGuardPure as createAssertGuard };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createIs(): never;
+export function createIs(): never;
 
 /**
  * Creates a reusable {@link is} function.
@@ -755,19 +699,14 @@ function createIs(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createIs<T>(): (input: unknown) => input is T;
+export function createIs<T>(): (input: unknown) => input is T;
 
 /**
  * @internal
  */
-function createIs<T>(): (input: unknown) => input is T {
+export function createIs<T>(): (input: unknown) => input is T {
   halt("createIs");
 }
-const createIsPure = /** @__PURE__ */ Object.assign<typeof createIs, {}>(
-  createIs,
-  isPure,
-);
-export { createIsPure as createIs };
 
 /**
  * Creates a reusable {@link validate} function.
@@ -778,7 +717,7 @@ export { createIsPure as createIs };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createValidate(): never;
+export function createValidate(): never;
 
 /**
  * Creates a reusable {@link validate} function.
@@ -788,19 +727,14 @@ function createValidate(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createValidate<T>(): (input: unknown) => IValidation<T>;
+export function createValidate<T>(): (input: unknown) => IValidation<T>;
 
 /**
  * @internal
  */
-function createValidate(): (input: unknown) => IValidation {
+export function createValidate(): (input: unknown) => IValidation {
   halt("createValidate");
 }
-const createValidatePure = /** @__PURE__ */ Object.assign<
-  typeof createValidate,
-  {}
->(createValidate, validatePure);
-export { createValidatePure as createValidate };
 
 /**
  * Creates a reusable {@link assertEquals} function.
@@ -812,7 +746,7 @@ export { createValidatePure as createValidate };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertEquals(
+export function createAssertEquals(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): never;
 
@@ -825,21 +759,16 @@ function createAssertEquals(
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertEquals<T>(
+export function createAssertEquals<T>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): (input: unknown) => T;
 
 /**
  * @internal
  */
-function createAssertEquals<T>(): (input: unknown) => T {
+export function createAssertEquals<T>(): (input: unknown) => T {
   halt("createAssertEquals");
 }
-const createAssertEqualsPure = /** @__PURE__ */ Object.assign<
-  typeof createAssertEquals,
-  {}
->(createAssertEquals, assertEqualsPure);
-export { createAssertEqualsPure as createAssertEquals };
 
 /**
  * Creates a reusable {@link assertGuardEquals} function.
@@ -866,7 +795,7 @@ export { createAssertEqualsPure as createAssertEquals };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertGuardEquals(
+export function createAssertGuardEquals(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): never;
 
@@ -894,21 +823,18 @@ function createAssertGuardEquals(
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertGuardEquals<T>(
+export function createAssertGuardEquals<T>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): (input: unknown) => AssertionGuard<T>;
 
 /**
  * @internal
  */
-function createAssertGuardEquals<T>(): (input: unknown) => AssertionGuard<T> {
+export function createAssertGuardEquals<T>(): (
+  input: unknown,
+) => AssertionGuard<T> {
   halt("createAssertGuardEquals");
 }
-const createAssertGuardEqualsPure = /** @__PURE__ */ Object.assign<
-  typeof createAssertGuardEquals,
-  {}
->(createAssertGuardEquals, assertGuardEqualsPure);
-export { createAssertGuardEqualsPure as createAssertGuardEquals };
 
 /**
  * Creates a reusable {@link equals} function.
@@ -919,7 +845,7 @@ export { createAssertGuardEqualsPure as createAssertGuardEquals };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createEquals(): never;
+export function createEquals(): never;
 
 /**
  * Creates a reusable {@link equals} function.
@@ -929,19 +855,14 @@ function createEquals(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createEquals<T>(): (input: unknown) => input is T;
+export function createEquals<T>(): (input: unknown) => input is T;
 
 /**
  * @internal
  */
-function createEquals<T>(): (input: unknown) => input is T {
+export function createEquals<T>(): (input: unknown) => input is T {
   halt("createEquals");
 }
-const createEqualsPure = /** @__PURE__ */ Object.assign<
-  typeof createEquals,
-  {}
->(createEquals, equalsPure);
-export { createEqualsPure as createEquals };
 
 /**
  * Creates a reusable {@link validateEquals} function.
@@ -952,7 +873,7 @@ export { createEqualsPure as createEquals };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createValidateEquals(): never;
+export function createValidateEquals(): never;
 
 /**
  * Creates a reusable {@link validateEquals} function.
@@ -962,19 +883,14 @@ function createValidateEquals(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createValidateEquals<T>(): (input: unknown) => IValidation<T>;
+export function createValidateEquals<T>(): (input: unknown) => IValidation<T>;
 
 /**
  * @internal
  */
-function createValidateEquals(): (input: unknown) => IValidation {
+export function createValidateEquals(): (input: unknown) => IValidation {
   halt("createValidateEquals");
 }
-const createValidateEqualsPure = /** @__PURE__ */ Object.assign<
-  typeof createValidateEquals,
-  {}
->(createValidateEquals, validateEqualsPure);
-export { createValidateEqualsPure as createValidateEquals };
 
 /**
  * Creates a reusable {@link random} function.
@@ -986,7 +902,7 @@ export { createValidateEqualsPure as createValidateEquals };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createRandom(generator?: Partial<IRandomGenerator>): never;
+export function createRandom(generator?: Partial<IRandomGenerator>): never;
 
 /**
  * Creates a resuable {@link random} function.
@@ -997,21 +913,16 @@ function createRandom(generator?: Partial<IRandomGenerator>): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createRandom<T>(
+export function createRandom<T>(
   generator?: Partial<IRandomGenerator>,
 ): () => Resolved<T>;
 
 /**
  * @internal
  */
-function createRandom(): never {
+export function createRandom(): never {
   halt("createRandom");
 }
-const createRandomPure = /** @__PURE__ */ Object.assign<
-  typeof createRandom,
-  {}
->(createRandom, randomPure);
-export { createRandomPure as createRandom };
 
 /**
  * @internal

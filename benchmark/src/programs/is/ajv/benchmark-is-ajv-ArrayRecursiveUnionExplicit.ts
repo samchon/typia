@@ -4,5 +4,5 @@ import { ArrayRecursiveUnionExplicit } from "../../../structures/pure/ArrayRecur
 import { createIsAjvBenchmarkProgram } from "./createIsAjvBenchmarkProgram";
 
 createIsAjvBenchmarkProgram(
-  typia.json.application<[ArrayRecursiveUnionExplicit], "3.0">(),
+  typia.json.schemas<[ArrayRecursiveUnionExplicit], "3.0">(),
 );

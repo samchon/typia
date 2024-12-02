@@ -52,7 +52,7 @@ const LIBRARIES: BenchmarkProgrammer.ILibrary[] = [
         `import { createStringifyFastBenchmarkProgram } from "./createStringifyFastBenchmarkProgram";`,
         ``,
         `createStringifyFastBenchmarkProgram(`,
-        `    typia.json.application<[${type}], "3.0">()`,
+        `    typia.json.schemas<[${type}], "3.0">()`,
         `);`,
       ].join("\n"),
   },

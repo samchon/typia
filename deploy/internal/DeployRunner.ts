@@ -23,7 +23,7 @@ export namespace DeployRunner {
       });
     }
     const version: string = props.setup
-      ? await publish("tgz")
+      ? await publish("test")
       : JSON.parse(
           await fs.promises.readFile(`${__dirname}/../../package.json`, "utf8"),
         ).version;
@@ -68,8 +68,7 @@ export namespace DeployRunner {
       JSON.stringify(pack, null, 2),
       "utf8",
     );
-    if (tag === "tgz") cp.execSync("npm pack");
-    else
+    if (tag !== "test")
       cp.execSync(
         `npm publish --tag ${tag}${tag === "latest" ? " --provenance" : ""}`,
         { stdio: "inherit" },
@@ -100,7 +99,7 @@ export namespace DeployRunner {
         await fs.promises.readFile("package.json", "utf8"),
       );
       pack.dependencies ??= {};
-      pack.dependencies.typia = `../typia-${props.version}.tgz`;
+      pack.dependencies.typia = `../`;
       await fs.promises.writeFile(
         "package.json",
         JSON.stringify(pack, null, 2),

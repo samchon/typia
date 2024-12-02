@@ -4,16 +4,16 @@ import { Metadata } from "../../../schemas/metadata/Metadata";
 
 import { Writable } from "../../../typings/Writable";
 
-export const iterate_metadata_coalesce = (
-  meta: Metadata,
-  type: ts.Type,
-): boolean => {
-  const filter = (flag: ts.TypeFlags) => (type.getFlags() & flag) !== 0;
+export const iterate_metadata_coalesce = (props: {
+  metadata: Metadata;
+  type: ts.Type;
+}): boolean => {
+  const filter = (flag: ts.TypeFlags) => (props.type.getFlags() & flag) !== 0;
   if (filter(ts.TypeFlags.Unknown) || filter(ts.TypeFlags.Any)) {
-    Writable(meta).any = true;
+    Writable(props.metadata).any = true;
     return true;
   } else if (filter(ts.TypeFlags.Null)) {
-    Writable(meta).nullable = true;
+    Writable(props.metadata).nullable = true;
     return true;
   } else if (
     filter(ts.TypeFlags.Undefined) ||
@@ -21,7 +21,7 @@ export const iterate_metadata_coalesce = (
     filter(ts.TypeFlags.Void) ||
     filter(ts.TypeFlags.VoidLike)
   ) {
-    Writable(meta).required = false;
+    Writable(props.metadata).required = false;
     return true;
   }
   return false;

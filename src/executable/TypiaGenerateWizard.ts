@@ -13,7 +13,7 @@ export namespace TypiaGenerateWizard {
 
     // LOAD PACKAGE.JSON INFO
     const pack: PackageManager = await PackageManager.mount();
-    const options: IArguments = await ArgumentParser.parse(pack)(inquiry);
+    const options: IArguments = await ArgumentParser.parse(pack, inquiry);
     await TypiaProgrammer.build(options);
   }
 

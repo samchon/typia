@@ -4,15 +4,15 @@ import { Writable } from "../../typings/Writable";
 import { IMetadataComponents } from "./IMetadataComponents";
 import { IMetadataDictionary } from "./IMetadataDictionary";
 import { Metadata } from "./Metadata";
-import { MetadataAlias } from "./MetadataAlias";
+import { MetadataAliasType } from "./MetadataAliasType";
 import { MetadataArrayType } from "./MetadataArrayType";
-import { MetadataObject } from "./MetadataObject";
+import { MetadataObjectType } from "./MetadataObjectType";
 import { MetadataProperty } from "./MetadataProperty";
 import { MetadataTupleType } from "./MetadataTupleType";
 
 export class MetadataComponents {
-  public readonly aliases: MetadataAlias[];
-  public readonly objects: MetadataObject[];
+  public readonly aliases: MetadataAliasType[];
+  public readonly objects: MetadataObjectType[];
   public readonly arrays: MetadataArrayType[];
   public readonly tuples: MetadataTupleType[];
   public readonly dictionary: IMetadataDictionary;
@@ -31,13 +31,13 @@ export class MetadataComponents {
       objects: new Map(
         json.objects.map((obj) => [
           obj.name,
-          MetadataObject._From_without_properties(obj),
+          MetadataObjectType._From_without_properties(obj),
         ]),
       ),
       aliases: new Map(
         json.aliases.map((alias) => [
           alias.name,
-          MetadataAlias._From_without_value(alias),
+          MetadataAliasType._From_without_value(alias),
         ]),
       ),
       arrays: new Map(

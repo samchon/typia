@@ -5,7 +5,7 @@ export type UniqueItems<Value extends boolean = true> = TagBase<{
   kind: "uniqueItems";
   value: Value;
   validate: Value extends true
-    ? `$input.length <= 1 || ($input.length === new Set($input).size)`
+    ? `$importInternal("isUniqueItems")($input)`
     : undefined;
   exclusive: true;
   schema: {

@@ -3,60 +3,75 @@ import ts from "typescript";
 
 export namespace ImportTransformer {
   export const transform =
-    (from: string) =>
-    (to: string) =>
+    (props: { from: string; to: string }) =>
     (context: ts.TransformationContext) =>
     (file: ts.SourceFile) =>
-      transform_file(from)(to)(context)(file);
-
-  const transform_file =
-    (top: string) =>
-    (to: string) =>
-    (context: ts.TransformationContext) =>
-    (file: ts.SourceFile): ts.SourceFile => {
-      if (file.isDeclarationFile) return file;
-
-      const from: string = get_directory_path(
-        path.resolve(file.getSourceFile().fileName),
-      );
-      to = from.replace(top, to);
-
-      return ts.visitEachChild(
-        file,
-        (node) => transform_node(top)(from)(to)(node),
+      transform_file({
+        top: props.from,
+        to: props.to,
         context,
-      );
-    };
+        file,
+      });
 
-  const transform_node =
-    (top: string) => (from: string) => (to: string) => (node: ts.Node) => {
-      if (
-        !ts.isImportDeclaration(node) ||
-        !ts.isStringLiteral(node.moduleSpecifier)
-      )
-        return node;
+  const transform_file = (props: {
+    top: string;
+    to: string;
+    context: ts.TransformationContext;
+    file: ts.SourceFile;
+  }): ts.SourceFile => {
+    if (props.file.isDeclarationFile) return props.file;
 
-      const text: string = node.moduleSpecifier.text;
-      if (text[0] !== ".") return node;
+    const from: string = get_directory_path(
+      path.resolve(props.file.getSourceFile().fileName),
+    );
+    const to: string = from.replace(props.top, props.to);
 
-      const location: string = path.resolve(from, text);
-      if (location.indexOf(top) === 0) return node;
+    return ts.visitEachChild(
+      props.file,
+      (node) =>
+        transform_node({
+          top: props.top,
+          from,
+          to,
+          node,
+        }),
+      props.context,
+    );
+  };
 
-      const replaced: string = (() => {
-        const simple: string = path
-          .relative(to, location)
-          .split(path.sep)
-          .join("/");
-        return simple[0] === "." ? simple : `./${simple}`;
-      })();
+  const transform_node = (props: {
+    top: string;
+    from: string;
+    to: string;
+    node: ts.Node;
+  }) => {
+    if (
+      !ts.isImportDeclaration(props.node) ||
+      !ts.isStringLiteral(props.node.moduleSpecifier)
+    )
+      return props.node;
 
-      return ts.factory.createImportDeclaration(
-        undefined,
-        node.importClause,
-        ts.factory.createStringLiteral(replaced),
-        node.assertClause,
-      );
-    };
+    const text: string = props.node.moduleSpecifier.text;
+    if (text[0] !== ".") return props.node;
+
+    const location: string = path.resolve(props.from, text);
+    if (location.indexOf(props.top) === 0) return props.node;
+
+    const replaced: string = (() => {
+      const simple: string = path
+        .relative(props.to, location)
+        .split(path.sep)
+        .join("/");
+      return simple[0] === "." ? simple : `./${simple}`;
+    })();
+
+    return ts.factory.createImportDeclaration(
+      undefined,
+      props.node.importClause,
+      ts.factory.createStringLiteral(replaced),
+      props.node.assertClause,
+    );
+  };
 }
 
 const get_directory_path = (file: string): string => {

@@ -1,10 +1,7 @@
 import ts from "typescript";
 
-import { Metadata } from "../../../schemas/metadata/Metadata";
-
-import { MetadataCollection } from "../../MetadataCollection";
-import { MetadataFactory } from "../../MetadataFactory";
 import { TypeFactory } from "../../TypeFactory";
+import { IMetadataIteratorProps } from "./IMetadataIteratorProps";
 import { iterate_metadata_alias } from "./iterate_metadata_alias";
 import { iterate_metadata_array } from "./iterate_metadata_array";
 import { iterate_metadata_atomic } from "./iterate_metadata_atomic";
@@ -21,80 +18,37 @@ import { iterate_metadata_template } from "./iterate_metadata_template";
 import { iterate_metadata_tuple } from "./iterate_metadata_tuple";
 import { iterate_metadata_union } from "./iterate_metadata_union";
 
-export const iterate_metadata =
-  (checker: ts.TypeChecker) =>
-  (options: MetadataFactory.IOptions) =>
-  (collection: MetadataCollection) =>
-  (errors: MetadataFactory.IError[]) =>
-  (meta: Metadata, type: ts.Type, explore: MetadataFactory.IExplore): void => {
-    if (type.isTypeParameter() === true) {
-      errors.push({
-        name: TypeFactory.getFullName(checker)(type),
-        explore: { ...explore },
-        messages: ["non-specified generic argument found."],
-      });
-      return;
-    }
-    // CHECK SPECIAL CASES
-    else if (
-      (explore.aliased !== true &&
-        iterate_metadata_alias(checker)(options)(collection)(errors)(
-          meta,
-          type,
-          explore,
-        )) ||
-      iterate_metadata_intersection(checker)(options)(collection)(errors)(
-        meta,
-        type,
-        explore,
-      ) ||
-      iterate_metadata_union(checker)(options)(collection)(errors)(
-        meta,
-        type,
-        explore,
-      ) ||
-      iterate_metadata_escape(checker)(options)(collection)(errors)(
-        meta,
-        type,
-        explore,
-      )
-    )
-      return;
+export const iterate_metadata = (props: IMetadataIteratorProps): void => {
+  if (props.type.isTypeParameter() === true) {
+    props.errors.push({
+      name: TypeFactory.getFullName({
+        checker: props.checker,
+        type: props.type,
+      }),
+      explore: { ...props.explore },
+      messages: ["non-specified generic argument found."],
+    });
+    return;
+  }
+  // CHECK SPECIAL CASES
+  if (
+    (props.explore.aliased !== true && iterate_metadata_alias(props)) ||
+    iterate_metadata_intersection(props) ||
+    iterate_metadata_union(props) ||
+    iterate_metadata_escape(props)
+  )
+    return;
 
-    // ITERATE CASES
-    iterate_metadata_coalesce(meta, type) ||
-      iterate_metadata_function(checker)(options)(collection)(errors)(
-        meta,
-        type,
-        explore,
-      ) ||
-      iterate_metadata_constant(checker)(options)(meta, type) ||
-      iterate_metadata_template(checker)(options)(collection)(errors)(
-        meta,
-        type,
-        explore,
-      ) ||
-      iterate_metadata_atomic(meta, type) ||
-      iterate_metadata_tuple(checker)(options)(collection)(errors)(
-        meta,
-        type as ts.TupleType,
-        explore,
-      ) ||
-      iterate_metadata_array(checker)(options)(collection)(errors)(
-        meta,
-        type,
-        explore,
-      ) ||
-      iterate_metadata_native(checker)(meta, type) ||
-      iterate_metadata_map(checker)(options)(collection)(errors)(
-        meta,
-        type,
-        explore,
-      ) ||
-      iterate_metadata_set(checker)(options)(collection)(errors)(
-        meta,
-        type,
-        explore,
-      ) ||
-      iterate_metadata_object(checker)(options)(collection)(errors)(meta, type);
-  };
+  // ITERATE CASES
+  iterate_metadata_coalesce(props) ||
+    iterate_metadata_function(props) ||
+    iterate_metadata_constant(props) ||
+    iterate_metadata_template(props) ||
+    iterate_metadata_atomic(props) ||
+    iterate_metadata_tuple(props as IMetadataIteratorProps<ts.TupleType>) ||
+    iterate_metadata_array(props) ||
+    iterate_metadata_native(props) ||
+    iterate_metadata_map(props) ||
+    iterate_metadata_set(props) ||
+    iterate_metadata_object(props);
+};

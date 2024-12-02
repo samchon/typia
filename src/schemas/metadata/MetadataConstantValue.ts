@@ -6,7 +6,7 @@ import { IMetadataTypeTag } from "./IMetadataTypeTag";
 
 export class MetadataConstantValue {
   public readonly value: boolean | bigint | number | string;
-  public tags: IMetadataTypeTag[][] | undefined;
+  public tags: IMetadataTypeTag[][];
   public readonly description?: string | null;
   public readonly jsDocTags?: IJsDocTagInfo[];
   private name_?: string;
