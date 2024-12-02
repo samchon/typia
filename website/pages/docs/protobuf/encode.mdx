@@ -198,84 +198,103 @@ By the way, `typia.protobuf.encode<T>()` function does not validate the `input` 
 ```typescript copy filename="protobuf.encode.ts" showLineNumbers
 import typia, { tags } from "typia";
 
-interface ICustomer {
-  id: number & tags.Type<"int32">;
-  email: string & tags.Format<"email">;
-  name: string;
-  pet: null | ICat | IDog;
-  memo: null | Map<string, string>;
-  logins: Array<ICustomerLogin>;
-}
-interface ICat {
-  type: "cat";
-  name: string;
-  ribbon: boolean;
-}
-interface IDog {
-  type: "dog";
-  name: string;
-  hunt: boolean;
-}
-interface ICustomerLogin {
-  success: boolean;
-  href: string & tags.Format<"url">;
-  referrer: string & tags.Format<"url">;
-  ip: string & (tags.Format<"ipv4"> | tags.Format<"ipv6">);
-  time: string & tags.Format<"date-time">;
-}
+const member: IMember = typia.random<IMember>();
+const byte: Uint8Array = typia.protobuf.encode<IMember>(member);
+console.log(byte);
 
-const customer: ICustomer = typia.random<ICustomer>();
-typia.protobuf.encode<ICustomer>(customer);
+interface IMember {
+  id:
+    | (string & tags.Sequence<11>)
+    | (number & tags.Type<"uint64"> & tags.Sequence<12>)
+    | (Uint8Array & tags.Sequence<13>);
+  name: (string & tags.Sequence<20>) | null;
+  children: Array<IMember> & tags.Sequence<30>;
+  keywords: Map<string, string> & tags.Sequence<40>;
+  thumbnail:
+    | (string & tags.Format<"uri"> & tags.ContentMediaType<"image/*">)
+    | Uint8Array;
+  email: string & tags.Format<"email">;
+  hobbies: Array<IHobby>;
+}
+interface IHobby {
+  id: string & tags.Format<"uuid">;
+  name: string;
+  valid: boolean;
+}
 ```
   </Tab>
   <Tab>
 ```javascript copy filename="protobuf.encode.js" showLineNumbers
-import * as __typia_transform__randomInteger from "typia/lib/internal/_randomInteger.js";
-import * as __typia_transform__randomFormatEmail from "typia/lib/internal/_randomFormatEmail.js";
 import * as __typia_transform__randomString from "typia/lib/internal/_randomString.js";
-import * as __typia_transform__randomPick from "typia/lib/internal/_randomPick.js";
+import * as __typia_transform__randomInteger from "typia/lib/internal/_randomInteger.js";
 import * as __typia_transform__randomArray from "typia/lib/internal/_randomArray.js";
+import * as __typia_transform__randomPick from "typia/lib/internal/_randomPick.js";
+import * as __typia_transform__randomFormatUri from "typia/lib/internal/_randomFormatUri.js";
+import * as __typia_transform__randomFormatEmail from "typia/lib/internal/_randomFormatEmail.js";
+import * as __typia_transform__randomFormatUuid from "typia/lib/internal/_randomFormatUuid.js";
 import * as __typia_transform__randomBoolean from "typia/lib/internal/_randomBoolean.js";
-import * as __typia_transform__randomFormatUrl from "typia/lib/internal/_randomFormatUrl.js";
-import * as __typia_transform__randomFormatIpv4 from "typia/lib/internal/_randomFormatIpv4.js";
-import * as __typia_transform__randomFormatIpv6 from "typia/lib/internal/_randomFormatIpv6.js";
-import * as __typia_transform__randomFormatDatetime from "typia/lib/internal/_randomFormatDatetime.js";
 import * as __typia_transform__throwTypeGuardError from "typia/lib/internal/_throwTypeGuardError.js";
-import * as __typia_transform__isTypeInt32 from "typia/lib/internal/_isTypeInt32.js";
+import * as __typia_transform__isTypeUint64 from "typia/lib/internal/_isTypeUint64.js";
+import * as __typia_transform__isFormatUri from "typia/lib/internal/_isFormatUri.js";
 import * as __typia_transform__isFormatEmail from "typia/lib/internal/_isFormatEmail.js";
-import * as __typia_transform__isFormatUrl from "typia/lib/internal/_isFormatUrl.js";
-import * as __typia_transform__isFormatIpv4 from "typia/lib/internal/_isFormatIpv4.js";
-import * as __typia_transform__isFormatIpv6 from "typia/lib/internal/_isFormatIpv6.js";
-import * as __typia_transform__isFormatDateTime from "typia/lib/internal/_isFormatDateTime.js";
+import * as __typia_transform__isFormatUuid from "typia/lib/internal/_isFormatUuid.js";
 import * as __typia_transform__ProtobufSizer from "typia/lib/internal/_ProtobufSizer.js";
 import * as __typia_transform__ProtobufWriter from "typia/lib/internal/_ProtobufWriter.js";
 import typia from "typia";
-const customer = (() => {
-  const _ro0 = (_recursive = false, _depth = 0) => ({
-    id: (
-      _generator?.integer ?? __typia_transform__randomInteger._randomInteger
-    )({
-      type: "integer",
-    }),
-    email: (
-      _generator?.email ??
-      __typia_transform__randomFormatEmail._randomFormatEmail
-    )(),
-    name: (_generator?.string ?? __typia_transform__randomString._randomString)(
-      {
-        type: "string",
-      },
-    ),
-    pet: __typia_transform__randomPick._randomPick([
-      () => null,
-      () => _ro1(_recursive, _recursive ? 1 + _depth : _depth),
-      () => _ro2(_recursive, _recursive ? 1 + _depth : _depth),
+const member = (() => {
+  const _ro0 = (_recursive = true, _depth = 0) => ({
+    id: __typia_transform__randomPick._randomPick([
+      () =>
+        (_generator?.string ?? __typia_transform__randomString._randomString)({
+          type: "string",
+          "x-protobuf-sequence": 11,
+        }),
+      () =>
+        (
+          _generator?.integer ?? __typia_transform__randomInteger._randomInteger
+        )({
+          type: "integer",
+          "x-protobuf-sequence": 12,
+        }),
+      () =>
+        new Uint8Array(
+          5 >= _depth
+            ? (
+                _generator?.array ?? __typia_transform__randomArray._randomArray
+              )({
+                type: "array",
+                element: () =>
+                  (
+                    _generator?.integer ??
+                    __typia_transform__randomInteger._randomInteger
+                  )({
+                    type: "integer",
+                    minimum: 0,
+                    maximum: 255,
+                  }),
+              })
+            : [],
+        ),
     ])(),
-    memo: __typia_transform__randomPick._randomPick([
+    name: __typia_transform__randomPick._randomPick([
       () => null,
       () =>
-        new Map(
-          (_generator?.array ?? __typia_transform__randomArray._randomArray)({
+        (_generator?.string ?? __typia_transform__randomString._randomString)({
+          type: "string",
+          "x-protobuf-sequence": 20,
+        }),
+    ])(),
+    children:
+      5 >= _depth
+        ? (_generator?.array ?? __typia_transform__randomArray._randomArray)({
+            type: "array",
+            "x-protobuf-sequence": 30,
+            element: () => _ro0(true, _recursive ? 1 + _depth : _depth),
+          })
+        : [],
+    keywords: new Map(
+      5 >= _depth
+        ? (_generator?.array ?? __typia_transform__randomArray._randomArray)({
             type: "array",
             element: () => [
               (
@@ -291,68 +310,60 @@ const customer = (() => {
                 type: "string",
               }),
             ],
-          }),
+          })
+        : [],
+    ),
+    thumbnail: __typia_transform__randomPick._randomPick([
+      () =>
+        (
+          _generator?.uri ?? __typia_transform__randomFormatUri._randomFormatUri
+        )(),
+      () =>
+        new Uint8Array(
+          5 >= _depth
+            ? (
+                _generator?.array ?? __typia_transform__randomArray._randomArray
+              )({
+                type: "array",
+                element: () =>
+                  (
+                    _generator?.integer ??
+                    __typia_transform__randomInteger._randomInteger
+                  )({
+                    type: "integer",
+                    minimum: 0,
+                    maximum: 255,
+                  }),
+              })
+            : [],
         ),
     ])(),
-    logins: (_generator?.array ?? __typia_transform__randomArray._randomArray)({
-      type: "array",
-      element: () => _ro3(_recursive, _recursive ? 1 + _depth : _depth),
-    }),
+    email: (
+      _generator?.email ??
+      __typia_transform__randomFormatEmail._randomFormatEmail
+    )(),
+    hobbies:
+      5 >= _depth
+        ? (_generator?.array ?? __typia_transform__randomArray._randomArray)({
+            type: "array",
+            element: () => _ro1(true, _recursive ? 1 + _depth : _depth),
+          })
+        : [],
   });
   const _ro1 = (_recursive = false, _depth = 0) => ({
-    type: "cat",
+    id: (
+      _generator?.uuid ?? __typia_transform__randomFormatUuid._randomFormatUuid
+    )(),
     name: (_generator?.string ?? __typia_transform__randomString._randomString)(
       {
         type: "string",
       },
     ),
-    ribbon: (
+    valid: (
       _generator?.boolean ?? __typia_transform__randomBoolean._randomBoolean
     )({
       type: "boolean",
     }),
-  });
-  const _ro2 = (_recursive = false, _depth = 0) => ({
-    type: "dog",
-    name: (_generator?.string ?? __typia_transform__randomString._randomString)(
-      {
-        type: "string",
-      },
-    ),
-    hunt: (
-      _generator?.boolean ?? __typia_transform__randomBoolean._randomBoolean
-    )({
-      type: "boolean",
-    }),
-  });
-  const _ro3 = (_recursive = false, _depth = 0) => ({
-    success: (
-      _generator?.boolean ?? __typia_transform__randomBoolean._randomBoolean
-    )({
-      type: "boolean",
-    }),
-    href: (
-      _generator?.url ?? __typia_transform__randomFormatUrl._randomFormatUrl
-    )(),
-    referrer: (
-      _generator?.url ?? __typia_transform__randomFormatUrl._randomFormatUrl
-    )(),
-    ip: __typia_transform__randomPick._randomPick([
-      () =>
-        (
-          _generator?.ipv4 ??
-          __typia_transform__randomFormatIpv4._randomFormatIpv4
-        )(),
-      () =>
-        (
-          _generator?.ipv6 ??
-          __typia_transform__randomFormatIpv6._randomFormatIpv6
-        )(),
-    ])(),
-    time: (
-      _generator?.datetime ??
-      __typia_transform__randomFormatDatetime._randomFormatDatetime
-    )(),
   });
   let _generator;
   return (generator) => {
@@ -360,155 +371,125 @@ const customer = (() => {
     return _ro0();
   };
 })()();
-(() => {
+const byte = (() => {
   const encoder = (writer, input) => {
     const _peo0 = (input) => {
-      // property "id": (number & Type<"int32">);
-      writer.uint32(8);
-      writer.int32(input.id);
-      // property "email": (string & Format<"email">);
-      writer.uint32(18);
-      writer.string(input.email);
-      // property "name": string;
-      writer.uint32(26);
-      writer.string(input.name);
-      // property "pet": (ICat | IDog | null);
-      if (null !== input.pet) {
-        if ("object" === typeof input.pet && null !== input.pet) {
-          if ("cat" === input.pet.type)
-            (() => {
-              writer.uint32(34);
-              writer.fork();
-              _peo1(input.pet);
-              writer.ldelim();
-            })();
-          else if ("dog" === input.pet.type)
-            (() => {
-              writer.uint32(42);
-              writer.fork();
-              _peo2(input.pet);
-              writer.ldelim();
-            })();
-          else
-            __typia_transform__throwTypeGuardError._throwTypeGuardError({
-              method: "typia.protobuf.encode",
-              expected: "(ICat | IDog)",
-              value: input.pet,
-            });
-        } else if ("object" === typeof input.pet && null !== input.pet) {
-          if ("cat" === input.pet.type)
-            (() => {
-              writer.uint32(34);
-              writer.fork();
-              _peo1(input.pet);
-              writer.ldelim();
-            })();
-          else if ("dog" === input.pet.type)
-            (() => {
-              writer.uint32(42);
-              writer.fork();
-              _peo2(input.pet);
-              writer.ldelim();
-            })();
-          else
-            __typia_transform__throwTypeGuardError._throwTypeGuardError({
-              method: "typia.protobuf.encode",
-              expected: "(ICat | IDog)",
-              value: input.pet,
-            });
-        } else
-          __typia_transform__throwTypeGuardError._throwTypeGuardError({
-            method: "typia.protobuf.encode",
-            expected: "(ICat | IDog | null)",
-            value: input.pet,
-          });
+      // property "id": ((Uint8Array & Sequence<13>) | (number & Type<"uint64"> & Sequence<12>) | (string & Sequence<11>));
+      if (input.id instanceof Uint8Array) {
+        writer.uint32(106);
+        writer.bytes(input.id);
+      } else if ("number" === typeof input.id) {
+        writer.uint32(96);
+        writer.uint64(input.id);
+      } else if ("string" === typeof input.id) {
+        writer.uint32(90);
+        writer.string(input.id);
+      } else
+        __typia_transform__throwTypeGuardError._throwTypeGuardError({
+          method: "typia.protobuf.encode",
+          expected:
+            '((Uint8Array & Sequence<13>) | (number & Type<"uint64"> & Sequence<12>) | (string & Sequence<11>))',
+          value: input.id,
+        });
+      // property "name": ((string & Sequence<20>) | null);
+      if (null !== input.name) {
+        writer.uint32(162);
+        writer.string(input.name);
       }
-      // property "memo": (Map<string, string> | null);
-      if (null !== input.memo) {
-        for (const [key, value] of input.memo) {
-          writer.uint32(50);
+      // property "children": (Array<IMember> & Sequence<30>);
+      if (0 !== input.children.length) {
+        for (const elem of input.children) {
+          writer.uint32(242);
           writer.fork();
-          writer.uint32(10);
-          writer.string(key);
-          writer.uint32(18);
-          writer.string(value);
+          _peo0(elem);
           writer.ldelim();
         }
       }
-      // property "logins": Array<ICustomerLogin>;
-      if (0 !== input.logins.length) {
-        for (const elem of input.logins) {
-          writer.uint32(58);
+      // property "keywords": (Map<string, string> & Sequence<40>);
+      for (const [key, value] of input.keywords) {
+        writer.uint32(322);
+        writer.fork();
+        writer.uint32(10);
+        writer.string(key);
+        writer.uint32(18);
+        writer.string(value);
+        writer.ldelim();
+      }
+      // property "thumbnail": ((string & Format<"uri"> & ContentMediaType<"image/*">) | Uint8Array);
+      if (input.thumbnail instanceof Uint8Array) {
+        writer.uint32(330);
+        writer.bytes(input.thumbnail);
+      } else if ("string" === typeof input.thumbnail) {
+        writer.uint32(338);
+        writer.string(input.thumbnail);
+      } else
+        __typia_transform__throwTypeGuardError._throwTypeGuardError({
+          method: "typia.protobuf.encode",
+          expected:
+            '((string & Format<"uri"> & ContentMediaType<"image/*">) | Uint8Array)',
+          value: input.thumbnail,
+        });
+      // property "email": (string & Format<"email">);
+      writer.uint32(346);
+      writer.string(input.email);
+      // property "hobbies": Array<IHobby>;
+      if (0 !== input.hobbies.length) {
+        for (const elem of input.hobbies) {
+          writer.uint32(354);
           writer.fork();
-          _peo3(elem);
+          _peo1(elem);
           writer.ldelim();
         }
       }
     };
     const _peo1 = (input) => {
-      // property "type": "cat";
+      // property "id": (string & Format<"uuid">);
       writer.uint32(10);
-      writer.string(input.type);
+      writer.string(input.id);
       // property "name": string;
       writer.uint32(18);
       writer.string(input.name);
-      // property "ribbon": boolean;
+      // property "valid": boolean;
       writer.uint32(24);
-      writer.bool(input.ribbon);
+      writer.bool(input.valid);
     };
-    const _peo2 = (input) => {
-      // property "type": "dog";
-      writer.uint32(10);
-      writer.string(input.type);
-      // property "name": string;
-      writer.uint32(18);
-      writer.string(input.name);
-      // property "hunt": boolean;
-      writer.uint32(24);
-      writer.bool(input.hunt);
-    };
-    const _peo3 = (input) => {
-      // property "success": boolean;
-      writer.uint32(8);
-      writer.bool(input.success);
-      // property "href": (string & Format<"url">);
-      writer.uint32(18);
-      writer.string(input.href);
-      // property "referrer": (string & Format<"url">);
-      writer.uint32(26);
-      writer.string(input.referrer);
-      // property "ip": (string & (Format<"ipv4"> | Format<"ipv6">));
-      writer.uint32(34);
-      writer.string(input.ip);
-      // property "time": (string & Format<"date-time">);
-      writer.uint32(42);
-      writer.string(input.time);
-    };
+    const _io0 = (input) =>
+      null !== input.id &&
+      undefined !== input.id &&
+      ("string" === typeof input.id ||
+        ("number" === typeof input.id &&
+          __typia_transform__isTypeUint64._isTypeUint64(input.id)) ||
+        input.id instanceof Uint8Array) &&
+      (null === input.name || "string" === typeof input.name) &&
+      Array.isArray(input.children) &&
+      input.children.every(
+        (elem) => "object" === typeof elem && null !== elem && _io0(elem),
+      ) &&
+      input.keywords instanceof Map &&
+      (() =>
+        [...input.keywords].every(
+          (elem) =>
+            Array.isArray(elem) &&
+            elem.length === 2 &&
+            "string" === typeof elem[0] &&
+            "string" === typeof elem[1],
+        ))() &&
+      null !== input.thumbnail &&
+      undefined !== input.thumbnail &&
+      (("string" === typeof input.thumbnail &&
+        __typia_transform__isFormatUri._isFormatUri(input.thumbnail)) ||
+        input.thumbnail instanceof Uint8Array) &&
+      "string" === typeof input.email &&
+      __typia_transform__isFormatEmail._isFormatEmail(input.email) &&
+      Array.isArray(input.hobbies) &&
+      input.hobbies.every(
+        (elem) => "object" === typeof elem && null !== elem && _io1(elem),
+      );
     const _io1 = (input) =>
-      "cat" === input.type &&
+      "string" === typeof input.id &&
+      __typia_transform__isFormatUuid._isFormatUuid(input.id) &&
       "string" === typeof input.name &&
-      "boolean" === typeof input.ribbon;
-    const _io2 = (input) =>
-      "dog" === input.type &&
-      "string" === typeof input.name &&
-      "boolean" === typeof input.hunt;
-    const _io3 = (input) =>
-      "boolean" === typeof input.success &&
-      "string" === typeof input.href &&
-      __typia_transform__isFormatUrl._isFormatUrl(input.href) &&
-      "string" === typeof input.referrer &&
-      __typia_transform__isFormatUrl._isFormatUrl(input.referrer) &&
-      "string" === typeof input.ip &&
-      (__typia_transform__isFormatIpv4._isFormatIpv4(input.ip) ||
-        __typia_transform__isFormatIpv6._isFormatIpv6(input.ip)) &&
-      "string" === typeof input.time &&
-      __typia_transform__isFormatDateTime._isFormatDateTime(input.time);
-    const _iu0 = (input) =>
-      (() => {
-        if ("cat" === input.type) return _io1(input);
-        else if ("dog" === input.type) return _io2(input);
-        else return false;
-      })();
+      "boolean" === typeof input.valid;
     _peo0(input);
     return writer;
   };
@@ -523,129 +504,8 @@ const customer = (() => {
     );
     return writer.buffer();
   };
-})()(customer);
-```
-  </Tab>
-  <Tab>
-```typescript filename="typia/Resolved.ts" showLineNumbers
-/**
- * Resolved type erased every methods.
- *
- * `Resolved` is a type of TMP (Type Meta Programming) type which converts
- * its argument as a resolved type that erased every method properties.
- *
- * If the target argument is a built-in class which returns its origin primitive type
- * through the `valueOf()` method like the `String` or `Number`, its return type would
- * be the `string` or `number`. Otherwise, the built-in class does not have the
- * `valueOf()` method, the return type would be same with the target argument.
- *
- * Otherwise, the target argument is a type of custom class, all of its custom methods
- * would be erased and its prototype would be changed to the primitive `object`.
- * Therefore, return type of the TMP type finally be the resolved object.
- *
- * Before                  | After
- * ------------------------|----------------------------------------
- * `Boolean`               | `boolean`
- * `Number`                | `number`
- * `BigInt`                | `bigint`
- * `String`                | `string`
- * `Class`                 | `interface`
- * Native Class or Others  | No change
- *
- * @template T Target argument type.
- * @author Jeongho Nam - https://github.com/samchon
- * @author Kyungsu Kang - https://github.com/kakasoo
- */
-export type Resolved<T> = Equal<T, ResolvedMain<T>> extends true
-  ? T
-  : ResolvedMain<T>;
-
-type Equal<X, Y> = X extends Y ? (Y extends X ? true : false) : false;
-
-type ResolvedMain<T> = T extends [never]
-  ? never // (special trick for jsonable | null) type
-  : ValueOf<T> extends boolean | number | bigint | string
-  ? ValueOf<T>
-  : T extends Function
-  ? never
-  : T extends object
-  ? ResolvedObject<T>
-  : ValueOf<T>;
-
-type ResolvedObject<T extends object> = T extends Array<infer U>
-  ? IsTuple<T> extends true
-    ? ResolvedTuple<T>
-    : ResolvedMain<U>[]
-  : T extends Set<infer U>
-  ? Set<ResolvedMain<U>>
-  : T extends Map<infer K, infer V>
-  ? Map<ResolvedMain<K>, ResolvedMain<V>>
-  : T extends WeakSet<any> | WeakMap<any, any>
-  ? never
-  : T extends
-      | Date
-      | Uint8Array
-      | Uint8ClampedArray
-      | Uint16Array
-      | Uint32Array
-      | BigUint64Array
-      | Int8Array
-      | Int16Array
-      | Int32Array
-      | BigInt64Array
-      | Float32Array
-      | Float64Array
-      | ArrayBuffer
-      | SharedArrayBuffer
-      | DataView
-      | Blob
-      | File
-  ? T
-  : {
-      [P in keyof T]: ResolvedMain<T[P]>;
-    };
-
-type ResolvedTuple<T extends readonly any[]> = T extends []
-  ? []
-  : T extends [infer F]
-  ? [ResolvedMain<F>]
-  : T extends [infer F, ...infer Rest extends readonly any[]]
-  ? [ResolvedMain<F>, ...ResolvedTuple<Rest>]
-  : T extends [(infer F)?]
-  ? [ResolvedMain<F>?]
-  : T extends [(infer F)?, ...infer Rest extends readonly any[]]
-  ? [ResolvedMain<F>?, ...ResolvedTuple<Rest>]
-  : [];
-
-type IsTuple<T extends readonly any[] | { length: number }> = [T] extends [
-  never,
-]
-  ? false
-  : T extends readonly any[]
-  ? number extends T["length"]
-    ? false
-    : true
-  : false;
-
-type ValueOf<Instance> = IsValueOf<Instance, Boolean> extends true
-  ? boolean
-  : IsValueOf<Instance, Number> extends true
-  ? number
-  : IsValueOf<Instance, String> extends true
-  ? string
-  : Instance;
-
-type IsValueOf<Instance, Object extends IValueOf<any>> = Instance extends Object
-  ? Object extends IValueOf<infer Primitive>
-    ? Instance extends Primitive
-      ? false
-      : true // not Primitive, but Object
-    : false // cannot be
-  : false;
-
-interface IValueOf<T> {
-  valueOf(): T;
-}
+})()(member);
+console.log(byte);
 ```
   </Tab>
 </Tabs>
@@ -834,196 +694,158 @@ Just look at the code below, then you may understand how to use it.
 ```typescript copy filename="protobuf.createEncode.ts" showLineNumbers
 import typia, { tags } from "typia";
 
-export const encode = typia.protobuf.createEncode<ICustomer>();
+export const encode = typia.protobuf.createEncode<IMember>();
 
-interface ICustomer {
-  id: number & tags.Type<"int32">;
+interface IMember {
+  id:
+    | (string & tags.Sequence<11>)
+    | (number & tags.Type<"uint64"> & tags.Sequence<12>)
+    | (Uint8Array & tags.Sequence<13>);
+  name: (string & tags.Sequence<20>) | null;
+  children: Array<IMember> & tags.Sequence<30>;
+  keywords: Map<string, string> & tags.Sequence<40>;
+  thumbnail:
+    | (string & tags.Format<"uri"> & tags.ContentMediaType<"image/*">)
+    | Uint8Array;
   email: string & tags.Format<"email">;
-  name: string;
-  pet: null | ICat | IDog;
-  memo: null | Map<string, string>;
-  logins: Array<ICustomerLogin>;
+  hobbies: Array<IHobby>;
 }
-interface ICat {
-  type: "cat";
+interface IHobby {
+  id: string & tags.Format<"uuid">;
   name: string;
-  ribbon: boolean;
-}
-interface IDog {
-  type: "dog";
-  name: string;
-  hunt: boolean;
-}
-interface ICustomerLogin {
-  success: boolean;
-  href: string & tags.Format<"url">;
-  referrer: string & tags.Format<"url">;
-  ip: string & (tags.Format<"ipv4"> | tags.Format<"ipv6">);
-  time: string & tags.Format<"date-time">;
+  valid: boolean;
 }
 ```
   </Tab>
   <Tab>
 ```javascript copy filename="protobuf.createEncode.js" showLineNumbers
 import * as __typia_transform__throwTypeGuardError from "typia/lib/internal/_throwTypeGuardError.js";
-import * as __typia_transform__isTypeInt32 from "typia/lib/internal/_isTypeInt32.js";
+import * as __typia_transform__isTypeUint64 from "typia/lib/internal/_isTypeUint64.js";
+import * as __typia_transform__isFormatUri from "typia/lib/internal/_isFormatUri.js";
 import * as __typia_transform__isFormatEmail from "typia/lib/internal/_isFormatEmail.js";
-import * as __typia_transform__isFormatUrl from "typia/lib/internal/_isFormatUrl.js";
-import * as __typia_transform__isFormatIpv4 from "typia/lib/internal/_isFormatIpv4.js";
-import * as __typia_transform__isFormatIpv6 from "typia/lib/internal/_isFormatIpv6.js";
-import * as __typia_transform__isFormatDateTime from "typia/lib/internal/_isFormatDateTime.js";
+import * as __typia_transform__isFormatUuid from "typia/lib/internal/_isFormatUuid.js";
 import * as __typia_transform__ProtobufSizer from "typia/lib/internal/_ProtobufSizer.js";
 import * as __typia_transform__ProtobufWriter from "typia/lib/internal/_ProtobufWriter.js";
 import typia from "typia";
 export const encode = (() => {
   const encoder = (writer, input) => {
     const _peo0 = (input) => {
-      // property "id": (number & Type<"int32">);
-      writer.uint32(8);
-      writer.int32(input.id);
-      // property "email": (string & Format<"email">);
-      writer.uint32(18);
-      writer.string(input.email);
-      // property "name": string;
-      writer.uint32(26);
-      writer.string(input.name);
-      // property "pet": (ICat | IDog | null);
-      if (null !== input.pet) {
-        if ("object" === typeof input.pet && null !== input.pet) {
-          if ("cat" === input.pet.type)
-            (() => {
-              writer.uint32(34);
-              writer.fork();
-              _peo1(input.pet);
-              writer.ldelim();
-            })();
-          else if ("dog" === input.pet.type)
-            (() => {
-              writer.uint32(42);
-              writer.fork();
-              _peo2(input.pet);
-              writer.ldelim();
-            })();
-          else
-            __typia_transform__throwTypeGuardError._throwTypeGuardError({
-              method: "typia.protobuf.createEncode",
-              expected: "(ICat | IDog)",
-              value: input.pet,
-            });
-        } else if ("object" === typeof input.pet && null !== input.pet) {
-          if ("cat" === input.pet.type)
-            (() => {
-              writer.uint32(34);
-              writer.fork();
-              _peo1(input.pet);
-              writer.ldelim();
-            })();
-          else if ("dog" === input.pet.type)
-            (() => {
-              writer.uint32(42);
-              writer.fork();
-              _peo2(input.pet);
-              writer.ldelim();
-            })();
-          else
-            __typia_transform__throwTypeGuardError._throwTypeGuardError({
-              method: "typia.protobuf.createEncode",
-              expected: "(ICat | IDog)",
-              value: input.pet,
-            });
-        } else
-          __typia_transform__throwTypeGuardError._throwTypeGuardError({
-            method: "typia.protobuf.createEncode",
-            expected: "(ICat | IDog | null)",
-            value: input.pet,
-          });
+      // property "id": ((Uint8Array & Sequence<13>) | (number & Type<"uint64"> & Sequence<12>) | (string & Sequence<11>));
+      if (input.id instanceof Uint8Array) {
+        writer.uint32(106);
+        writer.bytes(input.id);
+      } else if ("number" === typeof input.id) {
+        writer.uint32(96);
+        writer.uint64(input.id);
+      } else if ("string" === typeof input.id) {
+        writer.uint32(90);
+        writer.string(input.id);
+      } else
+        __typia_transform__throwTypeGuardError._throwTypeGuardError({
+          method: "typia.protobuf.createEncode",
+          expected:
+            '((Uint8Array & Sequence<13>) | (number & Type<"uint64"> & Sequence<12>) | (string & Sequence<11>))',
+          value: input.id,
+        });
+      // property "name": ((string & Sequence<20>) | null);
+      if (null !== input.name) {
+        writer.uint32(162);
+        writer.string(input.name);
       }
-      // property "memo": (Map<string, string> | null);
-      if (null !== input.memo) {
-        for (const [key, value] of input.memo) {
-          writer.uint32(50);
+      // property "children": (Array<IMember> & Sequence<30>);
+      if (0 !== input.children.length) {
+        for (const elem of input.children) {
+          writer.uint32(242);
           writer.fork();
-          writer.uint32(10);
-          writer.string(key);
-          writer.uint32(18);
-          writer.string(value);
+          _peo0(elem);
           writer.ldelim();
         }
       }
-      // property "logins": Array<ICustomerLogin>;
-      if (0 !== input.logins.length) {
-        for (const elem of input.logins) {
-          writer.uint32(58);
+      // property "keywords": (Map<string, string> & Sequence<40>);
+      for (const [key, value] of input.keywords) {
+        writer.uint32(322);
+        writer.fork();
+        writer.uint32(10);
+        writer.string(key);
+        writer.uint32(18);
+        writer.string(value);
+        writer.ldelim();
+      }
+      // property "thumbnail": ((string & Format<"uri"> & ContentMediaType<"image/*">) | Uint8Array);
+      if (input.thumbnail instanceof Uint8Array) {
+        writer.uint32(330);
+        writer.bytes(input.thumbnail);
+      } else if ("string" === typeof input.thumbnail) {
+        writer.uint32(338);
+        writer.string(input.thumbnail);
+      } else
+        __typia_transform__throwTypeGuardError._throwTypeGuardError({
+          method: "typia.protobuf.createEncode",
+          expected:
+            '((string & Format<"uri"> & ContentMediaType<"image/*">) | Uint8Array)',
+          value: input.thumbnail,
+        });
+      // property "email": (string & Format<"email">);
+      writer.uint32(346);
+      writer.string(input.email);
+      // property "hobbies": Array<IHobby>;
+      if (0 !== input.hobbies.length) {
+        for (const elem of input.hobbies) {
+          writer.uint32(354);
           writer.fork();
-          _peo3(elem);
+          _peo1(elem);
           writer.ldelim();
         }
       }
     };
     const _peo1 = (input) => {
-      // property "type": "cat";
+      // property "id": (string & Format<"uuid">);
       writer.uint32(10);
-      writer.string(input.type);
+      writer.string(input.id);
       // property "name": string;
       writer.uint32(18);
       writer.string(input.name);
-      // property "ribbon": boolean;
+      // property "valid": boolean;
       writer.uint32(24);
-      writer.bool(input.ribbon);
+      writer.bool(input.valid);
     };
-    const _peo2 = (input) => {
-      // property "type": "dog";
-      writer.uint32(10);
-      writer.string(input.type);
-      // property "name": string;
-      writer.uint32(18);
-      writer.string(input.name);
-      // property "hunt": boolean;
-      writer.uint32(24);
-      writer.bool(input.hunt);
-    };
-    const _peo3 = (input) => {
-      // property "success": boolean;
-      writer.uint32(8);
-      writer.bool(input.success);
-      // property "href": (string & Format<"url">);
-      writer.uint32(18);
-      writer.string(input.href);
-      // property "referrer": (string & Format<"url">);
-      writer.uint32(26);
-      writer.string(input.referrer);
-      // property "ip": (string & (Format<"ipv4"> | Format<"ipv6">));
-      writer.uint32(34);
-      writer.string(input.ip);
-      // property "time": (string & Format<"date-time">);
-      writer.uint32(42);
-      writer.string(input.time);
-    };
+    const _io0 = (input) =>
+      null !== input.id &&
+      undefined !== input.id &&
+      ("string" === typeof input.id ||
+        ("number" === typeof input.id &&
+          __typia_transform__isTypeUint64._isTypeUint64(input.id)) ||
+        input.id instanceof Uint8Array) &&
+      (null === input.name || "string" === typeof input.name) &&
+      Array.isArray(input.children) &&
+      input.children.every(
+        (elem) => "object" === typeof elem && null !== elem && _io0(elem),
+      ) &&
+      input.keywords instanceof Map &&
+      (() =>
+        [...input.keywords].every(
+          (elem) =>
+            Array.isArray(elem) &&
+            elem.length === 2 &&
+            "string" === typeof elem[0] &&
+            "string" === typeof elem[1],
+        ))() &&
+      null !== input.thumbnail &&
+      undefined !== input.thumbnail &&
+      (("string" === typeof input.thumbnail &&
+        __typia_transform__isFormatUri._isFormatUri(input.thumbnail)) ||
+        input.thumbnail instanceof Uint8Array) &&
+      "string" === typeof input.email &&
+      __typia_transform__isFormatEmail._isFormatEmail(input.email) &&
+      Array.isArray(input.hobbies) &&
+      input.hobbies.every(
+        (elem) => "object" === typeof elem && null !== elem && _io1(elem),
+      );
     const _io1 = (input) =>
-      "cat" === input.type &&
+      "string" === typeof input.id &&
+      __typia_transform__isFormatUuid._isFormatUuid(input.id) &&
       "string" === typeof input.name &&
-      "boolean" === typeof input.ribbon;
-    const _io2 = (input) =>
-      "dog" === input.type &&
-      "string" === typeof input.name &&
-      "boolean" === typeof input.hunt;
-    const _io3 = (input) =>
-      "boolean" === typeof input.success &&
-      "string" === typeof input.href &&
-      __typia_transform__isFormatUrl._isFormatUrl(input.href) &&
-      "string" === typeof input.referrer &&
-      __typia_transform__isFormatUrl._isFormatUrl(input.referrer) &&
-      "string" === typeof input.ip &&
-      (__typia_transform__isFormatIpv4._isFormatIpv4(input.ip) ||
-        __typia_transform__isFormatIpv6._isFormatIpv6(input.ip)) &&
-      "string" === typeof input.time &&
-      __typia_transform__isFormatDateTime._isFormatDateTime(input.time);
-    const _iu0 = (input) =>
-      (() => {
-        if ("cat" === input.type) return _io1(input);
-        else if ("dog" === input.type) return _io2(input);
-        else return false;
-      })();
+      "boolean" === typeof input.valid;
     _peo0(input);
     return writer;
   };
