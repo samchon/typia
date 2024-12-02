@@ -1,11 +1,11 @@
 import { OpenApi } from "@samchon/openapi";
-import typia, { IJsonApplication } from "typia";
+import typia, { IJsonSchemaCollection } from "typia";
 
 import { TestValidator } from "../../helpers/TestValidator";
 
 export const test_issue_1149_json_schema_oneof_discriminator = (): void => {
-  const discriminated: IJsonApplication =
-    typia.json.application<
+  const discriminated: IJsonSchemaCollection =
+    typia.json.schemas<
       [Point | Line | Triangle | Rectangle | Polyline | null]
     >();
   TestValidator.equals("discriminated")({
@@ -31,8 +31,8 @@ export const test_issue_1149_json_schema_oneof_discriminator = (): void => {
     discriminated.schemas[0] as OpenApi.IJsonSchema.IOneOf,
   );
 
-  const plain: IJsonApplication =
-    typia.json.application<
+  const plain: IJsonSchemaCollection =
+    typia.json.schemas<
       [Point | Line | Triangle | Rectangle | Polyline | Circle]
     >();
   TestValidator.equals("plain")(plain.schemas[0])({

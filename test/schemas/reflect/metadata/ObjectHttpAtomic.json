@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ObjectHttpAtomic"
+        {
+          "name": "ObjectHttpAtomic",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -40,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "boolean"
+                      "value": "boolean",
+                      "tags": []
                     }
                   ]
                 }
@@ -96,7 +100,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "bigint"
+                      "value": "bigint",
+                      "tags": []
                     }
                   ]
                 }
@@ -152,7 +157,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "number"
+                      "value": "number",
+                      "tags": []
                     }
                   ]
                 }
@@ -208,7 +214,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "string"
+                      "value": "string",
+                      "tags": []
                     }
                   ]
                 }

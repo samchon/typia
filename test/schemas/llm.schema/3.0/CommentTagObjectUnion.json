@@ -1,0 +1,33 @@
+{
+  "type": "array",
+  "items": {
+    "oneOf": [
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "number",
+            "description": "@minimum 3"
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "additionalProperties": false
+      },
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "description": "@minLength 3\n@maxLength 7"
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "additionalProperties": false
+      }
+    ]
+  }
+}

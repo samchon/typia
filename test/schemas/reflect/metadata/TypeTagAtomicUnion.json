@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "TypeTagAtomicUnion"
+        {
+          "name": "TypeTagAtomicUnion",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -40,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -107,7 +111,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -223,7 +228,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "TypeTagAtomicUnion.Type"
+            {
+              "name": "TypeTagAtomicUnion.Type",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

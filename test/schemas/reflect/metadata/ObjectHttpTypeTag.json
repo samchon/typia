@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ObjectHttpTypeTag"
+        {
+          "name": "ObjectHttpTypeTag",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -40,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "int32"
+                      "value": "int32",
+                      "tags": []
                     }
                   ]
                 }
@@ -72,7 +76,7 @@
                         "name": "Type<\"int32\">",
                         "kind": "type",
                         "value": "int32",
-                        "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
+                        "validate": "$importInternal(\"isTypeInt32\")($input)",
                         "exclusive": true,
                         "schema": {
                           "type": "integer"
@@ -110,7 +114,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "uint64"
+                      "value": "uint64",
+                      "tags": []
                     }
                   ]
                 }
@@ -180,7 +185,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "uuid"
+                      "value": "uuid",
+                      "tags": []
                     }
                   ]
                 }
@@ -212,7 +218,7 @@
                         "name": "Format<\"uuid\">",
                         "kind": "format",
                         "value": "uuid",
-                        "validate": "/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test($input)",
+                        "validate": "$importInternal(\"isFormatUuid\")($input)",
                         "exclusive": [
                           "format",
                           "pattern"
@@ -253,7 +259,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "range"
+                      "value": "range",
+                      "tags": []
                     }
                   ]
                 }
@@ -334,7 +341,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "length"
+                      "value": "length",
+                      "tags": []
                     }
                   ]
                 }

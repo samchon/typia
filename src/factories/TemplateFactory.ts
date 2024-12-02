@@ -7,26 +7,32 @@ export namespace TemplateFactory {
         (expressions as ts.StringLiteral[]).map((str) => str.text).join(""),
       );
 
-    const it: IIterator = {
+    const iterator: IIterator = {
       value: "",
       index: 0,
     };
-    gather(expressions)(it);
+    gather({
+      expressions,
+      iterator,
+    });
 
-    const head: ts.TemplateHead = ts.factory.createTemplateHead(it.value);
+    const head: ts.TemplateHead = ts.factory.createTemplateHead(iterator.value);
     const spans: ts.TemplateSpan[] = [];
 
     while (true) {
-      const elem: ts.Expression = expressions[it.index++]!;
-      gather(expressions)(it);
+      const elem: ts.Expression = expressions[iterator.index++]!;
+      gather({
+        expressions,
+        iterator,
+      });
 
-      const broken: boolean = it.index === expressions.length;
+      const broken: boolean = iterator.index === expressions.length;
       spans.push(
         ts.factory.createTemplateSpan(
           elem,
           broken
-            ? ts.factory.createTemplateTail(it.value)
-            : ts.factory.createTemplateMiddle(it.value),
+            ? ts.factory.createTemplateTail(iterator.value)
+            : ts.factory.createTemplateMiddle(iterator.value),
         ),
       );
       if (broken === true) break;
@@ -34,20 +40,22 @@ export namespace TemplateFactory {
     return ts.factory.createTemplateExpression(head, spans);
   };
 
-  const gather =
-    (expressions: ts.Expression[]) =>
-    (it: IIterator): void => {
-      const found: number = expressions.findIndex(
-        (elem, index) => index >= it.index && !ts.isStringLiteral(elem),
-      );
+  const gather = (props: {
+    expressions: ts.Expression[];
+    iterator: IIterator;
+  }): void => {
+    const found: number = props.expressions.findIndex(
+      (elem, index) =>
+        index >= props.iterator.index && !ts.isStringLiteral(elem),
+    );
 
-      const last: number = found !== -1 ? found : expressions.length;
-      it.value = expressions
-        .slice(it.index, last)
-        .map((elem) => (elem as ts.StringLiteral).text)
-        .reduce((x, y) => x + y, "");
-      it.index = last;
-    };
+    const last: number = found !== -1 ? found : props.expressions.length;
+    props.iterator.value = props.expressions
+      .slice(props.iterator.index, last)
+      .map((elem) => (elem as ts.StringLiteral).text)
+      .reduce((x, y) => x + y, "");
+    props.iterator.index = last;
+  };
 
   interface IIterator {
     value: string;

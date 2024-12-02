@@ -43,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -110,7 +111,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -177,7 +179,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -244,7 +247,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -274,7 +278,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectPropertyNullable.IMember"
+                {
+                  "name": "ObjectPropertyNullable.IMember",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -308,7 +315,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -364,7 +372,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "name"
+                      "value": "name",
+                      "tags": []
                     }
                   ]
                 }
@@ -420,7 +429,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "grade"
+                      "value": "grade",
+                      "tags": []
                     }
                   ]
                 }
@@ -476,7 +486,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "serial"
+                      "value": "serial",
+                      "tags": []
                     }
                   ]
                 }
@@ -532,7 +543,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "activated"
+                      "value": "activated",
+                      "tags": []
                     }
                   ]
                 }
@@ -602,7 +614,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ObjectPropertyNullable.IPointer<boolean>"
+            {
+              "name": "ObjectPropertyNullable.IPointer<boolean>",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],
@@ -631,7 +646,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ObjectPropertyNullable.IPointer<number>"
+            {
+              "name": "ObjectPropertyNullable.IPointer<number>",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],
@@ -660,7 +678,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ObjectPropertyNullable.IPointer<string>"
+            {
+              "name": "ObjectPropertyNullable.IPointer<string>",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],
@@ -689,7 +710,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>"
+            {
+              "name": "ObjectPropertyNullable.IPointer<ObjectPropertyNullable.IMember>",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

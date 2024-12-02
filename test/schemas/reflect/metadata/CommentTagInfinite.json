@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "CommentTagInfinite"
+        {
+          "name": "CommentTagInfinite",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -40,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -96,7 +100,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "ranged"
+                      "value": "ranged",
+                      "tags": []
                     }
                   ]
                 }
@@ -202,7 +207,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "minimum"
+                      "value": "minimum",
+                      "tags": []
                     }
                   ]
                 }
@@ -285,7 +291,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "maximum"
+                      "value": "maximum",
+                      "tags": []
                     }
                   ]
                 }
@@ -368,7 +375,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "multipleOf"
+                      "value": "multipleOf",
+                      "tags": []
                     }
                   ]
                 }
@@ -448,7 +456,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "typed"
+                      "value": "typed",
+                      "tags": []
                     }
                   ]
                 }

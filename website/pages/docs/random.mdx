@@ -234,54 +234,34 @@ interface IMember {
   </Tab>
   <Tab>
 ```javascript filename="random.js"
-"use strict";
-var __importDefault =
-  (this && this.__importDefault) ||
-  function (mod) {
-    return mod && mod.__esModule ? mod : { default: mod };
-  };
-Object.defineProperty(exports, "__esModule", { value: true });
-const typia_1 = __importDefault(require("typia"));
-const member = ((generator) => {
-  const $generator = typia_1.default.random.generator;
-  const $ro0 = (_recursive = false, _depth = 0) => ({
-    id:
-      (generator?.customs ?? $generator.customs)?.string?.([
-        {
-          name: 'Format<"uuid">',
-          kind: "format",
-          value: "uuid",
-        },
-      ]) ?? (generator?.uuid ?? $generator.uuid)(),
-    email:
-      (generator?.customs ?? $generator.customs)?.string?.([
-        {
-          name: 'Format<"email">',
-          kind: "format",
-          value: "email",
-        },
-      ]) ?? (generator?.email ?? $generator.email)(),
-    age:
-      (generator?.customs ?? $generator.customs)?.number?.([
-        {
-          name: 'Type<"uint32">',
-          kind: "type",
-          value: "uint32",
-        },
-        {
-          name: "ExclusiveMinimum<19>",
-          kind: "exclusiveMinimum",
-          value: 19,
-        },
-        {
-          name: "Maximum<100>",
-          kind: "maximum",
-          value: 100,
-        },
-      ]) ?? (generator?.integer ?? $generator.integer)(19, 100),
+import * as __typia_transform__randomFormatUuid from "typia/lib/internal/_randomFormatUuid.js";
+import * as __typia_transform__randomFormatEmail from "typia/lib/internal/_randomFormatEmail.js";
+import * as __typia_transform__randomInteger from "typia/lib/internal/_randomInteger.js";
+import typia from "typia";
+const member = (() => {
+  const _ro0 = (_recursive = false, _depth = 0) => ({
+    id: (
+      _generator?.uuid ?? __typia_transform__randomFormatUuid._randomFormatUuid
+    )(),
+    email: (
+      _generator?.email ??
+      __typia_transform__randomFormatEmail._randomFormatEmail
+    )(),
+    age: (
+      _generator?.integer ?? __typia_transform__randomInteger._randomInteger
+    )({
+      type: "integer",
+      exclusiveMinimum: true,
+      minimum: 19,
+      maximum: 100,
+    }),
   });
-  return $ro0();
-})();
+  let _generator;
+  return (generator) => {
+    _generator = generator;
+    return _ro0();
+  };
+})()();
 console.log(member);
 ```
   </Tab>
@@ -570,68 +550,54 @@ interface CommentTag {
   </Tab>
   <Tab>
 ```javascript filename="random.tags.js" showLineNumbers
+import * as __typia_transform__randomInteger from "typia/lib/internal/_randomInteger.js";
+import * as __typia_transform__randomNumber from "typia/lib/internal/_randomNumber.js";
+import * as __typia_transform__randomPick from "typia/lib/internal/_randomPick.js";
+import * as __typia_transform__randomString from "typia/lib/internal/_randomString.js";
+import * as __typia_transform__randomPattern from "typia/lib/internal/_randomPattern.js";
+import * as __typia_transform__randomFormatDatetime from "typia/lib/internal/_randomFormatDatetime.js";
 import typia from "typia";
-const data = ((generator) => {
-  const $generator = typia.random.generator;
-  const $pick = typia.random.pick;
-  const $ro0 = (_recursive = false, _depth = 0) => ({
-    type:
-      (generator?.customs ?? $generator.customs)?.number?.([
-        {
-          name: 'Type<"int32">',
-          kind: "type",
-          value: "int32",
-        },
-      ]) ?? (generator?.integer ?? $generator.integer)(0, 100),
-    number: $pick([
+const data = (() => {
+  const _ro0 = (_recursive = false, _depth = 0) => ({
+    type: (
+      _generator?.integer ?? __typia_transform__randomInteger._randomInteger
+    )({
+      type: "integer",
+    }),
+    number: __typia_transform__randomPick._randomPick([
       () => undefined,
       () =>
-        (generator?.customs ?? $generator.customs)?.number?.([
-          {
-            name: "ExclusiveMinimum<19>",
-            kind: "exclusiveMinimum",
-            value: 19,
-          },
-          {
-            name: "Maximum<100>",
-            kind: "maximum",
-            value: 100,
-          },
-        ]) ?? (generator?.number ?? $generator.number)(19, 100),
+        (_generator?.number ?? __typia_transform__randomNumber._randomNumber)({
+          type: "number",
+          exclusiveMinimum: true,
+          minimum: 19,
+          maximum: 100,
+        }),
     ])(),
-    string:
-      (generator?.customs ?? $generator.customs)?.string?.([
-        {
-          name: "MinLength<3>",
-          kind: "minLength",
-          value: 3,
-        },
-      ]) ??
-      (generator?.string ?? $generator.string)(
-        (generator?.integer ?? $generator.integer)(3, 25),
-      ),
-    pattern:
-      (generator?.customs ?? $generator.customs)?.string?.([
-        {
-          name: 'Pattern<"^[a-z]+$">',
-          kind: "pattern",
-          value: "^[a-z]+$",
-        },
-      ]) ?? (generator?.pattern ?? $generator.pattern)(/^[a-z]+$/),
-    format: $pick([
+    string: (
+      _generator?.string ?? __typia_transform__randomString._randomString
+    )({
+      type: "string",
+      minLength: 3,
+    }),
+    pattern: (
+      _generator?.pattern ?? __typia_transform__randomPattern._randomPattern
+    )(new RegExp("^[a-z]+$")),
+    format: __typia_transform__randomPick._randomPick([
       () => null,
       () =>
-        (generator?.customs ?? $generator.customs)?.string?.([
-          {
-            name: 'Format<"date-time">',
-            kind: "format",
-            value: "date-time",
-          },
-        ]) ?? (generator?.datetime ?? $generator.datetime)(),
+        (
+          _generator?.datetime ??
+          __typia_transform__randomFormatDatetime._randomFormatDatetime
+        )(),
     ])(),
   });
-  return $ro0();
-})();
+  let _generator;
+  return (generator) => {
+    _generator = generator;
+    return _ro0();
+  };
+})()();
 console.log(data);
 ```
   </Tab>
@@ -914,59 +880,45 @@ type PowerOf<Value extends number> = typia.tags.TagBase<{
   </Tab>
   <Tab>
 ```javascript filename="examples/bin/random-customization.js"
-"use strict";
-var __importDefault =
-  (this && this.__importDefault) ||
-  function (mod) {
-    return mod && mod.__esModule ? mod : { default: mod };
-  };
-Object.defineProperty(exports, "__esModule", { value: true });
-const typia_1 = __importDefault(require("typia"));
-const RandomGenerator_1 = require("typia/lib/utils/RandomGenerator");
-const data = ((generator) => {
-  const $generator = typia_1.default.random.generator;
-  const $ro0 = (_recursive = false, _depth = 0) => ({
-    id:
-      (generator?.customs ?? $generator.customs)?.string?.([
-        {
-          name: 'Format<"uuid">',
-          kind: "format",
-          value: "uuid",
-        },
-      ]) ?? (generator?.uuid ?? $generator.uuid)(),
-    dollar:
-      (generator?.customs ?? $generator.customs)?.string?.([
-        {
-          name: "Dolloar",
-          kind: "dollar",
-        },
-      ]) ?? (generator?.string ?? $generator.string)(),
-    postfix:
-      (generator?.customs ?? $generator.customs)?.string?.([
-        {
-          name: 'Postfix<"abcd">',
-          kind: "postfix",
-          value: "abcd",
-        },
-      ]) ?? (generator?.string ?? $generator.string)(),
-    powerOf:
-      (generator?.customs ?? $generator.customs)?.number?.([
-        {
-          name: "PowerOf<2>",
-          kind: "powerOf",
-          value: 2,
-        },
-      ]) ?? (generator?.number ?? $generator.number)(0, 100),
+import * as __typia_transform__randomFormatUuid from "typia/lib/internal/_randomFormatUuid.js";
+import * as __typia_transform__randomString from "typia/lib/internal/_randomString.js";
+import * as __typia_transform__randomNumber from "typia/lib/internal/_randomNumber.js";
+import typia from "typia";
+import { RandomGenerator } from "typia/lib/utils/RandomGenerator";
+const data = (() => {
+  const _ro0 = (_recursive = false, _depth = 0) => ({
+    id: (
+      _generator?.uuid ?? __typia_transform__randomFormatUuid._randomFormatUuid
+    )(),
+    dollar: (
+      _generator?.string ?? __typia_transform__randomString._randomString
+    )({
+      type: "string",
+    }),
+    postfix: (
+      _generator?.string ?? __typia_transform__randomString._randomString
+    )({
+      type: "string",
+    }),
+    powerOf: (
+      _generator?.number ?? __typia_transform__randomNumber._randomNumber
+    )({
+      type: "number",
+    }),
   });
-  return $ro0();
-})({
+  let _generator;
+  return (generator) => {
+    _generator = generator;
+    return _ro0();
+  };
+})()({
   customs: {
     string: (tags) => {
       if (tags.find((t) => t.kind === "dollar") !== undefined)
-        return "$" + RandomGenerator_1.RandomGenerator.integer();
+        return "$" + RandomGenerator.integer();
       const postfix = tags.find((t) => t.kind === "postfix");
       if (postfix !== undefined)
-        return RandomGenerator_1.RandomGenerator.string() + postfix.value;
+        return RandomGenerator.string() + postfix.value;
     },
   },
 });

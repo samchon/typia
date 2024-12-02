@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+message ObjectSequenceProtobuf {
+  repeated ObjectSequenceProtobuf.IMember value = 1;
+  message IMember {
+    oneof id {
+      bytes v13 = 13;
+      uint64 v12 = 12;
+      string v11 = 11;
+    }
+    optional string name = 20;
+    repeated ObjectSequenceProtobuf.IMember children = 30;
+    map<string, string> keywords = 40;
+    oneof thumbnail {
+      bytes v41 = 41;
+      string v42 = 42;
+    }
+    required string email = 43;
+    repeated ObjectSequenceProtobuf.IHobby hobbies = 44;
+  }
+
+  message IHobby {
+    required string id = 1;
+    required string name = 2;
+    required bool valid = 3;
+  }
+}

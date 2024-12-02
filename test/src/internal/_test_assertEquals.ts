@@ -51,7 +51,8 @@ export const _test_assertEquals =
         if (
           (exp as Function).constructor?.name === ErrorClass.name &&
           typia.is<TypeGuardError.IProps>(exp) &&
-          exp.method === "typia.assertEquals" &&
+          (exp.method === "typia.assertEquals" ||
+            exp.method === "typia.createAssertEquals") &&
           exp.path === fullPath &&
           exp.expected === "undefined" &&
           exp.value === key

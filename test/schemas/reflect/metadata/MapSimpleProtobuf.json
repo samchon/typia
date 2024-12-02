@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "MapSimpleProtobuf"
+        {
+          "name": "MapSimpleProtobuf",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -40,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "boolean"
+                      "value": "boolean",
+                      "tags": []
                     }
                   ]
                 }
@@ -122,7 +126,8 @@
                     "natives": [],
                     "sets": [],
                     "maps": []
-                  }
+                  },
+                  "tags": []
                 }
               ]
             },
@@ -142,7 +147,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "int32"
+                      "value": "int32",
+                      "tags": []
                     }
                   ]
                 }
@@ -217,7 +223,7 @@
                               "name": "Type<\"int32\">",
                               "kind": "type",
                               "value": "int32",
-                              "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
+                              "validate": "$importInternal(\"isTypeInt32\")($input)",
                               "exclusive": true,
                               "schema": {
                                 "type": "integer"
@@ -238,7 +244,8 @@
                     "natives": [],
                     "sets": [],
                     "maps": []
-                  }
+                  },
+                  "tags": []
                 }
               ]
             },
@@ -258,7 +265,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "bigint"
+                      "value": "bigint",
+                      "tags": []
                     }
                   ]
                 }
@@ -340,7 +348,8 @@
                     "natives": [],
                     "sets": [],
                     "maps": []
-                  }
+                  },
+                  "tags": []
                 }
               ]
             },
@@ -360,7 +369,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "double"
+                      "value": "double",
+                      "tags": []
                     }
                   ]
                 }
@@ -442,7 +452,8 @@
                     "natives": [],
                     "sets": [],
                     "maps": []
-                  }
+                  },
+                  "tags": []
                 }
               ]
             },
@@ -462,7 +473,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "string"
+                      "value": "string",
+                      "tags": []
                     }
                   ]
                 }
@@ -558,7 +570,8 @@
                     "natives": [],
                     "sets": [],
                     "maps": []
-                  }
+                  },
+                  "tags": []
                 }
               ]
             },
@@ -578,7 +591,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "bytes"
+                      "value": "bytes",
+                      "tags": []
                     }
                   ]
                 }
@@ -653,11 +667,15 @@
                     "objects": [],
                     "aliases": [],
                     "natives": [
-                      "Uint8Array"
+                      {
+                        "name": "Uint8Array",
+                        "tags": []
+                      }
                     ],
                     "sets": [],
                     "maps": []
-                  }
+                  },
+                  "tags": []
                 }
               ]
             },
@@ -677,7 +695,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "objects"
+                      "value": "objects",
+                      "tags": []
                     }
                   ]
                 }
@@ -750,13 +769,17 @@
                     "arrays": [],
                     "tuples": [],
                     "objects": [
-                      "MapSimpleProtobuf"
+                      {
+                        "name": "MapSimpleProtobuf",
+                        "tags": []
+                      }
                     ],
                     "aliases": [],
                     "natives": [],
                     "sets": [],
                     "maps": []
-                  }
+                  },
+                  "tags": []
                 }
               ]
             },

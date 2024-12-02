@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "TemplateUnion"
+        {
+          "name": "TemplateUnion",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -40,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -107,7 +111,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "prefix"
+                      "value": "prefix",
+                      "tags": []
                     }
                   ]
                 }
@@ -146,7 +151,8 @@
                           "type": "string",
                           "values": [
                             {
-                              "value": "prefix_"
+                              "value": "prefix_",
+                              "tags": []
                             }
                           ]
                         }
@@ -186,7 +192,8 @@
                       "sets": [],
                       "maps": []
                     }
-                  ]
+                  ],
+                  "tags": []
                 },
                 {
                   "row": [
@@ -202,7 +209,8 @@
                           "type": "string",
                           "values": [
                             {
-                              "value": "prefix_"
+                              "value": "prefix_",
+                              "tags": []
                             }
                           ]
                         }
@@ -242,7 +250,8 @@
                       "sets": [],
                       "maps": []
                     }
-                  ]
+                  ],
+                  "tags": []
                 }
               ],
               "escaped": null,
@@ -271,7 +280,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "postfix"
+                      "value": "postfix",
+                      "tags": []
                     }
                   ]
                 }
@@ -334,7 +344,8 @@
                           "type": "string",
                           "values": [
                             {
-                              "value": "_postfix"
+                              "value": "_postfix",
+                              "tags": []
                             }
                           ]
                         }
@@ -350,7 +361,8 @@
                       "sets": [],
                       "maps": []
                     }
-                  ]
+                  ],
+                  "tags": []
                 },
                 {
                   "row": [
@@ -390,7 +402,8 @@
                           "type": "string",
                           "values": [
                             {
-                              "value": "_postfix"
+                              "value": "_postfix",
+                              "tags": []
                             }
                           ]
                         }
@@ -406,7 +419,8 @@
                       "sets": [],
                       "maps": []
                     }
-                  ]
+                  ],
+                  "tags": []
                 }
               ],
               "escaped": null,
@@ -435,7 +449,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "middle"
+                      "value": "middle",
+                      "tags": []
                     }
                   ]
                 }
@@ -488,7 +503,8 @@
                           "type": "string",
                           "values": [
                             {
-                              "value": "the_"
+                              "value": "the_",
+                              "tags": []
                             }
                           ]
                         }
@@ -540,7 +556,8 @@
                           "type": "string",
                           "values": [
                             {
-                              "value": "_value"
+                              "value": "_value",
+                              "tags": []
                             }
                           ]
                         }
@@ -556,7 +573,8 @@
                       "sets": [],
                       "maps": []
                     }
-                  ]
+                  ],
+                  "tags": []
                 }
               ],
               "escaped": null,
@@ -585,7 +603,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "mixed"
+                      "value": "mixed",
+                      "tags": []
                     }
                   ]
                 }
@@ -647,7 +666,8 @@
                           "type": "string",
                           "values": [
                             {
-                              "value": "the_"
+                              "value": "the_",
+                              "tags": []
                             }
                           ]
                         }
@@ -699,7 +719,8 @@
                           "type": "string",
                           "values": [
                             {
-                              "value": "_value"
+                              "value": "_value",
+                              "tags": []
                             }
                           ]
                         }
@@ -715,7 +736,8 @@
                       "sets": [],
                       "maps": []
                     }
-                  ]
+                  ],
+                  "tags": []
                 }
               ],
               "escaped": null,
@@ -723,7 +745,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "__type"
+                {
+                  "name": "__type",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -757,7 +782,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "name"
+                      "value": "name",
+                      "tags": []
                     }
                   ]
                 }
@@ -827,7 +853,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "TemplateUnion.Type"
+            {
+              "name": "TemplateUnion.Type",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

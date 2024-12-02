@@ -43,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "x"
+                      "value": "x",
+                      "tags": []
                     }
                   ]
                 }
@@ -99,7 +100,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "y"
+                      "value": "y",
+                      "tags": []
                     }
                   ]
                 }
@@ -155,7 +157,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "type"
+                      "value": "type",
+                      "tags": []
                     }
                   ]
                 }
@@ -227,7 +230,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "p1"
+                      "value": "p1",
+                      "tags": []
                     }
                   ]
                 }
@@ -257,7 +261,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionExplicit.IPoint"
+                {
+                  "name": "ObjectUnionExplicit.IPoint",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -280,7 +287,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "p2"
+                      "value": "p2",
+                      "tags": []
                     }
                   ]
                 }
@@ -310,7 +318,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionExplicit.IPoint"
+                {
+                  "name": "ObjectUnionExplicit.IPoint",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -333,7 +344,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "type"
+                      "value": "type",
+                      "tags": []
                     }
                   ]
                 }
@@ -405,7 +417,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "x"
+                      "value": "x",
+                      "tags": []
                     }
                   ]
                 }
@@ -461,7 +474,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "y"
+                      "value": "y",
+                      "tags": []
                     }
                   ]
                 }
@@ -528,7 +542,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "p1"
+                      "value": "p1",
+                      "tags": []
                     }
                   ]
                 }
@@ -558,7 +573,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionExplicit.IPoint"
+                {
+                  "name": "ObjectUnionExplicit.IPoint",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -581,7 +599,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "p2"
+                      "value": "p2",
+                      "tags": []
                     }
                   ]
                 }
@@ -611,7 +630,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionExplicit.IPoint"
+                {
+                  "name": "ObjectUnionExplicit.IPoint",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -634,7 +656,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "p3"
+                      "value": "p3",
+                      "tags": []
                     }
                   ]
                 }
@@ -664,7 +687,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionExplicit.IPoint"
+                {
+                  "name": "ObjectUnionExplicit.IPoint",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -687,7 +713,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "type"
+                      "value": "type",
+                      "tags": []
                     }
                   ]
                 }
@@ -759,7 +786,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "p1"
+                      "value": "p1",
+                      "tags": []
                     }
                   ]
                 }
@@ -789,7 +817,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionExplicit.IPoint"
+                {
+                  "name": "ObjectUnionExplicit.IPoint",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -812,7 +843,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "p2"
+                      "value": "p2",
+                      "tags": []
                     }
                   ]
                 }
@@ -842,7 +874,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionExplicit.IPoint"
+                {
+                  "name": "ObjectUnionExplicit.IPoint",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -865,7 +900,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "p3"
+                      "value": "p3",
+                      "tags": []
                     }
                   ]
                 }
@@ -895,7 +931,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionExplicit.IPoint"
+                {
+                  "name": "ObjectUnionExplicit.IPoint",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -918,7 +957,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "p4"
+                      "value": "p4",
+                      "tags": []
                     }
                   ]
                 }
@@ -948,7 +988,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionExplicit.IPoint"
+                {
+                  "name": "ObjectUnionExplicit.IPoint",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -971,7 +1014,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "type"
+                      "value": "type",
+                      "tags": []
                     }
                   ]
                 }
@@ -1043,7 +1087,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "points"
+                      "value": "points",
+                      "tags": []
                     }
                   ]
                 }
@@ -1099,7 +1144,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "type"
+                      "value": "type",
+                      "tags": []
                     }
                   ]
                 }
@@ -1171,7 +1217,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "outer"
+                      "value": "outer",
+                      "tags": []
                     }
                   ]
                 }
@@ -1201,7 +1248,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionExplicit.IPolyline"
+                {
+                  "name": "ObjectUnionExplicit.IPolyline",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -1224,7 +1274,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "inner"
+                      "value": "inner",
+                      "tags": []
                     }
                   ]
                 }
@@ -1280,7 +1331,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "type"
+                      "value": "type",
+                      "tags": []
                     }
                   ]
                 }
@@ -1352,7 +1404,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "points"
+                      "value": "points",
+                      "tags": []
                     }
                   ]
                 }
@@ -1419,7 +1472,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "centroid"
+                      "value": "centroid",
+                      "tags": []
                     }
                   ]
                 }
@@ -1449,7 +1503,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionExplicit.IPoint"
+                {
+                  "name": "ObjectUnionExplicit.IPoint",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -1472,7 +1529,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "radius"
+                      "value": "radius",
+                      "tags": []
                     }
                   ]
                 }
@@ -1528,7 +1586,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "type"
+                      "value": "type",
+                      "tags": []
                     }
                   ]
                 }
@@ -1603,13 +1662,34 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ObjectUnionExplicit.Discriminator<\"point\", ObjectUnionExplicit.IPoint>",
-            "ObjectUnionExplicit.Discriminator<\"line\", ObjectUnionExplicit.ILine>",
-            "ObjectUnionExplicit.Discriminator<\"triangle\", ObjectUnionExplicit.ITriangle>",
-            "ObjectUnionExplicit.Discriminator<\"rectangle\", ObjectUnionExplicit.IRectangle>",
-            "ObjectUnionExplicit.Discriminator<\"polyline\", ObjectUnionExplicit.IPolyline>",
-            "ObjectUnionExplicit.Discriminator<\"polygon\", ObjectUnionExplicit.IPolygon>",
-            "ObjectUnionExplicit.Discriminator<\"circle\", ObjectUnionExplicit.ICircle>"
+            {
+              "name": "ObjectUnionExplicit.Discriminator<\"point\", ObjectUnionExplicit.IPoint>",
+              "tags": []
+            },
+            {
+              "name": "ObjectUnionExplicit.Discriminator<\"line\", ObjectUnionExplicit.ILine>",
+              "tags": []
+            },
+            {
+              "name": "ObjectUnionExplicit.Discriminator<\"triangle\", ObjectUnionExplicit.ITriangle>",
+              "tags": []
+            },
+            {
+              "name": "ObjectUnionExplicit.Discriminator<\"rectangle\", ObjectUnionExplicit.IRectangle>",
+              "tags": []
+            },
+            {
+              "name": "ObjectUnionExplicit.Discriminator<\"polyline\", ObjectUnionExplicit.IPolyline>",
+              "tags": []
+            },
+            {
+              "name": "ObjectUnionExplicit.Discriminator<\"polygon\", ObjectUnionExplicit.IPolygon>",
+              "tags": []
+            },
+            {
+              "name": "ObjectUnionExplicit.Discriminator<\"circle\", ObjectUnionExplicit.ICircle>",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],
@@ -1638,7 +1718,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ObjectUnionExplicit.IPoint"
+            {
+              "name": "ObjectUnionExplicit.IPoint",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],
@@ -1667,7 +1750,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ObjectUnionExplicit.IPolyline"
+            {
+              "name": "ObjectUnionExplicit.IPolyline",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "CommentTagBigInt"
+        {
+          "name": "CommentTagBigInt",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -40,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -96,7 +100,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "ranged"
+                      "value": "ranged",
+                      "tags": []
                     }
                   ]
                 }
@@ -135,7 +140,10 @@
                         "exclusive": [
                           "minimum",
                           "exclusiveMinimum"
-                        ]
+                        ],
+                        "schema": {
+                          "minimum": 0
+                        }
                       },
                       {
                         "target": "bigint",
@@ -149,7 +157,10 @@
                         "exclusive": [
                           "maximum",
                           "exclusiveMaximum"
-                        ]
+                        ],
+                        "schema": {
+                          "maximum": 100
+                        }
                       }
                     ]
                   ]
@@ -202,7 +213,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "minimum"
+                      "value": "minimum",
+                      "tags": []
                     }
                   ]
                 }
@@ -241,7 +253,10 @@
                         "exclusive": [
                           "minimum",
                           "exclusiveMinimum"
-                        ]
+                        ],
+                        "schema": {
+                          "minimum": 0
+                        }
                       }
                     ]
                   ]
@@ -285,7 +300,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "maximum"
+                      "value": "maximum",
+                      "tags": []
                     }
                   ]
                 }
@@ -324,7 +340,10 @@
                         "exclusive": [
                           "maximum",
                           "exclusiveMaximum"
-                        ]
+                        ],
+                        "schema": {
+                          "maximum": 100
+                        }
                       }
                     ]
                   ]
@@ -368,7 +387,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "multipleOf"
+                      "value": "multipleOf",
+                      "tags": []
                     }
                   ]
                 }
@@ -404,7 +424,10 @@
                           "value": "3"
                         },
                         "validate": "$input % 3n === 0n",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "multipleOf": 3
+                        }
                       }
                     ]
                   ]

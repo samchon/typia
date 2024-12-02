@@ -1,0 +1,572 @@
+{
+  "model": "gemini",
+  "options": {
+    "recursive": 3,
+    "separate": null
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "description": "@format uuid"
+                      },
+                      "minItems": 3,
+                      "maxItems": 3
+                    },
+                    "minItems": {
+                      "type": "array",
+                      "items": {
+                        "type": "number",
+                        "description": "@minimum 3"
+                      },
+                      "minItems": 3
+                    },
+                    "both": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "description": "@format uuid"
+                      },
+                      "minItems": 3,
+                      "maxItems": 7
+                    },
+                    "equal": {
+                      "type": "array",
+                      "items": {
+                        "type": "number",
+                        "description": "@minimum 10\n@maximum 10"
+                      },
+                      "minItems": 10,
+                      "maxItems": 10
+                    },
+                    "unique": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "uniqueItems": true
+                    }
+                  },
+                  "required": [
+                    "items",
+                    "minItems",
+                    "both",
+                    "equal",
+                    "unique"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          }
+        },
+        "required": [
+          "first"
+        ]
+      },
+      "strict": true
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "description": "@format uuid"
+                      },
+                      "minItems": 3,
+                      "maxItems": 3
+                    },
+                    "minItems": {
+                      "type": "array",
+                      "items": {
+                        "type": "number",
+                        "description": "@minimum 3"
+                      },
+                      "minItems": 3
+                    },
+                    "both": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "description": "@format uuid"
+                      },
+                      "minItems": 3,
+                      "maxItems": 7
+                    },
+                    "equal": {
+                      "type": "array",
+                      "items": {
+                        "type": "number",
+                        "description": "@minimum 10\n@maximum 10"
+                      },
+                      "minItems": 10,
+                      "maxItems": 10
+                    },
+                    "unique": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "uniqueItems": true
+                    }
+                  },
+                  "required": [
+                    "items",
+                    "minItems",
+                    "both",
+                    "equal",
+                    "unique"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "description": "@format uuid"
+                      },
+                      "minItems": 3,
+                      "maxItems": 3
+                    },
+                    "minItems": {
+                      "type": "array",
+                      "items": {
+                        "type": "number",
+                        "description": "@minimum 3"
+                      },
+                      "minItems": 3
+                    },
+                    "both": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "description": "@format uuid"
+                      },
+                      "minItems": 3,
+                      "maxItems": 7
+                    },
+                    "equal": {
+                      "type": "array",
+                      "items": {
+                        "type": "number",
+                        "description": "@minimum 10\n@maximum 10"
+                      },
+                      "minItems": 10,
+                      "maxItems": 10
+                    },
+                    "unique": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "uniqueItems": true
+                    }
+                  },
+                  "required": [
+                    "items",
+                    "minItems",
+                    "both",
+                    "equal",
+                    "unique"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ]
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "@format uuid"
+                  },
+                  "minItems": 3,
+                  "maxItems": 3
+                },
+                "minItems": {
+                  "type": "array",
+                  "items": {
+                    "type": "number",
+                    "description": "@minimum 3"
+                  },
+                  "minItems": 3
+                },
+                "both": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "@format uuid"
+                  },
+                  "minItems": 3,
+                  "maxItems": 7
+                },
+                "equal": {
+                  "type": "array",
+                  "items": {
+                    "type": "number",
+                    "description": "@minimum 10\n@maximum 10"
+                  },
+                  "minItems": 10,
+                  "maxItems": 10
+                },
+                "unique": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "uniqueItems": true
+                }
+              },
+              "required": [
+                "items",
+                "minItems",
+                "both",
+                "equal",
+                "unique"
+              ]
+            }
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      "strict": true
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "description": "@format uuid"
+                      },
+                      "minItems": 3,
+                      "maxItems": 3
+                    },
+                    "minItems": {
+                      "type": "array",
+                      "items": {
+                        "type": "number",
+                        "description": "@minimum 3"
+                      },
+                      "minItems": 3
+                    },
+                    "both": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "description": "@format uuid"
+                      },
+                      "minItems": 3,
+                      "maxItems": 7
+                    },
+                    "equal": {
+                      "type": "array",
+                      "items": {
+                        "type": "number",
+                        "description": "@minimum 10\n@maximum 10"
+                      },
+                      "minItems": 10,
+                      "maxItems": 10
+                    },
+                    "unique": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "uniqueItems": true
+                    }
+                  },
+                  "required": [
+                    "items",
+                    "minItems",
+                    "both",
+                    "equal",
+                    "unique"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "nullable": true
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "description": "@format uuid"
+                      },
+                      "minItems": 3,
+                      "maxItems": 3
+                    },
+                    "minItems": {
+                      "type": "array",
+                      "items": {
+                        "type": "number",
+                        "description": "@minimum 3"
+                      },
+                      "minItems": 3
+                    },
+                    "both": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "description": "@format uuid"
+                      },
+                      "minItems": 3,
+                      "maxItems": 7
+                    },
+                    "equal": {
+                      "type": "array",
+                      "items": {
+                        "type": "number",
+                        "description": "@minimum 10\n@maximum 10"
+                      },
+                      "minItems": 10,
+                      "maxItems": 10
+                    },
+                    "unique": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "uniqueItems": true
+                    }
+                  },
+                  "required": [
+                    "items",
+                    "minItems",
+                    "both",
+                    "equal",
+                    "unique"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "nullable": true
+          },
+          "third": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "description": "@format uuid"
+                      },
+                      "minItems": 3,
+                      "maxItems": 3
+                    },
+                    "minItems": {
+                      "type": "array",
+                      "items": {
+                        "type": "number",
+                        "description": "@minimum 3"
+                      },
+                      "minItems": 3
+                    },
+                    "both": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "description": "@format uuid"
+                      },
+                      "minItems": 3,
+                      "maxItems": 7
+                    },
+                    "equal": {
+                      "type": "array",
+                      "items": {
+                        "type": "number",
+                        "description": "@minimum 10\n@maximum 10"
+                      },
+                      "minItems": 10,
+                      "maxItems": 10
+                    },
+                    "unique": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "uniqueItems": true
+                    }
+                  },
+                  "required": [
+                    "items",
+                    "minItems",
+                    "both",
+                    "equal",
+                    "unique"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ]
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "@format uuid"
+                  },
+                  "minItems": 3,
+                  "maxItems": 3
+                },
+                "minItems": {
+                  "type": "array",
+                  "items": {
+                    "type": "number",
+                    "description": "@minimum 3"
+                  },
+                  "minItems": 3
+                },
+                "both": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "@format uuid"
+                  },
+                  "minItems": 3,
+                  "maxItems": 7
+                },
+                "equal": {
+                  "type": "array",
+                  "items": {
+                    "type": "number",
+                    "description": "@minimum 10\n@maximum 10"
+                  },
+                  "minItems": 10,
+                  "maxItems": 10
+                },
+                "unique": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "uniqueItems": true
+                }
+              },
+              "required": [
+                "items",
+                "minItems",
+                "both",
+                "equal",
+                "unique"
+              ]
+            }
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "nullable": true
+      },
+      "strict": true
+    }
+  ]
+}

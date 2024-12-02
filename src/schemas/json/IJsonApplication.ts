@@ -1,22 +1,73 @@
-import type { OpenApi, OpenApiV3 } from "@samchon/openapi";
+import { IJsonSchemaCollection } from "./IJsonSchemaCollection";
 
-export type IJsonApplication<
-  Version extends "3.0" | "3.1" = "3.1",
-  Types = unknown[],
-> = Version extends "3.0"
-  ? IJsonApplication.IV3_0<Types>
-  : IJsonApplication.IV3_1<Types>;
-export namespace IJsonApplication {
-  export interface IV3_0<Types = unknown[]> {
-    version: "3.0";
-    schemas: OpenApiV3.IJsonSchema[];
-    components: OpenApiV3.IComponents;
-    __types?: Types | undefined;
-  }
-  export interface IV3_1<Types = unknown[]> {
-    version: "3.1";
-    components: OpenApi.IComponents;
-    schemas: OpenApi.IJsonSchema[];
-    __types?: Types | undefined;
-  }
-}
+/**
+ * Collection of JSON schemas.
+ *
+ * @deprecated Use {@link IJsonSchemaCollection} instead please.
+ *             This interface type would be changed to {@link ILlmApplication} like
+ *             structure in the future version (maybe next v8 major update).
+ * @template Version Version of the OpenAPI specification.
+ * @template Types Original TypeScript types used in the JSON schemas.
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export import IJsonApplication = IJsonSchemaCollection;
+
+// export interface IJsonApplication<
+//   Version extends "3.0" | "3.1" = "3.1",
+//   App extends any = object,
+// > {
+//   version: Version;
+//   components: IJsonApplication.IComponents<IJsonApplication.Schema<Version>>;
+//   functions: IJsonApplication.IFunction<IJsonApplication.Schema<Version>>[];
+//   __application?: App | undefined;
+// }
+// export namespace IJsonApplication {
+//   export type Schema<Version extends "3.0" | "3.1"> = Version extends "3.1"
+//     ? OpenApi.IJsonSchema
+//     : OpenApiV3.IJsonSchema;
+
+//   export interface IComponents<
+//     Schema extends
+//       | OpenApi.IJsonSchema
+//       | OpenApiV3.IJsonSchema = OpenApi.IJsonSchema,
+//   > {
+//     schemas?: Record<string, Schema>;
+//   }
+
+//   export interface IFunction<
+//     Schema extends
+//       | OpenApi.IJsonSchema
+//       | OpenApiV3.IJsonSchema = OpenApi.IJsonSchema,
+//   > {
+//     async: boolean;
+//     name: string;
+//     parameters: IParameter<Schema>[];
+//     output: IOutput<Schema> | undefined;
+//     summary?: string | undefined;
+//     description?: string | undefined;
+//     deprecated?: boolean;
+//     tags?: string[];
+//   }
+
+//   export interface IParameter<
+//     Schema extends
+//       | OpenApi.IJsonSchema
+//       | OpenApiV3.IJsonSchema = OpenApi.IJsonSchema,
+//   > {
+//     name: string;
+//     required: boolean;
+//     schema: Schema;
+//     title?: string | undefined;
+//     description?: string | undefined;
+//   }
+
+//   export interface IOutput<
+//     Schema extends
+//       | OpenApi.IJsonSchema
+//       | OpenApiV3.IJsonSchema = OpenApi.IJsonSchema,
+//   > {
+//     schema: Schema;
+//     required: boolean;
+//     description?: string | undefined;
+//   }
+// }

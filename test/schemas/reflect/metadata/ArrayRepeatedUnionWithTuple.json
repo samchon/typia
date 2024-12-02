@@ -69,7 +69,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "scale"
+                      "value": "scale",
+                      "tags": []
                     }
                   ]
                 }
@@ -99,7 +100,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ArrayRepeatedUnionWithTuple.IPoint3D"
+                {
+                  "name": "ArrayRepeatedUnionWithTuple.IPoint3D",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -122,7 +126,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "position"
+                      "value": "position",
+                      "tags": []
                     }
                   ]
                 }
@@ -152,7 +157,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ArrayRepeatedUnionWithTuple.IPoint3D"
+                {
+                  "name": "ArrayRepeatedUnionWithTuple.IPoint3D",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -175,7 +183,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "rotate"
+                      "value": "rotate",
+                      "tags": []
                     }
                   ]
                 }
@@ -205,7 +214,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ArrayRepeatedUnionWithTuple.IPoint3D"
+                {
+                  "name": "ArrayRepeatedUnionWithTuple.IPoint3D",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -228,7 +240,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "pivot"
+                      "value": "pivot",
+                      "tags": []
                     }
                   ]
                 }
@@ -258,7 +271,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ArrayRepeatedUnionWithTuple.IPoint3D"
+                {
+                  "name": "ArrayRepeatedUnionWithTuple.IPoint3D",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -292,7 +308,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "x"
+                      "value": "x",
+                      "tags": []
                     }
                   ]
                 }
@@ -348,7 +365,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "y"
+                      "value": "y",
+                      "tags": []
                     }
                   ]
                 }
@@ -404,7 +422,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "z"
+                      "value": "z",
+                      "tags": []
                     }
                   ]
                 }
@@ -564,7 +583,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ArrayRepeatedUnionWithTuple.IBox3D"
+            {
+              "name": "ArrayRepeatedUnionWithTuple.IBox3D",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],
@@ -679,7 +701,10 @@
             "arrays": [],
             "tuples": [],
             "objects": [
-              "ArrayRepeatedUnionWithTuple.IBox3D"
+              {
+                "name": "ArrayRepeatedUnionWithTuple.IBox3D",
+                "tags": []
+              }
             ],
             "aliases": [],
             "natives": [],
@@ -700,7 +725,10 @@
             "arrays": [],
             "tuples": [],
             "objects": [
-              "ArrayRepeatedUnionWithTuple.IPoint3D"
+              {
+                "name": "ArrayRepeatedUnionWithTuple.IPoint3D",
+                "tags": []
+              }
             ],
             "aliases": [],
             "natives": [],

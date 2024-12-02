@@ -1,0 +1,92 @@
+{
+  "model": "gemini",
+  "options": {
+    "recursive": 3,
+    "separate": null
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {},
+            "required": []
+          }
+        },
+        "required": [
+          "first"
+        ]
+      },
+      "strict": true
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {},
+            "required": []
+          },
+          "second": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ]
+      },
+      "output": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      },
+      "strict": true
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "nullable": true
+          },
+          "second": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "nullable": true
+          },
+          "third": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ]
+      },
+      "output": {
+        "type": "object",
+        "properties": {},
+        "required": [],
+        "nullable": true
+      },
+      "strict": true
+    }
+  ]
+}

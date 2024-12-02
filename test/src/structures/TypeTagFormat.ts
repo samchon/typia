@@ -1,6 +1,7 @@
 import crypto from "crypto";
 import { tags } from "typia";
-import { RandomGenerator } from "typia/lib/utils/RandomGenerator";
+import { _randomFormatIpv4 } from "typia/lib/internal/_randomFormatIpv4";
+import { _randomFormatIpv6 } from "typia/lib/internal/_randomFormatIpv6";
 import { v4 } from "uuid";
 
 import { Spoiler } from "../helpers/Spoiler";
@@ -111,14 +112,14 @@ export namespace TypeTagFormat {
       input.iriReference = "/네스티아";
       return ["$input.iriReference"];
     },
-    ...[RandomGenerator.ipv6(), "127.0.0.1234", "github.com"].map(
+    ...[_randomFormatIpv6(), "127.0.0.1234", "github.com"].map(
       (ipv4) => (input: TypeTagFormat) => {
         input.ipv4 = ipv4;
         return ["$input.ipv4"];
       },
     ),
     (input) => {
-      input.ipv6 = RandomGenerator.ipv4();
+      input.ipv6 = _randomFormatIpv4();
       return ["$input.ipv6"];
     },
     ...["github.com", "http://깃허브.com", "/abc"].map(

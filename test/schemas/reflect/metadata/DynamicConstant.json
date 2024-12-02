@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "DynamicConstant"
+        {
+          "name": "DynamicConstant",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -40,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -70,7 +74,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "__type"
+                {
+                  "name": "__type",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -104,7 +111,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "a"
+                      "value": "a",
+                      "tags": []
                     }
                   ]
                 }
@@ -160,7 +168,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "b"
+                      "value": "b",
+                      "tags": []
                     }
                   ]
                 }
@@ -216,7 +225,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "c"
+                      "value": "c",
+                      "tags": []
                     }
                   ]
                 }
@@ -272,7 +282,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "d"
+                      "value": "d",
+                      "tags": []
                     }
                   ]
                 }

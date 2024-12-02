@@ -1,0 +1,186 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "value": {
+                "description": "@minimum 3",
+                "type": "number"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "value": {
+                "description": "@minLength 3\n@maxLength 7",
+                "type": "string"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          }
+        ]
+      }
+    },
+    "nullable": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "description": "@minimum 3",
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "value"
+                ]
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "description": "@minLength 3\n@maxLength 7",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "value"
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "optional": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "value": {
+                "description": "@minimum 3",
+                "type": "number"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "value": {
+                "description": "@minLength 3\n@maxLength 7",
+                "type": "string"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          }
+        ]
+      }
+    },
+    "faint": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "description": "@minimum 3",
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "value"
+                ]
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "description": "@minLength 3\n@maxLength 7",
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "value"
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "description": "@minimum 3",
+                  "type": "number"
+                }
+              },
+              "required": [
+                "value"
+              ]
+            },
+            {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "description": "@minLength 3\n@maxLength 7",
+                  "type": "string"
+                }
+              },
+              "required": [
+                "value"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "optional",
+    "faint",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {}
+}

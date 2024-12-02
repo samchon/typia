@@ -16,7 +16,7 @@ import { IMetadataApplication } from "./schemas/metadata/IMetadataApplication";
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function metadata(): never;
+export function metadata(): never;
 
 /**
  * Metadata Application.
@@ -32,20 +32,14 @@ function metadata(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function metadata<Types extends unknown[]>(): IMetadataApplication;
+export function metadata<Types extends unknown[]>(): IMetadataApplication;
 
 /**
  * @internal
  */
-function metadata(): never {
+export function metadata(): never {
   halt("metadata");
 }
-
-const metadataPure = /** @__PURE__ */ Object.assign<typeof metadata, {}>(
-  metadata,
-  { from: (input: unknown) => input },
-);
-export { metadataPure as metadata };
 
 export function name<T, Regular extends boolean = false>(): string;
 export function name(): never;

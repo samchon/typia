@@ -1,0 +1,226 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "key": {
+                "type": "string",
+                "enum": [
+                  "key"
+                ]
+              }
+            },
+            "required": [
+              "key"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "boolean",
+            "enum": [
+              false
+            ]
+          },
+          {
+            "type": "number",
+            "enum": [
+              1,
+              2
+            ]
+          },
+          {
+            "type": "string",
+            "enum": [
+              "three",
+              "four"
+            ]
+          }
+        ]
+      }
+    },
+    "nullable": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "key": {
+                "type": "string",
+                "enum": [
+                  "key"
+                ]
+              }
+            },
+            "required": [
+              "key"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "boolean",
+            "enum": [
+              false
+            ]
+          },
+          {
+            "type": "number",
+            "enum": [
+              1,
+              2
+            ]
+          },
+          {
+            "type": "string",
+            "enum": [
+              "three",
+              "four"
+            ]
+          }
+        ]
+      },
+      "nullable": true
+    },
+    "optional": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "key": {
+                "type": "string",
+                "enum": [
+                  "key"
+                ]
+              }
+            },
+            "required": [
+              "key"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "boolean",
+            "enum": [
+              false
+            ]
+          },
+          {
+            "type": "number",
+            "enum": [
+              1,
+              2
+            ]
+          },
+          {
+            "type": "string",
+            "enum": [
+              "three",
+              "four"
+            ]
+          }
+        ]
+      }
+    },
+    "faint": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "key": {
+                "type": "string",
+                "enum": [
+                  "key"
+                ]
+              }
+            },
+            "required": [
+              "key"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "boolean",
+            "enum": [
+              false
+            ]
+          },
+          {
+            "type": "number",
+            "enum": [
+              1,
+              2
+            ]
+          },
+          {
+            "type": "string",
+            "enum": [
+              "three",
+              "four"
+            ]
+          }
+        ]
+      },
+      "nullable": true
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "enum": [
+                    "key"
+                  ]
+                }
+              },
+              "required": [
+                "key"
+              ],
+              "additionalProperties": false
+            },
+            {
+              "type": "boolean",
+              "enum": [
+                false
+              ]
+            },
+            {
+              "type": "number",
+              "enum": [
+                1,
+                2
+              ]
+            },
+            {
+              "type": "string",
+              "enum": [
+                "three",
+                "four"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false
+}

@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "DynamicTemplate"
+        {
+          "name": "DynamicTemplate",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -51,7 +54,8 @@
                           "type": "string",
                           "values": [
                             {
-                              "value": "prefix_"
+                              "value": "prefix_",
+                              "tags": []
                             }
                           ]
                         }
@@ -91,7 +95,8 @@
                       "sets": [],
                       "maps": []
                     }
-                  ]
+                  ],
+                  "tags": []
                 }
               ],
               "escaped": null,
@@ -179,7 +184,8 @@
                           "type": "string",
                           "values": [
                             {
-                              "value": "_postfix"
+                              "value": "_postfix",
+                              "tags": []
                             }
                           ]
                         }
@@ -195,7 +201,8 @@
                       "sets": [],
                       "maps": []
                     }
-                  ]
+                  ],
+                  "tags": []
                 }
               ],
               "escaped": null,
@@ -259,7 +266,8 @@
                           "type": "string",
                           "values": [
                             {
-                              "value": "value_"
+                              "value": "value_",
+                              "tags": []
                             }
                           ]
                         }
@@ -299,7 +307,8 @@
                       "sets": [],
                       "maps": []
                     }
-                  ]
+                  ],
+                  "tags": []
                 }
               ],
               "escaped": null,
@@ -363,7 +372,8 @@
                           "type": "string",
                           "values": [
                             {
-                              "value": "between_"
+                              "value": "between_",
+                              "tags": []
                             }
                           ]
                         }
@@ -415,7 +425,8 @@
                           "type": "string",
                           "values": [
                             {
-                              "value": "_and_"
+                              "value": "_and_",
+                              "tags": []
                             }
                           ]
                         }
@@ -455,7 +466,8 @@
                       "sets": [],
                       "maps": []
                     }
-                  ]
+                  ],
+                  "tags": []
                 }
               ],
               "escaped": null,

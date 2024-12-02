@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ObjectDescription"
+        {
+          "name": "ObjectDescription",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -40,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -72,7 +76,7 @@
                         "name": "Format<\"uuid\">",
                         "kind": "format",
                         "value": "uuid",
-                        "validate": "/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test($input)",
+                        "validate": "$importInternal(\"isFormatUuid\")($input)",
                         "exclusive": [
                           "format",
                           "pattern"
@@ -123,7 +127,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "deprecated"
+                      "value": "deprecated",
+                      "tags": []
                     }
                   ]
                 }
@@ -183,7 +188,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "title"
+                      "value": "title",
+                      "tags": []
                     }
                   ]
                 }
@@ -249,7 +255,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "descriptions"
+                      "value": "descriptions",
+                      "tags": []
                     }
                   ]
                 }
@@ -305,7 +312,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "newLine"
+                      "value": "newLine",
+                      "tags": []
                     }
                   ]
                 }

@@ -5,7 +5,7 @@ import typia from "typia";
 import { IServerStringifyProgram } from "./IServerStringifyProgram";
 
 export const createFastifyPureServerStringifyBenchmarkProgram = async <T>(
-  app: typia.IJsonApplication<"3.0">,
+  app: typia.IJsonSchemaCollection<"3.0">,
 ) => {
   // DEFINE JSON-SCHEMA
   const schema = {

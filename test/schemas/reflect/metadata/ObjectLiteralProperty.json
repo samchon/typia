@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ObjectLiteralProperty.ISomething"
+        {
+          "name": "ObjectLiteralProperty.ISomething",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -40,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "something-interesting-do-you-want?"
+                      "value": "something-interesting-do-you-want?",
+                      "tags": []
                     }
                   ]
                 }
@@ -96,7 +100,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "or-something-crazy-do-you-want?"
+                      "value": "or-something-crazy-do-you-want?",
+                      "tags": []
                     }
                   ]
                 }

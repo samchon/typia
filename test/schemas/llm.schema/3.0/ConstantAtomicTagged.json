@@ -1,0 +1,31 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "enum": [
+        "latest"
+      ],
+      "description": "@format uuid"
+    },
+    "age": {
+      "oneOf": [
+        {
+          "type": "integer",
+          "description": "@maximum 100"
+        },
+        {
+          "type": "number",
+          "enum": [
+            -1
+          ]
+        }
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "age"
+  ],
+  "additionalProperties": false
+}

@@ -1,66 +1,127 @@
-import { ILlmApplication, ILlmSchema } from "@samchon/openapi";
+import {
+  ILlmApplication,
+  ILlmSchema,
+  IOpenApiSchemaError,
+  IResult,
+  OpenApi,
+} from "@samchon/openapi";
+import { LlmSchemaComposer } from "@samchon/openapi/lib/composers/LlmSchemaComposer";
 import { ILlmFunction } from "@samchon/openapi/lib/structures/ILlmFunction";
 
 import { MetadataFactory } from "../../factories/MetadataFactory";
 
+import { __IJsonApplication } from "../../schemas/json/__IJsonApplication";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataFunction } from "../../schemas/metadata/MetadataFunction";
-import { MetadataObject } from "../../schemas/metadata/MetadataObject";
+import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 
-import { IJsDocTagInfo } from "../../module";
+import { JsonApplicationProgrammer } from "../json/JsonApplicationProgrammer";
 import { LlmSchemaProgrammer } from "./LlmSchemaProgrammer";
 
 export namespace LlmApplicationProgrammer {
-  export const validate = (
-    meta: Metadata,
-    explore: MetadataFactory.IExplore,
-  ): string[] => {
-    if (explore.top === false) return LlmSchemaProgrammer.validate(meta);
+  export const validate = (model: ILlmSchema.Model) => {
+    let top: Metadata | undefined;
+    return (
+      metadata: Metadata,
+      explore: MetadataFactory.IExplore,
+    ): string[] => {
+      top ??= metadata;
+      if (explore.top === false)
+        if (
+          explore.object === top?.objects[0]?.type &&
+          typeof explore.property === "string" &&
+          metadata.size() === 1 &&
+          metadata.nullable === false &&
+          metadata.isRequired() === true &&
+          metadata.functions.length === 1
+        )
+          return validateFunction(explore.property, metadata.functions[0]!);
+        else return LlmSchemaProgrammer.validate(model)(metadata);
 
-    const output: string[] = [];
-    const valid: boolean =
-      meta.size() === 1 &&
-      meta.objects.length === 1 &&
-      meta.isRequired() === true &&
-      meta.nullable === false;
-    if (valid === false)
-      output.push(
-        "LLM application's generic arugment must be a class/interface type.",
-      );
+      const output: string[] = [];
+      const valid: boolean =
+        metadata.size() === 1 &&
+        metadata.objects.length === 1 &&
+        metadata.isRequired() === true &&
+        metadata.nullable === false;
+      if (valid === false)
+        output.push(
+          "LLM application's generic arugment must be a class/interface type.",
+        );
 
-    const object: MetadataObject | undefined = meta.objects[0];
-    if (object !== undefined) {
-      if (object.properties.some((p) => p.key.isSoleLiteral() === false))
-        output.push("LLM application does not allow dynamic keys.");
-      let least: boolean = false;
-      for (const p of object.properties) {
-        const value: Metadata = p.value;
-        if (value.functions.length) {
-          least ||= true;
-          if (valid === false) {
-            if (value.functions.length !== 1 || value.size() !== 1)
-              output.push(
-                "LLM application's function type does not allow union type.",
-              );
-            if (value.isRequired() === false)
-              output.push("LLM application's function type must be required.");
-            if (value.nullable === true)
-              output.push(
-                "LLM application's function type must not be nullable.",
-              );
+      const object: MetadataObjectType | undefined = metadata.objects[0]?.type;
+      if (object !== undefined) {
+        if (object.properties.some((p) => p.key.isSoleLiteral() === false))
+          output.push(
+            "LLM application does not allow dynamic keys on class/interface type.",
+          );
+        let least: boolean = false;
+        for (const p of object.properties) {
+          const value: Metadata = p.value;
+          if (value.functions.length) {
+            least ||= true;
+            if (valid === false) {
+              if (value.functions.length !== 1 || value.size() !== 1)
+                output.push(
+                  "LLM application's function type does not allow union type.",
+                );
+              if (value.isRequired() === false)
+                output.push(
+                  "LLM application's function type must be required.",
+                );
+              if (value.nullable === true)
+                output.push(
+                  "LLM application's function type must not be nullable.",
+                );
+            }
           }
         }
+        if (least === false)
+          output.push(
+            "LLM application's target type must have at least a function type.",
+          );
       }
-      if (least === false)
-        output.push(
-          "LLM application's target type must have at least a function type.",
-        );
+      return output;
+    };
+  };
+
+  const validateFunction = (name: string, func: MetadataFunction): string[] => {
+    const output: string[] = [];
+    const prefix: string = `LLM application's function (${JSON.stringify(name)})`;
+    if (func.output.size() && func.output.isRequired() === false)
+      output.push(
+        `${prefix}'s return type must not be union type with undefined.`,
+      );
+    if (func.parameters.length !== 1)
+      output.push(`${prefix} must have a single parameter.`);
+    if (func.parameters.length !== 0) {
+      const type: Metadata = func.parameters[0]!.type;
+      if (type.size() !== 1 || type.objects.length !== 1)
+        output.push(`${prefix}'s parameter must be an object type.`);
+      else {
+        if (
+          type.objects[0]!.type.properties.some(
+            (p) => p.key.isSoleLiteral() === false,
+          )
+        )
+          output.push(`${prefix}'s parameter must not have dynamic keys.`);
+        if (type.isRequired() === false)
+          output.push(
+            `${prefix}'s parameter must not be union type with undefined.`,
+          );
+        if (type.nullable === true)
+          output.push(`${prefix}'s parameter must not be nullable.`);
+      }
     }
     return output;
   };
 
-  export const write = (metadata: Metadata): ILlmApplication => {
-    const errors: string[] = validate(metadata, {
+  export const write = <Model extends ILlmSchema.Model>(props: {
+    model: Model;
+    metadata: Metadata;
+    config?: Partial<ILlmSchema.ModelConfig[Model]>;
+  }): ILlmApplication<Model> => {
+    const errors: string[] = validate(props.model)(props.metadata, {
       top: true,
       object: null,
       property: null,
@@ -73,164 +134,143 @@ export namespace LlmApplicationProgrammer {
     if (errors.length)
       throw new Error("Failed to write LLM application: " + errors.join("\n"));
 
-    const object: MetadataObject = metadata.objects[0]!;
+    const errorMessages: string[] = [];
+    const application: __IJsonApplication<"3.1"> =
+      JsonApplicationProgrammer.write({
+        version: "3.1",
+        metadata: props.metadata,
+      });
+    const functions: Array<ILlmFunction<Model> | null> =
+      application.functions.map((func) =>
+        writeFunction({
+          model: props.model,
+          components: application.components,
+          function: func,
+          errors: errorMessages,
+        }),
+      );
+    if (functions.some((func) => func === null))
+      throw new Error(
+        "Failed to write LLM application:\n\n" +
+          errorMessages.map((str) => `  - ${str}`).join("\n"),
+      );
     return {
-      functions: object.properties
-        .filter(
-          (p) =>
-            p.value.functions.length === 1 &&
-            p.value.size() === 1 &&
-            p.key.isSoleLiteral(),
-        )
-        .filter(
-          (p) => p.jsDocTags.find((tag) => tag.name === "hidden") === undefined,
-        )
-        .map((p) =>
-          writeFunction({
-            name: p.key.getSoleLiteral()!,
-            function: p.value.functions[0]!,
-            description: p.description,
-            jsDocTags: p.jsDocTags,
-          }),
-        ),
+      model: props.model,
       options: {
+        ...LlmSchemaComposer.defaultConfig(props.model),
+        ...props.config,
         separate: null,
-        recursive: 3,
       },
+      functions: functions as ILlmFunction<Model>[],
     };
   };
 
-  const writeFunction = (props: {
-    name: string;
-    function: MetadataFunction;
-    description: string | null;
-    jsDocTags: IJsDocTagInfo[];
-  }): ILlmFunction => {
-    const deprecated: boolean = props.jsDocTags.some(
-      (tag) => tag.name === "deprecated",
-    );
-    const tags: string[] = props.jsDocTags
-      .map((tag) =>
-        tag.name === "tag"
-          ? (tag.text?.filter((elem) => elem.kind === "text") ?? [])
-          : [],
-      )
-      .flat()
-      .map((elem) => elem.text)
-      .map((str) => str.trim().split(" ")[0] ?? "")
-      .filter((str) => !!str.length);
-    return {
-      name: props.name,
-      parameters: props.function.parameters.map((p) => {
-        const jsDocTagDescription: string | null = writeDescriptionFromJsDocTag(
-          {
-            jsDocTags: p.jsDocTags,
-            tag: "param",
-            parameter: p.name,
-          },
-        );
-        return writeSchema({
-          metadata: p.type,
-          description: jsDocTagDescription ?? p.description,
-          jsDocTags: jsDocTagDescription ? [] : p.jsDocTags,
-        });
-      }),
-      output:
-        props.function.output.size() || props.function.output.nullable
-          ? writeSchema({
-              metadata: props.function.output,
-              description:
-                writeDescriptionFromJsDocTag({
-                  jsDocTags: props.jsDocTags,
-                  tag: "return",
-                }) ??
-                writeDescriptionFromJsDocTag({
-                  jsDocTags: props.jsDocTags,
-                  tag: "returns",
-                }),
-              jsDocTags: [],
-            })
-          : undefined,
-      description: props.description ?? undefined,
-      deprecated: deprecated || undefined,
-      tags: tags.length ? tags : undefined,
-    };
-  };
-
-  const writeSchema = (props: {
-    metadata: Metadata;
-    description: string | null;
-    jsDocTags: IJsDocTagInfo[];
-  }): ILlmSchema => {
-    const schema: ILlmSchema = LlmSchemaProgrammer.write(props.metadata);
-    const explicit: Pick<ILlmSchema, "title" | "description"> =
-      writeDescription({
-        description: props.description,
-        jsDocTags: props.jsDocTags,
+  const writeFunction = <Model extends ILlmSchema.Model>(props: {
+    model: Model;
+    components: OpenApi.IComponents;
+    function: __IJsonApplication.IFunction<OpenApi.IJsonSchema>;
+    errors: string[];
+  }): ILlmFunction<Model> | null => {
+    const parameters: ILlmSchema.ModelParameters[Model] | null =
+      writeParameters({
+        ...props,
+        accessor: `$input.${props.function.name}.parameters`,
       });
+    if (parameters === null) return null;
+    const output: ILlmSchema.ModelSchema[Model] | null | undefined =
+      writeOutput({
+        model: props.model,
+        parameters,
+        components: props.components,
+        schema: props.function.output?.schema ?? null,
+        errors: props.errors,
+        accessor: `$input.${props.function.name}.output`,
+      });
+    if (output === null) return null;
+    else if (
+      output &&
+      output.description === undefined &&
+      !!props.function.output?.description?.length
+    )
+      output.description = props.function.output.description;
     return {
-      ...schema,
-      ...(!!explicit.title?.length || !!explicit.description?.length
-        ? explicit
-        : {}),
+      name: props.function.name,
+      parameters,
+      output: (output ?? undefined) as
+        | ILlmSchema.ModelSchema[Model]
+        | undefined,
+      description: (() => {
+        if (
+          !props.function.summary?.length ||
+          !props.function.description?.length
+        )
+          return props.function.summary || props.function.description;
+        const summary: string = props.function.summary.endsWith(".")
+          ? props.function.summary.slice(0, -1)
+          : props.function.summary;
+        return props.function.description.startsWith(summary)
+          ? props.function.description
+          : summary + ".\n\n" + props.function.description;
+      })(),
+      deprecated: props.function.deprecated,
+      tags: props.function.tags,
+      strict: true,
     };
   };
 
-  const writeDescription = (props: {
-    description: string | null;
-    jsDocTags: IJsDocTagInfo[];
-  }): Pick<ILlmSchema, "title" | "description"> => {
-    const title: string | undefined = (() => {
-      const [explicit] = getJsDocTexts({
-        jsDocTags: props.jsDocTags,
-        name: "title",
-      });
-      if (explicit?.length) return explicit;
-      else if (!props.description?.length) return undefined;
+  const writeParameters = <Model extends ILlmSchema.Model>(props: {
+    model: Model;
+    components: OpenApi.IComponents;
+    function: __IJsonApplication.IFunction<OpenApi.IJsonSchema>;
+    errors: string[];
+    accessor: string;
+  }): ILlmSchema.ModelParameters[Model] | null => {
+    const schema = props.function.parameters[0]?.schema;
+    if (!schema) return null;
 
-      const index: number = props.description.indexOf("\n");
-      const top: string = (
-        index === -1 ? props.description : props.description.substring(0, index)
-      ).trim();
-      return top.endsWith(".") ? top.substring(0, top.length - 1) : undefined;
-    })();
-    return {
-      title: title,
-      description: props.description?.length ? props.description : undefined,
-    } as any;
+    const result: IResult<
+      ILlmSchema.ModelParameters[Model],
+      IOpenApiSchemaError
+    > = LlmSchemaComposer.parameters(props.model)({
+      config: LlmSchemaComposer.defaultConfig(props.model) as any,
+      components: props.components,
+      schema: schema as
+        | OpenApi.IJsonSchema.IObject
+        | OpenApi.IJsonSchema.IReference,
+      accessor: props.accessor,
+    }) as IResult<ILlmSchema.ModelParameters[Model], IOpenApiSchemaError>;
+    if (result.success === false) {
+      props.errors.push(
+        ...result.error.reasons.map((r) => `  - ${r.accessor}: ${r.message}`),
+      );
+      return null;
+    }
+    return result.value;
   };
 
-  const writeDescriptionFromJsDocTag = (props: {
-    jsDocTags: IJsDocTagInfo[];
-    tag: string;
-    parameter?: string;
-  }): string | null => {
-    const parametric: (elem: IJsDocTagInfo) => boolean = props.parameter
-      ? (tag) =>
-          tag.text!.find(
-            (elem) =>
-              elem.kind === "parameterName" && elem.text === props.parameter,
-          ) !== undefined
-      : () => true;
-    const tag: IJsDocTagInfo | undefined = props.jsDocTags.find(
-      (tag) => tag.name === props.tag && tag.text && parametric(tag),
-    );
-    return tag && tag.text
-      ? (tag.text.find((elem) => elem.kind === "text")?.text ?? null)
-      : null;
+  const writeOutput = <Model extends ILlmSchema.Model>(props: {
+    model: Model;
+    parameters: ILlmSchema.ModelParameters[Model];
+    components: OpenApi.IComponents;
+    schema: OpenApi.IJsonSchema | null;
+    errors: string[];
+    accessor: string;
+  }): ILlmSchema.ModelSchema[Model] | null | undefined => {
+    if (props.schema === null) return undefined;
+    const result: IResult<ILlmSchema.ModelSchema[Model], IOpenApiSchemaError> =
+      LlmSchemaComposer.schema(props.model)({
+        config: LlmSchemaComposer.defaultConfig(props.model) as any,
+        components: props.components,
+        schema: props.schema,
+        $defs: (props.parameters as any).$defs,
+        accessor: props.accessor,
+      }) as IResult<ILlmSchema.ModelSchema[Model], IOpenApiSchemaError>;
+    if (result.success === false) {
+      props.errors.push(
+        ...result.error.reasons.map((r) => `  - ${r.accessor}: ${r.message}`),
+      );
+      return null;
+    }
+    return result.value;
   };
-
-  const getJsDocTexts = (props: {
-    jsDocTags: IJsDocTagInfo[];
-    name: string;
-  }): string[] =>
-    props.jsDocTags
-      .filter(
-        (tag) =>
-          tag.name === props.name &&
-          tag.text &&
-          tag.text.find((elem) => elem.kind === "text" && elem.text.length) !==
-            undefined,
-      )
-      .map((tag) => tag.text!.find((elem) => elem.kind === "text")!.text);
 }

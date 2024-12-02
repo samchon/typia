@@ -1,0 +1,136 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "type": "object",
+      "properties": {
+        "matrix": {
+          "description": "@minItems 3\n@maxItems 3",
+          "type": "array",
+          "items": {
+            "description": "@minItems 4\n@maxItems 4",
+            "type": "array",
+            "items": {
+              "description": "@format uuid",
+              "type": "string"
+            }
+          }
+        }
+      },
+      "required": [
+        "matrix"
+      ],
+      "additionalProperties": false
+    },
+    "nullable": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "matrix": {
+              "description": "@minItems 3\n@maxItems 3",
+              "type": "array",
+              "items": {
+                "description": "@minItems 4\n@maxItems 4",
+                "type": "array",
+                "items": {
+                  "description": "@format uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "required": [
+            "matrix"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "optional": {
+      "type": "object",
+      "properties": {
+        "matrix": {
+          "description": "@minItems 3\n@maxItems 3",
+          "type": "array",
+          "items": {
+            "description": "@minItems 4\n@maxItems 4",
+            "type": "array",
+            "items": {
+              "description": "@format uuid",
+              "type": "string"
+            }
+          }
+        }
+      },
+      "required": [
+        "matrix"
+      ],
+      "additionalProperties": false
+    },
+    "faint": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "matrix": {
+              "description": "@minItems 3\n@maxItems 3",
+              "type": "array",
+              "items": {
+                "description": "@minItems 4\n@maxItems 4",
+                "type": "array",
+                "items": {
+                  "description": "@format uuid",
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "required": [
+            "matrix"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "matrix": {
+            "description": "@minItems 3\n@maxItems 3",
+            "type": "array",
+            "items": {
+              "description": "@minItems 4\n@maxItems 4",
+              "type": "array",
+              "items": {
+                "description": "@format uuid",
+                "type": "string"
+              }
+            }
+          }
+        },
+        "required": [
+          "matrix"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "optional",
+    "faint",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {}
+}

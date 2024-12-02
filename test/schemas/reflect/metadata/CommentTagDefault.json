@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "CommentTagDefault"
+        {
+          "name": "CommentTagDefault",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -40,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "boolean"
+                      "value": "boolean",
+                      "tags": []
                     }
                   ]
                 }
@@ -106,7 +110,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "number"
+                      "value": "number",
+                      "tags": []
                     }
                   ]
                 }
@@ -172,7 +177,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "string"
+                      "value": "string",
+                      "tags": []
                     }
                   ]
                 }
@@ -238,7 +244,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "text"
+                      "value": "text",
+                      "tags": []
                     }
                   ]
                 }
@@ -304,7 +311,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "boolean_and_number_and_string"
+                      "value": "boolean_and_number_and_string",
+                      "tags": []
                     }
                   ]
                 }
@@ -396,7 +404,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "union_but_boolean"
+                      "value": "union_but_boolean",
+                      "tags": []
                     }
                   ]
                 }
@@ -470,7 +479,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "union_but_number"
+                      "value": "union_but_number",
+                      "tags": []
                     }
                   ]
                 }
@@ -544,7 +554,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "union_but_string"
+                      "value": "union_but_string",
+                      "tags": []
                     }
                   ]
                 }
@@ -618,7 +629,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "vulnerable_range"
+                      "value": "vulnerable_range",
+                      "tags": []
                     }
                   ]
                 }
@@ -733,7 +745,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "boolean_and_number_and_template"
+                      "value": "boolean_and_number_and_template",
+                      "tags": []
                     }
                   ]
                 }
@@ -781,7 +794,8 @@
                           "type": "string",
                           "values": [
                             {
-                              "value": "prefix_"
+                              "value": "prefix_",
+                              "tags": []
                             }
                           ]
                         }
@@ -821,7 +835,8 @@
                       "sets": [],
                       "maps": []
                     }
-                  ]
+                  ],
+                  "tags": []
                 }
               ],
               "escaped": null,

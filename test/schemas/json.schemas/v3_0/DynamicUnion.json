@@ -1,0 +1,27 @@
+{
+  "version": "3.0",
+  "components": {
+    "schemas": {
+      "DynamicUnion": {
+        "type": "object",
+        "properties": {},
+        "required": [],
+        "additionalProperties": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/DynamicUnion"
+    }
+  ]
+}

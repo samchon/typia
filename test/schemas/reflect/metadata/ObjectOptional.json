@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ObjectOptional"
+        {
+          "name": "ObjectOptional",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -40,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -96,7 +100,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "name"
+                      "value": "name",
+                      "tags": []
                     }
                   ]
                 }
@@ -152,7 +157,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "email"
+                      "value": "email",
+                      "tags": []
                     }
                   ]
                 }
@@ -208,7 +214,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "sequence"
+                      "value": "sequence",
+                      "tags": []
                     }
                   ]
                 }

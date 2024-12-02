@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ArrayHierarchicalPointer"
+        {
+          "name": "ArrayHierarchicalPointer",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -40,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -107,7 +111,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -163,7 +168,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "serial"
+                      "value": "serial",
+                      "tags": []
                     }
                   ]
                 }
@@ -219,7 +225,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "name"
+                      "value": "name",
+                      "tags": []
                     }
                   ]
                 }
@@ -275,7 +282,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "established_at"
+                      "value": "established_at",
+                      "tags": []
                     }
                   ]
                 }
@@ -305,7 +313,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ArrayHierarchicalPointer.ITimestamp"
+                {
+                  "name": "ArrayHierarchicalPointer.ITimestamp",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -328,7 +339,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "departments"
+                      "value": "departments",
+                      "tags": []
                     }
                   ]
                 }
@@ -395,7 +407,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "time"
+                      "value": "time",
+                      "tags": []
                     }
                   ]
                 }
@@ -451,7 +464,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "zone"
+                      "value": "zone",
+                      "tags": []
                     }
                   ]
                 }
@@ -518,7 +532,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -574,7 +589,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "code"
+                      "value": "code",
+                      "tags": []
                     }
                   ]
                 }
@@ -630,7 +646,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "sales"
+                      "value": "sales",
+                      "tags": []
                     }
                   ]
                 }
@@ -686,7 +703,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "created_at"
+                      "value": "created_at",
+                      "tags": []
                     }
                   ]
                 }
@@ -716,7 +734,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ArrayHierarchicalPointer.ITimestamp"
+                {
+                  "name": "ArrayHierarchicalPointer.ITimestamp",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -739,7 +760,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "employees"
+                      "value": "employees",
+                      "tags": []
                     }
                   ]
                 }
@@ -806,7 +828,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -862,7 +885,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "name"
+                      "value": "name",
+                      "tags": []
                     }
                   ]
                 }
@@ -918,63 +942,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "age"
-                    }
-                  ]
-                }
-              ],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "value": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functions": [],
-              "atomics": [
-                {
-                  "type": "number",
-                  "tags": []
-                }
-              ],
-              "constants": [],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "description": null,
-            "jsDocTags": []
-          },
-          {
-            "key": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functions": [],
-              "atomics": [],
-              "constants": [
-                {
-                  "type": "string",
-                  "values": [
-                    {
-                      "value": "grade"
+                      "value": "age",
+                      "tags": []
                     }
                   ]
                 }
@@ -1030,7 +999,65 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "employeed_at"
+                      "value": "grade",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [
+                {
+                  "type": "number",
+                  "tags": []
+                }
+              ],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": null,
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "employeed_at",
+                      "tags": []
                     }
                   ]
                 }
@@ -1060,7 +1087,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ArrayHierarchicalPointer.ITimestamp"
+                {
+                  "name": "ArrayHierarchicalPointer.ITimestamp",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -1097,7 +1127,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ArrayHierarchicalPointer.ICompany"
+            {
+              "name": "ArrayHierarchicalPointer.ICompany",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],
@@ -1126,7 +1159,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ArrayHierarchicalPointer.IDepartment"
+            {
+              "name": "ArrayHierarchicalPointer.IDepartment",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],
@@ -1155,7 +1191,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ArrayHierarchicalPointer.IEmployee"
+            {
+              "name": "ArrayHierarchicalPointer.IEmployee",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],
