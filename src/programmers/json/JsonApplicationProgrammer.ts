@@ -97,6 +97,12 @@ export namespace JsonApplicationProgrammer {
           p.value.isRequired() === true &&
           p.value.functions.length === 1,
       )
+      .filter(
+        (p) =>
+          p.jsDocTags.find(
+            (tag) => tag.name === "hidden" || tag.name === "internal",
+          ) === undefined,
+      )
       .map((r) =>
         collectFunction({
           version: props.version,

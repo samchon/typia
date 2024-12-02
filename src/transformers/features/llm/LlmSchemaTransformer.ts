@@ -70,15 +70,13 @@ export namespace LlmSchemaTransformer {
         node: props.expression.typeArguments[2],
       }),
     });
-    const schemaTypeNode = ts.factory.createTypeReferenceNode(
-      props.context.importer.instance({
-        name: "ILlmSchema",
-        file: "@samchon/openapi",
-        type: true,
-        alias: "__ILlmSchema",
-      }).text,
-      [ts.factory.createLiteralTypeNode(ts.factory.createStringLiteral(model))],
-    );
+    const schemaTypeNode = props.context.importer.type({
+      file: "@samchon/openapi",
+      name: "ILlmSchema",
+      arguments: [
+        ts.factory.createLiteralTypeNode(ts.factory.createStringLiteral(model)),
+      ],
+    });
     const literal = ts.factory.createAsExpression(
       LiteralFactory.write(out.schema),
       schemaTypeNode,

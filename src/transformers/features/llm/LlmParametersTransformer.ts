@@ -10,7 +10,6 @@ import { Metadata } from "../../../schemas/metadata/Metadata";
 
 import { LlmModelPredicator } from "../../../programmers/llm/LlmModelPredicator";
 import { LlmParametersProgrammer } from "../../../programmers/llm/LlmParametersProgrammer";
-import { LlmSchemaProgrammer } from "../../../programmers/llm/LlmSchemaProgrammer";
 
 import { ValidationPipe } from "../../../typings/ValidationPipe";
 
@@ -49,7 +48,7 @@ export namespace LlmParametersTransformer {
           escape: true,
           constant: true,
           absorb: false,
-          validate: LlmSchemaProgrammer.validate(model),
+          validate: LlmParametersProgrammer.validate(model),
         },
         collection,
         type,
@@ -73,19 +72,18 @@ export namespace LlmParametersTransformer {
     });
     return ts.factory.createAsExpression(
       LiteralFactory.write(out),
-      ts.factory.createTypeReferenceNode(
-        props.context.importer.instance({
-          name: "ILlmSchema",
-          file: "@samchon/openapi",
-          type: true,
-          alias: "__ILlmSchema",
-        }).text + ".IParameters",
-        [
+      props.context.importer.type({
+        file: "@samchon/openapi",
+        name: ts.factory.createQualifiedName(
+          ts.factory.createIdentifier("ILlmSchema"),
+          ts.factory.createIdentifier("IParameters"),
+        ),
+        arguments: [
           ts.factory.createLiteralTypeNode(
             ts.factory.createStringLiteral(model),
           ),
         ],
-      ),
+      }),
     );
   };
 }
