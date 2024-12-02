@@ -1,6 +1,6 @@
 {
   "name": "typescript-json",
-  "version": "6.10.4-dev.20240925",
+  "version": "7.0.0-dev.20241202-3",
   "description": "Superfast runtime validators with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -10,12 +10,13 @@
     }
   },
   "scripts": {
-    "test": "npm run package:tgz",
+    "test": "ts-node deploy --tag test",
     "test:bun": "bun run deploy/bun.ts",
     "test:template": "npm run --tag test --template",
     "-------------------------------------------------": "",
     "build": "rimraf lib && tsc && rollup -c",
     "dev": "rimraf lib && tsc --watch",
+    "dev:errors": "tsc --project tsconfig.errors.json --watch",
     "eslint": "eslint ./**/*.ts",
     "eslint:fix": "eslint ./**/*.ts --fix",
     "prettier": "prettier src --write",
@@ -23,13 +24,36 @@
     "package:latest": "ts-node deploy --tag latest",
     "package:next": "ts-node deploy --tag next",
     "package:patch": "ts-node deploy --tag patch",
-    "package:tgz": "ts-node deploy --tag tgz",
     "package:deprecate": "npm deprecate typescript-json \"Renamed to typia\""
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/samchon/typia"
   },
+  "author": "Jeongho Nam",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/samchon/typia/issues"
+  },
+  "homepage": "https://typia.io",
+  "dependencies": {
+    "typia": "7.0.0-dev.20241202-3"
+  },
+  "peerDependencies": {
+    "typescript": ">=4.8.0 <5.7.0",
+    "@samchon/openapi": ">=2.0.0 <3.0.0"
+  },
+  "stackblitz": {
+    "startCommand": "npm install && npm run test"
+  },
+  "sideEffects": false,
+  "files": [
+    "LICENSE",
+    "README.md",
+    "package.json",
+    "lib",
+    "src"
+  ],
   "keywords": [
     "fast",
     "json",
@@ -38,8 +62,9 @@
     "transform",
     "ajv",
     "io-ts",
+    "zod",
     "schema",
-    "jsonschema",
+    "json-schema",
     "generator",
     "assert",
     "clone",
@@ -54,29 +79,15 @@
     "safe",
     "parse",
     "prune",
-    "random"
-  ],
-  "author": "Jeongho Nam",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/samchon/typia/issues"
-  },
-  "homepage": "https://typia.io",
-  "dependencies": {
-    "typia": "6.10.4-dev.20240925"
-  },
-  "peerDependencies": {
-    "typescript": ">=4.8.0 <5.7.0"
-  },
-  "stackblitz": {
-    "startCommand": "npm install && npm run test"
-  },
-  "sideEffects": false,
-  "files": [
-    "LICENSE",
-    "README.md",
-    "package.json",
-    "lib",
-    "src"
+    "random",
+    "protobuf",
+    "llm",
+    "llm-function-calling",
+    "structured-output",
+    "openai",
+    "chatgpt",
+    "claude",
+    "gemini",
+    "llama"
   ]
 }

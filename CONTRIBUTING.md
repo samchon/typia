@@ -26,6 +26,37 @@ I always welcome your suggestion. When you publishing a suggestion, then please 
 
 
 ## Contributing Code
+
+### Project Structure
+```
+typia/
+├── src/                      # Source code
+│   ├── executable/           # CLI commands
+│   ├── factories/           # Factory classes
+│   ├── functional/          # Functional utilities
+│   ├── programmers/         # Code generators
+│   ├── schemas/            # Schema definitions
+│   ├── tags/               # Tag implementations
+│   ├── transformers/       # Code transformers
+│   ├── typings/            # Type definitions
+│   └── utils/              # Utility functions
+├── test/                    # Test files
+├── benchmark/               # Benchmarking code
+├── website/                 # Documentation website
+└── packages/                # Sub-packages
+```
+
+### Naming Conventions
+- **Files**: Use camelCase for regular files (e.g., `jsonMetadata.ts`)
+- **Classes**: Use PascalCase (e.g., `TypeGuardError`, `MetadataFactory`)
+- **Interfaces**: Prefix with 'I' (e.g., `IValidation`, `IRandomGenerator`)
+- **Type aliases**: Use PascalCase (e.g., `Primitive`, `Resolved`)
+- **Functions**: Use camelCase (e.g., `stringify`, `validate`)
+- **Constants**: Use UPPER_SNAKE_CASE for global constants
+- **Variables**: Use camelCase
+- **Test files**: Prefix with `test_` (e.g., `test_stringify_object_recursive`)
+
+
 ### Test your code
 Before sending a pull request, please test your new code. Please run the following commands:
 

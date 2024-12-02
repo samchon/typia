@@ -2,34 +2,37 @@ import ts from "typescript";
 
 import { StatementFactory } from "../../factories/StatementFactory";
 
-import { IProject } from "../../transformers/IProject";
+import { IProgrammerProps } from "../../transformers/IProgrammerProps";
+import { ITypiaContext } from "../../transformers/ITypiaContext";
 
 import { AssertProgrammer } from "../AssertProgrammer";
 import { FeatureProgrammer } from "../FeatureProgrammer";
-import { FunctionImporter } from "../helpers/FunctionImporter";
+import { FunctionProgrammer } from "../helpers/FunctionProgrammer";
 import { ProtobufDecodeProgrammer } from "./ProtobufDecodeProgrammer";
 
 export namespace ProtobufAssertDecodeProgrammer {
   export const decompose = (props: {
-    project: IProject;
+    context: ITypiaContext;
     modulo: ts.LeftHandSideExpression;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     type: ts.Type;
     name: string | undefined;
-    init: ts.Expression | undefined;
+    init?: ts.Expression | undefined;
   }): FeatureProgrammer.IDecomposed => {
     const assert: FeatureProgrammer.IDecomposed = AssertProgrammer.decompose({
       ...props,
-      project: {
-        ...props.project,
+      context: {
+        ...props.context,
         options: {
-          ...props.project.options,
+          ...props.context.options,
           functional: false,
           numeric: false,
         },
       },
-      equals: false,
-      guard: false,
+      config: {
+        equals: false,
+        guard: false,
+      },
     });
     const decode: FeatureProgrammer.IDecomposed =
       ProtobufDecodeProgrammer.decompose(props);
@@ -41,15 +44,24 @@ export namespace ProtobufAssertDecodeProgrammer {
       statements: [
         ...assert.statements,
         ...decode.statements,
-        StatementFactory.constant("__assert", assert.arrow),
-        StatementFactory.constant("__decode", decode.arrow),
+        StatementFactory.constant({
+          name: "__assert",
+          value: assert.arrow,
+        }),
+        StatementFactory.constant({
+          name: "__decode",
+          value: decode.arrow,
+        }),
       ],
       arrow: ts.factory.createArrowFunction(
         undefined,
         undefined,
         [
           ...decode.arrow.parameters,
-          AssertProgrammer.Guardian.parameter(props.init),
+          AssertProgrammer.Guardian.parameter({
+            context: props.context,
+            init: props.init,
+          }),
         ],
         decode.arrow.type,
         undefined,
@@ -69,23 +81,18 @@ export namespace ProtobufAssertDecodeProgrammer {
     };
   };
 
-  export const write =
-    (project: IProject) =>
-    (modulo: ts.LeftHandSideExpression) =>
-    (type: ts.Type, name?: string, init?: ts.Expression): ts.CallExpression => {
-      const importer: FunctionImporter = new FunctionImporter(modulo.getText());
-      const result: FeatureProgrammer.IDecomposed = decompose({
-        project,
-        modulo,
-        importer,
-        type,
-        name,
-        init,
-      });
-      return FeatureProgrammer.writeDecomposed({
-        modulo,
-        importer,
-        result,
-      });
-    };
+  export const write = (props: IProgrammerProps): ts.CallExpression => {
+    const functor: FunctionProgrammer = new FunctionProgrammer(
+      props.modulo.getText(),
+    );
+    const result: FeatureProgrammer.IDecomposed = decompose({
+      ...props,
+      functor,
+    });
+    return FeatureProgrammer.writeDecomposed({
+      modulo: props.modulo,
+      functor,
+      result,
+    });
+  };
 }

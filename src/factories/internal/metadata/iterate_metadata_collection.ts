@@ -1,131 +1,146 @@
 import { Metadata } from "../../../schemas/metadata/Metadata";
 import { MetadataArrayType } from "../../../schemas/metadata/MetadataArrayType";
-import { MetadataObject } from "../../../schemas/metadata/MetadataObject";
+import { MetadataObjectType } from "../../../schemas/metadata/MetadataObjectType";
 import { MetadataTupleType } from "../../../schemas/metadata/MetadataTupleType";
 
 import { MetadataCollection } from "../../MetadataCollection";
 import { MetadataFactory } from "../../MetadataFactory";
 import { iterate_metadata_comment_tags } from "./iterate_metadata_comment_tags";
 
-export const iterate_metadata_collection =
-  (errors: MetadataFactory.IError[]) =>
-  (collection: MetadataCollection): void => {
-    for (const array of collection.arrays())
-      if (array.recursive === null)
-        collection.setArrayRecursive(
+export const iterate_metadata_collection = (props: {
+  errors: MetadataFactory.IError[];
+  collection: MetadataCollection;
+}): void => {
+  for (const array of props.collection.arrays())
+    if (array.recursive === null)
+      props.collection.setArrayRecursive(
+        array,
+        isArrayRecursive({
+          visited: new Set(),
           array,
-          isArrayRecursive(new Set())(array)(array.value),
-        );
-    for (const tuple of collection.tuples())
-      if (tuple.recursive === null) {
-        const visited: Set<Metadata> = new Set();
-        collection.setTupleRecursive(
-          tuple,
-          tuple.elements.some(isTupleRecursive(visited)(tuple)),
-        );
-      }
-    for (const obj of collection.objects()) {
-      iterate_metadata_comment_tags(errors)(obj);
-      if (obj.recursive === null) {
-        const visited: Set<Metadata> = new Set();
-        collection.setObjectRecursive(
-          obj,
-          obj.properties.some((p) => isObjectRecursive(visited)(obj)(p.value)),
-        );
-      }
+          metadata: array.value,
+        }),
+      );
+  for (const tuple of props.collection.tuples())
+    if (tuple.recursive === null) {
+      const visited: Set<Metadata> = new Set();
+      props.collection.setTupleRecursive(
+        tuple,
+        tuple.elements.some((e) =>
+          isTupleRecursive({
+            visited,
+            tuple,
+            metadata: e,
+          }),
+        ),
+      );
     }
-  };
+  for (const object of props.collection.objects()) {
+    iterate_metadata_comment_tags({
+      errors: props.errors,
+      object,
+    });
+    if (object.recursive === null) {
+      const visited: Set<Metadata> = new Set();
+      props.collection.setObjectRecursive(
+        object,
+        object.properties.some((p) =>
+          isObjectRecursive({
+            visited,
+            object,
+            metadata: p.value,
+          }),
+        ),
+      );
+    }
+  }
+};
 
-const isArrayRecursive =
-  (visited: Set<Metadata>) =>
-  (array: MetadataArrayType) =>
-  (meta: Metadata): boolean => {
-    if (visited.has(meta)) return false;
-    visited.add(meta);
+const isArrayRecursive = (props: {
+  visited: Set<Metadata>;
+  array: MetadataArrayType;
+  metadata: Metadata;
+}): boolean => {
+  if (props.visited.has(props.metadata)) return false;
+  props.visited.add(props.metadata);
 
-    return (
-      meta.arrays.some(
-        (a) =>
-          a.type === array || isArrayRecursive(visited)(array)(a.type.value),
-      ) ||
-      meta.aliases.some((alias) =>
-        isArrayRecursive(visited)(array)(alias.value),
-      ) ||
-      meta.tuples.some(
-        (t) =>
-          !t.type.recursive &&
-          t.type.elements.some((e) => isArrayRecursive(visited)(array)(e)),
-      ) ||
-      meta.maps.some((m) => isArrayRecursive(visited)(array)(m.value)) ||
-      meta.sets.some((s) => isArrayRecursive(visited)(array)(s)) ||
-      (meta.escaped !== null &&
-        isArrayRecursive(visited)(array)(meta.escaped.returns)) ||
-      (meta.rest !== null && isArrayRecursive(visited)(array)(meta.rest))
-    );
-  };
+  const next = (metadata: Metadata): boolean =>
+    isArrayRecursive({
+      ...props,
+      metadata,
+    });
+  return (
+    props.metadata.arrays.some(
+      (a) => a.type === props.array || next(a.type.value),
+    ) ||
+    props.metadata.aliases.some((alias) => next(alias.type.value)) ||
+    props.metadata.tuples.some(
+      (t) => !t.type.recursive && t.type.elements.some(next),
+    ) ||
+    props.metadata.maps.some((m) => next(m.value)) ||
+    props.metadata.sets.some((s) => next(s.value)) ||
+    (props.metadata.escaped !== null && next(props.metadata.escaped.returns)) ||
+    (props.metadata.rest !== null && next(props.metadata.rest))
+  );
+};
 
-const isTupleRecursive =
-  (visited: Set<Metadata>) =>
-  (tuple: MetadataTupleType) =>
-  (meta: Metadata): boolean => {
-    if (visited.has(meta)) return false;
-    visited.add(meta);
+const isTupleRecursive = (props: {
+  visited: Set<Metadata>;
+  tuple: MetadataTupleType;
+  metadata: Metadata;
+}): boolean => {
+  if (props.visited.has(props.metadata)) return false;
+  props.visited.add(props.metadata);
 
-    return (
-      meta.tuples.some(
-        (t) =>
-          t.type === tuple ||
-          t.type.elements.some((e) => isTupleRecursive(visited)(tuple)(e)),
-      ) ||
-      meta.arrays.some(
-        (a) =>
-          !a.type.recursive && isTupleRecursive(visited)(tuple)(a.type.value),
-      ) ||
-      meta.maps.some((m) => isTupleRecursive(visited)(tuple)(m.value)) ||
-      meta.sets.some((s) => isTupleRecursive(visited)(tuple)(s)) ||
-      meta.aliases.some((alias) =>
-        isTupleRecursive(visited)(tuple)(alias.value),
-      ) ||
-      (meta.escaped !== null &&
-        isTupleRecursive(visited)(tuple)(meta.escaped.returns)) ||
-      (meta.rest !== null && isTupleRecursive(visited)(tuple)(meta.rest))
-    );
-  };
+  const next = (metadata: Metadata): boolean =>
+    isTupleRecursive({
+      ...props,
+      metadata,
+    });
+  return (
+    props.metadata.tuples.some(
+      (t) => t.type === props.tuple || t.type.elements.some(next),
+    ) ||
+    props.metadata.arrays.some(
+      (a) => !a.type.recursive && next(a.type.value),
+    ) ||
+    props.metadata.maps.some((m) => next(m.value)) ||
+    props.metadata.sets.some((s) => next(s.value)) ||
+    props.metadata.aliases.some((alias) => next(alias.type.value)) ||
+    (props.metadata.escaped !== null && next(props.metadata.escaped.returns)) ||
+    (props.metadata.rest !== null && next(props.metadata.rest))
+  );
+};
 
-const isObjectRecursive =
-  (visited: Set<Metadata>) =>
-  (obj: MetadataObject) =>
-  (meta: Metadata): boolean => {
-    if (visited.has(meta)) return false;
+const isObjectRecursive = (props: {
+  visited: Set<Metadata>;
+  object: MetadataObjectType;
+  metadata: Metadata;
+}): boolean => {
+  if (props.visited.has(props.metadata)) return false;
+  props.visited.add(props.metadata);
 
-    visited.add(meta);
-    return (
-      meta.objects.some(
-        (o) =>
-          obj === o ||
-          o.properties.some((prop) =>
-            isObjectRecursive(visited)(obj)(prop.value),
-          ),
-      ) ||
-      meta.aliases.some((alias) =>
-        isObjectRecursive(visited)(obj)(alias.value),
-      ) ||
-      meta.arrays.some(
-        (array) =>
-          !array.type.recursive &&
-          isObjectRecursive(visited)(obj)(array.type.value),
-      ) ||
-      meta.tuples.some(
-        (tuple) =>
-          !tuple.type.recursive &&
-          tuple.type.elements.some((elem) =>
-            isObjectRecursive(visited)(obj)(elem),
-          ),
-      ) ||
-      meta.maps.some((map) => isObjectRecursive(visited)(obj)(map.value)) ||
-      meta.sets.some((value) => isObjectRecursive(visited)(obj)(value)) ||
-      (meta.escaped !== null &&
-        isObjectRecursive(visited)(obj)(meta.escaped.returns)) ||
-      (meta.rest !== null && isObjectRecursive(visited)(obj)(meta.rest))
-    );
-  };
+  const next = (metadata: Metadata): boolean =>
+    isObjectRecursive({
+      ...props,
+      metadata,
+    });
+  return (
+    props.metadata.objects.some(
+      (o) =>
+        props.object === o.type ||
+        o.type.properties.some((prop) => next(prop.value)),
+    ) ||
+    props.metadata.aliases.some((alias) => next(alias.type.value)) ||
+    props.metadata.arrays.some(
+      (array) => !array.type.recursive && next(array.type.value),
+    ) ||
+    props.metadata.tuples.some(
+      (tuple) => !tuple.type.recursive && tuple.type.elements.some(next),
+    ) ||
+    props.metadata.maps.some((map) => next(map.value)) ||
+    props.metadata.sets.some((set) => next(set.value)) ||
+    (props.metadata.escaped !== null && next(props.metadata.escaped.returns)) ||
+    (props.metadata.rest !== null && next(props.metadata.rest))
+  );
+};

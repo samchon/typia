@@ -229,153 +229,201 @@ typia.protobuf.encode<ICustomer>(customer);
 ```
   </Tab>
   <Tab>
-```typescript copy filename="protobuf.encode.js" showLineNumbers
+```javascript copy filename="protobuf.encode.js" showLineNumbers
+import * as __typia_transform__randomInteger from "typia/lib/internal/_randomInteger.js";
+import * as __typia_transform__randomFormatEmail from "typia/lib/internal/_randomFormatEmail.js";
+import * as __typia_transform__randomString from "typia/lib/internal/_randomString.js";
+import * as __typia_transform__randomPick from "typia/lib/internal/_randomPick.js";
+import * as __typia_transform__randomArray from "typia/lib/internal/_randomArray.js";
+import * as __typia_transform__randomBoolean from "typia/lib/internal/_randomBoolean.js";
+import * as __typia_transform__randomFormatUrl from "typia/lib/internal/_randomFormatUrl.js";
+import * as __typia_transform__randomFormatIpv4 from "typia/lib/internal/_randomFormatIpv4.js";
+import * as __typia_transform__randomFormatIpv6 from "typia/lib/internal/_randomFormatIpv6.js";
+import * as __typia_transform__randomFormatDatetime from "typia/lib/internal/_randomFormatDatetime.js";
+import * as __typia_transform__throwTypeGuardError from "typia/lib/internal/_throwTypeGuardError.js";
+import * as __typia_transform__isTypeInt32 from "typia/lib/internal/_isTypeInt32.js";
+import * as __typia_transform__isFormatEmail from "typia/lib/internal/_isFormatEmail.js";
+import * as __typia_transform__isFormatUrl from "typia/lib/internal/_isFormatUrl.js";
+import * as __typia_transform__isFormatIpv4 from "typia/lib/internal/_isFormatIpv4.js";
+import * as __typia_transform__isFormatIpv6 from "typia/lib/internal/_isFormatIpv6.js";
+import * as __typia_transform__isFormatDateTime from "typia/lib/internal/_isFormatDateTime.js";
+import * as __typia_transform__ProtobufSizer from "typia/lib/internal/_ProtobufSizer.js";
+import * as __typia_transform__ProtobufWriter from "typia/lib/internal/_ProtobufWriter.js";
 import typia from "typia";
-const customer = ((generator) => {
-  const $generator = typia.random.generator;
-  const $pick = typia.random.pick;
-  const $ro0 = (_recursive = false, _depth = 0) => ({
-    id:
-      (generator?.customs ?? $generator.customs)?.number?.([
-        {
-          name: 'Type<"int32">',
-          kind: "type",
-          value: "int32",
-        },
-      ]) ?? (generator?.integer ?? $generator.integer)(0, 100),
-    email:
-      (generator?.customs ?? $generator.customs)?.string?.([
-        {
-          name: 'Format<"email">',
-          kind: "format",
-          value: "email",
-        },
-      ]) ?? (generator?.email ?? $generator.email)(),
-    name:
-      (generator?.customs ?? $generator.customs)?.string?.([]) ??
-      (generator?.string ?? $generator.string)(),
-    pet: $pick([
+const customer = (() => {
+  const _ro0 = (_recursive = false, _depth = 0) => ({
+    id: (
+      _generator?.integer ?? __typia_transform__randomInteger._randomInteger
+    )({
+      type: "integer",
+    }),
+    email: (
+      _generator?.email ??
+      __typia_transform__randomFormatEmail._randomFormatEmail
+    )(),
+    name: (_generator?.string ?? __typia_transform__randomString._randomString)(
+      {
+        type: "string",
+      },
+    ),
+    pet: __typia_transform__randomPick._randomPick([
       () => null,
-      () => $ro1(_recursive, _recursive ? 1 + _depth : _depth),
-      () => $ro2(_recursive, _recursive ? 1 + _depth : _depth),
+      () => _ro1(_recursive, _recursive ? 1 + _depth : _depth),
+      () => _ro2(_recursive, _recursive ? 1 + _depth : _depth),
     ])(),
-    memo: $pick([
+    memo: __typia_transform__randomPick._randomPick([
       () => null,
       () =>
         new Map(
-          (generator?.array ?? $generator.array)(() => [
-            (generator?.customs ?? $generator.customs)?.string?.([]) ??
-              (generator?.string ?? $generator.string)(),
-            (generator?.customs ?? $generator.customs)?.string?.([]) ??
-              (generator?.string ?? $generator.string)(),
-          ]),
+          (_generator?.array ?? __typia_transform__randomArray._randomArray)({
+            type: "array",
+            element: () => [
+              (
+                _generator?.string ??
+                __typia_transform__randomString._randomString
+              )({
+                type: "string",
+              }),
+              (
+                _generator?.string ??
+                __typia_transform__randomString._randomString
+              )({
+                type: "string",
+              }),
+            ],
+          }),
         ),
     ])(),
-    logins: (generator?.array ?? $generator.array)(() =>
-      $ro3(_recursive, _recursive ? 1 + _depth : _depth),
-    ),
+    logins: (_generator?.array ?? __typia_transform__randomArray._randomArray)({
+      type: "array",
+      element: () => _ro3(_recursive, _recursive ? 1 + _depth : _depth),
+    }),
   });
-  const $ro1 = (_recursive = false, _depth = 0) => ({
+  const _ro1 = (_recursive = false, _depth = 0) => ({
     type: "cat",
-    name:
-      (generator?.customs ?? $generator.customs)?.string?.([]) ??
-      (generator?.string ?? $generator.string)(),
-    ribbon: (generator?.boolean ?? $generator.boolean)(),
+    name: (_generator?.string ?? __typia_transform__randomString._randomString)(
+      {
+        type: "string",
+      },
+    ),
+    ribbon: (
+      _generator?.boolean ?? __typia_transform__randomBoolean._randomBoolean
+    )({
+      type: "boolean",
+    }),
   });
-  const $ro2 = (_recursive = false, _depth = 0) => ({
+  const _ro2 = (_recursive = false, _depth = 0) => ({
     type: "dog",
-    name:
-      (generator?.customs ?? $generator.customs)?.string?.([]) ??
-      (generator?.string ?? $generator.string)(),
-    hunt: (generator?.boolean ?? $generator.boolean)(),
+    name: (_generator?.string ?? __typia_transform__randomString._randomString)(
+      {
+        type: "string",
+      },
+    ),
+    hunt: (
+      _generator?.boolean ?? __typia_transform__randomBoolean._randomBoolean
+    )({
+      type: "boolean",
+    }),
   });
-  const $ro3 = (_recursive = false, _depth = 0) => ({
-    success: (generator?.boolean ?? $generator.boolean)(),
-    href:
-      (generator?.customs ?? $generator.customs)?.string?.([
-        {
-          name: 'Format<"url">',
-          kind: "format",
-          value: "url",
-        },
-      ]) ?? (generator?.url ?? $generator.url)(),
-    referrer:
-      (generator?.customs ?? $generator.customs)?.string?.([
-        {
-          name: 'Format<"url">',
-          kind: "format",
-          value: "url",
-        },
-      ]) ?? (generator?.url ?? $generator.url)(),
-    ip: $pick([
+  const _ro3 = (_recursive = false, _depth = 0) => ({
+    success: (
+      _generator?.boolean ?? __typia_transform__randomBoolean._randomBoolean
+    )({
+      type: "boolean",
+    }),
+    href: (
+      _generator?.url ?? __typia_transform__randomFormatUrl._randomFormatUrl
+    )(),
+    referrer: (
+      _generator?.url ?? __typia_transform__randomFormatUrl._randomFormatUrl
+    )(),
+    ip: __typia_transform__randomPick._randomPick([
       () =>
-        (generator?.customs ?? $generator.customs)?.string?.([
-          {
-            name: 'Format<"ipv4">',
-            kind: "format",
-            value: "ipv4",
-          },
-        ]) ?? (generator?.ipv4 ?? $generator.ipv4)(),
+        (
+          _generator?.ipv4 ??
+          __typia_transform__randomFormatIpv4._randomFormatIpv4
+        )(),
       () =>
-        (generator?.customs ?? $generator.customs)?.string?.([
-          {
-            name: 'Format<"ipv6">',
-            kind: "format",
-            value: "ipv6",
-          },
-        ]) ?? (generator?.ipv6 ?? $generator.ipv6)(),
+        (
+          _generator?.ipv6 ??
+          __typia_transform__randomFormatIpv6._randomFormatIpv6
+        )(),
     ])(),
-    time:
-      (generator?.customs ?? $generator.customs)?.string?.([
-        {
-          name: 'Format<"date-time">',
-          kind: "format",
-          value: "date-time",
-        },
-      ]) ?? (generator?.datetime ?? $generator.datetime)(),
+    time: (
+      _generator?.datetime ??
+      __typia_transform__randomFormatDatetime._randomFormatDatetime
+    )(),
   });
-  return $ro0();
-})();
+  let _generator;
+  return (generator) => {
+    _generator = generator;
+    return _ro0();
+  };
+})()();
 (() => {
-  const $throws = typia.protobuf.encode.throws;
-  const $Sizer = typia.protobuf.encode.Sizer;
-  const $Writer = typia.protobuf.encode.Writer;
   const encoder = (writer, input) => {
-    const $peo0 = (input) => {
-      // property "id";
+    const _peo0 = (input) => {
+      // property "id": (number & Type<"int32">);
       writer.uint32(8);
       writer.int32(input.id);
-      // property "email";
+      // property "email": (string & Format<"email">);
       writer.uint32(18);
       writer.string(input.email);
-      // property "name";
+      // property "name": string;
       writer.uint32(26);
       writer.string(input.name);
-      // property "pet";
+      // property "pet": (ICat | IDog | null);
       if (null !== input.pet) {
-        if ("cat" === input.pet.type)
-          (() => {
-            // 4 -> ICat;
-            writer.uint32(34);
-            writer.fork();
-            $peo1(input.pet);
-            writer.ldelim();
-          })();
-        else if ("dog" === input.pet.type)
-          (() => {
-            // 5 -> IDog;
-            writer.uint32(42);
-            writer.fork();
-            $peo2(input.pet);
-            writer.ldelim();
-          })();
-        else
-          $throws({
-            expected: "(ICat | IDog)",
+        if ("object" === typeof input.pet && null !== input.pet) {
+          if ("cat" === input.pet.type)
+            (() => {
+              writer.uint32(34);
+              writer.fork();
+              _peo1(input.pet);
+              writer.ldelim();
+            })();
+          else if ("dog" === input.pet.type)
+            (() => {
+              writer.uint32(42);
+              writer.fork();
+              _peo2(input.pet);
+              writer.ldelim();
+            })();
+          else
+            __typia_transform__throwTypeGuardError._throwTypeGuardError({
+              method: "typia.protobuf.encode",
+              expected: "(ICat | IDog)",
+              value: input.pet,
+            });
+        } else if ("object" === typeof input.pet && null !== input.pet) {
+          if ("cat" === input.pet.type)
+            (() => {
+              writer.uint32(34);
+              writer.fork();
+              _peo1(input.pet);
+              writer.ldelim();
+            })();
+          else if ("dog" === input.pet.type)
+            (() => {
+              writer.uint32(42);
+              writer.fork();
+              _peo2(input.pet);
+              writer.ldelim();
+            })();
+          else
+            __typia_transform__throwTypeGuardError._throwTypeGuardError({
+              method: "typia.protobuf.encode",
+              expected: "(ICat | IDog)",
+              value: input.pet,
+            });
+        } else
+          __typia_transform__throwTypeGuardError._throwTypeGuardError({
+            method: "typia.protobuf.encode",
+            expected: "(ICat | IDog | null)",
             value: input.pet,
           });
       }
-      // property "memo";
+      // property "memo": (Map<string, string> | null);
       if (null !== input.memo) {
         for (const [key, value] of input.memo) {
           writer.uint32(50);
@@ -387,98 +435,92 @@ const customer = ((generator) => {
           writer.ldelim();
         }
       }
-      // property "logins";
+      // property "logins": Array<ICustomerLogin>;
       if (0 !== input.logins.length) {
         for (const elem of input.logins) {
-          // 7 -> ICustomerLogin;
           writer.uint32(58);
           writer.fork();
-          $peo3(elem);
+          _peo3(elem);
           writer.ldelim();
         }
       }
     };
-    const $peo1 = (input) => {
-      // property "type";
+    const _peo1 = (input) => {
+      // property "type": "cat";
       writer.uint32(10);
       writer.string(input.type);
-      // property "name";
+      // property "name": string;
       writer.uint32(18);
       writer.string(input.name);
-      // property "ribbon";
+      // property "ribbon": boolean;
       writer.uint32(24);
       writer.bool(input.ribbon);
     };
-    const $peo2 = (input) => {
-      // property "type";
+    const _peo2 = (input) => {
+      // property "type": "dog";
       writer.uint32(10);
       writer.string(input.type);
-      // property "name";
+      // property "name": string;
       writer.uint32(18);
       writer.string(input.name);
-      // property "hunt";
+      // property "hunt": boolean;
       writer.uint32(24);
       writer.bool(input.hunt);
     };
-    const $peo3 = (input) => {
-      // property "success";
+    const _peo3 = (input) => {
+      // property "success": boolean;
       writer.uint32(8);
       writer.bool(input.success);
-      // property "href";
+      // property "href": (string & Format<"url">);
       writer.uint32(18);
       writer.string(input.href);
-      // property "referrer";
+      // property "referrer": (string & Format<"url">);
       writer.uint32(26);
       writer.string(input.referrer);
-      // property "ip";
+      // property "ip": (string & (Format<"ipv4"> | Format<"ipv6">));
       writer.uint32(34);
       writer.string(input.ip);
-      // property "time";
+      // property "time": (string & Format<"date-time">);
       writer.uint32(42);
       writer.string(input.time);
     };
-    const $io1 = (input) =>
+    const _io1 = (input) =>
       "cat" === input.type &&
       "string" === typeof input.name &&
       "boolean" === typeof input.ribbon;
-    const $io2 = (input) =>
+    const _io2 = (input) =>
       "dog" === input.type &&
       "string" === typeof input.name &&
       "boolean" === typeof input.hunt;
-    const $io3 = (input) =>
+    const _io3 = (input) =>
       "boolean" === typeof input.success &&
       "string" === typeof input.href &&
-      /^(?:https?|ftp):\/\/(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z0-9\u{00a1}-\u{ffff}]+-)*[a-z0-9\u{00a1}-\u{ffff}]+)(?:\.(?:[a-z0-9\u{00a1}-\u{ffff}]+-)*[a-z0-9\u{00a1}-\u{ffff}]+)*(?:\.(?:[a-z\u{00a1}-\u{ffff}]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?$/iu.test(
-        input.href,
-      ) &&
+      __typia_transform__isFormatUrl._isFormatUrl(input.href) &&
       "string" === typeof input.referrer &&
-      /^(?:https?|ftp):\/\/(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z0-9\u{00a1}-\u{ffff}]+-)*[a-z0-9\u{00a1}-\u{ffff}]+)(?:\.(?:[a-z0-9\u{00a1}-\u{ffff}]+-)*[a-z0-9\u{00a1}-\u{ffff}]+)*(?:\.(?:[a-z\u{00a1}-\u{ffff}]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?$/iu.test(
-        input.referrer,
-      ) &&
+      __typia_transform__isFormatUrl._isFormatUrl(input.referrer) &&
       "string" === typeof input.ip &&
-      (/^(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)$/.test(
-        input.ip,
-      ) ||
-        /^((([0-9a-f]{1,4}:){7}([0-9a-f]{1,4}|:))|(([0-9a-f]{1,4}:){6}(:[0-9a-f]{1,4}|((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3})|:))|(([0-9a-f]{1,4}:){5}(((:[0-9a-f]{1,4}){1,2})|:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3})|:))|(([0-9a-f]{1,4}:){4}(((:[0-9a-f]{1,4}){1,3})|((:[0-9a-f]{1,4})?:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(([0-9a-f]{1,4}:){3}(((:[0-9a-f]{1,4}){1,4})|((:[0-9a-f]{1,4}){0,2}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(([0-9a-f]{1,4}:){2}(((:[0-9a-f]{1,4}){1,5})|((:[0-9a-f]{1,4}){0,3}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(([0-9a-f]{1,4}:){1}(((:[0-9a-f]{1,4}){1,6})|((:[0-9a-f]{1,4}){0,4}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(:(((:[0-9a-f]{1,4}){1,7})|((:[0-9a-f]{1,4}){0,5}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:)))$/i.test(
-          input.ip,
-        )) &&
+      (__typia_transform__isFormatIpv4._isFormatIpv4(input.ip) ||
+        __typia_transform__isFormatIpv6._isFormatIpv6(input.ip)) &&
       "string" === typeof input.time &&
-      /^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])(T|\s)([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](?:\.[0-9]{1,9})?(Z|[+-]([01][0-9]|2[0-3]):[0-5][0-9])$/i.test(
-        input.time,
-      );
-    const $iu0 = (input) =>
+      __typia_transform__isFormatDateTime._isFormatDateTime(input.time);
+    const _iu0 = (input) =>
       (() => {
-        if ("cat" === input.type) return $io1(input);
-        else if ("dog" === input.type) return $io2(input);
+        if ("cat" === input.type) return _io1(input);
+        else if ("dog" === input.type) return _io2(input);
         else return false;
       })();
-    //ICustomer;
-    $peo0(input);
+    _peo0(input);
     return writer;
   };
   return (input) => {
-    const sizer = encoder(new $Sizer(), input);
-    const writer = encoder(new $Writer(sizer), input);
+    const sizer = encoder(
+      new __typia_transform__ProtobufSizer._ProtobufSizer(),
+      input,
+    );
+    const writer = encoder(
+      new __typia_transform__ProtobufWriter._ProtobufWriter(sizer),
+      input,
+    );
     return writer.buffer();
   };
 })()(customer);
@@ -822,48 +864,81 @@ interface ICustomerLogin {
 ```
   </Tab>
   <Tab>
-```typescript copy filename="protobuf.createEncode.js" showLineNumbers
+```javascript copy filename="protobuf.createEncode.js" showLineNumbers
+import * as __typia_transform__throwTypeGuardError from "typia/lib/internal/_throwTypeGuardError.js";
+import * as __typia_transform__isTypeInt32 from "typia/lib/internal/_isTypeInt32.js";
+import * as __typia_transform__isFormatEmail from "typia/lib/internal/_isFormatEmail.js";
+import * as __typia_transform__isFormatUrl from "typia/lib/internal/_isFormatUrl.js";
+import * as __typia_transform__isFormatIpv4 from "typia/lib/internal/_isFormatIpv4.js";
+import * as __typia_transform__isFormatIpv6 from "typia/lib/internal/_isFormatIpv6.js";
+import * as __typia_transform__isFormatDateTime from "typia/lib/internal/_isFormatDateTime.js";
+import * as __typia_transform__ProtobufSizer from "typia/lib/internal/_ProtobufSizer.js";
+import * as __typia_transform__ProtobufWriter from "typia/lib/internal/_ProtobufWriter.js";
 import typia from "typia";
 export const encode = (() => {
-  const $throws = typia.protobuf.createEncode.throws;
-  const $Sizer = typia.protobuf.createEncode.Sizer;
-  const $Writer = typia.protobuf.createEncode.Writer;
   const encoder = (writer, input) => {
-    const $peo0 = (input) => {
-      // property "id";
+    const _peo0 = (input) => {
+      // property "id": (number & Type<"int32">);
       writer.uint32(8);
       writer.int32(input.id);
-      // property "email";
+      // property "email": (string & Format<"email">);
       writer.uint32(18);
       writer.string(input.email);
-      // property "name";
+      // property "name": string;
       writer.uint32(26);
       writer.string(input.name);
-      // property "pet";
+      // property "pet": (ICat | IDog | null);
       if (null !== input.pet) {
-        if ("cat" === input.pet.type)
-          (() => {
-            // 4 -> ICat;
-            writer.uint32(34);
-            writer.fork();
-            $peo1(input.pet);
-            writer.ldelim();
-          })();
-        else if ("dog" === input.pet.type)
-          (() => {
-            // 5 -> IDog;
-            writer.uint32(42);
-            writer.fork();
-            $peo2(input.pet);
-            writer.ldelim();
-          })();
-        else
-          $throws({
-            expected: "(ICat | IDog)",
+        if ("object" === typeof input.pet && null !== input.pet) {
+          if ("cat" === input.pet.type)
+            (() => {
+              writer.uint32(34);
+              writer.fork();
+              _peo1(input.pet);
+              writer.ldelim();
+            })();
+          else if ("dog" === input.pet.type)
+            (() => {
+              writer.uint32(42);
+              writer.fork();
+              _peo2(input.pet);
+              writer.ldelim();
+            })();
+          else
+            __typia_transform__throwTypeGuardError._throwTypeGuardError({
+              method: "typia.protobuf.createEncode",
+              expected: "(ICat | IDog)",
+              value: input.pet,
+            });
+        } else if ("object" === typeof input.pet && null !== input.pet) {
+          if ("cat" === input.pet.type)
+            (() => {
+              writer.uint32(34);
+              writer.fork();
+              _peo1(input.pet);
+              writer.ldelim();
+            })();
+          else if ("dog" === input.pet.type)
+            (() => {
+              writer.uint32(42);
+              writer.fork();
+              _peo2(input.pet);
+              writer.ldelim();
+            })();
+          else
+            __typia_transform__throwTypeGuardError._throwTypeGuardError({
+              method: "typia.protobuf.createEncode",
+              expected: "(ICat | IDog)",
+              value: input.pet,
+            });
+        } else
+          __typia_transform__throwTypeGuardError._throwTypeGuardError({
+            method: "typia.protobuf.createEncode",
+            expected: "(ICat | IDog | null)",
             value: input.pet,
           });
       }
-      // property "memo";
+      // property "memo": (Map<string, string> | null);
       if (null !== input.memo) {
         for (const [key, value] of input.memo) {
           writer.uint32(50);
@@ -875,98 +950,92 @@ export const encode = (() => {
           writer.ldelim();
         }
       }
-      // property "logins";
+      // property "logins": Array<ICustomerLogin>;
       if (0 !== input.logins.length) {
         for (const elem of input.logins) {
-          // 7 -> ICustomerLogin;
           writer.uint32(58);
           writer.fork();
-          $peo3(elem);
+          _peo3(elem);
           writer.ldelim();
         }
       }
     };
-    const $peo1 = (input) => {
-      // property "type";
+    const _peo1 = (input) => {
+      // property "type": "cat";
       writer.uint32(10);
       writer.string(input.type);
-      // property "name";
+      // property "name": string;
       writer.uint32(18);
       writer.string(input.name);
-      // property "ribbon";
+      // property "ribbon": boolean;
       writer.uint32(24);
       writer.bool(input.ribbon);
     };
-    const $peo2 = (input) => {
-      // property "type";
+    const _peo2 = (input) => {
+      // property "type": "dog";
       writer.uint32(10);
       writer.string(input.type);
-      // property "name";
+      // property "name": string;
       writer.uint32(18);
       writer.string(input.name);
-      // property "hunt";
+      // property "hunt": boolean;
       writer.uint32(24);
       writer.bool(input.hunt);
     };
-    const $peo3 = (input) => {
-      // property "success";
+    const _peo3 = (input) => {
+      // property "success": boolean;
       writer.uint32(8);
       writer.bool(input.success);
-      // property "href";
+      // property "href": (string & Format<"url">);
       writer.uint32(18);
       writer.string(input.href);
-      // property "referrer";
+      // property "referrer": (string & Format<"url">);
       writer.uint32(26);
       writer.string(input.referrer);
-      // property "ip";
+      // property "ip": (string & (Format<"ipv4"> | Format<"ipv6">));
       writer.uint32(34);
       writer.string(input.ip);
-      // property "time";
+      // property "time": (string & Format<"date-time">);
       writer.uint32(42);
       writer.string(input.time);
     };
-    const $io1 = (input) =>
+    const _io1 = (input) =>
       "cat" === input.type &&
       "string" === typeof input.name &&
       "boolean" === typeof input.ribbon;
-    const $io2 = (input) =>
+    const _io2 = (input) =>
       "dog" === input.type &&
       "string" === typeof input.name &&
       "boolean" === typeof input.hunt;
-    const $io3 = (input) =>
+    const _io3 = (input) =>
       "boolean" === typeof input.success &&
       "string" === typeof input.href &&
-      /^(?:https?|ftp):\/\/(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z0-9\u{00a1}-\u{ffff}]+-)*[a-z0-9\u{00a1}-\u{ffff}]+)(?:\.(?:[a-z0-9\u{00a1}-\u{ffff}]+-)*[a-z0-9\u{00a1}-\u{ffff}]+)*(?:\.(?:[a-z\u{00a1}-\u{ffff}]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?$/iu.test(
-        input.href,
-      ) &&
+      __typia_transform__isFormatUrl._isFormatUrl(input.href) &&
       "string" === typeof input.referrer &&
-      /^(?:https?|ftp):\/\/(?:\S+(?::\S*)?@)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z0-9\u{00a1}-\u{ffff}]+-)*[a-z0-9\u{00a1}-\u{ffff}]+)(?:\.(?:[a-z0-9\u{00a1}-\u{ffff}]+-)*[a-z0-9\u{00a1}-\u{ffff}]+)*(?:\.(?:[a-z\u{00a1}-\u{ffff}]{2,})))(?::\d{2,5})?(?:\/[^\s]*)?$/iu.test(
-        input.referrer,
-      ) &&
+      __typia_transform__isFormatUrl._isFormatUrl(input.referrer) &&
       "string" === typeof input.ip &&
-      (/^(?:(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)\.){3}(?:25[0-5]|2[0-4]\d|1\d\d|[1-9]?\d)$/.test(
-        input.ip,
-      ) ||
-        /^((([0-9a-f]{1,4}:){7}([0-9a-f]{1,4}|:))|(([0-9a-f]{1,4}:){6}(:[0-9a-f]{1,4}|((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3})|:))|(([0-9a-f]{1,4}:){5}(((:[0-9a-f]{1,4}){1,2})|:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3})|:))|(([0-9a-f]{1,4}:){4}(((:[0-9a-f]{1,4}){1,3})|((:[0-9a-f]{1,4})?:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(([0-9a-f]{1,4}:){3}(((:[0-9a-f]{1,4}){1,4})|((:[0-9a-f]{1,4}){0,2}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(([0-9a-f]{1,4}:){2}(((:[0-9a-f]{1,4}){1,5})|((:[0-9a-f]{1,4}){0,3}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(([0-9a-f]{1,4}:){1}(((:[0-9a-f]{1,4}){1,6})|((:[0-9a-f]{1,4}){0,4}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:))|(:(((:[0-9a-f]{1,4}){1,7})|((:[0-9a-f]{1,4}){0,5}:((25[0-5]|2[0-4]d|1dd|[1-9]?d)(.(25[0-5]|2[0-4]d|1dd|[1-9]?d)){3}))|:)))$/i.test(
-          input.ip,
-        )) &&
+      (__typia_transform__isFormatIpv4._isFormatIpv4(input.ip) ||
+        __typia_transform__isFormatIpv6._isFormatIpv6(input.ip)) &&
       "string" === typeof input.time &&
-      /^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])(T|\s)([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](?:\.[0-9]{1,9})?(Z|[+-]([01][0-9]|2[0-3]):[0-5][0-9])$/i.test(
-        input.time,
-      );
-    const $iu0 = (input) =>
+      __typia_transform__isFormatDateTime._isFormatDateTime(input.time);
+    const _iu0 = (input) =>
       (() => {
-        if ("cat" === input.type) return $io1(input);
-        else if ("dog" === input.type) return $io2(input);
+        if ("cat" === input.type) return _io1(input);
+        else if ("dog" === input.type) return _io2(input);
         else return false;
       })();
-    //ICustomer;
-    $peo0(input);
+    _peo0(input);
     return writer;
   };
   return (input) => {
-    const sizer = encoder(new $Sizer(), input);
-    const writer = encoder(new $Writer(sizer), input);
+    const sizer = encoder(
+      new __typia_transform__ProtobufSizer._ProtobufSizer(),
+      input,
+    );
+    const writer = encoder(
+      new __typia_transform__ProtobufWriter._ProtobufWriter(sizer),
+      input,
+    );
     return writer.buffer();
   };
 })();

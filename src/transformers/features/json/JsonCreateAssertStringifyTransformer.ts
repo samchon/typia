@@ -1,12 +1,13 @@
 import { JsonAssertStringifyProgrammer } from "../../../programmers/json/JsonAssertStringifyProgrammer";
 
+import { ITransformProps } from "../../ITransformProps";
 import { GenericTransformer } from "../../internal/GenericTransformer";
 
 export namespace JsonCreateAssertStringifyTransformer {
-  export const transform = GenericTransformer.factory(
-    "json.createAssertStringify",
-  )(
-    (project) => (modulo) =>
-      JsonAssertStringifyProgrammer.write(project)(modulo),
-  );
+  export const transform = (props: ITransformProps) =>
+    GenericTransformer.factory({
+      ...props,
+      method: "json.createAssertStringify",
+      write: JsonAssertStringifyProgrammer.write,
+    });
 }

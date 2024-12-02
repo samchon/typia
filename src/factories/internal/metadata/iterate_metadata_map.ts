@@ -1,50 +1,57 @@
 import ts from "typescript";
 
-import { Metadata } from "../../../schemas/metadata/Metadata";
+import { MetadataMap } from "../../../schemas/metadata/MetadataMap";
 
 import { ArrayUtil } from "../../../utils/ArrayUtil";
 
-import { MetadataCollection } from "../../MetadataCollection";
-import { MetadataFactory } from "../../MetadataFactory";
 import { TypeFactory } from "../../TypeFactory";
+import { IMetadataIteratorProps } from "./IMetadataIteratorProps";
 import { explore_metadata } from "./explore_metadata";
 
-export const iterate_metadata_map =
-  (checker: ts.TypeChecker) =>
-  (options: MetadataFactory.IOptions) =>
-  (collection: MetadataCollection) =>
-  (errors: MetadataFactory.IError[]) =>
-  (
-    meta: Metadata,
-    type: ts.Type,
-    explore: MetadataFactory.IExplore,
-  ): boolean => {
-    type = checker.getApparentType(type);
+export const iterate_metadata_map = (
+  props: IMetadataIteratorProps,
+): boolean => {
+  const type: ts.Type = props.checker.getApparentType(props.type);
 
-    const name = TypeFactory.getFullName(checker)(type, type.getSymbol());
-    const generic = type.aliasSymbol
-      ? type.aliasTypeArguments
-      : checker.getTypeArguments(type as ts.TypeReference);
-    if (name.substring(0, 4) !== "Map<" || generic?.length !== 2) return false;
+  const name: string = TypeFactory.getFullName({
+    checker: props.checker,
+    type,
+    symbol: type.getSymbol(),
+  });
+  const generic: readonly ts.Type[] | undefined = type.aliasSymbol
+    ? type.aliasTypeArguments
+    : props.checker.getTypeArguments(type as ts.TypeReference);
+  if (name.substring(0, 4) !== "Map<" || generic?.length !== 2) return false;
 
-    const key: ts.Type = generic[0]!;
-    const value: ts.Type = generic[1]!;
+  const key: ts.Type = generic[0]!;
+  const value: ts.Type = generic[1]!;
 
-    ArrayUtil.set(
-      meta.maps,
-      {
-        key: explore_metadata(checker)(options)(collection)(errors)(key, {
-          ...explore,
+  ArrayUtil.set(
+    props.metadata.maps,
+    MetadataMap.create({
+      key: explore_metadata({
+        ...props,
+        type: key,
+        explore: {
+          ...props.explore,
           escaped: false,
           aliased: false,
-        }),
-        value: explore_metadata(checker)(options)(collection)(errors)(value, {
-          ...explore,
+        },
+        intersected: false,
+      }),
+      value: explore_metadata({
+        ...props,
+        type: value,
+        explore: {
+          ...props.explore,
           escaped: false,
           aliased: false,
-        }),
-      },
-      (elem) => `Map<${elem.key.getName()}, ${elem.value.getName()}>`,
-    );
-    return true;
-  };
+        },
+        intersected: false,
+      }),
+      tags: [],
+    }),
+    (elem) => `Map<${elem.key.getName()}, ${elem.value.getName()}>`,
+  );
+  return true;
+};

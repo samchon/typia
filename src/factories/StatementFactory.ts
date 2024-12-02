@@ -3,39 +3,55 @@ import ts from "typescript";
 import { TypeFactory } from "./TypeFactory";
 
 export namespace StatementFactory {
-  export const mut = (name: string, initializer?: ts.Expression) =>
+  export const mut = (props: {
+    name: string;
+    type?: ts.TypeNode | undefined;
+    initializer?: ts.Expression | undefined;
+  }) =>
     ts.factory.createVariableStatement(
       undefined,
       ts.factory.createVariableDeclarationList(
         [
           ts.factory.createVariableDeclaration(
-            name,
+            props.name,
             undefined,
-            initializer === undefined ? TypeFactory.keyword("any") : undefined,
-            initializer,
+            props.type !== undefined
+              ? props.type
+              : props.initializer === undefined
+                ? TypeFactory.keyword("any")
+                : undefined,
+            props.initializer,
           ),
         ],
         ts.NodeFlags.Let,
       ),
     );
 
-  export const constant = (name: string, initializer?: ts.Expression) =>
+  export const constant = (props: {
+    name: string;
+    type?: ts.TypeNode | undefined;
+    value?: ts.Expression | undefined;
+  }) =>
     ts.factory.createVariableStatement(
       undefined,
       ts.factory.createVariableDeclarationList(
         [
           ts.factory.createVariableDeclaration(
-            name,
+            props.name,
             undefined,
-            undefined,
-            initializer,
+            props.type !== undefined
+              ? props.type
+              : props.value === undefined
+                ? TypeFactory.keyword("any")
+                : undefined,
+            props.value,
           ),
         ],
         ts.NodeFlags.Const,
       ),
     );
 
-  export const entry = (key: string) => (value: string) =>
+  export const entry = (props: { key: string; value: string }) =>
     ts.factory.createVariableDeclarationList(
       [
         ts.factory.createVariableDeclaration(
@@ -43,13 +59,13 @@ export namespace StatementFactory {
             ts.factory.createBindingElement(
               undefined,
               undefined,
-              ts.factory.createIdentifier(key),
+              ts.factory.createIdentifier(props.key),
               undefined,
             ),
             ts.factory.createBindingElement(
               undefined,
               undefined,
-              ts.factory.createIdentifier(value),
+              ts.factory.createIdentifier(props.value),
               undefined,
             ),
           ]),

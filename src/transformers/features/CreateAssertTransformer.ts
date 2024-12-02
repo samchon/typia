@@ -1,16 +1,24 @@
 import { AssertProgrammer } from "../../programmers/AssertProgrammer";
 
+import { ITransformProps } from "../ITransformProps";
 import { GenericTransformer } from "../internal/GenericTransformer";
 
 export namespace CreateAssertTransformer {
-  export const transform = (props: { equals: boolean; guard: boolean }) =>
-    GenericTransformer.factory(
-      props.equals
-        ? props.guard
-          ? "createAssertGuardEquals"
-          : "createAssertEquals"
-        : props.guard
-          ? "createAssertGuard"
-          : "createAssert",
-    )((project) => (modulo) => AssertProgrammer.write(project)(modulo)(props));
+  export const transform =
+    (config: AssertProgrammer.IConfig) => (props: ITransformProps) =>
+      GenericTransformer.factory({
+        ...props,
+        method: config.equals
+          ? config.guard
+            ? "assertGuardEquals"
+            : "assertEquals"
+          : config.guard
+            ? "assertGuard"
+            : "assert",
+        write: (x) =>
+          AssertProgrammer.write({
+            ...x,
+            config,
+          }),
+      });
 }

@@ -11,9 +11,10 @@ export class PackageManager {
   }
 
   public static async mount(): Promise<PackageManager> {
-    const location: string | null = await FileRetriever.directory(
-      "package.json",
-    )(process.cwd());
+    const location: string | null = await FileRetriever.directory({
+      file: "package.json",
+      location: process.cwd(),
+    });
     if (location === null)
       throw new URIError(`Unable to find "package.json" file`);
 

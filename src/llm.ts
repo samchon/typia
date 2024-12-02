@@ -1,7 +1,5 @@
 import { ILlmApplication, ILlmSchema } from "@samchon/openapi";
 
-import * as Namespace from "./functional/Namespace";
-
 /**
  * > You must configure the generic argument `App`.
  *
@@ -34,14 +32,29 @@ import * as Namespace from "./functional/Namespace";
  * humand and LLM sides' parameters into one through {@link HttpLlm.mergeParameters}
  * before the actual LLM function call execution.
  *
+ * Here is the list of available `Model` types with their corresponding LLM schema.
+ * Reading the following list, and determine the `Model` type considering the
+ * characteristics of the target LLM provider.
+ *
+ * - LLM provider schemas
+ *   - `chatgpt`: [`IChatGptSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IChatGptSchema.ts)
+ *   - `claude`: [`IClaudeSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IClaudeSchema.ts)
+ *   - `gemini`: [`IGeminiSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IGeminiSchema.ts)
+ *   - `llama`: [`ILlamaSchema`](https://github.com/samchon/openapi/blob/master/src/structures/ILlamaSchema.ts)
+ * - Midldle layer schemas
+ *   - `3.0`: [`ILlmSchemaV3`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3.ts)
+ *   - `3.1`: [`ILlmSchemaV3_1`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3_1.ts)
+ *
  * @template App Target class or interface type collecting the functions to call
+ * @template Model LLM schema model
+ * @template Config Configuration of LLM schema composition
  * @param options Options for the LLM application construction
  * @returns Application of LLM function calling schemas
  * @reference https://platform.openai.com/docs/guides/function-calling
  * @author Jeongho Nam - https://github.com/samchon
  */
-function application(
-  options?: Omit<ILlmApplication.IOptions, "recursive">,
+export function application(
+  options?: Partial<Pick<ILlmApplication.IOptions<any>, "separate">>,
 ): never;
 
 /**
@@ -74,28 +87,134 @@ function application(
  * humand and LLM sides' parameters into one through {@link HttpLlm.mergeParameters}
  * before the actual LLM function call execution.
  *
+ * Here is the list of available `Model` types with their corresponding LLM schema.
+ * Reading the following list, and determine the `Model` type considering the
+ * characteristics of the target LLM provider.
+ *
+ * - LLM provider schemas
+ *   - `chatgpt`: [`IChatGptSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IChatGptSchema.ts)
+ *   - `claude`: [`IClaudeSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IClaudeSchema.ts)
+ *   - `gemini`: [`IGeminiSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IGeminiSchema.ts)
+ *   - `llama`: [`ILlamaSchema`](https://github.com/samchon/openapi/blob/master/src/structures/ILlamaSchema.ts)
+ * - Midldle layer schemas
+ *   - `3.0`: [`ILlmSchemaV3`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3.ts)
+ *   - `3.1`: [`ILlmSchemaV3_1`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3_1.ts)
+ *
  * @template App Target class or interface type collecting the functions to call
+ * @template Model LLM schema model
+ * @template Config Configuration of LLM schema composition
  * @param options Options for the LLM application construction
  * @returns Application of LLM function calling schemas
  * @reference https://platform.openai.com/docs/guides/function-calling
  * @author Jeongho Nam - https://github.com/samchon
  */
-function application<App extends object>(
-  options?: Omit<ILlmApplication.IOptions, "recursive">,
-): ILlmApplication;
+export function application<
+  App extends Record<string, any>,
+  Model extends ILlmSchema.Model,
+  Config extends Partial<ILlmSchema.ModelConfig[Model]> = {},
+>(
+  options?: Partial<Pick<ILlmApplication.IOptions<Model>, "separate">>,
+): ILlmApplication<Model>;
 
 /**
  * @internal
  */
-function application(): never {
+export function application(): never {
   halt("application");
 }
 
-const applicationPure = /** @__PURE__ */ Object.assign<typeof application, {}>(
-  application,
-  /** @__PURE__ */ Namespace.llm.application(),
-);
-export { applicationPure as application };
+/**
+ * > You must configure the generic argument `Parameters`.
+ *
+ * TypeScript parameters to LLM parameters schema.
+ *
+ * Creates an LLM (Large Language Model) parameters schema, a type metadata that is used in the
+ * [LLM function calling](https://platform.openai.com/docs/guides/function-calling)
+ * and [LLM structured outputs](https://platform.openai.com/docs/guides/structured-outputs),
+ * from a TypeScript parameters type.
+ *
+ * For references, LLM identifies only keyworded arguments, not positional arguments.
+ * Therefore, the TypeScript parameters type must be an object type, and its properties
+ * must be static. If dynamic properties are, it would be compilation error.
+ *
+ * Also, such parameters type can be utilized not only for the LLM function calling,
+ * but also for the LLM structured outputs. The LLM structured outputs is a feature
+ * that LLM (Large Language Model) can generate a structured output, not only a plain
+ * text, by filling the parameters from the conversation (maybe chatting text) with user
+ * (human).
+ *
+ * Here is the list of available `Model` types with their corresponding LLM schema.
+ * Reading the following list, and determine the `Model` type considering the
+ * characteristics of the target LLM provider.
+ *
+ * - LLM provider schemas
+ *   - `chatgpt`: [`IChatGptSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IChatGptSchema.ts)
+ *   - `claude`: [`IClaudeSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IClaudeSchema.ts)
+ *   - `gemini`: [`IGeminiSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IGeminiSchema.ts)
+ *   - `llama`: [`ILlamaSchema`](https://github.com/samchon/openapi/blob/master/src/structures/ILlamaSchema.ts)
+ * - Midldle layer schemas
+ *   - `3.0`: [`ILlmSchemaV3`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3.ts)
+ *   - `3.1`: [`ILlmSchemaV3_1`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3_1.ts)
+ *
+ * @template Parameters Target parameters type
+ * @template Model LLM schema model
+ * @template Config Configuration of LLM schema composition
+ * @returns LLM parameters schema
+ * @reference https://platform.openai.com/docs/guides/function-calling
+ * @reference https://platform.openai.com/docs/guides/structured-outputs
+ */
+export function parameters(): never;
+
+/**
+ * TypeScript parameters to LLM parameters schema.
+ *
+ * Creates an LLM (Large Language Model) parameters schema, a type metadata that is used in the
+ * [LLM function calling](https://platform.openai.com/docs/guides/function-calling)
+ * and [LLM structured outputs](https://platform.openai.com/docs/guides/structured-outputs),
+ * from a TypeScript parameters type.
+ *
+ * For references, LLM identifies only keyworded arguments, not positional arguments.
+ * Therefore, the TypeScript parameters type must be an object type, and its properties
+ * must be static. If dynamic properties are, it would be compilation error.
+ *
+ * Also, such parameters type can be utilized not only for the LLM function calling,
+ * but also for the LLM structured outputs. The LLM structured outputs is a feature
+ * that LLM (Large Language Model) can generate a structured output, not only a plain
+ * text, by filling the parameters from the conversation (maybe chatting text) with user
+ * (human).
+ *
+ * Here is the list of available `Model` types with their corresponding LLM schema.
+ * Reading the following list, and determine the `Model` type considering the
+ * characteristics of the target LLM provider.
+ *
+ * - LLM provider schemas
+ *   - `chatgpt`: [`IChatGptSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IChatGptSchema.ts)
+ *   - `claude`: [`IClaudeSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IClaudeSchema.ts)
+ *   - `gemini`: [`IGeminiSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IGeminiSchema.ts)
+ *   - `llama`: [`ILlamaSchema`](https://github.com/samchon/openapi/blob/master/src/structures/ILlamaSchema.ts)
+ * - Midldle layer schemas
+ *   - `3.0`: [`ILlmSchemaV3`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3.ts)
+ *   - `3.1`: [`ILlmSchemaV3_1`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3_1.ts)
+ *
+ * @template Parameters Target parameters type
+ * @template Model LLM schema model
+ * @template Config Configuration of LLM schema composition
+ * @returns LLM parameters schema
+ * @reference https://platform.openai.com/docs/guides/function-calling
+ * @reference https://platform.openai.com/docs/guides/structured-outputs
+ */
+export function parameters<
+  Parameters extends Record<string, any>,
+  Model extends ILlmSchema.Model,
+  Config extends Partial<ILlmSchema.ModelConfig[Model]> = {},
+>(): ILlmSchema.ModelParameters[Model];
+
+/**
+ * @internal
+ */
+export function parameters(): never {
+  halt("parameters");
+}
 
 /**
  * > You must configure the generic argument `T`.
@@ -106,14 +225,24 @@ export { applicationPure as application };
  * [LLM function calling](@reference https://platform.openai.com/docs/guides/function-calling),
  * from a TypeScript type.
  *
- * The returned {@link ILlmSchema} type is similar to the OpenAPI v3.0 based JSON schema
- * definition, but it is more simplified for the LLM function calling by remmoving the
- * {@link OpenApiV3.IJson.IReference reference} type embodied by the
- * {@link OpenApiV3.IJson.IReference.$ref `$ref`} proeprty.
+ * The returned {@link ILlmSchema} type would be specified by the `Model` argument,
+ * and here is the list of available `Model` types with their corresponding LLM schema.
+ * Reading the following list, and determine the `Model` type considering the
+ * characteristics of the target LLM provider.
+ *
+ * - LLM provider schemas
+ *   - `chatgpt`: [`IChatGptSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IChatGptSchema.ts)
+ *   - `claude`: [`IClaudeSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IClaudeSchema.ts)
+ *   - `gemini`: [`IGeminiSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IGeminiSchema.ts)
+ *   - `llama`: [`ILlamaSchema`](https://github.com/samchon/openapi/blob/master/src/structures/ILlamaSchema.ts)
+ * - Midldle layer schemas
+ *   - `3.0`: [`ILlmSchemaV3`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3.ts)
+ *   - `3.1`: [`ILlmSchemaV3_1`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3_1.ts)
  *
  * If you actually want to perform the LLM function calling with TypeScript functions,
- * you can do it with the {@link application} function. Let's enjoy the
- * LLM function calling with native TypeScript functions and types.
+ * you can do it with the {@link application} function. Otherwise you hope to perform the
+ * structured output, {@link parameters} function is better. Let's enjoy the LLM function calling
+ * and structured output with the native TypeScript functions and types.
  *
  * > **What LLM function calling is?
  * >
@@ -129,8 +258,11 @@ export { applicationPure as application };
  * > LLM will continue the next conversation based on the return value.
  *
  * @template T Target type
+ * @template Model LLM schema model
+ * @template Config Configuration of LLM schema composition
  * @returns LLM schema
  * @reference https://platform.openai.com/docs/guides/function-calling
+ * @reference https://platform.openai.com/docs/guides/structured-outputs
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function schema(): never;
@@ -142,14 +274,22 @@ export function schema(): never;
  * [LLM function calling](@reference https://platform.openai.com/docs/guides/function-calling),
  * from a TypeScript type.
  *
- * The returned {@link ILlmSchema} type is similar to the OpenAPI v3.0 based JSON schema
- * definition, but it is more simplified for the LLM function calling by remmoving the
- * {@link OpenApiV3.IJson.IReference reference} type embodied by the
- * {@link OpenApiV3.IJson.IReference.$ref `$ref`} proeprty.
+ * The returned {@link ILlmSchema} type would be specified by the `Model` argument,
+ * and here is the list of available `Model` types with their corresponding LLM schema:
+ *
+ * - LLM provider schemas
+ *   - `chatgpt`: [`IChatGptSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IChatGptSchema.ts)
+ *   - `claude`: [`IClaudeSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IClaudeSchema.ts)
+ *   - `gemini`: [`IGeminiSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IGeminiSchema.ts)
+ *   - `llama`: [`ILlamaSchema`](https://github.com/samchon/openapi/blob/master/src/structures/ILlamaSchema.ts)
+ * - Midldle layer schemas
+ *   - `3.0`: [`ILlmSchemaV3`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3.ts)
+ *   - `3.1`: [`ILlmSchemaV3_1`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3_1.ts)
  *
  * If you actually want to perform the LLM function calling with TypeScript functions,
- * you can do it with the {@link application} function. Let's enjoy the
- * LLM function calling with native TypeScript functions and types.
+ * you can do it with the {@link application} function. Otherwise you hope to perform the
+ * structured output, {@link parameters} function is better. Let's enjoy the LLM function calling
+ * and structured output with the native TypeScript functions and types.
  *
  * > **What LLM function calling is?
  * >
@@ -165,11 +305,25 @@ export function schema(): never;
  * > LLM will continue the next conversation based on the return value.
  *
  * @template T Target type
+ * @template Model LLM schema model
+ * @template Config Configuration of LLM schema composition
  * @returns LLM schema
  * @reference https://platform.openai.com/docs/guides/function-calling
+ * @reference https://platform.openai.com/docs/guides/structured-outputs
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function schema<T>(): ILlmSchema;
+export function schema<
+  T,
+  Model extends ILlmSchema.Model,
+  Config extends Partial<ILlmSchema.ModelConfig[Model]> = {},
+>(
+  ...$defs: Extract<
+    ILlmSchema.ModelSchema[Model],
+    { $ref: string }
+  > extends never
+    ? []
+    : [Record<string, ILlmSchema.ModelSchema[Model]>]
+): ILlmSchema.ModelSchema[Model];
 
 /**
  * @internal
