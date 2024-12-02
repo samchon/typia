@@ -27,6 +27,7 @@ export * from "./Resolved";
 export * from "./CamelCase";
 export * from "./PascalCase";
 export * from "./SnakeCase";
+export * from "./IReadableURLSearchParams";
 
 /* -----------------------------------------------------------
     BASIC VALIDATORS
