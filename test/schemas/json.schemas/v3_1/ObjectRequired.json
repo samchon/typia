@@ -1,0 +1,81 @@
+{
+  "version": "3.1",
+  "components": {
+    "schemas": {
+      "RequiredObjectRequired.IBase": {
+        "type": "object",
+        "properties": {
+          "boolean": {
+            "type": "boolean"
+          },
+          "number": {
+            "type": "number"
+          },
+          "string": {
+            "type": "string"
+          },
+          "array": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          "object": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ObjectRequired.IBase"
+              }
+            ]
+          }
+        },
+        "required": [
+          "boolean",
+          "number",
+          "string",
+          "array",
+          "object"
+        ],
+        "description": "Make all properties in T required"
+      },
+      "ObjectRequired.IBase": {
+        "type": "object",
+        "properties": {
+          "boolean": {
+            "type": "boolean"
+          },
+          "number": {
+            "type": "number"
+          },
+          "string": {
+            "type": "string"
+          },
+          "array": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          "object": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ObjectRequired.IBase"
+              }
+            ]
+          }
+        },
+        "required": []
+      }
+    }
+  },
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/RequiredObjectRequired.IBase"
+    }
+  ]
+}

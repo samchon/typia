@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ObjectUnionCompositePointer"
+        {
+          "name": "ObjectUnionCompositePointer",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -40,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -107,7 +111,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -137,14 +142,38 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionCompositePointer.IPoint",
-                "ObjectUnionCompositePointer.ILine",
-                "ObjectUnionCompositePointer.ITriangle",
-                "ObjectUnionCompositePointer.IRectangle",
-                "ObjectUnionCompositePointer.IPolyline",
-                "ObjectUnionCompositePointer.IPointedShape",
-                "ObjectUnionCompositePointer.IPolygon",
-                "ObjectUnionCompositePointer.ICircle"
+                {
+                  "name": "ObjectUnionCompositePointer.IPoint",
+                  "tags": []
+                },
+                {
+                  "name": "ObjectUnionCompositePointer.ILine",
+                  "tags": []
+                },
+                {
+                  "name": "ObjectUnionCompositePointer.ITriangle",
+                  "tags": []
+                },
+                {
+                  "name": "ObjectUnionCompositePointer.IRectangle",
+                  "tags": []
+                },
+                {
+                  "name": "ObjectUnionCompositePointer.IPolyline",
+                  "tags": []
+                },
+                {
+                  "name": "ObjectUnionCompositePointer.IPointedShape",
+                  "tags": []
+                },
+                {
+                  "name": "ObjectUnionCompositePointer.IPolygon",
+                  "tags": []
+                },
+                {
+                  "name": "ObjectUnionCompositePointer.ICircle",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -178,7 +207,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "x"
+                      "value": "x",
+                      "tags": []
                     }
                   ]
                 }
@@ -234,7 +264,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "y"
+                      "value": "y",
+                      "tags": []
                     }
                   ]
                 }
@@ -301,7 +332,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "p1"
+                      "value": "p1",
+                      "tags": []
                     }
                   ]
                 }
@@ -331,7 +363,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionCompositePointer.IPoint"
+                {
+                  "name": "ObjectUnionCompositePointer.IPoint",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -354,7 +389,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "p2"
+                      "value": "p2",
+                      "tags": []
                     }
                   ]
                 }
@@ -384,7 +420,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionCompositePointer.IPoint"
+                {
+                  "name": "ObjectUnionCompositePointer.IPoint",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -418,7 +457,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "p1"
+                      "value": "p1",
+                      "tags": []
                     }
                   ]
                 }
@@ -448,7 +488,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionCompositePointer.IPoint"
+                {
+                  "name": "ObjectUnionCompositePointer.IPoint",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -471,7 +514,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "p2"
+                      "value": "p2",
+                      "tags": []
                     }
                   ]
                 }
@@ -501,7 +545,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionCompositePointer.IPoint"
+                {
+                  "name": "ObjectUnionCompositePointer.IPoint",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -524,7 +571,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "p3"
+                      "value": "p3",
+                      "tags": []
                     }
                   ]
                 }
@@ -554,7 +602,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionCompositePointer.IPoint"
+                {
+                  "name": "ObjectUnionCompositePointer.IPoint",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -588,7 +639,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "p1"
+                      "value": "p1",
+                      "tags": []
                     }
                   ]
                 }
@@ -618,7 +670,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionCompositePointer.IPoint"
+                {
+                  "name": "ObjectUnionCompositePointer.IPoint",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -641,7 +696,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "p2"
+                      "value": "p2",
+                      "tags": []
                     }
                   ]
                 }
@@ -671,7 +727,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionCompositePointer.IPoint"
+                {
+                  "name": "ObjectUnionCompositePointer.IPoint",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -694,7 +753,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "p3"
+                      "value": "p3",
+                      "tags": []
                     }
                   ]
                 }
@@ -724,7 +784,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionCompositePointer.IPoint"
+                {
+                  "name": "ObjectUnionCompositePointer.IPoint",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -747,7 +810,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "p4"
+                      "value": "p4",
+                      "tags": []
                     }
                   ]
                 }
@@ -777,7 +841,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionCompositePointer.IPoint"
+                {
+                  "name": "ObjectUnionCompositePointer.IPoint",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -811,7 +878,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "points"
+                      "value": "points",
+                      "tags": []
                     }
                   ]
                 }
@@ -878,7 +946,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "outer"
+                      "value": "outer",
+                      "tags": []
                     }
                   ]
                 }
@@ -908,7 +977,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionCompositePointer.IPolyline"
+                {
+                  "name": "ObjectUnionCompositePointer.IPolyline",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -931,7 +1003,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "inner"
+                      "value": "inner",
+                      "tags": []
                     }
                   ]
                 }
@@ -998,7 +1071,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "outer"
+                      "value": "outer",
+                      "tags": []
                     }
                   ]
                 }
@@ -1054,7 +1128,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "inner"
+                      "value": "inner",
+                      "tags": []
                     }
                   ]
                 }
@@ -1084,7 +1159,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionCompositePointer.IPoint"
+                {
+                  "name": "ObjectUnionCompositePointer.IPoint",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -1118,7 +1196,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "centroid"
+                      "value": "centroid",
+                      "tags": []
                     }
                   ]
                 }
@@ -1148,7 +1227,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionCompositePointer.IPoint"
+                {
+                  "name": "ObjectUnionCompositePointer.IPoint",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -1171,7 +1253,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "radius"
+                      "value": "radius",
+                      "tags": []
                     }
                   ]
                 }
@@ -1241,7 +1324,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "IPointer<IPoint | ILine | ITriangle | IRectangle | IPolyline | IPolygon | IPointedShape | ICircle>"
+            {
+              "name": "IPointer<IPoint | ILine | ITriangle | IRectangle | IPolyline | IPolygon | IPointedShape | ICircle>",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],
@@ -1270,7 +1356,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ObjectUnionCompositePointer.IPoint"
+            {
+              "name": "ObjectUnionCompositePointer.IPoint",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],
@@ -1299,7 +1388,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ObjectUnionCompositePointer.IPolyline"
+            {
+              "name": "ObjectUnionCompositePointer.IPolyline",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

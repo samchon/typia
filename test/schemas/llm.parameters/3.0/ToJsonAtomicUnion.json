@@ -1,0 +1,111 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "type": "number",
+            "nullable": true
+          },
+          {
+            "type": "boolean",
+            "nullable": true
+          }
+        ]
+      }
+    },
+    "nullable": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "type": "number",
+            "nullable": true
+          },
+          {
+            "type": "boolean",
+            "nullable": true
+          }
+        ]
+      },
+      "nullable": true
+    },
+    "optional": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "type": "number",
+            "nullable": true
+          },
+          {
+            "type": "boolean",
+            "nullable": true
+          }
+        ]
+      }
+    },
+    "faint": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "type": "number",
+            "nullable": true
+          },
+          {
+            "type": "boolean",
+            "nullable": true
+          }
+        ]
+      },
+      "nullable": true
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "type": "string",
+              "nullable": true
+            },
+            {
+              "type": "number",
+              "nullable": true
+            },
+            {
+              "type": "boolean",
+              "nullable": true
+            }
+          ]
+        }
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false
+}

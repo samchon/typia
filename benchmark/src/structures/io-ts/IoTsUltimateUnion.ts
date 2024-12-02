@@ -1,6 +1,6 @@
 import { OpenApi } from "@samchon/openapi";
 import * as t from "io-ts";
-import { IJsonApplication } from "typia";
+import { IJsonSchemaCollection } from "typia";
 
 const Schema: t.Type<OpenApi.IJsonSchema> = t.recursion(
   "Schema",
@@ -82,7 +82,7 @@ const Components: t.Type<OpenApi.IComponents> = t.recursion(
     }) as any,
 );
 
-const Application: t.Type<IJsonApplication> = t.recursion(
+const Application: t.Type<IJsonSchemaCollection> = t.recursion(
   "Application",
   () =>
     t.type({
@@ -93,7 +93,7 @@ const Application: t.Type<IJsonApplication> = t.recursion(
     }) as any,
 );
 
-export const IoTsUltimateUnion: t.Type<IJsonApplication> = t.recursion(
+export const IoTsUltimateUnion: t.Type<IJsonSchemaCollection> = t.recursion(
   "UltimateUnion",
   () => t.array(Application) as any,
 );

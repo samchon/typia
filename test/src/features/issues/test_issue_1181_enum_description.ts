@@ -3,7 +3,7 @@ import typia from "typia";
 import { TestValidator } from "../../helpers/TestValidator";
 
 export const test_issue_1181_enum_description = (): void => {
-  const app = typia.json.application<[ConstEnum]>();
+  const app = typia.json.schemas<[ConstEnum]>();
   TestValidator.equals("enum-description")(app.components.schemas?.ConstEnum)({
     oneOf: [
       {

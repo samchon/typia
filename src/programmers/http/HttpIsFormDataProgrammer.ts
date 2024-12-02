@@ -3,31 +3,34 @@ import ts from "typescript";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
-import { IProject } from "../../transformers/IProject";
+import { IProgrammerProps } from "../../transformers/IProgrammerProps";
+import { ITypiaContext } from "../../transformers/ITypiaContext";
 
 import { FeatureProgrammer } from "../FeatureProgrammer";
 import { IsProgrammer } from "../IsProgrammer";
-import { FunctionImporter } from "../helpers/FunctionImporter";
+import { FunctionProgrammer } from "../helpers/FunctionProgrammer";
 import { HttpFormDataProgrammer } from "./HttpFormDataProgrammer";
 
 export namespace HttpIsFormDataProgrammer {
   export const decompose = (props: {
-    project: IProject;
-    importer: FunctionImporter;
+    context: ITypiaContext;
+    functor: FunctionProgrammer;
     type: ts.Type;
     name: string | undefined;
   }): FeatureProgrammer.IDecomposed => {
     const is: FeatureProgrammer.IDecomposed = IsProgrammer.decompose({
       ...props,
-      project: {
-        ...props.project,
+      context: {
+        ...props.context,
         options: {
-          ...props.project.options,
+          ...props.context.options,
           functional: false,
           numeric: false,
         },
       },
-      equals: false,
+      config: {
+        equals: false,
+      },
     });
     const decode: FeatureProgrammer.IDecomposed =
       HttpFormDataProgrammer.decompose(props);
@@ -39,8 +42,14 @@ export namespace HttpIsFormDataProgrammer {
       statements: [
         ...is.statements,
         ...decode.statements,
-        StatementFactory.constant("__is", is.arrow),
-        StatementFactory.constant("__decode", decode.arrow),
+        StatementFactory.constant({
+          name: "__is",
+          value: is.arrow,
+        }),
+        StatementFactory.constant({
+          name: "__decode",
+          value: decode.arrow,
+        }),
       ],
       arrow: ts.factory.createArrowFunction(
         undefined,
@@ -53,14 +62,14 @@ export namespace HttpIsFormDataProgrammer {
         undefined,
         ts.factory.createBlock(
           [
-            StatementFactory.constant(
-              "value",
-              ts.factory.createCallExpression(
+            StatementFactory.constant({
+              name: "value",
+              value: ts.factory.createCallExpression(
                 ts.factory.createIdentifier("__decode"),
                 undefined,
                 [ts.factory.createIdentifier("input")],
               ),
-            ),
+            }),
             ts.factory.createIfStatement(
               ts.factory.createPrefixUnaryExpression(
                 ts.SyntaxKind.ExclamationToken,
@@ -82,21 +91,18 @@ export namespace HttpIsFormDataProgrammer {
     };
   };
 
-  export const write =
-    (project: IProject) =>
-    (modulo: ts.LeftHandSideExpression) =>
-    (type: ts.Type, name?: string): ts.CallExpression => {
-      const importer: FunctionImporter = new FunctionImporter(modulo.getText());
-      const result: FeatureProgrammer.IDecomposed = decompose({
-        project,
-        importer,
-        type,
-        name,
-      });
-      return FeatureProgrammer.writeDecomposed({
-        modulo,
-        importer,
-        result,
-      });
-    };
+  export const write = (props: IProgrammerProps): ts.CallExpression => {
+    const functor: FunctionProgrammer = new FunctionProgrammer(
+      props.modulo.getText(),
+    );
+    const result: FeatureProgrammer.IDecomposed = decompose({
+      ...props,
+      functor,
+    });
+    return FeatureProgrammer.writeDecomposed({
+      modulo: props.modulo,
+      functor,
+      result,
+    });
+  };
 }

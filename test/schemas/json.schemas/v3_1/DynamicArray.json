@@ -1,0 +1,31 @@
+{
+  "version": "3.1",
+  "components": {
+    "schemas": {
+      "DynamicArray": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            }
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+    }
+  },
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/DynamicArray"
+    }
+  ]
+}

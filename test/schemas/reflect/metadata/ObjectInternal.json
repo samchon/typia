@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ObjectInternal"
+        {
+          "name": "ObjectInternal",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -40,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -96,7 +100,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "name"
+                      "value": "name",
+                      "tags": []
                     }
                   ]
                 }

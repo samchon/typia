@@ -8,20 +8,20 @@ import { ValueFactory } from "../factories/ValueFactory";
 
 import { Metadata } from "../schemas/metadata/Metadata";
 import { MetadataArray } from "../schemas/metadata/MetadataArray";
-import { MetadataObject } from "../schemas/metadata/MetadataObject";
+import { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
 
-import { IProject } from "../transformers/IProject";
+import { ITypiaContext } from "../transformers/ITypiaContext";
 
 import { CheckerProgrammer } from "./CheckerProgrammer";
-import { FunctionImporter } from "./helpers/FunctionImporter";
+import { FunctionProgrammer } from "./helpers/FunctionProgrammer";
 import { IExpressionEntry } from "./helpers/IExpressionEntry";
 import { UnionExplorer } from "./helpers/UnionExplorer";
 import { feature_object_entries } from "./internal/feature_object_entries";
 
 export namespace FeatureProgrammer {
   /* -----------------------------------------------------------
-        PARAMETERS
-    ----------------------------------------------------------- */
+    PARAMETERS
+  ----------------------------------------------------------- */
   export interface IConfig<Output extends ts.ConciseBody = ts.ConciseBody> {
     types: IConfig.ITypes;
 
@@ -45,16 +45,23 @@ export namespace FeatureProgrammer {
     /**
      * Initializer of metadata.
      */
-    initializer: (
-      project: IProject,
-    ) => (
-      importer: FunctionImporter,
-    ) => (type: ts.Type) => [MetadataCollection, Metadata];
+    initializer: (props: {
+      context: ITypiaContext;
+      functor: FunctionProgrammer;
+      type: ts.Type;
+    }) => {
+      collection: MetadataCollection;
+      metadata: Metadata;
+    };
 
     /**
      * Decoder, station of every types.
      */
-    decoder: () => Decoder<Metadata, Output>;
+    decoder: (props: {
+      metadata: Metadata;
+      input: ts.Expression;
+      explore: IExplore;
+    }) => Output;
 
     /**
      * Object configurator.
@@ -76,21 +83,29 @@ export namespace FeatureProgrammer {
       /**
        * Type checker when union object type comes.
        */
-      checker: () => Decoder<Metadata, ts.Expression>;
+      checker: (props: {
+        metadata: Metadata;
+        input: ts.Expression;
+        explore: IExplore;
+      }) => ts.Expression;
 
       /**
        * Decoder, function call expression generator of specific typed objects.
        */
-      decoder: () => Decoder<MetadataObject, ts.Expression>;
+      decoder: (props: {
+        input: ts.Expression;
+        object: MetadataObjectType;
+        explore: IExplore;
+      }) => ts.Expression;
 
       /**
        * Joiner of expressions from properties.
        */
-      joiner(
-        input: ts.Expression,
-        entries: IExpressionEntry<Output>[],
-        parent: MetadataObject,
-      ): ts.ConciseBody;
+      joiner(props: {
+        entries: IExpressionEntry<Output>[];
+        input?: ts.Expression;
+        object?: MetadataObjectType;
+      }): ts.ConciseBody;
 
       /**
        * Union type specificator.
@@ -98,21 +113,23 @@ export namespace FeatureProgrammer {
        * Expression of an algorithm specifying object type and calling
        * the `decoder` function of the specified object type.
        */
-      unionizer: Decoder<MetadataObject[], ts.Expression>;
+      unionizer: (props: {
+        objects: MetadataObjectType[];
+        input: ts.Expression;
+        explore: IExplore;
+      }) => ts.Expression;
 
       /**
        * Handler of union type specification failure.
        *
-       * @param value Expression of input parameter
-       * @param expected Expected type name
-       * @param explore Exploration info
+       * @param props Properties of failure
        * @returns Statement of failure
        */
-      failure(
-        value: ts.Expression,
-        expected: string,
-        explore?: undefined | IExplore,
-      ): ts.Statement;
+      failure(props: {
+        input: ts.Expression;
+        expected: string;
+        explore?: undefined | IExplore;
+      }): ts.Statement;
 
       /**
        * Transformer of type checking expression by discrimination.
@@ -153,18 +170,17 @@ export namespace FeatureProgrammer {
        * iteration type checking would be happend. In such circumstance, you
        * can wrap the condition with additional function.
        *
-       * @param condition Current condition
-       * @returns A function wrapped current condition
+       * @param props Properties of condition
+       * @returns The wrapper expression
        */
       full?:
         | undefined
-        | ((
-            condition: ts.Expression,
-          ) => (
-            input: ts.Expression,
-            expected: string,
-            explore: IExplore,
-          ) => ts.Expression);
+        | ((props: {
+            condition: ts.Expression;
+            input: ts.Expression;
+            expected: string;
+            explore: IExplore;
+          }) => ts.Expression);
 
       /**
        * Return type.
@@ -174,12 +190,12 @@ export namespace FeatureProgrammer {
     export interface IGenerator {
       objects?:
         | undefined
-        | (() => (col: MetadataCollection) => ts.VariableStatement[]);
+        | ((collection: MetadataCollection) => ts.VariableStatement[]);
       unions?:
         | undefined
-        | (() => (col: MetadataCollection) => ts.VariableStatement[]);
-      arrays(): (col: MetadataCollection) => ts.VariableStatement[];
-      tuples(): (col: MetadataCollection) => ts.VariableStatement[];
+        | ((collection: MetadataCollection) => ts.VariableStatement[]);
+      arrays: (collection: MetadataCollection) => ts.VariableStatement[];
+      tuples: (collection: MetadataCollection) => ts.VariableStatement[];
     }
   }
 
@@ -191,9 +207,14 @@ export namespace FeatureProgrammer {
     start?: undefined | number;
   }
 
-  export interface Decoder<T, Output extends ts.ConciseBody = ts.ConciseBody> {
-    (input: ts.Expression, target: T, explore: IExplore): Output;
-  }
+  export type Decoder<
+    T,
+    Output extends ts.ConciseBody = ts.ConciseBody,
+  > = (props: {
+    input: ts.Expression;
+    definition: T;
+    explore: IExplore;
+  }) => Output;
 
   /* -----------------------------------------------------------
     GENERATORS
@@ -212,21 +233,23 @@ export namespace FeatureProgrammer {
   }
 
   export const compose = (props: {
-    project: IProject;
+    context: ITypiaContext;
     config: IConfig;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     type: ts.Type;
     name: string | undefined;
   }): IComposed => {
-    const [collection, meta] = props.config.initializer(props.project)(
-      props.importer,
-    )(props.type);
+    const { collection, metadata } = props.config.initializer(props);
     return {
-      body: props.config.decoder()(ValueFactory.INPUT(), meta, {
-        tracable: props.config.path || props.config.trace,
-        source: "top",
-        from: "top",
-        postfix: '""',
+      body: props.config.decoder({
+        input: ValueFactory.INPUT(),
+        metadata,
+        explore: {
+          tracable: props.config.path || props.config.trace,
+          source: "top",
+          from: "top",
+          postfix: '""',
+        },
       }),
       statements: props.config.addition
         ? props.config.addition(collection)
@@ -234,37 +257,45 @@ export namespace FeatureProgrammer {
       functions: {
         ...Object.fromEntries(
           (
-            props.config.generator.objects?.() ??
-            write_object_functions(props.config)(props.importer)
-          )(collection).map((v, i) => [`${props.config.prefix}o${i}`, v]),
+            props.config.generator.objects?.(collection) ??
+            write_object_functions({
+              ...props,
+              collection,
+            })
+          ).map((v, i) => [`${props.config.prefix}o${i}`, v]),
         ),
         ...Object.fromEntries(
           (
-            props.config.generator.unions?.() ??
-            write_union_functions(props.config)
-          )(collection).map((v, i) => [`${props.config.prefix}u${i}`, v]),
+            props.config.generator.unions?.(collection) ??
+            write_union_functions({
+              config: props.config,
+              collection,
+            })
+          ).map((v, i) => [`${props.config.prefix}u${i}`, v]),
         ),
         ...Object.fromEntries(
           props.config.generator
-            .arrays()(collection)
+            .arrays(collection)
             .map((v, i) => [`${props.config.prefix}a${i}`, v]),
         ),
         ...Object.fromEntries(
           props.config.generator
-            .tuples()(collection)
+            .tuples(collection)
             .map((v, i) => [`${props.config.prefix}t${i}`, v]),
         ),
       },
-      parameters: parameterDeclarations(props.config)(
-        props.config.types.input(props.type, props.name),
-      )(ValueFactory.INPUT()),
+      parameters: parameterDeclarations({
+        config: props.config,
+        type: props.config.types.input(props.type, props.name),
+        input: ValueFactory.INPUT(),
+      }),
       response: props.config.types.output(props.type, props.name),
     };
   };
 
   export const writeDecomposed = (props: {
     modulo: ts.LeftHandSideExpression;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     result: IDecomposed;
   }): ts.CallExpression =>
     ts.factory.createCallExpression(
@@ -275,9 +306,9 @@ export namespace FeatureProgrammer {
         undefined,
         undefined,
         ts.factory.createBlock([
-          ...props.importer.declare(props.modulo),
+          ...props.functor.declare(),
           ...Object.entries(props.result.functions)
-            .filter(([k]) => props.importer.hasLocal(k))
+            .filter(([k]) => props.functor.hasLocal(k))
             .map(([_k, v]) => v),
           ...props.result.statements,
           ts.factory.createReturnStatement(props.result.arrow),
@@ -287,263 +318,305 @@ export namespace FeatureProgrammer {
       undefined,
     );
 
-  export const write =
-    (project: IProject) =>
-    (config: IConfig) =>
-    (importer: FunctionImporter) =>
-    (type: ts.Type, name?: string): ts.ArrowFunction => {
-      const [collection, meta] = config.initializer(project)(importer)(type);
+  export const write = (props: {
+    context: ITypiaContext;
+    config: IConfig;
+    functor: FunctionProgrammer;
+    type: ts.Type;
+    name?: string | undefined;
+  }): ts.ArrowFunction => {
+    // ITERATE OVER ALL METADATA
+    const { collection, metadata } = props.config.initializer(props);
+    const output: ts.ConciseBody = props.config.decoder({
+      metadata,
+      input: ValueFactory.INPUT(),
+      explore: {
+        tracable: props.config.path || props.config.trace,
+        source: "top",
+        from: "top",
+        postfix: '""',
+      },
+    });
 
-      // ITERATE OVER ALL METADATA
-      const output: ts.ConciseBody = config.decoder()(
-        ValueFactory.INPUT(),
-        meta,
-        {
-          tracable: config.path || config.trace,
-          source: "top",
-          from: "top",
-          postfix: '""',
-        },
-      );
-
-      // RETURNS THE OPTIMAL ARROW FUNCTION
-      const functions = {
-        objects: (
-          config.generator.objects?.() ??
-          write_object_functions(config)(importer)
-        )(collection),
-        unions: (config.generator.unions?.() ?? write_union_functions(config))(
+    // RETURNS THE OPTIMAL ARROW FUNCTION
+    const functions = {
+      objects:
+        props.config.generator.objects?.(collection) ??
+        write_object_functions({
+          config: props.config,
+          context: props.context,
           collection,
-        ),
-        arrays: config.generator.arrays()(collection),
-        tuples: config.generator.tuples()(collection),
-      };
-      const added: ts.Statement[] = (config.addition ?? (() => []))(collection);
-
-      return ts.factory.createArrowFunction(
-        undefined,
-        undefined,
-        parameterDeclarations(config)(config.types.input(type, name))(
-          ValueFactory.INPUT(),
-        ),
-        config.types.output(type, name),
-        undefined,
-        ts.factory.createBlock(
-          [
-            ...added,
-            ...functions.objects.filter((_, i) =>
-              importer.hasLocal(`${config.prefix}o${i}`),
-            ),
-            ...functions.unions.filter((_, i) =>
-              importer.hasLocal(`${config.prefix}u${i}`),
-            ),
-            ...functions.arrays.filter((_, i) =>
-              importer.hasLocal(`${config.prefix}a${i}`),
-            ),
-            ...functions.tuples.filter((_, i) =>
-              importer.hasLocal(`${config.prefix}t${i}`),
-            ),
-            ...(ts.isBlock(output)
-              ? output.statements
-              : [ts.factory.createReturnStatement(output)]),
-          ],
-          true,
-        ),
-      );
+        }),
+      unions:
+        props.config.generator.unions?.(collection) ??
+        write_union_functions({
+          config: props.config,
+          collection,
+        }),
+      arrays: props.config.generator.arrays(collection),
+      tuples: props.config.generator.tuples(collection),
     };
+    const added: ts.Statement[] = (props.config.addition ?? (() => []))(
+      collection,
+    );
 
-  export const write_object_functions =
-    (config: IConfig) =>
-    (importer: FunctionImporter) =>
-    (collection: MetadataCollection) =>
-      collection
-        .objects()
-        .map((obj) =>
-          StatementFactory.constant(
-            `${config.prefix}o${obj.index}`,
-            ts.factory.createArrowFunction(
-              undefined,
-              undefined,
-              parameterDeclarations(config)(TypeFactory.keyword("any"))(
-                ValueFactory.INPUT(),
-              ),
-              config.objector.type ?? TypeFactory.keyword("any"),
-              undefined,
-              config.objector.joiner(
-                ts.factory.createIdentifier("input"),
-                feature_object_entries(config)(importer)(obj)(
-                  ts.factory.createIdentifier("input"),
-                ),
-                obj,
-              ),
-            ),
+    return ts.factory.createArrowFunction(
+      undefined,
+      undefined,
+      parameterDeclarations({
+        config: props.config,
+        type: props.config.types.input(props.type, props.name),
+        input: ValueFactory.INPUT(),
+      }),
+      props.config.types.output(props.type, props.name),
+      undefined,
+      ts.factory.createBlock(
+        [
+          ...added,
+          ...functions.objects.filter((_, i) =>
+            props.functor.hasLocal(`${props.config.prefix}o${i}`),
           ),
-        );
-
-  export const write_union_functions =
-    (config: IConfig) => (collection: MetadataCollection) =>
-      collection
-        .unions()
-        .map((union, i) =>
-          StatementFactory.constant(
-            `${config.prefix}u${i}`,
-            write_union(config)(union),
+          ...functions.unions.filter((_, i) =>
+            props.functor.hasLocal(`${props.config.prefix}u${i}`),
           ),
-        );
+          ...functions.arrays.filter((_, i) =>
+            props.functor.hasLocal(`${props.config.prefix}a${i}`),
+          ),
+          ...functions.tuples.filter((_, i) =>
+            props.functor.hasLocal(`${props.config.prefix}t${i}`),
+          ),
+          ...(ts.isBlock(output)
+            ? output.statements
+            : [ts.factory.createReturnStatement(output)]),
+        ],
+        true,
+      ),
+    );
+  };
 
-  const write_union = (config: IConfig) => {
-    const explorer = UnionExplorer.object(config);
-    const input = ValueFactory.INPUT();
-
-    return (meta: MetadataObject[]) =>
-      ts.factory.createArrowFunction(
-        undefined,
-        undefined,
-        parameterDeclarations(config)(TypeFactory.keyword("any"))(
-          ValueFactory.INPUT(),
+  export const write_object_functions = (props: {
+    config: IConfig;
+    context: ITypiaContext;
+    collection: MetadataCollection;
+  }) =>
+    props.collection.objects().map((object) =>
+      StatementFactory.constant({
+        name: `${props.config.prefix}o${object.index}`,
+        value: ts.factory.createArrowFunction(
+          undefined,
+          undefined,
+          parameterDeclarations({
+            config: props.config,
+            type: TypeFactory.keyword("any"),
+            input: ValueFactory.INPUT(),
+          }),
+          props.config.objector.type ?? TypeFactory.keyword("any"),
+          undefined,
+          props.config.objector.joiner({
+            input: ts.factory.createIdentifier("input"),
+            entries: feature_object_entries({
+              config: props.config,
+              context: props.context,
+              input: ts.factory.createIdentifier("input"),
+              object,
+            }),
+            object,
+          }),
         ),
-        TypeFactory.keyword("any"),
-        undefined,
-        explorer(input, meta, {
-          tracable: config.path || config.trace,
+      }),
+    );
+
+  export const write_union_functions = (props: {
+    config: IConfig;
+    collection: MetadataCollection;
+  }) =>
+    props.collection.unions().map((union, i) =>
+      StatementFactory.constant({
+        name: `${props.config.prefix}u${i}`,
+        value: write_union({
+          config: props.config,
+          objects: union,
+        }),
+      }),
+    );
+
+  const write_union = (props: {
+    config: IConfig;
+    objects: MetadataObjectType[];
+  }) =>
+    ts.factory.createArrowFunction(
+      undefined,
+      undefined,
+      parameterDeclarations({
+        config: props.config,
+        type: TypeFactory.keyword("any"),
+        input: ValueFactory.INPUT(),
+      }),
+      TypeFactory.keyword("any"),
+      undefined,
+      UnionExplorer.object({
+        config: props.config,
+        objects: props.objects,
+        input: ValueFactory.INPUT(),
+        explore: {
+          tracable: props.config.path || props.config.trace,
           source: "function",
           from: "object",
           postfix: "",
-        }),
-      );
-  };
+        },
+      }),
+    );
 
   /* -----------------------------------------------------------
         DECODERS
     ----------------------------------------------------------- */
-  export const decode_array =
-    (config: Pick<IConfig, "trace" | "path" | "decoder" | "prefix">) =>
-    (importer: FunctionImporter) =>
-    (
-      combiner: (
-        input: ts.Expression,
-        arrow: ts.ArrowFunction,
-      ) => ts.Expression,
-    ) => {
-      const rand: string = importer.increment().toString();
-      const tail =
-        config.path || config.trace
-          ? [
-              IdentifierFactory.parameter(
-                "_index" + rand,
-                TypeFactory.keyword("number"),
-              ),
-            ]
-          : [];
-
-      return (
-        input: ts.Expression,
-        array: MetadataArray,
-        explore: IExplore,
-      ) => {
-        const arrow: ts.ArrowFunction = ts.factory.createArrowFunction(
-          undefined,
-          undefined,
-          [
-            IdentifierFactory.parameter("elem", TypeFactory.keyword("any")),
-            ...tail,
-          ],
-          undefined,
-          undefined,
-          config.decoder()(ValueFactory.INPUT("elem"), array.type.value, {
-            tracable: explore.tracable,
-            source: explore.source,
-            from: "array",
-            postfix: index(explore.start ?? null)(explore.postfix)(rand),
+  export const decode_array = (props: {
+    config: Pick<IConfig, "trace" | "path" | "decoder" | "prefix">;
+    functor: FunctionProgrammer;
+    combiner: (next: {
+      input: ts.Expression;
+      arrow: ts.ArrowFunction;
+    }) => ts.Expression;
+    array: MetadataArray;
+    input: ts.Expression;
+    explore: IExplore;
+  }) => {
+    const rand: string = props.functor.increment().toString();
+    const tail =
+      props.config.path || props.config.trace
+        ? [
+            IdentifierFactory.parameter(
+              "_index" + rand,
+              TypeFactory.keyword("number"),
+            ),
+          ]
+        : [];
+    const arrow: ts.ArrowFunction = ts.factory.createArrowFunction(
+      undefined,
+      undefined,
+      [
+        IdentifierFactory.parameter("elem", TypeFactory.keyword("any")),
+        ...tail,
+      ],
+      undefined,
+      undefined,
+      props.config.decoder({
+        input: ValueFactory.INPUT("elem"),
+        metadata: props.array.type.value,
+        explore: {
+          tracable: props.explore.tracable,
+          source: props.explore.source,
+          from: "array",
+          postfix: index({
+            start: props.explore.start ?? null,
+            postfix: props.explore.postfix,
+            rand,
           }),
-        );
-        return combiner(input, arrow);
-      };
-    };
+        },
+      }),
+    );
+    return props.combiner({
+      input: props.input,
+      arrow,
+    });
+  };
 
-  export const decode_object =
-    (config: Pick<IConfig, "trace" | "path" | "prefix">) =>
-    (importer: FunctionImporter) =>
-    (input: ts.Expression, obj: MetadataObject, explore: IExplore) =>
-      ts.factory.createCallExpression(
-        ts.factory.createIdentifier(
-          importer.useLocal(`${config.prefix}o${obj.index}`),
-        ),
-        undefined,
-        argumentsArray(config)(explore)(input),
-      );
+  export const decode_object = (props: {
+    config: Pick<IConfig, "trace" | "path" | "prefix">;
+    functor: FunctionProgrammer;
+    object: MetadataObjectType;
+    input: ts.Expression;
+    explore: IExplore;
+  }) =>
+    ts.factory.createCallExpression(
+      ts.factory.createIdentifier(
+        props.functor.useLocal(`${props.config.prefix}o${props.object.index}`),
+      ),
+      undefined,
+      argumentsArray(props),
+    );
 
   /* -----------------------------------------------------------
         UTILITIES FOR INTERNAL FUNCTIONS
     ----------------------------------------------------------- */
-  export const index =
-    (start: number | null) => (prev: string) => (rand: string) => {
-      const tail: string =
-        start !== null
-          ? `"[" + (${start} + _index${rand}) + "]"`
-          : `"[" + _index${rand} + "]"`;
-      if (prev === "") return tail;
-      else if (prev[prev.length - 1] === `"`)
-        return prev.substring(0, prev.length - 1) + tail.substring(1);
-      return prev + ` + ${tail}`;
-    };
+  export const index = (props: {
+    start: number | null;
+    postfix: string;
+    rand: string;
+  }) => {
+    const tail: string =
+      props.start !== null
+        ? `"[" + (${props.start} + _index${props.rand}) + "]"`
+        : `"[" + _index${props.rand} + "]"`;
+    if (props.postfix === "") return tail;
+    else if (props.postfix[props.postfix.length - 1] === `"`)
+      return (
+        props.postfix.substring(0, props.postfix.length - 1) + tail.substring(1)
+      );
+    return props.postfix + ` + ${tail}`;
+  };
 
-  export const argumentsArray =
-    (config: Pick<IConfig, "path" | "trace">) =>
-    (explore: FeatureProgrammer.IExplore) => {
-      const tail: ts.Expression[] =
-        config.path === false && config.trace === false
-          ? []
-          : config.path === true && config.trace === true
+  export const argumentsArray = (props: {
+    config: Pick<IConfig, "path" | "trace">;
+    input: ts.Expression;
+    explore: FeatureProgrammer.IExplore;
+  }) => {
+    const tail: ts.Expression[] =
+      props.config.path === false && props.config.trace === false
+        ? []
+        : props.config.path === true && props.config.trace === true
+          ? [
+              ts.factory.createIdentifier(
+                props.explore.postfix
+                  ? `_path + ${props.explore.postfix}`
+                  : "_path",
+              ),
+              props.explore.source === "function"
+                ? ts.factory.createIdentifier(
+                    `${props.explore.tracable} && _exceptionable`,
+                  )
+                : props.explore.tracable
+                  ? ts.factory.createTrue()
+                  : ts.factory.createFalse(),
+            ]
+          : props.config.path === true
             ? [
                 ts.factory.createIdentifier(
-                  explore.postfix ? `_path + ${explore.postfix}` : "_path",
+                  props.explore.postfix
+                    ? `_path + ${props.explore.postfix}`
+                    : "_path",
                 ),
-                explore.source === "function"
+              ]
+            : [
+                props.explore.source === "function"
                   ? ts.factory.createIdentifier(
-                      `${explore.tracable} && _exceptionable`,
+                      `${props.explore.tracable} && _exceptionable`,
                     )
-                  : explore.tracable
+                  : props.explore.tracable
                     ? ts.factory.createTrue()
                     : ts.factory.createFalse(),
-              ]
-            : config.path === true
-              ? [
-                  ts.factory.createIdentifier(
-                    explore.postfix ? `_path + ${explore.postfix}` : "_path",
-                  ),
-                ]
-              : [
-                  explore.source === "function"
-                    ? ts.factory.createIdentifier(
-                        `${explore.tracable} && _exceptionable`,
-                      )
-                    : explore.tracable
-                      ? ts.factory.createTrue()
-                      : ts.factory.createFalse(),
-                ];
-      return (input: ts.Expression) => [input, ...tail];
-    };
+              ];
+    return [props.input, ...tail];
+  };
 
-  export const parameterDeclarations =
-    (props: Pick<CheckerProgrammer.IConfig, "path" | "trace">) =>
-    (type: ts.TypeNode) => {
-      const tail: ts.ParameterDeclaration[] = [];
-      if (props.path)
-        tail.push(
-          IdentifierFactory.parameter("_path", TypeFactory.keyword("string")),
-        );
-      if (props.trace)
-        tail.push(
-          IdentifierFactory.parameter(
-            "_exceptionable",
-            TypeFactory.keyword("boolean"),
-            ts.factory.createTrue(),
-          ),
-        );
-      return (input: ts.Identifier): ts.ParameterDeclaration[] => [
-        IdentifierFactory.parameter(input, type),
-        ...tail,
-      ];
-    };
+  export const parameterDeclarations = (props: {
+    config: Pick<CheckerProgrammer.IConfig, "path" | "trace">;
+    type: ts.TypeNode;
+    input: ts.Identifier;
+  }) => {
+    const tail: ts.ParameterDeclaration[] = [];
+    if (props.config.path)
+      tail.push(
+        IdentifierFactory.parameter("_path", TypeFactory.keyword("string")),
+      );
+    if (props.config.trace)
+      tail.push(
+        IdentifierFactory.parameter(
+          "_exceptionable",
+          TypeFactory.keyword("boolean"),
+          ts.factory.createTrue(),
+        ),
+      );
+    return [IdentifierFactory.parameter(props.input, props.type), ...tail];
+  };
 }

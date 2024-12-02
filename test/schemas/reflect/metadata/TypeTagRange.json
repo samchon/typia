@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "TypeTagRange"
+        {
+          "name": "TypeTagRange",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -40,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -107,7 +111,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "greater"
+                      "value": "greater",
+                      "tags": []
                     }
                   ]
                 }
@@ -139,7 +144,7 @@
                         "name": "Type<\"int32\">",
                         "kind": "type",
                         "value": "int32",
-                        "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
+                        "validate": "$importInternal(\"isTypeInt32\")($input)",
                         "exclusive": true,
                         "schema": {
                           "type": "integer"
@@ -192,7 +197,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "greater_equal"
+                      "value": "greater_equal",
+                      "tags": []
                     }
                   ]
                 }
@@ -224,7 +230,7 @@
                         "name": "Type<\"int32\">",
                         "kind": "type",
                         "value": "int32",
-                        "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
+                        "validate": "$importInternal(\"isTypeInt32\")($input)",
                         "exclusive": true,
                         "schema": {
                           "type": "integer"
@@ -276,7 +282,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "less"
+                      "value": "less",
+                      "tags": []
                     }
                   ]
                 }
@@ -308,7 +315,7 @@
                         "name": "Type<\"int32\">",
                         "kind": "type",
                         "value": "int32",
-                        "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
+                        "validate": "$importInternal(\"isTypeInt32\")($input)",
                         "exclusive": true,
                         "schema": {
                           "type": "integer"
@@ -361,7 +368,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "less_equal"
+                      "value": "less_equal",
+                      "tags": []
                     }
                   ]
                 }
@@ -393,7 +401,7 @@
                         "name": "Type<\"int32\">",
                         "kind": "type",
                         "value": "int32",
-                        "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
+                        "validate": "$importInternal(\"isTypeInt32\")($input)",
                         "exclusive": true,
                         "schema": {
                           "type": "integer"
@@ -445,7 +453,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "greater_less"
+                      "value": "greater_less",
+                      "tags": []
                     }
                   ]
                 }
@@ -477,7 +486,7 @@
                         "name": "Type<\"int32\">",
                         "kind": "type",
                         "value": "int32",
-                        "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
+                        "validate": "$importInternal(\"isTypeInt32\")($input)",
                         "exclusive": true,
                         "schema": {
                           "type": "integer"
@@ -545,7 +554,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "greater_equal_less"
+                      "value": "greater_equal_less",
+                      "tags": []
                     }
                   ]
                 }
@@ -577,7 +587,7 @@
                         "name": "Type<\"int32\">",
                         "kind": "type",
                         "value": "int32",
-                        "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
+                        "validate": "$importInternal(\"isTypeInt32\")($input)",
                         "exclusive": true,
                         "schema": {
                           "type": "integer"
@@ -644,7 +654,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "greater_less_equal"
+                      "value": "greater_less_equal",
+                      "tags": []
                     }
                   ]
                 }
@@ -676,7 +687,7 @@
                         "name": "Type<\"int32\">",
                         "kind": "type",
                         "value": "int32",
-                        "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
+                        "validate": "$importInternal(\"isTypeInt32\")($input)",
                         "exclusive": true,
                         "schema": {
                           "type": "integer"
@@ -743,7 +754,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "greater_equal_less_equal"
+                      "value": "greater_equal_less_equal",
+                      "tags": []
                     }
                   ]
                 }
@@ -775,7 +787,7 @@
                         "name": "Type<\"int32\">",
                         "kind": "type",
                         "value": "int32",
-                        "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
+                        "validate": "$importInternal(\"isTypeInt32\")($input)",
                         "exclusive": true,
                         "schema": {
                           "type": "integer"
@@ -841,7 +853,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "equal"
+                      "value": "equal",
+                      "tags": []
                     }
                   ]
                 }
@@ -873,7 +886,7 @@
                         "name": "Type<\"int32\">",
                         "kind": "type",
                         "value": "int32",
-                        "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
+                        "validate": "$importInternal(\"isTypeInt32\")($input)",
                         "exclusive": true,
                         "schema": {
                           "type": "integer"
@@ -953,7 +966,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "TypeTagRange.Type"
+            {
+              "name": "TypeTagRange.Type",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

@@ -6,6 +6,7 @@
 [![Downloads](https://img.shields.io/npm/dm/typia.svg)](https://www.npmjs.com/package/typia)
 [![Build Status](https://github.com/samchon/typia/workflows/build/badge.svg)](https://github.com/samchon/typia/actions?query=workflow%3Abuild)
 [![Guide Documents](https://img.shields.io/badge/guide-documents-forestgreen)](https://typia.io/docs/)
+[![Gurubase](https://img.shields.io/badge/Gurubase-Ask%20Typia%20Guru-006BFF)](https://gurubase.io/g/typia)
 
 ```typescript
 // RUNTIME VALIDATORS
@@ -21,11 +22,13 @@ export namespace json {
   export function assertStringify<T>(input: T): string; // safe and faster
 }
 
-// LLM FUNCTION CALLING APPLICATION
+// LLM FUNCTION CALLING SCHEMA
 export namespace llm {
-  // LLM function calling application from a class or interface type
-  export function application<App>(): ILlmApplication;
-  export function schema<T>(): ILlmSchema; // LLM type schema
+  // application schema from a class or interface type
+  export function application<App, Model>(): ILlmApplication<Model>;
+  // structured output
+  export function parameters<P, Moodel>(): ILlmSchema.IParameters<Model>; 
+  export function schema<T, Model>(): ILlmSchema<Model>; // type schema
 }
 
 // PROTOCOL BUFFER
@@ -42,8 +45,8 @@ export function random<T>(g?: Partial<IRandomGenerator>): T;
 Typia is a transformer library supporting below features:
 
   - Super-fast Runtime Validators
-  - Enhanced JSON functions
-  - LLM function calling application composer
+  - Enhanced JSON schema and serde functions
+  - LLM function calling schema and structured output
   - Protocol Buffer encoder and decoder
   - Random data generator
 
@@ -100,6 +103,7 @@ Check out the document in the [website](https://typia.io/docs/):
     - [`parse()` functions](https://typia.io/docs/json/parse/)
   - LLM Function Calling
     - [`application()` function](https://typia.io/docs/llm/application/)
+    - [`parameters()` function](https://typia.io/docs/llm/parameters/)
     - [`schema()` function](https://typia.io/docs/llm/schema/)
   - Protocol Buffer
     - [Message Schema](https://typia.io/docs/protobuf/message)

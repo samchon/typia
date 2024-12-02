@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ObjectHttpCommentTag"
+        {
+          "name": "ObjectHttpCommentTag",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -40,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "int"
+                      "value": "int",
+                      "tags": []
                     }
                   ]
                 }
@@ -120,7 +124,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "uint64"
+                      "value": "uint64",
+                      "tags": []
                     }
                   ]
                 }
@@ -153,7 +158,10 @@
                         "kind": "type",
                         "value": "uint64",
                         "validate": "BigInt(0) <= $input",
-                        "exclusive": true
+                        "exclusive": true,
+                        "schema": {
+                          "minimum": 0
+                        }
                       }
                     ]
                   ]
@@ -197,7 +205,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "uuid"
+                      "value": "uuid",
+                      "tags": []
                     }
                   ]
                 }
@@ -277,7 +286,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "items"
+                      "value": "items",
+                      "tags": []
                     }
                   ]
                 }

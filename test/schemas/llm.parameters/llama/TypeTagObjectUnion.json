@@ -1,0 +1,191 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "number",
+                "minimum": 3
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string",
+                "minLength": 3,
+                "maxLength": 7
+              }
+            },
+            "required": [
+              "value"
+            ]
+          }
+        ]
+      }
+    },
+    "nullable": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "number",
+                    "minimum": 3
+                  }
+                },
+                "required": [
+                  "value"
+                ]
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "string",
+                    "minLength": 3,
+                    "maxLength": 7
+                  }
+                },
+                "required": [
+                  "value"
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "optional": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "number",
+                "minimum": 3
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string",
+                "minLength": 3,
+                "maxLength": 7
+              }
+            },
+            "required": [
+              "value"
+            ]
+          }
+        ]
+      }
+    },
+    "faint": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "number",
+                    "minimum": 3
+                  }
+                },
+                "required": [
+                  "value"
+                ]
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "string",
+                    "minLength": 3,
+                    "maxLength": 7
+                  }
+                },
+                "required": [
+                  "value"
+                ]
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "number",
+                  "minimum": 3
+                }
+              },
+              "required": [
+                "value"
+              ]
+            },
+            {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "minLength": 3,
+                  "maxLength": 7
+                }
+              },
+              "required": [
+                "value"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "optional",
+    "faint",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {}
+}

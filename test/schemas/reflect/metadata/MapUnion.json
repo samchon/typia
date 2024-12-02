@@ -43,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -99,7 +100,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "name"
+                      "value": "name",
+                      "tags": []
                     }
                   ]
                 }
@@ -155,7 +157,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "age"
+                      "value": "age",
+                      "tags": []
                     }
                   ]
                 }
@@ -238,106 +241,6 @@
                 "functions": [],
                 "atomics": [
                   {
-                    "type": "boolean",
-                    "tags": []
-                  }
-                ],
-                "constants": [],
-                "templates": [],
-                "escaped": null,
-                "rest": null,
-                "arrays": [],
-                "tuples": [],
-                "objects": [],
-                "aliases": [],
-                "natives": [],
-                "sets": [],
-                "maps": []
-              },
-              "value": {
-                "any": false,
-                "required": true,
-                "optional": false,
-                "nullable": false,
-                "functions": [],
-                "atomics": [
-                  {
-                    "type": "number",
-                    "tags": []
-                  }
-                ],
-                "constants": [],
-                "templates": [],
-                "escaped": null,
-                "rest": null,
-                "arrays": [],
-                "tuples": [],
-                "objects": [],
-                "aliases": [],
-                "natives": [],
-                "sets": [],
-                "maps": []
-              }
-            },
-            {
-              "key": {
-                "any": false,
-                "required": true,
-                "optional": false,
-                "nullable": false,
-                "functions": [],
-                "atomics": [
-                  {
-                    "type": "number",
-                    "tags": []
-                  }
-                ],
-                "constants": [],
-                "templates": [],
-                "escaped": null,
-                "rest": null,
-                "arrays": [],
-                "tuples": [],
-                "objects": [],
-                "aliases": [],
-                "natives": [],
-                "sets": [],
-                "maps": []
-              },
-              "value": {
-                "any": false,
-                "required": true,
-                "optional": false,
-                "nullable": false,
-                "functions": [],
-                "atomics": [
-                  {
-                    "type": "number",
-                    "tags": []
-                  }
-                ],
-                "constants": [],
-                "templates": [],
-                "escaped": null,
-                "rest": null,
-                "arrays": [],
-                "tuples": [],
-                "objects": [],
-                "aliases": [],
-                "natives": [],
-                "sets": [],
-                "maps": []
-              }
-            },
-            {
-              "key": {
-                "any": false,
-                "required": true,
-                "optional": false,
-                "nullable": false,
-                "functions": [],
-                "atomics": [
-                  {
                     "type": "string",
                     "tags": []
                   }
@@ -377,7 +280,110 @@
                 "natives": [],
                 "sets": [],
                 "maps": []
-              }
+              },
+              "tags": []
+            },
+            {
+              "key": {
+                "any": false,
+                "required": true,
+                "optional": false,
+                "nullable": false,
+                "functions": [],
+                "atomics": [
+                  {
+                    "type": "boolean",
+                    "tags": []
+                  }
+                ],
+                "constants": [],
+                "templates": [],
+                "escaped": null,
+                "rest": null,
+                "arrays": [],
+                "tuples": [],
+                "objects": [],
+                "aliases": [],
+                "natives": [],
+                "sets": [],
+                "maps": []
+              },
+              "value": {
+                "any": false,
+                "required": true,
+                "optional": false,
+                "nullable": false,
+                "functions": [],
+                "atomics": [
+                  {
+                    "type": "number",
+                    "tags": []
+                  }
+                ],
+                "constants": [],
+                "templates": [],
+                "escaped": null,
+                "rest": null,
+                "arrays": [],
+                "tuples": [],
+                "objects": [],
+                "aliases": [],
+                "natives": [],
+                "sets": [],
+                "maps": []
+              },
+              "tags": []
+            },
+            {
+              "key": {
+                "any": false,
+                "required": true,
+                "optional": false,
+                "nullable": false,
+                "functions": [],
+                "atomics": [
+                  {
+                    "type": "number",
+                    "tags": []
+                  }
+                ],
+                "constants": [],
+                "templates": [],
+                "escaped": null,
+                "rest": null,
+                "arrays": [],
+                "tuples": [],
+                "objects": [],
+                "aliases": [],
+                "natives": [],
+                "sets": [],
+                "maps": []
+              },
+              "value": {
+                "any": false,
+                "required": true,
+                "optional": false,
+                "nullable": false,
+                "functions": [],
+                "atomics": [
+                  {
+                    "type": "number",
+                    "tags": []
+                  }
+                ],
+                "constants": [],
+                "templates": [],
+                "escaped": null,
+                "rest": null,
+                "arrays": [],
+                "tuples": [],
+                "objects": [],
+                "aliases": [],
+                "natives": [],
+                "sets": [],
+                "maps": []
+              },
+              "tags": []
             },
             {
               "key": {
@@ -427,7 +433,8 @@
                 "natives": [],
                 "sets": [],
                 "maps": []
-              }
+              },
+              "tags": []
             },
             {
               "key": {
@@ -444,7 +451,10 @@
                 "arrays": [],
                 "tuples": [],
                 "objects": [
-                  "MapUnion.Person"
+                  {
+                    "name": "MapUnion.Person",
+                    "tags": []
+                  }
                 ],
                 "aliases": [],
                 "natives": [],
@@ -474,7 +484,8 @@
                 "natives": [],
                 "sets": [],
                 "maps": []
-              }
+              },
+              "tags": []
             }
           ]
         },

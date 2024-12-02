@@ -2,11 +2,11 @@ import { ILlmSchema } from "@samchon/openapi";
 import fs from "fs";
 
 export const _test_llm_schema =
-  (name: string) =>
-  (expected: ILlmSchema): void => {
-    const actual: ILlmSchema = JSON.parse(
+  <Model extends ILlmSchema.Model>(props: { model: Model; name: string }) =>
+  (expected: ILlmSchema.ModelSchema[Model]): void => {
+    const actual: ILlmSchema.ModelSchema[Model] = JSON.parse(
       fs.readFileSync(
-        `${__dirname}/../../schemas/llm/type/${name}.json`,
+        `${__dirname}/../../schemas/llm.schema/${props.model}/${props.name}.json`,
         "utf8",
       ),
     );
@@ -14,7 +14,9 @@ export const _test_llm_schema =
     sort(actual);
   };
 
-function sort(app: ILlmSchema): void {
+function sort<Model extends ILlmSchema.Model>(
+  app: ILlmSchema.ModelSchema[Model],
+): void {
   function object(elem: object) {
     for (const value of Object.values(elem)) iterate(value);
   }

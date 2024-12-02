@@ -1,0 +1,45 @@
+{
+  "type": "object",
+  "properties": {
+    "value": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "fixed": {
+            "description": "@minLength 5\n@maxLength 5",
+            "type": "string"
+          },
+          "minimum": {
+            "description": "@minLength 3",
+            "type": "string"
+          },
+          "maximum": {
+            "description": "@maxLength 7",
+            "type": "string"
+          },
+          "minimum_and_maximum": {
+            "description": "@minLength 3\n@maxLength 7",
+            "type": "string"
+          },
+          "equal": {
+            "description": "@minLength 10\n@maxLength 19",
+            "type": "string"
+          }
+        },
+        "required": [
+          "fixed",
+          "minimum",
+          "maximum",
+          "minimum_and_maximum",
+          "equal"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "value"
+  ],
+  "additionalProperties": false
+}

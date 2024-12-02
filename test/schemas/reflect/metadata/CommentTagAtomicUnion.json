@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "CommentTagAtomicUnion"
+        {
+          "name": "CommentTagAtomicUnion",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -40,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -107,7 +111,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -251,7 +256,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "CommentTagAtomicUnion.Type"
+            {
+              "name": "CommentTagAtomicUnion.Type",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

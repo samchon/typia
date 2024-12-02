@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ObjectHttpNullable"
+        {
+          "name": "ObjectHttpNullable",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -40,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "boolean"
+                      "value": "boolean",
+                      "tags": []
                     }
                   ]
                 }
@@ -96,7 +100,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "bigint"
+                      "value": "bigint",
+                      "tags": []
                     }
                   ]
                 }
@@ -152,7 +157,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "number"
+                      "value": "number",
+                      "tags": []
                     }
                   ]
                 }
@@ -225,7 +231,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "string"
+                      "value": "string",
+                      "tags": []
                     }
                   ]
                 }
@@ -281,7 +288,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "constantBoolean"
+                      "value": "constantBoolean",
+                      "tags": []
                     }
                   ]
                 }
@@ -342,7 +350,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "constantBigint"
+                      "value": "constantBigint",
+                      "tags": []
                     }
                   ]
                 }
@@ -411,7 +420,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "constantNumber"
+                      "value": "constantNumber",
+                      "tags": []
                     }
                   ]
                 }
@@ -480,7 +490,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "constantString"
+                      "value": "constantString",
+                      "tags": []
                     }
                   ]
                 }
@@ -508,7 +519,7 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "three",
+                      "value": "one",
                       "tags": []
                     },
                     {
@@ -516,7 +527,7 @@
                       "tags": []
                     },
                     {
-                      "value": "one",
+                      "value": "three",
                       "tags": []
                     }
                   ]
@@ -549,7 +560,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "nullableArray"
+                      "value": "nullableArray",
+                      "tags": []
                     }
                   ]
                 }

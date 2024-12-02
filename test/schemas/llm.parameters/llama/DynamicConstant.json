@@ -1,0 +1,186 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "object",
+          "properties": {
+            "a": {
+              "type": "number"
+            },
+            "b": {
+              "type": "number"
+            },
+            "c": {
+              "type": "number"
+            },
+            "d": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "a",
+            "b",
+            "c",
+            "d"
+          ]
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "nullable": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "object",
+              "properties": {
+                "a": {
+                  "type": "number"
+                },
+                "b": {
+                  "type": "number"
+                },
+                "c": {
+                  "type": "number"
+                },
+                "d": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "a",
+                "b",
+                "c",
+                "d"
+              ]
+            }
+          },
+          "required": [
+            "value"
+          ]
+        }
+      ]
+    },
+    "optional": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "object",
+          "properties": {
+            "a": {
+              "type": "number"
+            },
+            "b": {
+              "type": "number"
+            },
+            "c": {
+              "type": "number"
+            },
+            "d": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "a",
+            "b",
+            "c",
+            "d"
+          ]
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "faint": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "object",
+              "properties": {
+                "a": {
+                  "type": "number"
+                },
+                "b": {
+                  "type": "number"
+                },
+                "c": {
+                  "type": "number"
+                },
+                "d": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "a",
+                "b",
+                "c",
+                "d"
+              ]
+            }
+          },
+          "required": [
+            "value"
+          ]
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "object",
+            "properties": {
+              "a": {
+                "type": "number"
+              },
+              "b": {
+                "type": "number"
+              },
+              "c": {
+                "type": "number"
+              },
+              "d": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "a",
+              "b",
+              "c",
+              "d"
+            ]
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "optional",
+    "faint",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {}
+}

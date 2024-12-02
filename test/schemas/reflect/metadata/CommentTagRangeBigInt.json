@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "CommentTagRangeBigInt"
+        {
+          "name": "CommentTagRangeBigInt",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -40,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -107,7 +111,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "greater"
+                      "value": "greater",
+                      "tags": []
                     }
                   ]
                 }
@@ -146,7 +151,11 @@
                         "exclusive": [
                           "minimum",
                           "exclusiveMinimum"
-                        ]
+                        ],
+                        "schema": {
+                          "exclusiveMinimum": true,
+                          "minimum": 3
+                        }
                       }
                     ]
                   ]
@@ -190,7 +199,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "greater_equal"
+                      "value": "greater_equal",
+                      "tags": []
                     }
                   ]
                 }
@@ -229,7 +239,10 @@
                         "exclusive": [
                           "minimum",
                           "exclusiveMinimum"
-                        ]
+                        ],
+                        "schema": {
+                          "minimum": 3
+                        }
                       }
                     ]
                   ]
@@ -273,7 +286,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "less"
+                      "value": "less",
+                      "tags": []
                     }
                   ]
                 }
@@ -312,7 +326,11 @@
                         "exclusive": [
                           "maximum",
                           "exclusiveMaximum"
-                        ]
+                        ],
+                        "schema": {
+                          "exclusiveMaximum": true,
+                          "maximum": 7
+                        }
                       }
                     ]
                   ]
@@ -356,7 +374,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "less_equal"
+                      "value": "less_equal",
+                      "tags": []
                     }
                   ]
                 }
@@ -395,7 +414,10 @@
                         "exclusive": [
                           "maximum",
                           "exclusiveMaximum"
-                        ]
+                        ],
+                        "schema": {
+                          "maximum": 7
+                        }
                       }
                     ]
                   ]
@@ -439,7 +461,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "greater_less"
+                      "value": "greater_less",
+                      "tags": []
                     }
                   ]
                 }
@@ -478,7 +501,11 @@
                         "exclusive": [
                           "minimum",
                           "exclusiveMinimum"
-                        ]
+                        ],
+                        "schema": {
+                          "exclusiveMinimum": true,
+                          "minimum": 3
+                        }
                       },
                       {
                         "target": "bigint",
@@ -492,7 +519,11 @@
                         "exclusive": [
                           "maximum",
                           "exclusiveMaximum"
-                        ]
+                        ],
+                        "schema": {
+                          "exclusiveMaximum": true,
+                          "maximum": 7
+                        }
                       }
                     ]
                   ]
@@ -545,7 +576,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "greater_equal_less"
+                      "value": "greater_equal_less",
+                      "tags": []
                     }
                   ]
                 }
@@ -584,7 +616,10 @@
                         "exclusive": [
                           "minimum",
                           "exclusiveMinimum"
-                        ]
+                        ],
+                        "schema": {
+                          "minimum": 3
+                        }
                       },
                       {
                         "target": "bigint",
@@ -598,7 +633,11 @@
                         "exclusive": [
                           "maximum",
                           "exclusiveMaximum"
-                        ]
+                        ],
+                        "schema": {
+                          "exclusiveMaximum": true,
+                          "maximum": 7
+                        }
                       }
                     ]
                   ]
@@ -651,7 +690,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "greater_less_equal"
+                      "value": "greater_less_equal",
+                      "tags": []
                     }
                   ]
                 }
@@ -690,7 +730,11 @@
                         "exclusive": [
                           "minimum",
                           "exclusiveMinimum"
-                        ]
+                        ],
+                        "schema": {
+                          "exclusiveMinimum": true,
+                          "minimum": 3
+                        }
                       },
                       {
                         "target": "bigint",
@@ -704,7 +748,10 @@
                         "exclusive": [
                           "maximum",
                           "exclusiveMaximum"
-                        ]
+                        ],
+                        "schema": {
+                          "maximum": 7
+                        }
                       }
                     ]
                   ]
@@ -757,7 +804,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "greater_equal_less_equal"
+                      "value": "greater_equal_less_equal",
+                      "tags": []
                     }
                   ]
                 }
@@ -796,7 +844,10 @@
                         "exclusive": [
                           "minimum",
                           "exclusiveMinimum"
-                        ]
+                        ],
+                        "schema": {
+                          "minimum": 3
+                        }
                       },
                       {
                         "target": "bigint",
@@ -810,7 +861,10 @@
                         "exclusive": [
                           "maximum",
                           "exclusiveMaximum"
-                        ]
+                        ],
+                        "schema": {
+                          "maximum": 7
+                        }
                       }
                     ]
                   ]
@@ -863,7 +917,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "equal"
+                      "value": "equal",
+                      "tags": []
                     }
                   ]
                 }
@@ -902,7 +957,10 @@
                         "exclusive": [
                           "minimum",
                           "exclusiveMinimum"
-                        ]
+                        ],
+                        "schema": {
+                          "minimum": 10
+                        }
                       },
                       {
                         "target": "bigint",
@@ -916,7 +974,10 @@
                         "exclusive": [
                           "maximum",
                           "exclusiveMaximum"
-                        ]
+                        ],
+                        "schema": {
+                          "maximum": 10
+                        }
                       }
                     ]
                   ]
@@ -983,7 +1044,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "CommentTagRangeBigInt.Type"
+            {
+              "name": "CommentTagRangeBigInt.Type",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

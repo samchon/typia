@@ -1,18 +1,19 @@
 import { OpenApiV3 } from "@samchon/openapi";
 import Ajv, { Options } from "ajv";
-import { IJsonApplication } from "typia";
+import { IJsonSchemaCollection } from "typia";
 
 export namespace AjvFactory {
-  export const create = (options: Options) => (app: IJsonApplication<"3.0">) =>
-    new Ajv({
-      schemas: Object.entries(app.components.schemas ?? {}).map(
-        ([key, value]) => ({
-          ...emendSchema(value),
-          $id: `#/components/schemas/${key}`,
-        }),
-      ),
-      ...options,
-    }).compile(emendSchema(app.schemas[0]));
+  export const create =
+    (options: Options) => (app: IJsonSchemaCollection<"3.0">) =>
+      new Ajv({
+        schemas: Object.entries(app.components.schemas ?? {}).map(
+          ([key, value]) => ({
+            ...emendSchema(value),
+            $id: `#/components/schemas/${key}`,
+          }),
+        ),
+        ...options,
+      }).compile(emendSchema(app.schemas[0]));
 
   const emendSchema = (
     schema: OpenApiV3.IJsonSchema,

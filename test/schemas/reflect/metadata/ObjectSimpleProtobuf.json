@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ObjectSimpleProtobuf"
+        {
+          "name": "ObjectSimpleProtobuf",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -40,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "bool"
+                      "value": "bool",
+                      "tags": []
                     }
                   ]
                 }
@@ -96,7 +100,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "int32"
+                      "value": "int32",
+                      "tags": []
                     }
                   ]
                 }
@@ -128,7 +133,7 @@
                         "name": "Type<\"int32\">",
                         "kind": "type",
                         "value": "int32",
-                        "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
+                        "validate": "$importInternal(\"isTypeInt32\")($input)",
                         "exclusive": true,
                         "schema": {
                           "type": "integer"
@@ -166,7 +171,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "uint32"
+                      "value": "uint32",
+                      "tags": []
                     }
                   ]
                 }
@@ -198,7 +204,7 @@
                         "name": "Type<\"uint32\">",
                         "kind": "type",
                         "value": "uint32",
-                        "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
+                        "validate": "$importInternal(\"isTypeUint32\")($input)",
                         "exclusive": true,
                         "schema": {
                           "type": "integer"
@@ -236,7 +242,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "int64"
+                      "value": "int64",
+                      "tags": []
                     }
                   ]
                 }
@@ -292,7 +299,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "uint64"
+                      "value": "uint64",
+                      "tags": []
                     }
                   ]
                 }
@@ -362,7 +370,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "float"
+                      "value": "float",
+                      "tags": []
                     }
                   ]
                 }
@@ -394,7 +403,7 @@
                         "name": "Type<\"float\">",
                         "kind": "type",
                         "value": "float",
-                        "validate": "-1.175494351e38 <= $input && $input <= 3.4028235e38",
+                        "validate": "$importInternal(\"isTypeFloat\")($input)",
                         "exclusive": true,
                         "schema": {
                           "type": "number"
@@ -432,7 +441,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "double"
+                      "value": "double",
+                      "tags": []
                     }
                   ]
                 }
@@ -502,7 +512,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "string"
+                      "value": "string",
+                      "tags": []
                     }
                   ]
                 }
@@ -558,7 +569,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "bytes"
+                      "value": "bytes",
+                      "tags": []
                     }
                   ]
                 }
@@ -590,7 +602,10 @@
               "objects": [],
               "aliases": [],
               "natives": [
-                "Uint8Array"
+                {
+                  "name": "Uint8Array",
+                  "tags": []
+                }
               ],
               "sets": [],
               "maps": []

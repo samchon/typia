@@ -7,21 +7,21 @@ export type Type<
   kind: "type";
   value: Value;
   validate: Value extends "int32"
-    ? `Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647`
+    ? `$importInternal("isTypeInt32")($input)`
     : Value extends "uint32"
-      ? `Math.floor($input) === $input && 0 <= $input && $input <= 4294967295`
+      ? `$importInternal("isTypeUint32")($input)`
       : Value extends "int64"
         ? {
-            number: `Math.floor($input) === $input && -9223372036854775808 <= $input && $input <= 9223372036854775807`;
+            number: `$importInternal("isTypeInt64")($input)`;
             bigint: `true`;
           }
         : Value extends "uint64"
           ? {
-              number: `Math.floor($input) === $input && 0 <= $input && $input <= 18446744073709551615`;
+              number: `$importInternal("isTypeUint64")($input)`;
               bigint: `BigInt(0) <= $input`;
             }
           : Value extends "float"
-            ? `-1.175494351e38 <= $input && $input <= 3.4028235e38`
+            ? `$importInternal("isTypeFloat")($input)`
             : `true`;
   exclusive: true;
   schema: {

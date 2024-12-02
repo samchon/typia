@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "TemplateConstant"
+        {
+          "name": "TemplateConstant",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -40,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -107,7 +111,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "prefix"
+                      "value": "prefix",
+                      "tags": []
                     }
                   ]
                 }
@@ -176,7 +181,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "postfix"
+                      "value": "postfix",
+                      "tags": []
                     }
                   ]
                 }
@@ -245,7 +251,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "combined"
+                      "value": "combined",
+                      "tags": []
                     }
                   ]
                 }
@@ -352,7 +359,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "TemplateConstant.Type"
+            {
+              "name": "TemplateConstant.Type",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

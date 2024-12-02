@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "DynamicTree"
+        {
+          "name": "DynamicTree",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -40,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -96,7 +100,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "sequence"
+                      "value": "sequence",
+                      "tags": []
                     }
                   ]
                 }
@@ -152,7 +157,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "children"
+                      "value": "children",
+                      "tags": []
                     }
                   ]
                 }
@@ -182,7 +188,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "Record<string, DynamicTree>"
+                {
+                  "name": "Record<string, DynamicTree>",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -242,7 +251,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "DynamicTree"
+                {
+                  "name": "DynamicTree",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],

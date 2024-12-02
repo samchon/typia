@@ -1,0 +1,304 @@
+{
+  "model": "3.0",
+  "options": {
+    "constraint": false,
+    "recursive": 3,
+    "separate": null
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "enum": [
+                  "latest"
+                ],
+                "description": "@format uuid"
+              },
+              "age": {
+                "oneOf": [
+                  {
+                    "type": "integer",
+                    "description": "@maximum 100"
+                  },
+                  {
+                    "type": "number",
+                    "enum": [
+                      -1
+                    ]
+                  }
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "age"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false
+      },
+      "strict": true
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "enum": [
+                  "latest"
+                ],
+                "description": "@format uuid"
+              },
+              "age": {
+                "oneOf": [
+                  {
+                    "type": "integer",
+                    "description": "@maximum 100"
+                  },
+                  {
+                    "type": "number",
+                    "enum": [
+                      -1
+                    ]
+                  }
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "age"
+            ],
+            "additionalProperties": false
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "enum": [
+                  "latest"
+                ],
+                "description": "@format uuid"
+              },
+              "age": {
+                "oneOf": [
+                  {
+                    "type": "integer",
+                    "description": "@maximum 100"
+                  },
+                  {
+                    "type": "number",
+                    "enum": [
+                      -1
+                    ]
+                  }
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "age"
+            ],
+            "additionalProperties": false,
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "enum": [
+              "latest"
+            ],
+            "description": "@format uuid"
+          },
+          "age": {
+            "oneOf": [
+              {
+                "type": "integer",
+                "description": "@maximum 100"
+              },
+              {
+                "type": "number",
+                "enum": [
+                  -1
+                ]
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "age"
+        ],
+        "additionalProperties": false
+      },
+      "strict": true
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "enum": [
+                  "latest"
+                ],
+                "description": "@format uuid"
+              },
+              "age": {
+                "oneOf": [
+                  {
+                    "type": "integer",
+                    "description": "@maximum 100"
+                  },
+                  {
+                    "type": "number",
+                    "enum": [
+                      -1
+                    ]
+                  }
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "age"
+            ],
+            "additionalProperties": false,
+            "nullable": true
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "enum": [
+                  "latest"
+                ],
+                "description": "@format uuid"
+              },
+              "age": {
+                "oneOf": [
+                  {
+                    "type": "integer",
+                    "description": "@maximum 100"
+                  },
+                  {
+                    "type": "number",
+                    "enum": [
+                      -1
+                    ]
+                  }
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "age"
+            ],
+            "additionalProperties": false,
+            "nullable": true
+          },
+          "third": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "enum": [
+                  "latest"
+                ],
+                "description": "@format uuid"
+              },
+              "age": {
+                "oneOf": [
+                  {
+                    "type": "integer",
+                    "description": "@maximum 100"
+                  },
+                  {
+                    "type": "number",
+                    "enum": [
+                      -1
+                    ]
+                  }
+                ]
+              }
+            },
+            "required": [
+              "id",
+              "age"
+            ],
+            "additionalProperties": false,
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "enum": [
+              "latest"
+            ],
+            "description": "@format uuid"
+          },
+          "age": {
+            "oneOf": [
+              {
+                "type": "integer",
+                "description": "@maximum 100"
+              },
+              {
+                "type": "number",
+                "enum": [
+                  -1
+                ]
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "age"
+        ],
+        "additionalProperties": false,
+        "nullable": true
+      },
+      "strict": true
+    }
+  ]
+}

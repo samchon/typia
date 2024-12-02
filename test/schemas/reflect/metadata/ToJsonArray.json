@@ -43,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "toJSON"
+                      "value": "toJSON",
+                      "tags": []
                     }
                   ]
                 }
@@ -134,7 +135,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "toJSON"
+                      "value": "toJSON",
+                      "tags": []
                     }
                   ]
                 }
@@ -225,7 +227,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "toJSON"
+                      "value": "toJSON",
+                      "tags": []
                     }
                   ]
                 }
@@ -316,7 +319,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "toJSON"
+                      "value": "toJSON",
+                      "tags": []
                     }
                   ]
                 }
@@ -407,7 +411,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -573,7 +578,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ToJsonArray.IObject"
+            {
+              "name": "ToJsonArray.IObject",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],
@@ -616,7 +624,10 @@
                 "arrays": [],
                 "tuples": [],
                 "objects": [
-                  "ToJsonArray.IArray<boolean>"
+                  {
+                    "name": "ToJsonArray.IArray<boolean>",
+                    "tags": []
+                  }
                 ],
                 "aliases": [],
                 "natives": [],
@@ -681,7 +692,10 @@
                 "arrays": [],
                 "tuples": [],
                 "objects": [
-                  "ToJsonArray.IArray<number>"
+                  {
+                    "name": "ToJsonArray.IArray<number>",
+                    "tags": []
+                  }
                 ],
                 "aliases": [],
                 "natives": [],
@@ -746,7 +760,10 @@
                 "arrays": [],
                 "tuples": [],
                 "objects": [
-                  "ToJsonArray.IArray<string>"
+                  {
+                    "name": "ToJsonArray.IArray<string>",
+                    "tags": []
+                  }
                 ],
                 "aliases": [],
                 "natives": [],
@@ -811,7 +828,10 @@
                 "arrays": [],
                 "tuples": [],
                 "objects": [
-                  "ToJsonArray.IArray<ToJsonArray.IObject>"
+                  {
+                    "name": "ToJsonArray.IArray<ToJsonArray.IObject>",
+                    "tags": []
+                  }
                 ],
                 "aliases": [],
                 "natives": [],

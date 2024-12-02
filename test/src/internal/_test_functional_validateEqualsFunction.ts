@@ -29,9 +29,10 @@ export const _test_functional_validateEqualsFunction =
       if (expected.length === 0) return;
 
       const [x, y] = callback(input);
-      const actual: string[] = validate(() => y)(x)
-        .errors.map((err) => err.path)
-        .sort();
+      const result: IValidation<T> = validate(() => y)(x);
+      const actual: string[] = result.success
+        ? []
+        : result.errors.map((err) => err.path).sort();
       if (
         expected.length !== actual.length ||
         expected.every((str, i) => str === actual[i]) === false

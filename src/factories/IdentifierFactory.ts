@@ -10,11 +10,27 @@ export namespace IdentifierFactory {
       ? ts.factory.createIdentifier(name)
       : ts.factory.createStringLiteral(name);
 
-  export const access = (target: ts.Expression) => (property: string) => {
-    const postfix = identifier(property);
+  export const access = (
+    input: ts.Expression,
+    key: string,
+    chain?: boolean,
+  ) => {
+    const postfix = identifier(key);
     return ts.isStringLiteral(postfix)
-      ? ts.factory.createElementAccessExpression(target, postfix)
-      : ts.factory.createPropertyAccessExpression(target, postfix);
+      ? chain === true
+        ? ts.factory.createElementAccessChain(
+            input,
+            ts.factory.createToken(ts.SyntaxKind.QuestionDotToken),
+            postfix,
+          )
+        : ts.factory.createElementAccessExpression(input, postfix)
+      : chain === true
+        ? ts.factory.createPropertyAccessChain(
+            input,
+            ts.factory.createToken(ts.SyntaxKind.QuestionDotToken),
+            postfix,
+          )
+        : ts.factory.createPropertyAccessExpression(input, postfix);
   };
 
   export const getName = (input: ts.Expression): string => {
@@ -29,7 +45,7 @@ export namespace IdentifierFactory {
       return `${getName(input.expression)}[${getName(
         input.argumentExpression,
       )}]`;
-    return "uknown";
+    return "unknown";
   };
 
   export const postfix = (str: string): string =>
@@ -39,8 +55,11 @@ export namespace IdentifierFactory {
 
   export const parameter = (
     name: string | ts.BindingName,
-    type?: ts.TypeNode,
-    init?: ts.Expression | ts.PunctuationToken<ts.SyntaxKind.QuestionToken>,
+    type?: ts.TypeNode | undefined,
+    init?:
+      | ts.Expression
+      | ts.PunctuationToken<ts.SyntaxKind.QuestionToken>
+      | undefined,
   ): ts.ParameterDeclaration => {
     // instead of ts.version >= "4.8"
     if (ts.getDecorators !== undefined)

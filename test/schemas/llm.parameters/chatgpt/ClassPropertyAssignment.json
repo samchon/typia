@@ -1,0 +1,201 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "note": {
+          "type": "string",
+          "enum": [
+            "assignment"
+          ]
+        },
+        "editable": {
+          "type": "boolean",
+          "enum": [
+            false
+          ]
+        },
+        "incremental": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "note",
+        "editable",
+        "incremental"
+      ],
+      "additionalProperties": false
+    },
+    "nullable": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number"
+            },
+            "name": {
+              "type": "string"
+            },
+            "note": {
+              "type": "string",
+              "enum": [
+                "assignment"
+              ]
+            },
+            "editable": {
+              "type": "boolean",
+              "enum": [
+                false
+              ]
+            },
+            "incremental": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "note",
+            "editable",
+            "incremental"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "optional": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "note": {
+          "type": "string",
+          "enum": [
+            "assignment"
+          ]
+        },
+        "editable": {
+          "type": "boolean",
+          "enum": [
+            false
+          ]
+        },
+        "incremental": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "note",
+        "editable",
+        "incremental"
+      ],
+      "additionalProperties": false
+    },
+    "faint": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number"
+            },
+            "name": {
+              "type": "string"
+            },
+            "note": {
+              "type": "string",
+              "enum": [
+                "assignment"
+              ]
+            },
+            "editable": {
+              "type": "boolean",
+              "enum": [
+                false
+              ]
+            },
+            "incremental": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "note",
+            "editable",
+            "incremental"
+          ],
+          "additionalProperties": false
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string",
+            "enum": [
+              "assignment"
+            ]
+          },
+          "editable": {
+            "type": "boolean",
+            "enum": [
+              false
+            ]
+          },
+          "incremental": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "note",
+          "editable",
+          "incremental"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "optional",
+    "faint",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {}
+}

@@ -1,0 +1,364 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "oneOf": [
+        {
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "type": "number",
+          "nullable": true
+        },
+        {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "type": "string",
+                "nullable": true
+              },
+              {
+                "type": "number",
+                "nullable": true
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    {
+                      "type": "number",
+                      "nullable": true
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "oneOf": [
+                          {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          {
+                            "type": "number",
+                            "nullable": true
+                          },
+                          {
+                            "type": "array",
+                            "items": {},
+                            "maxItems": 0,
+                            "nullable": true
+                          }
+                        ]
+                      },
+                      "nullable": true
+                    }
+                  ]
+                },
+                "nullable": true
+              }
+            ]
+          },
+          "nullable": true
+        }
+      ]
+    },
+    "nullable": {
+      "oneOf": [
+        {
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "type": "number",
+          "nullable": true
+        },
+        {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "type": "string",
+                "nullable": true
+              },
+              {
+                "type": "number",
+                "nullable": true
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    {
+                      "type": "number",
+                      "nullable": true
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "oneOf": [
+                          {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          {
+                            "type": "number",
+                            "nullable": true
+                          },
+                          {
+                            "type": "array",
+                            "items": {},
+                            "maxItems": 0,
+                            "nullable": true
+                          }
+                        ]
+                      },
+                      "nullable": true
+                    }
+                  ]
+                },
+                "nullable": true
+              }
+            ]
+          },
+          "nullable": true
+        }
+      ]
+    },
+    "optional": {
+      "oneOf": [
+        {
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "type": "number",
+          "nullable": true
+        },
+        {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "type": "string",
+                "nullable": true
+              },
+              {
+                "type": "number",
+                "nullable": true
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    {
+                      "type": "number",
+                      "nullable": true
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "oneOf": [
+                          {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          {
+                            "type": "number",
+                            "nullable": true
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "oneOf": [
+                                {
+                                  "type": "string",
+                                  "nullable": true
+                                },
+                                {
+                                  "type": "number",
+                                  "nullable": true
+                                }
+                              ]
+                            },
+                            "nullable": true
+                          }
+                        ]
+                      },
+                      "nullable": true
+                    }
+                  ]
+                },
+                "nullable": true
+              }
+            ]
+          },
+          "nullable": true
+        }
+      ]
+    },
+    "faint": {
+      "oneOf": [
+        {
+          "type": "string",
+          "nullable": true
+        },
+        {
+          "type": "number",
+          "nullable": true
+        },
+        {
+          "type": "array",
+          "items": {
+            "oneOf": [
+              {
+                "type": "string",
+                "nullable": true
+              },
+              {
+                "type": "number",
+                "nullable": true
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "string",
+                      "nullable": true
+                    },
+                    {
+                      "type": "number",
+                      "nullable": true
+                    },
+                    {
+                      "type": "array",
+                      "items": {
+                        "oneOf": [
+                          {
+                            "type": "string",
+                            "nullable": true
+                          },
+                          {
+                            "type": "number",
+                            "nullable": true
+                          },
+                          {
+                            "type": "array",
+                            "items": {
+                              "oneOf": [
+                                {
+                                  "type": "string",
+                                  "nullable": true
+                                },
+                                {
+                                  "type": "number",
+                                  "nullable": true
+                                }
+                              ]
+                            },
+                            "nullable": true
+                          }
+                        ]
+                      },
+                      "nullable": true
+                    }
+                  ]
+                },
+                "nullable": true
+              }
+            ]
+          },
+          "nullable": true
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "type": "number",
+            "nullable": true
+          },
+          {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "nullable": true
+                },
+                {
+                  "type": "number",
+                  "nullable": true
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "oneOf": [
+                      {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      {
+                        "type": "number",
+                        "nullable": true
+                      },
+                      {
+                        "type": "array",
+                        "items": {
+                          "oneOf": [
+                            {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            {
+                              "type": "number",
+                              "nullable": true
+                            },
+                            {
+                              "type": "array",
+                              "items": {},
+                              "maxItems": 0,
+                              "nullable": true
+                            }
+                          ]
+                        },
+                        "nullable": true
+                      }
+                    ]
+                  },
+                  "nullable": true
+                }
+              ]
+            },
+            "nullable": true
+          }
+        ]
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false
+}

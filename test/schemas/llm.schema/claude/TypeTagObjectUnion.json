@@ -1,0 +1,32 @@
+{
+  "type": "array",
+  "items": {
+    "oneOf": [
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "number",
+            "minimum": 3
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 7
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+    ]
+  }
+}

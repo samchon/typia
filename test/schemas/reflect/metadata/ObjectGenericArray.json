@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ObjectGenericArray"
+        {
+          "name": "ObjectGenericArray",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -40,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "pagination"
+                      "value": "pagination",
+                      "tags": []
                     }
                   ]
                 }
@@ -70,7 +74,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectGenericArray.IPagination"
+                {
+                  "name": "ObjectGenericArray.IPagination",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -93,7 +100,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "data"
+                      "value": "data",
+                      "tags": []
                     }
                   ]
                 }
@@ -160,7 +168,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "page"
+                      "value": "page",
+                      "tags": []
                     }
                   ]
                 }
@@ -216,7 +225,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "limit"
+                      "value": "limit",
+                      "tags": []
                     }
                   ]
                 }
@@ -272,7 +282,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "total_count"
+                      "value": "total_count",
+                      "tags": []
                     }
                   ]
                 }
@@ -328,7 +339,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "total_pages"
+                      "value": "total_pages",
+                      "tags": []
                     }
                   ]
                 }
@@ -395,7 +407,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "name"
+                      "value": "name",
+                      "tags": []
                     }
                   ]
                 }
@@ -451,7 +464,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "age"
+                      "value": "age",
+                      "tags": []
                     }
                   ]
                 }
@@ -521,7 +535,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ObjectGenericArray.IPerson"
+            {
+              "name": "ObjectGenericArray.IPerson",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

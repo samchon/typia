@@ -1,5 +1,6 @@
 import { ClassProperties } from "../../typings/ClassProperties";
 
+import { IProtobufProperty } from "../protobuf/IProtobufProperty";
 import { IJsDocTagInfo } from "./IJsDocTagInfo";
 import { IMetadataDictionary } from "./IMetadataDictionary";
 import { IMetadataProperty } from "./IMetadataProperty";
@@ -10,6 +11,8 @@ export class MetadataProperty {
   public readonly value: Metadata;
   public readonly description: string | null;
   public readonly jsDocTags: IJsDocTagInfo[];
+
+  public of_protobuf_?: IProtobufProperty;
 
   /* -----------------------------------------------------------
         CONSTRUCTORS

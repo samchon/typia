@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "CommentTagArray"
+        {
+          "name": "CommentTagArray",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -40,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -107,7 +111,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "items"
+                      "value": "items",
+                      "tags": []
                     }
                   ]
                 }
@@ -198,7 +203,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "minItems"
+                      "value": "minItems",
+                      "tags": []
                     }
                   ]
                 }
@@ -278,7 +284,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "both"
+                      "value": "both",
+                      "tags": []
                     }
                   ]
                 }
@@ -378,7 +385,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "equal"
+                      "value": "equal",
+                      "tags": []
                     }
                   ]
                 }
@@ -478,7 +486,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "unique"
+                      "value": "unique",
+                      "tags": []
                     }
                   ]
                 }
@@ -566,7 +575,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "CommentTagArray.Type"
+            {
+              "name": "CommentTagArray.Type",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

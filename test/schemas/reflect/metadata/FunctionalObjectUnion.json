@@ -43,7 +43,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "x"
+                      "value": "x",
+                      "tags": []
                     }
                   ]
                 }
@@ -99,7 +100,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "y"
+                      "value": "y",
+                      "tags": []
                     }
                   ]
                 }
@@ -155,7 +157,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "distance"
+                      "value": "distance",
+                      "tags": []
                     }
                   ]
                 }
@@ -195,7 +198,10 @@
                         "arrays": [],
                         "tuples": [],
                         "objects": [
-                          "FunctionalObjectUnion.IPoint"
+                          {
+                            "name": "FunctionalObjectUnion.IPoint",
+                            "tags": []
+                          }
                         ],
                         "aliases": [],
                         "natives": [],
@@ -273,7 +279,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "p1"
+                      "value": "p1",
+                      "tags": []
                     }
                   ]
                 }
@@ -303,7 +310,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "FunctionalObjectUnion.IPoint"
+                {
+                  "name": "FunctionalObjectUnion.IPoint",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -326,7 +336,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "p2"
+                      "value": "p2",
+                      "tags": []
                     }
                   ]
                 }
@@ -356,7 +367,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "FunctionalObjectUnion.IPoint"
+                {
+                  "name": "FunctionalObjectUnion.IPoint",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -379,7 +393,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "length"
+                      "value": "length",
+                      "tags": []
                     }
                   ]
                 }
@@ -470,7 +485,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "points"
+                      "value": "points",
+                      "tags": []
                     }
                   ]
                 }
@@ -526,7 +542,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "length"
+                      "value": "length",
+                      "tags": []
                     }
                   ]
                 }
@@ -617,7 +634,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "points"
+                      "value": "points",
+                      "tags": []
                     }
                   ]
                 }
@@ -673,7 +691,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "length"
+                      "value": "length",
+                      "tags": []
                     }
                   ]
                 }
@@ -753,7 +772,8 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "area"
+                      "value": "area",
+                      "tags": []
                     }
                   ]
                 }
@@ -847,10 +867,22 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "FunctionalObjectUnion.IPoint",
-            "FunctionalObjectUnion.ILine",
-            "FunctionalObjectUnion.IPolyline",
-            "FunctionalObjectUnion.IPolygon"
+            {
+              "name": "FunctionalObjectUnion.IPoint",
+              "tags": []
+            },
+            {
+              "name": "FunctionalObjectUnion.ILine",
+              "tags": []
+            },
+            {
+              "name": "FunctionalObjectUnion.IPolyline",
+              "tags": []
+            },
+            {
+              "name": "FunctionalObjectUnion.IPolygon",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],
@@ -879,7 +911,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "FunctionalObjectUnion.IPoint"
+            {
+              "name": "FunctionalObjectUnion.IPoint",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

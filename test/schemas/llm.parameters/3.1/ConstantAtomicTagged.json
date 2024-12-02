@@ -1,0 +1,186 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "const": "latest"
+            },
+            {
+              "type": "string",
+              "description": "@format uuid"
+            }
+          ]
+        },
+        "age": {
+          "oneOf": [
+            {
+              "const": -1
+            },
+            {
+              "type": "integer",
+              "description": "@maximum 100"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "age"
+      ]
+    },
+    "nullable": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "oneOf": [
+                {
+                  "const": "latest"
+                },
+                {
+                  "type": "string",
+                  "description": "@format uuid"
+                }
+              ]
+            },
+            "age": {
+              "oneOf": [
+                {
+                  "const": -1
+                },
+                {
+                  "type": "integer",
+                  "description": "@maximum 100"
+                }
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "age"
+          ]
+        }
+      ]
+    },
+    "optional": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "const": "latest"
+            },
+            {
+              "type": "string",
+              "description": "@format uuid"
+            }
+          ]
+        },
+        "age": {
+          "oneOf": [
+            {
+              "const": -1
+            },
+            {
+              "type": "integer",
+              "description": "@maximum 100"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "age"
+      ]
+    },
+    "faint": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "oneOf": [
+                {
+                  "const": "latest"
+                },
+                {
+                  "type": "string",
+                  "description": "@format uuid"
+                }
+              ]
+            },
+            "age": {
+              "oneOf": [
+                {
+                  "const": -1
+                },
+                {
+                  "type": "integer",
+                  "description": "@maximum 100"
+                }
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "age"
+          ]
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "oneOf": [
+              {
+                "const": "latest"
+              },
+              {
+                "type": "string",
+                "description": "@format uuid"
+              }
+            ]
+          },
+          "age": {
+            "oneOf": [
+              {
+                "const": -1
+              },
+              {
+                "type": "integer",
+                "description": "@maximum 100"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "age"
+        ]
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "optional",
+    "faint",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {}
+}
