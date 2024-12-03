@@ -1,8 +1,17 @@
 import typia, { tags } from "typia";
+import * as __typia_transform__accessExpressionAsString from "typia/lib/internal/_accessExpressionAsString.js";
 import * as __typia_transform__assertGuard from "typia/lib/internal/_assertGuard.js";
 import * as __typia_transform__isFormatEmail from "typia/lib/internal/_isFormatEmail.js";
 import * as __typia_transform__isFormatUuid from "typia/lib/internal/_isFormatUuid.js";
 import * as __typia_transform__isTypeUint32 from "typia/lib/internal/_isTypeUint32.js";
+import * as __typia_transform__randomArray from "typia/lib/internal/_randomArray.js";
+import * as __typia_transform__randomFormatDatetime from "typia/lib/internal/_randomFormatDatetime.js";
+import * as __typia_transform__randomFormatEmail from "typia/lib/internal/_randomFormatEmail.js";
+import * as __typia_transform__randomFormatUuid from "typia/lib/internal/_randomFormatUuid.js";
+import * as __typia_transform__randomInteger from "typia/lib/internal/_randomInteger.js";
+import * as __typia_transform__randomPattern from "typia/lib/internal/_randomPattern.js";
+import * as __typia_transform__randomPick from "typia/lib/internal/_randomPick.js";
+import * as __typia_transform__randomString from "typia/lib/internal/_randomString.js";
 import * as __typia_transform__validateReport from "typia/lib/internal/_validateReport.js";
 
 interface ICitizen {
@@ -16,19 +25,7 @@ interface ICitizen {
   parent: ICitizen | null;
   children: ICitizen[];
 }
-export const createClone = (() => {
-  const _cp0 = (input: any) => input.map((elem: any) => _co0(elem) as any);
-  const _co0 = (input: any): any => ({
-    id: input.id,
-    name: input.name,
-    email: input.email,
-    age: input.age,
-    motto: input.motto,
-    birthdate: new Date(input.birthdate) as any,
-    died_at: input.died_at ? new Date(input.died_at) : (input.died_at as any),
-    parent: input.parent ? _co0(input.parent) : (input.parent as any),
-    children: _cp0(input.children) as any,
-  });
+export const is = (() => {
   const _io0 = (input: any): boolean =>
     "string" === typeof input.id &&
     __typia_transform__isFormatUuid._isFormatUuid(input.id) &&
@@ -50,11 +47,10 @@ export const createClone = (() => {
     input.children.every(
       (elem: any) => "object" === typeof elem && null !== elem && _io0(elem),
     );
-  return (input: ICitizen): import("typia").Resolved<ICitizen> =>
-    _co0(input) as any;
+  return (input: any): input is ICitizen =>
+    "object" === typeof input && null !== input && _io0(input);
 })();
-export const createAssertClone = (() => {
-  const _cp0 = (input: any) => input.map((elem: any) => _co0(elem) as any);
+export const assert = (() => {
   const _io0 = (input: any): boolean =>
     "string" === typeof input.id &&
     __typia_transform__isFormatUuid._isFormatUuid(input.id) &&
@@ -86,7 +82,7 @@ export const createAssertClone = (() => {
         __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
-            method: "typia.misc.createAssertClone",
+            method: "typia.createAssert",
             path: _path + ".id",
             expected: 'string & Format<"uuid">',
             value: input.id,
@@ -96,7 +92,7 @@ export const createAssertClone = (() => {
       __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
-          method: "typia.misc.createAssertClone",
+          method: "typia.createAssert",
           path: _path + ".id",
           expected: '(string & Format<"uuid">)',
           value: input.id,
@@ -108,7 +104,7 @@ export const createAssertClone = (() => {
         __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
-            method: "typia.misc.createAssertClone",
+            method: "typia.createAssert",
             path: _path + ".name",
             expected: 'string & Pattern<"^[A-Z][a-z]+$">',
             value: input.name,
@@ -118,7 +114,7 @@ export const createAssertClone = (() => {
       __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
-          method: "typia.misc.createAssertClone",
+          method: "typia.createAssert",
           path: _path + ".name",
           expected: '(string & Pattern<"^[A-Z][a-z]+$">)',
           value: input.name,
@@ -130,7 +126,7 @@ export const createAssertClone = (() => {
         __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
-            method: "typia.misc.createAssertClone",
+            method: "typia.createAssert",
             path: _path + ".email",
             expected: 'string & Format<"email">',
             value: input.email,
@@ -140,7 +136,7 @@ export const createAssertClone = (() => {
       __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
-          method: "typia.misc.createAssertClone",
+          method: "typia.createAssert",
           path: _path + ".email",
           expected: '(string & Format<"email">)',
           value: input.email,
@@ -152,7 +148,7 @@ export const createAssertClone = (() => {
         __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
-            method: "typia.misc.createAssertClone",
+            method: "typia.createAssert",
             path: _path + ".age",
             expected: 'number & Type<"uint32">',
             value: input.age,
@@ -163,7 +159,7 @@ export const createAssertClone = (() => {
         __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
-            method: "typia.misc.createAssertClone",
+            method: "typia.createAssert",
             path: _path + ".age",
             expected: "number & ExclusiveMaximum<100>",
             value: input.age,
@@ -173,7 +169,7 @@ export const createAssertClone = (() => {
       __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
-          method: "typia.misc.createAssertClone",
+          method: "typia.createAssert",
           path: _path + ".age",
           expected: '(number & Type<"uint32"> & ExclusiveMaximum<100>)',
           value: input.age,
@@ -184,7 +180,7 @@ export const createAssertClone = (() => {
       __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
-          method: "typia.misc.createAssertClone",
+          method: "typia.createAssert",
           path: _path + ".motto",
           expected: "string",
           value: input.motto,
@@ -195,7 +191,7 @@ export const createAssertClone = (() => {
       __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
-          method: "typia.misc.createAssertClone",
+          method: "typia.createAssert",
           path: _path + ".birthdate",
           expected: "Date",
           value: input.birthdate,
@@ -207,7 +203,7 @@ export const createAssertClone = (() => {
       __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
-          method: "typia.misc.createAssertClone",
+          method: "typia.createAssert",
           path: _path + ".died_at",
           expected: "(Date | null)",
           value: input.died_at,
@@ -219,7 +215,7 @@ export const createAssertClone = (() => {
         __typia_transform__assertGuard._assertGuard(
           _exceptionable,
           {
-            method: "typia.misc.createAssertClone",
+            method: "typia.createAssert",
             path: _path + ".parent",
             expected: "(ICitizen | null)",
             value: input.parent,
@@ -230,7 +226,7 @@ export const createAssertClone = (() => {
       __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
-          method: "typia.misc.createAssertClone",
+          method: "typia.createAssert",
           path: _path + ".parent",
           expected: "(ICitizen | null)",
           value: input.parent,
@@ -241,7 +237,7 @@ export const createAssertClone = (() => {
       __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
-          method: "typia.misc.createAssertClone",
+          method: "typia.createAssert",
           path: _path + ".children",
           expected: "Array<ICitizen>",
           value: input.children,
@@ -254,7 +250,7 @@ export const createAssertClone = (() => {
             __typia_transform__assertGuard._assertGuard(
               _exceptionable,
               {
-                method: "typia.misc.createAssertClone",
+                method: "typia.createAssert",
                 path: _path + ".children[" + _index2 + "]",
                 expected: "ICitizen",
                 value: elem,
@@ -269,7 +265,7 @@ export const createAssertClone = (() => {
           __typia_transform__assertGuard._assertGuard(
             _exceptionable,
             {
-              method: "typia.misc.createAssertClone",
+              method: "typia.createAssert",
               path: _path + ".children[" + _index2 + "]",
               expected: "ICitizen",
               value: elem,
@@ -280,28 +276,17 @@ export const createAssertClone = (() => {
       __typia_transform__assertGuard._assertGuard(
         _exceptionable,
         {
-          method: "typia.misc.createAssertClone",
+          method: "typia.createAssert",
           path: _path + ".children",
           expected: "Array<ICitizen>",
           value: input.children,
         },
         _errorFactory,
       ));
-  const _co0 = (input: any): any => ({
-    id: input.id,
-    name: input.name,
-    email: input.email,
-    age: input.age,
-    motto: input.motto,
-    birthdate: new Date(input.birthdate) as any,
-    died_at: input.died_at ? new Date(input.died_at) : (input.died_at as any),
-    parent: input.parent ? _co0(input.parent) : (input.parent as any),
-    children: _cp0(input.children) as any,
-  });
   const __is = (input: any): input is ICitizen =>
     "object" === typeof input && null !== input && _io0(input);
   let _errorFactory: any;
-  const __assert = (
+  return (
     input: any,
     errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
   ): ICitizen => {
@@ -312,7 +297,7 @@ export const createAssertClone = (() => {
           __typia_transform__assertGuard._assertGuard(
             true,
             {
-              method: "typia.misc.createAssertClone",
+              method: "typia.createAssert",
               path: _path + "",
               expected: "ICitizen",
               value: input,
@@ -323,7 +308,7 @@ export const createAssertClone = (() => {
         __typia_transform__assertGuard._assertGuard(
           true,
           {
-            method: "typia.misc.createAssertClone",
+            method: "typia.createAssert",
             path: _path + "",
             expected: "ICitizen",
             value: input,
@@ -333,16 +318,8 @@ export const createAssertClone = (() => {
     }
     return input;
   };
-  const __clone = (input: ICitizen): import("typia").Resolved<ICitizen> =>
-    _co0(input) as any;
-  return (
-    input: any,
-    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-  ): import("typia").Resolved<ICitizen> =>
-    __clone(__assert(input, errorFactory));
 })();
-export const createIsClone = (() => {
-  const _cp0 = (input: any) => input.map((elem: any) => _co0(elem) as any);
+export const assertGuard = (() => {
   const _io0 = (input: any): boolean =>
     "string" === typeof input.id &&
     __typia_transform__isFormatUuid._isFormatUuid(input.id) &&
@@ -364,28 +341,253 @@ export const createIsClone = (() => {
     input.children.every(
       (elem: any) => "object" === typeof elem && null !== elem && _io0(elem),
     );
-  const _co0 = (input: any): any => ({
-    id: input.id,
-    name: input.name,
-    email: input.email,
-    age: input.age,
-    motto: input.motto,
-    birthdate: new Date(input.birthdate) as any,
-    died_at: input.died_at ? new Date(input.died_at) : (input.died_at as any),
-    parent: input.parent ? _co0(input.parent) : (input.parent as any),
-    children: _cp0(input.children) as any,
-  });
+  const _ao0 = (
+    input: any,
+    _path: string,
+    _exceptionable: boolean = true,
+  ): boolean =>
+    (("string" === typeof input.id &&
+      (__typia_transform__isFormatUuid._isFormatUuid(input.id) ||
+        __typia_transform__assertGuard._assertGuard(
+          _exceptionable,
+          {
+            method: "typia.createAssertGuard",
+            path: _path + ".id",
+            expected: 'string & Format<"uuid">',
+            value: input.id,
+          },
+          _errorFactory,
+        ))) ||
+      __typia_transform__assertGuard._assertGuard(
+        _exceptionable,
+        {
+          method: "typia.createAssertGuard",
+          path: _path + ".id",
+          expected: '(string & Format<"uuid">)',
+          value: input.id,
+        },
+        _errorFactory,
+      )) &&
+    (("string" === typeof input.name &&
+      (RegExp("^[A-Z][a-z]+$").test(input.name) ||
+        __typia_transform__assertGuard._assertGuard(
+          _exceptionable,
+          {
+            method: "typia.createAssertGuard",
+            path: _path + ".name",
+            expected: 'string & Pattern<"^[A-Z][a-z]+$">',
+            value: input.name,
+          },
+          _errorFactory,
+        ))) ||
+      __typia_transform__assertGuard._assertGuard(
+        _exceptionable,
+        {
+          method: "typia.createAssertGuard",
+          path: _path + ".name",
+          expected: '(string & Pattern<"^[A-Z][a-z]+$">)',
+          value: input.name,
+        },
+        _errorFactory,
+      )) &&
+    (("string" === typeof input.email &&
+      (__typia_transform__isFormatEmail._isFormatEmail(input.email) ||
+        __typia_transform__assertGuard._assertGuard(
+          _exceptionable,
+          {
+            method: "typia.createAssertGuard",
+            path: _path + ".email",
+            expected: 'string & Format<"email">',
+            value: input.email,
+          },
+          _errorFactory,
+        ))) ||
+      __typia_transform__assertGuard._assertGuard(
+        _exceptionable,
+        {
+          method: "typia.createAssertGuard",
+          path: _path + ".email",
+          expected: '(string & Format<"email">)',
+          value: input.email,
+        },
+        _errorFactory,
+      )) &&
+    (("number" === typeof input.age &&
+      (__typia_transform__isTypeUint32._isTypeUint32(input.age) ||
+        __typia_transform__assertGuard._assertGuard(
+          _exceptionable,
+          {
+            method: "typia.createAssertGuard",
+            path: _path + ".age",
+            expected: 'number & Type<"uint32">',
+            value: input.age,
+          },
+          _errorFactory,
+        )) &&
+      (input.age < 100 ||
+        __typia_transform__assertGuard._assertGuard(
+          _exceptionable,
+          {
+            method: "typia.createAssertGuard",
+            path: _path + ".age",
+            expected: "number & ExclusiveMaximum<100>",
+            value: input.age,
+          },
+          _errorFactory,
+        ))) ||
+      __typia_transform__assertGuard._assertGuard(
+        _exceptionable,
+        {
+          method: "typia.createAssertGuard",
+          path: _path + ".age",
+          expected: '(number & Type<"uint32"> & ExclusiveMaximum<100>)',
+          value: input.age,
+        },
+        _errorFactory,
+      )) &&
+    ("string" === typeof input.motto ||
+      __typia_transform__assertGuard._assertGuard(
+        _exceptionable,
+        {
+          method: "typia.createAssertGuard",
+          path: _path + ".motto",
+          expected: "string",
+          value: input.motto,
+        },
+        _errorFactory,
+      )) &&
+    (input.birthdate instanceof Date ||
+      __typia_transform__assertGuard._assertGuard(
+        _exceptionable,
+        {
+          method: "typia.createAssertGuard",
+          path: _path + ".birthdate",
+          expected: "Date",
+          value: input.birthdate,
+        },
+        _errorFactory,
+      )) &&
+    (null === input.died_at ||
+      input.died_at instanceof Date ||
+      __typia_transform__assertGuard._assertGuard(
+        _exceptionable,
+        {
+          method: "typia.createAssertGuard",
+          path: _path + ".died_at",
+          expected: "(Date | null)",
+          value: input.died_at,
+        },
+        _errorFactory,
+      )) &&
+    (null === input.parent ||
+      ((("object" === typeof input.parent && null !== input.parent) ||
+        __typia_transform__assertGuard._assertGuard(
+          _exceptionable,
+          {
+            method: "typia.createAssertGuard",
+            path: _path + ".parent",
+            expected: "(ICitizen | null)",
+            value: input.parent,
+          },
+          _errorFactory,
+        )) &&
+        _ao0(input.parent, _path + ".parent", true && _exceptionable)) ||
+      __typia_transform__assertGuard._assertGuard(
+        _exceptionable,
+        {
+          method: "typia.createAssertGuard",
+          path: _path + ".parent",
+          expected: "(ICitizen | null)",
+          value: input.parent,
+        },
+        _errorFactory,
+      )) &&
+    (((Array.isArray(input.children) ||
+      __typia_transform__assertGuard._assertGuard(
+        _exceptionable,
+        {
+          method: "typia.createAssertGuard",
+          path: _path + ".children",
+          expected: "Array<ICitizen>",
+          value: input.children,
+        },
+        _errorFactory,
+      )) &&
+      input.children.every(
+        (elem: any, _index2: number) =>
+          ((("object" === typeof elem && null !== elem) ||
+            __typia_transform__assertGuard._assertGuard(
+              _exceptionable,
+              {
+                method: "typia.createAssertGuard",
+                path: _path + ".children[" + _index2 + "]",
+                expected: "ICitizen",
+                value: elem,
+              },
+              _errorFactory,
+            )) &&
+            _ao0(
+              elem,
+              _path + ".children[" + _index2 + "]",
+              true && _exceptionable,
+            )) ||
+          __typia_transform__assertGuard._assertGuard(
+            _exceptionable,
+            {
+              method: "typia.createAssertGuard",
+              path: _path + ".children[" + _index2 + "]",
+              expected: "ICitizen",
+              value: elem,
+            },
+            _errorFactory,
+          ),
+      )) ||
+      __typia_transform__assertGuard._assertGuard(
+        _exceptionable,
+        {
+          method: "typia.createAssertGuard",
+          path: _path + ".children",
+          expected: "Array<ICitizen>",
+          value: input.children,
+        },
+        _errorFactory,
+      ));
   const __is = (input: any): input is ICitizen =>
     "object" === typeof input && null !== input && _io0(input);
-  const __clone = (input: ICitizen): import("typia").Resolved<ICitizen> =>
-    _co0(input) as any;
-  return (input: any): import("typia").Resolved<ICitizen> | null => {
-    if (!__is(input)) return null;
-    return __clone(input);
+  let _errorFactory: any;
+  return (
+    input: any,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+  ): asserts input is ICitizen => {
+    if (false === __is(input)) {
+      _errorFactory = errorFactory;
+      ((input: any, _path: string, _exceptionable: boolean = true) =>
+        ((("object" === typeof input && null !== input) ||
+          __typia_transform__assertGuard._assertGuard(
+            true,
+            {
+              method: "typia.createAssertGuard",
+              path: _path + "",
+              expected: "ICitizen",
+              value: input,
+            },
+            _errorFactory,
+          )) &&
+          _ao0(input, _path + "", true)) ||
+        __typia_transform__assertGuard._assertGuard(
+          true,
+          {
+            method: "typia.createAssertGuard",
+            path: _path + "",
+            expected: "ICitizen",
+            value: input,
+          },
+          _errorFactory,
+        ))(input, "$input", true);
+    }
   };
 })();
-export const createValidateClone = (() => {
-  const _cp0 = (input: any) => input.map((elem: any) => _co0(elem) as any);
+export const validate = (() => {
   const _io0 = (input: any): boolean =>
     "string" === typeof input.id &&
     __typia_transform__isFormatUuid._isFormatUuid(input.id) &&
@@ -532,688 +734,1046 @@ export const createValidateClone = (() => {
           value: input.children,
         }),
     ].every((flag: boolean) => flag);
-  const _co0 = (input: any): any => ({
-    id: input.id,
-    name: input.name,
-    email: input.email,
-    age: input.age,
-    motto: input.motto,
-    birthdate: new Date(input.birthdate) as any,
-    died_at: input.died_at ? new Date(input.died_at) : (input.died_at as any),
-    parent: input.parent ? _co0(input.parent) : (input.parent as any),
-    children: _cp0(input.children) as any,
-  });
   const __is = (input: any): input is ICitizen =>
     "object" === typeof input && null !== input && _io0(input);
   let errors: any;
   let _report: any;
-  const __validate = (input: any): import("typia").IValidation<ICitizen> => {
-    if (false === __is(input)) {
-      errors = [];
-      _report = (__typia_transform__validateReport._validateReport as any)(
-        errors,
-      );
-      ((input: any, _path: string, _exceptionable: boolean = true) =>
-        ((("object" === typeof input && null !== input) ||
-          _report(true, {
-            path: _path + "",
-            expected: "ICitizen",
-            value: input,
-          })) &&
-          _vo0(input, _path + "", true)) ||
-        _report(true, {
-          path: _path + "",
-          expected: "ICitizen",
-          value: input,
-        }))(input, "$input", true);
-      const success = 0 === errors.length;
-      return {
-        success,
-        errors,
-        data: success ? input : undefined,
-      } as any;
-    }
-    return {
-      success: true,
-      errors: [],
-      data: input,
-    } as any;
-  };
-  const __clone = (input: ICitizen): import("typia").Resolved<ICitizen> =>
-    _co0(input) as any;
-  return (
-    input: any,
-  ): import("typia").IValidation<import("typia").Resolved<ICitizen>> => {
-    const result = __validate(input) as any;
-    if (result.success) result.data = __clone(input);
-    return result;
-  };
-})();
-export const createPrune = (() => {
-  const _pp0 = (input: any) =>
-    input.forEach((elem: any) => {
-      if ("object" === typeof elem && null !== elem) _po0(elem);
-    });
-  const _po0 = (input: any): any => {
-    if ("object" === typeof input.parent && null !== input.parent)
-      _po0(input.parent);
-    if (Array.isArray(input.children)) _pp0(input.children);
-    for (const key of Object.keys(input)) {
-      if (
-        "id" === key ||
-        "name" === key ||
-        "email" === key ||
-        "age" === key ||
-        "motto" === key ||
-        "birthdate" === key ||
-        "died_at" === key ||
-        "parent" === key ||
-        "children" === key
-      )
-        continue;
-      delete input[key];
-    }
-  };
-  const _io0 = (input: any): boolean =>
-    "string" === typeof input.id &&
-    __typia_transform__isFormatUuid._isFormatUuid(input.id) &&
-    "string" === typeof input.name &&
-    RegExp("^[A-Z][a-z]+$").test(input.name) &&
-    "string" === typeof input.email &&
-    __typia_transform__isFormatEmail._isFormatEmail(input.email) &&
-    "number" === typeof input.age &&
-    __typia_transform__isTypeUint32._isTypeUint32(input.age) &&
-    input.age < 100 &&
-    "string" === typeof input.motto &&
-    input.birthdate instanceof Date &&
-    (null === input.died_at || input.died_at instanceof Date) &&
-    (null === input.parent ||
-      ("object" === typeof input.parent &&
-        null !== input.parent &&
-        _io0(input.parent))) &&
-    Array.isArray(input.children) &&
-    input.children.every(
-      (elem: any) => "object" === typeof elem && null !== elem && _io0(elem),
-    );
-  return (input: ICitizen): void => {
-    if ("object" === typeof input && null !== input) _po0(input);
-  };
-})();
-export const createAssertPrune = (() => {
-  const _pp0 = (input: any) =>
-    input.forEach((elem: any) => {
-      if ("object" === typeof elem && null !== elem) _po0(elem);
-    });
-  const _io0 = (input: any): boolean =>
-    "string" === typeof input.id &&
-    __typia_transform__isFormatUuid._isFormatUuid(input.id) &&
-    "string" === typeof input.name &&
-    RegExp("^[A-Z][a-z]+$").test(input.name) &&
-    "string" === typeof input.email &&
-    __typia_transform__isFormatEmail._isFormatEmail(input.email) &&
-    "number" === typeof input.age &&
-    __typia_transform__isTypeUint32._isTypeUint32(input.age) &&
-    input.age < 100 &&
-    "string" === typeof input.motto &&
-    input.birthdate instanceof Date &&
-    (null === input.died_at || input.died_at instanceof Date) &&
-    (null === input.parent ||
-      ("object" === typeof input.parent &&
-        null !== input.parent &&
-        _io0(input.parent))) &&
-    Array.isArray(input.children) &&
-    input.children.every(
-      (elem: any) => "object" === typeof elem && null !== elem && _io0(elem),
-    );
-  const _ao0 = (
-    input: any,
-    _path: string,
-    _exceptionable: boolean = true,
-  ): boolean =>
-    (("string" === typeof input.id &&
-      (__typia_transform__isFormatUuid._isFormatUuid(input.id) ||
-        __typia_transform__assertGuard._assertGuard(
-          _exceptionable,
-          {
-            method: "typia.misc.createAssertPrune",
-            path: _path + ".id",
-            expected: 'string & Format<"uuid">',
-            value: input.id,
-          },
-          _errorFactory,
-        ))) ||
-      __typia_transform__assertGuard._assertGuard(
-        _exceptionable,
-        {
-          method: "typia.misc.createAssertPrune",
-          path: _path + ".id",
-          expected: '(string & Format<"uuid">)',
-          value: input.id,
-        },
-        _errorFactory,
-      )) &&
-    (("string" === typeof input.name &&
-      (RegExp("^[A-Z][a-z]+$").test(input.name) ||
-        __typia_transform__assertGuard._assertGuard(
-          _exceptionable,
-          {
-            method: "typia.misc.createAssertPrune",
-            path: _path + ".name",
-            expected: 'string & Pattern<"^[A-Z][a-z]+$">',
-            value: input.name,
-          },
-          _errorFactory,
-        ))) ||
-      __typia_transform__assertGuard._assertGuard(
-        _exceptionable,
-        {
-          method: "typia.misc.createAssertPrune",
-          path: _path + ".name",
-          expected: '(string & Pattern<"^[A-Z][a-z]+$">)',
-          value: input.name,
-        },
-        _errorFactory,
-      )) &&
-    (("string" === typeof input.email &&
-      (__typia_transform__isFormatEmail._isFormatEmail(input.email) ||
-        __typia_transform__assertGuard._assertGuard(
-          _exceptionable,
-          {
-            method: "typia.misc.createAssertPrune",
-            path: _path + ".email",
-            expected: 'string & Format<"email">',
-            value: input.email,
-          },
-          _errorFactory,
-        ))) ||
-      __typia_transform__assertGuard._assertGuard(
-        _exceptionable,
-        {
-          method: "typia.misc.createAssertPrune",
-          path: _path + ".email",
-          expected: '(string & Format<"email">)',
-          value: input.email,
-        },
-        _errorFactory,
-      )) &&
-    (("number" === typeof input.age &&
-      (__typia_transform__isTypeUint32._isTypeUint32(input.age) ||
-        __typia_transform__assertGuard._assertGuard(
-          _exceptionable,
-          {
-            method: "typia.misc.createAssertPrune",
-            path: _path + ".age",
-            expected: 'number & Type<"uint32">',
-            value: input.age,
-          },
-          _errorFactory,
-        )) &&
-      (input.age < 100 ||
-        __typia_transform__assertGuard._assertGuard(
-          _exceptionable,
-          {
-            method: "typia.misc.createAssertPrune",
-            path: _path + ".age",
-            expected: "number & ExclusiveMaximum<100>",
-            value: input.age,
-          },
-          _errorFactory,
-        ))) ||
-      __typia_transform__assertGuard._assertGuard(
-        _exceptionable,
-        {
-          method: "typia.misc.createAssertPrune",
-          path: _path + ".age",
-          expected: '(number & Type<"uint32"> & ExclusiveMaximum<100>)',
-          value: input.age,
-        },
-        _errorFactory,
-      )) &&
-    ("string" === typeof input.motto ||
-      __typia_transform__assertGuard._assertGuard(
-        _exceptionable,
-        {
-          method: "typia.misc.createAssertPrune",
-          path: _path + ".motto",
-          expected: "string",
-          value: input.motto,
-        },
-        _errorFactory,
-      )) &&
-    (input.birthdate instanceof Date ||
-      __typia_transform__assertGuard._assertGuard(
-        _exceptionable,
-        {
-          method: "typia.misc.createAssertPrune",
-          path: _path + ".birthdate",
-          expected: "Date",
-          value: input.birthdate,
-        },
-        _errorFactory,
-      )) &&
-    (null === input.died_at ||
-      input.died_at instanceof Date ||
-      __typia_transform__assertGuard._assertGuard(
-        _exceptionable,
-        {
-          method: "typia.misc.createAssertPrune",
-          path: _path + ".died_at",
-          expected: "(Date | null)",
-          value: input.died_at,
-        },
-        _errorFactory,
-      )) &&
-    (null === input.parent ||
-      ((("object" === typeof input.parent && null !== input.parent) ||
-        __typia_transform__assertGuard._assertGuard(
-          _exceptionable,
-          {
-            method: "typia.misc.createAssertPrune",
-            path: _path + ".parent",
-            expected: "(ICitizen | null)",
-            value: input.parent,
-          },
-          _errorFactory,
-        )) &&
-        _ao0(input.parent, _path + ".parent", true && _exceptionable)) ||
-      __typia_transform__assertGuard._assertGuard(
-        _exceptionable,
-        {
-          method: "typia.misc.createAssertPrune",
-          path: _path + ".parent",
-          expected: "(ICitizen | null)",
-          value: input.parent,
-        },
-        _errorFactory,
-      )) &&
-    (((Array.isArray(input.children) ||
-      __typia_transform__assertGuard._assertGuard(
-        _exceptionable,
-        {
-          method: "typia.misc.createAssertPrune",
-          path: _path + ".children",
-          expected: "Array<ICitizen>",
-          value: input.children,
-        },
-        _errorFactory,
-      )) &&
-      input.children.every(
-        (elem: any, _index2: number) =>
-          ((("object" === typeof elem && null !== elem) ||
-            __typia_transform__assertGuard._assertGuard(
-              _exceptionable,
-              {
-                method: "typia.misc.createAssertPrune",
-                path: _path + ".children[" + _index2 + "]",
-                expected: "ICitizen",
-                value: elem,
-              },
-              _errorFactory,
-            )) &&
-            _ao0(
-              elem,
-              _path + ".children[" + _index2 + "]",
-              true && _exceptionable,
-            )) ||
-          __typia_transform__assertGuard._assertGuard(
-            _exceptionable,
-            {
-              method: "typia.misc.createAssertPrune",
-              path: _path + ".children[" + _index2 + "]",
-              expected: "ICitizen",
-              value: elem,
-            },
-            _errorFactory,
-          ),
-      )) ||
-      __typia_transform__assertGuard._assertGuard(
-        _exceptionable,
-        {
-          method: "typia.misc.createAssertPrune",
-          path: _path + ".children",
-          expected: "Array<ICitizen>",
-          value: input.children,
-        },
-        _errorFactory,
-      ));
-  const _po0 = (input: any): any => {
-    if ("object" === typeof input.parent && null !== input.parent)
-      _po0(input.parent);
-    if (Array.isArray(input.children)) _pp0(input.children);
-    for (const key of Object.keys(input)) {
-      if (
-        "id" === key ||
-        "name" === key ||
-        "email" === key ||
-        "age" === key ||
-        "motto" === key ||
-        "birthdate" === key ||
-        "died_at" === key ||
-        "parent" === key ||
-        "children" === key
-      )
-        continue;
-      delete input[key];
-    }
-  };
-  const __is = (input: any): input is ICitizen =>
-    "object" === typeof input && null !== input && _io0(input);
-  let _errorFactory: any;
-  const __assert = (
-    input: any,
-    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-  ): ICitizen => {
-    if (false === __is(input)) {
-      _errorFactory = errorFactory;
-      ((input: any, _path: string, _exceptionable: boolean = true) =>
-        ((("object" === typeof input && null !== input) ||
-          __typia_transform__assertGuard._assertGuard(
-            true,
-            {
-              method: "typia.misc.createAssertPrune",
-              path: _path + "",
-              expected: "ICitizen",
-              value: input,
-            },
-            _errorFactory,
-          )) &&
-          _ao0(input, _path + "", true)) ||
-        __typia_transform__assertGuard._assertGuard(
-          true,
-          {
-            method: "typia.misc.createAssertPrune",
-            path: _path + "",
-            expected: "ICitizen",
-            value: input,
-          },
-          _errorFactory,
-        ))(input, "$input", true);
-    }
-    return input;
-  };
-  const __prune = (input: ICitizen): void => {
-    if ("object" === typeof input && null !== input) _po0(input);
-  };
-  return (
-    input: any,
-    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
-  ): ICitizen => {
-    input = __assert(input, errorFactory);
-    __prune(input);
-    return input;
-  };
-})();
-export const createIsPrune = (() => {
-  const _pp0 = (input: any) =>
-    input.forEach((elem: any) => {
-      if ("object" === typeof elem && null !== elem) _po0(elem);
-    });
-  const _io0 = (input: any): boolean =>
-    "string" === typeof input.id &&
-    __typia_transform__isFormatUuid._isFormatUuid(input.id) &&
-    "string" === typeof input.name &&
-    RegExp("^[A-Z][a-z]+$").test(input.name) &&
-    "string" === typeof input.email &&
-    __typia_transform__isFormatEmail._isFormatEmail(input.email) &&
-    "number" === typeof input.age &&
-    __typia_transform__isTypeUint32._isTypeUint32(input.age) &&
-    input.age < 100 &&
-    "string" === typeof input.motto &&
-    input.birthdate instanceof Date &&
-    (null === input.died_at || input.died_at instanceof Date) &&
-    (null === input.parent ||
-      ("object" === typeof input.parent &&
-        null !== input.parent &&
-        _io0(input.parent))) &&
-    Array.isArray(input.children) &&
-    input.children.every(
-      (elem: any) => "object" === typeof elem && null !== elem && _io0(elem),
-    );
-  const _po0 = (input: any): any => {
-    if ("object" === typeof input.parent && null !== input.parent)
-      _po0(input.parent);
-    if (Array.isArray(input.children)) _pp0(input.children);
-    for (const key of Object.keys(input)) {
-      if (
-        "id" === key ||
-        "name" === key ||
-        "email" === key ||
-        "age" === key ||
-        "motto" === key ||
-        "birthdate" === key ||
-        "died_at" === key ||
-        "parent" === key ||
-        "children" === key
-      )
-        continue;
-      delete input[key];
-    }
-  };
-  const __is = (input: any): input is ICitizen =>
-    "object" === typeof input && null !== input && _io0(input);
-  const __prune = (input: ICitizen): void => {
-    if ("object" === typeof input && null !== input) _po0(input);
-  };
-  return (input: any): input is ICitizen => {
-    if (false == __is(input)) return false;
-    __prune(input);
-    return true;
-  };
-})();
-export const createValidatePrune = (() => {
-  const _pp0 = (input: any) =>
-    input.forEach((elem: any) => {
-      if ("object" === typeof elem && null !== elem) _po0(elem);
-    });
-  const _io0 = (input: any): boolean =>
-    "string" === typeof input.id &&
-    __typia_transform__isFormatUuid._isFormatUuid(input.id) &&
-    "string" === typeof input.name &&
-    RegExp("^[A-Z][a-z]+$").test(input.name) &&
-    "string" === typeof input.email &&
-    __typia_transform__isFormatEmail._isFormatEmail(input.email) &&
-    "number" === typeof input.age &&
-    __typia_transform__isTypeUint32._isTypeUint32(input.age) &&
-    input.age < 100 &&
-    "string" === typeof input.motto &&
-    input.birthdate instanceof Date &&
-    (null === input.died_at || input.died_at instanceof Date) &&
-    (null === input.parent ||
-      ("object" === typeof input.parent &&
-        null !== input.parent &&
-        _io0(input.parent))) &&
-    Array.isArray(input.children) &&
-    input.children.every(
-      (elem: any) => "object" === typeof elem && null !== elem && _io0(elem),
-    );
-  const _vo0 = (
-    input: any,
-    _path: string,
-    _exceptionable: boolean = true,
-  ): boolean =>
-    [
-      ("string" === typeof input.id &&
-        (__typia_transform__isFormatUuid._isFormatUuid(input.id) ||
-          _report(_exceptionable, {
-            path: _path + ".id",
-            expected: 'string & Format<"uuid">',
-            value: input.id,
-          }))) ||
-        _report(_exceptionable, {
-          path: _path + ".id",
-          expected: '(string & Format<"uuid">)',
-          value: input.id,
-        }),
-      ("string" === typeof input.name &&
-        (RegExp("^[A-Z][a-z]+$").test(input.name) ||
-          _report(_exceptionable, {
-            path: _path + ".name",
-            expected: 'string & Pattern<"^[A-Z][a-z]+$">',
-            value: input.name,
-          }))) ||
-        _report(_exceptionable, {
-          path: _path + ".name",
-          expected: '(string & Pattern<"^[A-Z][a-z]+$">)',
-          value: input.name,
-        }),
-      ("string" === typeof input.email &&
-        (__typia_transform__isFormatEmail._isFormatEmail(input.email) ||
-          _report(_exceptionable, {
-            path: _path + ".email",
-            expected: 'string & Format<"email">',
-            value: input.email,
-          }))) ||
-        _report(_exceptionable, {
-          path: _path + ".email",
-          expected: '(string & Format<"email">)',
-          value: input.email,
-        }),
-      ("number" === typeof input.age &&
-        (__typia_transform__isTypeUint32._isTypeUint32(input.age) ||
-          _report(_exceptionable, {
-            path: _path + ".age",
-            expected: 'number & Type<"uint32">',
-            value: input.age,
-          })) &&
-        (input.age < 100 ||
-          _report(_exceptionable, {
-            path: _path + ".age",
-            expected: "number & ExclusiveMaximum<100>",
-            value: input.age,
-          }))) ||
-        _report(_exceptionable, {
-          path: _path + ".age",
-          expected: '(number & Type<"uint32"> & ExclusiveMaximum<100>)',
-          value: input.age,
-        }),
-      "string" === typeof input.motto ||
-        _report(_exceptionable, {
-          path: _path + ".motto",
-          expected: "string",
-          value: input.motto,
-        }),
-      input.birthdate instanceof Date ||
-        _report(_exceptionable, {
-          path: _path + ".birthdate",
-          expected: "Date",
-          value: input.birthdate,
-        }),
-      null === input.died_at ||
-        input.died_at instanceof Date ||
-        _report(_exceptionable, {
-          path: _path + ".died_at",
-          expected: "(Date | null)",
-          value: input.died_at,
-        }),
-      null === input.parent ||
-        ((("object" === typeof input.parent && null !== input.parent) ||
-          _report(_exceptionable, {
-            path: _path + ".parent",
-            expected: "(ICitizen | null)",
-            value: input.parent,
-          })) &&
-          _vo0(input.parent, _path + ".parent", true && _exceptionable)) ||
-        _report(_exceptionable, {
-          path: _path + ".parent",
-          expected: "(ICitizen | null)",
-          value: input.parent,
-        }),
-      ((Array.isArray(input.children) ||
-        _report(_exceptionable, {
-          path: _path + ".children",
-          expected: "Array<ICitizen>",
-          value: input.children,
-        })) &&
-        input.children
-          .map(
-            (elem: any, _index2: number) =>
-              ((("object" === typeof elem && null !== elem) ||
-                _report(_exceptionable, {
-                  path: _path + ".children[" + _index2 + "]",
-                  expected: "ICitizen",
-                  value: elem,
-                })) &&
-                _vo0(
-                  elem,
-                  _path + ".children[" + _index2 + "]",
-                  true && _exceptionable,
-                )) ||
-              _report(_exceptionable, {
-                path: _path + ".children[" + _index2 + "]",
-                expected: "ICitizen",
-                value: elem,
-              }),
-          )
-          .every((flag: boolean) => flag)) ||
-        _report(_exceptionable, {
-          path: _path + ".children",
-          expected: "Array<ICitizen>",
-          value: input.children,
-        }),
-    ].every((flag: boolean) => flag);
-  const _po0 = (input: any): any => {
-    if ("object" === typeof input.parent && null !== input.parent)
-      _po0(input.parent);
-    if (Array.isArray(input.children)) _pp0(input.children);
-    for (const key of Object.keys(input)) {
-      if (
-        "id" === key ||
-        "name" === key ||
-        "email" === key ||
-        "age" === key ||
-        "motto" === key ||
-        "birthdate" === key ||
-        "died_at" === key ||
-        "parent" === key ||
-        "children" === key
-      )
-        continue;
-      delete input[key];
-    }
-  };
-  const __is = (input: any): input is ICitizen =>
-    "object" === typeof input && null !== input && _io0(input);
-  let errors: any;
-  let _report: any;
-  const __validate = (input: any): import("typia").IValidation<ICitizen> => {
-    if (false === __is(input)) {
-      errors = [];
-      _report = (__typia_transform__validateReport._validateReport as any)(
-        errors,
-      );
-      ((input: any, _path: string, _exceptionable: boolean = true) =>
-        ((("object" === typeof input && null !== input) ||
-          _report(true, {
-            path: _path + "",
-            expected: "ICitizen",
-            value: input,
-          })) &&
-          _vo0(input, _path + "", true)) ||
-        _report(true, {
-          path: _path + "",
-          expected: "ICitizen",
-          value: input,
-        }))(input, "$input", true);
-      const success = 0 === errors.length;
-      return {
-        success,
-        errors,
-        data: success ? input : undefined,
-      } as any;
-    }
-    return {
-      success: true,
-      errors: [],
-      data: input,
-    } as any;
-  };
-  const __prune = (input: ICitizen): void => {
-    if ("object" === typeof input && null !== input) _po0(input);
-  };
   return (input: any): import("typia").IValidation<ICitizen> => {
-    const result = __validate(input);
-    if (result.success) __prune(input);
-    return result;
+    if (false === __is(input)) {
+      errors = [];
+      _report = (__typia_transform__validateReport._validateReport as any)(
+        errors,
+      );
+      ((input: any, _path: string, _exceptionable: boolean = true) =>
+        ((("object" === typeof input && null !== input) ||
+          _report(true, {
+            path: _path + "",
+            expected: "ICitizen",
+            value: input,
+          })) &&
+          _vo0(input, _path + "", true)) ||
+        _report(true, {
+          path: _path + "",
+          expected: "ICitizen",
+          value: input,
+        }))(input, "$input", true);
+      const success = 0 === errors.length;
+      return {
+        success,
+        errors,
+        data: success ? input : undefined,
+      } as any;
+    }
+    return {
+      success: true,
+      errors: [],
+      data: input,
+    } as any;
   };
 })();
-export const literals = [false, 1, "two"] as const;
+export const equals = (() => {
+  const _io0 = (input: any, _exceptionable: boolean = true): boolean =>
+    "string" === typeof input.id &&
+    __typia_transform__isFormatUuid._isFormatUuid(input.id) &&
+    "string" === typeof input.name &&
+    RegExp("^[A-Z][a-z]+$").test(input.name) &&
+    "string" === typeof input.email &&
+    __typia_transform__isFormatEmail._isFormatEmail(input.email) &&
+    "number" === typeof input.age &&
+    __typia_transform__isTypeUint32._isTypeUint32(input.age) &&
+    input.age < 100 &&
+    "string" === typeof input.motto &&
+    input.birthdate instanceof Date &&
+    (null === input.died_at || input.died_at instanceof Date) &&
+    (null === input.parent ||
+      ("object" === typeof input.parent &&
+        null !== input.parent &&
+        _io0(input.parent, true && _exceptionable))) &&
+    Array.isArray(input.children) &&
+    input.children.every(
+      (elem: any, _index1: number) =>
+        "object" === typeof elem &&
+        null !== elem &&
+        _io0(elem, true && _exceptionable),
+    ) &&
+    (9 === Object.keys(input).length ||
+      Object.keys(input).every((key: any) => {
+        if (
+          [
+            "id",
+            "name",
+            "email",
+            "age",
+            "motto",
+            "birthdate",
+            "died_at",
+            "parent",
+            "children",
+          ].some((prop: any) => key === prop)
+        )
+          return true;
+        const value = input[key];
+        if (undefined === value) return true;
+        return false;
+      }));
+  return (input: any, _exceptionable: boolean = true): input is ICitizen =>
+    "object" === typeof input && null !== input && _io0(input, true);
+})();
+export const assertEquals = (() => {
+  const _io0 = (input: any, _exceptionable: boolean = true): boolean =>
+    "string" === typeof input.id &&
+    __typia_transform__isFormatUuid._isFormatUuid(input.id) &&
+    "string" === typeof input.name &&
+    RegExp("^[A-Z][a-z]+$").test(input.name) &&
+    "string" === typeof input.email &&
+    __typia_transform__isFormatEmail._isFormatEmail(input.email) &&
+    "number" === typeof input.age &&
+    __typia_transform__isTypeUint32._isTypeUint32(input.age) &&
+    input.age < 100 &&
+    "string" === typeof input.motto &&
+    input.birthdate instanceof Date &&
+    (null === input.died_at || input.died_at instanceof Date) &&
+    (null === input.parent ||
+      ("object" === typeof input.parent &&
+        null !== input.parent &&
+        _io0(input.parent, true && _exceptionable))) &&
+    Array.isArray(input.children) &&
+    input.children.every(
+      (elem: any, _index1: number) =>
+        "object" === typeof elem &&
+        null !== elem &&
+        _io0(elem, true && _exceptionable),
+    ) &&
+    (9 === Object.keys(input).length ||
+      Object.keys(input).every((key: any) => {
+        if (
+          [
+            "id",
+            "name",
+            "email",
+            "age",
+            "motto",
+            "birthdate",
+            "died_at",
+            "parent",
+            "children",
+          ].some((prop: any) => key === prop)
+        )
+          return true;
+        const value = input[key];
+        if (undefined === value) return true;
+        return false;
+      }));
+  const _ao0 = (
+    input: any,
+    _path: string,
+    _exceptionable: boolean = true,
+  ): boolean =>
+    (("string" === typeof input.id &&
+      (__typia_transform__isFormatUuid._isFormatUuid(input.id) ||
+        __typia_transform__assertGuard._assertGuard(
+          _exceptionable,
+          {
+            method: "typia.createAssertEquals",
+            path: _path + ".id",
+            expected: 'string & Format<"uuid">',
+            value: input.id,
+          },
+          _errorFactory,
+        ))) ||
+      __typia_transform__assertGuard._assertGuard(
+        _exceptionable,
+        {
+          method: "typia.createAssertEquals",
+          path: _path + ".id",
+          expected: '(string & Format<"uuid">)',
+          value: input.id,
+        },
+        _errorFactory,
+      )) &&
+    (("string" === typeof input.name &&
+      (RegExp("^[A-Z][a-z]+$").test(input.name) ||
+        __typia_transform__assertGuard._assertGuard(
+          _exceptionable,
+          {
+            method: "typia.createAssertEquals",
+            path: _path + ".name",
+            expected: 'string & Pattern<"^[A-Z][a-z]+$">',
+            value: input.name,
+          },
+          _errorFactory,
+        ))) ||
+      __typia_transform__assertGuard._assertGuard(
+        _exceptionable,
+        {
+          method: "typia.createAssertEquals",
+          path: _path + ".name",
+          expected: '(string & Pattern<"^[A-Z][a-z]+$">)',
+          value: input.name,
+        },
+        _errorFactory,
+      )) &&
+    (("string" === typeof input.email &&
+      (__typia_transform__isFormatEmail._isFormatEmail(input.email) ||
+        __typia_transform__assertGuard._assertGuard(
+          _exceptionable,
+          {
+            method: "typia.createAssertEquals",
+            path: _path + ".email",
+            expected: 'string & Format<"email">',
+            value: input.email,
+          },
+          _errorFactory,
+        ))) ||
+      __typia_transform__assertGuard._assertGuard(
+        _exceptionable,
+        {
+          method: "typia.createAssertEquals",
+          path: _path + ".email",
+          expected: '(string & Format<"email">)',
+          value: input.email,
+        },
+        _errorFactory,
+      )) &&
+    (("number" === typeof input.age &&
+      (__typia_transform__isTypeUint32._isTypeUint32(input.age) ||
+        __typia_transform__assertGuard._assertGuard(
+          _exceptionable,
+          {
+            method: "typia.createAssertEquals",
+            path: _path + ".age",
+            expected: 'number & Type<"uint32">',
+            value: input.age,
+          },
+          _errorFactory,
+        )) &&
+      (input.age < 100 ||
+        __typia_transform__assertGuard._assertGuard(
+          _exceptionable,
+          {
+            method: "typia.createAssertEquals",
+            path: _path + ".age",
+            expected: "number & ExclusiveMaximum<100>",
+            value: input.age,
+          },
+          _errorFactory,
+        ))) ||
+      __typia_transform__assertGuard._assertGuard(
+        _exceptionable,
+        {
+          method: "typia.createAssertEquals",
+          path: _path + ".age",
+          expected: '(number & Type<"uint32"> & ExclusiveMaximum<100>)',
+          value: input.age,
+        },
+        _errorFactory,
+      )) &&
+    ("string" === typeof input.motto ||
+      __typia_transform__assertGuard._assertGuard(
+        _exceptionable,
+        {
+          method: "typia.createAssertEquals",
+          path: _path + ".motto",
+          expected: "string",
+          value: input.motto,
+        },
+        _errorFactory,
+      )) &&
+    (input.birthdate instanceof Date ||
+      __typia_transform__assertGuard._assertGuard(
+        _exceptionable,
+        {
+          method: "typia.createAssertEquals",
+          path: _path + ".birthdate",
+          expected: "Date",
+          value: input.birthdate,
+        },
+        _errorFactory,
+      )) &&
+    (null === input.died_at ||
+      input.died_at instanceof Date ||
+      __typia_transform__assertGuard._assertGuard(
+        _exceptionable,
+        {
+          method: "typia.createAssertEquals",
+          path: _path + ".died_at",
+          expected: "(Date | null)",
+          value: input.died_at,
+        },
+        _errorFactory,
+      )) &&
+    (null === input.parent ||
+      ((("object" === typeof input.parent && null !== input.parent) ||
+        __typia_transform__assertGuard._assertGuard(
+          _exceptionable,
+          {
+            method: "typia.createAssertEquals",
+            path: _path + ".parent",
+            expected: "(ICitizen | null)",
+            value: input.parent,
+          },
+          _errorFactory,
+        )) &&
+        _ao0(input.parent, _path + ".parent", true && _exceptionable)) ||
+      __typia_transform__assertGuard._assertGuard(
+        _exceptionable,
+        {
+          method: "typia.createAssertEquals",
+          path: _path + ".parent",
+          expected: "(ICitizen | null)",
+          value: input.parent,
+        },
+        _errorFactory,
+      )) &&
+    (((Array.isArray(input.children) ||
+      __typia_transform__assertGuard._assertGuard(
+        _exceptionable,
+        {
+          method: "typia.createAssertEquals",
+          path: _path + ".children",
+          expected: "Array<ICitizen>",
+          value: input.children,
+        },
+        _errorFactory,
+      )) &&
+      input.children.every(
+        (elem: any, _index2: number) =>
+          ((("object" === typeof elem && null !== elem) ||
+            __typia_transform__assertGuard._assertGuard(
+              _exceptionable,
+              {
+                method: "typia.createAssertEquals",
+                path: _path + ".children[" + _index2 + "]",
+                expected: "ICitizen",
+                value: elem,
+              },
+              _errorFactory,
+            )) &&
+            _ao0(
+              elem,
+              _path + ".children[" + _index2 + "]",
+              true && _exceptionable,
+            )) ||
+          __typia_transform__assertGuard._assertGuard(
+            _exceptionable,
+            {
+              method: "typia.createAssertEquals",
+              path: _path + ".children[" + _index2 + "]",
+              expected: "ICitizen",
+              value: elem,
+            },
+            _errorFactory,
+          ),
+      )) ||
+      __typia_transform__assertGuard._assertGuard(
+        _exceptionable,
+        {
+          method: "typia.createAssertEquals",
+          path: _path + ".children",
+          expected: "Array<ICitizen>",
+          value: input.children,
+        },
+        _errorFactory,
+      )) &&
+    (9 === Object.keys(input).length ||
+      false === _exceptionable ||
+      Object.keys(input).every((key: any) => {
+        if (
+          [
+            "id",
+            "name",
+            "email",
+            "age",
+            "motto",
+            "birthdate",
+            "died_at",
+            "parent",
+            "children",
+          ].some((prop: any) => key === prop)
+        )
+          return true;
+        const value = input[key];
+        if (undefined === value) return true;
+        return __typia_transform__assertGuard._assertGuard(
+          _exceptionable,
+          {
+            method: "typia.createAssertEquals",
+            path:
+              _path +
+              __typia_transform__accessExpressionAsString._accessExpressionAsString(
+                key,
+              ),
+            expected: "undefined",
+            value: value,
+          },
+          _errorFactory,
+        );
+      }));
+  const __is = (
+    input: any,
+    _exceptionable: boolean = true,
+  ): input is ICitizen =>
+    "object" === typeof input && null !== input && _io0(input, true);
+  let _errorFactory: any;
+  return (
+    input: any,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+  ): ICitizen => {
+    if (false === __is(input)) {
+      _errorFactory = errorFactory;
+      ((input: any, _path: string, _exceptionable: boolean = true) =>
+        ((("object" === typeof input && null !== input) ||
+          __typia_transform__assertGuard._assertGuard(
+            true,
+            {
+              method: "typia.createAssertEquals",
+              path: _path + "",
+              expected: "ICitizen",
+              value: input,
+            },
+            _errorFactory,
+          )) &&
+          _ao0(input, _path + "", true)) ||
+        __typia_transform__assertGuard._assertGuard(
+          true,
+          {
+            method: "typia.createAssertEquals",
+            path: _path + "",
+            expected: "ICitizen",
+            value: input,
+          },
+          _errorFactory,
+        ))(input, "$input", true);
+    }
+    return input;
+  };
+})();
+export const assertGuardEquals = (() => {
+  const _io0 = (input: any, _exceptionable: boolean = true): boolean =>
+    "string" === typeof input.id &&
+    __typia_transform__isFormatUuid._isFormatUuid(input.id) &&
+    "string" === typeof input.name &&
+    RegExp("^[A-Z][a-z]+$").test(input.name) &&
+    "string" === typeof input.email &&
+    __typia_transform__isFormatEmail._isFormatEmail(input.email) &&
+    "number" === typeof input.age &&
+    __typia_transform__isTypeUint32._isTypeUint32(input.age) &&
+    input.age < 100 &&
+    "string" === typeof input.motto &&
+    input.birthdate instanceof Date &&
+    (null === input.died_at || input.died_at instanceof Date) &&
+    (null === input.parent ||
+      ("object" === typeof input.parent &&
+        null !== input.parent &&
+        _io0(input.parent, true && _exceptionable))) &&
+    Array.isArray(input.children) &&
+    input.children.every(
+      (elem: any, _index1: number) =>
+        "object" === typeof elem &&
+        null !== elem &&
+        _io0(elem, true && _exceptionable),
+    ) &&
+    (9 === Object.keys(input).length ||
+      Object.keys(input).every((key: any) => {
+        if (
+          [
+            "id",
+            "name",
+            "email",
+            "age",
+            "motto",
+            "birthdate",
+            "died_at",
+            "parent",
+            "children",
+          ].some((prop: any) => key === prop)
+        )
+          return true;
+        const value = input[key];
+        if (undefined === value) return true;
+        return false;
+      }));
+  const _ao0 = (
+    input: any,
+    _path: string,
+    _exceptionable: boolean = true,
+  ): boolean =>
+    (("string" === typeof input.id &&
+      (__typia_transform__isFormatUuid._isFormatUuid(input.id) ||
+        __typia_transform__assertGuard._assertGuard(
+          _exceptionable,
+          {
+            method: "typia.createAssertGuardEquals",
+            path: _path + ".id",
+            expected: 'string & Format<"uuid">',
+            value: input.id,
+          },
+          _errorFactory,
+        ))) ||
+      __typia_transform__assertGuard._assertGuard(
+        _exceptionable,
+        {
+          method: "typia.createAssertGuardEquals",
+          path: _path + ".id",
+          expected: '(string & Format<"uuid">)',
+          value: input.id,
+        },
+        _errorFactory,
+      )) &&
+    (("string" === typeof input.name &&
+      (RegExp("^[A-Z][a-z]+$").test(input.name) ||
+        __typia_transform__assertGuard._assertGuard(
+          _exceptionable,
+          {
+            method: "typia.createAssertGuardEquals",
+            path: _path + ".name",
+            expected: 'string & Pattern<"^[A-Z][a-z]+$">',
+            value: input.name,
+          },
+          _errorFactory,
+        ))) ||
+      __typia_transform__assertGuard._assertGuard(
+        _exceptionable,
+        {
+          method: "typia.createAssertGuardEquals",
+          path: _path + ".name",
+          expected: '(string & Pattern<"^[A-Z][a-z]+$">)',
+          value: input.name,
+        },
+        _errorFactory,
+      )) &&
+    (("string" === typeof input.email &&
+      (__typia_transform__isFormatEmail._isFormatEmail(input.email) ||
+        __typia_transform__assertGuard._assertGuard(
+          _exceptionable,
+          {
+            method: "typia.createAssertGuardEquals",
+            path: _path + ".email",
+            expected: 'string & Format<"email">',
+            value: input.email,
+          },
+          _errorFactory,
+        ))) ||
+      __typia_transform__assertGuard._assertGuard(
+        _exceptionable,
+        {
+          method: "typia.createAssertGuardEquals",
+          path: _path + ".email",
+          expected: '(string & Format<"email">)',
+          value: input.email,
+        },
+        _errorFactory,
+      )) &&
+    (("number" === typeof input.age &&
+      (__typia_transform__isTypeUint32._isTypeUint32(input.age) ||
+        __typia_transform__assertGuard._assertGuard(
+          _exceptionable,
+          {
+            method: "typia.createAssertGuardEquals",
+            path: _path + ".age",
+            expected: 'number & Type<"uint32">',
+            value: input.age,
+          },
+          _errorFactory,
+        )) &&
+      (input.age < 100 ||
+        __typia_transform__assertGuard._assertGuard(
+          _exceptionable,
+          {
+            method: "typia.createAssertGuardEquals",
+            path: _path + ".age",
+            expected: "number & ExclusiveMaximum<100>",
+            value: input.age,
+          },
+          _errorFactory,
+        ))) ||
+      __typia_transform__assertGuard._assertGuard(
+        _exceptionable,
+        {
+          method: "typia.createAssertGuardEquals",
+          path: _path + ".age",
+          expected: '(number & Type<"uint32"> & ExclusiveMaximum<100>)',
+          value: input.age,
+        },
+        _errorFactory,
+      )) &&
+    ("string" === typeof input.motto ||
+      __typia_transform__assertGuard._assertGuard(
+        _exceptionable,
+        {
+          method: "typia.createAssertGuardEquals",
+          path: _path + ".motto",
+          expected: "string",
+          value: input.motto,
+        },
+        _errorFactory,
+      )) &&
+    (input.birthdate instanceof Date ||
+      __typia_transform__assertGuard._assertGuard(
+        _exceptionable,
+        {
+          method: "typia.createAssertGuardEquals",
+          path: _path + ".birthdate",
+          expected: "Date",
+          value: input.birthdate,
+        },
+        _errorFactory,
+      )) &&
+    (null === input.died_at ||
+      input.died_at instanceof Date ||
+      __typia_transform__assertGuard._assertGuard(
+        _exceptionable,
+        {
+          method: "typia.createAssertGuardEquals",
+          path: _path + ".died_at",
+          expected: "(Date | null)",
+          value: input.died_at,
+        },
+        _errorFactory,
+      )) &&
+    (null === input.parent ||
+      ((("object" === typeof input.parent && null !== input.parent) ||
+        __typia_transform__assertGuard._assertGuard(
+          _exceptionable,
+          {
+            method: "typia.createAssertGuardEquals",
+            path: _path + ".parent",
+            expected: "(ICitizen | null)",
+            value: input.parent,
+          },
+          _errorFactory,
+        )) &&
+        _ao0(input.parent, _path + ".parent", true && _exceptionable)) ||
+      __typia_transform__assertGuard._assertGuard(
+        _exceptionable,
+        {
+          method: "typia.createAssertGuardEquals",
+          path: _path + ".parent",
+          expected: "(ICitizen | null)",
+          value: input.parent,
+        },
+        _errorFactory,
+      )) &&
+    (((Array.isArray(input.children) ||
+      __typia_transform__assertGuard._assertGuard(
+        _exceptionable,
+        {
+          method: "typia.createAssertGuardEquals",
+          path: _path + ".children",
+          expected: "Array<ICitizen>",
+          value: input.children,
+        },
+        _errorFactory,
+      )) &&
+      input.children.every(
+        (elem: any, _index2: number) =>
+          ((("object" === typeof elem && null !== elem) ||
+            __typia_transform__assertGuard._assertGuard(
+              _exceptionable,
+              {
+                method: "typia.createAssertGuardEquals",
+                path: _path + ".children[" + _index2 + "]",
+                expected: "ICitizen",
+                value: elem,
+              },
+              _errorFactory,
+            )) &&
+            _ao0(
+              elem,
+              _path + ".children[" + _index2 + "]",
+              true && _exceptionable,
+            )) ||
+          __typia_transform__assertGuard._assertGuard(
+            _exceptionable,
+            {
+              method: "typia.createAssertGuardEquals",
+              path: _path + ".children[" + _index2 + "]",
+              expected: "ICitizen",
+              value: elem,
+            },
+            _errorFactory,
+          ),
+      )) ||
+      __typia_transform__assertGuard._assertGuard(
+        _exceptionable,
+        {
+          method: "typia.createAssertGuardEquals",
+          path: _path + ".children",
+          expected: "Array<ICitizen>",
+          value: input.children,
+        },
+        _errorFactory,
+      )) &&
+    (9 === Object.keys(input).length ||
+      false === _exceptionable ||
+      Object.keys(input).every((key: any) => {
+        if (
+          [
+            "id",
+            "name",
+            "email",
+            "age",
+            "motto",
+            "birthdate",
+            "died_at",
+            "parent",
+            "children",
+          ].some((prop: any) => key === prop)
+        )
+          return true;
+        const value = input[key];
+        if (undefined === value) return true;
+        return __typia_transform__assertGuard._assertGuard(
+          _exceptionable,
+          {
+            method: "typia.createAssertGuardEquals",
+            path:
+              _path +
+              __typia_transform__accessExpressionAsString._accessExpressionAsString(
+                key,
+              ),
+            expected: "undefined",
+            value: value,
+          },
+          _errorFactory,
+        );
+      }));
+  const __is = (
+    input: any,
+    _exceptionable: boolean = true,
+  ): input is ICitizen =>
+    "object" === typeof input && null !== input && _io0(input, true);
+  let _errorFactory: any;
+  return (
+    input: any,
+    errorFactory?: (p: import("typia").TypeGuardError.IProps) => Error,
+  ): asserts input is ICitizen => {
+    if (false === __is(input)) {
+      _errorFactory = errorFactory;
+      ((input: any, _path: string, _exceptionable: boolean = true) =>
+        ((("object" === typeof input && null !== input) ||
+          __typia_transform__assertGuard._assertGuard(
+            true,
+            {
+              method: "typia.createAssertGuardEquals",
+              path: _path + "",
+              expected: "ICitizen",
+              value: input,
+            },
+            _errorFactory,
+          )) &&
+          _ao0(input, _path + "", true)) ||
+        __typia_transform__assertGuard._assertGuard(
+          true,
+          {
+            method: "typia.createAssertGuardEquals",
+            path: _path + "",
+            expected: "ICitizen",
+            value: input,
+          },
+          _errorFactory,
+        ))(input, "$input", true);
+    }
+  };
+})();
+export const validateEquals = (() => {
+  const _io0 = (input: any, _exceptionable: boolean = true): boolean =>
+    "string" === typeof input.id &&
+    __typia_transform__isFormatUuid._isFormatUuid(input.id) &&
+    "string" === typeof input.name &&
+    RegExp("^[A-Z][a-z]+$").test(input.name) &&
+    "string" === typeof input.email &&
+    __typia_transform__isFormatEmail._isFormatEmail(input.email) &&
+    "number" === typeof input.age &&
+    __typia_transform__isTypeUint32._isTypeUint32(input.age) &&
+    input.age < 100 &&
+    "string" === typeof input.motto &&
+    input.birthdate instanceof Date &&
+    (null === input.died_at || input.died_at instanceof Date) &&
+    (null === input.parent ||
+      ("object" === typeof input.parent &&
+        null !== input.parent &&
+        _io0(input.parent, true && _exceptionable))) &&
+    Array.isArray(input.children) &&
+    input.children.every(
+      (elem: any, _index1: number) =>
+        "object" === typeof elem &&
+        null !== elem &&
+        _io0(elem, true && _exceptionable),
+    ) &&
+    (9 === Object.keys(input).length ||
+      Object.keys(input).every((key: any) => {
+        if (
+          [
+            "id",
+            "name",
+            "email",
+            "age",
+            "motto",
+            "birthdate",
+            "died_at",
+            "parent",
+            "children",
+          ].some((prop: any) => key === prop)
+        )
+          return true;
+        const value = input[key];
+        if (undefined === value) return true;
+        return false;
+      }));
+  const _vo0 = (
+    input: any,
+    _path: string,
+    _exceptionable: boolean = true,
+  ): boolean =>
+    [
+      ("string" === typeof input.id &&
+        (__typia_transform__isFormatUuid._isFormatUuid(input.id) ||
+          _report(_exceptionable, {
+            path: _path + ".id",
+            expected: 'string & Format<"uuid">',
+            value: input.id,
+          }))) ||
+        _report(_exceptionable, {
+          path: _path + ".id",
+          expected: '(string & Format<"uuid">)',
+          value: input.id,
+        }),
+      ("string" === typeof input.name &&
+        (RegExp("^[A-Z][a-z]+$").test(input.name) ||
+          _report(_exceptionable, {
+            path: _path + ".name",
+            expected: 'string & Pattern<"^[A-Z][a-z]+$">',
+            value: input.name,
+          }))) ||
+        _report(_exceptionable, {
+          path: _path + ".name",
+          expected: '(string & Pattern<"^[A-Z][a-z]+$">)',
+          value: input.name,
+        }),
+      ("string" === typeof input.email &&
+        (__typia_transform__isFormatEmail._isFormatEmail(input.email) ||
+          _report(_exceptionable, {
+            path: _path + ".email",
+            expected: 'string & Format<"email">',
+            value: input.email,
+          }))) ||
+        _report(_exceptionable, {
+          path: _path + ".email",
+          expected: '(string & Format<"email">)',
+          value: input.email,
+        }),
+      ("number" === typeof input.age &&
+        (__typia_transform__isTypeUint32._isTypeUint32(input.age) ||
+          _report(_exceptionable, {
+            path: _path + ".age",
+            expected: 'number & Type<"uint32">',
+            value: input.age,
+          })) &&
+        (input.age < 100 ||
+          _report(_exceptionable, {
+            path: _path + ".age",
+            expected: "number & ExclusiveMaximum<100>",
+            value: input.age,
+          }))) ||
+        _report(_exceptionable, {
+          path: _path + ".age",
+          expected: '(number & Type<"uint32"> & ExclusiveMaximum<100>)',
+          value: input.age,
+        }),
+      "string" === typeof input.motto ||
+        _report(_exceptionable, {
+          path: _path + ".motto",
+          expected: "string",
+          value: input.motto,
+        }),
+      input.birthdate instanceof Date ||
+        _report(_exceptionable, {
+          path: _path + ".birthdate",
+          expected: "Date",
+          value: input.birthdate,
+        }),
+      null === input.died_at ||
+        input.died_at instanceof Date ||
+        _report(_exceptionable, {
+          path: _path + ".died_at",
+          expected: "(Date | null)",
+          value: input.died_at,
+        }),
+      null === input.parent ||
+        ((("object" === typeof input.parent && null !== input.parent) ||
+          _report(_exceptionable, {
+            path: _path + ".parent",
+            expected: "(ICitizen | null)",
+            value: input.parent,
+          })) &&
+          _vo0(input.parent, _path + ".parent", true && _exceptionable)) ||
+        _report(_exceptionable, {
+          path: _path + ".parent",
+          expected: "(ICitizen | null)",
+          value: input.parent,
+        }),
+      ((Array.isArray(input.children) ||
+        _report(_exceptionable, {
+          path: _path + ".children",
+          expected: "Array<ICitizen>",
+          value: input.children,
+        })) &&
+        input.children
+          .map(
+            (elem: any, _index2: number) =>
+              ((("object" === typeof elem && null !== elem) ||
+                _report(_exceptionable, {
+                  path: _path + ".children[" + _index2 + "]",
+                  expected: "ICitizen",
+                  value: elem,
+                })) &&
+                _vo0(
+                  elem,
+                  _path + ".children[" + _index2 + "]",
+                  true && _exceptionable,
+                )) ||
+              _report(_exceptionable, {
+                path: _path + ".children[" + _index2 + "]",
+                expected: "ICitizen",
+                value: elem,
+              }),
+          )
+          .every((flag: boolean) => flag)) ||
+        _report(_exceptionable, {
+          path: _path + ".children",
+          expected: "Array<ICitizen>",
+          value: input.children,
+        }),
+      9 === Object.keys(input).length ||
+        false === _exceptionable ||
+        Object.keys(input)
+          .map((key: any) => {
+            if (
+              [
+                "id",
+                "name",
+                "email",
+                "age",
+                "motto",
+                "birthdate",
+                "died_at",
+                "parent",
+                "children",
+              ].some((prop: any) => key === prop)
+            )
+              return true;
+            const value = input[key];
+            if (undefined === value) return true;
+            return _report(_exceptionable, {
+              path:
+                _path +
+                __typia_transform__accessExpressionAsString._accessExpressionAsString(
+                  key,
+                ),
+              expected: "undefined",
+              value: value,
+            });
+          })
+          .every((flag: boolean) => flag),
+    ].every((flag: boolean) => flag);
+  const __is = (
+    input: any,
+    _exceptionable: boolean = true,
+  ): input is ICitizen =>
+    "object" === typeof input && null !== input && _io0(input, true);
+  let errors: any;
+  let _report: any;
+  return (input: any): import("typia").IValidation<ICitizen> => {
+    if (false === __is(input)) {
+      errors = [];
+      _report = (__typia_transform__validateReport._validateReport as any)(
+        errors,
+      );
+      ((input: any, _path: string, _exceptionable: boolean = true) =>
+        ((("object" === typeof input && null !== input) ||
+          _report(true, {
+            path: _path + "",
+            expected: "ICitizen",
+            value: input,
+          })) &&
+          _vo0(input, _path + "", true)) ||
+        _report(true, {
+          path: _path + "",
+          expected: "ICitizen",
+          value: input,
+        }))(input, "$input", true);
+      const success = 0 === errors.length;
+      return {
+        success,
+        errors,
+        data: success ? input : undefined,
+      } as any;
+    }
+    return {
+      success: true,
+      errors: [],
+      data: input,
+    } as any;
+  };
+})();
+export const random = (() => {
+  const _ro0 = (_recursive: boolean = true, _depth: number = 0): any => ({
+    id: (
+      _generator?.uuid ?? __typia_transform__randomFormatUuid._randomFormatUuid
+    )(),
+    name: (
+      _generator?.pattern ?? __typia_transform__randomPattern._randomPattern
+    )(new RegExp("^[A-Z][a-z]+$")),
+    email: (
+      _generator?.email ??
+      __typia_transform__randomFormatEmail._randomFormatEmail
+    )(),
+    age: (
+      _generator?.integer ?? __typia_transform__randomInteger._randomInteger
+    )({
+      type: "integer",
+      exclusiveMaximum: true,
+      maximum: 100,
+    }),
+    motto: (
+      _generator?.string ?? __typia_transform__randomString._randomString
+    )({
+      type: "string",
+    }),
+    birthdate: new Date(
+      (
+        _generator?.datetime ??
+        __typia_transform__randomFormatDatetime._randomFormatDatetime
+      )(),
+    ),
+    died_at: __typia_transform__randomPick._randomPick([
+      () => null,
+      () =>
+        new Date(
+          (
+            _generator?.datetime ??
+            __typia_transform__randomFormatDatetime._randomFormatDatetime
+          )(),
+        ),
+    ])(),
+    parent: __typia_transform__randomPick._randomPick([
+      () => null,
+      () => _ro0(true, _recursive ? 1 + _depth : _depth),
+    ])(),
+    children:
+      5 >= _depth
+        ? (_generator?.array ?? __typia_transform__randomArray._randomArray)({
+            type: "array",
+            element: () => _ro0(true, _recursive ? 1 + _depth : _depth),
+          })
+        : [],
+  });
+  let _generator: Partial<import("typia").IRandomGenerator> | undefined;
+  return (
+    generator?: Partial<import("typia").IRandomGenerator>,
+  ): import("typia").Resolved<ICitizen> => {
+    _generator = generator;
+    return _ro0();
+  };
+})();

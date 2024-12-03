@@ -239,18 +239,18 @@ export const validateQuery = (() => {
     [
       ("string" === typeof input.id &&
         (__typia_transform__isFormatUuid._isFormatUuid(input.id) ||
-          $report(_exceptionable, {
+          _report(_exceptionable, {
             path: _path + ".id",
             expected: 'string & Format<"uuid">',
             value: input.id,
           }))) ||
-        $report(_exceptionable, {
+        _report(_exceptionable, {
           path: _path + ".id",
           expected: '(string & Format<"uuid">)',
           value: input.id,
         }),
       ((Array.isArray(input.beta) ||
-        $report(_exceptionable, {
+        _report(_exceptionable, {
           path: _path + ".beta",
           expected: "Array<number>",
           value: input.beta,
@@ -259,20 +259,20 @@ export const validateQuery = (() => {
           .map(
             (elem: any, _index2: number) =>
               ("number" === typeof elem && Number.isFinite(elem)) ||
-              $report(_exceptionable, {
+              _report(_exceptionable, {
                 path: _path + ".beta[" + _index2 + "]",
                 expected: "number",
                 value: elem,
               }),
           )
           .every((flag: boolean) => flag)) ||
-        $report(_exceptionable, {
+        _report(_exceptionable, {
           path: _path + ".beta",
           expected: "Array<number>",
           value: input.beta,
         }),
       "bigint" === typeof input.gamma ||
-        $report(_exceptionable, {
+        _report(_exceptionable, {
           path: _path + ".gamma",
           expected: "bigint",
           value: input.gamma,
@@ -281,22 +281,22 @@ export const validateQuery = (() => {
   const __is = (input: any): input is ISomething =>
     "object" === typeof input && null !== input && _io0(input);
   let errors: any;
-  let $report: any;
+  let _report: any;
   const __validate = (input: any): import("typia").IValidation<ISomething> => {
     if (false === __is(input)) {
       errors = [];
-      $report = (__typia_transform__validateReport._validateReport as any)(
+      _report = (__typia_transform__validateReport._validateReport as any)(
         errors,
       );
       ((input: any, _path: string, _exceptionable: boolean = true) =>
         ((("object" === typeof input && null !== input) ||
-          $report(true, {
+          _report(true, {
             path: _path + "",
             expected: "ISomething",
             value: input,
           })) &&
           _vo0(input, _path + "", true)) ||
-        $report(true, {
+        _report(true, {
           path: _path + "",
           expected: "ISomething",
           value: input,

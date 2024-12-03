@@ -325,12 +325,12 @@ export const createValidateEncode = (() => {
     [
       ("string" === typeof input.name &&
         (input.name.length <= 8 ||
-          $report(_exceptionable, {
+          _report(_exceptionable, {
             path: _path + ".name",
             expected: "string & MaxLength<8>",
             value: input.name,
           }))) ||
-        $report(_exceptionable, {
+        _report(_exceptionable, {
           path: _path + ".name",
           expected: "(string & MaxLength<8>)",
           value: input.name,
@@ -338,36 +338,36 @@ export const createValidateEncode = (() => {
       null === input.extension ||
         ("string" === typeof input.extension &&
           (1 <= input.extension.length ||
-            $report(_exceptionable, {
+            _report(_exceptionable, {
               path: _path + ".extension",
               expected: "string & MinLength<1>",
               value: input.extension,
             })) &&
           (input.extension.length <= 3 ||
-            $report(_exceptionable, {
+            _report(_exceptionable, {
               path: _path + ".extension",
               expected: "string & MaxLength<3>",
               value: input.extension,
             }))) ||
-        $report(_exceptionable, {
+        _report(_exceptionable, {
           path: _path + ".extension",
           expected: "((string & MinLength<1> & MaxLength<3>) | null)",
           value: input.extension,
         }),
       ("number" === typeof input.size &&
         (__typia_transform__isTypeUint32._isTypeUint32(input.size) ||
-          $report(_exceptionable, {
+          _report(_exceptionable, {
             path: _path + ".size",
             expected: 'number & Type<"uint32">',
             value: input.size,
           }))) ||
-        $report(_exceptionable, {
+        _report(_exceptionable, {
           path: _path + ".size",
           expected: '(number & Type<"uint32">)',
           value: input.size,
         }),
       input.data instanceof Uint8Array ||
-        $report(_exceptionable, {
+        _report(_exceptionable, {
           path: _path + ".data",
           expected: "Uint8Array",
           value: input.data,
@@ -412,22 +412,22 @@ export const createValidateEncode = (() => {
   const __is = (input: any): input is IFile =>
     "object" === typeof input && null !== input && _io0(input);
   let errors: any;
-  let $report: any;
+  let _report: any;
   const __validate = (input: any): import("typia").IValidation<IFile> => {
     if (false === __is(input)) {
       errors = [];
-      $report = (__typia_transform__validateReport._validateReport as any)(
+      _report = (__typia_transform__validateReport._validateReport as any)(
         errors,
       );
       ((input: any, _path: string, _exceptionable: boolean = true) =>
         ((("object" === typeof input && null !== input) ||
-          $report(true, {
+          _report(true, {
             path: _path + "",
             expected: "IFile",
             value: input,
           })) &&
           _vo0(input, _path + "", true)) ||
-        $report(true, {
+        _report(true, {
           path: _path + "",
           expected: "IFile",
           value: input,
@@ -761,12 +761,12 @@ export const createValidateDecode = (() => {
     [
       ("string" === typeof input.name &&
         (input.name.length <= 8 ||
-          $report(_exceptionable, {
+          _report(_exceptionable, {
             path: _path + ".name",
             expected: "string & MaxLength<8>",
             value: input.name,
           }))) ||
-        $report(_exceptionable, {
+        _report(_exceptionable, {
           path: _path + ".name",
           expected: "(string & MaxLength<8>)",
           value: input.name,
@@ -774,36 +774,36 @@ export const createValidateDecode = (() => {
       null === input.extension ||
         ("string" === typeof input.extension &&
           (1 <= input.extension.length ||
-            $report(_exceptionable, {
+            _report(_exceptionable, {
               path: _path + ".extension",
               expected: "string & MinLength<1>",
               value: input.extension,
             })) &&
           (input.extension.length <= 3 ||
-            $report(_exceptionable, {
+            _report(_exceptionable, {
               path: _path + ".extension",
               expected: "string & MaxLength<3>",
               value: input.extension,
             }))) ||
-        $report(_exceptionable, {
+        _report(_exceptionable, {
           path: _path + ".extension",
           expected: "((string & MinLength<1> & MaxLength<3>) | null)",
           value: input.extension,
         }),
       ("number" === typeof input.size &&
         (__typia_transform__isTypeUint32._isTypeUint32(input.size) ||
-          $report(_exceptionable, {
+          _report(_exceptionable, {
             path: _path + ".size",
             expected: 'number & Type<"uint32">',
             value: input.size,
           }))) ||
-        $report(_exceptionable, {
+        _report(_exceptionable, {
           path: _path + ".size",
           expected: '(number & Type<"uint32">)',
           value: input.size,
         }),
       input.data instanceof Uint8Array ||
-        $report(_exceptionable, {
+        _report(_exceptionable, {
           path: _path + ".data",
           expected: "Uint8Array",
           value: input.data,
@@ -846,22 +846,22 @@ export const createValidateDecode = (() => {
   const __is = (input: any): input is IFile =>
     "object" === typeof input && null !== input && _io0(input);
   let errors: any;
-  let $report: any;
+  let _report: any;
   const __validate = (input: any): import("typia").IValidation<IFile> => {
     if (false === __is(input)) {
       errors = [];
-      $report = (__typia_transform__validateReport._validateReport as any)(
+      _report = (__typia_transform__validateReport._validateReport as any)(
         errors,
       );
       ((input: any, _path: string, _exceptionable: boolean = true) =>
         ((("object" === typeof input && null !== input) ||
-          $report(true, {
+          _report(true, {
             path: _path + "",
             expected: "IFile",
             value: input,
           })) &&
           _vo0(input, _path + "", true)) ||
-        $report(true, {
+        _report(true, {
           path: _path + "",
           expected: "IFile",
           value: input,
