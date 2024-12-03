@@ -22,10 +22,9 @@ const config: DocsThemeConfig = {
   },
   project: {
     link: "https://github.com/samchon/typia",
-    // icon: <img
-    //   alt="Typia Github repo stars"
-    //   src="https://img.shields.io/github/stars/samchon/typia?style=social"
-    // />
+  },
+  chat: {
+    link: "https://discord.gg/E94XhzrUCZ",
   },
   docsRepositoryBase: "https://github.com/samchon/typia/blob/master/website",
   footer: {
@@ -116,7 +115,7 @@ const config: DocsThemeConfig = {
       ],
     };
   },
-  head: (<></>),
+  head: <></>,
 };
 
 export default config;
