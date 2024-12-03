@@ -1,0 +1,33 @@
+{
+  "type": "array",
+  "items": {
+    "oneOf": [
+      {
+        "const": false
+      },
+      {
+        "const": 1
+      },
+      {
+        "const": 2
+      },
+      {
+        "const": "three"
+      },
+      {
+        "const": "four"
+      },
+      {
+        "type": "object",
+        "properties": {
+          "key": {
+            "const": "key"
+          }
+        },
+        "required": [
+          "key"
+        ]
+      }
+    ]
+  }
+}

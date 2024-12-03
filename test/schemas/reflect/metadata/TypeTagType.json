@@ -5,7 +5,7 @@
       "required": true,
       "optional": false,
       "nullable": false,
-      "functional": false,
+      "functions": [],
       "atomics": [],
       "constants": [],
       "templates": [],
@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "TypeTagType"
+        {
+          "name": "TypeTagType",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -33,14 +36,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -61,7 +65,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -100,14 +104,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "int"
+                      "value": "int",
+                      "tags": []
                     }
                   ]
                 }
@@ -128,7 +133,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "number",
@@ -139,7 +144,7 @@
                         "name": "Type<\"int32\">",
                         "kind": "type",
                         "value": "int32",
-                        "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
+                        "validate": "$importInternal(\"isTypeInt32\")($input)",
                         "exclusive": true,
                         "schema": {
                           "type": "integer"
@@ -170,14 +175,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "uint"
+                      "value": "uint",
+                      "tags": []
                     }
                   ]
                 }
@@ -198,7 +204,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "number",
@@ -209,7 +215,7 @@
                         "name": "Type<\"uint32\">",
                         "kind": "type",
                         "value": "uint32",
-                        "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
+                        "validate": "$importInternal(\"isTypeUint32\")($input)",
                         "exclusive": true,
                         "schema": {
                           "type": "integer"
@@ -240,14 +246,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "int32"
+                      "value": "int32",
+                      "tags": []
                     }
                   ]
                 }
@@ -268,7 +275,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "number",
@@ -279,7 +286,7 @@
                         "name": "Type<\"int32\">",
                         "kind": "type",
                         "value": "int32",
-                        "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
+                        "validate": "$importInternal(\"isTypeInt32\")($input)",
                         "exclusive": true,
                         "schema": {
                           "type": "integer"
@@ -310,14 +317,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "uint32"
+                      "value": "uint32",
+                      "tags": []
                     }
                   ]
                 }
@@ -338,7 +346,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "number",
@@ -349,7 +357,7 @@
                         "name": "Type<\"uint32\">",
                         "kind": "type",
                         "value": "uint32",
-                        "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
+                        "validate": "$importInternal(\"isTypeUint32\")($input)",
                         "exclusive": true,
                         "schema": {
                           "type": "integer"
@@ -380,14 +388,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "int64"
+                      "value": "int64",
+                      "tags": []
                     }
                   ]
                 }
@@ -408,7 +417,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "number",
@@ -419,7 +428,7 @@
                         "name": "Type<\"int64\">",
                         "kind": "type",
                         "value": "int64",
-                        "validate": "Math.floor($input) === $input && -9223372036854775808 <= $input && $input <= 9223372036854775807",
+                        "validate": "$importInternal(\"isTypeInt64\")($input)",
                         "exclusive": true,
                         "schema": {
                           "type": "integer"
@@ -450,14 +459,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "uint64"
+                      "value": "uint64",
+                      "tags": []
                     }
                   ]
                 }
@@ -478,7 +488,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "number",
@@ -489,7 +499,7 @@
                         "name": "Type<\"uint64\">",
                         "kind": "type",
                         "value": "uint64",
-                        "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 18446744073709551615",
+                        "validate": "$importInternal(\"isTypeUint64\")($input)",
                         "exclusive": true,
                         "schema": {
                           "type": "integer"
@@ -520,14 +530,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "float"
+                      "value": "float",
+                      "tags": []
                     }
                   ]
                 }
@@ -548,7 +559,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "number",
@@ -559,7 +570,7 @@
                         "name": "Type<\"float\">",
                         "kind": "type",
                         "value": "float",
-                        "validate": "-1.175494351e38 <= $input && $input <= 3.4028235e38",
+                        "validate": "$importInternal(\"isTypeFloat\")($input)",
                         "exclusive": true,
                         "schema": {
                           "type": "number"
@@ -602,7 +613,7 @@
           "required": true,
           "optional": false,
           "nullable": false,
-          "functional": false,
+          "functions": [],
           "atomics": [],
           "constants": [],
           "templates": [],
@@ -611,7 +622,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "TypeTagType.Type"
+            {
+              "name": "TypeTagType.Type",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

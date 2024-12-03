@@ -90,29 +90,25 @@ interface IMember {
   </Tab>
   <Tab>
 ```javascript filename="examples/bin/validate.js" showLineNumbers
+import * as __typia_transform__isFormatUuid from "typia/lib/internal/_isFormatUuid.js";
+import * as __typia_transform__isFormatEmail from "typia/lib/internal/_isFormatEmail.js";
+import * as __typia_transform__isTypeUint32 from "typia/lib/internal/_isTypeUint32.js";
+import * as __typia_transform__validateReport from "typia/lib/internal/_validateReport.js";
 import typia from "typia";
 const res = (() => {
-  const $io0 = (input) =>
+  const _io0 = (input) =>
     "string" === typeof input.id &&
-    /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
-      input.id,
-    ) &&
+    __typia_transform__isFormatUuid._isFormatUuid(input.id) &&
     "string" === typeof input.email &&
-    /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i.test(
-      input.email,
-    ) &&
+    __typia_transform__isFormatEmail._isFormatEmail(input.email) &&
     "number" === typeof input.age &&
-    Math.floor(input.age) === input.age &&
-    0 <= input.age &&
-    input.age <= 4294967295 &&
+    __typia_transform__isTypeUint32._isTypeUint32(input.age) &&
     19 < input.age &&
     input.age <= 100;
-  const $vo0 = (input, _path, _exceptionable = true) =>
+  const _vo0 = (input, _path, _exceptionable = true) =>
     [
       ("string" === typeof input.id &&
-        (/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
-          input.id,
-        ) ||
+        (__typia_transform__isFormatUuid._isFormatUuid(input.id) ||
           $report(_exceptionable, {
             path: _path + ".id",
             expected: 'string & Format<"uuid">',
@@ -124,9 +120,7 @@ const res = (() => {
           value: input.id,
         }),
       ("string" === typeof input.email &&
-        (/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i.test(
-          input.email,
-        ) ||
+        (__typia_transform__isFormatEmail._isFormatEmail(input.email) ||
           $report(_exceptionable, {
             path: _path + ".email",
             expected: 'string & Format<"email">',
@@ -138,9 +132,7 @@ const res = (() => {
           value: input.email,
         }),
       ("number" === typeof input.age &&
-        ((Math.floor(input.age) === input.age &&
-          0 <= input.age &&
-          input.age <= 4294967295) ||
+        (__typia_transform__isTypeUint32._isTypeUint32(input.age) ||
           $report(_exceptionable, {
             path: _path + ".age",
             expected: 'number & Type<"uint32">',
@@ -166,13 +158,13 @@ const res = (() => {
         }),
     ].every((flag) => flag);
   const __is = (input) =>
-    "object" === typeof input && null !== input && $io0(input);
+    "object" === typeof input && null !== input && _io0(input);
   let errors;
   let $report;
   return (input) => {
     if (false === __is(input)) {
       errors = [];
-      $report = typia.validate.report(errors);
+      $report = __typia_transform__validateReport._validateReport(errors);
       ((input, _path, _exceptionable = true) =>
         ((("object" === typeof input && null !== input) ||
           $report(true, {
@@ -180,7 +172,7 @@ const res = (() => {
             expected: "IMember",
             value: input,
           })) &&
-          $vo0(input, _path + "", true)) ||
+          _vo0(input, _path + "", true)) ||
         $report(true, {
           path: _path + "",
           expected: "IMember",
@@ -286,22 +278,20 @@ interface IMember {
   </Tab>
   <Tab>
 ```javascript filename="examples/bin/validateEquals.js" showLineNumbers
+import * as __typia_transform__isFormatUuid from "typia/lib/internal/_isFormatUuid.js";
+import * as __typia_transform__isFormatEmail from "typia/lib/internal/_isFormatEmail.js";
+import * as __typia_transform__isTypeUint32 from "typia/lib/internal/_isTypeUint32.js";
+import * as __typia_transform__accessExpressionAsString from "typia/lib/internal/_accessExpressionAsString.js";
+import * as __typia_transform__validateReport from "typia/lib/internal/_validateReport.js";
 import typia from "typia";
 const res = (() => {
-  const $join = typia.validateEquals.join;
-  const $io0 = (input, _exceptionable = true) =>
+  const _io0 = (input, _exceptionable = true) =>
     "string" === typeof input.id &&
-    /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
-      input.id,
-    ) &&
+    __typia_transform__isFormatUuid._isFormatUuid(input.id) &&
     "string" === typeof input.email &&
-    /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i.test(
-      input.email,
-    ) &&
+    __typia_transform__isFormatEmail._isFormatEmail(input.email) &&
     "number" === typeof input.age &&
-    Math.floor(input.age) === input.age &&
-    0 <= input.age &&
-    input.age <= 4294967295 &&
+    __typia_transform__isTypeUint32._isTypeUint32(input.age) &&
     19 < input.age &&
     input.age <= 100 &&
     (3 === Object.keys(input).length ||
@@ -311,12 +301,10 @@ const res = (() => {
         if (undefined === value) return true;
         return false;
       }));
-  const $vo0 = (input, _path, _exceptionable = true) =>
+  const _vo0 = (input, _path, _exceptionable = true) =>
     [
       ("string" === typeof input.id &&
-        (/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
-          input.id,
-        ) ||
+        (__typia_transform__isFormatUuid._isFormatUuid(input.id) ||
           $report(_exceptionable, {
             path: _path + ".id",
             expected: 'string & Format<"uuid">',
@@ -328,9 +316,7 @@ const res = (() => {
           value: input.id,
         }),
       ("string" === typeof input.email &&
-        (/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i.test(
-          input.email,
-        ) ||
+        (__typia_transform__isFormatEmail._isFormatEmail(input.email) ||
           $report(_exceptionable, {
             path: _path + ".email",
             expected: 'string & Format<"email">',
@@ -342,9 +328,7 @@ const res = (() => {
           value: input.email,
         }),
       ("number" === typeof input.age &&
-        ((Math.floor(input.age) === input.age &&
-          0 <= input.age &&
-          input.age <= 4294967295) ||
+        (__typia_transform__isTypeUint32._isTypeUint32(input.age) ||
           $report(_exceptionable, {
             path: _path + ".age",
             expected: 'number & Type<"uint32">',
@@ -377,7 +361,11 @@ const res = (() => {
             const value = input[key];
             if (undefined === value) return true;
             return $report(_exceptionable, {
-              path: _path + $join(key),
+              path:
+                _path +
+                __typia_transform__accessExpressionAsString._accessExpressionAsString(
+                  key,
+                ),
               expected: "undefined",
               value: value,
             });
@@ -385,13 +373,13 @@ const res = (() => {
           .every((flag) => flag),
     ].every((flag) => flag);
   const __is = (input, _exceptionable = true) =>
-    "object" === typeof input && null !== input && $io0(input, true);
+    "object" === typeof input && null !== input && _io0(input, true);
   let errors;
   let $report;
   return (input) => {
     if (false === __is(input)) {
       errors = [];
-      $report = typia.validateEquals.report(errors);
+      $report = __typia_transform__validateReport._validateReport(errors);
       ((input, _path, _exceptionable = true) =>
         ((("object" === typeof input && null !== input) ||
           $report(true, {
@@ -399,7 +387,7 @@ const res = (() => {
             expected: "IMember",
             value: input,
           })) &&
-          $vo0(input, _path + "", true)) ||
+          _vo0(input, _path + "", true)) ||
         $report(true, {
           path: _path + "",
           expected: "IMember",
@@ -490,29 +478,25 @@ interface IMember {
   </Tab>
   <Tab>
 ```javascript filename="examples/bin/createValidate.js" showLineNumbers
+import * as __typia_transform__isFormatUuid from "typia/lib/internal/_isFormatUuid.js";
+import * as __typia_transform__isFormatEmail from "typia/lib/internal/_isFormatEmail.js";
+import * as __typia_transform__isTypeUint32 from "typia/lib/internal/_isTypeUint32.js";
+import * as __typia_transform__validateReport from "typia/lib/internal/_validateReport.js";
 import typia from "typia";
 export const validateMember = (() => {
-  const $io0 = (input) =>
+  const _io0 = (input) =>
     "string" === typeof input.id &&
-    /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
-      input.id,
-    ) &&
+    __typia_transform__isFormatUuid._isFormatUuid(input.id) &&
     "string" === typeof input.email &&
-    /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i.test(
-      input.email,
-    ) &&
+    __typia_transform__isFormatEmail._isFormatEmail(input.email) &&
     "number" === typeof input.age &&
-    Math.floor(input.age) === input.age &&
-    0 <= input.age &&
-    input.age <= 4294967295 &&
+    __typia_transform__isTypeUint32._isTypeUint32(input.age) &&
     19 < input.age &&
     input.age <= 100;
-  const $vo0 = (input, _path, _exceptionable = true) =>
+  const _vo0 = (input, _path, _exceptionable = true) =>
     [
       ("string" === typeof input.id &&
-        (/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
-          input.id,
-        ) ||
+        (__typia_transform__isFormatUuid._isFormatUuid(input.id) ||
           $report(_exceptionable, {
             path: _path + ".id",
             expected: 'string & Format<"uuid">',
@@ -524,9 +508,7 @@ export const validateMember = (() => {
           value: input.id,
         }),
       ("string" === typeof input.email &&
-        (/^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i.test(
-          input.email,
-        ) ||
+        (__typia_transform__isFormatEmail._isFormatEmail(input.email) ||
           $report(_exceptionable, {
             path: _path + ".email",
             expected: 'string & Format<"email">',
@@ -538,9 +520,7 @@ export const validateMember = (() => {
           value: input.email,
         }),
       ("number" === typeof input.age &&
-        ((Math.floor(input.age) === input.age &&
-          0 <= input.age &&
-          input.age <= 4294967295) ||
+        (__typia_transform__isTypeUint32._isTypeUint32(input.age) ||
           $report(_exceptionable, {
             path: _path + ".age",
             expected: 'number & Type<"uint32">',
@@ -566,13 +546,13 @@ export const validateMember = (() => {
         }),
     ].every((flag) => flag);
   const __is = (input) =>
-    "object" === typeof input && null !== input && $io0(input);
+    "object" === typeof input && null !== input && _io0(input);
   let errors;
   let $report;
   return (input) => {
     if (false === __is(input)) {
       errors = [];
-      $report = typia.createValidate.report(errors);
+      $report = __typia_transform__validateReport._validateReport(errors);
       ((input, _path, _exceptionable = true) =>
         ((("object" === typeof input && null !== input) ||
           $report(true, {
@@ -580,7 +560,7 @@ export const validateMember = (() => {
             expected: "IMember",
             value: input,
           })) &&
-          $vo0(input, _path + "", true)) ||
+          _vo0(input, _path + "", true)) ||
         $report(true, {
           path: _path + "",
           expected: "IMember",

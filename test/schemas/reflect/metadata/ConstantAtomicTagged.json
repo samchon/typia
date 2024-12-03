@@ -5,7 +5,7 @@
       "required": true,
       "optional": false,
       "nullable": false,
-      "functional": false,
+      "functions": [],
       "atomics": [],
       "constants": [],
       "templates": [],
@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ConstantAtomicTagged"
+        {
+          "name": "ConstantAtomicTagged",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -33,14 +36,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -61,7 +65,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "string",
@@ -72,7 +76,7 @@
                         "name": "Format<\"uuid\">",
                         "kind": "format",
                         "value": "uuid",
-                        "validate": "/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test($input)",
+                        "validate": "$importInternal(\"isFormatUuid\")($input)",
                         "exclusive": [
                           "format",
                           "pattern"
@@ -116,14 +120,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "age"
+                      "value": "age",
+                      "tags": []
                     }
                   ]
                 }
@@ -144,7 +149,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "number",
@@ -155,7 +160,7 @@
                         "name": "Type<\"uint32\">",
                         "kind": "type",
                         "value": "uint32",
-                        "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
+                        "validate": "$importInternal(\"isTypeUint32\")($input)",
                         "exclusive": true,
                         "schema": {
                           "type": "integer"

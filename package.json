@@ -1,6 +1,6 @@
 {
   "name": "@matatbread/typia",
-  "version": "6.8.0",
+  "version": "7.0.1",
   "description": "Superfast runtime validators with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -14,12 +14,13 @@
     }
   },
   "scripts": {
-    "test": "npm run package:tgz",
+    "test": "ts-node deploy --tag test",
     "test:bun": "bun run deploy/bun.ts",
     "test:template": "npm run --tag test --template",
     "-------------------------------------------------": "",
     "build": "rimraf lib && tsc && rollup -c",
     "dev": "rimraf lib && tsc --watch",
+    "dev:errors": "tsc --project tsconfig.errors.json --watch",
     "eslint": "eslint ./**/*.ts",
     "eslint:fix": "eslint ./**/*.ts --fix",
     "prettier": "prettier src --write",
@@ -27,13 +28,59 @@
     "package:latest": "ts-node deploy --tag latest",
     "package:next": "ts-node deploy --tag next",
     "package:patch": "ts-node deploy --tag patch",
-    "package:tgz": "ts-node deploy --tag tgz",
     "package:deprecate": "npm deprecate typescript-json \"Renamed to typia\""
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/samchon/typia"
   },
+  "author": "Jeongho Nam",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/samchon/typia/issues"
+  },
+  "homepage": "https://typia.io",
+  "dependencies": {
+    "@samchon/openapi": "^2.0.0",
+    "commander": "^10.0.0",
+    "comment-json": "^4.2.3",
+    "inquirer": "^8.2.5",
+    "package-manager-detector": "^0.2.0",
+    "randexp": "^0.5.3"
+  },
+  "peerDependencies": {
+    "typescript": ">=4.8.0 <5.7.0",
+    "@samchon/openapi": ">=2.0.0 <3.0.0"
+  },
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^26.0.1",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-typescript": "^11.1.6",
+    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
+    "@types/inquirer": "^8.2.5",
+    "@types/node": "^18.15.12",
+    "@types/ts-expose-internals": "npm:ts-expose-internals@5.5.4",
+    "@typescript-eslint/eslint-plugin": "^7.1.1",
+    "@typescript-eslint/parser": "^7.1.1",
+    "chalk": "^4.0.0",
+    "prettier": "^3.2.5",
+    "rimraf": "^5.0.5",
+    "rollup": "^4.18.0",
+    "suppress-warnings": "^1.0.2",
+    "ts-node": "^10.9.2",
+    "typescript": "~5.6.3"
+  },
+  "stackblitz": {
+    "startCommand": "npm install && npm run test"
+  },
+  "sideEffects": false,
+  "files": [
+    "LICENSE",
+    "README.md",
+    "package.json",
+    "lib",
+    "src"
+  ],
   "keywords": [
     "fast",
     "json",
@@ -42,8 +89,9 @@
     "transform",
     "ajv",
     "io-ts",
+    "zod",
     "schema",
-    "jsonschema",
+    "json-schema",
     "generator",
     "assert",
     "clone",
@@ -58,51 +106,16 @@
     "safe",
     "parse",
     "prune",
-    "random"
+    "random",
+    "protobuf",
+    "llm",
+    "llm-function-calling",
+    "structured-output",
+    "openai",
+    "chatgpt",
+    "claude",
+    "gemini",
+    "llama"
   ],
-  "author": "Jeongho Nam",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/samchon/typia/issues"
-  },
-  "homepage": "https://typia.io",
-  "dependencies": {
-    "@samchon/openapi": "^0.4.4",
-    "commander": "^10.0.0",
-    "comment-json": "^4.2.3",
-    "inquirer": "^8.2.5",
-    "randexp": "^0.5.3"
-  },
-  "peerDependencies": {
-    "typescript": ">=4.8.0 <5.6.0"
-  },
-  "devDependencies": {
-    "@rollup/plugin-commonjs": "^26.0.1",
-    "@rollup/plugin-node-resolve": "^15.2.3",
-    "@rollup/plugin-typescript": "^11.1.6",
-    "@trivago/prettier-plugin-sort-imports": "^4.3.0",
-    "@types/inquirer": "^8.2.5",
-    "@types/node": "^18.15.12",
-    "@types/ts-expose-internals": "npm:ts-expose-internals@5.5.3",
-    "@typescript-eslint/eslint-plugin": "^7.1.1",
-    "@typescript-eslint/parser": "^7.1.1",
-    "chalk": "^4.0.0",
-    "prettier": "^3.2.5",
-    "rimraf": "^5.0.5",
-    "rollup": "^4.18.0",
-    "suppress-warnings": "^1.0.2",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.5.4"
-  },
-  "stackblitz": {
-    "startCommand": "npm install && npm run test"
-  },
-  "sideEffects": false,
-  "files": [
-    "LICENSE",
-    "README.md",
-    "package.json",
-    "lib",
-    "src"
-  ]
+  "private": true
 }

@@ -5,7 +5,7 @@
       "required": true,
       "optional": false,
       "nullable": false,
-      "functional": false,
+      "functions": [],
       "atomics": [],
       "constants": [],
       "templates": [],
@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "CommentTagArray"
+        {
+          "name": "CommentTagArray",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -33,14 +36,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -61,7 +65,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -100,14 +104,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "items"
+                      "value": "items",
+                      "tags": []
                     }
                   ]
                 }
@@ -128,7 +133,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -191,14 +196,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "minItems"
+                      "value": "minItems",
+                      "tags": []
                     }
                   ]
                 }
@@ -219,7 +225,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -271,14 +277,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "both"
+                      "value": "both",
+                      "tags": []
                     }
                   ]
                 }
@@ -299,7 +306,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -371,14 +378,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "equal"
+                      "value": "equal",
+                      "tags": []
                     }
                   ]
                 }
@@ -399,7 +407,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -471,14 +479,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "unique"
+                      "value": "unique",
+                      "tags": []
                     }
                   ]
                 }
@@ -499,7 +508,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -557,7 +566,7 @@
           "required": true,
           "optional": false,
           "nullable": false,
-          "functional": false,
+          "functions": [],
           "atomics": [],
           "constants": [],
           "templates": [],
@@ -566,7 +575,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "CommentTagArray.Type"
+            {
+              "name": "CommentTagArray.Type",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],
@@ -586,7 +598,7 @@
           "required": true,
           "optional": false,
           "nullable": false,
-          "functional": false,
+          "functions": [],
           "atomics": [
             {
               "type": "string",
@@ -618,7 +630,7 @@
           "required": true,
           "optional": false,
           "nullable": false,
-          "functional": false,
+          "functions": [],
           "atomics": [
             {
               "type": "number",

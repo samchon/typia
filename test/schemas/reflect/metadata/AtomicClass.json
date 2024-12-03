@@ -5,7 +5,7 @@
       "required": true,
       "optional": false,
       "nullable": false,
-      "functional": false,
+      "functions": [],
       "atomics": [],
       "constants": [],
       "templates": [],
@@ -39,7 +39,7 @@
             "required": true,
             "optional": false,
             "nullable": false,
-            "functional": false,
+            "functions": [],
             "atomics": [],
             "constants": [],
             "templates": [],
@@ -50,7 +50,10 @@
             "objects": [],
             "aliases": [],
             "natives": [
-              "Boolean"
+              {
+                "name": "Boolean",
+                "tags": []
+              }
             ],
             "sets": [],
             "maps": []
@@ -60,7 +63,7 @@
             "required": true,
             "optional": false,
             "nullable": false,
-            "functional": false,
+            "functions": [],
             "atomics": [],
             "constants": [
               {
@@ -81,7 +84,10 @@
             "objects": [],
             "aliases": [],
             "natives": [
-              "Boolean"
+              {
+                "name": "Boolean",
+                "tags": []
+              }
             ],
             "sets": [],
             "maps": []
@@ -91,7 +97,7 @@
             "required": true,
             "optional": false,
             "nullable": false,
-            "functional": false,
+            "functions": [],
             "atomics": [
               {
                 "type": "boolean",
@@ -107,7 +113,10 @@
             "objects": [],
             "aliases": [],
             "natives": [
-              "Boolean"
+              {
+                "name": "Boolean",
+                "tags": []
+              }
             ],
             "sets": [],
             "maps": []
@@ -117,7 +126,7 @@
             "required": true,
             "optional": false,
             "nullable": false,
-            "functional": false,
+            "functions": [],
             "atomics": [],
             "constants": [],
             "templates": [],
@@ -128,7 +137,10 @@
             "objects": [],
             "aliases": [],
             "natives": [
-              "Number"
+              {
+                "name": "Number",
+                "tags": []
+              }
             ],
             "sets": [],
             "maps": []
@@ -138,7 +150,7 @@
             "required": true,
             "optional": false,
             "nullable": false,
-            "functional": false,
+            "functions": [],
             "atomics": [],
             "constants": [
               {
@@ -159,7 +171,10 @@
             "objects": [],
             "aliases": [],
             "natives": [
-              "Number"
+              {
+                "name": "Number",
+                "tags": []
+              }
             ],
             "sets": [],
             "maps": []
@@ -169,7 +184,7 @@
             "required": true,
             "optional": false,
             "nullable": false,
-            "functional": false,
+            "functions": [],
             "atomics": [
               {
                 "type": "number",
@@ -185,7 +200,10 @@
             "objects": [],
             "aliases": [],
             "natives": [
-              "Number"
+              {
+                "name": "Number",
+                "tags": []
+              }
             ],
             "sets": [],
             "maps": []
@@ -195,7 +213,7 @@
             "required": true,
             "optional": false,
             "nullable": false,
-            "functional": false,
+            "functions": [],
             "atomics": [],
             "constants": [],
             "templates": [],
@@ -206,7 +224,10 @@
             "objects": [],
             "aliases": [],
             "natives": [
-              "String"
+              {
+                "name": "String",
+                "tags": []
+              }
             ],
             "sets": [],
             "maps": []
@@ -216,7 +237,7 @@
             "required": true,
             "optional": false,
             "nullable": false,
-            "functional": false,
+            "functions": [],
             "atomics": [],
             "constants": [
               {
@@ -237,7 +258,10 @@
             "objects": [],
             "aliases": [],
             "natives": [
-              "String"
+              {
+                "name": "String",
+                "tags": []
+              }
             ],
             "sets": [],
             "maps": []
@@ -247,7 +271,7 @@
             "required": true,
             "optional": false,
             "nullable": false,
-            "functional": false,
+            "functions": [],
             "atomics": [
               {
                 "type": "string",
@@ -263,7 +287,10 @@
             "objects": [],
             "aliases": [],
             "natives": [
-              "String"
+              {
+                "name": "String",
+                "tags": []
+              }
             ],
             "sets": [],
             "maps": []

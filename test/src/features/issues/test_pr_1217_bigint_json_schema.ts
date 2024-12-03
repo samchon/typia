@@ -1,5 +1,5 @@
-import typia, { IJsonApplication, tags } from "typia";
-import { JsonApplicationProgrammer } from "typia/lib/programmers/json/JsonApplicationProgrammer";
+import typia, { IJsonSchemaCollection, tags } from "typia";
+import { JsonSchemasProgrammer } from "typia/lib/programmers/json/JsonSchemasProgrammer";
 import { IMetadataApplication } from "typia/lib/schemas/metadata/IMetadataApplication";
 import { MetadataApplication } from "typia/lib/schemas/metadata/MetadataApplication";
 
@@ -14,9 +14,10 @@ export const test_pr_1217_bigint_json_schema = (): void => {
       ]
     >();
   const app: MetadataApplication = MetadataApplication.from(raw);
-  const json: IJsonApplication = JsonApplicationProgrammer.write("3.1")(
-    app.metadatas,
-  ) as IJsonApplication;
+  const json: IJsonSchemaCollection = JsonSchemasProgrammer.write({
+    version: "3.1",
+    metadatas: app.metadatas,
+  });
   TestValidator.equals("bigint")(json.schemas)([
     {
       type: "integer",

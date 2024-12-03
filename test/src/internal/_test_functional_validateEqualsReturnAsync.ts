@@ -34,9 +34,10 @@ export const _test_functional_validateEqualsReturnAsync =
         if (expected.length === 0) return;
 
         const [x, y] = callback(input);
-        const actual: string[] = (await validate(async () => y)(x)).errors
-          .map((err) => err.path)
-          .sort();
+        const result: IValidation<T> = await validate(async () => y)(x);
+        const actual: string[] = result.success
+          ? []
+          : result.errors.map((err) => err.path).sort();
         if (
           expected.length !== actual.length ||
           expected.every((str, i) => str === actual[i]) === false

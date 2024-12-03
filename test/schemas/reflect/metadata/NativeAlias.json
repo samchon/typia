@@ -5,7 +5,7 @@
       "required": true,
       "optional": false,
       "nullable": false,
-      "functional": false,
+      "functions": [],
       "atomics": [],
       "constants": [],
       "templates": [],
@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "NativeAlias"
+        {
+          "name": "NativeAlias",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -33,14 +36,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "date"
+                      "value": "date",
+                      "tags": []
                     }
                   ]
                 }
@@ -61,7 +65,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -71,7 +75,7 @@
                   "required": true,
                   "optional": false,
                   "nullable": false,
-                  "functional": false,
+                  "functions": [],
                   "atomics": [],
                   "constants": [],
                   "templates": [],
@@ -82,7 +86,10 @@
                   "objects": [],
                   "aliases": [],
                   "natives": [
-                    "Date"
+                    {
+                      "name": "Date",
+                      "tags": []
+                    }
                   ],
                   "sets": [],
                   "maps": []
@@ -92,7 +99,7 @@
                   "required": true,
                   "optional": false,
                   "nullable": false,
-                  "functional": false,
+                  "functions": [],
                   "atomics": [
                     {
                       "type": "string",
@@ -130,14 +137,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "uint8Array"
+                      "value": "uint8Array",
+                      "tags": []
                     }
                   ]
                 }
@@ -158,7 +166,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -169,7 +177,10 @@
               "objects": [],
               "aliases": [],
               "natives": [
-                "Uint8Array"
+                {
+                  "name": "Uint8Array",
+                  "tags": []
+                }
               ],
               "sets": [],
               "maps": []
@@ -183,14 +194,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "uint8ClampedArray"
+                      "value": "uint8ClampedArray",
+                      "tags": []
                     }
                   ]
                 }
@@ -211,7 +223,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -222,7 +234,10 @@
               "objects": [],
               "aliases": [],
               "natives": [
-                "Uint8ClampedArray"
+                {
+                  "name": "Uint8ClampedArray",
+                  "tags": []
+                }
               ],
               "sets": [],
               "maps": []
@@ -236,14 +251,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "uint16Array"
+                      "value": "uint16Array",
+                      "tags": []
                     }
                   ]
                 }
@@ -264,7 +280,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -275,7 +291,10 @@
               "objects": [],
               "aliases": [],
               "natives": [
-                "Uint16Array"
+                {
+                  "name": "Uint16Array",
+                  "tags": []
+                }
               ],
               "sets": [],
               "maps": []
@@ -289,14 +308,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "uint32Array"
+                      "value": "uint32Array",
+                      "tags": []
                     }
                   ]
                 }
@@ -317,7 +337,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -328,7 +348,10 @@
               "objects": [],
               "aliases": [],
               "natives": [
-                "Uint32Array"
+                {
+                  "name": "Uint32Array",
+                  "tags": []
+                }
               ],
               "sets": [],
               "maps": []
@@ -342,14 +365,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "bigUint64Array"
+                      "value": "bigUint64Array",
+                      "tags": []
                     }
                   ]
                 }
@@ -370,7 +394,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -381,7 +405,10 @@
               "objects": [],
               "aliases": [],
               "natives": [
-                "BigUint64Array"
+                {
+                  "name": "BigUint64Array",
+                  "tags": []
+                }
               ],
               "sets": [],
               "maps": []
@@ -395,14 +422,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "int8Array"
+                      "value": "int8Array",
+                      "tags": []
                     }
                   ]
                 }
@@ -423,7 +451,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -434,7 +462,10 @@
               "objects": [],
               "aliases": [],
               "natives": [
-                "Int8Array"
+                {
+                  "name": "Int8Array",
+                  "tags": []
+                }
               ],
               "sets": [],
               "maps": []
@@ -448,14 +479,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "int16Array"
+                      "value": "int16Array",
+                      "tags": []
                     }
                   ]
                 }
@@ -476,7 +508,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -487,7 +519,10 @@
               "objects": [],
               "aliases": [],
               "natives": [
-                "Int16Array"
+                {
+                  "name": "Int16Array",
+                  "tags": []
+                }
               ],
               "sets": [],
               "maps": []
@@ -501,14 +536,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "int32Array"
+                      "value": "int32Array",
+                      "tags": []
                     }
                   ]
                 }
@@ -529,7 +565,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -540,7 +576,10 @@
               "objects": [],
               "aliases": [],
               "natives": [
-                "Int32Array"
+                {
+                  "name": "Int32Array",
+                  "tags": []
+                }
               ],
               "sets": [],
               "maps": []
@@ -554,14 +593,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "bigInt64Array"
+                      "value": "bigInt64Array",
+                      "tags": []
                     }
                   ]
                 }
@@ -582,7 +622,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -593,7 +633,10 @@
               "objects": [],
               "aliases": [],
               "natives": [
-                "BigInt64Array"
+                {
+                  "name": "BigInt64Array",
+                  "tags": []
+                }
               ],
               "sets": [],
               "maps": []
@@ -607,14 +650,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "float32Array"
+                      "value": "float32Array",
+                      "tags": []
                     }
                   ]
                 }
@@ -635,7 +679,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -646,7 +690,10 @@
               "objects": [],
               "aliases": [],
               "natives": [
-                "Float32Array"
+                {
+                  "name": "Float32Array",
+                  "tags": []
+                }
               ],
               "sets": [],
               "maps": []
@@ -660,14 +707,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "float64Array"
+                      "value": "float64Array",
+                      "tags": []
                     }
                   ]
                 }
@@ -688,7 +736,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -699,7 +747,10 @@
               "objects": [],
               "aliases": [],
               "natives": [
-                "Float64Array"
+                {
+                  "name": "Float64Array",
+                  "tags": []
+                }
               ],
               "sets": [],
               "maps": []
@@ -713,14 +764,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "arrayBuffer"
+                      "value": "arrayBuffer",
+                      "tags": []
                     }
                   ]
                 }
@@ -741,7 +793,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -752,7 +804,10 @@
               "objects": [],
               "aliases": [],
               "natives": [
-                "ArrayBuffer"
+                {
+                  "name": "ArrayBuffer",
+                  "tags": []
+                }
               ],
               "sets": [],
               "maps": []
@@ -766,14 +821,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "sharedArrayBuffer"
+                      "value": "sharedArrayBuffer",
+                      "tags": []
                     }
                   ]
                 }
@@ -794,7 +850,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -805,7 +861,10 @@
               "objects": [],
               "aliases": [],
               "natives": [
-                "SharedArrayBuffer"
+                {
+                  "name": "SharedArrayBuffer",
+                  "tags": []
+                }
               ],
               "sets": [],
               "maps": []
@@ -819,14 +878,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "dataView"
+                      "value": "dataView",
+                      "tags": []
                     }
                   ]
                 }
@@ -847,7 +907,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -858,7 +918,10 @@
               "objects": [],
               "aliases": [],
               "natives": [
-                "DataView"
+                {
+                  "name": "DataView",
+                  "tags": []
+                }
               ],
               "sets": [],
               "maps": []

@@ -1,0 +1,743 @@
+import { Callout, Tabs, Tab } from 'nextra-theme-docs'
+
+## `schema()` function
+<Tabs items={[
+    <code>typia</code>,
+    <code>ILlmApplication</code>,
+    <code>ILlmFunction</code>,
+    <code>ILlmSchema</code>,
+  ]}>
+  <Tab>
+```typescript filename="typia" showLineNumbers {18-30}
+export namespace llm {
+  // LLM FUNCTION CALLING APPLICATION SCHEMA
+  export function application<
+    App extends Record<string, any>,
+    Model extends ILlmSchema.Model,
+    Config extends Partial<ILlmSchema.ModelConfig[Model]> = {},
+  >(
+    options?: Partial<Pick<ILlmApplication.IOptions<Model>, "separate">>,
+  ): ILlmApplication<Model>;
+
+  // STRUCTURED OUTPUT
+  export function parameters<
+    Parameters extends Record<string, any>,
+    Model extends ILlmSchema.Model,
+    Config extends Partial<ILlmSchema.ModelConfig[Model]> = {},
+  >(): ILlmSchema.ModelParameters[Model];
+
+  // TYPE SCHEMA
+  export function schema<
+    T,
+    Model extends ILlmSchema.Model,
+    Config extends Partial<ILlmSchema.ModelConfig[Model]> = {},
+  >(
+    ...$defs: Extract<
+      ILlmSchema.ModelSchema[Model],
+      { $ref: string }
+    > extends never
+      ? []
+      : [Record<string, ILlmSchema.ModelSchema[Model]>]
+  ): ILlmSchema.ModelSchema[Model];
+}
+```
+  </Tab>
+  <Tab>
+```typescript filename="@samchon/openapi" showLineNumbers
+import { IGeminiSchema } from "./IGeminiSchema";
+import { ILlmFunction } from "./ILlmFunction";
+import { ILlmSchema } from "./ILlmSchema";
+
+/**
+ * Application of LLM function calling.
+ *
+ * `ILlmApplication` is a data structure representing a collection of
+ * {@link ILlmFunction LLM function calling schemas}, composed from a native
+ * TypeScript class (or interface) type by the `typia.llm.application<App, Model>()`
+ * function.
+ *
+ * Also, there can be some parameters (or their nested properties) which must be
+ * composed by Human, not by LLM. File uploading feature or some sensitive information
+ * like secrety key (password) are the examples. In that case, you can separate the
+ * function parameters to both LLM and human sides by configuring the
+ * {@link ILlmApplication.IOptions.separate} property. The separated parameters are
+ * assigned to the {@link ILlmFunction.separated} property.
+ *
+ * For reference, when both LLM and Human filled parameter values to call, you can
+ * merge them by calling the {@link HttpLlm.mergeParameters} function. In other words,
+ * if you've configured the {@link ILlmApplication.IOptions.separate} property, you
+ * have to merge the separated parameters before the funtion call execution.
+ *
+ * @reference https://platform.openai.com/docs/guides/function-calling
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export interface ILlmApplication<Model extends ILlmSchema.Model> {
+  /**
+   * Model of the LLM.
+   */
+  model: Model;
+
+  /**
+   * List of function metadata.
+   *
+   * List of function metadata that can be used for the LLM function call.
+   */
+  functions: ILlmFunction<Model>[];
+
+  /**
+   * Configuration for the application.
+   */
+  options: ILlmApplication.IOptions<Model>;
+}
+export namespace ILlmApplication {
+  /**
+   * Options for application composition.
+   */
+  export type IOptions<Model extends ILlmSchema.Model> = {
+    /**
+     * Separator function for the parameters.
+     *
+     * When composing parameter arguments through LLM function call,
+     * there can be a case that some parameters must be composed by human,
+     * or LLM cannot understand the parameter.
+     *
+     * For example, if the parameter type has configured
+     * {@link IGeminiSchema.IString.contentMediaType} which indicates file
+     * uploading, it must be composed by human, not by LLM
+     * (Large Language Model).
+     *
+     * In that case, if you configure this property with a function that
+     * predicating whether the schema value must be composed by human or
+     * not, the parameters would be separated into two parts.
+     *
+     * - {@link ILlmFunction.separated.llm}
+     * - {@link ILlmFunction.separated.human}
+     *
+     * When writing the function, note that returning value `true` means
+     * to be a human composing the value, and `false` means to LLM
+     * composing the value. Also, when predicating the schema, it would
+     * better to utilize the {@link GeminiTypeChecker} like features.
+     *
+     * @param schema Schema to be separated.
+     * @returns Whether the schema value must be composed by human or not.
+     * @default null
+     */
+    separate: null | ((schema: ILlmSchema.ModelSchema[Model]) => boolean);
+  } & ILlmSchema.ModelConfig[Model];
+}
+```
+  </Tab>
+  <Tab>
+```typescript filename="@samchon/openapi" showLineNumbers
+import { ILlmSchema } from "./ILlmSchema";
+
+/**
+ * LLM function metadata.
+ *
+ * `ILlmFunction` is an interface representing a function metadata,
+ * which has been used for the LLM (Language Large Model) function
+ * calling. Also, it's a function structure containing the function
+ * {@link name}, {@link parameters} and {@link output return type}.
+ *
+ * If you provide this `ILlmFunction` data to the LLM provider like "OpenAI",
+ * the "OpenAI" will compose a function arguments by analyzing conversations
+ * with the user. With the LLM composed arguments, you can execute the function
+ * and get the result.
+ *
+ * By the way, do not ensure that LLM will always provide the correct
+ * arguments. The LLM of present age is not perfect, so that you would
+ * better to validate the arguments before executing the function.
+ * I recommend you to validate the arguments before execution by using
+ * [`typia`](https://github.com/samchon/typia) library.
+ *
+ * @reference https://platform.openai.com/docs/guides/function-calling
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export interface ILlmFunction<Model extends ILlmSchema.Model> {
+  /**
+   * Representative name of the function.
+   */
+  name: string;
+
+  /**
+   * List of parameter types.
+   */
+  parameters: ILlmSchema.ModelParameters[Model];
+
+  /**
+   * Collection of separated parameters.
+   */
+  separated?: ILlmFunction.ISeparated<Model>;
+
+  /**
+   * Expected return type.
+   *
+   * If the function returns nothing (`void`), the `output` value would
+   * be `undefined`.
+   */
+  output?: ILlmSchema.ModelSchema[Model];
+
+  /**
+   * Whether the function schema types are strict or not.
+   *
+   * Newly added specification to "OpenAI" at 2024-08-07.
+   *
+   * @reference https://openai.com/index/introducing-structured-outputs-in-the-api/
+   */
+  strict: true;
+
+  /**
+   * Description of the function.
+   *
+   * For reference, the `description` is very important property to teach
+   * the purpose of the function to the LLM (Language Large Model), and
+   * LLM actually determines which function to call by the description.
+   *
+   * Also, when the LLM conversates with the user, the `description` is
+   * used to explain the function to the user. Therefore, the `description`
+   * property has the highest priroity, and you have to consider it.
+   */
+  description?: string | undefined;
+
+  /**
+   * Whether the function is deprecated or not.
+   *
+   * If the `deprecated` is `true`, the function is not recommended to use.
+   *
+   * LLM (Large Language Model) may not use the deprecated function.
+   */
+  deprecated?: boolean | undefined;
+
+  /**
+   * Category tags for the function.
+   *
+   * You can fill this property by the `@tag ${name}` comment tag.
+   */
+  tags?: string[];
+}
+export namespace ILlmFunction {
+  /**
+   * Collection of separated parameters.
+   */
+  export interface ISeparated<Model extends ILlmSchema.Model> {
+    /**
+     * Parameters that would be composed by the LLM.
+     */
+    llm: ILlmSchema.ModelParameters[Model] | null;
+
+    /**
+     * Parameters that would be composed by the human.
+     */
+    human: ILlmSchema.ModelParameters[Model] | null;
+  }
+}
+```
+  </Tab>
+  <Tab>
+```typescript filename="@samchon/openapi" showLineNumbers
+import { IChatGptSchema } from "./IChatGptSchema";
+import { IClaudeSchema } from "./IClaudeSchema";
+import { IGeminiSchema } from "./IGeminiSchema";
+import { ILlamaSchema } from "./ILlamaSchema";
+import { ILlmSchemaV3 } from "./ILlmSchemaV3";
+import { ILlmSchemaV3_1 } from "./ILlmSchemaV3_1";
+
+/**
+ * The schemas for the LLM function calling.
+ *
+ * `ILlmSchema` is an union type collecting every the schemas for the
+ * LLM function calling.
+ *
+ * Select a proper schema type according to the LLM provider you're using.
+ *
+ * @template Model Name of the target LLM model
+ * @reference https://platform.openai.com/docs/guides/function-calling
+ * @reference https://platform.openai.com/docs/guides/structured-outputs
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export type ILlmSchema<Model extends ILlmSchema.Model = ILlmSchema.Model> =
+  ILlmSchema.ModelSchema[Model];
+
+export namespace ILlmSchema {
+  export type Model = "chatgpt" | "claude" | "gemini" | "llama" | "3.0" | "3.1";
+  export interface ModelConfig {
+    chatgpt: IChatGptSchema.IConfig;
+    claude: IClaudeSchema.IConfig;
+    gemini: IGeminiSchema.IConfig;
+    llama: ILlamaSchema.IConfig;
+    "3.0": ILlmSchemaV3.IConfig;
+    "3.1": ILlmSchemaV3_1.IConfig;
+  }
+  export interface ModelParameters {
+    chatgpt: IChatGptSchema.IParameters;
+    claude: IClaudeSchema.IParameters;
+    gemini: IGeminiSchema.IParameters;
+    llama: ILlamaSchema.IParameters;
+    "3.0": ILlmSchemaV3.IParameters;
+    "3.1": ILlmSchemaV3_1.IParameters;
+  }
+  export interface ModelSchema {
+    chatgpt: IChatGptSchema;
+    claude: IClaudeSchema;
+    gemini: IGeminiSchema;
+    llama: ILlamaSchema;
+    "3.0": ILlmSchemaV3;
+    "3.1": ILlmSchemaV3_1;
+  }
+
+  /**
+   * Type of function parameters.
+   *
+   * `ILlmSchema.IParameters` is a type defining a function's pamameters
+   * as a keyworded object type.
+   *
+   * It also can be utilized for the structured output metadata.
+   *
+   * @reference https://platform.openai.com/docs/guides/structured-outputs
+   */
+  export type IParameters<Model extends ILlmSchema.Model = ILlmSchema.Model> =
+    ILlmSchema.ModelParameters[Model];
+
+  /**
+   * Configuration for the LLM schema composition.
+   */
+  export type IConfig<Model extends ILlmSchema.Model = ILlmSchema.Model> =
+    ILlmSchema.ModelConfig[Model];
+}
+```
+  </Tab>
+</Tabs>
+
+Type schema in the LLM function calling application.
+
+`typia.llm.schema<T, Model>()` is a function generating type schema which is used in the LLM (Large Language Model) function calling application schema or structured output, especially composed by the [`typia.llm.parameters<Parameters, Model>()`](./parameters) and [`typia.llm.application<App, Model>()`](./application) functions. 
+
+Return value type `ILlmSchema` is similar with the JSON schema definition. However, its detailed specification becomes different by the LLM provider model you've chosen. Here is the list of LLM schema definitions of each model. Determine one of them carefully reading the LLM schema definitions.
+
+  - Supported schemas
+    - [`IChatGptSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IChatGptSchema.ts): OpenAI ChatGPT
+    - [`IClaudeSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IClaudeSchema.ts): Anthropic Claude
+    - [`IGeminiSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IGeminiSchema.ts): Google Gemini
+    - [`ILlamaSchema`](https://github.com/samchon/openapi/blob/master/src/structures/ILlamaSchema.ts): Meta Llama
+  - Midldle layer schemas
+    - [`ILlmSchemaV3`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3.ts): middle layer based on OpenAPI v3.0 specification
+    - [`ILlmSchemaV3_1`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3_1.ts): middle layer based on OpenAPI v3.1 specification
+
+<Callout type="info">
+**LLM Function Calling** and **Structured Output**
+
+LLM selects proper function and fill arguments.
+
+In nowadays, most LLM (Large Language Model) like OpenAI are supporting "function calling" feature. The "LLM function calling" means that LLM automatically selects a proper function and fills parameter values from conversation with the user (may by chatting text).
+
+Structured output is another feature of LLM. The "structured output" means that LLM automatically transforms the output conversation into a structured data format like JSON.
+
+- https://platform.openai.com/docs/guides/function-calling
+- https://platform.openai.com/docs/guides/structured-outputs
+</Callout>
+
+
+
+
+## Specialization
+You can utilize [type tags](../validators/tags/#type-tags) (or [validator's comment tags](../validators/tags/#comment-tags)) to constructing special fields of JSON schema. 
+
+If you write any comment on a property, it would fill the `IJsonSchema.description` value. Also, there're special comment tags only for JSON schema definition that are different with [validator's comment tags](../validators/tags/#comment-tags) like below.
+
+  - `@deprecated`
+  - `@hidden`
+  - `@internal`
+  - `@title {string}`
+  - `@default {value}`
+
+Let's see how those [type tags](../validators/tags/#type-tags), comment tags and description comments are working with example code.
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+  <Tab>
+```typescript copy filename="examples/src/llm-schema.ts" showLineNumbers
+import { IChatGptSchema } from "@samchon/openapi";
+import typia, { tags } from "typia";
+
+export const schema: IChatGptSchema = typia.llm.schema<Special, "claude">();
+
+interface Special {
+  /**
+   * Deprecated tags are just used for marking.
+   *
+   * @title Unsigned integer
+   * @deprecated
+   */
+  type: number & tags.Type<"int32">;
+
+  /**
+   * Internal tagged property never be shown in JSON schema.
+   *
+   * It even doesn't be shown in other `typia` functions like `assert<T>()`.
+   *
+   * @internal
+   */
+  internal: number[];
+
+  /**
+   * Hidden tagged property never be shown in JSON schema.
+   *
+   * However, it would be shown in other `typia` functions like `stringify<T>()`.
+   *
+   * @hidden
+   */
+  hidden: boolean;
+
+  /**
+   * You can limit the range of number.
+   *
+   * @exclusiveMinimum 19
+   * @maximum 100
+   * @default 30
+   */
+  number?: number;
+
+  /**
+   * You can limit the length of string.
+   *
+   * Also, multiple range conditions are also possible.
+   */
+  string: string &
+    (
+      | (tags.MinLength<3> & tags.MaxLength<24>)
+      | (tags.MinLength<40> & tags.MaxLength<100>)
+    );
+
+  /**
+   * You can limit the pattern of string.
+   *
+   * @pattern ^[a-z]+$
+   */
+  pattern: string;
+
+  /**
+   * You can limit the format of string.
+   *
+   * @format date-time
+   */
+  format: string | null;
+
+  /**
+   * In the Array case, possible to restrict its elements.
+   */
+  array: Array<string & tags.Format<"uuid">> & tags.MinItems<3>;
+}
+```
+  </Tab>
+  <Tab>
+```javascript filename="examples/bin/llm-schema.js" showLineNumbers
+import typia from "typia";
+export const schema = {
+  type: "object",
+  properties: {
+    type: {
+      type: "integer",
+      deprecated: true,
+      title: "Unsigned integer",
+      description: "Deprecated tags are just used for marking.",
+    },
+    number: {
+      type: "number",
+      exclusiveMinimum: true,
+      minimum: 19,
+      maximum: 100,
+      title: "You can limit the range of number",
+      description: "You can limit the range of number.",
+    },
+    string: {
+      oneOf: [
+        {
+          type: "string",
+          minLength: 3,
+          maxLength: 24,
+        },
+        {
+          type: "string",
+          minLength: 40,
+          maxLength: 100,
+        },
+      ],
+      title: "You can limit the length of string",
+      description:
+        "You can limit the length of string.\n\nAlso, multiple range conditions are also possible.",
+    },
+    pattern: {
+      type: "string",
+      pattern: "^[a-z]+$",
+      title: "You can limit the pattern of string",
+      description: "You can limit the pattern of string.",
+    },
+    format: {
+      oneOf: [
+        {
+          type: "string",
+          format: "date-time",
+        },
+        {
+          type: "null",
+        },
+      ],
+      title: "You can limit the format of string",
+      description: "You can limit the format of string.",
+    },
+    array: {
+      type: "array",
+      items: {
+        type: "string",
+        format: "uuid",
+      },
+      minItems: 3,
+      title: "In the Array case, possible to restrict its elements",
+      description: "In the Array case, possible to restrict its elements.",
+    },
+  },
+  required: ["type", "string", "pattern", "format", "array"],
+  additionalProperties: false,
+};
+```
+  </Tab>
+</Tabs>
+
+
+
+
+## Customziation
+If what you want is not just filling regular properties of LLM schema specification, but to adding custom properties into the JSON schema definition, you can do it through the `tags.TagBase.schema` property type or `tags.JsonSchemaPlugin` type. 
+
+For reference, the custom property must be started with `x-` prefix. It's a rule of LLM schema.
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+  <Tab>
+```typescript copy filename="examples/src/llm-schema-custom.ts" copy showLineNumbers {7-9, 13, 17-18}
+import typia, { tags } from "typia";
+ 
+type Monetary<Value extends string> = tags.TagBase<{
+  target: "number";
+  kind: "monetary";
+  value: Value;
+  schema: {
+    "x-monetary": Value;
+  };
+}>;
+
+type Placeholder<Value extends string> = tags.JsonSchemaPlugin<{
+  "x-placeholder": Value;
+}>;
+
+interface IAccount {
+  code: string & Placeholder<"Write you account code please">;
+  balance: number & Monetary<"dollar">;
+};
+ 
+typia.llm.schema<IAccount, "chatgpt">();
+```
+  </Tab>
+  <Tab>
+```javascript copy filename="examples/bin/llm-schema-custom.js" showLineNumbers {7, 11}
+import typia from "typia";
+({
+  type: "object",
+  properties: {
+    code: {
+      type: "string",
+      "x-placeholder": "Write you account code please",
+    },
+    balance: {
+      type: "number",
+      "x-monetary": "dollar",
+    },
+  },
+  required: ["code", "balance"],
+  additionalProperties: false,
+});
+```
+  </Tab>
+</Tabs>
+
+
+
+
+## Restrictions
+LLM schema does not support `bigint` type.
+
+LLM schema is based on the JSON schema definition of the OpenAPI v3.0 specification. Therefore, limitations of the JSON schema is also applied to the LLM schema, and the `bigint` type is not supported in the LLM function calling schema composition.
+
+Also, LLM schema does not support the tuple type, which is represented by the `OpenApi.IJsonSchema.ITuple` type. It's no LLM providers are supporting the tuple type, and such tuple type harms the separation option of the [`typia.llm.application<App, Model>()`](./application) function. If you need a tuple type, just change the tuple type to a regular object type instead.
+
+<Tabs items={["TypeScript Source Code", "Console Output"]}>
+  <Tab>
+```typescript filename="src/examples/llm.schema.bigint-and-tuple.ts" showLineNumbers
+import typia from "typia";
+
+typia.llm.schema<bigint, "chatgpt">({});
+typia.llm.schema<[number, string], "claude">({});
+```
+  </Tab>
+  <Tab>
+```bash
+src/examples/llm.schema.bigint-and-tuple.ts:3:1 - error TS(typia.llm.schema): unsupported type detected
+
+- bigint
+  - LLM schema does not support bigint type.
+
+3 typia.llm.schema<bigint, "chatgpt">({});
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+src/examples/llm.schema.bigint-and-tuple.ts:4:1 - error TS(typia.llm.schema): failed to convert JSON schema to LLM schema.
+
+  - $input.schema: LLM does not allow tuple type.
+
+4 typia.llm.schema<[number, string], "claude">({});
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+```
+  </Tab>
+</Tabs>
+
+If you're using Google Gemini ([`IGeminiSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IGeminiSchema.ts)) or middle layer schema of [`ILlmSchemaV3`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3.ts), they do not support the reference type that is embodied by the `OpenApi.IJsonSchema.IReference` type with `$ref` property. Therefore, if recursive type comes, no way to express it perfectly in those [`IGeminiSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IGeminiSchema.ts) and [`ILlmSchemaV3`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3.ts). They just repeat the recursive structure 3 times, and remove the recursive type after the 4 depths.
+
+For reference, if the recursive type comes from the array type, it would be zero length array type at the fourth step. Otherwise the recursive type comes from a property and the property is optional, the 4th property would be removed from the object type. At last, if the recursive type is combined as an `oneOf` type, the type would be removed from there.
+
+<Tabs items={["TypeScript Source Code", "Compiled JavaScript File"]}>
+  <Tab>
+```typescript filename="src/examples/llm.schema.recursive.ts" showLineNumbers
+import typia, { tags } from "typia";
+
+typia.llm.schema<IDepartment, "gemini">();
+
+interface IDepartment {
+  id: string & tags.Format<"uuid">;
+  name: string;
+  department: IDepartment[];
+}
+```
+  </Tab>
+  <Tab>
+```javascript filename="example/bin/llm.schema.recursive.js" showLineNumbers
+"use strict";
+var __importDefault =
+  (this && this.__importDefault) ||
+  function (mod) {
+    return mod && mod.__esModule ? mod : { default: mod };
+  };
+Object.defineProperty(exports, "__esModule", { value: true });
+const typia_1 = __importDefault(require("typia"));
+({
+  type: "object",
+  properties: {
+    id: {
+      type: "string",
+      format: "uuid",
+    },
+    name: {
+      type: "string",
+    },
+    department: {
+      type: "array",
+      items: {
+        type: "object",
+        properties: {
+          id: {
+            type: "string",
+            format: "uuid",
+          },
+          name: {
+            type: "string",
+          },
+          department: {
+            type: "array",
+            items: {
+              type: "object",
+              properties: {
+                id: {
+                  type: "string",
+                  format: "uuid",
+                },
+                name: {
+                  type: "string",
+                },
+                department: {
+                  type: "array",
+                  items: {
+                    type: "object",
+                    properties: {
+                      id: {
+                        type: "string",
+                        format: "uuid",
+                      },
+                      name: {
+                        type: "string",
+                      },
+                      department: {
+                        type: "array",
+                        items: {},
+                        maxItems: 0,
+                      },
+                    },
+                    required: ["id", "name", "department"],
+                    additionalProperties: false,
+                  },
+                },
+              },
+              required: ["id", "name", "department"],
+              additionalProperties: false,
+            },
+          },
+        },
+        required: ["id", "name", "department"],
+        additionalProperties: false,
+      },
+    },
+  },
+  required: ["id", "name", "department"],
+  additionalProperties: false,
+});
+```
+  </Tab>
+</Tabs>
+
+And OpenAI ChatGPT ([`IChatGptSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IChatGptSchema.ts)) and Google Gemini ([`IGeminiSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IGeminiSchema.ts)) do not support the `OpenApi.IJsonSchema.IObject.additionalProperties` type, which represent the dynamic key typed object like `Record<string, T>` type in the TypeScript. Therefore, if you put the dynamic `Record<string, T>` type like below, `typia.llm.schema<T, "chatgpt">()` and `typia.llm.schema<T, "gemini">` functions throw the compilation error like below.
+
+Therefore, if you want to utilzie OpenAI hatGPT ([`IChatGptSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IChatGptSchema.ts)) or Google Gemini ([`IGeminiSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IGeminiSchema.ts)), you have to change the `Record<string, T>` type to an array of regular object type like below. Note that, as LLM providers do not support the `tuple` type, you don't have to define the array type containing the tuple type.
+
+  - recommended: `Array<{ key: string, value: T }>`
+  - not recommended: `Array<[string, T]>`
+
+<Tabs items={["TypeScript Source Code", "Console Output"]}>
+  <Tab>
+```typescript filename="src/examples/llm.schema.additionalProperties.ts" showLineNumbers
+import typia from "typia";
+
+typia.llm.schema<Record<string, number>, "chatgpt">({});
+typia.llm.schema<Record<string, number>, "gemini">();
+```
+  </Tab>
+  <Tab>
+```bash
+src/examples/llm.schema.additionalProperties.ts:3:1 - error TS(typia.llm.schema): unsupported type detected
+
+- Recordstringnumber
+  - LLM schema of "chatgpt" does not support dynamic property in object.  
+
+- Recordstringnumber: Recordstringnumber
+  - LLM schema of "chatgpt" does not support dynamic property in object.  
+
+3 typia.llm.schema<Record<string, number>, "chatgpt">({});
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+src/examples/llm.schema.additionalProperties.ts:4:1 - error TS(typia.llm.schema): unsupported type detected
+
+- Recordstringnumber
+  - LLM schema of "gemini" does not support dynamic property in object.   
+
+- Recordstringnumber: Recordstringnumber
+  - LLM schema of "gemini" does not support dynamic property in object.   
+
+4 typia.llm.schema<Record<string, number>, "gemini">();
+  ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+```
+  </Tab>
+</Tabs>

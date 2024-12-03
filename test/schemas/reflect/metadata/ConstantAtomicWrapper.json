@@ -5,7 +5,7 @@
       "required": true,
       "optional": false,
       "nullable": false,
-      "functional": false,
+      "functions": [],
       "atomics": [],
       "constants": [],
       "templates": [],
@@ -36,14 +36,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -64,7 +65,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "boolean",
@@ -103,14 +104,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -131,7 +133,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "number",
@@ -170,14 +172,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -198,7 +201,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "string",
@@ -241,7 +244,7 @@
             "required": true,
             "optional": false,
             "nullable": false,
-            "functional": false,
+            "functions": [],
             "atomics": [],
             "constants": [],
             "templates": [],
@@ -250,7 +253,10 @@
             "arrays": [],
             "tuples": [],
             "objects": [
-              "ConstantAtomicWrapper.IPointer<boolean>"
+              {
+                "name": "ConstantAtomicWrapper.IPointer<boolean>",
+                "tags": []
+              }
             ],
             "aliases": [],
             "natives": [],
@@ -262,7 +268,7 @@
             "required": true,
             "optional": false,
             "nullable": false,
-            "functional": false,
+            "functions": [],
             "atomics": [],
             "constants": [],
             "templates": [],
@@ -271,7 +277,10 @@
             "arrays": [],
             "tuples": [],
             "objects": [
-              "ConstantAtomicWrapper.IPointer<number>"
+              {
+                "name": "ConstantAtomicWrapper.IPointer<number>",
+                "tags": []
+              }
             ],
             "aliases": [],
             "natives": [],
@@ -283,7 +292,7 @@
             "required": true,
             "optional": false,
             "nullable": false,
-            "functional": false,
+            "functions": [],
             "atomics": [],
             "constants": [],
             "templates": [],
@@ -292,7 +301,10 @@
             "arrays": [],
             "tuples": [],
             "objects": [
-              "ConstantAtomicWrapper.IPointer<string>"
+              {
+                "name": "ConstantAtomicWrapper.IPointer<string>",
+                "tags": []
+              }
             ],
             "aliases": [],
             "natives": [],

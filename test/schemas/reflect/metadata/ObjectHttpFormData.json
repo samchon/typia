@@ -5,7 +5,7 @@
       "required": true,
       "optional": false,
       "nullable": false,
-      "functional": false,
+      "functions": [],
       "atomics": [],
       "constants": [],
       "templates": [],
@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ObjectHttpFormData"
+        {
+          "name": "ObjectHttpFormData",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -33,14 +36,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -61,7 +65,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "string",
@@ -72,7 +76,7 @@
                         "name": "Format<\"uuid\">",
                         "kind": "format",
                         "value": "uuid",
-                        "validate": "/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test($input)",
+                        "validate": "$importInternal(\"isFormatUuid\")($input)",
                         "exclusive": [
                           "format",
                           "pattern"
@@ -106,14 +110,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "number"
+                      "value": "number",
+                      "tags": []
                     }
                   ]
                 }
@@ -134,7 +139,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "number",
@@ -162,14 +167,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "integers"
+                      "value": "integers",
+                      "tags": []
                     }
                   ]
                 }
@@ -190,7 +196,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -218,14 +224,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "blob"
+                      "value": "blob",
+                      "tags": []
                     }
                   ]
                 }
@@ -246,7 +253,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -257,7 +264,10 @@
               "objects": [],
               "aliases": [],
               "natives": [
-                "Blob"
+                {
+                  "name": "Blob",
+                  "tags": []
+                }
               ],
               "sets": [],
               "maps": []
@@ -271,14 +281,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "blobs"
+                      "value": "blobs",
+                      "tags": []
                     }
                   ]
                 }
@@ -299,7 +310,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -327,14 +338,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "file"
+                      "value": "file",
+                      "tags": []
                     }
                   ]
                 }
@@ -355,7 +367,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -366,7 +378,10 @@
               "objects": [],
               "aliases": [],
               "natives": [
-                "File"
+                {
+                  "name": "File",
+                  "tags": []
+                }
               ],
               "sets": [],
               "maps": []
@@ -380,14 +395,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "files"
+                      "value": "files",
+                      "tags": []
                     }
                   ]
                 }
@@ -408,7 +424,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -448,7 +464,7 @@
           "required": true,
           "optional": false,
           "nullable": false,
-          "functional": false,
+          "functions": [],
           "atomics": [
             {
               "type": "number",
@@ -459,7 +475,7 @@
                     "name": "Type<\"int32\">",
                     "kind": "type",
                     "value": "int32",
-                    "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
+                    "validate": "$importInternal(\"isTypeInt32\")($input)",
                     "exclusive": true,
                     "schema": {
                       "type": "integer"
@@ -494,7 +510,7 @@
           "required": true,
           "optional": false,
           "nullable": false,
-          "functional": false,
+          "functions": [],
           "atomics": [],
           "constants": [],
           "templates": [],
@@ -505,7 +521,10 @@
           "objects": [],
           "aliases": [],
           "natives": [
-            "Blob"
+            {
+              "name": "Blob",
+              "tags": []
+            }
           ],
           "sets": [],
           "maps": []
@@ -523,7 +542,7 @@
           "required": true,
           "optional": false,
           "nullable": false,
-          "functional": false,
+          "functions": [],
           "atomics": [],
           "constants": [],
           "templates": [],
@@ -534,7 +553,10 @@
           "objects": [],
           "aliases": [],
           "natives": [
-            "File"
+            {
+              "name": "File",
+              "tags": []
+            }
           ],
           "sets": [],
           "maps": []

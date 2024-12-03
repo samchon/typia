@@ -1,0 +1,31 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "oneOf": [
+        {
+          "const": "latest"
+        },
+        {
+          "type": "string",
+          "format": "uuid"
+        }
+      ]
+    },
+    "age": {
+      "oneOf": [
+        {
+          "const": -1
+        },
+        {
+          "type": "integer",
+          "maximum": 100
+        }
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "age"
+  ]
+}

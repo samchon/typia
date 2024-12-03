@@ -1,7 +1,7 @@
 import ts from "typescript";
 
 import { Metadata } from "../../../schemas/metadata/Metadata";
-import { MetadataObject } from "../../../schemas/metadata/MetadataObject";
+import { MetadataObjectType } from "../../../schemas/metadata/MetadataObjectType";
 import { MetadataProperty } from "../../../schemas/metadata/MetadataProperty";
 
 import { Writable } from "../../../typings/Writable";
@@ -9,168 +9,200 @@ import { Writable } from "../../../typings/Writable";
 import { ArrayUtil } from "../../../utils/ArrayUtil";
 
 import { CommentFactory } from "../../CommentFactory";
-import { MetadataCollection } from "../../MetadataCollection";
-import { MetadataFactory } from "../../MetadataFactory";
+import { IMetadataIteratorProps } from "./IMetadataIteratorProps";
 import { MetadataHelper } from "./MetadataHelper";
 import { explore_metadata } from "./explore_metadata";
 import { iterate_metadata_coalesce } from "./iterate_metadata_coalesce";
 
-export const emplace_metadata_object =
-  (checker: ts.TypeChecker) =>
-  (options: MetadataFactory.IOptions) =>
-  (collection: MetadataCollection) =>
-  (errors: MetadataFactory.IError[]) =>
-  (parent: ts.Type, nullable: boolean): MetadataObject => {
-    // EMPLACE OBJECT
-    const [obj, newbie] = collection.emplace(checker, parent);
-    ArrayUtil.add(obj.nullables, nullable, (elem) => elem === nullable);
+export const emplace_metadata_object = (
+  props: IMetadataIteratorProps,
+): MetadataObjectType => {
+  // EMPLACE OBJECT
+  const [obj, newbie] = props.collection.emplace(props.checker, props.type);
+  ArrayUtil.add(
+    obj.nullables,
+    props.metadata.nullable,
+    (elem) => elem === props.metadata.nullable,
+  );
 
-    if (newbie === false) return obj;
+  if (newbie === false) return obj;
 
-    // PREPARE ASSETS
-    const isClass: boolean = parent.isClass();
-    const pred: (node: ts.Declaration) => boolean = isClass
-      ? (node) => {
-          const kind: ts.SyntaxKind | undefined = node
-            .getChildren()[0]
-            ?.getChildren()[0]?.kind;
-          return (
-            kind !== ts.SyntaxKind.PrivateKeyword &&
-            kind !== ts.SyntaxKind.ProtectedKeyword &&
-            isProperty(node)
-          );
-        }
-      : (node) => isProperty(node);
+  // PREPARE ASSETS
+  const isClass: boolean = props.type.isClass();
+  const isProperty = significant(!!props.options.functional);
+  const pred: (node: ts.Declaration) => boolean = isClass
+    ? (node) => {
+        const kind: ts.SyntaxKind | undefined = node
+          .getChildren()[0]
+          ?.getChildren()[0]?.kind;
+        return (
+          kind !== ts.SyntaxKind.PrivateKeyword &&
+          kind !== ts.SyntaxKind.ProtectedKeyword &&
+          isProperty(node)
+        );
+      }
+    : (node) => isProperty(node);
 
-    const insert =
-      (key: Metadata) =>
-      (value: Metadata) =>
-      (
-        symbol: ts.Symbol | undefined,
-        filter?: (doc: ts.JSDocTagInfo) => boolean,
-      ): MetadataProperty => {
-        // COMMENTS AND TAGS
-        const description: string | null = symbol
-          ? CommentFactory.description(symbol) ?? null
-          : null;
-        const jsDocTags: ts.JSDocTagInfo[] = (
-          symbol?.getJsDocTags() ?? []
-        ).filter(filter ?? (() => true));
+  const insert = (props: {
+    key: Metadata;
+    value: Metadata;
+    symbol: ts.Symbol | undefined;
+    filter?: (doc: ts.JSDocTagInfo) => boolean;
+  }): MetadataProperty => {
+    // COMMENTS AND TAGS
+    const description: string | null = props.symbol
+      ? (CommentFactory.description(props.symbol) ?? null)
+      : null;
+    const jsDocTags: ts.JSDocTagInfo[] = (
+      props.symbol?.getJsDocTags() ?? []
+    ).filter(props.filter ?? (() => true));
 
-        // THE PROPERTY
-        const property = MetadataProperty.create({
-          key,
-          value,
-          description,
-          jsDocTags,
-        });
-        obj.properties.push(property);
-        return property;
-      };
+    // THE PROPERTY
+    const property: MetadataProperty = MetadataProperty.create({
+      key: props.key,
+      value: props.value,
+      description,
+      jsDocTags,
+    });
+    obj.properties.push(property);
+    return property;
+  };
 
-    //----
-    // REGULAR PROPERTIES
-    //----
-    for (const prop of parent.getApparentProperties()) {
-      // CHECK INTERNAL TAG
-      if (
-        (prop.getJsDocTags(checker) ?? []).find(
-          (tag) => tag.name === "internal",
-        ) !== undefined
-      )
-        continue;
+  //----
+  // REGULAR PROPERTIES
+  //----
+  for (const symbol of props.type.getApparentProperties()) {
+    // CHECK INTERNAL TAG
+    if (
+      (symbol.getJsDocTags(props.checker) ?? []).find(
+        (tag) => tag.name === "internal",
+      ) !== undefined
+    )
+      continue;
 
-      // CHECK NODE IS A FORMAL PROPERTY
-      const [node, type] = (() => {
-        const node = prop.getDeclarations()?.[0] as
-          | ts.PropertyDeclaration
-          | undefined;
-        const type: ts.Type | undefined = node
-          ? checker.getTypeOfSymbolAtLocation(prop, node)
-          : checker.getTypeOfPropertyOfType(parent, prop.name);
-        return [node, type];
-      })();
-      if ((node && pred(node) === false) || type === undefined) continue;
+    // CHECK NODE IS A FORMAL PROPERTY
+    const [node, type] = (() => {
+      const node = symbol.getDeclarations()?.[0] as
+        | ts.PropertyDeclaration
+        | undefined;
+      const type: ts.Type | undefined = node
+        ? props.checker.getTypeOfSymbolAtLocation(symbol, node)
+        : props.checker.getTypeOfPropertyOfType(props.type, symbol.name);
+      return [node, type];
+    })();
+    if ((node && pred(node) === false) || type === undefined) continue;
 
-      // GET EXACT TYPE
-      const key: Metadata = MetadataHelper.literal_to_metadata(prop.name);
-      const value: Metadata = explore_metadata(checker)(options)(collection)(
-        errors,
-      )(type, {
+    // GET EXACT TYPE
+    const key: Metadata = MetadataHelper.literal_to_metadata(symbol.name);
+    const value: Metadata = explore_metadata({
+      ...props,
+      type,
+      explore: {
         top: false,
         object: obj,
-        property: prop.name,
+        property: symbol.name,
+        parameter: null,
         nested: null,
-        escaped: false,
         aliased: false,
-      });
-      Writable(value).optional = (prop.flags & ts.SymbolFlags.Optional) !== 0;
-      insert(key)(value)(prop);
-    }
+        escaped: false,
+        output: false,
+      },
+      intersected: false,
+    });
+    Writable(value).optional = (symbol.flags & ts.SymbolFlags.Optional) !== 0;
+    insert({
+      key,
+      value,
+      symbol,
+    });
+  }
 
-    //----
-    // DYNAMIC PROPERTIES
-    //----
-    for (const index of checker.getIndexInfosOfType(parent)) {
-      // GET EXACT TYPE
-      const analyzer = (type: ts.Type) => (property: {} | null) =>
-        explore_metadata(checker)(options)(collection)(errors)(type, {
+  //----
+  // DYNAMIC PROPERTIES
+  //----
+  for (const index of props.checker.getIndexInfosOfType(props.type)) {
+    // GET EXACT TYPE
+    const analyzer = (type: ts.Type) => (property: {} | null) =>
+      explore_metadata({
+        ...props,
+        type,
+        explore: {
           top: false,
           object: obj,
           property,
+          parameter: null,
           nested: null,
-          escaped: false,
           aliased: false,
-        });
-      const key: Metadata = analyzer(index.keyType)(null);
-      const value: Metadata = analyzer(index.type)({});
+          escaped: false,
+          output: false,
+        },
+        intersected: false,
+      });
+    const key: Metadata = analyzer(index.keyType)(null);
+    const value: Metadata = analyzer(index.type)({});
 
-      if (
-        key.atomics.length +
-          key.constants.map((c) => c.values.length).reduce((a, b) => a + b, 0) +
-          key.templates.length +
-          key.natives.filter(
-            (type) =>
-              type === "Boolean" ||
-              type === "BigInt" ||
-              type === "Number" ||
-              type === "String",
-          ).length !==
-        key.size()
-      )
-        errors.push({
-          name: key.getName(),
-          explore: {
-            top: false,
-            object: obj,
-            property: "[key]",
-            nested: null,
-            escaped: false,
-            aliased: false,
-          },
-          messages: [],
-        });
+    if (
+      key.atomics.length +
+        key.constants.map((c) => c.values.length).reduce((a, b) => a + b, 0) +
+        key.templates.length +
+        key.natives.filter(
+          (native) =>
+            native.name === "Boolean" ||
+            native.name === "BigInt" ||
+            native.name === "Number" ||
+            native.name === "String",
+        ).length !==
+      key.size()
+    )
+      props.errors.push({
+        name: key.getName(),
+        explore: {
+          top: false,
+          object: obj,
+          property: "[key]",
+          parameter: null,
+          nested: null,
+          aliased: false,
+          escaped: false,
+          output: false,
+        },
+        messages: [],
+      });
 
-      // INSERT WITH REQUIRED CONFIGURATION
-      insert(key)(value)(
-        index.declaration?.parent
-          ? checker.getSymbolAtLocation(index.declaration.parent)
-          : undefined,
-        (doc) => doc.name !== "default",
-      );
-    }
-    return obj;
-  };
+    // INSERT WITH REQUIRED CONFIGURATION
+    insert({
+      key,
+      value,
+      symbol: index.declaration?.parent
+        ? props.checker.getSymbolAtLocation(index.declaration.parent)
+        : undefined,
+      filter: (doc) => doc.name !== "default",
+    });
+  }
+  return obj;
+};
 
-const isProperty = (node: ts.Declaration) =>
-  ts.isParameter(node) ||
-  ts.isPropertyDeclaration(node) ||
-  ts.isPropertyAssignment(node) ||
-  ts.isPropertySignature(node) ||
-  ts.isTypeLiteralNode(node);
+const significant = (functional: boolean) =>
+  functional
+    ? (node: ts.Declaration) => !ts.isAccessor(node)
+    : (node: ts.Declaration) =>
+        ts.isParameter(node) ||
+        ts.isPropertyDeclaration(node) ||
+        ts.isPropertyAssignment(node) ||
+        ts.isPropertySignature(node) ||
+        ts.isTypeLiteralNode(node) ||
+        ts.isShorthandPropertyAssignment(node);
 
-const iterate_optional_coalesce = (meta: Metadata, type: ts.Type): void => {
-  if (type.isUnionOrIntersection())
-    type.types.forEach((child) => iterate_optional_coalesce(meta, child));
-  else iterate_metadata_coalesce(meta, type);
+const iterate_optional_coalesce = (props: {
+  metadata: Metadata;
+  type: ts.Type;
+}): void => {
+  if (props.type.isUnionOrIntersection())
+    props.type.types.forEach((child) =>
+      iterate_optional_coalesce({
+        metadata: props.metadata,
+        type: child,
+      }),
+    );
+  else iterate_metadata_coalesce(props);
 };

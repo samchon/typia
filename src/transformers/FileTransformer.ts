@@ -1,60 +1,105 @@
 import ts from "typescript";
 
+import { ImportProgrammer } from "../programmers/ImportProgrammer";
+
 import { Singleton } from "../utils/Singleton";
 
-import { IProject } from "./IProject";
+import { ITypiaContext } from "./ITypiaContext";
 import { NodeTransformer } from "./NodeTransformer";
 import { TransformerError } from "./TransformerError";
 
 export namespace FileTransformer {
   export const transform =
-    (environments: Omit<IProject, "context">) =>
-    (context: ts.TransformationContext) =>
+    (environments: Omit<ITypiaContext, "transformer" | "importer">) =>
+    (transformer: ts.TransformationContext) =>
     (file: ts.SourceFile): ts.SourceFile => {
       if (file.isDeclarationFile) return file;
 
-      const project: IProject = {
+      const importer: ImportProgrammer = new ImportProgrammer({
+        internalPrefix: "typia_transform_",
+      });
+      const context: ITypiaContext = {
         ...environments,
-        context,
+        transformer,
+        importer,
       };
-      checkJsDocParsingMode.get(project, file);
+      checkJsDocParsingMode.get(context, file);
 
-      return ts.visitEachChild(
+      file = ts.visitEachChild(
         file,
-        (node) => iterate_node(project)(node),
-        context,
+        (node) =>
+          iterate_node({
+            context,
+            node,
+          }),
+        transformer,
+      );
+      const index: number = find_import_injection_index(file);
+      return ts.factory.updateSourceFile(
+        file,
+        [
+          ...file.statements.slice(0, index),
+          ...importer.toStatements(),
+          ...file.statements.slice(index),
+        ],
+        false,
+        file.referencedFiles,
+        file.typeReferenceDirectives,
+        file.hasNoDefaultLib,
+        file.libReferenceDirectives,
       );
     };
 
-  const iterate_node =
-    (project: IProject) =>
-    (node: ts.Node): ts.Node =>
-      ts.visitEachChild(
-        try_transform_node(project)(node) ?? node,
-        (child) => iterate_node(project)(child),
-        project.context,
-      );
+  const iterate_node = (props: {
+    context: ITypiaContext;
+    node: ts.Node;
+  }): ts.Node =>
+    ts.visitEachChild(
+      try_transform_node(props) ?? props.node,
+      (node) =>
+        iterate_node({
+          context: props.context,
+          node,
+        }),
+      props.context.transformer,
+    );
 
-  const try_transform_node =
-    (project: IProject) =>
-    (node: ts.Node): ts.Node | null => {
-      try {
-        return NodeTransformer.transform(project)(node);
-      } catch (exp) {
-        // ONLY ACCEPT TRANSFORMER-ERROR
-        if (!isTransformerError(exp)) throw exp;
+  const try_transform_node = (props: {
+    context: ITypiaContext;
+    node: ts.Node;
+  }): ts.Node | null => {
+    try {
+      return NodeTransformer.transform(props);
+    } catch (exp) {
+      // ONLY ACCEPT TRANSFORMER-ERROR
+      if (!isTransformerError(exp)) throw exp;
 
-        // REPORT DIAGNOSTIC
-        const diagnostic = ts.createDiagnosticForNode(node, {
-          key: exp.code,
-          category: ts.DiagnosticCategory.Error,
-          message: exp.message,
-          code: `(${exp.code})` as any,
-        });
-        project.extras.addDiagnostic(diagnostic);
-        return null;
-      }
-    };
+      // REPORT DIAGNOSTIC
+      const diagnostic = ts.createDiagnosticForNode(props.node, {
+        key: exp.code,
+        category: ts.DiagnosticCategory.Error,
+        message: exp.message,
+        code: `(${exp.code})` as any,
+      });
+      props.context.extras.addDiagnostic(diagnostic);
+      return null;
+    }
+  };
+
+  const find_import_injection_index = (file: ts.SourceFile): number => {
+    let i: number = 0;
+    for (; i < file.statements.length; ++i) {
+      const stmt: ts.Statement = file.statements[i]!;
+      if (
+        ts.isExpressionStatement(stmt) &&
+        ts.isStringLiteralLike(stmt.expression) &&
+        stmt.expression.text.startsWith("use ")
+      )
+        continue;
+      break;
+    }
+    return i;
+  };
 }
 
 const isTransformerError = (error: any): error is TransformerError =>
@@ -65,12 +110,12 @@ const isTransformerError = (error: any): error is TransformerError =>
   typeof error.message === "string";
 
 const checkJsDocParsingMode = new Singleton(
-  (project: IProject, file: ts.SourceFile) => {
+  (context: ITypiaContext, file: ts.SourceFile) => {
     if (
       typeof file.jsDocParsingMode === "number" &&
       file.jsDocParsingMode !== 0
     ) {
-      project.extras.addDiagnostic(
+      context.extras.addDiagnostic(
         ts.createDiagnosticForNode(file, {
           code: `(typia setup)` as any,
           key: "jsDocParsingMode",

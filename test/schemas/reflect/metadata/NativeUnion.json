@@ -5,7 +5,7 @@
       "required": true,
       "optional": false,
       "nullable": false,
-      "functional": false,
+      "functions": [],
       "atomics": [],
       "constants": [],
       "templates": [],
@@ -36,14 +36,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "date"
+                      "value": "date",
+                      "tags": []
                     }
                   ]
                 }
@@ -64,7 +65,7 @@
               "required": true,
               "optional": false,
               "nullable": true,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -74,7 +75,7 @@
                   "required": true,
                   "optional": false,
                   "nullable": false,
-                  "functional": false,
+                  "functions": [],
                   "atomics": [],
                   "constants": [],
                   "templates": [],
@@ -85,7 +86,10 @@
                   "objects": [],
                   "aliases": [],
                   "natives": [
-                    "Date"
+                    {
+                      "name": "Date",
+                      "tags": []
+                    }
                   ],
                   "sets": [],
                   "maps": []
@@ -95,7 +99,7 @@
                   "required": true,
                   "optional": false,
                   "nullable": false,
-                  "functional": false,
+                  "functions": [],
                   "atomics": [
                     {
                       "type": "string",
@@ -133,14 +137,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "unsigned"
+                      "value": "unsigned",
+                      "tags": []
                     }
                   ]
                 }
@@ -161,7 +166,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -172,11 +177,26 @@
               "objects": [],
               "aliases": [],
               "natives": [
-                "Uint8Array",
-                "Uint8ClampedArray",
-                "Uint16Array",
-                "Uint32Array",
-                "BigUint64Array"
+                {
+                  "name": "Uint8Array",
+                  "tags": []
+                },
+                {
+                  "name": "Uint8ClampedArray",
+                  "tags": []
+                },
+                {
+                  "name": "Uint16Array",
+                  "tags": []
+                },
+                {
+                  "name": "Uint32Array",
+                  "tags": []
+                },
+                {
+                  "name": "BigUint64Array",
+                  "tags": []
+                }
               ],
               "sets": [],
               "maps": []
@@ -190,14 +210,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "signed"
+                      "value": "signed",
+                      "tags": []
                     }
                   ]
                 }
@@ -218,7 +239,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -229,10 +250,22 @@
               "objects": [],
               "aliases": [],
               "natives": [
-                "Int8Array",
-                "Int16Array",
-                "Int32Array",
-                "BigInt64Array"
+                {
+                  "name": "Int8Array",
+                  "tags": []
+                },
+                {
+                  "name": "Int16Array",
+                  "tags": []
+                },
+                {
+                  "name": "Int32Array",
+                  "tags": []
+                },
+                {
+                  "name": "BigInt64Array",
+                  "tags": []
+                }
               ],
               "sets": [],
               "maps": []
@@ -246,14 +279,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "float"
+                      "value": "float",
+                      "tags": []
                     }
                   ]
                 }
@@ -274,7 +308,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -285,8 +319,14 @@
               "objects": [],
               "aliases": [],
               "natives": [
-                "Float32Array",
-                "Float64Array"
+                {
+                  "name": "Float32Array",
+                  "tags": []
+                },
+                {
+                  "name": "Float64Array",
+                  "tags": []
+                }
               ],
               "sets": [],
               "maps": []
@@ -300,14 +340,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "buffer"
+                      "value": "buffer",
+                      "tags": []
                     }
                   ]
                 }
@@ -328,7 +369,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -339,8 +380,14 @@
               "objects": [],
               "aliases": [],
               "natives": [
-                "ArrayBuffer",
-                "SharedArrayBuffer"
+                {
+                  "name": "ArrayBuffer",
+                  "tags": []
+                },
+                {
+                  "name": "SharedArrayBuffer",
+                  "tags": []
+                }
               ],
               "sets": [],
               "maps": []
@@ -366,7 +413,7 @@
           "required": true,
           "optional": false,
           "nullable": false,
-          "functional": false,
+          "functions": [],
           "atomics": [],
           "constants": [],
           "templates": [],
@@ -375,7 +422,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "NativeUnion.Union"
+            {
+              "name": "NativeUnion.Union",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

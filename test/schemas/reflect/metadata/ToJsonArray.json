@@ -5,7 +5,7 @@
       "required": true,
       "optional": false,
       "nullable": false,
-      "functional": false,
+      "functions": [],
       "atomics": [],
       "constants": [],
       "templates": [],
@@ -36,14 +36,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "toJSON"
+                      "value": "toJSON",
+                      "tags": []
                     }
                   ]
                 }
@@ -64,7 +65,36 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": true,
+              "functions": [
+                {
+                  "parameters": [],
+                  "output": {
+                    "any": false,
+                    "required": true,
+                    "optional": false,
+                    "nullable": false,
+                    "functions": [],
+                    "atomics": [],
+                    "constants": [],
+                    "templates": [],
+                    "escaped": null,
+                    "rest": null,
+                    "arrays": [
+                      {
+                        "name": "Array<boolean>",
+                        "tags": []
+                      }
+                    ],
+                    "tuples": [],
+                    "objects": [],
+                    "aliases": [],
+                    "natives": [],
+                    "sets": [],
+                    "maps": []
+                  },
+                  "async": false
+                }
+              ],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -98,14 +128,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "toJSON"
+                      "value": "toJSON",
+                      "tags": []
                     }
                   ]
                 }
@@ -126,7 +157,36 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": true,
+              "functions": [
+                {
+                  "parameters": [],
+                  "output": {
+                    "any": false,
+                    "required": true,
+                    "optional": false,
+                    "nullable": false,
+                    "functions": [],
+                    "atomics": [],
+                    "constants": [],
+                    "templates": [],
+                    "escaped": null,
+                    "rest": null,
+                    "arrays": [
+                      {
+                        "name": "Array<number>",
+                        "tags": []
+                      }
+                    ],
+                    "tuples": [],
+                    "objects": [],
+                    "aliases": [],
+                    "natives": [],
+                    "sets": [],
+                    "maps": []
+                  },
+                  "async": false
+                }
+              ],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -160,14 +220,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "toJSON"
+                      "value": "toJSON",
+                      "tags": []
                     }
                   ]
                 }
@@ -188,7 +249,36 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": true,
+              "functions": [
+                {
+                  "parameters": [],
+                  "output": {
+                    "any": false,
+                    "required": true,
+                    "optional": false,
+                    "nullable": false,
+                    "functions": [],
+                    "atomics": [],
+                    "constants": [],
+                    "templates": [],
+                    "escaped": null,
+                    "rest": null,
+                    "arrays": [
+                      {
+                        "name": "Array<string>",
+                        "tags": []
+                      }
+                    ],
+                    "tuples": [],
+                    "objects": [],
+                    "aliases": [],
+                    "natives": [],
+                    "sets": [],
+                    "maps": []
+                  },
+                  "async": false
+                }
+              ],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -222,14 +312,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "toJSON"
+                      "value": "toJSON",
+                      "tags": []
                     }
                   ]
                 }
@@ -250,7 +341,36 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": true,
+              "functions": [
+                {
+                  "parameters": [],
+                  "output": {
+                    "any": false,
+                    "required": true,
+                    "optional": false,
+                    "nullable": false,
+                    "functions": [],
+                    "atomics": [],
+                    "constants": [],
+                    "templates": [],
+                    "escaped": null,
+                    "rest": null,
+                    "arrays": [
+                      {
+                        "name": "Array<ToJsonArray.IObject>",
+                        "tags": []
+                      }
+                    ],
+                    "tuples": [],
+                    "objects": [],
+                    "aliases": [],
+                    "natives": [],
+                    "sets": [],
+                    "maps": []
+                  },
+                  "async": false
+                }
+              ],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -284,14 +404,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -312,7 +433,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "string",
@@ -352,7 +473,7 @@
           "required": true,
           "optional": false,
           "nullable": false,
-          "functional": false,
+          "functions": [],
           "atomics": [
             {
               "type": "boolean",
@@ -384,7 +505,7 @@
           "required": true,
           "optional": false,
           "nullable": false,
-          "functional": false,
+          "functions": [],
           "atomics": [
             {
               "type": "number",
@@ -416,7 +537,7 @@
           "required": true,
           "optional": false,
           "nullable": false,
-          "functional": false,
+          "functions": [],
           "atomics": [
             {
               "type": "string",
@@ -448,7 +569,7 @@
           "required": true,
           "optional": false,
           "nullable": false,
-          "functional": false,
+          "functions": [],
           "atomics": [],
           "constants": [],
           "templates": [],
@@ -457,7 +578,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ToJsonArray.IObject"
+            {
+              "name": "ToJsonArray.IObject",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],
@@ -481,7 +605,7 @@
             "required": true,
             "optional": false,
             "nullable": false,
-            "functional": false,
+            "functions": [],
             "atomics": [],
             "constants": [],
             "templates": [],
@@ -491,7 +615,7 @@
                 "required": true,
                 "optional": false,
                 "nullable": false,
-                "functional": false,
+                "functions": [],
                 "atomics": [],
                 "constants": [],
                 "templates": [],
@@ -500,7 +624,10 @@
                 "arrays": [],
                 "tuples": [],
                 "objects": [
-                  "ToJsonArray.IArray<boolean>"
+                  {
+                    "name": "ToJsonArray.IArray<boolean>",
+                    "tags": []
+                  }
                 ],
                 "aliases": [],
                 "natives": [],
@@ -512,7 +639,7 @@
                 "required": true,
                 "optional": false,
                 "nullable": false,
-                "functional": false,
+                "functions": [],
                 "atomics": [],
                 "constants": [],
                 "templates": [],
@@ -546,7 +673,7 @@
             "required": true,
             "optional": false,
             "nullable": false,
-            "functional": false,
+            "functions": [],
             "atomics": [],
             "constants": [],
             "templates": [],
@@ -556,7 +683,7 @@
                 "required": true,
                 "optional": false,
                 "nullable": false,
-                "functional": false,
+                "functions": [],
                 "atomics": [],
                 "constants": [],
                 "templates": [],
@@ -565,7 +692,10 @@
                 "arrays": [],
                 "tuples": [],
                 "objects": [
-                  "ToJsonArray.IArray<number>"
+                  {
+                    "name": "ToJsonArray.IArray<number>",
+                    "tags": []
+                  }
                 ],
                 "aliases": [],
                 "natives": [],
@@ -577,7 +707,7 @@
                 "required": true,
                 "optional": false,
                 "nullable": false,
-                "functional": false,
+                "functions": [],
                 "atomics": [],
                 "constants": [],
                 "templates": [],
@@ -611,7 +741,7 @@
             "required": true,
             "optional": false,
             "nullable": false,
-            "functional": false,
+            "functions": [],
             "atomics": [],
             "constants": [],
             "templates": [],
@@ -621,7 +751,7 @@
                 "required": true,
                 "optional": false,
                 "nullable": false,
-                "functional": false,
+                "functions": [],
                 "atomics": [],
                 "constants": [],
                 "templates": [],
@@ -630,7 +760,10 @@
                 "arrays": [],
                 "tuples": [],
                 "objects": [
-                  "ToJsonArray.IArray<string>"
+                  {
+                    "name": "ToJsonArray.IArray<string>",
+                    "tags": []
+                  }
                 ],
                 "aliases": [],
                 "natives": [],
@@ -642,7 +775,7 @@
                 "required": true,
                 "optional": false,
                 "nullable": false,
-                "functional": false,
+                "functions": [],
                 "atomics": [],
                 "constants": [],
                 "templates": [],
@@ -676,7 +809,7 @@
             "required": true,
             "optional": false,
             "nullable": false,
-            "functional": false,
+            "functions": [],
             "atomics": [],
             "constants": [],
             "templates": [],
@@ -686,7 +819,7 @@
                 "required": true,
                 "optional": false,
                 "nullable": false,
-                "functional": false,
+                "functions": [],
                 "atomics": [],
                 "constants": [],
                 "templates": [],
@@ -695,7 +828,10 @@
                 "arrays": [],
                 "tuples": [],
                 "objects": [
-                  "ToJsonArray.IArray<ToJsonArray.IObject>"
+                  {
+                    "name": "ToJsonArray.IArray<ToJsonArray.IObject>",
+                    "tags": []
+                  }
                 ],
                 "aliases": [],
                 "natives": [],
@@ -707,7 +843,7 @@
                 "required": true,
                 "optional": false,
                 "nullable": false,
-                "functional": false,
+                "functions": [],
                 "atomics": [],
                 "constants": [],
                 "templates": [],

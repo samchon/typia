@@ -10,35 +10,35 @@ import { IExpressionEntry } from "../helpers/IExpressionEntry";
 /**
  * @internal
  */
-export const stringify_regular_properties = (
-  regular: IExpressionEntry<ts.Expression>[],
-  dynamic: IExpressionEntry<ts.Expression>[],
-): ts.Expression[] => {
+export const stringify_regular_properties = (props: {
+  regular: IExpressionEntry<ts.Expression>[];
+  dynamic: IExpressionEntry<ts.Expression>[];
+}): ts.Expression[] => {
   const output: ts.Expression[] = [];
 
-  regular.sort((x, y) => sequence(x.meta) - sequence(y.meta));
-  regular.forEach((entry, index) => {
+  props.regular.sort((x, y) => sequence(x.meta) - sequence(y.meta));
+  props.regular.forEach((entry, index) => {
     // BASE ELEMENTS
     const key: string = entry.key.getSoleLiteral()!;
     const base: ts.Expression[] = [
       ts.factory.createStringLiteral(`${JSON.stringify(key)}:`),
       entry.expression,
     ];
-    if (index !== regular.length - 1 || dynamic.length !== 0)
+    if (index !== props.regular.length - 1 || props.dynamic.length !== 0)
       base.push(ts.factory.createStringLiteral(`,`));
 
     const empty: boolean =
       (entry.meta.isRequired() === false &&
         entry.meta.nullable === false &&
         entry.meta.size() === 0) ||
-      (entry.meta.functional &&
+      (!!entry.meta.functions.length &&
         entry.meta.nullable === false &&
         entry.meta.size() === 1);
 
     if (empty === true) return;
     else if (
       entry.meta.isRequired() === false ||
-      entry.meta.functional === true ||
+      entry.meta.functions.length ||
       entry.meta.any === true
     )
       output.push(
@@ -52,7 +52,7 @@ export const stringify_regular_properties = (
                   entry.input,
                 ),
               );
-            if (entry.meta.functional || entry.meta.any)
+            if (entry.meta.functions.length || entry.meta.any)
               conditions.push(
                 ts.factory.createStrictEquality(
                   ts.factory.createStringLiteral("function"),
@@ -78,4 +78,4 @@ export const stringify_regular_properties = (
  * @internal
  */
 const sequence = (meta: Metadata): number =>
-  meta.any || !meta.isRequired() || meta.functional ? 0 : 1;
+  meta.any || !meta.isRequired() || meta.functions.length ? 0 : 1;

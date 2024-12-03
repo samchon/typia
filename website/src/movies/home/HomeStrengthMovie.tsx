@@ -7,7 +7,13 @@ import HomeStrengthSectionMovie from "./HomeStrengthSectionMovie";
 const sections: HomeStrengthSectionMovie.Props[] = [
   {
     title: "Super-fast Runtime Validator",
-    subTitle: <HomeCodeBlock method="assert" color="rgb(191, 64, 191)" />,
+    subTitle: (
+      <HomeCodeBlock
+        method="assert"
+        color="rgb(191, 64, 191)"
+        argument={true}
+      />
+    ),
     description: (
       <React.Fragment>
         <p>
@@ -35,6 +41,7 @@ const sections: HomeStrengthSectionMovie.Props[] = [
         namespace="json"
         method="stringify"
         color="rgb(191, 64, 191)"
+        argument={true}
       />
     ),
     description: (
@@ -55,12 +62,42 @@ const sections: HomeStrengthSectionMovie.Props[] = [
     href: "/docs/json/stringify",
   },
   {
+    title: "LLM Function Calling App",
+    subTitle: (
+      <HomeCodeBlock
+        namespace="llm"
+        method="application"
+        template="App"
+        color="rgb(191, 64, 191)"
+        argument={false}
+      />
+    ),
+    description: (
+      <React.Fragment>
+        <p>LLM Function Calling Application Composer</p>
+        <br />
+        <p>
+          Creates LLM function call schemas from a native TypeScript class or
+          interface type.
+        </p>
+        <br />
+        <p>
+          LLM will select proper function to call and fill arguments in the
+          conversations with human.
+        </p>
+      </React.Fragment>
+    ),
+    image: "/images/home/openai.svg",
+    href: "/docs/llm/application",
+  },
+  {
     title: "Easy Protocol Buffer",
     subTitle: (
       <HomeCodeBlock
         namespace="protobuf"
         method="encode"
         color="rgb(191, 64, 191)"
+        argument={true}
       />
     ),
     description: (
@@ -75,7 +112,7 @@ const sections: HomeStrengthSectionMovie.Props[] = [
         </p>
         <br />
         <p>
-          No need extra <i>*.proto</i> schema file. Just fine with pure
+          No need extra <i>*.proto</i> schema file. Just fine with native
           TypeScript type.
         </p>
       </React.Fragment>
@@ -85,12 +122,18 @@ const sections: HomeStrengthSectionMovie.Props[] = [
   },
   {
     title: "Random Data Generator",
-    subTitle: <HomeCodeBlock method="random" color="rgb(191, 64, 191)" />,
+    subTitle: (
+      <HomeCodeBlock
+        method="random"
+        color="rgb(191, 64, 191)"
+        argument={false}
+      />
+    ),
     description: (
       <React.Fragment>
         <p>Universal random generator.</p>
         <br />
-        <p>The best mock-up data generator with pure TypeScript type.</p>
+        <p>The best mock-up data generator with native TypeScript type.</p>
         <br />
         <p>In the backend side, it boosts up productivity dramatically.</p>
       </React.Fragment>

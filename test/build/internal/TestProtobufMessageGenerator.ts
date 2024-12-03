@@ -61,9 +61,10 @@ export namespace TestProtobufMessageGenerator {
       )}.js`,
       "utf8",
     );
-    const first: number = content.indexOf(`"syntax = `);
-    const last: number = content.lastIndexOf(`}"`);
-    return JSON.parse(content.substring(first, last + 2));
+    const first: number = content.indexOf(`[`);
+    const last: number = content.lastIndexOf(`].join`) + 1;
+    const script: string = `return ${content.substring(first, last)}.join("\\n")`;
+    return new Function(script)();
   }
 
   async function mkdir(path: string): Promise<void> {

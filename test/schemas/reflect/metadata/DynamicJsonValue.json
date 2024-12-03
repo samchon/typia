@@ -5,7 +5,7 @@
       "required": true,
       "optional": false,
       "nullable": true,
-      "functional": false,
+      "functions": [],
       "atomics": [
         {
           "type": "string",
@@ -32,7 +32,10 @@
       ],
       "tuples": [],
       "objects": [
-        "DynamicJsonValue.JsonObject"
+        {
+          "name": "DynamicJsonValue.JsonObject",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -51,7 +54,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "string",
@@ -75,7 +78,7 @@
               "required": false,
               "optional": false,
               "nullable": true,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "string",
@@ -102,7 +105,10 @@
               ],
               "tuples": [],
               "objects": [
-                "DynamicJsonValue.JsonObject"
+                {
+                  "name": "DynamicJsonValue.JsonObject",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -130,7 +136,7 @@
           "required": true,
           "optional": false,
           "nullable": true,
-          "functional": false,
+          "functions": [],
           "atomics": [
             {
               "type": "string",
@@ -157,7 +163,10 @@
           ],
           "tuples": [],
           "objects": [
-            "DynamicJsonValue.JsonObject"
+            {
+              "name": "DynamicJsonValue.JsonObject",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

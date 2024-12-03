@@ -1,0 +1,40 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "nullable": {
+      "type": "object",
+      "properties": {},
+      "required": [],
+      "nullable": true
+    },
+    "optional": {
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "faint": {
+      "type": "object",
+      "properties": {},
+      "required": [],
+      "nullable": true
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ]
+}

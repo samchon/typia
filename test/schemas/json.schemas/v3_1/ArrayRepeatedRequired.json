@@ -1,0 +1,31 @@
+{
+  "version": "3.1",
+  "components": {
+    "schemas": {
+      "ArrayRepeatedRequired": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "$ref": "#/components/schemas/ArrayArrayRepeatedRequired"
+          }
+        ]
+      },
+      "ArrayArrayRepeatedRequired": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/ArrayRepeatedRequired"
+        }
+      }
+    }
+  },
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ArrayRepeatedRequired"
+    }
+  ]
+}

@@ -5,7 +5,7 @@
       "required": true,
       "optional": false,
       "nullable": false,
-      "functional": false,
+      "functions": [],
       "atomics": [],
       "constants": [],
       "templates": [],
@@ -36,14 +36,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "toJSON"
+                      "value": "toJSON",
+                      "tags": []
                     }
                   ]
                 }
@@ -64,7 +65,44 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": true,
+              "functions": [
+                {
+                  "parameters": [],
+                  "output": {
+                    "any": false,
+                    "required": true,
+                    "optional": false,
+                    "nullable": true,
+                    "functions": [],
+                    "atomics": [
+                      {
+                        "type": "string",
+                        "tags": []
+                      },
+                      {
+                        "type": "number",
+                        "tags": []
+                      },
+                      {
+                        "type": "boolean",
+                        "tags": []
+                      }
+                    ],
+                    "constants": [],
+                    "templates": [],
+                    "escaped": null,
+                    "rest": null,
+                    "arrays": [],
+                    "tuples": [],
+                    "objects": [],
+                    "aliases": [],
+                    "natives": [],
+                    "sets": [],
+                    "maps": []
+                  },
+                  "async": false
+                }
+              ],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -99,7 +137,7 @@
           "required": true,
           "optional": false,
           "nullable": false,
-          "functional": false,
+          "functions": [],
           "atomics": [],
           "constants": [],
           "templates": [],
@@ -109,7 +147,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -118,7 +156,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ToJsonAtomicUnion.IToJson"
+                {
+                  "name": "ToJsonAtomicUnion.IToJson",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -130,7 +171,7 @@
               "required": true,
               "optional": false,
               "nullable": true,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "string",

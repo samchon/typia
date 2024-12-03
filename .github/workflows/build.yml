@@ -4,6 +4,7 @@ on:
     paths:
       - 'src/**'
       - 'test/**'
+      - 'test-error/**'
       - 'test-esm/**'
       - 'package.json'
       - '.github/workflows/build.yml'
@@ -11,6 +12,7 @@ on:
     paths:
       - 'src/**'
       - 'test/**'
+      - 'test-error/**'
       - 'test-esm/**'
       - 'package.json'
       - '.github/workflows/build.yml'

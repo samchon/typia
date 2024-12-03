@@ -1,0 +1,416 @@
+{
+  "model": "3.0",
+  "options": {
+    "constraint": false,
+    "recursive": 3,
+    "separate": null
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "fixed": {
+                      "type": "string",
+                      "description": "@minLength 5\n@maxLength 5"
+                    },
+                    "minimum": {
+                      "type": "string",
+                      "description": "@minLength 3"
+                    },
+                    "maximum": {
+                      "type": "string",
+                      "description": "@maxLength 7"
+                    },
+                    "minimum_and_maximum": {
+                      "type": "string",
+                      "description": "@minLength 3\n@maxLength 7"
+                    },
+                    "equal": {
+                      "type": "string",
+                      "description": "@minLength 10\n@maxLength 19"
+                    }
+                  },
+                  "required": [
+                    "fixed",
+                    "minimum",
+                    "maximum",
+                    "minimum_and_maximum",
+                    "equal"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false
+      },
+      "strict": true
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "fixed": {
+                      "type": "string",
+                      "description": "@minLength 5\n@maxLength 5"
+                    },
+                    "minimum": {
+                      "type": "string",
+                      "description": "@minLength 3"
+                    },
+                    "maximum": {
+                      "type": "string",
+                      "description": "@maxLength 7"
+                    },
+                    "minimum_and_maximum": {
+                      "type": "string",
+                      "description": "@minLength 3\n@maxLength 7"
+                    },
+                    "equal": {
+                      "type": "string",
+                      "description": "@minLength 10\n@maxLength 19"
+                    }
+                  },
+                  "required": [
+                    "fixed",
+                    "minimum",
+                    "maximum",
+                    "minimum_and_maximum",
+                    "equal"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "additionalProperties": false
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "fixed": {
+                      "type": "string",
+                      "description": "@minLength 5\n@maxLength 5"
+                    },
+                    "minimum": {
+                      "type": "string",
+                      "description": "@minLength 3"
+                    },
+                    "maximum": {
+                      "type": "string",
+                      "description": "@maxLength 7"
+                    },
+                    "minimum_and_maximum": {
+                      "type": "string",
+                      "description": "@minLength 3\n@maxLength 7"
+                    },
+                    "equal": {
+                      "type": "string",
+                      "description": "@minLength 10\n@maxLength 19"
+                    }
+                  },
+                  "required": [
+                    "fixed",
+                    "minimum",
+                    "maximum",
+                    "minimum_and_maximum",
+                    "equal"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "additionalProperties": false,
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "fixed": {
+                  "type": "string",
+                  "description": "@minLength 5\n@maxLength 5"
+                },
+                "minimum": {
+                  "type": "string",
+                  "description": "@minLength 3"
+                },
+                "maximum": {
+                  "type": "string",
+                  "description": "@maxLength 7"
+                },
+                "minimum_and_maximum": {
+                  "type": "string",
+                  "description": "@minLength 3\n@maxLength 7"
+                },
+                "equal": {
+                  "type": "string",
+                  "description": "@minLength 10\n@maxLength 19"
+                }
+              },
+              "required": [
+                "fixed",
+                "minimum",
+                "maximum",
+                "minimum_and_maximum",
+                "equal"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "additionalProperties": false
+      },
+      "strict": true
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "fixed": {
+                      "type": "string",
+                      "description": "@minLength 5\n@maxLength 5"
+                    },
+                    "minimum": {
+                      "type": "string",
+                      "description": "@minLength 3"
+                    },
+                    "maximum": {
+                      "type": "string",
+                      "description": "@maxLength 7"
+                    },
+                    "minimum_and_maximum": {
+                      "type": "string",
+                      "description": "@minLength 3\n@maxLength 7"
+                    },
+                    "equal": {
+                      "type": "string",
+                      "description": "@minLength 10\n@maxLength 19"
+                    }
+                  },
+                  "required": [
+                    "fixed",
+                    "minimum",
+                    "maximum",
+                    "minimum_and_maximum",
+                    "equal"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "additionalProperties": false,
+            "nullable": true
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "fixed": {
+                      "type": "string",
+                      "description": "@minLength 5\n@maxLength 5"
+                    },
+                    "minimum": {
+                      "type": "string",
+                      "description": "@minLength 3"
+                    },
+                    "maximum": {
+                      "type": "string",
+                      "description": "@maxLength 7"
+                    },
+                    "minimum_and_maximum": {
+                      "type": "string",
+                      "description": "@minLength 3\n@maxLength 7"
+                    },
+                    "equal": {
+                      "type": "string",
+                      "description": "@minLength 10\n@maxLength 19"
+                    }
+                  },
+                  "required": [
+                    "fixed",
+                    "minimum",
+                    "maximum",
+                    "minimum_and_maximum",
+                    "equal"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "additionalProperties": false,
+            "nullable": true
+          },
+          "third": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "fixed": {
+                      "type": "string",
+                      "description": "@minLength 5\n@maxLength 5"
+                    },
+                    "minimum": {
+                      "type": "string",
+                      "description": "@minLength 3"
+                    },
+                    "maximum": {
+                      "type": "string",
+                      "description": "@maxLength 7"
+                    },
+                    "minimum_and_maximum": {
+                      "type": "string",
+                      "description": "@minLength 3\n@maxLength 7"
+                    },
+                    "equal": {
+                      "type": "string",
+                      "description": "@minLength 10\n@maxLength 19"
+                    }
+                  },
+                  "required": [
+                    "fixed",
+                    "minimum",
+                    "maximum",
+                    "minimum_and_maximum",
+                    "equal"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "additionalProperties": false,
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "fixed": {
+                  "type": "string",
+                  "description": "@minLength 5\n@maxLength 5"
+                },
+                "minimum": {
+                  "type": "string",
+                  "description": "@minLength 3"
+                },
+                "maximum": {
+                  "type": "string",
+                  "description": "@maxLength 7"
+                },
+                "minimum_and_maximum": {
+                  "type": "string",
+                  "description": "@minLength 3\n@maxLength 7"
+                },
+                "equal": {
+                  "type": "string",
+                  "description": "@minLength 10\n@maxLength 19"
+                }
+              },
+              "required": [
+                "fixed",
+                "minimum",
+                "maximum",
+                "minimum_and_maximum",
+                "equal"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "additionalProperties": false,
+        "nullable": true
+      },
+      "strict": true
+    }
+  ]
+}

@@ -55,25 +55,22 @@ interface IMember {
   </Tab>
   <Tab>
 ```javascript filename="examples/bin/is.js" showLineNumbers
+import * as __typia_transform__isFormatUuid from "typia/lib/internal/_isFormatUuid.js";
+import * as __typia_transform__isFormatEmail from "typia/lib/internal/_isFormatEmail.js";
+import * as __typia_transform__isTypeUint32 from "typia/lib/internal/_isTypeUint32.js";
 import typia from "typia";
 import { v4 } from "uuid";
 const matched = (() => {
-  const $io0 = (input) =>
+  const _io0 = (input) =>
     "string" === typeof input.id &&
-    /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
-      input.id,
-    ) &&
+    __typia_transform__isFormatUuid._isFormatUuid(input.id) &&
     "string" === typeof input.email &&
-    /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i.test(
-      input.email,
-    ) &&
+    __typia_transform__isFormatEmail._isFormatEmail(input.email) &&
     "number" === typeof input.age &&
-    Math.floor(input.age) === input.age &&
-    0 <= input.age &&
-    input.age <= 4294967295 &&
+    __typia_transform__isTypeUint32._isTypeUint32(input.age) &&
     19 < input.age &&
     input.age <= 100;
-  return (input) => "object" === typeof input && null !== input && $io0(input);
+  return (input) => "object" === typeof input && null !== input && _io0(input);
 })()({
   id: v4(),
   email: "samchon.github@gmai19l.com",
@@ -128,6 +125,9 @@ interface IMember {
   </Tab>
   <Tab>
 ```javascript filename="examples/bin/equals.js" showLineNumbers
+import * as __typia_transform__isFormatUuid from "typia/lib/internal/_isFormatUuid.js";
+import * as __typia_transform__isFormatEmail from "typia/lib/internal/_isFormatEmail.js";
+import * as __typia_transform__isTypeUint32 from "typia/lib/internal/_isTypeUint32.js";
 import typia from "typia";
 import { v4 } from "uuid";
 const input = {
@@ -137,37 +137,25 @@ const input = {
   extra: "superfluous property", // extra
 };
 const is = (() => {
-  const $io0 = (input) =>
+  const _io0 = (input) =>
     "string" === typeof input.id &&
-    /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
-      input.id,
-    ) &&
+    __typia_transform__isFormatUuid._isFormatUuid(input.id) &&
     "string" === typeof input.email &&
-    /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i.test(
-      input.email,
-    ) &&
+    __typia_transform__isFormatEmail._isFormatEmail(input.email) &&
     "number" === typeof input.age &&
-    Math.floor(input.age) === input.age &&
-    0 <= input.age &&
-    input.age <= 4294967295 &&
+    __typia_transform__isTypeUint32._isTypeUint32(input.age) &&
     19 < input.age &&
     input.age <= 100;
-  return (input) => "object" === typeof input && null !== input && $io0(input);
+  return (input) => "object" === typeof input && null !== input && _io0(input);
 })()(input);
 const equals = (() => {
-  const $io0 = (input, _exceptionable = true) =>
+  const _io0 = (input, _exceptionable = true) =>
     "string" === typeof input.id &&
-    /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
-      input.id,
-    ) &&
+    __typia_transform__isFormatUuid._isFormatUuid(input.id) &&
     "string" === typeof input.email &&
-    /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i.test(
-      input.email,
-    ) &&
+    __typia_transform__isFormatEmail._isFormatEmail(input.email) &&
     "number" === typeof input.age &&
-    Math.floor(input.age) === input.age &&
-    0 <= input.age &&
-    input.age <= 4294967295 &&
+    __typia_transform__isTypeUint32._isTypeUint32(input.age) &&
     19 < input.age &&
     input.age <= 100 &&
     (3 === Object.keys(input).length ||
@@ -178,7 +166,7 @@ const equals = (() => {
         return false;
       }));
   return (input, _exceptionable = true) =>
-    "object" === typeof input && null !== input && $io0(input, true);
+    "object" === typeof input && null !== input && _io0(input, true);
 })()(input);
 console.log(is, equals); // true, false
 ```
@@ -219,24 +207,21 @@ interface IMember {
   </Tab>
   <Tab>
 ```javascript filename="examples/bin/createIs.js" showLineNumbers
+import * as __typia_transform__isFormatUuid from "typia/lib/internal/_isFormatUuid.js";
+import * as __typia_transform__isFormatEmail from "typia/lib/internal/_isFormatEmail.js";
+import * as __typia_transform__isTypeUint32 from "typia/lib/internal/_isTypeUint32.js";
 import typia from "typia";
 export const check = (() => {
-  const $io0 = (input) =>
+  const _io0 = (input) =>
     "string" === typeof input.id &&
-    /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
-      input.id,
-    ) &&
+    __typia_transform__isFormatUuid._isFormatUuid(input.id) &&
     "string" === typeof input.email &&
-    /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i.test(
-      input.email,
-    ) &&
+    __typia_transform__isFormatEmail._isFormatEmail(input.email) &&
     "number" === typeof input.age &&
-    Math.floor(input.age) === input.age &&
-    0 <= input.age &&
-    input.age <= 4294967295 &&
+    __typia_transform__isTypeUint32._isTypeUint32(input.age) &&
     19 < input.age &&
     input.age <= 100;
-  return (input) => "object" === typeof input && null !== input && $io0(input);
+  return (input) => "object" === typeof input && null !== input && _io0(input);
 })();
 ```
   </Tab>
@@ -391,7 +376,7 @@ interface Something {
 ```javascript filename="examples/bin/is-comment-tags.js" showLineNumbers
 import typia from "typia";
 export const checkSomething = (() => {
-  const $io0 = (input) =>
+  const _io0 = (input) =>
     "string" === typeof input.dollar &&
     input.dollar[0] === "$" &&
     !isNaN(Number(input.dollar.substring(1).split(",").join(""))) &&
@@ -399,7 +384,7 @@ export const checkSomething = (() => {
     input.postfix.endsWith("!!!") &&
     "number" === typeof input.isEven &&
     input.isEven % 2 === 0;
-  return (input) => "object" === typeof input && null !== input && $io0(input);
+  return (input) => "object" === typeof input && null !== input && _io0(input);
 })();
 ```
   </Tab>

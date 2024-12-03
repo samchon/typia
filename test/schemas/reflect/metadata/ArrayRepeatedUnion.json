@@ -5,7 +5,7 @@
       "required": true,
       "optional": false,
       "nullable": false,
-      "functional": false,
+      "functions": [],
       "atomics": [
         {
           "type": "number",
@@ -53,14 +53,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "scale"
+                      "value": "scale",
+                      "tags": []
                     }
                   ]
                 }
@@ -81,7 +82,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -90,7 +91,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ArrayRepeatedUnion.IPoint3D"
+                {
+                  "name": "ArrayRepeatedUnion.IPoint3D",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -106,14 +110,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "position"
+                      "value": "position",
+                      "tags": []
                     }
                   ]
                 }
@@ -134,7 +139,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -143,7 +148,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ArrayRepeatedUnion.IPoint3D"
+                {
+                  "name": "ArrayRepeatedUnion.IPoint3D",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -159,14 +167,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "rotate"
+                      "value": "rotate",
+                      "tags": []
                     }
                   ]
                 }
@@ -187,7 +196,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -196,7 +205,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ArrayRepeatedUnion.IPoint3D"
+                {
+                  "name": "ArrayRepeatedUnion.IPoint3D",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -212,14 +224,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "pivot"
+                      "value": "pivot",
+                      "tags": []
                     }
                   ]
                 }
@@ -240,7 +253,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -249,7 +262,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ArrayRepeatedUnion.IPoint3D"
+                {
+                  "name": "ArrayRepeatedUnion.IPoint3D",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -276,14 +292,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "x"
+                      "value": "x",
+                      "tags": []
                     }
                   ]
                 }
@@ -304,7 +321,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "number",
@@ -332,14 +349,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "y"
+                      "value": "y",
+                      "tags": []
                     }
                   ]
                 }
@@ -360,7 +378,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "number",
@@ -388,14 +406,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "z"
+                      "value": "z",
+                      "tags": []
                     }
                   ]
                 }
@@ -416,7 +435,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "number",
@@ -456,7 +475,7 @@
           "required": true,
           "optional": false,
           "nullable": false,
-          "functional": false,
+          "functions": [],
           "atomics": [
             {
               "type": "string",
@@ -488,7 +507,7 @@
           "required": true,
           "optional": false,
           "nullable": false,
-          "functional": false,
+          "functions": [],
           "atomics": [
             {
               "type": "number",
@@ -537,7 +556,7 @@
           "required": true,
           "optional": false,
           "nullable": false,
-          "functional": false,
+          "functions": [],
           "atomics": [],
           "constants": [],
           "templates": [],
@@ -546,7 +565,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ArrayRepeatedUnion.IBox3D"
+            {
+              "name": "ArrayRepeatedUnion.IBox3D",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

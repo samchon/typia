@@ -11,17 +11,19 @@ import { ValueFactory } from "../factories/ValueFactory";
 import { Metadata } from "../schemas/metadata/Metadata";
 import { MetadataArray } from "../schemas/metadata/MetadataArray";
 import { MetadataConstant } from "../schemas/metadata/MetadataConstant";
-import { MetadataObject } from "../schemas/metadata/MetadataObject";
+import { MetadataMap } from "../schemas/metadata/MetadataMap";
+import { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
+import { MetadataSet } from "../schemas/metadata/MetadataSet";
 import { MetadataTuple } from "../schemas/metadata/MetadataTuple";
 import { MetadataTupleType } from "../schemas/metadata/MetadataTupleType";
 
-import { IProject } from "../transformers/IProject";
+import { ITypiaContext } from "../transformers/ITypiaContext";
 import { TransformerError } from "../transformers/TransformerError";
 
 import { FeatureProgrammer } from "./FeatureProgrammer";
 import { IsProgrammer } from "./IsProgrammer";
 import { AtomicPredicator } from "./helpers/AtomicPredicator";
-import { FunctionImporter } from "./helpers/FunctionImporter";
+import { FunctionProgrammer } from "./helpers/FunctionProgrammer";
 import { ICheckEntry } from "./helpers/ICheckEntry";
 import { IExpressionEntry } from "./helpers/IExpressionEntry";
 import { OptionPredicator } from "./helpers/OptionPredicator";
@@ -44,47 +46,56 @@ export namespace CheckerProgrammer {
     equals: boolean;
     numeric: boolean;
     addition?: () => ts.Statement[];
-    decoder?: () => FeatureProgrammer.Decoder<Metadata, ts.Expression>;
+    decoder?: (props: {
+      metadata: Metadata;
+      input: ts.Expression;
+      explore: IExplore;
+    }) => ts.Expression;
     combiner: IConfig.Combiner;
-    atomist: (
-      explore: IExplore,
-    ) => (check: ICheckEntry) => (input: ts.Expression) => ts.Expression;
+    atomist: (props: {
+      entry: ICheckEntry;
+      input: ts.Expression;
+      explore: IExplore;
+    }) => ts.Expression;
     joiner: IConfig.IJoiner;
     success: ts.Expression;
   }
   export namespace IConfig {
     export interface Combiner {
-      (explorer: IExplore): {
-        (logic: "and" | "or"): {
-          (
-            input: ts.Expression,
-            binaries: IBinary[],
-            expected: string,
-          ): ts.Expression;
-        };
-      };
+      (props: {
+        explore: IExplore;
+        logic: "and" | "or";
+        input: ts.Expression;
+        binaries: IBinary[];
+        expected: string;
+      }): ts.Expression;
     }
     export interface IJoiner {
-      object(input: ts.Expression, entries: IExpressionEntry[]): ts.Expression;
-      array(input: ts.Expression, arrow: ts.ArrowFunction): ts.Expression;
+      object(props: {
+        input: ts.Expression;
+        entries: IExpressionEntry<ts.Expression>[];
+      }): ts.Expression;
+      array(props: {
+        input: ts.Expression;
+        arrow: ts.ArrowFunction;
+      }): ts.Expression;
       tuple?: undefined | ((exprs: ts.Expression[]) => ts.Expression);
 
-      failure(
-        value: ts.Expression,
-        expected: string,
-        explore?: undefined | FeatureProgrammer.IExplore,
-      ): ts.Expression;
+      failure(props: {
+        input: ts.Expression;
+        expected: string;
+        explore?: undefined | FeatureProgrammer.IExplore;
+      }): ts.Expression;
       is?(expression: ts.Expression): ts.Expression;
       required?(exp: ts.Expression): ts.Expression;
       full?:
         | undefined
-        | ((
-            condition: ts.Expression,
-          ) => (
-            input: ts.Expression,
-            expected: string,
-            explore: IExplore,
-          ) => ts.Expression);
+        | ((props: {
+            condition: ts.Expression;
+            input: ts.Expression;
+            expected: string;
+            explore: IExplore;
+          }) => ts.Expression);
     }
   }
   export type IExplore = FeatureProgrammer.IExplore;
@@ -98,1041 +109,1509 @@ export namespace CheckerProgrammer {
         WRITERS
     ----------------------------------------------------------- */
   export const compose = (props: {
-    project: IProject;
+    context: ITypiaContext;
     config: IConfig;
-    importer: FunctionImporter;
+    functor: FunctionProgrammer;
     type: ts.Type;
     name: string | undefined;
-  }) =>
+  }): FeatureProgrammer.IComposed =>
     FeatureProgrammer.compose({
       ...props,
-      config: configure(props.project)(props.config)(props.importer),
+      config: configure(props),
     });
 
-  export const write =
-    (project: IProject) => (config: IConfig) => (importer: FunctionImporter) =>
-      FeatureProgrammer.write(project)(configure(project)(config)(importer))(
-        importer,
-      );
+  export const write = (props: {
+    context: ITypiaContext;
+    config: IConfig;
+    functor: FunctionProgrammer;
+    type: ts.Type;
+    name?: string;
+  }): ts.ArrowFunction =>
+    FeatureProgrammer.write({
+      config: configure(props),
+      context: props.context,
+      functor: props.functor,
+      type: props.type,
+      name: props.name,
+    });
 
-  export const write_object_functions =
-    (project: IProject) => (config: IConfig) => (importer: FunctionImporter) =>
-      FeatureProgrammer.write_object_functions(
-        configure(project)(config)(importer),
-      )(importer);
+  export const write_object_functions = (props: {
+    context: ITypiaContext;
+    config: IConfig;
+    functor: FunctionProgrammer;
+    collection: MetadataCollection;
+  }): ts.VariableStatement[] =>
+    FeatureProgrammer.write_object_functions({
+      config: configure(props),
+      context: props.context,
+      collection: props.collection,
+    });
 
-  export const write_union_functions =
-    (project: IProject) => (config: IConfig) => (importer: FunctionImporter) =>
-      FeatureProgrammer.write_union_functions(
-        configure(project)({ ...config, numeric: false })(importer),
-      );
+  export const write_union_functions = (props: {
+    context: ITypiaContext;
+    config: IConfig;
+    functor: FunctionProgrammer;
+    collection: MetadataCollection;
+  }): ts.VariableStatement[] =>
+    FeatureProgrammer.write_union_functions({
+      config: configure({
+        context: props.context,
+        config: {
+          ...props.config,
+          numeric: false,
+        },
+        functor: props.functor,
+      }),
+      collection: props.collection,
+    });
 
-  export const write_array_functions =
-    (project: IProject) =>
-    (config: IConfig) =>
-    (importer: FunctionImporter) =>
-    (collection: MetadataCollection): ts.VariableStatement[] =>
-      collection
-        .arrays()
-        .filter((a) => a.recursive)
-        .map((type, i) =>
-          StatementFactory.constant(
-            `${config.prefix}a${i}`,
-            ts.factory.createArrowFunction(
-              undefined,
-              undefined,
-              FeatureProgrammer.parameterDeclarations(config)(
-                TypeFactory.keyword("any"),
-              )(ts.factory.createIdentifier("input")),
-              TypeFactory.keyword("any"),
-              undefined,
-              decode_array_inline(project)(config)(importer)(
-                ts.factory.createIdentifier("input"),
-                MetadataArray.create({
-                  type,
-                  tags: [],
-                }),
-                {
-                  tracable: config.trace,
-                  source: "function",
-                  from: "array",
-                  postfix: "",
-                },
-              ),
-            ),
-          ),
-        );
-
-  export const write_tuple_functions =
-    (project: IProject) =>
-    (config: IConfig) =>
-    (importer: FunctionImporter) =>
-    (collection: MetadataCollection): ts.VariableStatement[] =>
-      collection
-        .tuples()
-        .filter((t) => t.recursive)
-        .map((tuple, i) =>
-          StatementFactory.constant(
-            `${config.prefix}t${i}`,
-            ts.factory.createArrowFunction(
-              undefined,
-              undefined,
-              FeatureProgrammer.parameterDeclarations(config)(
-                TypeFactory.keyword("any"),
-              )(ts.factory.createIdentifier("input")),
-              TypeFactory.keyword("any"),
-              undefined,
-              decode_tuple_inline(project)(config)(importer)(
-                ts.factory.createIdentifier("input"),
-                tuple,
-                {
-                  tracable: config.trace,
-                  source: "function",
-                  from: "array",
-                  postfix: "",
-                },
-              ),
-            ),
-          ),
-        );
-
-  const configure =
-    (project: IProject) =>
-    (config: IConfig) =>
-    (importer: FunctionImporter): FeatureProgrammer.IConfig => ({
-      types: {
-        input: () => TypeFactory.keyword("any"),
-        output: (type, name) =>
-          ts.factory.createTypePredicateNode(
+  export const write_array_functions = (props: {
+    context: ITypiaContext;
+    config: IConfig;
+    functor: FunctionProgrammer;
+    collection: MetadataCollection;
+  }): ts.VariableStatement[] =>
+    props.collection
+      .arrays()
+      .filter((a) => a.recursive)
+      .map((type, i) =>
+        StatementFactory.constant({
+          name: `${props.config.prefix}a${i}`,
+          value: ts.factory.createArrowFunction(
             undefined,
-            "input",
-            ts.factory.createTypeReferenceNode(
-              name ?? TypeFactory.getFullName(project.checker)(type),
-            ),
+            undefined,
+            FeatureProgrammer.parameterDeclarations({
+              config: props.config,
+              type: TypeFactory.keyword("any"),
+              input: ts.factory.createIdentifier("input"),
+            }),
+            TypeFactory.keyword("any"),
+            undefined,
+            decode_array_inline({
+              ...props,
+              input: ts.factory.createIdentifier("input"),
+              array: MetadataArray.create({
+                type,
+                tags: [],
+              }),
+              explore: {
+                tracable: props.config.trace,
+                source: "function",
+                from: "array",
+                postfix: "",
+              },
+            }),
           ),
-      },
-      trace: config.trace,
-      path: config.path,
-      prefix: config.prefix,
-      initializer: (project) => (importer) => (type) => {
-        const collection: MetadataCollection = new MetadataCollection();
-        const result = MetadataFactory.analyze(
-          project.checker,
-          project.context,
-        )({
+        }),
+      );
+
+  export const write_tuple_functions = (props: {
+    context: ITypiaContext;
+    config: IConfig;
+    functor: FunctionProgrammer;
+    collection: MetadataCollection;
+  }): ts.VariableStatement[] =>
+    props.collection
+      .tuples()
+      .filter((t) => t.recursive)
+      .map((tuple, i) =>
+        StatementFactory.constant({
+          name: `${props.config.prefix}t${i}`,
+          value: ts.factory.createArrowFunction(
+            undefined,
+            undefined,
+            FeatureProgrammer.parameterDeclarations({
+              config: props.config,
+              type: TypeFactory.keyword("any"),
+              input: ts.factory.createIdentifier("input"),
+            }),
+            TypeFactory.keyword("any"),
+            undefined,
+            decode_tuple_inline({
+              config: props.config,
+              context: props.context,
+              functor: props.functor,
+              input: ts.factory.createIdentifier("input"),
+              tuple,
+              explore: {
+                tracable: props.config.trace,
+                source: "function",
+                from: "array",
+                postfix: "",
+              },
+            }),
+          ),
+        }),
+      );
+
+  const configure = (props: {
+    context: ITypiaContext;
+    config: IConfig;
+    functor: FunctionProgrammer;
+  }): FeatureProgrammer.IConfig => ({
+    types: {
+      input: () => TypeFactory.keyword("any"),
+      output: (type, name) =>
+        ts.factory.createTypePredicateNode(
+          undefined,
+          "input",
+          ts.factory.createTypeReferenceNode(
+            name ??
+              TypeFactory.getFullName({ checker: props.context.checker, type }),
+          ),
+        ),
+    },
+    trace: props.config.trace,
+    path: props.config.path,
+    prefix: props.config.prefix,
+    initializer: (next) => {
+      const collection: MetadataCollection = new MetadataCollection();
+      const result = MetadataFactory.analyze({
+        checker: next.context.checker,
+        transformer: next.context.transformer,
+        options: {
           escape: false,
           constant: true,
           absorb: true,
-        })(collection)(type);
-        if (result.success === false)
-          throw TransformerError.from(`typia.${importer.method}`)(
-            result.errors,
-          );
-        return [collection, result.data];
-      },
-      addition: config.addition,
-      decoder: () => config.decoder?.() ?? decode(project)(config)(importer),
-      objector: {
-        checker: () => config.decoder?.() ?? decode(project)(config)(importer),
-        decoder: () => decode_object(config)(importer),
-        joiner: config.joiner.object,
-        unionizer: config.equals
-          ? decode_union_object(decode_object(config)(importer))(
-              (input, obj, explore) =>
-                decode_object(config)(importer)(input, obj, {
-                  ...explore,
-                  tracable: true,
+        },
+        collection,
+        type: next.type,
+      });
+      if (result.success === false)
+        throw TransformerError.from({
+          code: next.functor.method,
+          errors: result.errors,
+        });
+      return {
+        collection,
+        metadata: result.data,
+      };
+    },
+    addition: props.config.addition,
+    decoder: props.config.decoder
+      ? (next) => props.config.decoder!(next)
+      : (next) =>
+          decode({
+            context: props.context,
+            config: props.config,
+            functor: props.functor,
+            input: next.input,
+            metadata: next.metadata,
+            explore: next.explore,
+          }),
+    objector: {
+      checker: props.config.decoder
+        ? (next) => props.config.decoder!(next)
+        : (next) =>
+            decode({
+              context: props.context,
+              config: props.config,
+              functor: props.functor,
+              input: next.input,
+              metadata: next.metadata,
+              explore: next.explore,
+            }),
+      decoder: (next) =>
+        decode_object({
+          config: props.config,
+          functor: props.functor,
+          input: next.input,
+          object: next.object,
+          explore: next.explore,
+        }),
+      joiner: props.config.joiner.object,
+      unionizer: props.config.equals
+        ? (next) =>
+            decode_union_object({
+              checker: (v) =>
+                decode_object({
+                  config: props.config,
+                  functor: props.functor,
+                  object: v.object,
+                  input: v.input,
+                  explore: v.explore,
                 }),
-            )(config.joiner.is ?? ((expr) => expr))((value, expected) =>
-              ts.factory.createReturnStatement(
-                config.joiner.failure(value, expected),
-              ),
-            )
-          : (input, targets, explore) =>
-              config.combiner(explore)("or")(
-                input,
-                targets.map((obj) => ({
-                  expression: decode_object(config)(importer)(
-                    input,
-                    obj,
-                    explore,
-                  ),
-                  combined: true,
-                })),
-                `(${targets.map((t) => t.name).join(" | ")})`,
-              ),
-        failure: (value, expected) =>
-          ts.factory.createReturnStatement(
-            config.joiner.failure(value, expected),
-          ),
-        is: config.joiner.is,
-        required: config.joiner.required,
-        full: config.joiner.full,
-        type: TypeFactory.keyword("boolean"),
-      },
-      generator: {
-        unions: config.numeric
-          ? () =>
-              FeatureProgrammer.write_union_functions(
-                configure(project)({ ...config, numeric: false })(importer),
-              )
-          : undefined,
-        arrays: () => write_array_functions(project)(config)(importer),
-        tuples: () => write_tuple_functions(project)(config)(importer),
-      },
-    });
+              decoder: (v) =>
+                decode_object({
+                  config: props.config,
+                  functor: props.functor,
+                  input: v.input,
+                  object: v.object,
+                  explore: {
+                    ...v.explore,
+                    tracable: true,
+                  },
+                }),
+              success: props.config.joiner.is ?? ((expr) => expr),
+              escaper: (v) =>
+                ts.factory.createReturnStatement(
+                  props.config.joiner.failure(v),
+                ),
+              input: next.input,
+              objects: next.objects,
+              explore: next.explore,
+            })
+        : (next) =>
+            props.config.combiner({
+              logic: "or",
+              explore: next.explore,
+              input: next.input,
+              binaries: next.objects.map((object) => ({
+                expression: decode_object({
+                  config: props.config,
+                  functor: props.functor,
+                  object,
+                  input: next.input,
+                  explore: next.explore,
+                }),
+                combined: true,
+              })),
+              expected: `(${next.objects.map((t) => t.name).join(" | ")})`,
+            }),
+      failure: (next) =>
+        ts.factory.createReturnStatement(props.config.joiner.failure(next)),
+      is: props.config.joiner.is,
+      required: props.config.joiner.required,
+      full: props.config.joiner.full
+        ? (next) => props.config.joiner.full!(next)
+        : undefined,
+      type: TypeFactory.keyword("boolean"),
+    },
+    generator: {
+      unions: props.config.numeric
+        ? (collection) =>
+            FeatureProgrammer.write_union_functions({
+              config: configure({
+                ...props,
+                config: {
+                  ...props.config,
+                  numeric: false,
+                },
+              }),
+              collection,
+            })
+        : undefined,
+      arrays: (collection) =>
+        write_array_functions({
+          ...props,
+          collection,
+        }),
+      tuples: (collection) =>
+        write_tuple_functions({
+          ...props,
+          collection,
+        }),
+    },
+  });
 
   /* -----------------------------------------------------------
         DECODERS
     ----------------------------------------------------------- */
-  /**
-   * @internal
-   */
-  export const decode =
-    (project: IProject) =>
-    (config: IConfig) =>
-    (importer: FunctionImporter) =>
-    (
-      input: ts.Expression,
-      meta: Metadata,
-      explore: IExplore,
-    ): ts.Expression => {
-      if (meta.any) return config.success;
+  export const decode = (props: {
+    context: ITypiaContext;
+    config: IConfig;
+    functor: FunctionProgrammer;
+    input: ts.Expression;
+    metadata: Metadata;
+    explore: IExplore;
+  }): ts.Expression => {
+    if (props.metadata.any) return props.config.success;
 
-      const top: IBinary[] = [];
-      const binaries: IBinary[] = [];
-      const add = create_add(binaries)(input);
-      const getConstantValue = (value: number | string | bigint | boolean) => {
-        if (typeof value === "string")
-          return ts.factory.createStringLiteral(value);
-        else if (typeof value === "bigint")
-          return ExpressionFactory.bigint(value);
-        return ts.factory.createIdentifier(value.toString());
-      };
+    const top: IBinary[] = [];
+    const binaries: IBinary[] = [];
+    const add = (next: {
+      exact: boolean;
+      left: ts.Expression;
+      right?: ts.Expression;
+    }) =>
+      create_add({
+        binaries,
+        left: next.left,
+        right: next.right,
+        exact: next.exact,
+        default: props.input,
+      });
+    const getConstantValue = (value: number | string | bigint | boolean) => {
+      if (typeof value === "string")
+        return ts.factory.createStringLiteral(value);
+      else if (typeof value === "bigint")
+        return ExpressionFactory.bigint(value);
+      return ts.factory.createIdentifier(value.toString());
+    };
 
-      //----
-      // CHECK OPTIONAL
-      //----
-      // @todo -> should be elaborated
-      const checkOptional: boolean = meta.empty() || meta.isUnionBucket();
+    //----
+    // CHECK OPTIONAL
+    //----
+    // @todo -> should be elaborated
+    const checkOptional: boolean =
+      props.metadata.empty() || props.metadata.isUnionBucket();
 
-      // NULLABLE
-      if (checkOptional || meta.nullable)
-        (meta.nullable ? add : create_add(top)(input))(
-          meta.nullable,
-          ValueFactory.NULL(),
-        );
+    // NULLABLE
+    if (checkOptional || props.metadata.nullable)
+      if (props.metadata.nullable)
+        add({
+          exact: props.metadata.nullable,
+          left: ValueFactory.NULL(),
+        });
+      else
+        create_add({
+          binaries: top,
+          default: props.input,
+          exact: props.metadata.nullable,
+          left: ValueFactory.NULL(),
+        });
 
-      // UNDEFINDABLE
-      if (checkOptional || !meta.isRequired())
-        (meta.isRequired() ? create_add(top)(input) : add)(
-          !meta.isRequired(),
-          ValueFactory.UNDEFINED(),
-        );
+    // UNDEFINDABLE
+    if (checkOptional || !props.metadata.isRequired())
+      if (props.metadata.isRequired())
+        create_add({
+          binaries: top,
+          default: props.input,
+          exact: false,
+          left: ValueFactory.UNDEFINED(),
+        });
+      else
+        add({
+          exact: true,
+          left: ValueFactory.UNDEFINED(),
+        });
 
-      // FUNCTIONAL
-      if (meta.functional === true)
-        if (OptionPredicator.functional(project.options) || meta.size() !== 1)
-          add(
-            true,
-            ts.factory.createStringLiteral("function"),
-            ValueFactory.TYPEOF(input),
-          );
-        else
-          binaries.push({
-            combined: false,
-            expression: config.success,
-          });
-
-      //----
-      // VALUES
-      //----
-      // CONSTANT VALUES
-      const constants: MetadataConstant[] = meta.constants.filter((c) =>
-        AtomicPredicator.constant(meta)(c.type),
-      );
-      const constantLength: number = constants
-        .map((c) => c.values.length)
-        .reduce((a, b) => a + b, 0);
-      if (constantLength >= 10) {
-        const values: Array<boolean | number | string | bigint> = constants
-          .map((c) => c.values.map((v) => v.value))
-          .flat();
-        add(
-          true,
-          ts.factory.createTrue(),
-          ts.factory.createCallExpression(
-            IdentifierFactory.access(
-              importer.emplaceVariable(
-                `${config.prefix}v${importer.increment()}`,
-                ts.factory.createNewExpression(
-                  ts.factory.createIdentifier("Set"),
-                  undefined,
-                  [
-                    ts.factory.createArrayLiteralExpression(
-                      values.map((v) =>
-                        typeof v === "boolean"
-                          ? v === true
-                            ? ts.factory.createTrue()
-                            : ts.factory.createFalse()
-                          : typeof v === "bigint"
-                            ? ExpressionFactory.bigint(v)
-                            : typeof v === "number"
-                              ? ExpressionFactory.number(v)
-                              : ts.factory.createStringLiteral(v.toString()),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            )("has"),
-            undefined,
-            [input],
-          ),
-        );
-      } else
-        for (const c of constants)
-          if (AtomicPredicator.constant(meta)(c.type))
-            for (const v of c.values) add(true, getConstantValue(v.value));
-
-      // ATOMIC VALUES
-      for (const atom of meta.atomics)
-        if (AtomicPredicator.atomic(meta)(atom.type) === false) continue;
-        else if (atom.type === "number")
-          binaries.push({
-            expression: config.atomist(explore)(
-              check_number(project, config.numeric)(atom)(input),
-            )(input),
-            combined: false,
-          });
-        else if (atom.type === "bigint")
-          binaries.push({
-            expression: config.atomist(explore)(
-              check_bigint(project)(atom)(input),
-            )(input),
-            combined: false,
-          });
-        else if (atom.type === "string")
-          binaries.push({
-            expression: config.atomist(explore)(
-              check_string(project)(atom)(input),
-            )(input),
-            combined: false,
-          });
-        else
-          add(
-            true,
-            ts.factory.createStringLiteral(atom.type),
-            ValueFactory.TYPEOF(input),
-          );
-
-      // TEMPLATE LITERAL VALUES
-      if (meta.templates.length)
-        if (AtomicPredicator.template(meta))
-          binaries.push({
-            expression: config.atomist(explore)(
-              check_template(meta.templates)(input),
-            )(input),
-            combined: false,
-          });
-
-      // NATIVE CLASSES
-      for (const native of meta.natives)
+    // FUNCTIONAL
+    if (props.metadata.functions.length)
+      if (
+        OptionPredicator.functional(props.context.options) ||
+        props.metadata.size() !== 1
+      )
+        add({
+          exact: true,
+          left: ts.factory.createStringLiteral("function"),
+          right: ValueFactory.TYPEOF(props.input),
+        });
+      else
         binaries.push({
-          expression: check_native(native)(input),
+          combined: false,
+          expression: props.config.success,
+        });
+
+    //----
+    // VALUES
+    //----
+    // CONSTANT VALUES
+    const constants: MetadataConstant[] = props.metadata.constants.filter((c) =>
+      AtomicPredicator.constant({
+        metadata: props.metadata,
+        name: c.type,
+      }),
+    );
+    const constantLength: number = constants
+      .map((c) => c.values.length)
+      .reduce((a, b) => a + b, 0);
+    if (constantLength >= 10) {
+      const values: Array<boolean | number | string | bigint> = constants
+        .map((c) => c.values.map((v) => v.value))
+        .flat();
+      add({
+        exact: true,
+        left: ts.factory.createTrue(),
+        right: ts.factory.createCallExpression(
+          IdentifierFactory.access(
+            props.functor.emplaceVariable(
+              `${props.config.prefix}v${props.functor.increment()}`,
+              ts.factory.createNewExpression(
+                ts.factory.createIdentifier("Set"),
+                undefined,
+                [
+                  ts.factory.createArrayLiteralExpression(
+                    values.map((v) =>
+                      typeof v === "boolean"
+                        ? v === true
+                          ? ts.factory.createTrue()
+                          : ts.factory.createFalse()
+                        : typeof v === "bigint"
+                          ? ExpressionFactory.bigint(v)
+                          : typeof v === "number"
+                            ? ExpressionFactory.number(v)
+                            : ts.factory.createStringLiteral(v.toString()),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            "has",
+          ),
+          undefined,
+          [props.input],
+        ),
+      });
+    } else
+      for (const c of constants)
+        if (
+          AtomicPredicator.constant({
+            metadata: props.metadata,
+            name: c.type,
+          })
+        )
+          for (const v of c.values)
+            add({
+              exact: true,
+              left: getConstantValue(v.value),
+            });
+
+    // ATOMIC VALUES
+    for (const atom of props.metadata.atomics)
+      if (
+        AtomicPredicator.atomic({
+          metadata: props.metadata,
+          name: atom.type,
+        }) === false
+      )
+        continue;
+      else if (atom.type === "number")
+        binaries.push({
+          expression: props.config.atomist({
+            explore: props.explore,
+            entry: check_number({
+              context: props.context,
+              numeric: props.config.numeric,
+              atomic: atom,
+              input: props.input,
+            }),
+            input: props.input,
+          }),
+          combined: false,
+        });
+      else if (atom.type === "bigint")
+        binaries.push({
+          expression: props.config.atomist({
+            explore: props.explore,
+            entry: check_bigint({
+              context: props.context,
+              atomic: atom,
+              input: props.input,
+            }),
+            input: props.input,
+          }),
+          combined: false,
+        });
+      else if (atom.type === "string")
+        binaries.push({
+          expression: props.config.atomist({
+            explore: props.explore,
+            entry: check_string({
+              context: props.context,
+              atomic: atom,
+              input: props.input,
+            }),
+            input: props.input,
+          }),
+          combined: false,
+        });
+      else
+        add({
+          exact: true,
+          left: ts.factory.createStringLiteral(atom.type),
+          right: ValueFactory.TYPEOF(props.input),
+        });
+
+    // TEMPLATE LITERAL VALUES
+    if (props.metadata.templates.length)
+      if (AtomicPredicator.template(props.metadata))
+        binaries.push({
+          expression: props.config.atomist({
+            explore: props.explore,
+            entry: check_template({
+              templates: props.metadata.templates,
+              input: props.input,
+            }),
+            input: props.input,
+          }),
           combined: false,
         });
 
-      //----
-      // INSTANCES
-      //----
-      interface IInstance {
-        pre: ts.Expression;
-        body: ts.Expression | null;
-        expected: string;
-      }
-      const instances: IInstance[] = [];
-      const prepare =
-        (pre: ts.Expression, expected: string) =>
-        (body: ts.Expression | null) =>
-          instances.push({
-            pre,
-            expected,
-            body,
-          });
+    // NATIVE CLASSES
+    for (const native of props.metadata.natives)
+      binaries.push({
+        expression: check_native({
+          name: native.name,
+          input: props.input,
+        }),
+        combined: false,
+      });
 
-      // SETS
-      if (meta.sets.length) {
-        const install = prepare(
-          check_native("Set")(input),
-          meta.sets.map((elem) => `Set<${elem.getName()}>`).join(" | "),
-        );
-        if (meta.sets.some((elem) => elem.any)) install(null);
-        else
-          install(
-            explore_sets(project)(config)(importer)(input, meta.sets, {
-              ...explore,
-              from: "array",
-            }),
-          );
-      }
+    //----
+    // INSTANCES
+    //----
+    interface IInstance {
+      head: ts.Expression;
+      body: ts.Expression | null;
+      expected: string;
+    }
+    const instances: IInstance[] = [];
+    const prepare = (next: IInstance) => instances.push(next);
 
-      // MAPS
-      if (meta.maps.length) {
-        const install = prepare(
-          check_native("Map")(input),
-          meta.maps
-            .map(({ key, value }) => `Map<${key}, ${value}>`)
+    // SETS
+    if (props.metadata.sets.length) {
+      const install = (body: ts.Expression | null) =>
+        prepare({
+          head: check_native({
+            name: "Set",
+            input: props.input,
+          }),
+          expected: props.metadata.sets
+            .map((elem) => `Set<${elem.getName()}>`)
             .join(" | "),
-        );
-        if (meta.maps.some((elem) => elem.key.any && elem.value.any))
-          install(null);
-        else
-          install(
-            explore_maps(project)(config)(importer)(input, meta.maps, {
-              ...explore,
+          body,
+        });
+      if (props.metadata.sets.some((elem) => elem.value.any)) install(null);
+      else
+        install(
+          explore_sets({
+            config: props.config,
+            context: props.context,
+            functor: props.functor,
+            sets: props.metadata.sets,
+            input: props.input,
+            explore: {
+              ...props.explore,
               from: "array",
-            }),
-          );
-      }
-
-      // ARRAYS AND TUPLES
-      if (meta.tuples.length + meta.arrays.length > 0) {
-        const install = prepare(
-          config.atomist(explore)({
-            expected: [
-              ...meta.tuples.map((t) => t.type.name),
-              ...meta.arrays.map((a) => a.getName()),
-            ].join(" | "),
-            expression: ExpressionFactory.isArray(input),
-            conditions: [],
-          })(input),
-          [...meta.tuples, ...meta.arrays]
-            .map((elem) => elem.type.name)
-            .join(" | "),
-        );
-        if (meta.arrays.length === 0)
-          if (meta.tuples.length === 1)
-            install(
-              decode_tuple(project)(config)(importer)(input, meta.tuples[0]!, {
-                ...explore,
-                from: "array",
-              }),
-            );
-          // TUPLE ONLY
-          else
-            install(
-              explore_tuples(project)(config)(importer)(input, meta.tuples, {
-                ...explore,
-                from: "array",
-              }),
-            );
-        else if (meta.arrays.some((elem) => elem.type.value.any)) install(null);
-        else if (meta.tuples.length === 0)
-          if (meta.arrays.length === 1)
-            // ARRAY ONLY
-            install(
-              decode_array(project)(config)(importer)(input, meta.arrays[0]!, {
-                ...explore,
-                from: "array",
-              }),
-            );
-          else
-            install(
-              explore_arrays(project)(config)(importer)(input, meta.arrays, {
-                ...explore,
-                from: "array",
-              }),
-            );
-        else
-          install(
-            explore_arrays_and_tuples(project)(config)(importer)(
-              input,
-              [...meta.tuples, ...meta.arrays],
-              explore,
-            ),
-          );
-      }
-
-      // OBJECT
-      if (meta.objects.length > 0)
-        prepare(
-          ExpressionFactory.isObject({
-            checkNull: true,
-            checkArray: meta.objects.some((obj) =>
-              obj.properties.every(
-                (prop) => !prop.key.isSoleLiteral() || !prop.value.isRequired(),
-              ),
-            ),
-          })(input),
-          meta.objects.map((obj) => obj.name).join(" | "),
-        )(
-          explore_objects(config)(importer)(input, meta, {
-            ...explore,
-            from: "object",
+            },
           }),
         );
+    }
 
-      if (instances.length) {
-        const transformer =
-          (merger: (x: ts.Expression, y: ts.Expression) => ts.Expression) =>
-          (ins: IInstance) =>
-            ins.body
-              ? {
-                  expression: merger(ins.pre, ins.body),
-                  combined: true,
-                }
-              : {
-                  expression: ins.pre,
-                  combined: false,
-                };
-        if (instances.length === 1)
-          binaries.push(
-            transformer((pre, body) =>
-              config.combiner(explore)("and")(
-                input,
-                [pre, body].map((expression) => ({
-                  expression,
-                  combined: expression !== pre,
-                })),
-                meta.getName(),
-              ),
-            )(instances[0]!),
+    // MAPS
+    if (props.metadata.maps.length) {
+      const install = (body: ts.Expression | null) =>
+        prepare({
+          head: check_native({
+            name: "Map",
+            input: props.input,
+          }),
+          expected: props.metadata.maps
+            .map(({ key, value }) => `Map<${key}, ${value}>`)
+            .join(" | "),
+          body,
+        });
+      if (props.metadata.maps.some((elem) => elem.key.any && elem.value.any))
+        install(null);
+      else
+        install(
+          explore_maps({
+            config: props.config,
+            context: props.context,
+            functor: props.functor,
+            maps: props.metadata.maps,
+            input: props.input,
+            explore: {
+              ...props.explore,
+              from: "array",
+            },
+          }),
+        );
+    }
+
+    // ARRAYS AND TUPLES
+    if (props.metadata.tuples.length + props.metadata.arrays.length > 0) {
+      const install = (body: ts.Expression | null) =>
+        prepare({
+          head: props.config.atomist({
+            explore: props.explore,
+            entry: {
+              expected: [
+                ...props.metadata.tuples.map((t) => t.type.name),
+                ...props.metadata.arrays.map((a) => a.getName()),
+              ].join(" | "),
+              expression: ExpressionFactory.isArray(props.input),
+              conditions: [],
+            },
+            input: props.input,
+          }),
+          expected: [...props.metadata.tuples, ...props.metadata.arrays]
+            .map((elem) => elem.type.name)
+            .join(" | "),
+          body,
+        });
+      if (props.metadata.arrays.length === 0)
+        if (props.metadata.tuples.length === 1)
+          install(
+            decode_tuple({
+              config: props.config,
+              context: props.context,
+              functor: props.functor,
+              tuple: props.metadata.tuples[0]!,
+              input: props.input,
+              explore: {
+                ...props.explore,
+                from: "array",
+              },
+            }),
+          );
+        // TUPLE ONLY
+        else
+          install(
+            explore_tuples({
+              config: props.config,
+              context: props.context,
+              functor: props.functor,
+              tuples: props.metadata.tuples,
+              input: props.input,
+              explore: {
+                ...props.explore,
+                from: "array",
+              },
+            }),
+          );
+      else if (props.metadata.arrays.some((elem) => elem.type.value.any))
+        install(null);
+      else if (props.metadata.tuples.length === 0)
+        if (props.metadata.arrays.length === 1)
+          // ARRAY ONLY
+          install(
+            decode_array({
+              config: props.config,
+              context: props.context,
+              functor: props.functor,
+              array: props.metadata.arrays[0]!,
+              input: props.input,
+              explore: {
+                ...props.explore,
+                from: "array",
+              },
+            }),
           );
         else
-          binaries.push({
-            expression: config.combiner(explore)("or")(
-              input,
-              instances.map(transformer(ts.factory.createLogicalAnd)),
-              meta.getName(),
-            ),
-            combined: true,
-          });
-      }
-
-      // ESCAPED CASE
-      if (meta.escaped !== null)
-        binaries.push({
-          combined: false,
-          expression:
-            meta.escaped.original.size() === 1 &&
-            meta.escaped.original.natives.length === 1
-              ? check_native(meta.escaped.original.natives[0]!)(input)
-              : ts.factory.createLogicalAnd(
-                  decode(project)(config)(importer)(
-                    input,
-                    meta.escaped.original,
-                    explore,
-                  ),
-                  ts.factory.createLogicalAnd(
-                    IsProgrammer.decode_to_json(false)(input),
-                    decode_escaped(project)(config)(importer)(
-                      input,
-                      meta.escaped.returns,
-                      explore,
-                    ),
-                  ),
-                ),
-        });
-
-      //----
-      // COMBINE CONDITIONS
-      //----
-      return top.length && binaries.length
-        ? config.combiner(explore)("and")(
-            input,
-            [
-              ...top,
-              {
-                expression: config.combiner(explore)("or")(
-                  input,
-                  binaries,
-                  meta.getName(),
-                ),
-                combined: true,
+          install(
+            explore_arrays({
+              config: props.config,
+              context: props.context,
+              functor: props.functor,
+              arrays: props.metadata.arrays,
+              input: props.input,
+              explore: {
+                ...props.explore,
+                from: "array",
               },
-            ],
-            meta.getName(),
-          )
-        : binaries.length
-          ? config.combiner(explore)("or")(input, binaries, meta.getName())
-          : config.success;
-    };
-
-  export const decode_object =
-    (config: IConfig) => (importer: FunctionImporter) => {
-      const func = FeatureProgrammer.decode_object(config)(importer);
-      return (input: ts.Expression, obj: MetadataObject, explore: IExplore) => {
-        obj.validated = true;
-        return func(input, obj, explore);
-      };
-    };
-
-  const decode_array =
-    (project: IProject) =>
-    (config: IConfig) =>
-    (importer: FunctionImporter) =>
-    (input: ts.Expression, array: MetadataArray, explore: IExplore) => {
-      if (array.type.recursive === false)
-        return decode_array_inline(project)(config)(importer)(
-          input,
-          array,
-          explore,
-        );
-
-      explore = {
-        ...explore,
-        source: "function",
-        from: "array",
-      };
-      return ts.factory.createLogicalOr(
-        ts.factory.createCallExpression(
-          ts.factory.createIdentifier(
-            importer.useLocal(`${config.prefix}a${array.type.index}`),
-          ),
-          undefined,
-          FeatureProgrammer.argumentsArray(config)({
-            ...explore,
-            source: "function",
-            from: "array",
-          })(input),
-        ),
-        config.joiner.failure(input, array.type.name, explore),
-      );
-    };
-
-  const decode_array_inline =
-    (project: IProject) =>
-    (config: IConfig) =>
-    (importer: FunctionImporter) =>
-    (
-      input: ts.Expression,
-      array: MetadataArray,
-      explore: IExplore,
-    ): ts.Expression => {
-      const length = check_array_length(project)(array)(input);
-      const main = FeatureProgrammer.decode_array({
-        prefix: config.prefix,
-        trace: config.trace,
-        path: config.path,
-        decoder: () => decode(project)(config)(importer),
-      })(importer)(config.joiner.array)(input, array, explore);
-      return length.expression === null && length.conditions.length === 0
-        ? main
-        : ts.factory.createLogicalAnd(
-            config.atomist(explore)(length)(input),
-            main,
+            }),
           );
-    };
-
-  const decode_tuple =
-    (project: IProject) =>
-    (config: IConfig) =>
-    (importer: FunctionImporter) =>
-    (
-      input: ts.Expression,
-      tuple: MetadataTuple,
-      explore: IExplore,
-    ): ts.Expression => {
-      if (tuple.type.recursive === false)
-        return decode_tuple_inline(project)(config)(importer)(
-          input,
-          tuple.type,
-          explore,
+      else
+        install(
+          explore_arrays_and_tuples({
+            config: props.config,
+            context: props.context,
+            functor: props.functor,
+            definitions: [...props.metadata.tuples, ...props.metadata.arrays],
+            input: props.input,
+            explore: props.explore,
+          }),
         );
-      explore = {
-        ...explore,
-        source: "function",
-        from: "array",
-      };
-      return ts.factory.createLogicalOr(
-        ts.factory.createCallExpression(
-          ts.factory.createIdentifier(
-            importer.useLocal(`${config.prefix}t${tuple.type.index}`),
-          ),
-          undefined,
-          FeatureProgrammer.argumentsArray(config)({
-            ...explore,
-            source: "function",
-          })(input),
-        ),
-        config.joiner.failure(input, tuple.type.name, explore),
-      );
-    };
+    }
 
-  const decode_tuple_inline =
-    (project: IProject) =>
-    (config: IConfig) =>
-    (importer: FunctionImporter) =>
-    (
-      input: ts.Expression,
-      tuple: MetadataTupleType,
-      explore: IExplore,
-    ): ts.Expression => {
-      const binaries: ts.Expression[] = tuple.elements
-        .filter((meta) => meta.rest === null)
-        .map((meta, index) =>
-          decode(project)(config)(importer)(
-            ts.factory.createElementAccessExpression(input, index),
-            meta,
-            {
-              ...explore,
-              from: "array",
-              postfix: explore.postfix.length
-                ? `${postfix_of_tuple(explore.postfix)}[${index}]"`
-                : `"[${index}]"`,
-            },
-          ),
-        );
-      const rest: ts.Expression | null =
-        tuple.elements.length && tuple.elements.at(-1)!.rest !== null
-          ? decode(project)(config)(importer)(
-              ts.factory.createCallExpression(
-                IdentifierFactory.access(input)("slice"),
-                undefined,
-                [ExpressionFactory.number(tuple.elements.length - 1)],
-              ),
-              wrap_metadata_rest_tuple(tuple.elements.at(-1)!.rest!),
-              {
-                ...explore,
-                start: tuple.elements.length - 1,
-              },
-            )
-          : null;
-
-      const arrayLength = ts.factory.createPropertyAccessExpression(
-        input,
-        "length",
-      );
-      return config.combiner(explore)("and")(
-        input,
-        [
-          ...(rest === null
-            ? tuple.elements.every((t) => t.optional === false)
-              ? [
-                  {
-                    combined: false,
-                    expression: ts.factory.createStrictEquality(
-                      arrayLength,
-                      ExpressionFactory.number(tuple.elements.length),
-                    ),
-                  },
-                ]
-              : [
-                  {
-                    combined: false,
-                    expression: ts.factory.createLogicalAnd(
-                      ts.factory.createLessThanEquals(
-                        ExpressionFactory.number(
-                          tuple.elements.filter((t) => t.optional === false)
-                            .length,
-                        ),
-                        arrayLength,
-                      ),
-                      ts.factory.createGreaterThanEquals(
-                        ExpressionFactory.number(tuple.elements.length),
-                        arrayLength,
-                      ),
-                    ),
-                  },
-                ]
-            : []),
-          ...(config.joiner.tuple
-            ? [
-                {
-                  expression: config.joiner.tuple(binaries),
-                  combined: true,
-                },
-              ]
-            : binaries.map((expression) => ({
-                expression,
-                combined: true,
-              }))),
-          ...(rest !== null
-            ? [
-                {
-                  expression: rest,
-                  combined: true,
-                },
-              ]
-            : []),
-        ],
-        `[${tuple.elements.map((t) => t.getName()).join(", ")}]`,
-      );
-    };
-
-  const decode_escaped =
-    (project: IProject) =>
-    (config: IConfig) =>
-    (importer: FunctionImporter) =>
-    (input: ts.Expression, meta: Metadata, explore: IExplore): ts.Expression =>
-      ts.factory.createCallExpression(
-        ts.factory.createParenthesizedExpression(
-          ts.factory.createArrowFunction(
-            undefined,
-            undefined,
-            [IdentifierFactory.parameter("input", TypeFactory.keyword("any"))],
-            undefined,
-            undefined,
-            decode(project)(config)(importer)(
-              ts.factory.createIdentifier("input"),
-              meta,
-              explore,
+    // OBJECT
+    if (props.metadata.objects.length > 0)
+      prepare({
+        head: ExpressionFactory.isObject({
+          checkNull: true,
+          checkArray: props.metadata.objects.some((obj) =>
+            obj.type.properties.every(
+              (prop) => !prop.key.isSoleLiteral() || !prop.value.isRequired(),
             ),
+          ),
+          input: props.input,
+        }),
+        expected: props.metadata.objects
+          .map((obj) => obj.type.name)
+          .join(" | "),
+        body: explore_objects({
+          config: props.config,
+          functor: props.functor,
+          metadata: props.metadata,
+          input: props.input,
+          explore: {
+            ...props.explore,
+            from: "object",
+          },
+        }),
+      });
+
+    if (instances.length) {
+      const transformer =
+        (merge: (x: ts.Expression, y: ts.Expression) => ts.Expression) =>
+        (instance: IInstance) =>
+          instance.body
+            ? {
+                expression: merge(instance.head, instance.body),
+                combined: true,
+              }
+            : {
+                expression: instance.head,
+                combined: false,
+              };
+      if (instances.length === 1)
+        binaries.push(
+          transformer((head, body) =>
+            props.config.combiner({
+              explore: props.explore,
+              logic: "and",
+              input: props.input,
+              binaries: [head, body].map((expression) => ({
+                expression,
+                combined: expression !== head,
+              })),
+              expected: props.metadata.getName(),
+            }),
+          )(instances[0]!),
+        );
+      else
+        binaries.push({
+          expression: props.config.combiner({
+            explore: props.explore,
+            logic: "or",
+            input: props.input,
+            binaries: instances.map(transformer(ts.factory.createLogicalAnd)),
+            expected: props.metadata.getName(),
+          }),
+          combined: true,
+        });
+    }
+
+    // ESCAPED CASE
+    if (props.metadata.escaped !== null)
+      binaries.push({
+        combined: false,
+        expression:
+          props.metadata.escaped.original.size() === 1 &&
+          props.metadata.escaped.original.natives.length === 1
+            ? check_native({
+                name: props.metadata.escaped.original.natives[0]!.name,
+                input: props.input,
+              })
+            : ts.factory.createLogicalAnd(
+                decode({
+                  context: props.context,
+                  config: props.config,
+                  functor: props.functor,
+                  metadata: props.metadata.escaped.original,
+                  input: props.input,
+                  explore: props.explore,
+                }),
+                ts.factory.createLogicalAnd(
+                  IsProgrammer.decode_to_json({
+                    checkNull: false,
+                    input: props.input,
+                  }),
+                  decode_escaped({
+                    config: props.config,
+                    context: props.context,
+                    functor: props.functor,
+                    metadata: props.metadata.escaped.returns,
+                    input: props.input,
+                    explore: props.explore,
+                  }),
+                ),
+              ),
+      });
+
+    //----
+    // COMBINE CONDITIONS
+    //----
+    return top.length && binaries.length
+      ? props.config.combiner({
+          explore: props.explore,
+          logic: "and",
+          input: props.input,
+          binaries: [
+            ...top,
+            {
+              expression: props.config.combiner({
+                explore: props.explore,
+                logic: "or",
+                input: props.input,
+                binaries,
+                expected: props.metadata.getName(),
+              }),
+              combined: true,
+            },
+          ],
+          expected: props.metadata.getName(),
+        })
+      : binaries.length
+        ? props.config.combiner({
+            explore: props.explore,
+            logic: "or",
+            input: props.input,
+            binaries,
+            expected: props.metadata.getName(),
+          })
+        : props.config.success;
+  };
+
+  export const decode_object = (props: {
+    config: IConfig;
+    functor: FunctionProgrammer;
+    object: MetadataObjectType;
+    input: ts.Expression;
+    explore: IExplore;
+  }) => {
+    props.object.validated ||= true;
+    return FeatureProgrammer.decode_object(props);
+  };
+
+  const decode_array = (props: {
+    config: IConfig;
+    context: ITypiaContext;
+    functor: FunctionProgrammer;
+    array: MetadataArray;
+    input: ts.Expression;
+    explore: IExplore;
+  }) => {
+    if (props.array.type.recursive === false) return decode_array_inline(props);
+
+    const arrayExplore: IExplore = {
+      ...props.explore,
+      source: "function",
+      from: "array",
+    };
+    return ts.factory.createLogicalOr(
+      ts.factory.createCallExpression(
+        ts.factory.createIdentifier(
+          props.functor.useLocal(
+            `${props.config.prefix}a${props.array.type.index}`,
           ),
         ),
         undefined,
-        [
-          ts.factory.createCallExpression(
-            IdentifierFactory.access(input)("toJSON"),
-            undefined,
-            [],
+        FeatureProgrammer.argumentsArray({
+          config: props.config,
+          explore: {
+            ...arrayExplore,
+            source: "function",
+            from: "array",
+          },
+          input: props.input,
+        }),
+      ),
+      props.config.joiner.failure({
+        input: props.input,
+        expected: props.array.type.name,
+        explore: arrayExplore,
+      }),
+    );
+  };
+
+  const decode_array_inline = (props: {
+    config: IConfig;
+    context: ITypiaContext;
+    functor: FunctionProgrammer;
+    array: MetadataArray;
+    input: ts.Expression;
+    explore: IExplore;
+  }): ts.Expression => {
+    const length: ICheckEntry = check_array_length({
+      context: props.context,
+      array: props.array,
+      input: props.input,
+    });
+    const main: ts.Expression = FeatureProgrammer.decode_array({
+      config: {
+        prefix: props.config.prefix,
+        trace: props.config.trace,
+        path: props.config.path,
+        decoder: (next) =>
+          decode({
+            ...props,
+            ...next,
+          }),
+      },
+      functor: props.functor,
+      combiner: props.config.joiner.array,
+      array: props.array,
+      input: props.input,
+      explore: props.explore,
+    });
+    return length.expression === null && length.conditions.length === 0
+      ? main
+      : ts.factory.createLogicalAnd(
+          props.config.atomist({
+            explore: props.explore,
+            input: props.input,
+            entry: length,
+          }),
+          main,
+        );
+  };
+
+  const decode_tuple = (props: {
+    context: ITypiaContext;
+    config: IConfig;
+    functor: FunctionProgrammer;
+    tuple: MetadataTuple;
+    input: ts.Expression;
+    explore: IExplore;
+  }): ts.Expression => {
+    if (props.tuple.type.recursive === false)
+      return decode_tuple_inline({
+        ...props,
+        tuple: props.tuple.type,
+      });
+    const arrayExplore: IExplore = {
+      ...props.explore,
+      source: "function",
+      from: "array",
+    };
+    return ts.factory.createLogicalOr(
+      ts.factory.createCallExpression(
+        ts.factory.createIdentifier(
+          props.functor.useLocal(
+            `${props.config.prefix}t${props.tuple.type.index}`,
           ),
-        ],
+        ),
+        undefined,
+        FeatureProgrammer.argumentsArray({
+          config: props.config,
+          explore: {
+            ...arrayExplore,
+            source: "function",
+          },
+          input: props.input,
+        }),
+      ),
+      props.config.joiner.failure({
+        input: props.input,
+        expected: props.tuple.type.name,
+        explore: arrayExplore,
+      }),
+    );
+  };
+
+  const decode_tuple_inline = (props: {
+    config: IConfig;
+    context: ITypiaContext;
+    functor: FunctionProgrammer;
+    tuple: MetadataTupleType;
+    input: ts.Expression;
+    explore: IExplore;
+  }): ts.Expression => {
+    const binaries: ts.Expression[] = props.tuple.elements
+      .filter((metadata) => metadata.rest === null)
+      .map((metadata, index) =>
+        decode({
+          context: props.context,
+          config: props.config,
+          functor: props.functor,
+          input: ts.factory.createElementAccessExpression(props.input, index),
+          metadata,
+          explore: {
+            ...props.explore,
+            from: "array",
+            postfix: props.explore.postfix.length
+              ? `${postfix_of_tuple(props.explore.postfix)}[${index}]"`
+              : `"[${index}]"`,
+          },
+        }),
       );
+    const rest: ts.Expression | null =
+      props.tuple.elements.length && props.tuple.elements.at(-1)!.rest !== null
+        ? decode({
+            config: props.config,
+            context: props.context,
+            functor: props.functor,
+            input: ts.factory.createCallExpression(
+              IdentifierFactory.access(props.input, "slice"),
+              undefined,
+              [ExpressionFactory.number(props.tuple.elements.length - 1)],
+            ),
+            metadata: wrap_metadata_rest_tuple(
+              props.tuple.elements.at(-1)!.rest!,
+            ),
+            explore: {
+              ...props.explore,
+              start: props.tuple.elements.length - 1,
+            },
+          })
+        : null;
+    const arrayLength = ts.factory.createPropertyAccessExpression(
+      props.input,
+      "length",
+    );
+    return props.config.combiner({
+      explore: props.explore,
+      logic: "and",
+      input: props.input,
+      binaries: [
+        ...(rest === null
+          ? props.tuple.elements.every((t) => t.optional === false)
+            ? [
+                {
+                  combined: false,
+                  expression: ts.factory.createStrictEquality(
+                    arrayLength,
+                    ExpressionFactory.number(props.tuple.elements.length),
+                  ),
+                },
+              ]
+            : [
+                {
+                  combined: false,
+                  expression: ts.factory.createLogicalAnd(
+                    ts.factory.createLessThanEquals(
+                      ExpressionFactory.number(
+                        props.tuple.elements.filter((t) => t.optional === false)
+                          .length,
+                      ),
+                      arrayLength,
+                    ),
+                    ts.factory.createGreaterThanEquals(
+                      ExpressionFactory.number(props.tuple.elements.length),
+                      arrayLength,
+                    ),
+                  ),
+                },
+              ]
+          : []),
+        ...(props.config.joiner.tuple
+          ? [
+              {
+                expression: props.config.joiner.tuple(binaries),
+                combined: true,
+              },
+            ]
+          : binaries.map((expression) => ({
+              expression,
+              combined: true,
+            }))),
+        ...(rest !== null
+          ? [
+              {
+                expression: rest,
+                combined: true,
+              },
+            ]
+          : []),
+      ],
+      expected: `[${props.tuple.elements.map((t) => t.getName()).join(", ")}]`,
+    });
+  };
+
+  const decode_escaped = (props: {
+    config: IConfig;
+    context: ITypiaContext;
+    functor: FunctionProgrammer;
+    metadata: Metadata;
+    input: ts.Expression;
+    explore: IExplore;
+  }): ts.Expression =>
+    ts.factory.createCallExpression(
+      ts.factory.createParenthesizedExpression(
+        ts.factory.createArrowFunction(
+          undefined,
+          undefined,
+          [IdentifierFactory.parameter("input", TypeFactory.keyword("any"))],
+          undefined,
+          undefined,
+          decode({
+            ...props,
+            input: ts.factory.createIdentifier("input"),
+          }),
+        ),
+      ),
+      undefined,
+      [
+        ts.factory.createCallExpression(
+          IdentifierFactory.access(props.input, "toJSON"),
+          undefined,
+          [],
+        ),
+      ],
+    );
 
   /* -----------------------------------------------------------
         UNION TYPE EXPLORERS
     ----------------------------------------------------------- */
-  const explore_sets =
-    (project: IProject) =>
-    (config: IConfig) =>
-    (importer: FunctionImporter) =>
-    (
-      input: ts.Expression,
-      sets: Metadata[],
-      explore: IExplore,
-    ): ts.Expression =>
-      ts.factory.createCallExpression(
-        UnionExplorer.set({
-          checker: decode(project)(config)(importer),
-          decoder: decode_array(project)(config)(importer),
-          empty: config.success,
-          success: config.success,
-          failure: (input, expected, explore) =>
-            ts.factory.createReturnStatement(
-              config.joiner.failure(input, expected, explore),
-            ),
-        })([])(input, sets, explore),
-        undefined,
-        undefined,
-      );
+  const explore_sets = (props: {
+    context: ITypiaContext;
+    config: IConfig;
+    functor: FunctionProgrammer;
+    sets: MetadataSet[];
+    input: ts.Expression;
+    explore: IExplore;
+  }): ts.Expression =>
+    ts.factory.createCallExpression(
+      UnionExplorer.set({
+        config: {
+          checker: (v) =>
+            decode({
+              context: props.context,
+              config: props.config,
+              functor: props.functor,
+              input: v.input,
+              metadata: v.definition,
+              explore: v.explore,
+            }),
+          decoder: (v) =>
+            decode_array({
+              config: props.config,
+              context: props.context,
+              functor: props.functor,
+              array: v.definition,
+              input: v.input,
+              explore: v.explore,
+            }),
+          empty: props.config.success,
+          success: props.config.success,
+          failure: (v) =>
+            ts.factory.createReturnStatement(props.config.joiner.failure(v)),
+        },
+        parameters: [],
+        input: props.input,
+        sets: props.sets,
+        explore: props.explore,
+      }),
+      undefined,
+      undefined,
+    );
 
-  const explore_maps =
-    (project: IProject) =>
-    (config: IConfig) =>
-    (importer: FunctionImporter) =>
-    (
-      input: ts.Expression,
-      maps: Metadata.Entry[],
-      explore: IExplore,
-    ): ts.Expression =>
-      ts.factory.createCallExpression(
-        UnionExplorer.map({
-          checker: (input, entry, explore) => {
-            const func = decode(project)(config)(importer);
-            return ts.factory.createLogicalAnd(
-              func(
-                ts.factory.createElementAccessExpression(input, 0),
-                entry[0],
-                {
-                  ...explore,
-                  postfix: `${explore.postfix}[0]`,
+  const explore_maps = (props: {
+    context: ITypiaContext;
+    config: IConfig;
+    functor: FunctionProgrammer;
+    input: ts.Expression;
+    maps: MetadataMap[];
+    explore: IExplore;
+  }): ts.Expression =>
+    ts.factory.createCallExpression(
+      UnionExplorer.map({
+        config: {
+          checker: (v) =>
+            ts.factory.createLogicalAnd(
+              decode({
+                config: props.config,
+                context: props.context,
+                functor: props.functor,
+                input: ts.factory.createElementAccessExpression(v.input, 0),
+                metadata: v.definition[0],
+                explore: {
+                  ...v.explore,
+                  postfix: `${v.explore.postfix}[0]`,
                 },
-              ),
-              func(
-                ts.factory.createElementAccessExpression(input, 1),
-                entry[1],
-                {
-                  ...explore,
-                  postfix: `${explore.postfix}[1]`,
+              }),
+              decode({
+                config: props.config,
+                context: props.context,
+                functor: props.functor,
+                input: ts.factory.createElementAccessExpression(v.input, 1),
+                metadata: v.definition[1],
+                explore: {
+                  ...v.explore,
+                  postfix: `${v.explore.postfix}[1]`,
                 },
-              ),
-            );
-          },
-          decoder: decode_array(project)(config)(importer),
-          empty: config.success,
-          success: config.success,
-          failure: (input, expected, explore) =>
-            ts.factory.createReturnStatement(
-              config.joiner.failure(input, expected, explore),
+              }),
             ),
-        })([])(input, maps, explore),
-        undefined,
-        undefined,
-      );
+          decoder: (v) =>
+            decode_array({
+              context: props.context,
+              config: props.config,
+              functor: props.functor,
+              array: v.definition,
+              input: v.input,
+              explore: v.explore,
+            }),
+          empty: props.config.success,
+          success: props.config.success,
+          failure: (v) =>
+            ts.factory.createReturnStatement(props.config.joiner.failure(v)),
+        },
+        parameters: [],
+        input: props.input,
+        maps: props.maps,
+        explore: props.explore,
+      }),
+      undefined,
+      undefined,
+    );
 
-  const explore_tuples =
-    (project: IProject) =>
-    (config: IConfig) =>
-    (importer: FunctionImporter) =>
-    (
-      input: ts.Expression,
-      tuples: MetadataTuple[],
-      explore: IExplore,
-    ): ts.Expression =>
-      explore_array_like_union_types(config)(importer)(
+  const explore_tuples = (props: {
+    config: IConfig;
+    context: ITypiaContext;
+    functor: FunctionProgrammer;
+    tuples: MetadataTuple[];
+    input: ts.Expression;
+    explore: IExplore;
+  }): ts.Expression =>
+    explore_array_like_union_types<MetadataTuple>({
+      config: props.config,
+      functor: props.functor,
+      factory: (next) =>
         UnionExplorer.tuple({
-          checker: decode_tuple(project)(config)(importer),
-          decoder: decode_tuple(project)(config)(importer),
-          empty: config.success,
-          success: config.success,
-          failure: (input, expected, explore) =>
-            ts.factory.createReturnStatement(
-              config.joiner.failure(input, expected, explore),
-            ),
+          config: {
+            checker: (v) =>
+              decode_tuple({
+                context: props.context,
+                config: props.config,
+                functor: props.functor,
+                input: v.input,
+                tuple: v.definition,
+                explore: v.explore,
+              }),
+            decoder: (v) =>
+              decode_tuple({
+                context: props.context,
+                config: props.config,
+                functor: props.functor,
+                tuple: v.definition,
+                input: v.input,
+                explore: v.explore,
+              }),
+            empty: props.config.success,
+            success: props.config.success,
+            failure: (v) =>
+              ts.factory.createReturnStatement(props.config.joiner.failure(v)),
+          },
+          parameters: next.parameters,
+          tuples: next.definitions,
+          input: next.input,
+          explore: next.explore,
         }),
-      )(input, tuples, explore);
+      definitions: props.tuples,
+      input: props.input,
+      explore: props.explore,
+    });
 
-  const explore_arrays =
-    (project: IProject) =>
-    (config: IConfig) =>
-    (importer: FunctionImporter) =>
-    (
-      input: ts.Expression,
-      arrays: MetadataArray[],
-      explore: IExplore,
-    ): ts.Expression =>
-      explore_array_like_union_types(config)(importer)(
+  const explore_arrays = (props: {
+    config: IConfig;
+    context: ITypiaContext;
+    functor: FunctionProgrammer;
+    arrays: MetadataArray[];
+    input: ts.Expression;
+    explore: IExplore;
+  }): ts.Expression =>
+    explore_array_like_union_types<MetadataArray>({
+      config: props.config,
+      functor: props.functor,
+      factory: (next) =>
         UnionExplorer.array({
-          checker: decode(project)(config)(importer),
-          decoder: decode_array(project)(config)(importer),
-          empty: config.success,
-          success: config.success,
-          failure: (input, expected, explore) =>
-            ts.factory.createReturnStatement(
-              config.joiner.failure(input, expected, explore),
-            ),
+          config: {
+            checker: (v) =>
+              decode({
+                context: props.context,
+                config: props.config,
+                functor: props.functor,
+                metadata: v.definition,
+                input: v.input,
+                explore: v.explore,
+              }),
+            decoder: (v) =>
+              decode_array({
+                context: props.context,
+                config: props.config,
+                functor: props.functor,
+                array: v.definition,
+                input: v.input,
+                explore: v.explore,
+              }),
+            empty: props.config.success,
+            success: props.config.success,
+            failure: (v) =>
+              ts.factory.createReturnStatement(props.config.joiner.failure(v)),
+          },
+          parameters: next.parameters,
+          arrays: next.definitions,
+          input: next.input,
+          explore: next.explore,
         }),
-      )(input, arrays, explore);
+      definitions: props.arrays,
+      input: props.input,
+      explore: props.explore,
+    });
 
-  const explore_arrays_and_tuples =
-    (project: IProject) =>
-    (config: IConfig) =>
-    (importer: FunctionImporter) =>
-    (
-      input: ts.Expression,
-      elements: Array<MetadataArray | MetadataTuple>,
-      explore: IExplore,
-    ): ts.Expression =>
-      explore_array_like_union_types(config)(importer)(
+  const explore_arrays_and_tuples = (props: {
+    config: IConfig;
+    context: ITypiaContext;
+    functor: FunctionProgrammer;
+    definitions: Array<MetadataArray | MetadataTuple>;
+    input: ts.Expression;
+    explore: IExplore;
+  }): ts.Expression =>
+    explore_array_like_union_types<MetadataArray | MetadataTuple>({
+      config: props.config,
+      functor: props.functor,
+      factory: (next) =>
         UnionExplorer.array_or_tuple({
-          checker: (front, target, explore, array) =>
-            target instanceof MetadataTuple
-              ? decode_tuple(project)(config)(importer)(front, target, explore)
-              : config.atomist(explore)({
-                  expected: elements
-                    .map((elem) =>
-                      elem instanceof MetadataArray
-                        ? elem.getName()
-                        : elem.type.name,
-                    )
-                    .join(" | "),
-                  expression: decode(project)(config)(importer)(
-                    front,
-                    target,
-                    explore,
-                  ),
-                  conditions: [],
-                })(array),
-          decoder: (input, target, explore) =>
-            target instanceof MetadataTuple
-              ? decode_tuple(project)(config)(importer)(input, target, explore)
-              : decode_array(project)(config)(importer)(input, target, explore),
-          empty: config.success,
-          success: config.success,
-          failure: (input, expected, explore) =>
-            ts.factory.createReturnStatement(
-              config.joiner.failure(input, expected, explore),
-            ),
+          config: {
+            checker: (v) =>
+              v.definition instanceof MetadataTuple
+                ? decode_tuple({
+                    config: props.config,
+                    context: props.context,
+                    functor: props.functor,
+                    input: v.input,
+                    tuple: v.definition,
+                    explore: v.explore,
+                  })
+                : props.config.atomist({
+                    explore: v.explore,
+                    entry: {
+                      expected: props.definitions
+                        .map((elem) =>
+                          elem instanceof MetadataArray
+                            ? elem.getName()
+                            : elem.type.name,
+                        )
+                        .join(" | "),
+                      expression: decode({
+                        functor: props.functor,
+                        context: props.context,
+                        config: props.config,
+                        metadata: v.definition,
+                        input: v.input,
+                        explore: v.explore,
+                      }),
+                      conditions: [],
+                    },
+                    input: v.container,
+                  }),
+            decoder: (v) =>
+              v.definition instanceof MetadataTuple
+                ? decode_tuple({
+                    context: props.context,
+                    config: props.config,
+                    functor: props.functor,
+                    input: v.input,
+                    tuple: v.definition,
+                    explore: v.explore,
+                  })
+                : decode_array({
+                    context: props.context,
+                    config: props.config,
+                    functor: props.functor,
+                    input: v.input,
+                    array: v.definition,
+                    explore: v.explore,
+                  }),
+            empty: props.config.success,
+            success: props.config.success,
+            failure: (v) =>
+              ts.factory.createReturnStatement(props.config.joiner.failure(v)),
+          },
+          parameters: next.parameters,
+          definitions: next.definitions,
+          input: next.input,
+          explore: next.explore,
         }),
-      )(input, elements, explore);
+      input: props.input,
+      definitions: props.definitions,
+      explore: props.explore,
+    });
 
-  const explore_array_like_union_types =
-    (config: IConfig) =>
-    (importer: FunctionImporter) =>
-    <T extends MetadataArray | MetadataTuple>(
-      factory: (
-        parameters: ts.ParameterDeclaration[],
-      ) => (
-        input: ts.Expression,
-        elements: T[],
-        explore: IExplore,
-      ) => ts.ArrowFunction,
-    ) =>
-    (input: ts.Expression, elements: T[], explore: IExplore): ts.Expression => {
-      const arrow =
-        (parameters: ts.ParameterDeclaration[]) =>
-        (explore: IExplore) =>
-        (input: ts.Expression): ts.ArrowFunction =>
-          factory(parameters)(input, elements, explore);
-      if (elements.every((e) => e.type.recursive === false))
-        ts.factory.createCallExpression(
-          arrow([])(explore)(input),
-          undefined,
-          [],
-        );
-      explore = {
-        ...explore,
-        source: "function",
-        from: "array",
-      };
-      return ts.factory.createLogicalOr(
-        ts.factory.createCallExpression(
-          ts.factory.createIdentifier(
-            importer.emplaceUnion(
-              config.prefix,
-              elements.map((e) => e.type.name).join(" | "),
-              () =>
-                arrow(
-                  FeatureProgrammer.parameterDeclarations(config)(
-                    TypeFactory.keyword("any"),
-                  )(ts.factory.createIdentifier("input")),
-                )({
-                  ...explore,
+  const explore_array_like_union_types = <
+    T extends MetadataArray | MetadataTuple,
+  >(props: {
+    config: IConfig;
+    functor: FunctionProgrammer;
+    factory: (next: {
+      parameters: ts.ParameterDeclaration[];
+      definitions: T[];
+      input: ts.Expression;
+      explore: IExplore;
+    }) => ts.ArrowFunction;
+    input: ts.Expression;
+    definitions: T[];
+    explore: IExplore;
+  }): ts.Expression => {
+    const arrow = (next: {
+      parameters: ts.ParameterDeclaration[];
+      explore: IExplore;
+      input: ts.Expression;
+    }): ts.ArrowFunction =>
+      props.factory({
+        parameters: next.parameters,
+        definitions: props.definitions,
+        input: next.input,
+        explore: next.explore,
+      });
+    if (props.definitions.every((e) => e.type.recursive === false))
+      ts.factory.createCallExpression(
+        arrow({
+          explore: props.explore,
+          input: props.input,
+          parameters: [],
+        }),
+        undefined,
+        [],
+      );
+    const arrayExplore: IExplore = {
+      ...props.explore,
+      source: "function",
+      from: "array",
+    };
+    return ts.factory.createLogicalOr(
+      ts.factory.createCallExpression(
+        ts.factory.createIdentifier(
+          props.functor.emplaceUnion(
+            props.config.prefix,
+            props.definitions.map((e) => e.type.name).join(" | "),
+            () =>
+              arrow({
+                parameters: FeatureProgrammer.parameterDeclarations({
+                  config: props.config,
+                  type: TypeFactory.keyword("any"),
+                  input: ts.factory.createIdentifier("input"),
+                }),
+                explore: {
+                  ...arrayExplore,
                   postfix: "",
-                })(ts.factory.createIdentifier("input")),
+                },
+                input: ts.factory.createIdentifier("input"),
+              }),
+          ),
+        ),
+        undefined,
+        FeatureProgrammer.argumentsArray(props),
+      ),
+      props.config.joiner.failure({
+        input: props.input,
+        expected: props.definitions.map((e) => e.type.name).join(" | "),
+        explore: arrayExplore,
+      }),
+    );
+  };
+
+  const explore_objects = (props: {
+    config: IConfig;
+    functor: FunctionProgrammer;
+    input: ts.Expression;
+    metadata: Metadata;
+    explore: IExplore;
+  }) =>
+    props.metadata.objects.length === 1
+      ? decode_object({
+          config: props.config,
+          functor: props.functor,
+          object: props.metadata.objects[0]!.type,
+          input: props.input,
+          explore: props.explore,
+        })
+      : ts.factory.createCallExpression(
+          ts.factory.createIdentifier(
+            props.functor.useLocal(
+              `${props.config.prefix}u${props.metadata.union_index!}`,
             ),
           ),
           undefined,
-          FeatureProgrammer.argumentsArray(config)(explore)(input),
-        ),
-        config.joiner.failure(
-          input,
-          elements.map((e) => e.type.name).join(" | "),
-          explore,
-        ),
-      );
-    };
-
-  const explore_objects =
-    (config: IConfig) =>
-    (importer: FunctionImporter) =>
-    (input: ts.Expression, meta: Metadata, explore: IExplore) =>
-      meta.objects.length === 1
-        ? decode_object(config)(importer)(input, meta.objects[0]!, explore)
-        : ts.factory.createCallExpression(
-            ts.factory.createIdentifier(
-              importer.useLocal(`${config.prefix}u${meta.union_index!}`),
-            ),
-            undefined,
-            FeatureProgrammer.argumentsArray(config)(explore)(input),
-          );
+          FeatureProgrammer.argumentsArray(props),
+        );
 }
 
-const create_add =
-  (binaries: CheckerProgrammer.IBinary[]) =>
-  (defaultInput: ts.Expression) =>
-  (
-    exact: boolean,
-    left: ts.Expression,
-    right: ts.Expression = defaultInput,
-  ) => {
-    const factory = exact
-      ? ts.factory.createStrictEquality
-      : ts.factory.createStrictInequality;
-    binaries.push({
-      expression: factory(left, right),
-      combined: false,
-    });
-  };
+const create_add = (props: {
+  binaries: CheckerProgrammer.IBinary[];
+  default: ts.Expression;
+  exact: boolean;
+  left: ts.Expression;
+  right?: ts.Expression;
+}) => {
+  const factory = props.exact
+    ? ts.factory.createStrictEquality
+    : ts.factory.createStrictInequality;
+  props.binaries.push({
+    expression: factory(props.left, props.right ?? props.default),
+    combined: false,
+  });
+};

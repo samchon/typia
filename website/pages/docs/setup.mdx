@@ -31,7 +31,7 @@ bun typia setup --manager bun
 
 Just run `npx typia setup` command if you're using `tsc`. The setup wizard will do everything. 
 
-By the way, if you need additional bundling, the third party library [`unplugin-typia`](#unplugin-typia) is recommended.
+By the way, if you use `typia` with bundlers(`vite`, `rollup`, `webpack`, etc), the third party library [`unplugin-typia`](#unplugin-typia) is recommended.
 
 Otherwise non-standard compiler case, only the [generation](#generation) mode is available.
 
@@ -69,21 +69,19 @@ interface IMember {
   </Tab>
   <Tab>
 ```javascript filename="examples/bin/check.js" showLineNumbers {2-16}
+import * as __typia_transform__isFormatUuid from "typia/lib/internal/_isFormatUuid.js";
+import * as __typia_transform__isFormatEmail from "typia/lib/internal/_isFormatEmail.js";
 import typia from "typia";
 export const check = (() => {
-  const $io0 = (input) =>
+  const _io0 = (input) =>
     "string" === typeof input.id &&
-    /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
-      input.id,
-    ) &&
+    __typia_transform__isFormatUuid._isFormatUuid(input.id) &&
     "string" === typeof input.email &&
-    /^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$/i.test(
-      input.email,
-    ) &&
+    __typia_transform__isFormatEmail._isFormatEmail(input.email) &&
     "number" === typeof input.age &&
     19 < input.age &&
     input.age <= 100;
-  return (input) => "object" === typeof input && null !== input && $io0(input);
+  return (input) => "object" === typeof input && null !== input && _io0(input);
 })();
 ```
   </Tab>
@@ -251,7 +249,9 @@ Currently, `unplugin-typia` supports the following bundlers:
 <Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
   <Tab>
 ```bash filename="Terminal" showLineNumbers copy
-npx jsr add -D @ryoppippi/unplugin-typia
+npx jsr add -D @ryoppippi/unplugin-typia # via jsr (recommended)
+# npm install -D @ryoppippi/unplugin-typia # via npm
+
 npm install --save typia
 npx typia setup
 ```
@@ -284,10 +284,14 @@ At first, install both `unplugin-typia` and `typia`, with `npx typia setup` comm
 
 After that, follow the next section steps to integrate `unplugin-typia` into your bundlers.
 
-For reference, there are a couple of ways to integrate `unplugin-typia` into your bundlers. For the full integration guide, please refer to the [`unplugin-typia` documentation](https://jsr.io/@ryoppippi/unplugin-typia/doc). Also, you can see the examples projects in [`unplugin-typia` repository](https://github.com/ryoppippi/unplugin-typia).
+For reference, there are a couple of ways to integrate `unplugin-typia` into your bundlers. For the full integration guide, please refer to the [`unplugin-typia` documentation](https://jsr.io/@ryoppippi/unplugin-typia/doc). Also, you can see the examples projects in [`unplugin-typia` repository](https://github.com/ryoppippi/unplugin-typia/tree/main/examples).
 
 <Tabs items={['Vite', 'Next.js', 'esbuild', 'Bun.runtime', 'Bun.build']}>
   <Tab>
+  <Callout type="info">
+  You can use any plugins with [`unplugin-typia`](#unplugin-typia) in Vite (including [`@vitejs/plugin-react-swc`](https://github.com/vitejs/vite-plugin-react-swc)).
+  `unplugin-typia` processes the TypeScript code before transforming it to JavaScript, so it can be used with any plugins.
+  </Callout>
 ```typescript filename="vite.config.ts" copy showLineNumbers
 import UnpluginTypia from '@ryoppippi/unplugin-typia/vite'
  
@@ -499,7 +503,7 @@ Additionally, if you're using `typia` in the NodeJS project especially for the b
 
 
 
-### NX
+### Nx
 <Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
   <Tab>
 ```bash filename="Terminal" copy showLineNumbers
@@ -528,27 +532,41 @@ bun typia setup --manager bun
     </Tab>
 </Tabs>
 
-After install `typia` like above, you have to modify `project.json` on each app like below.
+After installing `typia` like above, and ensuring the `prepare` script is something similar to `ts-patch install && typia patch` you have to modify the `tsconfig.lib.json` on each `@nx/js` package to be similar to the below.
 
-```javascript filename="project.json" showLineNumbers copy
+```json filename="tsconfig.lib.json" showLineNumbers copy
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "outDir": "../../dist/out-tsc",
+    "declaration": true,
+    "types": [],
+    "plugins": [{ "transform": "typia/lib/transform" }]
+  },
+  "include": ["**/*.ts"],
+  "exclude": ["jest.config.ts", "**/*.spec.ts", "**/*.test.ts"]
+}
+```
+
+After this, when running `nx <package-name>:build` it _should_ now output with the Typia transforms applied. But if Typia fails for any reasons (for example it considers some type you have to be invalid), this error is not reported back via Nx. Nx will silent swallow these errors from ts-patch/typia, and you will just not get the output you expect. To debug this, you can create a new task in your `project.json` file similar to the below.
+
+```json filename="project.json" showLineNumbers copy
  "targets": {
-    "build": {
-      ...
+    "build:validate:typia": {
+      "executor": "nx:run-commands",
       "options": {
-        ...
-        "target": "node",
-        "compiler": "tsc",
-        "transformers": [
-          "typia/lib/transform",
-        ]
+        "commands": [
+          "tsc --project packages/<package-name>/tsconfig.lib.json --outDir dist/packages/typiaTest"
+        ],
       }
     },
     ...
  }
 ```
 
+Running this task will show you the errors from Typia, and allow you to correct them, meaning that using the standard `nx <package-name>:build` task should now work the way you expect.
 
-
+Note: While Nx has a `transformers` feature on the `@nx/js` plugin, that won't work with Typia. The reason is because Nx is expecting a transformer to export a `before` hook, which Nx then plugs directly into TypeScript via the compiler API. Typia doesn't export that kind of hook, because Typia only works with ts-patch, which abstracts the need for creating a specific before hook in the way Nx wants.
 
 ## Generation
 <Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
@@ -611,7 +629,7 @@ If you are using a non-standard TypeScript compiler such as the following, you w
   - Non-standard TypeScript compilers:
     - [Babel](https://babeljs.io/) in Create-React-App
     - [esbuild](https://esbuild.github.io/) in Vite -> covered by [`unplugin-typia`](#unplugin-typia)
-    - [SWC](https://swc.rs/) in Next.js -> only `Next.js` is covered by [`unplugin-typia`](#unplugin-typia)
+    - [SWC](https://swc.rs/) -> use [`unplugin-typia`](#unplugin-typia) with your bundlers ( including `next.js`, `vite`, `webpack`, `rollup`, etc )
 
 Instead you should utilise the generation mode. 
 

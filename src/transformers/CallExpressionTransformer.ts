@@ -14,7 +14,8 @@ import { FunctionalGenericTransformer } from "./features/functional/FunctionalGe
 
 import { NamingConvention } from "../utils/NamingConvention";
 
-import { IProject } from "./IProject";
+import { ITransformProps } from "./ITransformProps";
+import { ITypiaContext } from "./ITypiaContext";
 import { AssertTransformer } from "./features/AssertTransformer";
 import { CreateAssertTransformer } from "./features/CreateAssertTransformer";
 import { CreateIsTransformer } from "./features/CreateIsTransformer";
@@ -49,7 +50,7 @@ import { HttpQueryTransformer } from "./features/http/HttpQueryTransformer";
 import { HttpValidateFormDataTransformer } from "./features/http/HttpValidateFormDataTransformer";
 import { HttpValidateHeadersTransformer } from "./features/http/HttpValidateHeadersTransformer";
 import { HttpValidateQueryTransformer } from "./features/http/HttpValidateQueryTransformer";
-import { JsonApplicationTransformer } from "./features/json/JsonApplicationTransformer";
+// import { JsonApplicationTransformer } from "./features/json/JsonApplicationTransformer";
 import { JsonAssertParseTransformer } from "./features/json/JsonAssertParseTransformer";
 import { JsonAssertStringifyTransformer } from "./features/json/JsonAssertStringifyTransformer";
 import { JsonCreateAssertParseTransformer } from "./features/json/JsonCreateAssertParseTransformer";
@@ -61,9 +62,13 @@ import { JsonCreateValidateParseTransformer } from "./features/json/JsonCreateVa
 import { JsonCreateValidateStringifyTransformer } from "./features/json/JsonCreateValidateStringifyProgrammer";
 import { JsonIsParseTransformer } from "./features/json/JsonIsParseTransformer";
 import { JsonIsStringifyTransformer } from "./features/json/JsonIsStringifyTransformer";
+import { JsonSchemasTransformer } from "./features/json/JsonSchemasTransformer";
 import { JsonStringifyTransformer } from "./features/json/JsonStringifyTransformer";
 import { JsonValidateParseTransformer } from "./features/json/JsonValidateParseTransformer";
 import { JsonValidateStringifyTransformer } from "./features/json/JsonValidateStringifyTransformer";
+import { LlmApplicationTransformer } from "./features/llm/LlmApplicationTransformer";
+import { LlmParametersTransformer } from "./features/llm/LlmParametersTransformer";
+import { LlmSchemaTransformer } from "./features/llm/LlmSchemaTransformer";
 import { MiscAssertCloneTransformer } from "./features/misc/MiscAssertCloneTransformer";
 import { MiscAssertPruneTransformer } from "./features/misc/MiscAssertPruneTransformer";
 import { MiscCloneTransformer } from "./features/misc/MiscCloneTransformer";
@@ -110,40 +115,42 @@ import { ReflectMetadataTransformer } from "./features/reflect/ReflectMetadataTr
 import { ReflectNameTransformer } from "./features/reflect/ReflectNameTransformer";
 
 export namespace CallExpressionTransformer {
-  export const transform =
-    (project: IProject) =>
-    (expression: ts.CallExpression): ts.Expression | null => {
-      //----
-      // VALIDATIONS
-      //----
-      // SIGNATURE DECLARATION
-      const declaration: ts.Declaration | undefined =
-        project.checker.getResolvedSignature(expression)?.declaration;
-      if (!declaration) return expression;
+  export const transform = (props: {
+    context: ITypiaContext;
+    expression: ts.CallExpression;
+  }): ts.Expression | null => {
+    //----
+    // VALIDATIONS
+    //----
+    // SIGNATURE DECLARATION
+    const declaration: ts.Declaration | undefined =
+      props.context.checker.getResolvedSignature(props.expression)?.declaration;
+    if (!declaration) return props.expression;
 
-      // FILE PATH
-      const location: string = path.resolve(
-        declaration.getSourceFile().fileName,
-      );
-      if (isTarget(location) === false) return expression;
+    // FILE PATH
+    const location: string = path.resolve(declaration.getSourceFile().fileName);
+    if (isTarget(location) === false) return props.expression;
 
-      //----
-      // TRANSFORMATION
-      //----
-      // FUNCTION NAME
-      const module: string = location.split(path.sep).at(-1)!.split(".")[0]!;
-      const { name } = project.checker.getTypeAtLocation(declaration).symbol;
+    //----
+    // TRANSFORMATION
+    //----
+    // FUNCTION NAME
+    const module: string = location.split(path.sep).at(-1)!.split(".")[0]!;
+    const { name } =
+      props.context.checker.getTypeAtLocation(declaration).symbol;
 
-      // FIND TRANSFORMER
-      const functor: (() => Task) | undefined = FUNCTORS[module]?.[name];
-      if (functor === undefined) return expression;
+    // FIND TRANSFORMER
+    const functor: (() => Task) | undefined = FUNCTORS[module]?.[name];
+    if (functor === undefined) return props.expression;
 
-      // RETURNS WITH TRANSFORMATION
-      const result: ts.Expression | null = functor()(project)(
-        expression.expression,
-      )(expression);
-      return result ?? expression;
-    };
+    // RETURNS WITH TRANSFORMATION
+    const result: ts.Expression | null = functor()({
+      context: props.context,
+      modulo: props.expression.expression,
+      expression: props.expression,
+    });
+    return result ?? props.expression;
+  };
 
   const isTarget = (location: string): boolean => {
     const files: string[] = Object.keys(FUNCTORS);
@@ -153,11 +160,7 @@ export namespace CallExpressionTransformer {
   };
 }
 
-type Task = (
-  project: IProject,
-) => (
-  modulo: ts.LeftHandSideExpression,
-) => (expression: ts.CallExpression) => ts.Expression | null;
+type Task = (props: ITransformProps) => ts.Expression | null;
 
 const FUNCTORS: Record<string, Record<string, () => Task>> = {
   module: {
@@ -167,21 +170,20 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
       AssertTransformer.transform({ equals: false, guard: true }),
     assertType: () =>
       AssertTransformer.transform({ equals: false, guard: false }),
-    is: () => IsTransformer.transform(false),
-    validate: () => ValidateTransformer.transform(false),
+    is: () => IsTransformer.transform({ equals: false }),
+    validate: () => ValidateTransformer.transform({ equals: false }),
 
     // STRICT
     assertEquals: () =>
       AssertTransformer.transform({ equals: true, guard: false }),
     assertGuardEquals: () =>
       AssertTransformer.transform({ equals: true, guard: true }),
-    equals: () => IsTransformer.transform(true),
-    validateEquals: () => ValidateTransformer.transform(true),
+    equals: () => IsTransformer.transform({ equals: true }),
+    validateEquals: () => ValidateTransformer.transform({ equals: true }),
 
     // RANDOM + INTERNAL
     random: () => RandomTransformer.transform,
-    metadata: () => (project) => () =>
-      ReflectMetadataTransformer.transform(project),
+    metadata: () => ReflectMetadataTransformer.transform,
 
     // FACTORIES
     createAssert: () =>
@@ -190,14 +192,16 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
       CreateAssertTransformer.transform({ equals: false, guard: true }),
     createAssertType: () =>
       CreateAssertTransformer.transform({ equals: false, guard: false }),
-    createIs: () => CreateIsTransformer.transform(false),
-    createValidate: () => CreateValidateTransformer.transform(false),
+    createIs: () => CreateIsTransformer.transform({ equals: false }),
+    createValidate: () =>
+      CreateValidateTransformer.transform({ equals: false }),
     createAssertEquals: () =>
       CreateAssertTransformer.transform({ equals: true, guard: false }),
     createAssertGuardEquals: () =>
       CreateAssertTransformer.transform({ equals: true, guard: true }),
-    createEquals: () => CreateIsTransformer.transform(true),
-    createValidateEquals: () => CreateValidateTransformer.transform(true),
+    createEquals: () => CreateIsTransformer.transform({ equals: true }),
+    createValidateEquals: () =>
+      CreateValidateTransformer.transform({ equals: true }),
     createRandom: () => CreateRandomTransformer.transform,
   },
   functional: {
@@ -205,37 +209,49 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
     assertFunction: () =>
       FunctionalGenericTransformer.transform({
         method: "assertFunction",
-        equals: false,
+        config: {
+          equals: false,
+        },
         programmer: FunctionalAssertFunctionProgrammer.write,
       }),
     assertParameters: () =>
       FunctionalGenericTransformer.transform({
         method: "assertParameters",
-        equals: false,
+        config: {
+          equals: false,
+        },
         programmer: FunctionalAssertParametersProgrammer.write,
       }),
     assertReturn: () =>
       FunctionalGenericTransformer.transform({
         method: "assertReturn",
-        equals: false,
+        config: {
+          equals: false,
+        },
         programmer: FunctionAssertReturnProgrammer.write,
       }),
     assertEqualsFunction: () =>
       FunctionalGenericTransformer.transform({
         method: "assertEqualsFunction",
-        equals: true,
+        config: {
+          equals: true,
+        },
         programmer: FunctionalAssertFunctionProgrammer.write,
       }),
     assertEqualsParameters: () =>
       FunctionalGenericTransformer.transform({
         method: "assertEqualsParameters",
-        equals: true,
+        config: {
+          equals: true,
+        },
         programmer: FunctionalAssertParametersProgrammer.write,
       }),
     assertEqualsReturn: () =>
       FunctionalGenericTransformer.transform({
         method: "assertEqualsReturn",
-        equals: true,
+        config: {
+          equals: true,
+        },
         programmer: FunctionAssertReturnProgrammer.write,
       }),
 
@@ -243,37 +259,49 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
     isFunction: () =>
       FunctionalGenericTransformer.transform({
         method: "isFunction",
-        equals: false,
+        config: {
+          equals: false,
+        },
         programmer: FunctionalIsFunctionProgrammer.write,
       }),
     isParameters: () =>
       FunctionalGenericTransformer.transform({
         method: "isParameters",
-        equals: false,
+        config: {
+          equals: false,
+        },
         programmer: FunctionalIsParametersProgrammer.write,
       }),
     isReturn: () =>
       FunctionalGenericTransformer.transform({
         method: "isReturn",
-        equals: false,
+        config: {
+          equals: false,
+        },
         programmer: FunctionalIsReturnProgrammer.write,
       }),
     equalsFunction: () =>
       FunctionalGenericTransformer.transform({
         method: "equalsFunction",
-        equals: true,
+        config: {
+          equals: true,
+        },
         programmer: FunctionalIsFunctionProgrammer.write,
       }),
     equalsParameters: () =>
       FunctionalGenericTransformer.transform({
         method: "equalsParameters",
-        equals: true,
+        config: {
+          equals: true,
+        },
         programmer: FunctionalIsParametersProgrammer.write,
       }),
     equalsReturn: () =>
       FunctionalGenericTransformer.transform({
         method: "equalsReturn",
-        equals: true,
+        config: {
+          equals: true,
+        },
         programmer: FunctionalIsReturnProgrammer.write,
       }),
 
@@ -281,37 +309,49 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
     validateFunction: () =>
       FunctionalGenericTransformer.transform({
         method: "validateFunction",
-        equals: false,
+        config: {
+          equals: false,
+        },
         programmer: FunctionalValidateFunctionProgrammer.write,
       }),
     validateParameters: () =>
       FunctionalGenericTransformer.transform({
         method: "validateParameters",
-        equals: false,
+        config: {
+          equals: false,
+        },
         programmer: FunctionalValidateParametersProgrammer.write,
       }),
     validateReturn: () =>
       FunctionalGenericTransformer.transform({
         method: "validateReturn",
-        equals: false,
+        config: {
+          equals: false,
+        },
         programmer: FunctionalValidateReturnProgrammer.write,
       }),
     validateEqualsFunction: () =>
       FunctionalGenericTransformer.transform({
         method: "validateEqualsFunction",
-        equals: true,
+        config: {
+          equals: true,
+        },
         programmer: FunctionalValidateFunctionProgrammer.write,
       }),
     validateEqualsParameters: () =>
       FunctionalGenericTransformer.transform({
         method: "validateEqualsParameters",
-        equals: true,
+        config: {
+          equals: true,
+        },
         programmer: FunctionalValidateParametersProgrammer.write,
       }),
     validateEqualsReturn: () =>
       FunctionalGenericTransformer.transform({
         method: "validateEqualsReturn",
-        equals: true,
+        config: {
+          equals: true,
+        },
         programmer: FunctionalValidateReturnProgrammer.write,
       }),
   },
@@ -353,9 +393,16 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
     createAssertQuery: () => CreateHttpAssertQueryTransformer.transform,
     createValidateQuery: () => CreateHttpValidateQueryTransformer.transform,
   },
+  llm: {
+    application: () => LlmApplicationTransformer.transform,
+    parameters: () => LlmParametersTransformer.transform,
+    schema: () => LlmSchemaTransformer.transform,
+  },
   json: {
-    // SCHEMA
-    application: () => (P) => () => JsonApplicationTransformer.transform(P),
+    // METADATA
+    // application: () => JsonApplicationTransformer.transform,
+    application: () => JsonSchemasTransformer.transform,
+    schemas: () => JsonSchemasTransformer.transform,
 
     // PARSER
     isParse: () => JsonIsParseTransformer.transform,
@@ -407,13 +454,11 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
       ProtobufCreateValidateDecodeTransformer.transform,
   },
   reflect: {
-    metadata: () => (project) => () =>
-      ReflectMetadataTransformer.transform(project),
-    name: () => (project) => () => ReflectNameTransformer.transform(project),
+    metadata: () => ReflectMetadataTransformer.transform,
+    name: () => ReflectNameTransformer.transform,
   },
   misc: {
-    literals: () => (project) => () =>
-      MiscLiteralsTransformer.transform(project),
+    literals: () => MiscLiteralsTransformer.transform,
 
     // CLONE
     clone: () => MiscCloneTransformer.transform,

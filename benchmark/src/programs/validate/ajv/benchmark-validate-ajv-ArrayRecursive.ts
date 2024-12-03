@@ -4,5 +4,5 @@ import { ArrayRecursive } from "../../../structures/pure/ArrayRecursive";
 import { createValidateAjvBenchmarkProgram } from "./createValidateAjvBenchmarkProgram";
 
 createValidateAjvBenchmarkProgram(
-  typia.json.application<[ArrayRecursive], "3.0">(),
+  typia.json.schemas<[ArrayRecursive], "3.0">(),
 );

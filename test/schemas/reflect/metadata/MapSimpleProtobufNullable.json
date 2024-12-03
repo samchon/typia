@@ -5,7 +5,7 @@
       "required": true,
       "optional": false,
       "nullable": false,
-      "functional": false,
+      "functions": [],
       "atomics": [],
       "constants": [],
       "templates": [],
@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "MapSimpleProtobufNullable"
+        {
+          "name": "MapSimpleProtobufNullable",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -33,14 +36,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "boolean"
+                      "value": "boolean",
+                      "tags": []
                     }
                   ]
                 }
@@ -61,7 +65,7 @@
               "required": true,
               "optional": false,
               "nullable": true,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -80,7 +84,7 @@
                     "required": true,
                     "optional": false,
                     "nullable": false,
-                    "functional": false,
+                    "functions": [],
                     "atomics": [
                       {
                         "type": "string",
@@ -104,7 +108,7 @@
                     "required": true,
                     "optional": false,
                     "nullable": false,
-                    "functional": false,
+                    "functions": [],
                     "atomics": [
                       {
                         "type": "boolean",
@@ -122,7 +126,8 @@
                     "natives": [],
                     "sets": [],
                     "maps": []
-                  }
+                  },
+                  "tags": []
                 }
               ]
             },
@@ -135,14 +140,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "int32"
+                      "value": "int32",
+                      "tags": []
                     }
                   ]
                 }
@@ -163,7 +169,7 @@
               "required": true,
               "optional": false,
               "nullable": true,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -182,7 +188,7 @@
                     "required": true,
                     "optional": false,
                     "nullable": false,
-                    "functional": false,
+                    "functions": [],
                     "atomics": [
                       {
                         "type": "string",
@@ -206,7 +212,7 @@
                     "required": true,
                     "optional": false,
                     "nullable": false,
-                    "functional": false,
+                    "functions": [],
                     "atomics": [
                       {
                         "type": "number",
@@ -217,7 +223,7 @@
                               "name": "Type<\"int32\">",
                               "kind": "type",
                               "value": "int32",
-                              "validate": "Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647",
+                              "validate": "$importInternal(\"isTypeInt32\")($input)",
                               "exclusive": true,
                               "schema": {
                                 "type": "integer"
@@ -238,7 +244,8 @@
                     "natives": [],
                     "sets": [],
                     "maps": []
-                  }
+                  },
+                  "tags": []
                 }
               ]
             },
@@ -251,14 +258,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "bigint"
+                      "value": "bigint",
+                      "tags": []
                     }
                   ]
                 }
@@ -279,7 +287,7 @@
               "required": true,
               "optional": false,
               "nullable": true,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -298,7 +306,7 @@
                     "required": true,
                     "optional": false,
                     "nullable": false,
-                    "functional": false,
+                    "functions": [],
                     "atomics": [
                       {
                         "type": "string",
@@ -322,7 +330,7 @@
                     "required": true,
                     "optional": false,
                     "nullable": false,
-                    "functional": false,
+                    "functions": [],
                     "atomics": [
                       {
                         "type": "bigint",
@@ -340,7 +348,8 @@
                     "natives": [],
                     "sets": [],
                     "maps": []
-                  }
+                  },
+                  "tags": []
                 }
               ]
             },
@@ -353,14 +362,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "double"
+                      "value": "double",
+                      "tags": []
                     }
                   ]
                 }
@@ -381,7 +391,7 @@
               "required": true,
               "optional": false,
               "nullable": true,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -400,7 +410,7 @@
                     "required": true,
                     "optional": false,
                     "nullable": false,
-                    "functional": false,
+                    "functions": [],
                     "atomics": [
                       {
                         "type": "string",
@@ -424,7 +434,7 @@
                     "required": true,
                     "optional": false,
                     "nullable": false,
-                    "functional": false,
+                    "functions": [],
                     "atomics": [
                       {
                         "type": "number",
@@ -442,7 +452,8 @@
                     "natives": [],
                     "sets": [],
                     "maps": []
-                  }
+                  },
+                  "tags": []
                 }
               ]
             },
@@ -455,14 +466,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "string"
+                      "value": "string",
+                      "tags": []
                     }
                   ]
                 }
@@ -483,7 +495,7 @@
               "required": true,
               "optional": false,
               "nullable": true,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -502,7 +514,7 @@
                     "required": true,
                     "optional": false,
                     "nullable": false,
-                    "functional": false,
+                    "functions": [],
                     "atomics": [
                       {
                         "type": "string",
@@ -526,7 +538,7 @@
                     "required": true,
                     "optional": false,
                     "nullable": false,
-                    "functional": false,
+                    "functions": [],
                     "atomics": [
                       {
                         "type": "string",
@@ -558,7 +570,8 @@
                     "natives": [],
                     "sets": [],
                     "maps": []
-                  }
+                  },
+                  "tags": []
                 }
               ]
             },
@@ -571,14 +584,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "bytes"
+                      "value": "bytes",
+                      "tags": []
                     }
                   ]
                 }
@@ -599,7 +613,7 @@
               "required": true,
               "optional": false,
               "nullable": true,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -618,7 +632,7 @@
                     "required": true,
                     "optional": false,
                     "nullable": false,
-                    "functional": false,
+                    "functions": [],
                     "atomics": [
                       {
                         "type": "string",
@@ -642,7 +656,7 @@
                     "required": true,
                     "optional": false,
                     "nullable": false,
-                    "functional": false,
+                    "functions": [],
                     "atomics": [],
                     "constants": [],
                     "templates": [],
@@ -653,11 +667,15 @@
                     "objects": [],
                     "aliases": [],
                     "natives": [
-                      "Uint8Array"
+                      {
+                        "name": "Uint8Array",
+                        "tags": []
+                      }
                     ],
                     "sets": [],
                     "maps": []
-                  }
+                  },
+                  "tags": []
                 }
               ]
             },
@@ -670,14 +688,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "objects"
+                      "value": "objects",
+                      "tags": []
                     }
                   ]
                 }
@@ -698,7 +717,7 @@
               "required": true,
               "optional": false,
               "nullable": true,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -717,7 +736,7 @@
                     "required": true,
                     "optional": false,
                     "nullable": false,
-                    "functional": false,
+                    "functions": [],
                     "atomics": [
                       {
                         "type": "string",
@@ -741,7 +760,7 @@
                     "required": true,
                     "optional": false,
                     "nullable": false,
-                    "functional": false,
+                    "functions": [],
                     "atomics": [],
                     "constants": [],
                     "templates": [],
@@ -750,13 +769,17 @@
                     "arrays": [],
                     "tuples": [],
                     "objects": [
-                      "MapSimpleProtobufNullable"
+                      {
+                        "name": "MapSimpleProtobufNullable",
+                        "tags": []
+                      }
                     ],
                     "aliases": [],
                     "natives": [],
                     "sets": [],
                     "maps": []
-                  }
+                  },
+                  "tags": []
                 }
               ]
             },

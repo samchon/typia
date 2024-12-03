@@ -5,13 +5,15 @@ import { ArrayRecursiveUnionExplicit } from "./ArrayRecursiveUnionExplicit";
 import { ObjectUnionExplicit } from "./ObjectUnionExplicit";
 import { ObjectUnionImplicit } from "./ObjectUnionImplicit";
 
-export type UltimateUnion = typia.IJsonApplication[];
+export type UltimateUnion = typia.IJsonSchemaCollection[];
 export namespace UltimateUnion {
-  export function generate(): typia.IJsonApplication[] {
+  export const RECURSIVE = true;
+
+  export function generate(): typia.IJsonSchemaCollection[] {
     const output = [
-      typia.json.application<[ObjectUnionExplicit]>(),
-      typia.json.application<[ObjectUnionImplicit]>(),
-      typia.json.application<[ArrayRecursiveUnionExplicit]>(),
+      typia.json.schemas<[ObjectUnionExplicit]>(),
+      typia.json.schemas<[ObjectUnionImplicit]>(),
+      typia.json.schemas<[ArrayRecursiveUnionExplicit]>(),
     ];
     output[0]!.schemas[0] = {
       type: "number",
@@ -19,13 +21,13 @@ export namespace UltimateUnion {
     return output;
   }
 
-  export function trail(): typia.IJsonApplication[] {
-    const input: typia.IJsonApplication[] = generate();
+  export function trail(): typia.IJsonSchemaCollection[] {
+    const input: typia.IJsonSchemaCollection[] = generate();
     SPOILERS[0]!(input);
     return input;
   }
 
-  export const SPOILERS: Spoiler<typia.IJsonApplication[]>[] = [
+  export const SPOILERS: Spoiler<typia.IJsonSchemaCollection[]>[] = [
     (input) => {
       const [key, schema] = (() => {
         const entries = Object.entries(

@@ -1,0 +1,18 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "@default something"
+    },
+    "age": {
+      "type": "number",
+      "description": "@default 20"
+    }
+  },
+  "required": [
+    "id",
+    "age"
+  ],
+  "additionalProperties": false
+}

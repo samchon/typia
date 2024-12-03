@@ -31,6 +31,16 @@ import Stack from '@mui/material/Stack';
     "Guide Documents",
     "https://img.shields.io/badge/guide-documents-forestgreen",
     "https://typia.io/docs/",
+  ],
+  [
+    "Gurubase",
+    "https://img.shields.io/badge/Gurubase-Ask%20Typia%20Guru-006BFF",
+    "https://gurubase.io/g/typia",
+  ],
+  [
+    "Discord",
+    "https://img.shields.io/badge/discord-samchon-d91965?style=flat&labelColor=5866f2&logo=discord&logoColor=white&link=https://discord.gg/E94XhzrUCZ",
+    "https://discord.gg/E94XhzrUCZ",
   ]
 ].map(([alt, image, url]) => (
   <a href={url} style={{ marginTop: "30px", marginRight: "6px" }}>
@@ -53,6 +63,15 @@ export namespace json {
   export function assertStringify<T>(input: T): string; // safe and faster
 }
 
+// LLM FUNCTION CALLING SCHEMA
+export namespace llm {
+  // application schema from a class or interface type
+  export function application<App, Model>(): ILlmApplication<Model>;
+  // structured output
+  export function parameters<P, Moodel>(): ILlmSchema.IParameters<Model>; 
+  export function schema<T, Model>(): ILlmSchema<Model>; // type schema
+}
+
 // PROTOCOL BUFFER
 export namespace protobuf {
   export function message<T>(): string; // Protocol Buffer message
@@ -68,6 +87,7 @@ Typia is a transformer library supporting below features:
 
   - Super-fast Runtime Validators
   - Enhanced JSON functions
+  - LLM function calling application schema
   - Protocol Buffer encoder and decoder
   - Random data generator
 

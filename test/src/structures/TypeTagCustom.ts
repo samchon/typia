@@ -1,4 +1,6 @@
-import typia from "typia";
+import typia, { IRandomGenerator } from "typia";
+import { _randomNumber } from "typia/lib/internal/_randomNumber";
+import { _randomString } from "typia/lib/internal/_randomString";
 import { v4 } from "uuid";
 
 import { Spoiler } from "../helpers/Spoiler";
@@ -39,29 +41,22 @@ export namespace TypeTagCustom {
     },
   ];
 
-  export const RANDOM: typia.IRandomGenerator = {
-    ...TestRandomGenerator,
-    customs: {
-      string: (tags) => {
-        if (
-          tags.find((t) => t.kind === "monetary" && t.value === "dollar") !==
-          undefined
-        )
-          return "$" + TestRandomGenerator.integer();
-        const postfix = tags.find((t) => t.kind === "postfix");
-        if (postfix !== undefined)
-          return TestRandomGenerator.string() + postfix.value;
-        return undefined;
-      },
-      number: (tags) => {
-        const powerOf = tags.find((t) => t.kind === "powerOf");
-        if (powerOf !== undefined)
-          return Math.pow(
-            Number(powerOf.value),
-            TestRandomGenerator.integer(1, 10),
-          );
-        return undefined;
-      },
+  export const RANDOM: Partial<IRandomGenerator> = {
+    string: (schema) => {
+      if ((schema as any)["x-typia-monetary"] === "dollar")
+        return "$" + TestRandomGenerator.integer();
+      else if ((schema as any)["x-typia-postfix"] !== undefined)
+        return (
+          TestRandomGenerator.string() + (schema as any)["x-typia-postfix"]
+        );
+      return _randomString(schema);
+    },
+    number: (schema) => {
+      if ((schema as any)["x-typia-powerOf"] !== undefined) {
+        const powerOf = (schema as any)["x-typia-powerOf"];
+        return Math.pow(powerOf, TestRandomGenerator.integer(1, 10));
+      }
+      return _randomNumber(schema);
     },
   };
 }

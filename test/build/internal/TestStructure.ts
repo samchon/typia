@@ -15,4 +15,5 @@ export interface TestStructure<T> {
   JSONABLE?: boolean;
   PRIMITIVE?: boolean;
   RANDOM?: false | typia.IRandomGenerator;
+  RECURSIVE?: true;
 }

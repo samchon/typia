@@ -5,7 +5,7 @@
       "required": true,
       "optional": false,
       "nullable": false,
-      "functional": false,
+      "functions": [],
       "atomics": [],
       "constants": [],
       "templates": [],
@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ObjectHierarchical.ICustomer"
+        {
+          "name": "ObjectHierarchical.ICustomer",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -33,14 +36,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -61,7 +65,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "number",
@@ -89,14 +93,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "channel"
+                      "value": "channel",
+                      "tags": []
                     }
                   ]
                 }
@@ -117,7 +122,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -126,7 +131,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectHierarchical.IChannel"
+                {
+                  "name": "ObjectHierarchical.IChannel",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -142,14 +150,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "member"
+                      "value": "member",
+                      "tags": []
                     }
                   ]
                 }
@@ -170,7 +179,7 @@
               "required": true,
               "optional": false,
               "nullable": true,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -179,7 +188,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectHierarchical.IMember"
+                {
+                  "name": "ObjectHierarchical.IMember",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -195,14 +207,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "account"
+                      "value": "account",
+                      "tags": []
                     }
                   ]
                 }
@@ -223,7 +236,7 @@
               "required": true,
               "optional": false,
               "nullable": true,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -232,7 +245,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectHierarchical.IAccount"
+                {
+                  "name": "ObjectHierarchical.IAccount",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -248,14 +264,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "href"
+                      "value": "href",
+                      "tags": []
                     }
                   ]
                 }
@@ -276,7 +293,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "string",
@@ -304,14 +321,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "referrer"
+                      "value": "referrer",
+                      "tags": []
                     }
                   ]
                 }
@@ -332,7 +350,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "string",
@@ -360,14 +378,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "ip"
+                      "value": "ip",
+                      "tags": []
                     }
                   ]
                 }
@@ -388,7 +407,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -416,14 +435,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "created_at"
+                      "value": "created_at",
+                      "tags": []
                     }
                   ]
                 }
@@ -444,7 +464,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -453,7 +473,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectHierarchical.ITimestamp"
+                {
+                  "name": "ObjectHierarchical.ITimestamp",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -480,14 +503,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -508,7 +532,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "number",
@@ -536,14 +560,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "code"
+                      "value": "code",
+                      "tags": []
                     }
                   ]
                 }
@@ -564,7 +589,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "string",
@@ -592,14 +617,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "name"
+                      "value": "name",
+                      "tags": []
                     }
                   ]
                 }
@@ -620,7 +646,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "string",
@@ -648,14 +674,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "sequence"
+                      "value": "sequence",
+                      "tags": []
                     }
                   ]
                 }
@@ -676,7 +703,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "number",
@@ -704,14 +731,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "exclusive"
+                      "value": "exclusive",
+                      "tags": []
                     }
                   ]
                 }
@@ -732,7 +760,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "boolean",
@@ -760,14 +788,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "priority"
+                      "value": "priority",
+                      "tags": []
                     }
                   ]
                 }
@@ -788,7 +817,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "number",
@@ -816,14 +845,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "created_at"
+                      "value": "created_at",
+                      "tags": []
                     }
                   ]
                 }
@@ -844,7 +874,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -853,7 +883,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectHierarchical.ITimestamp"
+                {
+                  "name": "ObjectHierarchical.ITimestamp",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -880,14 +913,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "time"
+                      "value": "time",
+                      "tags": []
                     }
                   ]
                 }
@@ -908,7 +942,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "number",
@@ -936,14 +970,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "zone"
+                      "value": "zone",
+                      "tags": []
                     }
                   ]
                 }
@@ -964,7 +999,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "number",
@@ -1003,14 +1038,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -1031,7 +1067,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "number",
@@ -1059,14 +1095,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "account"
+                      "value": "account",
+                      "tags": []
                     }
                   ]
                 }
@@ -1087,7 +1124,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -1096,7 +1133,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectHierarchical.IAccount"
+                {
+                  "name": "ObjectHierarchical.IAccount",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -1112,14 +1152,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "enterprise"
+                      "value": "enterprise",
+                      "tags": []
                     }
                   ]
                 }
@@ -1140,7 +1181,7 @@
               "required": true,
               "optional": false,
               "nullable": true,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -1149,7 +1190,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectHierarchical.IEnterprise"
+                {
+                  "name": "ObjectHierarchical.IEnterprise",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -1165,14 +1209,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "emails"
+                      "value": "emails",
+                      "tags": []
                     }
                   ]
                 }
@@ -1193,7 +1238,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -1221,14 +1266,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "created_at"
+                      "value": "created_at",
+                      "tags": []
                     }
                   ]
                 }
@@ -1249,7 +1295,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -1258,7 +1304,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectHierarchical.ITimestamp"
+                {
+                  "name": "ObjectHierarchical.ITimestamp",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -1274,14 +1323,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "authorized"
+                      "value": "authorized",
+                      "tags": []
                     }
                   ]
                 }
@@ -1302,7 +1352,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "boolean",
@@ -1341,14 +1391,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -1369,7 +1420,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "number",
@@ -1397,14 +1448,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "code"
+                      "value": "code",
+                      "tags": []
                     }
                   ]
                 }
@@ -1425,7 +1477,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "string",
@@ -1453,14 +1505,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "created_at"
+                      "value": "created_at",
+                      "tags": []
                     }
                   ]
                 }
@@ -1481,7 +1534,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -1490,7 +1543,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectHierarchical.ITimestamp"
+                {
+                  "name": "ObjectHierarchical.ITimestamp",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -1518,14 +1574,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -1546,7 +1603,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "number",
@@ -1574,14 +1631,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "account"
+                      "value": "account",
+                      "tags": []
                     }
                   ]
                 }
@@ -1602,7 +1660,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -1611,7 +1669,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectHierarchical.IAccount"
+                {
+                  "name": "ObjectHierarchical.IAccount",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -1627,14 +1688,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "name"
+                      "value": "name",
+                      "tags": []
                     }
                   ]
                 }
@@ -1655,7 +1717,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "string",
@@ -1683,14 +1745,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "grade"
+                      "value": "grade",
+                      "tags": []
                     }
                   ]
                 }
@@ -1711,7 +1774,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "number",
@@ -1739,14 +1802,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "created_at"
+                      "value": "created_at",
+                      "tags": []
                     }
                   ]
                 }
@@ -1767,7 +1831,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -1776,7 +1840,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectHierarchical.ITimestamp"
+                {
+                  "name": "ObjectHierarchical.ITimestamp",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -1804,7 +1871,7 @@
           "required": true,
           "optional": false,
           "nullable": false,
-          "functional": false,
+          "functions": [],
           "atomics": [
             {
               "type": "string",
@@ -1840,7 +1907,7 @@
             "required": true,
             "optional": false,
             "nullable": false,
-            "functional": false,
+            "functions": [],
             "atomics": [
               {
                 "type": "number",
@@ -1864,7 +1931,7 @@
             "required": true,
             "optional": false,
             "nullable": false,
-            "functional": false,
+            "functions": [],
             "atomics": [
               {
                 "type": "number",
@@ -1888,7 +1955,7 @@
             "required": true,
             "optional": false,
             "nullable": false,
-            "functional": false,
+            "functions": [],
             "atomics": [
               {
                 "type": "number",
@@ -1912,7 +1979,7 @@
             "required": true,
             "optional": false,
             "nullable": false,
-            "functional": false,
+            "functions": [],
             "atomics": [
               {
                 "type": "number",

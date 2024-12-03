@@ -1,0 +1,188 @@
+{
+  "model": "gemini",
+  "options": {
+    "recursive": 3,
+    "separate": null
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "@default something"
+              },
+              "age": {
+                "type": "number",
+                "description": "@default 20"
+              }
+            },
+            "required": [
+              "id",
+              "age"
+            ]
+          }
+        },
+        "required": [
+          "first"
+        ]
+      },
+      "strict": true
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "@default something"
+              },
+              "age": {
+                "type": "number",
+                "description": "@default 20"
+              }
+            },
+            "required": [
+              "id",
+              "age"
+            ]
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "@default something"
+              },
+              "age": {
+                "type": "number",
+                "description": "@default 20"
+              }
+            },
+            "required": [
+              "id",
+              "age"
+            ],
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ]
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "@default something"
+          },
+          "age": {
+            "type": "number",
+            "description": "@default 20"
+          }
+        },
+        "required": [
+          "id",
+          "age"
+        ]
+      },
+      "strict": true
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "@default something"
+              },
+              "age": {
+                "type": "number",
+                "description": "@default 20"
+              }
+            },
+            "required": [
+              "id",
+              "age"
+            ],
+            "nullable": true
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "@default something"
+              },
+              "age": {
+                "type": "number",
+                "description": "@default 20"
+              }
+            },
+            "required": [
+              "id",
+              "age"
+            ],
+            "nullable": true
+          },
+          "third": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "@default something"
+              },
+              "age": {
+                "type": "number",
+                "description": "@default 20"
+              }
+            },
+            "required": [
+              "id",
+              "age"
+            ],
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ]
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "@default something"
+          },
+          "age": {
+            "type": "number",
+            "description": "@default 20"
+          }
+        },
+        "required": [
+          "id",
+          "age"
+        ],
+        "nullable": true
+      },
+      "strict": true
+    }
+  ]
+}

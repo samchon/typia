@@ -1,14 +1,15 @@
-import typia, { IJsonApplication, tags } from "typia";
+import typia, { IJsonSchemaCollection, tags } from "typia";
 
 import { TestValidator } from "../../helpers/TestValidator";
 
 export const test_issue_1112_template_literal_with_type_tag = (): void => {
-  validate(typia.json.application<[Something], "3.0">());
-  validate(typia.json.application<[Something], "3.1">());
+  validate(typia.json.schemas<[Something], "3.0">());
+  validate(typia.json.schemas<[Something], "3.1">());
 };
 
-const validate = (app: IJsonApplication<"3.0"> | IJsonApplication<"3.1">) => {
-  const properties = (app.components.schemas!.Something as any).properties;
+const validate = (collection: IJsonSchemaCollection<"3.0" | "3.1">) => {
+  const properties = (collection.components.schemas!.Something as any)
+    .properties;
   TestValidator.equals("properties")({
     pure: {
       type: "string",
@@ -16,30 +17,24 @@ const validate = (app: IJsonApplication<"3.0"> | IJsonApplication<"3.1">) => {
         "^(([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)|((.*)\\x2d(.*)))",
     },
     sole: {
-      "0": {
-        type: "string",
-        pattern:
-          "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-        "x-typia-sole": true,
-      },
+      type: "string",
+      pattern:
+        "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+      "x-typia-sole": true,
     },
     union: {
       oneOf: [
-        [
-          {
-            type: "string",
-            pattern:
-              "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-            "x-typia-something": true,
-          },
-        ],
-        [
-          {
-            type: "string",
-            pattern: "((.*)\\x2d(.*))",
-            "x-typia-nothing": false,
-          },
-        ],
+        {
+          type: "string",
+          pattern:
+            "([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+          "x-typia-something": true,
+        },
+        {
+          type: "string",
+          pattern: "((.*)\\x2d(.*))",
+          "x-typia-nothing": false,
+        },
       ],
     },
     mixed: {
@@ -49,13 +44,11 @@ const validate = (app: IJsonApplication<"3.0"> | IJsonApplication<"3.1">) => {
           pattern:
             "^(([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\/[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)|((.*)\\x2d(.*)))",
         },
-        [
-          {
-            type: "string",
-            pattern: "((.*)\\|\\|[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
-            "x-typia-something": true,
-          },
-        ],
+        {
+          type: "string",
+          pattern: "((.*)\\|\\|[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)",
+          "x-typia-something": true,
+        },
       ],
     },
   })(properties);

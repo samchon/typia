@@ -1,0 +1,166 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "@format uuid",
+          "type": "string"
+        },
+        "dollar": {
+          "x-typia-monetary": "dollar",
+          "type": "string"
+        },
+        "postfix": {
+          "x-typia-postfix": "abcd",
+          "type": "string"
+        },
+        "powerOf": {
+          "x-typia-powerOf": 2,
+          "type": "number"
+        }
+      },
+      "required": [
+        "id",
+        "dollar",
+        "postfix",
+        "powerOf"
+      ]
+    },
+    "nullable": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "description": "@format uuid",
+              "type": "string"
+            },
+            "dollar": {
+              "x-typia-monetary": "dollar",
+              "type": "string"
+            },
+            "postfix": {
+              "x-typia-postfix": "abcd",
+              "type": "string"
+            },
+            "powerOf": {
+              "x-typia-powerOf": 2,
+              "type": "number"
+            }
+          },
+          "required": [
+            "id",
+            "dollar",
+            "postfix",
+            "powerOf"
+          ]
+        }
+      ]
+    },
+    "optional": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "description": "@format uuid",
+          "type": "string"
+        },
+        "dollar": {
+          "x-typia-monetary": "dollar",
+          "type": "string"
+        },
+        "postfix": {
+          "x-typia-postfix": "abcd",
+          "type": "string"
+        },
+        "powerOf": {
+          "x-typia-powerOf": 2,
+          "type": "number"
+        }
+      },
+      "required": [
+        "id",
+        "dollar",
+        "postfix",
+        "powerOf"
+      ]
+    },
+    "faint": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "description": "@format uuid",
+              "type": "string"
+            },
+            "dollar": {
+              "x-typia-monetary": "dollar",
+              "type": "string"
+            },
+            "postfix": {
+              "x-typia-postfix": "abcd",
+              "type": "string"
+            },
+            "powerOf": {
+              "x-typia-powerOf": 2,
+              "type": "number"
+            }
+          },
+          "required": [
+            "id",
+            "dollar",
+            "postfix",
+            "powerOf"
+          ]
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "description": "@format uuid",
+            "type": "string"
+          },
+          "dollar": {
+            "x-typia-monetary": "dollar",
+            "type": "string"
+          },
+          "postfix": {
+            "x-typia-postfix": "abcd",
+            "type": "string"
+          },
+          "powerOf": {
+            "x-typia-powerOf": 2,
+            "type": "number"
+          }
+        },
+        "required": [
+          "id",
+          "dollar",
+          "postfix",
+          "powerOf"
+        ]
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "optional",
+    "faint",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {}
+}

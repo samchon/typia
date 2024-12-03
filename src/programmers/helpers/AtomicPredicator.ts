@@ -5,20 +5,31 @@ import { Atomic } from "../../typings/Atomic";
 import { ArrayUtil } from "../../utils/ArrayUtil";
 
 export namespace AtomicPredicator {
-  export const constant =
-    (meta: Metadata) =>
-    (name: Atomic.Literal): boolean =>
-      !ArrayUtil.has(meta.natives, (native) => native.toLowerCase() === name);
+  export const constant = (props: {
+    metadata: Metadata;
+    name: Atomic.Literal;
+  }): boolean =>
+    !ArrayUtil.has(
+      props.metadata.natives,
+      (native) => native.name.toLowerCase() === props.name,
+    );
 
-  export const atomic =
-    (meta: Metadata) =>
-    (name: Atomic.Literal): boolean =>
-      !ArrayUtil.has(meta.natives, (native) => native.toLowerCase() === name);
+  export const atomic = (props: {
+    metadata: Metadata;
+    name: Atomic.Literal;
+  }): boolean =>
+    !ArrayUtil.has(
+      props.metadata.natives,
+      (native) => native.name.toLowerCase() === props.name,
+    );
 
   export const native = (name: string) => LIKE.has(name.toLowerCase());
 
-  export const template = (meta: Metadata): boolean =>
-    !ArrayUtil.has(meta.natives, (native) => native.toLowerCase() === "string");
+  export const template = (metadata: Metadata): boolean =>
+    !ArrayUtil.has(
+      metadata.natives,
+      (native) => native.name.toLowerCase() === "string",
+    );
 }
 
 const LIKE = new Set(["boolean", "bigint", "number", "string"]);

@@ -1,6 +1,4 @@
-import * as Namespace from "./functional/Namespace";
-
-import { IJsonApplication } from "./schemas/json/IJsonApplication";
+import { IJsonSchemaCollection } from "./schemas/json/IJsonSchemaCollection";
 
 import { IValidation } from "./IValidation";
 import { Primitive } from "./Primitive";
@@ -8,41 +6,21 @@ import { TypeGuardError } from "./TypeGuardError";
 
 /* ===========================================================
     JSON
-      - SCHEMA
+      - METADATA
       - PARSE
       - STRINGIFY
       - FACTORY FUNCTIONS
 ==============================================================
-    SCHEMA
+    METADATA
 ----------------------------------------------------------- */
 /**
  * > You must configure the generic argument `Types`.
  *
- * JSON Schema Application.
+ * JSON Schemas generator.
  *
- * Creates a JSON schema application which contains both main JSON schemas and
- * components. Note that, all of the named types are stored in the
- * {@link IJsonApplication.components} property for the `$ref` referencing.
- *
- * Also, you can specify the OpenAPI version by configuring the second generic
- * argument `Version`. For reference, the default version is `"3.1"`, and key
- * different of `"3.0"` and `"3.1"` is whether supporting the tuple type or not.
- *
- * @template Types Tuple of target types
- * @template Purpose Purpose of the JSON schema
- * @template Surplus Allow surplus properties starting with `x-typia-` or not
- * @return JSON schema application
- *
- * @author Jeongho Nam - https://github.com/samchon
- */
-export function application(): never;
-
-/**
- * JSON Schema Application.
- *
- * Creates a JSON schema application which contains both main JSON schemas and
- * components. Note that, all of the named types are stored in the
- * {@link IJsonApplication.components} property for the `$ref` referencing.
+ * Creates a JSON schema list which contains both main JSON schemas
+ * and components. Note that, all of the named types are stored in the
+ * {@link IJsonSchemaCollection.components} property for the `$ref` referencing.
  *
  * Also, you can specify the OpenAPI version by configuring the second generic
  * argument `Version`. For reference, the default version is `"3.1"`, and key
@@ -50,14 +28,89 @@ export function application(): never;
  *
  * @template Types Tuple of target types
  * @template Version Version of OpenAPI specification. Default is 3.1
- * @return JSON schema application
+ * @return JSON schema list
  *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function schemas(): never;
+
+/**
+ * JSON Schemas generator.
+ *
+ * Creates a JSON schema list which contains both main JSON schemas
+ * and components. Note that, all of the named types are stored in the
+ * {@link IJsonSchemaCollection.components} property for the `$ref` referencing.
+ *
+ * Also, you can specify the OpenAPI version by configuring the second generic
+ * argument `Version`. For reference, the default version is `"3.1"`, and key
+ * different of `"3.0"` and `"3.1"` is whether supporting the tuple type or not.
+ *
+ * @template Types Tuple of target types
+ * @template Version Version of OpenAPI specification. Default is 3.1
+ * @return JSON schema list
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function schemas<
+  Types extends unknown[],
+  Version extends "3.0" | "3.1" = "3.1",
+>(): IJsonSchemaCollection<Version, Types>;
+
+/**
+ * @internal
+ */
+export function schemas(): never {
+  halt("schemas");
+}
+
+/**
+ * > You must configure the generic argument `Types`.
+ *
+ * JSON Schemas generator.
+ *
+ * Creates a JSON schema list which contains both main JSON schemas
+ * and components. Note that, all of the named types are stored in the
+ * {@link IJsonSchemaCollection.components} property for the `$ref` referencing.
+ *
+ * Also, you can specify the OpenAPI version by configuring the second generic
+ * argument `Version`. For reference, the default version is `"3.1"`, and key
+ * different of `"3.0"` and `"3.1"` is whether supporting the tuple type or not.
+ *
+ * @template Types Tuple of target types
+ * @template Version Version of OpenAPI specification. Default is 3.1
+ * @return JSON schema list
+ *
+ * @deprcated Use {@link schemas} function instead please.
+ *            This function would be changed to return {@linkk ILlmApplication} like
+ *            structure in the future version (maybe next v8 major update).
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function application(): never;
+
+/**
+ * JSON Schemas generator.
+ *
+ * Creates a JSON schema list which contains both main JSON schemas
+ * and components. Note that, all of the named types are stored in the
+ * {@link IJsonSchemaCollection.components} property for the `$ref` referencing.
+ *
+ * Also, you can specify the OpenAPI version by configuring the second generic
+ * argument `Version`. For reference, the default version is `"3.1"`, and key
+ * different of `"3.0"` and `"3.1"` is whether supporting the tuple type or not.
+ *
+ * @template Types Tuple of target types
+ * @template Version Version of OpenAPI specification. Default is 3.1
+ * @return JSON schema list
+ *
+ * @deprcated Use {@link schemas} function instead please.
+ *            This function would be changed to return {@linkk ILlmApplication} like
+ *            structure in the future version (maybe next v8 major update).
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function application<
   Types extends unknown[],
   Version extends "3.0" | "3.1" = "3.1",
->(): IJsonApplication<Version>;
+>(): IJsonSchemaCollection<Version, Types>;
 
 /**
  * @internal
@@ -65,6 +118,52 @@ export function application<
 export function application(): never {
   halt("application");
 }
+
+// /**
+//  * > You must configure the generic argument `App`.
+//  *
+//  * TypeScript functions to JSON schema based application schema.
+//  *
+//  * Creates an application schema collecting the functions' schema based on the
+//  * JSON schema specification.
+//  *
+//  * The default version of the OpenAPI specification is `"3.1"`, but you can
+//  * specify the version by configuring the second generic argument `Version`.
+//  *
+//  * @template App Target class or interface type collecting the functions
+//  * @template Version Version of OpenAPI specification. Default is 3.1
+//  * @returns Application schema of JSON schema based
+//  *
+//  * @author Jeongho Nam - https://github.com/samchon
+//  */
+// export function application(): never;
+
+// /**
+//  * TypeScript functions to JSON schema based application schema.
+//  *
+//  * Creates an application schema collecting the functions' schema based on the
+//  * JSON schema specification.
+//  *
+//  * The default version of the OpenAPI specification is `"3.1"`, but you can
+//  * specify the version by configuring the second generic argument `Version`.
+//  *
+//  * @template App Target class or interface type collecting the functions
+//  * @template Version Version of OpenAPI specification. Default is 3.1
+//  * @returns Application schema of JSON schema based
+//  *
+//  * @author Jeongho Nam - https://github.com/samchon
+//  */
+// export function application<
+//   App extends object,
+//   Version extends "3.0" | "3.1" = "3.1",
+// >(): IJsonApplication<Version, App>;
+
+// /**
+//  * @internal
+//  */
+// export function application(): never {
+//   halt("application");
+// }
 
 /* -----------------------------------------------------------
     PARSE
@@ -89,7 +188,7 @@ export function application(): never {
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertParse(
+export function assertParse(
   input: string,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): never;
@@ -113,7 +212,7 @@ function assertParse(
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertParse<T>(
+export function assertParse<T>(
   input: string,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): Primitive<T>;
@@ -121,14 +220,9 @@ function assertParse<T>(
 /**
  * @internal
  */
-function assertParse<T>(): Primitive<T> {
+export function assertParse<T>(): Primitive<T> {
   halt("assertParse");
 }
-const assertParsePure = /** @__PURE__ */ Object.assign<typeof assertParse, {}>(
-  assertParse,
-  /** @__PURE__ */ Namespace.assert("json.assertParse"),
-);
-export { assertParsePure as assertParse };
 
 /**
  * > You must configure the generic argument `T`.
@@ -149,7 +243,7 @@ export { assertParsePure as assertParse };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function isParse(input: string): never;
+export function isParse(input: string): never;
 
 /**
  * Safe `JSON.parse()` function with type checking.
@@ -168,19 +262,14 @@ function isParse(input: string): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function isParse<T>(input: string): Primitive<T> | null;
+export function isParse<T>(input: string): Primitive<T> | null;
 
 /**
  * @internal
  */
-function isParse<T>(): Primitive<T> | null {
+export function isParse<T>(): Primitive<T> | null {
   halt("isParse");
 }
-const isParsePure = /** @__PURE__ */ Object.assign<typeof isParse, {}>(
-  isParse,
-  /** @__PURE__ */ Namespace.is(),
-);
-export { isParsePure as isParse };
 
 /**
  * > You must configure the generic argument `T`.
@@ -202,7 +291,7 @@ export { isParsePure as isParse };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function validateParse(input: string): never;
+export function validateParse(input: string): never;
 
 /**
  * Safe `JSON.parse()` function with detailed type validation.
@@ -222,19 +311,14 @@ function validateParse(input: string): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function validateParse<T>(input: string): IValidation<Primitive<T>>;
+export function validateParse<T>(input: string): IValidation<Primitive<T>>;
 
 /**
  * @internal
  */
-function validateParse<T>(): IValidation<Primitive<T>> {
+export function validateParse<T>(): IValidation<Primitive<T>> {
   halt("validateParse");
 }
-const validateParsePure = /** @__PURE__ */ Object.assign<
-  typeof validateParse,
-  {}
->(validateParse, /** @__PURE__ */ Namespace.validate());
-export { validateParsePure as validateParse };
 
 /* -----------------------------------------------------------
     STRINGIFY
@@ -261,19 +345,14 @@ export { validateParsePure as validateParse };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function stringify<T>(input: T): string;
+export function stringify<T>(input: T): string;
 
 /**
  * @internal
  */
-function stringify(): never {
+export function stringify(): never {
   halt("stringify");
 }
-const stringifyPure = /** @__PURE__ */ Object.assign<typeof stringify, {}>(
-  stringify,
-  /** @__PURE__ */ Namespace.json.stringify("stringify"),
-);
-export { stringifyPure as stringify };
 
 /**
  * 5x faster `JSON.stringify()` function with type assertion.
@@ -297,7 +376,7 @@ export { stringifyPure as stringify };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertStringify<T>(
+export function assertStringify<T>(
   input: T,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): string;
@@ -324,7 +403,7 @@ function assertStringify<T>(
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function assertStringify<T>(
+export function assertStringify<T>(
   input: T,
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): unknown;
@@ -332,19 +411,9 @@ function assertStringify<T>(
 /**
  * @internal
  */
-function assertStringify(): string {
+export function assertStringify(): string {
   halt("assertStringify");
 }
-const assertStringifyPure = /** @__PURE__ */ Object.assign<
-  typeof assertStringify,
-  {},
-  {}
->(
-  assertStringify,
-  /** @__PURE__ */ Namespace.assert("json.assertStringify"),
-  /** @__PURE__ */ Namespace.json.stringify("assertStringify"),
-);
-export { assertStringifyPure as assertStringify };
 
 /**
  * 7x faster `JSON.stringify()` function with type checking.
@@ -367,7 +436,7 @@ export { assertStringifyPure as assertStringify };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function isStringify<T>(input: T): string | null;
+export function isStringify<T>(input: T): string | null;
 
 /**
  * 7x faster `JSON.stringify()` function with type checking.
@@ -390,25 +459,38 @@ function isStringify<T>(input: T): string | null;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function isStringify<T>(input: unknown): string | null;
+export function isStringify<T>(input: unknown): string | null;
 
 /**
  * @internal
  */
-function isStringify(): string | null {
+export function isStringify(): string | null {
   halt("isStringify");
 }
 
-const isStringifyPure = /** @__PURE__ */ Object.assign<
-  typeof isStringify,
-  {},
-  {}
->(
-  isStringify,
-  /** @__PURE__ */ Namespace.is(),
-  /** @__PURE__ */ Namespace.json.stringify("isStringify"),
-);
-export { isStringifyPure as isStringify };
+/**
+ * 5x faster `JSON.stringify()` function with detailed type validation.
+ *
+ * `typia.json.validateStringify()` is a combination function of {@link validate} and
+ * {@link stringify}. Therefore, it converts an input value to JSON (JavaScript Object
+ * Notation) string, with detailed type validation.
+ *
+ * In such reason, when `input` value is not matched with the type `T`, it returns
+ * {@link IValidation.IFailure} value with detailed error reasons. Otherwise,
+ * there's no problem on the `input` value, JSON string would be stored in `data`
+ * property of the output {@link IValidation.ISuccess} instance.
+ *
+ * For reference, with detailed type validation, it is even 5x times faster than the
+ * native `JSON.stringify()` function. So, just enjoy the safe and fast JSON
+ * conversion with confidence.
+ *
+ * @template T Type of the input value
+ * @param input A value to be checked and converted
+ * @returns Validation result with JSON string value
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function validateStringify<T>(input: T): IValidation<string>;
 
 /**
  * 5x faster `JSON.stringify()` function with detailed type validation.
@@ -432,48 +514,14 @@ export { isStringifyPure as isStringify };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function validateStringify<T>(input: T): IValidation<string>;
-
-/**
- * 5x faster `JSON.stringify()` function with detailed type validation.
- *
- * `typia.json.validateStringify()` is a combination function of {@link validate} and
- * {@link stringify}. Therefore, it converts an input value to JSON (JavaScript Object
- * Notation) string, with detailed type validation.
- *
- * In such reason, when `input` value is not matched with the type `T`, it returns
- * {@link IValidation.IFailure} value with detailed error reasons. Otherwise,
- * there's no problem on the `input` value, JSON string would be stored in `data`
- * property of the output {@link IValidation.ISuccess} instance.
- *
- * For reference, with detailed type validation, it is even 5x times faster than the
- * native `JSON.stringify()` function. So, just enjoy the safe and fast JSON
- * conversion with confidence.
- *
- * @template T Type of the input value
- * @param input A value to be checked and converted
- * @returns Validation result with JSON string value
- *
- * @author Jeongho Nam - https://github.com/samchon
- */
-function validateStringify<T>(input: unknown): IValidation<string>;
+export function validateStringify<T>(input: unknown): IValidation<string>;
 
 /**
  * @internal
  */
-function validateStringify(): IValidation<string> {
+export function validateStringify(): IValidation<string> {
   halt("validateStringify");
 }
-const validateStringifyPure = /** @__PURE__ */ Object.assign<
-  typeof validateStringify,
-  {},
-  {}
->(
-  validateStringify,
-  /** @__PURE__ */ Namespace.validate(),
-  /** @__PURE__ */ Namespace.json.stringify("validateStringify"),
-);
-export { validateStringifyPure as validateStringify };
 
 /* -----------------------------------------------------------
     FACTORY FUNCTIONS
@@ -487,7 +535,7 @@ export { validateStringifyPure as validateStringify };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createIsParse(): never;
+export function createIsParse(): never;
 
 /**
  * Creates a reusable {@link isParse} function.
@@ -497,19 +545,14 @@ function createIsParse(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createIsParse<T>(): (input: string) => Primitive<T> | null;
+export function createIsParse<T>(): (input: string) => Primitive<T> | null;
 
 /**
  * @internal
  */
-function createIsParse<T>(): (input: string) => Primitive<T> | null {
+export function createIsParse<T>(): (input: string) => Primitive<T> | null {
   halt("createIsParse");
 }
-const createIsParsePure = /** @__PURE__ */ Object.assign<
-  typeof createIsParse,
-  {}
->(createIsParse, isParsePure);
-export { createIsParsePure as createIsParse };
 
 /**
  * Creates a reusable {@link assertParse} function.
@@ -521,7 +564,7 @@ export { createIsParsePure as createIsParse };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertParse(
+export function createAssertParse(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): never;
 
@@ -534,21 +577,16 @@ function createAssertParse(
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertParse<T>(
+export function createAssertParse<T>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): (input: string) => Primitive<T>;
 
 /**
  * @internal
  */
-function createAssertParse<T>(): (input: string) => Primitive<T> {
+export function createAssertParse<T>(): (input: string) => Primitive<T> {
   halt("createAssertParse");
 }
-const createAssertParsePure = /** @__PURE__ */ Object.assign<
-  typeof createAssertParse,
-  {}
->(createAssertParse, assertParsePure);
-export { createAssertParsePure as createAssertParse };
 
 /**
  * Creates a reusable {@link validateParse} function.
@@ -559,7 +597,7 @@ export { createAssertParsePure as createAssertParse };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createValidateParse(): never;
+export function createValidateParse(): never;
 
 /**
  * Creates a reusable {@link validateParse} function.
@@ -569,22 +607,18 @@ function createValidateParse(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createValidateParse<T>(): (input: string) => IValidation<Primitive<T>>;
+export function createValidateParse<T>(): (
+  input: string,
+) => IValidation<Primitive<T>>;
 
 /**
  * @internal
  */
-function createValidateParse<T>(): (
+export function createValidateParse<T>(): (
   input: string,
 ) => IValidation<Primitive<T>> {
   halt("createValidateParse");
 }
-
-const createValidateParsePure = /** @__PURE__ */ Object.assign<
-  typeof createValidateParse,
-  {}
->(createValidateParse, validateParsePure);
-export { createValidateParsePure as createValidateParse };
 
 /**
  * Creates a reusable {@link stringify} function.
@@ -595,7 +629,7 @@ export { createValidateParsePure as createValidateParse };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createStringify(): never;
+export function createStringify(): never;
 
 /**
  * Creates a reusable {@link stringify} function.
@@ -605,20 +639,14 @@ function createStringify(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createStringify<T>(): (input: T) => string;
+export function createStringify<T>(): (input: T) => string;
 
 /**
  * @internal
  */
-function createStringify<T>(): (input: T) => string {
+export function createStringify<T>(): (input: T) => string {
   halt("createStringify");
 }
-
-const createStringifyPure = /** @__PURE__ */ Object.assign<
-  typeof createStringify,
-  {}
->(createStringify, stringifyPure);
-export { createStringifyPure as createStringify };
 
 /**
  * Creates a reusable {@link assertStringify} function.
@@ -630,7 +658,7 @@ export { createStringifyPure as createStringify };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertStringify(
+export function createAssertStringify(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): never;
 
@@ -643,22 +671,16 @@ function createAssertStringify(
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createAssertStringify<T>(
+export function createAssertStringify<T>(
   errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
 ): (input: unknown) => string;
 
 /**
  * @internal
  */
-function createAssertStringify(): (input: unknown) => string {
+export function createAssertStringify(): (input: unknown) => string {
   halt("createAssertStringify");
 }
-
-const createAssertStringifyPure = /** @__PURE__ */ Object.assign<
-  typeof createAssertStringify,
-  {}
->(createAssertStringify, assertStringifyPure);
-export { createAssertStringifyPure as createAssertStringify };
 
 /**
  * Creates a reusable {@link isStringify} function.
@@ -669,7 +691,7 @@ export { createAssertStringifyPure as createAssertStringify };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createIsStringify(): never;
+export function createIsStringify(): never;
 
 /**
  * Creates a reusable {@link isStringify} function.
@@ -679,20 +701,14 @@ function createIsStringify(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createIsStringify<T>(): (input: unknown) => string | null;
+export function createIsStringify<T>(): (input: unknown) => string | null;
 
 /**
  * @internal
  */
-function createIsStringify(): (input: unknown) => string | null {
+export function createIsStringify(): (input: unknown) => string | null {
   halt("createIsStringify");
 }
-
-const createIsStringifyPure = /** @__PURE__ */ Object.assign<
-  typeof createIsStringify,
-  {}
->(createIsStringify, isStringifyPure);
-export { createIsStringifyPure as createIsStringify };
 
 /**
  * Creates a reusable {@link validateStringify} function.
@@ -703,7 +719,7 @@ export { createIsStringifyPure as createIsStringify };
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createValidateStringify(): never;
+export function createValidateStringify(): never;
 
 /**
  * Creates a reusable {@link validateStringify} function.
@@ -713,20 +729,18 @@ function createValidateStringify(): never;
 
  * @author Jeongho Nam - https://github.com/samchon
  */
-function createValidateStringify<T>(): (input: unknown) => IValidation<string>;
+export function createValidateStringify<T>(): (
+  input: unknown,
+) => IValidation<string>;
 
 /**
  * @internal
  */
-function createValidateStringify(): (input: unknown) => IValidation<string> {
+export function createValidateStringify(): (
+  input: unknown,
+) => IValidation<string> {
   halt("createValidateStringify");
 }
-
-const createValidateStringifyPure = /** @__PURE__ */ Object.assign<
-  typeof createValidateStringify,
-  {}
->(createValidateStringify, validateStringifyPure);
-export { createValidateStringifyPure as createValidateStringify };
 
 /**
  * @internal

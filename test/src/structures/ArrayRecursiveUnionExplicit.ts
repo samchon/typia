@@ -3,6 +3,8 @@ import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 
 export type ArrayRecursiveUnionExplicit = ArrayRecursiveUnionExplicit.IBucket[];
 export namespace ArrayRecursiveUnionExplicit {
+  export const RECURSIVE = true;
+
   export type IBucket =
     | IDirectory
     | IImageFile

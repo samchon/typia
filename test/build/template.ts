@@ -2,7 +2,11 @@ import cp from "child_process";
 import fs from "fs";
 
 import { TestFeature } from "./internal/TestFeature";
-import { TestJsonApplicationGenerator } from "./internal/TestJsonApplicationGenerator";
+// import { TestJsonApplicationGenerator } from "./internal/TestJsonApplicationGenerator";
+import { TestJsonSchemasGenerator } from "./internal/TestJsonSchemasGenerator";
+import { TestLlmApplicationGenerator } from "./internal/TestLlmApplicationGenerator";
+import { TestLlmParametersGenerator } from "./internal/TestLlmParametersGenerator";
+import { TestLlmSchemaGenerator } from "./internal/TestLlmSchemaGenerator";
 import { TestProtobufMessageGenerator } from "./internal/TestProtobufMessageGenerator";
 import { TestReflectMetadataGenerator } from "./internal/TestReflectMetadataGenerator";
 import { TestStructure } from "./internal/TestStructure";
@@ -137,11 +141,9 @@ function script(
 
 async function main(): Promise<void> {
   process.chdir(__dirname + "/..");
-  cp.execSync("npx rimraf src/generated");
-
-  const structures: TestStructure<any>[] = await load();
 
   // NORMAL FEATURES
+  const structures: TestStructure<any>[] = await load();
   const featureList: TestFeature[] = [
     ...TestFeature.DATA,
     ...TestFeature.DATA.filter((f) =>
@@ -161,16 +163,28 @@ async function main(): Promise<void> {
   if (fs.existsSync(schemas)) cp.execSync(`npx rimraf ${schemas}`);
   await fs.promises.mkdir(schemas, { recursive: true });
 
-  await TestJsonApplicationGenerator.generate(structures);
+  // await TestJsonApplicationGenerator.generate(structures);
+  await TestJsonSchemasGenerator.generate(structures);
   await TestProtobufMessageGenerator.generate(structures);
   await TestReflectMetadataGenerator.generate(structures);
 
   // FILL SCHEMA CONTENTS
-  await new Promise((resolve) => setTimeout(resolve, 1000));
   cp.execSync("npm run build", { stdio: "inherit" });
-  await TestJsonApplicationGenerator.schemas();
+
+  // await TestJsonApplicationGenerator.schemas();
+  await TestJsonSchemasGenerator.schemas();
   await TestProtobufMessageGenerator.schemas();
   await TestReflectMetadataGenerator.schemas();
+
+  // LLM SCHEMAS AGAIN
+  await TestLlmApplicationGenerator.generate(structures);
+  await TestLlmParametersGenerator.generate(structures);
+  await TestLlmSchemaGenerator.generate(structures);
+
+  cp.execSync("npm run build", { stdio: "inherit" });
+  await TestLlmApplicationGenerator.schemas();
+  await TestLlmParametersGenerator.schemas();
+  await TestLlmSchemaGenerator.schemas();
 
   cp.execSync("npm run prettier", { stdio: "inherit" });
 }

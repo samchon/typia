@@ -1,0 +1,41 @@
+{
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string"
+      },
+      "email": {
+        "type": "string"
+      },
+      "hobbies": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "body": {
+              "type": "string"
+            },
+            "rank": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "name",
+            "body",
+            "rank"
+          ]
+        }
+      }
+    },
+    "required": [
+      "name",
+      "email",
+      "hobbies"
+    ]
+  }
+}

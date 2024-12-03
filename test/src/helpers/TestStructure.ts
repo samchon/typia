@@ -12,5 +12,5 @@ export interface TestStructure<T> {
   BINARABLE?: boolean;
   JSONABLE?: boolean;
   PRIMITIVE?: boolean;
-  RANDOM?: false | IRandomGenerator;
+  RANDOM?: false | Partial<IRandomGenerator>;
 }

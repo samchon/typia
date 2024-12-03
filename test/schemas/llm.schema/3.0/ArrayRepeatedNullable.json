@@ -1,0 +1,66 @@
+{
+  "oneOf": [
+    {
+      "type": "string",
+      "nullable": true
+    },
+    {
+      "type": "number",
+      "nullable": true
+    },
+    {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "type": "number",
+            "nullable": true
+          },
+          {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "string",
+                  "nullable": true
+                },
+                {
+                  "type": "number",
+                  "nullable": true
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "oneOf": [
+                      {
+                        "type": "string",
+                        "nullable": true
+                      },
+                      {
+                        "type": "number",
+                        "nullable": true
+                      },
+                      {
+                        "type": "array",
+                        "items": {},
+                        "maxItems": 0,
+                        "nullable": true
+                      }
+                    ]
+                  },
+                  "nullable": true
+                }
+              ]
+            },
+            "nullable": true
+          }
+        ]
+      },
+      "nullable": true
+    }
+  ]
+}

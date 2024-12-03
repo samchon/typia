@@ -1,0 +1,480 @@
+{
+  "model": "3.0",
+  "options": {
+    "constraint": false,
+    "recursive": 3,
+    "separate": null
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "prefix": {
+                      "type": "string",
+                      "enum": [
+                        "prefix_A",
+                        "prefix_B",
+                        "prefix_C"
+                      ]
+                    },
+                    "postfix": {
+                      "type": "string",
+                      "enum": [
+                        "1_postfix",
+                        "2_postfix",
+                        "3_postfix"
+                      ]
+                    },
+                    "combined": {
+                      "type": "string",
+                      "enum": [
+                        "the_1_value_with_label_A",
+                        "the_1_value_with_label_B",
+                        "the_1_value_with_label_C",
+                        "the_2_value_with_label_A",
+                        "the_2_value_with_label_B",
+                        "the_2_value_with_label_C",
+                        "the_3_value_with_label_A",
+                        "the_3_value_with_label_B",
+                        "the_3_value_with_label_C"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "prefix",
+                    "postfix",
+                    "combined"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false
+      },
+      "strict": true
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "prefix": {
+                      "type": "string",
+                      "enum": [
+                        "prefix_A",
+                        "prefix_B",
+                        "prefix_C"
+                      ]
+                    },
+                    "postfix": {
+                      "type": "string",
+                      "enum": [
+                        "1_postfix",
+                        "2_postfix",
+                        "3_postfix"
+                      ]
+                    },
+                    "combined": {
+                      "type": "string",
+                      "enum": [
+                        "the_1_value_with_label_A",
+                        "the_1_value_with_label_B",
+                        "the_1_value_with_label_C",
+                        "the_2_value_with_label_A",
+                        "the_2_value_with_label_B",
+                        "the_2_value_with_label_C",
+                        "the_3_value_with_label_A",
+                        "the_3_value_with_label_B",
+                        "the_3_value_with_label_C"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "prefix",
+                    "postfix",
+                    "combined"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "additionalProperties": false
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "prefix": {
+                      "type": "string",
+                      "enum": [
+                        "prefix_A",
+                        "prefix_B",
+                        "prefix_C"
+                      ]
+                    },
+                    "postfix": {
+                      "type": "string",
+                      "enum": [
+                        "1_postfix",
+                        "2_postfix",
+                        "3_postfix"
+                      ]
+                    },
+                    "combined": {
+                      "type": "string",
+                      "enum": [
+                        "the_1_value_with_label_A",
+                        "the_1_value_with_label_B",
+                        "the_1_value_with_label_C",
+                        "the_2_value_with_label_A",
+                        "the_2_value_with_label_B",
+                        "the_2_value_with_label_C",
+                        "the_3_value_with_label_A",
+                        "the_3_value_with_label_B",
+                        "the_3_value_with_label_C"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "prefix",
+                    "postfix",
+                    "combined"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "additionalProperties": false,
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "prefix": {
+                  "type": "string",
+                  "enum": [
+                    "prefix_A",
+                    "prefix_B",
+                    "prefix_C"
+                  ]
+                },
+                "postfix": {
+                  "type": "string",
+                  "enum": [
+                    "1_postfix",
+                    "2_postfix",
+                    "3_postfix"
+                  ]
+                },
+                "combined": {
+                  "type": "string",
+                  "enum": [
+                    "the_1_value_with_label_A",
+                    "the_1_value_with_label_B",
+                    "the_1_value_with_label_C",
+                    "the_2_value_with_label_A",
+                    "the_2_value_with_label_B",
+                    "the_2_value_with_label_C",
+                    "the_3_value_with_label_A",
+                    "the_3_value_with_label_B",
+                    "the_3_value_with_label_C"
+                  ]
+                }
+              },
+              "required": [
+                "prefix",
+                "postfix",
+                "combined"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "additionalProperties": false
+      },
+      "strict": true
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "prefix": {
+                      "type": "string",
+                      "enum": [
+                        "prefix_A",
+                        "prefix_B",
+                        "prefix_C"
+                      ]
+                    },
+                    "postfix": {
+                      "type": "string",
+                      "enum": [
+                        "1_postfix",
+                        "2_postfix",
+                        "3_postfix"
+                      ]
+                    },
+                    "combined": {
+                      "type": "string",
+                      "enum": [
+                        "the_1_value_with_label_A",
+                        "the_1_value_with_label_B",
+                        "the_1_value_with_label_C",
+                        "the_2_value_with_label_A",
+                        "the_2_value_with_label_B",
+                        "the_2_value_with_label_C",
+                        "the_3_value_with_label_A",
+                        "the_3_value_with_label_B",
+                        "the_3_value_with_label_C"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "prefix",
+                    "postfix",
+                    "combined"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "additionalProperties": false,
+            "nullable": true
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "prefix": {
+                      "type": "string",
+                      "enum": [
+                        "prefix_A",
+                        "prefix_B",
+                        "prefix_C"
+                      ]
+                    },
+                    "postfix": {
+                      "type": "string",
+                      "enum": [
+                        "1_postfix",
+                        "2_postfix",
+                        "3_postfix"
+                      ]
+                    },
+                    "combined": {
+                      "type": "string",
+                      "enum": [
+                        "the_1_value_with_label_A",
+                        "the_1_value_with_label_B",
+                        "the_1_value_with_label_C",
+                        "the_2_value_with_label_A",
+                        "the_2_value_with_label_B",
+                        "the_2_value_with_label_C",
+                        "the_3_value_with_label_A",
+                        "the_3_value_with_label_B",
+                        "the_3_value_with_label_C"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "prefix",
+                    "postfix",
+                    "combined"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "additionalProperties": false,
+            "nullable": true
+          },
+          "third": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "prefix": {
+                      "type": "string",
+                      "enum": [
+                        "prefix_A",
+                        "prefix_B",
+                        "prefix_C"
+                      ]
+                    },
+                    "postfix": {
+                      "type": "string",
+                      "enum": [
+                        "1_postfix",
+                        "2_postfix",
+                        "3_postfix"
+                      ]
+                    },
+                    "combined": {
+                      "type": "string",
+                      "enum": [
+                        "the_1_value_with_label_A",
+                        "the_1_value_with_label_B",
+                        "the_1_value_with_label_C",
+                        "the_2_value_with_label_A",
+                        "the_2_value_with_label_B",
+                        "the_2_value_with_label_C",
+                        "the_3_value_with_label_A",
+                        "the_3_value_with_label_B",
+                        "the_3_value_with_label_C"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "prefix",
+                    "postfix",
+                    "combined"
+                  ],
+                  "additionalProperties": false
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "additionalProperties": false,
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "prefix": {
+                  "type": "string",
+                  "enum": [
+                    "prefix_A",
+                    "prefix_B",
+                    "prefix_C"
+                  ]
+                },
+                "postfix": {
+                  "type": "string",
+                  "enum": [
+                    "1_postfix",
+                    "2_postfix",
+                    "3_postfix"
+                  ]
+                },
+                "combined": {
+                  "type": "string",
+                  "enum": [
+                    "the_1_value_with_label_A",
+                    "the_1_value_with_label_B",
+                    "the_1_value_with_label_C",
+                    "the_2_value_with_label_A",
+                    "the_2_value_with_label_B",
+                    "the_2_value_with_label_C",
+                    "the_3_value_with_label_A",
+                    "the_3_value_with_label_B",
+                    "the_3_value_with_label_C"
+                  ]
+                }
+              },
+              "required": [
+                "prefix",
+                "postfix",
+                "combined"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "additionalProperties": false,
+        "nullable": true
+      },
+      "strict": true
+    }
+  ]
+}

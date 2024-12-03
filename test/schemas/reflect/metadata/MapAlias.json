@@ -5,7 +5,7 @@
       "required": true,
       "optional": false,
       "nullable": false,
-      "functional": false,
+      "functions": [],
       "atomics": [],
       "constants": [],
       "templates": [],
@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "MapAlias"
+        {
+          "name": "MapAlias",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -33,14 +36,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "boolean"
+                      "value": "boolean",
+                      "tags": []
                     }
                   ]
                 }
@@ -61,7 +65,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -80,7 +84,7 @@
                     "required": true,
                     "optional": false,
                     "nullable": false,
-                    "functional": false,
+                    "functions": [],
                     "atomics": [
                       {
                         "type": "boolean",
@@ -104,7 +108,7 @@
                     "required": true,
                     "optional": false,
                     "nullable": false,
-                    "functional": false,
+                    "functions": [],
                     "atomics": [
                       {
                         "type": "number",
@@ -122,7 +126,8 @@
                     "natives": [],
                     "sets": [],
                     "maps": []
-                  }
+                  },
+                  "tags": []
                 }
               ]
             },
@@ -135,14 +140,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "number"
+                      "value": "number",
+                      "tags": []
                     }
                   ]
                 }
@@ -163,7 +169,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -182,7 +188,7 @@
                     "required": true,
                     "optional": false,
                     "nullable": false,
-                    "functional": false,
+                    "functions": [],
                     "atomics": [
                       {
                         "type": "number",
@@ -206,7 +212,7 @@
                     "required": true,
                     "optional": false,
                     "nullable": false,
-                    "functional": false,
+                    "functions": [],
                     "atomics": [
                       {
                         "type": "number",
@@ -224,7 +230,8 @@
                     "natives": [],
                     "sets": [],
                     "maps": []
-                  }
+                  },
+                  "tags": []
                 }
               ]
             },
@@ -237,14 +244,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "strings"
+                      "value": "strings",
+                      "tags": []
                     }
                   ]
                 }
@@ -265,7 +273,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -284,7 +292,7 @@
                     "required": true,
                     "optional": false,
                     "nullable": false,
-                    "functional": false,
+                    "functions": [],
                     "atomics": [
                       {
                         "type": "string",
@@ -308,7 +316,7 @@
                     "required": true,
                     "optional": false,
                     "nullable": false,
-                    "functional": false,
+                    "functions": [],
                     "atomics": [
                       {
                         "type": "number",
@@ -326,7 +334,8 @@
                     "natives": [],
                     "sets": [],
                     "maps": []
-                  }
+                  },
+                  "tags": []
                 }
               ]
             },
@@ -339,14 +348,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "arrays"
+                      "value": "arrays",
+                      "tags": []
                     }
                   ]
                 }
@@ -367,7 +377,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -386,7 +396,7 @@
                     "required": true,
                     "optional": false,
                     "nullable": false,
-                    "functional": false,
+                    "functions": [],
                     "atomics": [],
                     "constants": [],
                     "templates": [],
@@ -410,7 +420,7 @@
                     "required": true,
                     "optional": false,
                     "nullable": false,
-                    "functional": false,
+                    "functions": [],
                     "atomics": [
                       {
                         "type": "number",
@@ -428,7 +438,8 @@
                     "natives": [],
                     "sets": [],
                     "maps": []
-                  }
+                  },
+                  "tags": []
                 }
               ]
             },
@@ -441,14 +452,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "objects"
+                      "value": "objects",
+                      "tags": []
                     }
                   ]
                 }
@@ -469,7 +481,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -488,7 +500,7 @@
                     "required": true,
                     "optional": false,
                     "nullable": false,
-                    "functional": false,
+                    "functions": [],
                     "atomics": [],
                     "constants": [],
                     "templates": [],
@@ -497,7 +509,10 @@
                     "arrays": [],
                     "tuples": [],
                     "objects": [
-                      "MapAlias.Person"
+                      {
+                        "name": "MapAlias.Person",
+                        "tags": []
+                      }
                     ],
                     "aliases": [],
                     "natives": [],
@@ -509,7 +524,7 @@
                     "required": true,
                     "optional": false,
                     "nullable": false,
-                    "functional": false,
+                    "functions": [],
                     "atomics": [
                       {
                         "type": "number",
@@ -527,7 +542,8 @@
                     "natives": [],
                     "sets": [],
                     "maps": []
-                  }
+                  },
+                  "tags": []
                 }
               ]
             },
@@ -551,14 +567,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "id"
+                      "value": "id",
+                      "tags": []
                     }
                   ]
                 }
@@ -579,7 +596,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "string",
@@ -607,14 +624,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "name"
+                      "value": "name",
+                      "tags": []
                     }
                   ]
                 }
@@ -635,7 +653,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "string",
@@ -663,14 +681,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "age"
+                      "value": "age",
+                      "tags": []
                     }
                   ]
                 }
@@ -691,7 +710,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "number",
@@ -731,7 +750,7 @@
           "required": true,
           "optional": false,
           "nullable": false,
-          "functional": false,
+          "functions": [],
           "atomics": [
             {
               "type": "number",

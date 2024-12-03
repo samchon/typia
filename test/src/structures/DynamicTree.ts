@@ -10,6 +10,9 @@ export interface DynamicTree {
   children: Record<string, DynamicTree>;
 }
 export namespace DynamicTree {
+  export const ADDABLE = false;
+  export const RECURSIVE = true;
+
   export function generate(): DynamicTree {
     return create(3, 1);
   }
@@ -42,6 +45,4 @@ export namespace DynamicTree {
       return [`$input.children["${top.id}"].children["${bottom.id}"].sequence`];
     },
   ];
-
-  export const ADDABLE = false;
 }

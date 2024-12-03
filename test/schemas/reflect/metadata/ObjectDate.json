@@ -5,7 +5,7 @@
       "required": true,
       "optional": false,
       "nullable": false,
-      "functional": false,
+      "functions": [],
       "atomics": [],
       "constants": [],
       "templates": [],
@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ObjectDate"
+        {
+          "name": "ObjectDate",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -33,14 +36,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "classDate"
+                      "value": "classDate",
+                      "tags": []
                     }
                   ]
                 }
@@ -61,7 +65,7 @@
               "required": true,
               "optional": true,
               "nullable": true,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -71,7 +75,7 @@
                   "required": true,
                   "optional": false,
                   "nullable": false,
-                  "functional": false,
+                  "functions": [],
                   "atomics": [],
                   "constants": [],
                   "templates": [],
@@ -82,7 +86,10 @@
                   "objects": [],
                   "aliases": [],
                   "natives": [
-                    "Date"
+                    {
+                      "name": "Date",
+                      "tags": []
+                    }
                   ],
                   "sets": [],
                   "maps": []
@@ -92,7 +99,7 @@
                   "required": true,
                   "optional": false,
                   "nullable": false,
-                  "functional": false,
+                  "functions": [],
                   "atomics": [
                     {
                       "type": "string",
@@ -130,14 +137,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "date"
+                      "value": "date",
+                      "tags": []
                     }
                   ]
                 }
@@ -158,7 +166,7 @@
               "required": true,
               "optional": false,
               "nullable": true,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "string",
@@ -169,7 +177,7 @@
                         "name": "Format<\"date\">",
                         "kind": "format",
                         "value": "date",
-                        "validate": "/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/.test($input)",
+                        "validate": "$importInternal(\"isFormatDate\")($input)",
                         "exclusive": [
                           "format",
                           "pattern"
@@ -203,14 +211,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "datetime"
+                      "value": "datetime",
+                      "tags": []
                     }
                   ]
                 }
@@ -231,7 +240,7 @@
               "required": true,
               "optional": false,
               "nullable": true,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "string",
@@ -242,7 +251,7 @@
                         "name": "Format<\"date-time\">",
                         "kind": "format",
                         "value": "date-time",
-                        "validate": "/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])(T|\\s)([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](?:\\.[0-9]{1,9})?(Z|[+-]([01][0-9]|2[0-3]):[0-5][0-9])$/i.test($input)",
+                        "validate": "$importInternal(\"isFormatDateTime\")($input)",
                         "exclusive": [
                           "format",
                           "pattern"
@@ -276,14 +285,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "time"
+                      "value": "time",
+                      "tags": []
                     }
                   ]
                 }
@@ -304,7 +314,7 @@
               "required": true,
               "optional": false,
               "nullable": true,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "string",
@@ -315,7 +325,7 @@
                         "name": "Format<\"time\">",
                         "kind": "format",
                         "value": "time",
-                        "validate": "/^([01][0-9]|2[0-3]):[0-5][0-9]:[0-5][0-9](?:\\.[0-9]{1,9})?(Z|[+-]([01][0-9]|2[0-3]):[0-5][0-9])$/i.test($input)",
+                        "validate": "$importInternal(\"isFormatTime\")($input)",
                         "exclusive": [
                           "format",
                           "pattern"
@@ -349,14 +359,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "duration"
+                      "value": "duration",
+                      "tags": []
                     }
                   ]
                 }
@@ -377,7 +388,7 @@
               "required": true,
               "optional": false,
               "nullable": true,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "string",
@@ -388,7 +399,7 @@
                         "name": "Format<\"duration\">",
                         "kind": "format",
                         "value": "duration",
-                        "validate": "/^P(?!$)((\\d+Y)?(\\d+M)?(\\d+D)?(T(?=\\d)(\\d+H)?(\\d+M)?(\\d+S)?)?|(\\d+W)?)$/.test($input)",
+                        "validate": "$importInternal(\"isFormatDuration\")($input)",
                         "exclusive": [
                           "format",
                           "pattern"

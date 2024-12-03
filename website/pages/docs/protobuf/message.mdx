@@ -20,74 +20,66 @@ export namespace protobuf {
 
 With this `message()` function, you can share `*.proto` files with other languages. If you want to customize byte order or define specific type (that is not supported in the TypeScript) like `uint32`, use comment tags by following [comment tags](#comment-tags) section.
 
-```typescript filename="ICustomer.ts" showLineNumbers copy
+<Tabs items={["TypeScript Source Code", "Compiled JavaScript File"]}>
+  <Tab>
+```typescript filename="examples/src/protobuf.message.ts" showLineNumbers copy
 import typia, { tags } from "typia";
 
-interface ICustomer {
-  id: number & tags.Type<"int32">;
+typia.protobuf.message<IMember>();
+
+interface IMember {
+  id:
+    | (string & tags.Sequence<11>)
+    | (number & tags.Type<"uint64"> & tags.Sequence<12>)
+    | (Uint8Array & tags.Sequence<13>);
+  name: (string & tags.Sequence<20>) | null;
+  children: Array<IMember> & tags.Sequence<30>;
+  keywords: Map<string, string> & tags.Sequence<40>;
+  thumbnail:
+    | (string & tags.Format<"uri"> & tags.ContentMediaType<"image/*">)
+    | Uint8Array;
   email: string & tags.Format<"email">;
+  hobbies: Array<IHobby>;
+}
+interface IHobby {
+  id: string & tags.Format<"uuid">;
   name: string;
-  pet: null | ICat | IDog;
-  memo: null | Map<string, string>;
-  logins: Array<ICustomerLogin>;
+  valid: boolean;
 }
-interface ICat {
-  type: "cat";
-  name: string;
-  ribbon: boolean;
-}
-interface IDog {
-  type: "dog";
-  name: string;
-  hunt: boolean;
-}
-interface ICustomerLogin {
-  success: boolean;
-  href: string & tags.Format<"url">;
-  referrer: string & tags.Format<"url">;
-  ip: string & (tags.Format<"ipv4"> | tags.Format<"ipv6">);
-  time: string & tags.Format<"date-time">;
-}
-
-typia.protobuf.message<ICustomer>();
 ```
-
-> ```proto filename="ICustomer.proto" showLineNumbers
-> syntax = "proto3";
->
-> message ICustomer {
->   required int32 id = 1;
->   required string email = 2;
->   required string name = 3;
->   oneof pet {
->     ICat v4 = 4;
->     IDog v5 = 5;
->   }
->   map<string, string> memo = 6;
->   repeated ICustomerLogin logins = 7;
-> }
->
-> message ICat {
->   required string type = 1;
->   required string name = 2;
->   required bool ribbon = 3;
-> }
->
-> message IDog {
->   required string type = 1;
->   required string name = 2;
->   required bool hunt = 3;
-> }
->
-> message ICustomerLogin {
->   required bool success = 1;
->   required string href = 2;
->   required string referrer = 3;
->   required string ip = 4;
->   required string time = 5;
-> }
-> ```
-
+  </Tab>
+  <Tab>
+```javascript filename="examples/src/protobuf.message.js" showLineNumbers
+import typia from "typia";
+[
+  'syntax = "proto3";',
+  "",
+  "message IMember {",
+  "  oneof id {",
+  "    bytes v13 = 13;",
+  "    uint64 v12 = 12;",
+  "    string v11 = 11;",
+  "  }",
+  "  optional string name = 20;",
+  "  repeated IMember children = 30;",
+  "  map<string, string> keywords = 40;",
+  "  oneof thumbnail {",
+  "    bytes v41 = 41;",
+  "    string v42 = 42;",
+  "  }",
+  "  required string email = 43;",
+  "  repeated IHobby hobbies = 44;",
+  "}",
+  "",
+  "message IHobby {",
+  "  required string id = 1;",
+  "  required string name = 2;",
+  "  required bool valid = 3;",
+  "}",
+].join("\n");
+```
+  </Tab>
+</Tabs>
 
 
 
@@ -108,12 +100,12 @@ When you take a mistake that choosing different target type, TypeScript compiler
     - `number` can be both `int32` and `float`
     - `bigint` is `uint64`
 
-<Tabs items={["TypeScript Source Code", "Protobuf Schema", "Compiled JavaScript File"]}>
+<Tabs items={["TypeScript Source Code", "Compiled JavaScript File"]}>
   <Tab>
-```typescript filename="TypeTagExample.ts" showLineNumbers copy
+```typescript filename="examples/src/protobuf.type.ts" showLineNumbers copy
 import typia, { tags } from "typia";
 
-export interface TypeTagExample {
+interface TypeTagExample {
   // ATOMIC TYPES
   int32: number & tags.Type<"int32">;
   uint32: number & tags.Type<"uint32">;
@@ -154,48 +146,52 @@ typia.protobuf.createEncode<TypeTagExample>();
 ```
   </Tab>
   <Tab>
-```proto filename="TypeTagExample.proto" showLineNumbers copy
-syntax = "proto3";
-
-message TypeTagExample {
-  required int32 int32 = 1;
-  required uint32 uint32 = 2;
-  required uint64 uint64 = 3;
-  required int64 int64 = 4;
-  required float float = 5;
-  optional double double = 6;
-  optional string string = 7;
-  oneof uint32_or_double {
-    uint32 v8 = 8;
-    double v9 = 9;
-  }
-  oneof int32_or_uint64 {
-    int32 v10 = 10;
-    uint64 v11 = 11;
-  }
-  oneof int32_or_float_or_uint64 {
-    int32 v12 = 12;
-    uint64 v13 = 13;
-    float v14 = 14;
-  }
-  repeated uint64 uint64_array = 15;
-  map<int32, string> int32_map = 16;
-}
-```
-  </Tab>
-  <Tab>
-```javascript filename="TypeTagExample.js" showLineNumbers
+```javascript filename="examples/bin/protobuf.type.js" showLineNumbers
+import * as __typia_transform__ProtobufReader from "typia/lib/internal/_ProtobufReader.js";
+import * as __typia_transform__throwTypeGuardError from "typia/lib/internal/_throwTypeGuardError.js";
+import * as __typia_transform__isTypeInt32 from "typia/lib/internal/_isTypeInt32.js";
+import * as __typia_transform__isTypeUint32 from "typia/lib/internal/_isTypeUint32.js";
+import * as __typia_transform__isTypeInt64 from "typia/lib/internal/_isTypeInt64.js";
+import * as __typia_transform__isTypeFloat from "typia/lib/internal/_isTypeFloat.js";
+import * as __typia_transform__ProtobufSizer from "typia/lib/internal/_ProtobufSizer.js";
+import * as __typia_transform__ProtobufWriter from "typia/lib/internal/_ProtobufWriter.js";
 import typia from "typia";
 //----
 // PROTOBUF MESSAGE SCHEMA
 //----
-('syntax = "proto3";\n\nmessage TypeTagExample {\n  required int32 int32 = 1;\n  required uint32 uint32 = 2;\n  required uint64 uint64 = 3;\n  required int64 int64 = 4;\n  required float float = 5;\n  optional double double = 6;\n  optional string string = 7;\n  oneof uint32_or_double {\n    uint32 v8 = 8;\n    double v9 = 9;\n  }\n  oneof int32_or_uint64 {\n    int32 v10 = 10;\n    uint64 v11 = 11;\n  }\n  oneof int32_or_float_or_uint64 {\n    int32 v12 = 12;\n    uint64 v13 = 13;\n    float v14 = 14;\n  }\n  repeated uint64 uint64_array = 15;\n  map<int32, string> int32_map = 16;\n}');
+[
+  'syntax = "proto3";',
+  "",
+  "message TypeTagExample {",
+  "  required int32 int32 = 1;",
+  "  required uint32 uint32 = 2;",
+  "  required uint64 uint64 = 3;",
+  "  required int64 int64 = 4;",
+  "  required float float = 5;",
+  "  optional double double = 6;",
+  "  optional string string = 7;",
+  "  oneof uint32_or_double {",
+  "    uint32 v8 = 8;",
+  "    double v9 = 9;",
+  "  }",
+  "  oneof int32_or_uint64 {",
+  "    int32 v10 = 10;",
+  "    uint64 v11 = 11;",
+  "  }",
+  "  oneof int32_or_float_or_uint64 {",
+  "    int32 v12 = 12;",
+  "    uint64 v13 = 13;",
+  "    float v14 = 14;",
+  "  }",
+  "  repeated uint64 uint64_array = 15;",
+  "  map<int32, string> int32_map = 16;",
+  "}",
+].join("\n");
 //----
 // DECODE FUNCTION
 //----
 (() => {
-  const $Reader = typia.protobuf.createDecode.Reader;
-  const $pdo0 = (reader, length = -1) => {
+  const _pdo0 = (reader, length = -1) => {
     length = length < 0 ? reader.size() : reader.index() + length;
     const output = {
       int32: undefined,
@@ -271,7 +267,7 @@ import typia from "typia";
           output.int32_or_float_or_uint64 = reader.float();
           break;
         case 15:
-          // type: Array<(bigint & Type<"uint64">)>;
+          // Array<(bigint & Type<"uint64">)>;
           if (2 === (tag & 7)) {
             const piece = reader.uint32() + reader.index();
             while (reader.index() < piece)
@@ -279,9 +275,8 @@ import typia from "typia";
           } else output.uint64_array.push(reader.uint64());
           break;
         case 16:
-          // type: Map<string, string>;
+          // Map<(number & Type<"int32">), string>;
           (() => {
-            output.int32_map ??= new Map();
             const piece = reader.uint32() + reader.index();
             const entry = {
               key: undefined,
@@ -303,6 +298,7 @@ import typia from "typia";
                   break;
               }
             }
+            output.int32_map ??= new Map();
             output.int32_map.set(entry.key, entry.value);
           })();
           break;
@@ -314,45 +310,42 @@ import typia from "typia";
     return output;
   };
   return (input) => {
-    const reader = new $Reader(input);
-    return $pdo0(reader);
+    const reader = new __typia_transform__ProtobufReader._ProtobufReader(input);
+    return _pdo0(reader);
   };
 })();
 //----
 // ENCODE FUNCTION
 //----
 (() => {
-  const $throws = typia.protobuf.createEncode.throws;
-  const $Sizer = typia.protobuf.createEncode.Sizer;
-  const $Writer = typia.protobuf.createEncode.Writer;
   const encoder = (writer, input) => {
-    const $peo0 = (input) => {
-      // property "int32";
+    const _peo0 = (input) => {
+      // property "int32": (number & Type<"int32">);
       writer.uint32(8);
       writer.int32(input.int32);
-      // property "uint32";
+      // property "uint32": (number & Type<"uint32">);
       writer.uint32(16);
       writer.uint32(input.uint32);
-      // property "uint64";
+      // property "uint64": (bigint & Type<"uint64">);
       writer.uint32(24);
       writer.uint64(input.uint64);
-      // property "int64";
+      // property "int64": (number & Type<"int64">);
       writer.uint32(32);
       writer.int64(input.int64);
-      // property "float";
+      // property "float": (number & Type<"float">);
       writer.uint32(45);
       writer.float(input.float);
-      // property "double";
+      // property "double": (number | undefined);
       if (undefined !== input.double) {
         writer.uint32(49);
         writer.double(input.double);
       }
-      // property "string";
+      // property "string": (null | string);
       if (null !== input.string) {
         writer.uint32(58);
         writer.string(input.string);
       }
-      // property "uint32_or_double";
+      // property "uint32_or_double": (number & (Type<"uint32"> | Type<"double">));
       if (
         "number" === typeof input.uint32_or_double &&
         Math.floor(input.uint32_or_double) === input.uint32_or_double &&
@@ -365,11 +358,12 @@ import typia from "typia";
         writer.uint32(73);
         writer.double(input.uint32_or_double);
       } else
-        $throws({
+        __typia_transform__throwTypeGuardError._throwTypeGuardError({
+          method: "typia.protobuf.createEncode",
           expected: '(number & (Type<"uint32"> | Type<"double">))',
           value: input.uint32_or_double,
         });
-      // property "int32_or_uint64";
+      // property "int32_or_uint64": ((bigint & Type<"uint64">) | (number & Type<"int32">));
       if ("number" === typeof input.int32_or_uint64) {
         writer.uint32(80);
         writer.int32(input.int32_or_uint64);
@@ -377,11 +371,12 @@ import typia from "typia";
         writer.uint32(88);
         writer.uint64(input.int32_or_uint64);
       } else
-        $throws({
+        __typia_transform__throwTypeGuardError._throwTypeGuardError({
+          method: "typia.protobuf.createEncode",
           expected: '((bigint & Type<"uint64">) | (number & Type<"int32">))',
           value: input.int32_or_uint64,
         });
-      // property "int32_or_float_or_uint64";
+      // property "int32_or_float_or_uint64": ((bigint & Type<"uint64">) | (number & (Type<"int32"> | Type<"float">)));
       if (
         "number" === typeof input.int32_or_float_or_uint64 &&
         Math.floor(input.int32_or_float_or_uint64) ===
@@ -402,12 +397,13 @@ import typia from "typia";
         writer.uint32(117);
         writer.float(input.int32_or_float_or_uint64);
       } else
-        $throws({
+        __typia_transform__throwTypeGuardError._throwTypeGuardError({
+          method: "typia.protobuf.createEncode",
           expected:
             '((bigint & Type<"uint64">) | (number & (Type<"int32"> | Type<"float">)))',
           value: input.int32_or_float_or_uint64,
         });
-      // property "uint64_array";
+      // property "uint64_array": Array<bigint & Type<"uint64">>;
       if (0 !== input.uint64_array.length) {
         writer.uint32(122);
         writer.fork();
@@ -416,7 +412,7 @@ import typia from "typia";
         }
         writer.ldelim();
       }
-      // property "int32_map";
+      // property "int32_map": (Map<(number & Type<"int32">), string> | null | undefined);
       if (undefined !== input.int32_map && null !== input.int32_map) {
         for (const [key, value] of input.int32_map) {
           writer.uint32(130);
@@ -429,19 +425,387 @@ import typia from "typia";
         }
       }
     };
-    //TypeTagExample;
-    $peo0(input);
+    _peo0(input);
     return writer;
   };
   return (input) => {
-    const sizer = encoder(new $Sizer(), input);
-    const writer = encoder(new $Writer(sizer), input);
+    const sizer = encoder(
+      new __typia_transform__ProtobufSizer._ProtobufSizer(),
+      input,
+    );
+    const writer = encoder(
+      new __typia_transform__ProtobufWriter._ProtobufWriter(sizer),
+      input,
+    );
     return writer.buffer();
   };
 })();
 ```
   </Tab>
 </Tabs>
+
+By the way, how to specify the byte order of each properties?
+
+Even though `typia` automatically assigns byte order to each properties, but in sometimes, you may hope to determine the byte orders by yourself. 
+
+In that case, you can specify the byte order of each properties by utilizing the `tags.Sequence<N>` type like below. If you have to define some union typed properties, combine the `tags.Sequence<N>` type with intersection symbol `&` to the target type.
+
+<Tabs items={["TypeScript Source Code", "Compiled JavaScript File"]}>
+  <Tab>
+```typescript filename="examples/src/protobuf.sequence.ts" showLineNumbers copy
+import typia, { tags } from "typia";
+
+interface TypeTagExample {
+  // ATOMIC TYPES
+  int32: number & tags.Type<"int32"> & tags.Sequence<10>;
+  uint32: number & tags.Type<"uint32"> & tags.Sequence<20>;
+  uint64: bigint & tags.Type<"uint64"> & tags.Sequence<30>;
+  int64: number & tags.Type<"int64"> & tags.Sequence<40>;
+  float: number & tags.Type<"float"> & tags.Sequence<50>;
+  double: (number & tags.Sequence<60>) | undefined;
+  string: (string & tags.Sequence<70>) | null;
+
+  // UNION TYPES
+  uint32_or_double: number &
+    (
+      | (tags.Type<"uint32"> & tags.Sequence<61>)
+      | (tags.Type<"double"> & tags.Sequence<62>)
+    );
+  int32_or_uint64:
+    | (number & tags.Type<"int32"> & tags.Sequence<71>)
+    | (bigint & tags.Type<"uint64"> & tags.Sequence<72>);
+  int32_or_float_or_uint64:
+    | (number &
+        (
+          | (tags.Type<"int32"> & tags.Sequence<81>)
+          | (tags.Type<"float"> & tags.Sequence<82>)
+        ))
+    | (bigint & tags.Type<"uint64"> & tags.Sequence<83>);
+
+  // ARRAY AND MAP
+  uint64_array: Array<bigint & tags.Type<"uint64">> & tags.Sequence<90>;
+  int32_map?:
+    | (Map<number & tags.Type<"int32">, string> & tags.Sequence<100>)
+    | null;
+}
+
+//----
+// PROTOBUF MESSAGE SCHEMA
+//----
+typia.protobuf.message<TypeTagExample>();
+
+//----
+// DECODE FUNCTION
+//----
+typia.protobuf.createDecode<TypeTagExample>();
+
+//----
+// ENCODE FUNCTION
+//----
+typia.protobuf.createEncode<TypeTagExample>();
+```
+  </Tab>
+  <Tab>
+```javascript filename="examples/bin/protobuf.sequence.js" showLineNumbers
+import * as __typia_transform__ProtobufReader from "typia/lib/internal/_ProtobufReader.js";
+import * as __typia_transform__throwTypeGuardError from "typia/lib/internal/_throwTypeGuardError.js";
+import * as __typia_transform__isTypeInt32 from "typia/lib/internal/_isTypeInt32.js";
+import * as __typia_transform__isTypeUint32 from "typia/lib/internal/_isTypeUint32.js";
+import * as __typia_transform__isTypeInt64 from "typia/lib/internal/_isTypeInt64.js";
+import * as __typia_transform__isTypeFloat from "typia/lib/internal/_isTypeFloat.js";
+import * as __typia_transform__ProtobufSizer from "typia/lib/internal/_ProtobufSizer.js";
+import * as __typia_transform__ProtobufWriter from "typia/lib/internal/_ProtobufWriter.js";
+import typia from "typia";
+//----
+// PROTOBUF MESSAGE SCHEMA
+//----
+[
+  'syntax = "proto3";',
+  "",
+  "message TypeTagExample {",
+  "  required int32 int32 = 10;",
+  "  required uint32 uint32 = 20;",
+  "  required uint64 uint64 = 30;",
+  "  required int64 int64 = 40;",
+  "  required float float = 50;",
+  "  optional double double = 60;",
+  "  optional string string = 70;",
+  "  oneof uint32_or_double {",
+  "    uint32 v61 = 61;",
+  "    double v62 = 62;",
+  "  }",
+  "  oneof int32_or_uint64 {",
+  "    int32 v71 = 71;",
+  "    uint64 v72 = 72;",
+  "  }",
+  "  oneof int32_or_float_or_uint64 {",
+  "    int32 v81 = 81;",
+  "    uint64 v83 = 83;",
+  "    float v82 = 82;",
+  "  }",
+  "  repeated uint64 uint64_array = 90;",
+  "  map<int32, string> int32_map = 100;",
+  "}",
+].join("\n");
+//----
+// DECODE FUNCTION
+//----
+(() => {
+  const _pdo0 = (reader, length = -1) => {
+    length = length < 0 ? reader.size() : reader.index() + length;
+    const output = {
+      int32: undefined,
+      uint32: undefined,
+      uint64: undefined,
+      int64: undefined,
+      float: undefined,
+      double: undefined,
+      string: null,
+      uint32_or_double: undefined,
+      int32_or_uint64: undefined,
+      int32_or_float_or_uint64: undefined,
+      uint64_array: [],
+      int32_map: null,
+    };
+    while (reader.index() < length) {
+      const tag = reader.uint32();
+      switch (tag >>> 3) {
+        case 10:
+          // int32;
+          output.int32 = reader.int32();
+          break;
+        case 20:
+          // uint32;
+          output.uint32 = reader.uint32();
+          break;
+        case 30:
+          // uint64;
+          output.uint64 = reader.uint64();
+          break;
+        case 40:
+          // int64;
+          output.int64 = Number(reader.int64());
+          break;
+        case 50:
+          // float;
+          output.float = reader.float();
+          break;
+        case 60:
+          // double;
+          output.double = reader.double();
+          break;
+        case 70:
+          // string;
+          output.string = reader.string();
+          break;
+        case 61:
+          // uint32;
+          output.uint32_or_double = reader.uint32();
+          break;
+        case 62:
+          // double;
+          output.uint32_or_double = reader.double();
+          break;
+        case 71:
+          // int32;
+          output.int32_or_uint64 = reader.int32();
+          break;
+        case 72:
+          // uint64;
+          output.int32_or_uint64 = reader.uint64();
+          break;
+        case 81:
+          // int32;
+          output.int32_or_float_or_uint64 = reader.int32();
+          break;
+        case 83:
+          // uint64;
+          output.int32_or_float_or_uint64 = reader.uint64();
+          break;
+        case 82:
+          // float;
+          output.int32_or_float_or_uint64 = reader.float();
+          break;
+        case 90:
+          // Array<(bigint & Type<"uint64">)>;
+          if (2 === (tag & 7)) {
+            const piece = reader.uint32() + reader.index();
+            while (reader.index() < piece)
+              output.uint64_array.push(reader.uint64());
+          } else output.uint64_array.push(reader.uint64());
+          break;
+        case 100:
+          // Map<(number & Type<"int32">), string>;
+          (() => {
+            const piece = reader.uint32() + reader.index();
+            const entry = {
+              key: undefined,
+              value: "",
+            };
+            while (reader.index() < piece) {
+              const kind = reader.uint32();
+              switch (kind >>> 3) {
+                case 1:
+                  // int32;
+                  entry.key = reader.int32();
+                  break;
+                case 2:
+                  // string;
+                  entry.value = reader.string();
+                  break;
+                default:
+                  reader.skipType(kind & 7);
+                  break;
+              }
+            }
+            output.int32_map ??= new Map();
+            output.int32_map.set(entry.key, entry.value);
+          })();
+          break;
+        default:
+          reader.skipType(tag & 7);
+          break;
+      }
+    }
+    return output;
+  };
+  return (input) => {
+    const reader = new __typia_transform__ProtobufReader._ProtobufReader(input);
+    return _pdo0(reader);
+  };
+})();
+//----
+// ENCODE FUNCTION
+//----
+(() => {
+  const encoder = (writer, input) => {
+    const _peo0 = (input) => {
+      // property "int32": (number & Type<"int32"> & Sequence<10>);
+      writer.uint32(80);
+      writer.int32(input.int32);
+      // property "uint32": (number & Type<"uint32"> & Sequence<20>);
+      writer.uint32(160);
+      writer.uint32(input.uint32);
+      // property "uint64": (bigint & Type<"uint64"> & Sequence<30>);
+      writer.uint32(240);
+      writer.uint64(input.uint64);
+      // property "int64": (number & Type<"int64"> & Sequence<40>);
+      writer.uint32(320);
+      writer.int64(input.int64);
+      // property "float": (number & Type<"float"> & Sequence<50>);
+      writer.uint32(405);
+      writer.float(input.float);
+      // property "double": ((number & Sequence<60>) | undefined);
+      if (undefined !== input.double) {
+        writer.uint32(481);
+        writer.double(input.double);
+      }
+      // property "string": ((string & Sequence<70>) | null);
+      if (null !== input.string) {
+        writer.uint32(562);
+        writer.string(input.string);
+      }
+      // property "uint32_or_double": (number & ((Type<"uint32"> & Sequence<61>) | (Type<"double"> & Sequence<62>)));
+      if (
+        "number" === typeof input.uint32_or_double &&
+        Math.floor(input.uint32_or_double) === input.uint32_or_double &&
+        0 <= input.uint32_or_double &&
+        input.uint32_or_double <= 4294967295
+      ) {
+        writer.uint32(488);
+        writer.uint32(input.uint32_or_double);
+      } else if ("number" === typeof input.uint32_or_double && true) {
+        writer.uint32(497);
+        writer.double(input.uint32_or_double);
+      } else
+        __typia_transform__throwTypeGuardError._throwTypeGuardError({
+          method: "typia.protobuf.createEncode",
+          expected:
+            '(number & ((Type<"uint32"> & Sequence<61>) | (Type<"double"> & Sequence<62>)))',
+          value: input.uint32_or_double,
+        });
+      // property "int32_or_uint64": ((bigint & Type<"uint64"> & Sequence<72>) | (number & Type<"int32"> & Sequence<71>));
+      if ("number" === typeof input.int32_or_uint64) {
+        writer.uint32(568);
+        writer.int32(input.int32_or_uint64);
+      } else if ("bigint" === typeof input.int32_or_uint64) {
+        writer.uint32(576);
+        writer.uint64(input.int32_or_uint64);
+      } else
+        __typia_transform__throwTypeGuardError._throwTypeGuardError({
+          method: "typia.protobuf.createEncode",
+          expected:
+            '((bigint & Type<"uint64"> & Sequence<72>) | (number & Type<"int32"> & Sequence<71>))',
+          value: input.int32_or_uint64,
+        });
+      // property "int32_or_float_or_uint64": ((bigint & Type<"uint64"> & Sequence<83>) | (number & ((Type<"int32"> & Sequence<81>) | (Type<"float"> & Sequence<82>))));
+      if (
+        "number" === typeof input.int32_or_float_or_uint64 &&
+        Math.floor(input.int32_or_float_or_uint64) ===
+          input.int32_or_float_or_uint64 &&
+        -2147483648 <= input.int32_or_float_or_uint64 &&
+        input.int32_or_float_or_uint64 <= 2147483647
+      ) {
+        writer.uint32(648);
+        writer.int32(input.int32_or_float_or_uint64);
+      } else if ("bigint" === typeof input.int32_or_float_or_uint64) {
+        writer.uint32(664);
+        writer.uint64(input.int32_or_float_or_uint64);
+      } else if (
+        "number" === typeof input.int32_or_float_or_uint64 &&
+        -1.175494351e38 <= input.int32_or_float_or_uint64 &&
+        input.int32_or_float_or_uint64 <= 3.4028235e38
+      ) {
+        writer.uint32(661);
+        writer.float(input.int32_or_float_or_uint64);
+      } else
+        __typia_transform__throwTypeGuardError._throwTypeGuardError({
+          method: "typia.protobuf.createEncode",
+          expected:
+            '((bigint & Type<"uint64"> & Sequence<83>) | (number & ((Type<"int32"> & Sequence<81>) | (Type<"float"> & Sequence<82>))))',
+          value: input.int32_or_float_or_uint64,
+        });
+      // property "uint64_array": (Array<bigint & Type<"uint64">> & Sequence<90>);
+      if (0 !== input.uint64_array.length) {
+        writer.uint32(722);
+        writer.fork();
+        for (const elem of input.uint64_array) {
+          writer.uint64(elem);
+        }
+        writer.ldelim();
+      }
+      // property "int32_map": ((Map<(number & Type<"int32">), string> & Sequence<100>) | null | undefined);
+      if (undefined !== input.int32_map && null !== input.int32_map) {
+        for (const [key, value] of input.int32_map) {
+          writer.uint32(802);
+          writer.fork();
+          writer.uint32(8);
+          writer.int32(key);
+          writer.uint32(18);
+          writer.string(value);
+          writer.ldelim();
+        }
+      }
+    };
+    _peo0(input);
+    return writer;
+  };
+  return (input) => {
+    const sizer = encoder(
+      new __typia_transform__ProtobufSizer._ProtobufSizer(),
+      input,
+    );
+    const writer = encoder(
+      new __typia_transform__ProtobufWriter._ProtobufWriter(sizer),
+      input,
+    );
+    return writer.buffer();
+  };
+})();
+```
+  </Tab>
+</Tabs>
+
 
 
 
@@ -535,17 +899,31 @@ message CommentTagExample {
   </Tab>
   <Tab>
 ```javascript filename="CommentTagExample.js" showLineNumbers
+import * as __typia_transform__ProtobufReader from "typia/lib/internal/_ProtobufReader.js";
+import * as __typia_transform__ProtobufSizer from "typia/lib/internal/_ProtobufSizer.js";
+import * as __typia_transform__ProtobufWriter from "typia/lib/internal/_ProtobufWriter.js";
 import typia from "typia";
 //----
 // PROTOBUF MESSAGE SCHEMA
 //----
-('syntax = "proto3";\n\nmessage CommentTagExample {\n  required int32 int32 = 1;\n  optional uint32 uint32 = 2;\n  optional uint64 uint64 = 3;\n  required int64 int64 = 4;\n  optional float float = 5;\n  required double double = 6;\n  required string string = 7;\n}');
+[
+  'syntax = "proto3";',
+  "",
+  "message CommentTagExample {",
+  "  required int32 int32 = 1;",
+  "  optional uint32 uint32 = 2;",
+  "  optional uint64 uint64 = 3;",
+  "  required int64 int64 = 4;",
+  "  optional float float = 5;",
+  "  required double double = 6;",
+  "  required string string = 7;",
+  "}",
+].join("\n");
 //----
 // DECODE FUNCTION
 //----
 (() => {
-  const $Reader = typia.protobuf.createDecode.Reader;
-  const $pdo0 = (reader, length = -1) => {
+  const _pdo0 = (reader, length = -1) => {
     length = length < 0 ? reader.size() : reader.index() + length;
     const output = {
       int32: undefined,
@@ -595,53 +973,56 @@ import typia from "typia";
     return output;
   };
   return (input) => {
-    const reader = new $Reader(input);
-    return $pdo0(reader);
+    const reader = new __typia_transform__ProtobufReader._ProtobufReader(input);
+    return _pdo0(reader);
   };
 })();
 //----
 // ENCODE FUNCTION
 //----
 (() => {
-  const $Sizer = typia.protobuf.createEncode.Sizer;
-  const $Writer = typia.protobuf.createEncode.Writer;
   const encoder = (writer, input) => {
-    const $peo0 = (input) => {
-      // property "int32";
+    const _peo0 = (input) => {
+      // property "int32": (number & Type<"int32">);
       writer.uint32(8);
       writer.int32(input.int32);
-      // property "uint32";
+      // property "uint32": ((number & Type<"uint32">) | null | undefined);
       if (undefined !== input.uint32 && null !== input.uint32) {
         writer.uint32(16);
         writer.uint32(input.uint32);
       }
-      // property "uint64";
+      // property "uint64": ((number & Type<"uint64">) | undefined);
       if (undefined !== input.uint64) {
         writer.uint32(24);
         writer.uint64(input.uint64);
       }
-      // property "int64";
+      // property "int64": (number & Type<"int64">);
       writer.uint32(32);
       writer.int64(input.int64);
-      // property "float";
+      // property "float": ((number & Type<"float">) | null);
       if (null !== input.float) {
         writer.uint32(45);
         writer.float(input.float);
       }
-      // property "double";
+      // property "double": number;
       writer.uint32(49);
       writer.double(input.double);
-      // property "string";
+      // property "string": string;
       writer.uint32(58);
       writer.string(input.string);
     };
-    //CommentTagExample;
-    $peo0(input);
+    _peo0(input);
     return writer;
   };
   return (input) => {
-    const sizer = encoder(new $Sizer(), input);
-    const writer = encoder(new $Writer(sizer), input);
+    const sizer = encoder(
+      new __typia_transform__ProtobufSizer._ProtobufSizer(),
+      input,
+    );
+    const writer = encoder(
+      new __typia_transform__ProtobufWriter._ProtobufWriter(sizer),
+      input,
+    );
     return writer.buffer();
   };
 })();

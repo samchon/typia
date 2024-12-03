@@ -5,7 +5,7 @@
       "required": true,
       "optional": false,
       "nullable": false,
-      "functional": false,
+      "functions": [],
       "atomics": [],
       "constants": [],
       "templates": [],
@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "TemplateUnion"
+        {
+          "name": "TemplateUnion",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -33,14 +36,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -61,7 +65,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -100,14 +104,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "prefix"
+                      "value": "prefix",
+                      "tags": []
                     }
                   ]
                 }
@@ -128,7 +133,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [
@@ -139,14 +144,15 @@
                       "required": true,
                       "optional": false,
                       "nullable": false,
-                      "functional": false,
+                      "functions": [],
                       "atomics": [],
                       "constants": [
                         {
                           "type": "string",
                           "values": [
                             {
-                              "value": "prefix_"
+                              "value": "prefix_",
+                              "tags": []
                             }
                           ]
                         }
@@ -167,7 +173,7 @@
                       "required": true,
                       "optional": false,
                       "nullable": false,
-                      "functional": false,
+                      "functions": [],
                       "atomics": [
                         {
                           "type": "string",
@@ -186,7 +192,8 @@
                       "sets": [],
                       "maps": []
                     }
-                  ]
+                  ],
+                  "tags": []
                 },
                 {
                   "row": [
@@ -195,14 +202,15 @@
                       "required": true,
                       "optional": false,
                       "nullable": false,
-                      "functional": false,
+                      "functions": [],
                       "atomics": [],
                       "constants": [
                         {
                           "type": "string",
                           "values": [
                             {
-                              "value": "prefix_"
+                              "value": "prefix_",
+                              "tags": []
                             }
                           ]
                         }
@@ -223,7 +231,7 @@
                       "required": true,
                       "optional": false,
                       "nullable": false,
-                      "functional": false,
+                      "functions": [],
                       "atomics": [
                         {
                           "type": "number",
@@ -242,7 +250,8 @@
                       "sets": [],
                       "maps": []
                     }
-                  ]
+                  ],
+                  "tags": []
                 }
               ],
               "escaped": null,
@@ -264,14 +273,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "postfix"
+                      "value": "postfix",
+                      "tags": []
                     }
                   ]
                 }
@@ -292,7 +302,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [
@@ -303,7 +313,7 @@
                       "required": true,
                       "optional": false,
                       "nullable": false,
-                      "functional": false,
+                      "functions": [],
                       "atomics": [
                         {
                           "type": "string",
@@ -327,14 +337,15 @@
                       "required": true,
                       "optional": false,
                       "nullable": false,
-                      "functional": false,
+                      "functions": [],
                       "atomics": [],
                       "constants": [
                         {
                           "type": "string",
                           "values": [
                             {
-                              "value": "_postfix"
+                              "value": "_postfix",
+                              "tags": []
                             }
                           ]
                         }
@@ -350,7 +361,8 @@
                       "sets": [],
                       "maps": []
                     }
-                  ]
+                  ],
+                  "tags": []
                 },
                 {
                   "row": [
@@ -359,7 +371,7 @@
                       "required": true,
                       "optional": false,
                       "nullable": false,
-                      "functional": false,
+                      "functions": [],
                       "atomics": [
                         {
                           "type": "number",
@@ -383,14 +395,15 @@
                       "required": true,
                       "optional": false,
                       "nullable": false,
-                      "functional": false,
+                      "functions": [],
                       "atomics": [],
                       "constants": [
                         {
                           "type": "string",
                           "values": [
                             {
-                              "value": "_postfix"
+                              "value": "_postfix",
+                              "tags": []
                             }
                           ]
                         }
@@ -406,7 +419,8 @@
                       "sets": [],
                       "maps": []
                     }
-                  ]
+                  ],
+                  "tags": []
                 }
               ],
               "escaped": null,
@@ -428,14 +442,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "middle"
+                      "value": "middle",
+                      "tags": []
                     }
                   ]
                 }
@@ -456,7 +471,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
@@ -481,14 +496,15 @@
                       "required": true,
                       "optional": false,
                       "nullable": false,
-                      "functional": false,
+                      "functions": [],
                       "atomics": [],
                       "constants": [
                         {
                           "type": "string",
                           "values": [
                             {
-                              "value": "the_"
+                              "value": "the_",
+                              "tags": []
                             }
                           ]
                         }
@@ -509,7 +525,7 @@
                       "required": true,
                       "optional": false,
                       "nullable": false,
-                      "functional": false,
+                      "functions": [],
                       "atomics": [
                         {
                           "type": "number",
@@ -533,14 +549,15 @@
                       "required": true,
                       "optional": false,
                       "nullable": false,
-                      "functional": false,
+                      "functions": [],
                       "atomics": [],
                       "constants": [
                         {
                           "type": "string",
                           "values": [
                             {
-                              "value": "_value"
+                              "value": "_value",
+                              "tags": []
                             }
                           ]
                         }
@@ -556,7 +573,8 @@
                       "sets": [],
                       "maps": []
                     }
-                  ]
+                  ],
+                  "tags": []
                 }
               ],
               "escaped": null,
@@ -578,14 +596,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "mixed"
+                      "value": "mixed",
+                      "tags": []
                     }
                   ]
                 }
@@ -606,7 +625,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "number",
@@ -640,14 +659,15 @@
                       "required": true,
                       "optional": false,
                       "nullable": false,
-                      "functional": false,
+                      "functions": [],
                       "atomics": [],
                       "constants": [
                         {
                           "type": "string",
                           "values": [
                             {
-                              "value": "the_"
+                              "value": "the_",
+                              "tags": []
                             }
                           ]
                         }
@@ -668,7 +688,7 @@
                       "required": true,
                       "optional": false,
                       "nullable": false,
-                      "functional": false,
+                      "functions": [],
                       "atomics": [
                         {
                           "type": "number",
@@ -692,14 +712,15 @@
                       "required": true,
                       "optional": false,
                       "nullable": false,
-                      "functional": false,
+                      "functions": [],
                       "atomics": [],
                       "constants": [
                         {
                           "type": "string",
                           "values": [
                             {
-                              "value": "_value"
+                              "value": "_value",
+                              "tags": []
                             }
                           ]
                         }
@@ -715,7 +736,8 @@
                       "sets": [],
                       "maps": []
                     }
-                  ]
+                  ],
+                  "tags": []
                 }
               ],
               "escaped": null,
@@ -723,7 +745,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "__type"
+                {
+                  "name": "__type",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -750,14 +775,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "name"
+                      "value": "name",
+                      "tags": []
                     }
                   ]
                 }
@@ -778,7 +804,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "string",
@@ -818,7 +844,7 @@
           "required": true,
           "optional": false,
           "nullable": false,
-          "functional": false,
+          "functions": [],
           "atomics": [],
           "constants": [],
           "templates": [],
@@ -827,7 +853,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "TemplateUnion.Type"
+            {
+              "name": "TemplateUnion.Type",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

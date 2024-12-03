@@ -6,6 +6,8 @@ export type ArrayRecursiveUnionExplicitPointer = IPointer<
   ArrayRecursiveUnionExplicitPointer.IBucket[]
 >;
 export namespace ArrayRecursiveUnionExplicitPointer {
+  export const RECURSIVE = true;
+
   export type IBucket = IPointer<
     IDirectory | IImageFile | ITextFile | IZipFile | IShortcut
   >;

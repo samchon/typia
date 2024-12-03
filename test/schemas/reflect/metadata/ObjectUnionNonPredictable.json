@@ -5,7 +5,7 @@
       "required": true,
       "optional": false,
       "nullable": false,
-      "functional": false,
+      "functions": [],
       "atomics": [],
       "constants": [],
       "templates": [],
@@ -14,7 +14,10 @@
       "arrays": [],
       "tuples": [],
       "objects": [
-        "ObjectUnionNonPredictable"
+        {
+          "name": "ObjectUnionNonPredictable",
+          "tags": []
+        }
       ],
       "aliases": [],
       "natives": [],
@@ -33,14 +36,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -61,7 +65,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -100,14 +104,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -128,7 +133,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -137,7 +142,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "IPointer<ObjectUnionNonPredictable.IUnion>"
+                {
+                  "name": "IPointer<ObjectUnionNonPredictable.IUnion>",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -164,14 +172,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -192,7 +201,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -201,9 +210,18 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectUnionNonPredictable.IWrapper<string>",
-                "ObjectUnionNonPredictable.IWrapper<number>",
-                "ObjectUnionNonPredictable.IWrapper<boolean>"
+                {
+                  "name": "ObjectUnionNonPredictable.IWrapper<string>",
+                  "tags": []
+                },
+                {
+                  "name": "ObjectUnionNonPredictable.IWrapper<number>",
+                  "tags": []
+                },
+                {
+                  "name": "ObjectUnionNonPredictable.IWrapper<boolean>",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -230,14 +248,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -258,7 +277,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -267,7 +286,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "IPointer<boolean>"
+                {
+                  "name": "IPointer<boolean>",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -294,14 +316,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -322,7 +345,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "boolean",
@@ -361,14 +384,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -389,7 +413,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -398,7 +422,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "IPointer<number>"
+                {
+                  "name": "IPointer<number>",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -425,14 +452,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -453,7 +481,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "number",
@@ -492,14 +520,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -520,7 +549,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -529,7 +558,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "IPointer<string>"
+                {
+                  "name": "IPointer<string>",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -556,14 +588,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -584,7 +617,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "string",
@@ -624,7 +657,7 @@
           "required": true,
           "optional": false,
           "nullable": false,
-          "functional": false,
+          "functions": [],
           "atomics": [],
           "constants": [],
           "templates": [],
@@ -633,7 +666,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>"
+            {
+              "name": "ObjectUnionNonPredictable.IWrapper<ObjectUnionNonPredictable.IUnion>",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],

@@ -5,7 +5,7 @@
       "required": true,
       "optional": false,
       "nullable": false,
-      "functional": false,
+      "functions": [],
       "atomics": [],
       "constants": [],
       "templates": [],
@@ -36,14 +36,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -64,7 +65,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "boolean",
@@ -92,14 +93,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "child"
+                      "value": "child",
+                      "tags": []
                     }
                   ]
                 }
@@ -120,7 +122,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -129,7 +131,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectGeneric.IChild<boolean, boolean>"
+                {
+                  "name": "ObjectGeneric.IChild<boolean, boolean>",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -145,14 +150,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "elements"
+                      "value": "elements",
+                      "tags": []
                     }
                   ]
                 }
@@ -173,7 +179,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -212,14 +218,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "child_value"
+                      "value": "child_value",
+                      "tags": []
                     }
                   ]
                 }
@@ -240,7 +247,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "boolean",
@@ -268,14 +275,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "child_next"
+                      "value": "child_next",
+                      "tags": []
                     }
                   ]
                 }
@@ -296,7 +304,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "boolean",
@@ -335,14 +343,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -363,7 +372,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "number",
@@ -391,14 +400,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "child"
+                      "value": "child",
+                      "tags": []
                     }
                   ]
                 }
@@ -419,7 +429,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -428,7 +438,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectGeneric.IChild<number, number>"
+                {
+                  "name": "ObjectGeneric.IChild<number, number>",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -444,14 +457,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "elements"
+                      "value": "elements",
+                      "tags": []
                     }
                   ]
                 }
@@ -472,7 +486,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -511,14 +525,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "child_value"
+                      "value": "child_value",
+                      "tags": []
                     }
                   ]
                 }
@@ -539,7 +554,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "number",
@@ -567,14 +582,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "child_next"
+                      "value": "child_next",
+                      "tags": []
                     }
                   ]
                 }
@@ -595,7 +611,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "number",
@@ -634,14 +650,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "value"
+                      "value": "value",
+                      "tags": []
                     }
                   ]
                 }
@@ -662,7 +679,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "string",
@@ -690,14 +707,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "child"
+                      "value": "child",
+                      "tags": []
                     }
                   ]
                 }
@@ -718,7 +736,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -727,7 +745,10 @@
               "arrays": [],
               "tuples": [],
               "objects": [
-                "ObjectGeneric.IChild<string, string>"
+                {
+                  "name": "ObjectGeneric.IChild<string, string>",
+                  "tags": []
+                }
               ],
               "aliases": [],
               "natives": [],
@@ -743,14 +764,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "elements"
+                      "value": "elements",
+                      "tags": []
                     }
                   ]
                 }
@@ -771,7 +793,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [],
               "templates": [],
@@ -810,14 +832,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "child_value"
+                      "value": "child_value",
+                      "tags": []
                     }
                   ]
                 }
@@ -838,7 +861,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "string",
@@ -866,14 +889,15 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [],
               "constants": [
                 {
                   "type": "string",
                   "values": [
                     {
-                      "value": "child_next"
+                      "value": "child_next",
+                      "tags": []
                     }
                   ]
                 }
@@ -894,7 +918,7 @@
               "required": true,
               "optional": false,
               "nullable": false,
-              "functional": false,
+              "functions": [],
               "atomics": [
                 {
                   "type": "string",
@@ -934,7 +958,7 @@
           "required": true,
           "optional": false,
           "nullable": false,
-          "functional": false,
+          "functions": [],
           "atomics": [],
           "constants": [],
           "templates": [],
@@ -943,7 +967,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ObjectGeneric.IChild<boolean, boolean>"
+            {
+              "name": "ObjectGeneric.IChild<boolean, boolean>",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],
@@ -963,7 +990,7 @@
           "required": true,
           "optional": false,
           "nullable": false,
-          "functional": false,
+          "functions": [],
           "atomics": [],
           "constants": [],
           "templates": [],
@@ -972,7 +999,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ObjectGeneric.IChild<number, number>"
+            {
+              "name": "ObjectGeneric.IChild<number, number>",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],
@@ -992,7 +1022,7 @@
           "required": true,
           "optional": false,
           "nullable": false,
-          "functional": false,
+          "functions": [],
           "atomics": [],
           "constants": [],
           "templates": [],
@@ -1001,7 +1031,10 @@
           "arrays": [],
           "tuples": [],
           "objects": [
-            "ObjectGeneric.IChild<string, string>"
+            {
+              "name": "ObjectGeneric.IChild<string, string>",
+              "tags": []
+            }
           ],
           "aliases": [],
           "natives": [],
@@ -1025,7 +1058,7 @@
             "required": true,
             "optional": false,
             "nullable": false,
-            "functional": false,
+            "functions": [],
             "atomics": [],
             "constants": [],
             "templates": [],
@@ -1034,7 +1067,10 @@
             "arrays": [],
             "tuples": [],
             "objects": [
-              "ObjectGeneric.ISomething<boolean>"
+              {
+                "name": "ObjectGeneric.ISomething<boolean>",
+                "tags": []
+              }
             ],
             "aliases": [],
             "natives": [],
@@ -1046,7 +1082,7 @@
             "required": true,
             "optional": false,
             "nullable": false,
-            "functional": false,
+            "functions": [],
             "atomics": [],
             "constants": [],
             "templates": [],
@@ -1055,7 +1091,10 @@
             "arrays": [],
             "tuples": [],
             "objects": [
-              "ObjectGeneric.ISomething<number>"
+              {
+                "name": "ObjectGeneric.ISomething<number>",
+                "tags": []
+              }
             ],
             "aliases": [],
             "natives": [],
@@ -1067,7 +1106,7 @@
             "required": true,
             "optional": false,
             "nullable": false,
-            "functional": false,
+            "functions": [],
             "atomics": [],
             "constants": [],
             "templates": [],
@@ -1076,7 +1115,10 @@
             "arrays": [],
             "tuples": [],
             "objects": [
-              "ObjectGeneric.ISomething<string>"
+              {
+                "name": "ObjectGeneric.ISomething<string>",
+                "tags": []
+              }
             ],
             "aliases": [],
             "natives": [],
