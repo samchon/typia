@@ -1,17 +1,8 @@
 // import ts from "typescript";
 import { IMetadataTypeTag } from "../../../schemas/metadata/IMetadataTypeTag";
 import { Metadata } from "../../../schemas/metadata/Metadata";
-// <<<<<<< HEAD
-// import { MetadataAtomic } from "../../../schemas/metadata/MetadataAtomic";
-// import { MetadataConstant } from "../../../schemas/metadata/MetadataConstant";
-// import { MetadataConstantValue } from "../../../schemas/metadata/MetadataConstantValue";
-// import { MetadataTemplate } from "../../../schemas/metadata/MetadataTemplate";
-// import { MetadataObject } from "../../../schemas/metadata/MetadataObject";
-
-// import { ArrayUtil } from "../../../utils/ArrayUtil";
-// =======
 import { MetadataObjectType } from "../../../schemas/metadata/MetadataObjectType";
-// >>>>>>> 624883d52cce44fc6ce6ada1f5fb962b86185e40
+import { MetadataProperty } from "../../../schemas/metadata/MetadataProperty";
 
 import { MetadataCollection } from "../../MetadataCollection";
 import { MetadataFactory } from "../../MetadataFactory";
@@ -110,7 +101,7 @@ export const iterate_metadata_intersection = (
         m.size() === 1 &&
         m.objects.length === 1 &&
         (m.objects[0]!.type.properties.length === 0 ||
-          m.objects[0]!.type.properties.every((p) => p.value.optional === true))
+          m.objects[0]!.type.properties.every((p) => p.value.optional === true || isNoRuntimeCheck(p)))
           ? i
           : null,
       )
@@ -130,58 +121,6 @@ export const iterate_metadata_intersection = (
           .find((atom) => atom.type === a.type)
           ?.tags.push(tags),
       );
-// <<<<<<< HEAD
-//     if (individuals.length !== 1) return nonsensible();
-
-//     const objects: Metadata[] = children.filter(
-//       (c) =>
-//         c.nullable === false &&
-//         c.isRequired() === true &&
-//         c.objects.length &&
-//         c.objects.length === c.size() &&
-//         c.objects.every((o) => o.properties.every((p) =>  p.value.optional || p.value.objects.some(isNoRuntimeCheck))),
-//     );
-//     const arrays: Set<string> = new Set(
-//       individuals.map(([c]) => c.arrays.map((a) => a.type.name)).flat(),
-//     );
-//     const atomics: Set<"boolean" | "bigint" | "number" | "string"> = new Set(
-//       individuals.map(([c]) => [...c.atomics.map((a) => a.type)]).flat(),
-//     );
-//     const constants: Metadata[] = individuals
-//       .filter((i) => i[0].constants.length === 1)
-//       .map(([m]) => m);
-//     const templates: Metadata[] = individuals
-//       .filter((i) => i[0].templates.length === 1)
-//       .map(([m]) => m);
-
-//     // ESCAPE WHEN ONLY CONSTANT TYPES EXIST
-//     if (
-//       atomics.size + constants.length + arrays.size + templates.length > 1 ||
-//       individuals.length + objects.length !== children.length
-//     )
-//       return nonsensible();
-
-//     // RE-GENERATE TYPE
-//     const target: "boolean" | "bigint" | "number" | "string" | "array" =
-//       arrays.size
-//         ? "array"
-//         : atomics.size
-//           ? atomics.values().next().value
-//           : constants.length
-//             ? constants[0]!.constants[0]!.type
-//             : "string";
-//     if (target === "array") {
-//       const name: string = arrays.values().next().value;
-//       if (!meta.arrays.some((a) => a.type.name === name)) {
-//         iterate_metadata_array(checker)(options)(collection)(errors)(
-//           meta,
-//           type.types[individuals.find((i) => i[0].arrays.length === 1)![1]]!,
-//           {
-//             ...explore,
-//             aliased: false,
-//             escaped: false,
-//           },
-// =======
     }
     for (const c of meta.constants)
       for (const v of c.values) {
@@ -191,7 +130,6 @@ export const iterate_metadata_intersection = (
             .find((constant) => constant.type === c.type)
             ?.values.find((value) => value === v)
             ?.tags?.push(tags),
-// >>>>>>> 624883d52cce44fc6ce6ada1f5fb962b86185e40
         );
       }
     for (const t of meta.templates) {
@@ -202,18 +140,6 @@ export const iterate_metadata_intersection = (
           ?.tags.push(tags),
       );
     }
-// <<<<<<< HEAD
-//     return true;
-//   };
-
-// function isNoRuntimeCheck(meta: MetadataObject): boolean {
-//   // This is a hack: there is probably a better, structured way to ensure Metadata describes
-//   // a specific type, but I've not found it, nor di I have a need for it.
-//   return Boolean(meta.properties[0]?.key.constants[0]?.values[0]?.value === 'typia.tag')
-//     && meta.name.startsWith('NoRuntimeCheck');
-// }
-
-// =======
     if (meta.objects.length) {
       candidates.set("object", "object");
       assigners.push((tags) => props.metadata.objects.at(-1)?.tags.push(tags));
@@ -286,4 +212,10 @@ export const iterate_metadata_intersection = (
   if (tags.length) assigners.forEach((fn) => fn(tags));
   return true;
 };
-// >>>>>>> 624883d52cce44fc6ce6ada1f5fb962b86185e40
+
+// This is a hack: there is probably a better, structured way to ensure Metadata describes
+// a specific type, but I've not found it, nor di I have a need for it.
+function isNoRuntimeCheck(property: MetadataProperty): boolean {
+  return property.value.objects.every(({type}) => type.name.startsWith('NoRuntimeCheck') 
+    && type.properties[0]?.key.constants[0]?.values[0]?.getName() === 'typia.tag');
+}
