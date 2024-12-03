@@ -139,7 +139,7 @@ export namespace ValidateProgrammer {
               ),
               ts.factory.createExpressionStatement(
                 ts.factory.createBinaryExpression(
-                  ts.factory.createIdentifier("$report"),
+                  ts.factory.createIdentifier("_report"),
                   ts.factory.createToken(ts.SyntaxKind.EqualsToken),
                   ts.factory.createCallExpression(
                     ts.factory.createAsExpression(
@@ -223,7 +223,7 @@ export namespace ValidateProgrammer {
           value: is.arrow,
         }),
         StatementFactory.mut({ name: "errors" }),
-        StatementFactory.mut({ name: "$report" }),
+        StatementFactory.mut({ name: "_report" }),
       ],
       arrow,
     };
@@ -415,7 +415,7 @@ const create_report_call = (props: {
   input: ts.Expression;
 }): ts.Expression =>
   ts.factory.createCallExpression(
-    ts.factory.createIdentifier("$report"),
+    ts.factory.createIdentifier("_report"),
     undefined,
     [
       props.exceptionable ?? ts.factory.createIdentifier("_exceptionable"),

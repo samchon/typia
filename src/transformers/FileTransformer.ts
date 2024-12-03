@@ -34,9 +34,14 @@ export namespace FileTransformer {
           }),
         transformer,
       );
+      const index: number = find_import_injection_index(file);
       return ts.factory.updateSourceFile(
         file,
-        [...importer.toStatements(), ...file.statements],
+        [
+          ...file.statements.slice(0, index),
+          ...importer.toStatements(),
+          ...file.statements.slice(index),
+        ],
         false,
         file.referencedFiles,
         file.typeReferenceDirectives,
@@ -79,6 +84,21 @@ export namespace FileTransformer {
       props.context.extras.addDiagnostic(diagnostic);
       return null;
     }
+  };
+
+  const find_import_injection_index = (file: ts.SourceFile): number => {
+    let i: number = 0;
+    for (; i < file.statements.length; ++i) {
+      const stmt: ts.Statement = file.statements[i]!;
+      if (
+        ts.isExpressionStatement(stmt) &&
+        ts.isStringLiteralLike(stmt.expression) &&
+        stmt.expression.text.startsWith("use ")
+      )
+        continue;
+      break;
+    }
+    return i;
   };
 }
 

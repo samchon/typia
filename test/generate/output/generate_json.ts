@@ -462,92 +462,92 @@ export const createValidateStringify = (() => {
     [
       ("string" === typeof input.id &&
         (__typia_transform__isFormatUuid._isFormatUuid(input.id) ||
-          $report(_exceptionable, {
+          _report(_exceptionable, {
             path: _path + ".id",
             expected: 'string & Format<"uuid">',
             value: input.id,
           }))) ||
-        $report(_exceptionable, {
+        _report(_exceptionable, {
           path: _path + ".id",
           expected: '(string & Format<"uuid">)',
           value: input.id,
         }),
       ("string" === typeof input.name &&
         (RegExp("^[A-Z][a-z]+$").test(input.name) ||
-          $report(_exceptionable, {
+          _report(_exceptionable, {
             path: _path + ".name",
             expected: 'string & Pattern<"^[A-Z][a-z]+$">',
             value: input.name,
           }))) ||
-        $report(_exceptionable, {
+        _report(_exceptionable, {
           path: _path + ".name",
           expected: '(string & Pattern<"^[A-Z][a-z]+$">)',
           value: input.name,
         }),
       ("string" === typeof input.email &&
         (__typia_transform__isFormatEmail._isFormatEmail(input.email) ||
-          $report(_exceptionable, {
+          _report(_exceptionable, {
             path: _path + ".email",
             expected: 'string & Format<"email">',
             value: input.email,
           }))) ||
-        $report(_exceptionable, {
+        _report(_exceptionable, {
           path: _path + ".email",
           expected: '(string & Format<"email">)',
           value: input.email,
         }),
       ("number" === typeof input.age &&
         (__typia_transform__isTypeUint32._isTypeUint32(input.age) ||
-          $report(_exceptionable, {
+          _report(_exceptionable, {
             path: _path + ".age",
             expected: 'number & Type<"uint32">',
             value: input.age,
           })) &&
         (input.age < 100 ||
-          $report(_exceptionable, {
+          _report(_exceptionable, {
             path: _path + ".age",
             expected: "number & ExclusiveMaximum<100>",
             value: input.age,
           }))) ||
-        $report(_exceptionable, {
+        _report(_exceptionable, {
           path: _path + ".age",
           expected: '(number & Type<"uint32"> & ExclusiveMaximum<100>)',
           value: input.age,
         }),
       "string" === typeof input.motto ||
-        $report(_exceptionable, {
+        _report(_exceptionable, {
           path: _path + ".motto",
           expected: "string",
           value: input.motto,
         }),
       input.birthdate instanceof Date ||
-        $report(_exceptionable, {
+        _report(_exceptionable, {
           path: _path + ".birthdate",
           expected: "Date",
           value: input.birthdate,
         }),
       null === input.died_at ||
         input.died_at instanceof Date ||
-        $report(_exceptionable, {
+        _report(_exceptionable, {
           path: _path + ".died_at",
           expected: "(Date | null)",
           value: input.died_at,
         }),
       null === input.parent ||
         ((("object" === typeof input.parent && null !== input.parent) ||
-          $report(_exceptionable, {
+          _report(_exceptionable, {
             path: _path + ".parent",
             expected: "(ICitizen | null)",
             value: input.parent,
           })) &&
           _vo0(input.parent, _path + ".parent", true && _exceptionable)) ||
-        $report(_exceptionable, {
+        _report(_exceptionable, {
           path: _path + ".parent",
           expected: "(ICitizen | null)",
           value: input.parent,
         }),
       ((Array.isArray(input.children) ||
-        $report(_exceptionable, {
+        _report(_exceptionable, {
           path: _path + ".children",
           expected: "Array<ICitizen>",
           value: input.children,
@@ -556,7 +556,7 @@ export const createValidateStringify = (() => {
           .map(
             (elem: any, _index2: number) =>
               ((("object" === typeof elem && null !== elem) ||
-                $report(_exceptionable, {
+                _report(_exceptionable, {
                   path: _path + ".children[" + _index2 + "]",
                   expected: "ICitizen",
                   value: elem,
@@ -566,14 +566,14 @@ export const createValidateStringify = (() => {
                   _path + ".children[" + _index2 + "]",
                   true && _exceptionable,
                 )) ||
-              $report(_exceptionable, {
+              _report(_exceptionable, {
                 path: _path + ".children[" + _index2 + "]",
                 expected: "ICitizen",
                 value: elem,
               }),
           )
           .every((flag: boolean) => flag)) ||
-        $report(_exceptionable, {
+        _report(_exceptionable, {
           path: _path + ".children",
           expected: "Array<ICitizen>",
           value: input.children,
@@ -584,22 +584,22 @@ export const createValidateStringify = (() => {
   const __is = (input: any): input is ICitizen =>
     "object" === typeof input && null !== input && _io0(input);
   let errors: any;
-  let $report: any;
+  let _report: any;
   const __validate = (input: any): import("typia").IValidation<ICitizen> => {
     if (false === __is(input)) {
       errors = [];
-      $report = (__typia_transform__validateReport._validateReport as any)(
+      _report = (__typia_transform__validateReport._validateReport as any)(
         errors,
       );
       ((input: any, _path: string, _exceptionable: boolean = true) =>
         ((("object" === typeof input && null !== input) ||
-          $report(true, {
+          _report(true, {
             path: _path + "",
             expected: "ICitizen",
             value: input,
           })) &&
           _vo0(input, _path + "", true)) ||
-        $report(true, {
+        _report(true, {
           path: _path + "",
           expected: "ICitizen",
           value: input,
@@ -957,92 +957,92 @@ export const createValidateParse = (() => {
     [
       ("string" === typeof input.id &&
         (__typia_transform__isFormatUuid._isFormatUuid(input.id) ||
-          $report(_exceptionable, {
+          _report(_exceptionable, {
             path: _path + ".id",
             expected: 'string & Format<"uuid">',
             value: input.id,
           }))) ||
-        $report(_exceptionable, {
+        _report(_exceptionable, {
           path: _path + ".id",
           expected: '(string & Format<"uuid">)',
           value: input.id,
         }),
       ("string" === typeof input.name &&
         (RegExp("^[A-Z][a-z]+$").test(input.name) ||
-          $report(_exceptionable, {
+          _report(_exceptionable, {
             path: _path + ".name",
             expected: 'string & Pattern<"^[A-Z][a-z]+$">',
             value: input.name,
           }))) ||
-        $report(_exceptionable, {
+        _report(_exceptionable, {
           path: _path + ".name",
           expected: '(string & Pattern<"^[A-Z][a-z]+$">)',
           value: input.name,
         }),
       ("string" === typeof input.email &&
         (__typia_transform__isFormatEmail._isFormatEmail(input.email) ||
-          $report(_exceptionable, {
+          _report(_exceptionable, {
             path: _path + ".email",
             expected: 'string & Format<"email">',
             value: input.email,
           }))) ||
-        $report(_exceptionable, {
+        _report(_exceptionable, {
           path: _path + ".email",
           expected: '(string & Format<"email">)',
           value: input.email,
         }),
       ("number" === typeof input.age &&
         (__typia_transform__isTypeUint32._isTypeUint32(input.age) ||
-          $report(_exceptionable, {
+          _report(_exceptionable, {
             path: _path + ".age",
             expected: 'number & Type<"uint32">',
             value: input.age,
           })) &&
         (input.age < 100 ||
-          $report(_exceptionable, {
+          _report(_exceptionable, {
             path: _path + ".age",
             expected: "number & ExclusiveMaximum<100>",
             value: input.age,
           }))) ||
-        $report(_exceptionable, {
+        _report(_exceptionable, {
           path: _path + ".age",
           expected: '(number & Type<"uint32"> & ExclusiveMaximum<100>)',
           value: input.age,
         }),
       "string" === typeof input.motto ||
-        $report(_exceptionable, {
+        _report(_exceptionable, {
           path: _path + ".motto",
           expected: "string",
           value: input.motto,
         }),
       input.birthdate instanceof Date ||
-        $report(_exceptionable, {
+        _report(_exceptionable, {
           path: _path + ".birthdate",
           expected: "Date",
           value: input.birthdate,
         }),
       null === input.died_at ||
         input.died_at instanceof Date ||
-        $report(_exceptionable, {
+        _report(_exceptionable, {
           path: _path + ".died_at",
           expected: "(Date | null)",
           value: input.died_at,
         }),
       null === input.parent ||
         ((("object" === typeof input.parent && null !== input.parent) ||
-          $report(_exceptionable, {
+          _report(_exceptionable, {
             path: _path + ".parent",
             expected: "(ICitizen | null)",
             value: input.parent,
           })) &&
           _vo0(input.parent, _path + ".parent", true && _exceptionable)) ||
-        $report(_exceptionable, {
+        _report(_exceptionable, {
           path: _path + ".parent",
           expected: "(ICitizen | null)",
           value: input.parent,
         }),
       ((Array.isArray(input.children) ||
-        $report(_exceptionable, {
+        _report(_exceptionable, {
           path: _path + ".children",
           expected: "Array<ICitizen>",
           value: input.children,
@@ -1051,7 +1051,7 @@ export const createValidateParse = (() => {
           .map(
             (elem: any, _index2: number) =>
               ((("object" === typeof elem && null !== elem) ||
-                $report(_exceptionable, {
+                _report(_exceptionable, {
                   path: _path + ".children[" + _index2 + "]",
                   expected: "ICitizen",
                   value: elem,
@@ -1061,14 +1061,14 @@ export const createValidateParse = (() => {
                   _path + ".children[" + _index2 + "]",
                   true && _exceptionable,
                 )) ||
-              $report(_exceptionable, {
+              _report(_exceptionable, {
                 path: _path + ".children[" + _index2 + "]",
                 expected: "ICitizen",
                 value: elem,
               }),
           )
           .every((flag: boolean) => flag)) ||
-        $report(_exceptionable, {
+        _report(_exceptionable, {
           path: _path + ".children",
           expected: "Array<ICitizen>",
           value: input.children,
@@ -1077,22 +1077,22 @@ export const createValidateParse = (() => {
   const __is = (input: any): input is ICitizen =>
     "object" === typeof input && null !== input && _io0(input);
   let errors: any;
-  let $report: any;
+  let _report: any;
   const __validate = (input: any): import("typia").IValidation<ICitizen> => {
     if (false === __is(input)) {
       errors = [];
-      $report = (__typia_transform__validateReport._validateReport as any)(
+      _report = (__typia_transform__validateReport._validateReport as any)(
         errors,
       );
       ((input: any, _path: string, _exceptionable: boolean = true) =>
         ((("object" === typeof input && null !== input) ||
-          $report(true, {
+          _report(true, {
             path: _path + "",
             expected: "ICitizen",
             value: input,
           })) &&
           _vo0(input, _path + "", true)) ||
-        $report(true, {
+        _report(true, {
           path: _path + "",
           expected: "ICitizen",
           value: input,
