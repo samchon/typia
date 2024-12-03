@@ -18,7 +18,7 @@
     "test:bun": "bun run deploy/bun.ts",
     "test:template": "npm run --tag test --template",
     "-------------------------------------------------": "",
-    "build": "rimraf lib && tsc && rollup -c",
+    "build": "rimraf lib && mkdist --dist='lib' -d && tsc",
     "dev": "rimraf lib && tsc --watch",
     "dev:errors": "tsc --project tsconfig.errors.json --watch",
     "eslint": "eslint ./**/*.ts",
@@ -53,9 +53,6 @@
     "@samchon/openapi": ">=2.0.0 <3.0.0"
   },
   "devDependencies": {
-    "@rollup/plugin-commonjs": "^26.0.1",
-    "@rollup/plugin-node-resolve": "^15.2.3",
-    "@rollup/plugin-typescript": "^11.1.6",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/inquirer": "^8.2.5",
     "@types/node": "^18.15.12",
@@ -63,9 +60,9 @@
     "@typescript-eslint/eslint-plugin": "^7.1.1",
     "@typescript-eslint/parser": "^7.1.1",
     "chalk": "^4.0.0",
+    "mkdist": "^1.6.0",
     "prettier": "^3.2.5",
     "rimraf": "^5.0.5",
-    "rollup": "^4.18.0",
     "suppress-warnings": "^1.0.2",
     "ts-node": "^10.9.2",
     "typescript": "~5.6.3"
