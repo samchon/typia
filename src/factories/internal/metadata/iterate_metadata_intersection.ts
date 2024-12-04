@@ -217,5 +217,5 @@ export const iterate_metadata_intersection = (
 // a specific type, but I've not found it, nor di I have a need for it.
 function isNoRuntimeCheck(property: MetadataProperty): boolean {
   return property.value.objects.every(({type}) => type.name.startsWith('NoRuntimeCheck') 
-    && type.properties[0]?.key.constants[0]?.values[0]?.getName() === 'typia.tag');
+    && type.properties[0]?.key.constants[0]?.values[0]?.value === 'typia.tag');
 }
