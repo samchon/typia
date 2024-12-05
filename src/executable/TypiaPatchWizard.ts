@@ -19,20 +19,23 @@ export namespace TypiaPatchWizard {
   };
 
   export const patch = async (): Promise<void> => {
-    const location: string = require.resolve("typescript/lib/tsc.js");
-    const content: string = await fs.promises.readFile(location, "utf8");
-    if (content.indexOf(FROM_WITH_COMMENT) !== -1)
-      await fs.promises.writeFile(
-        location,
-        content.replace(FROM_WITH_COMMENT, TO_WITH_COMMENT),
-        "utf8",
-      );
-    else if (content.indexOf(FROM_ONLY) !== -1)
-      await fs.promises.writeFile(
-        location,
-        content.replace(FROM_ONLY, TO_ONLY),
-        "utf8",
-      );
+    for (const file of ["tsc.js", "_tsc.js"])
+      try {
+        const location: string = require.resolve(`typescript/lib/${file}`);
+        const content: string = await fs.promises.readFile(location, "utf8");
+        if (content.indexOf(FROM_WITH_COMMENT) !== -1)
+          await fs.promises.writeFile(
+            location,
+            content.replace(FROM_WITH_COMMENT, TO_WITH_COMMENT),
+            "utf8",
+          );
+        else if (content.indexOf(FROM_ONLY) !== -1)
+          await fs.promises.writeFile(
+            location,
+            content.replace(FROM_ONLY, TO_ONLY),
+            "utf8",
+          );
+      } catch {}
   };
 }
 
