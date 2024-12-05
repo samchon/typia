@@ -60,9 +60,9 @@
     "suppress-warnings": "^1.0.2",
     "tgrid": "^0.10.0",
     "ts-node": "^10.9.1",
-    "ts-patch": "^3.2.0",
+    "ts-patch": "^3.3.0",
     "tstl": "^3.0.0",
-    "typescript": "~5.6.3",
+    "typescript": "~5.7.2",
     "uuid": "^8.3.2",
     "zod": "^3.19.1"
   },
