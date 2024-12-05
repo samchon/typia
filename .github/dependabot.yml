@@ -40,6 +40,7 @@ updates:
       - dependency-name: "ts-patch"
       - dependency-name: "typescript"
       - dependency-name: "typedoc"
+      - dependency-name: "typedoc-github-theme"
     groups:
       Samchon:
         patterns:
@@ -50,3 +51,4 @@ updates:
           - "ts-patch"
           - "typescript"
           - "typedoc"
+          - "typedoc-github-theme"
