@@ -1,7 +1,7 @@
 {
   "model": "3.0",
   "options": {
-    "constraint": false,
+    "constraint": true,
     "recursive": 3,
     "separate": null
   },
@@ -20,7 +20,7 @@
                   "type": "array",
                   "items": {
                     "type": "string",
-                    "description": "@format uuid"
+                    "format": "uuid"
                   },
                   "minItems": 4,
                   "maxItems": 4
@@ -56,7 +56,7 @@
                   "type": "array",
                   "items": {
                     "type": "string",
-                    "description": "@format uuid"
+                    "format": "uuid"
                   },
                   "minItems": 4,
                   "maxItems": 4
@@ -79,7 +79,7 @@
                   "type": "array",
                   "items": {
                     "type": "string",
-                    "description": "@format uuid"
+                    "format": "uuid"
                   },
                   "minItems": 4,
                   "maxItems": 4
@@ -110,7 +110,7 @@
               "type": "array",
               "items": {
                 "type": "string",
-                "description": "@format uuid"
+                "format": "uuid"
               },
               "minItems": 4,
               "maxItems": 4
@@ -140,7 +140,7 @@
                   "type": "array",
                   "items": {
                     "type": "string",
-                    "description": "@format uuid"
+                    "format": "uuid"
                   },
                   "minItems": 4,
                   "maxItems": 4
@@ -164,7 +164,7 @@
                   "type": "array",
                   "items": {
                     "type": "string",
-                    "description": "@format uuid"
+                    "format": "uuid"
                   },
                   "minItems": 4,
                   "maxItems": 4
@@ -188,7 +188,7 @@
                   "type": "array",
                   "items": {
                     "type": "string",
-                    "description": "@format uuid"
+                    "format": "uuid"
                   },
                   "minItems": 4,
                   "maxItems": 4
@@ -219,7 +219,7 @@
               "type": "array",
               "items": {
                 "type": "string",
-                "description": "@format uuid"
+                "format": "uuid"
               },
               "minItems": 4,
               "maxItems": 4

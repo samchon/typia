@@ -8,26 +8,26 @@
           "type": "boolean"
         },
         "number": {
-          "description": "@default 1",
-          "type": "number"
+          "type": "number",
+          "default": 1
         },
         "string": {
-          "description": "@default two",
-          "type": "string"
+          "type": "string",
+          "default": "two"
         },
         "text": {
-          "description": "@default Very long text, can you understand it?",
-          "type": "string"
+          "type": "string",
+          "default": "Very long text, can you understand it?"
         },
         "boolean_and_number_and_string": {
           "oneOf": [
             {
               "type": "number",
-              "description": "@default 1"
+              "default": 1
             },
             {
               "type": "string",
-              "description": "@default two"
+              "default": "two"
             },
             {
               "type": "boolean"
@@ -54,7 +54,7 @@
             },
             {
               "type": "number",
-              "description": "@default 1"
+              "default": 1
             },
             {
               "type": "boolean"
@@ -68,7 +68,7 @@
             },
             {
               "type": "string",
-              "description": "@default two"
+              "default": "two"
             },
             {
               "type": "boolean"
@@ -79,11 +79,11 @@
           "oneOf": [
             {
               "type": "string",
-              "description": "@pattern ^(prefix_(.*))"
+              "pattern": "^(prefix_(.*))"
             },
             {
               "type": "number",
-              "description": "@default 2"
+              "default": 2
             },
             {
               "type": "boolean"
@@ -115,26 +115,26 @@
               "type": "boolean"
             },
             "number": {
-              "description": "@default 1",
-              "type": "number"
+              "type": "number",
+              "default": 1
             },
             "string": {
-              "description": "@default two",
-              "type": "string"
+              "type": "string",
+              "default": "two"
             },
             "text": {
-              "description": "@default Very long text, can you understand it?",
-              "type": "string"
+              "type": "string",
+              "default": "Very long text, can you understand it?"
             },
             "boolean_and_number_and_string": {
               "oneOf": [
                 {
                   "type": "number",
-                  "description": "@default 1"
+                  "default": 1
                 },
                 {
                   "type": "string",
-                  "description": "@default two"
+                  "default": "two"
                 },
                 {
                   "type": "boolean"
@@ -161,7 +161,7 @@
                 },
                 {
                   "type": "number",
-                  "description": "@default 1"
+                  "default": 1
                 },
                 {
                   "type": "boolean"
@@ -175,7 +175,7 @@
                 },
                 {
                   "type": "string",
-                  "description": "@default two"
+                  "default": "two"
                 },
                 {
                   "type": "boolean"
@@ -186,11 +186,11 @@
               "oneOf": [
                 {
                   "type": "string",
-                  "description": "@pattern ^(prefix_(.*))"
+                  "pattern": "^(prefix_(.*))"
                 },
                 {
                   "type": "number",
-                  "description": "@default 2"
+                  "default": 2
                 },
                 {
                   "type": "boolean"
@@ -219,26 +219,26 @@
           "type": "boolean"
         },
         "number": {
-          "description": "@default 1",
-          "type": "number"
+          "type": "number",
+          "default": 1
         },
         "string": {
-          "description": "@default two",
-          "type": "string"
+          "type": "string",
+          "default": "two"
         },
         "text": {
-          "description": "@default Very long text, can you understand it?",
-          "type": "string"
+          "type": "string",
+          "default": "Very long text, can you understand it?"
         },
         "boolean_and_number_and_string": {
           "oneOf": [
             {
               "type": "number",
-              "description": "@default 1"
+              "default": 1
             },
             {
               "type": "string",
-              "description": "@default two"
+              "default": "two"
             },
             {
               "type": "boolean"
@@ -265,7 +265,7 @@
             },
             {
               "type": "number",
-              "description": "@default 1"
+              "default": 1
             },
             {
               "type": "boolean"
@@ -279,7 +279,7 @@
             },
             {
               "type": "string",
-              "description": "@default two"
+              "default": "two"
             },
             {
               "type": "boolean"
@@ -290,11 +290,11 @@
           "oneOf": [
             {
               "type": "string",
-              "description": "@pattern ^(prefix_(.*))"
+              "pattern": "^(prefix_(.*))"
             },
             {
               "type": "number",
-              "description": "@default 2"
+              "default": 2
             },
             {
               "type": "boolean"
@@ -326,26 +326,26 @@
               "type": "boolean"
             },
             "number": {
-              "description": "@default 1",
-              "type": "number"
+              "type": "number",
+              "default": 1
             },
             "string": {
-              "description": "@default two",
-              "type": "string"
+              "type": "string",
+              "default": "two"
             },
             "text": {
-              "description": "@default Very long text, can you understand it?",
-              "type": "string"
+              "type": "string",
+              "default": "Very long text, can you understand it?"
             },
             "boolean_and_number_and_string": {
               "oneOf": [
                 {
                   "type": "number",
-                  "description": "@default 1"
+                  "default": 1
                 },
                 {
                   "type": "string",
-                  "description": "@default two"
+                  "default": "two"
                 },
                 {
                   "type": "boolean"
@@ -372,7 +372,7 @@
                 },
                 {
                   "type": "number",
-                  "description": "@default 1"
+                  "default": 1
                 },
                 {
                   "type": "boolean"
@@ -386,7 +386,7 @@
                 },
                 {
                   "type": "string",
-                  "description": "@default two"
+                  "default": "two"
                 },
                 {
                   "type": "boolean"
@@ -397,11 +397,11 @@
               "oneOf": [
                 {
                   "type": "string",
-                  "description": "@pattern ^(prefix_(.*))"
+                  "pattern": "^(prefix_(.*))"
                 },
                 {
                   "type": "number",
-                  "description": "@default 2"
+                  "default": 2
                 },
                 {
                   "type": "boolean"
@@ -432,26 +432,26 @@
             "type": "boolean"
           },
           "number": {
-            "description": "@default 1",
-            "type": "number"
+            "type": "number",
+            "default": 1
           },
           "string": {
-            "description": "@default two",
-            "type": "string"
+            "type": "string",
+            "default": "two"
           },
           "text": {
-            "description": "@default Very long text, can you understand it?",
-            "type": "string"
+            "type": "string",
+            "default": "Very long text, can you understand it?"
           },
           "boolean_and_number_and_string": {
             "oneOf": [
               {
                 "type": "number",
-                "description": "@default 1"
+                "default": 1
               },
               {
                 "type": "string",
-                "description": "@default two"
+                "default": "two"
               },
               {
                 "type": "boolean"
@@ -478,7 +478,7 @@
               },
               {
                 "type": "number",
-                "description": "@default 1"
+                "default": 1
               },
               {
                 "type": "boolean"
@@ -492,7 +492,7 @@
               },
               {
                 "type": "string",
-                "description": "@default two"
+                "default": "two"
               },
               {
                 "type": "boolean"
@@ -503,11 +503,11 @@
             "oneOf": [
               {
                 "type": "string",
-                "description": "@pattern ^(prefix_(.*))"
+                "pattern": "^(prefix_(.*))"
               },
               {
                 "type": "number",
-                "description": "@default 2"
+                "default": 2
               },
               {
                 "type": "boolean"

@@ -2,12 +2,12 @@
   "type": "object",
   "properties": {
     "id": {
-      "description": "@default something",
-      "type": "string"
+      "type": "string",
+      "default": "something"
     },
     "age": {
-      "description": "@default 20",
-      "type": "number"
+      "type": "number",
+      "default": 20
     }
   },
   "required": [

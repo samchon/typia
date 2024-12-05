@@ -1,7 +1,7 @@
 {
   "model": "3.1",
   "options": {
-    "constraint": false,
+    "constraint": true,
     "reference": false,
     "separate": null
   },
@@ -20,24 +20,27 @@
                   "type": "object",
                   "properties": {
                     "fixed": {
-                      "description": "@minLength 5\n@maxLength 5",
-                      "type": "string"
+                      "type": "string",
+                      "minLength": 5,
+                      "maxLength": 5
                     },
                     "minimum": {
-                      "description": "@minLength 3",
-                      "type": "string"
+                      "type": "string",
+                      "minLength": 3
                     },
                     "maximum": {
-                      "description": "@maxLength 7",
-                      "type": "string"
+                      "type": "string",
+                      "maxLength": 7
                     },
                     "minimum_and_maximum": {
-                      "description": "@minLength 3\n@maxLength 7",
-                      "type": "string"
+                      "type": "string",
+                      "minLength": 3,
+                      "maxLength": 7
                     },
                     "equal": {
-                      "description": "@minLength 10\n@maxLength 19",
-                      "type": "string"
+                      "type": "string",
+                      "minLength": 10,
+                      "maxLength": 19
                     }
                   },
                   "required": [
@@ -77,24 +80,27 @@
                   "type": "object",
                   "properties": {
                     "fixed": {
-                      "description": "@minLength 5\n@maxLength 5",
-                      "type": "string"
+                      "type": "string",
+                      "minLength": 5,
+                      "maxLength": 5
                     },
                     "minimum": {
-                      "description": "@minLength 3",
-                      "type": "string"
+                      "type": "string",
+                      "minLength": 3
                     },
                     "maximum": {
-                      "description": "@maxLength 7",
-                      "type": "string"
+                      "type": "string",
+                      "maxLength": 7
                     },
                     "minimum_and_maximum": {
-                      "description": "@minLength 3\n@maxLength 7",
-                      "type": "string"
+                      "type": "string",
+                      "minLength": 3,
+                      "maxLength": 7
                     },
                     "equal": {
-                      "description": "@minLength 10\n@maxLength 19",
-                      "type": "string"
+                      "type": "string",
+                      "minLength": 10,
+                      "maxLength": 19
                     }
                   },
                   "required": [
@@ -125,24 +131,27 @@
                       "type": "object",
                       "properties": {
                         "fixed": {
-                          "description": "@minLength 5\n@maxLength 5",
-                          "type": "string"
+                          "type": "string",
+                          "minLength": 5,
+                          "maxLength": 5
                         },
                         "minimum": {
-                          "description": "@minLength 3",
-                          "type": "string"
+                          "type": "string",
+                          "minLength": 3
                         },
                         "maximum": {
-                          "description": "@maxLength 7",
-                          "type": "string"
+                          "type": "string",
+                          "maxLength": 7
                         },
                         "minimum_and_maximum": {
-                          "description": "@minLength 3\n@maxLength 7",
-                          "type": "string"
+                          "type": "string",
+                          "minLength": 3,
+                          "maxLength": 7
                         },
                         "equal": {
-                          "description": "@minLength 10\n@maxLength 19",
-                          "type": "string"
+                          "type": "string",
+                          "minLength": 10,
+                          "maxLength": 19
                         }
                       },
                       "required": [
@@ -178,24 +187,27 @@
               "type": "object",
               "properties": {
                 "fixed": {
-                  "description": "@minLength 5\n@maxLength 5",
-                  "type": "string"
+                  "type": "string",
+                  "minLength": 5,
+                  "maxLength": 5
                 },
                 "minimum": {
-                  "description": "@minLength 3",
-                  "type": "string"
+                  "type": "string",
+                  "minLength": 3
                 },
                 "maximum": {
-                  "description": "@maxLength 7",
-                  "type": "string"
+                  "type": "string",
+                  "maxLength": 7
                 },
                 "minimum_and_maximum": {
-                  "description": "@minLength 3\n@maxLength 7",
-                  "type": "string"
+                  "type": "string",
+                  "minLength": 3,
+                  "maxLength": 7
                 },
                 "equal": {
-                  "description": "@minLength 10\n@maxLength 19",
-                  "type": "string"
+                  "type": "string",
+                  "minLength": 10,
+                  "maxLength": 19
                 }
               },
               "required": [
@@ -233,24 +245,27 @@
                       "type": "object",
                       "properties": {
                         "fixed": {
-                          "description": "@minLength 5\n@maxLength 5",
-                          "type": "string"
+                          "type": "string",
+                          "minLength": 5,
+                          "maxLength": 5
                         },
                         "minimum": {
-                          "description": "@minLength 3",
-                          "type": "string"
+                          "type": "string",
+                          "minLength": 3
                         },
                         "maximum": {
-                          "description": "@maxLength 7",
-                          "type": "string"
+                          "type": "string",
+                          "maxLength": 7
                         },
                         "minimum_and_maximum": {
-                          "description": "@minLength 3\n@maxLength 7",
-                          "type": "string"
+                          "type": "string",
+                          "minLength": 3,
+                          "maxLength": 7
                         },
                         "equal": {
-                          "description": "@minLength 10\n@maxLength 19",
-                          "type": "string"
+                          "type": "string",
+                          "minLength": 10,
+                          "maxLength": 19
                         }
                       },
                       "required": [
@@ -283,24 +298,27 @@
                       "type": "object",
                       "properties": {
                         "fixed": {
-                          "description": "@minLength 5\n@maxLength 5",
-                          "type": "string"
+                          "type": "string",
+                          "minLength": 5,
+                          "maxLength": 5
                         },
                         "minimum": {
-                          "description": "@minLength 3",
-                          "type": "string"
+                          "type": "string",
+                          "minLength": 3
                         },
                         "maximum": {
-                          "description": "@maxLength 7",
-                          "type": "string"
+                          "type": "string",
+                          "maxLength": 7
                         },
                         "minimum_and_maximum": {
-                          "description": "@minLength 3\n@maxLength 7",
-                          "type": "string"
+                          "type": "string",
+                          "minLength": 3,
+                          "maxLength": 7
                         },
                         "equal": {
-                          "description": "@minLength 10\n@maxLength 19",
-                          "type": "string"
+                          "type": "string",
+                          "minLength": 10,
+                          "maxLength": 19
                         }
                       },
                       "required": [
@@ -333,24 +351,27 @@
                       "type": "object",
                       "properties": {
                         "fixed": {
-                          "description": "@minLength 5\n@maxLength 5",
-                          "type": "string"
+                          "type": "string",
+                          "minLength": 5,
+                          "maxLength": 5
                         },
                         "minimum": {
-                          "description": "@minLength 3",
-                          "type": "string"
+                          "type": "string",
+                          "minLength": 3
                         },
                         "maximum": {
-                          "description": "@maxLength 7",
-                          "type": "string"
+                          "type": "string",
+                          "maxLength": 7
                         },
                         "minimum_and_maximum": {
-                          "description": "@minLength 3\n@maxLength 7",
-                          "type": "string"
+                          "type": "string",
+                          "minLength": 3,
+                          "maxLength": 7
                         },
                         "equal": {
-                          "description": "@minLength 10\n@maxLength 19",
-                          "type": "string"
+                          "type": "string",
+                          "minLength": 10,
+                          "maxLength": 19
                         }
                       },
                       "required": [
@@ -392,24 +413,27 @@
                   "type": "object",
                   "properties": {
                     "fixed": {
-                      "description": "@minLength 5\n@maxLength 5",
-                      "type": "string"
+                      "type": "string",
+                      "minLength": 5,
+                      "maxLength": 5
                     },
                     "minimum": {
-                      "description": "@minLength 3",
-                      "type": "string"
+                      "type": "string",
+                      "minLength": 3
                     },
                     "maximum": {
-                      "description": "@maxLength 7",
-                      "type": "string"
+                      "type": "string",
+                      "maxLength": 7
                     },
                     "minimum_and_maximum": {
-                      "description": "@minLength 3\n@maxLength 7",
-                      "type": "string"
+                      "type": "string",
+                      "minLength": 3,
+                      "maxLength": 7
                     },
                     "equal": {
-                      "description": "@minLength 10\n@maxLength 19",
-                      "type": "string"
+                      "type": "string",
+                      "minLength": 10,
+                      "maxLength": 19
                     }
                   },
                   "required": [

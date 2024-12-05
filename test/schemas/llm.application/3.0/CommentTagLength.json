@@ -1,7 +1,7 @@
 {
   "model": "3.0",
   "options": {
-    "constraint": false,
+    "constraint": true,
     "recursive": 3,
     "separate": null
   },
@@ -21,23 +21,26 @@
                   "properties": {
                     "fixed": {
                       "type": "string",
-                      "description": "@minLength 5\n@maxLength 5"
+                      "minLength": 5,
+                      "maxLength": 5
                     },
                     "minimum": {
                       "type": "string",
-                      "description": "@minLength 3"
+                      "minLength": 3
                     },
                     "maximum": {
                       "type": "string",
-                      "description": "@maxLength 7"
+                      "maxLength": 7
                     },
                     "minimum_and_maximum": {
                       "type": "string",
-                      "description": "@minLength 3\n@maxLength 7"
+                      "minLength": 3,
+                      "maxLength": 7
                     },
                     "equal": {
                       "type": "string",
-                      "description": "@minLength 10\n@maxLength 19"
+                      "minLength": 10,
+                      "maxLength": 19
                     }
                   },
                   "required": [
@@ -79,23 +82,26 @@
                   "properties": {
                     "fixed": {
                       "type": "string",
-                      "description": "@minLength 5\n@maxLength 5"
+                      "minLength": 5,
+                      "maxLength": 5
                     },
                     "minimum": {
                       "type": "string",
-                      "description": "@minLength 3"
+                      "minLength": 3
                     },
                     "maximum": {
                       "type": "string",
-                      "description": "@maxLength 7"
+                      "maxLength": 7
                     },
                     "minimum_and_maximum": {
                       "type": "string",
-                      "description": "@minLength 3\n@maxLength 7"
+                      "minLength": 3,
+                      "maxLength": 7
                     },
                     "equal": {
                       "type": "string",
-                      "description": "@minLength 10\n@maxLength 19"
+                      "minLength": 10,
+                      "maxLength": 19
                     }
                   },
                   "required": [
@@ -124,23 +130,26 @@
                   "properties": {
                     "fixed": {
                       "type": "string",
-                      "description": "@minLength 5\n@maxLength 5"
+                      "minLength": 5,
+                      "maxLength": 5
                     },
                     "minimum": {
                       "type": "string",
-                      "description": "@minLength 3"
+                      "minLength": 3
                     },
                     "maximum": {
                       "type": "string",
-                      "description": "@maxLength 7"
+                      "maxLength": 7
                     },
                     "minimum_and_maximum": {
                       "type": "string",
-                      "description": "@minLength 3\n@maxLength 7"
+                      "minLength": 3,
+                      "maxLength": 7
                     },
                     "equal": {
                       "type": "string",
-                      "description": "@minLength 10\n@maxLength 19"
+                      "minLength": 10,
+                      "maxLength": 19
                     }
                   },
                   "required": [
@@ -177,23 +186,26 @@
               "properties": {
                 "fixed": {
                   "type": "string",
-                  "description": "@minLength 5\n@maxLength 5"
+                  "minLength": 5,
+                  "maxLength": 5
                 },
                 "minimum": {
                   "type": "string",
-                  "description": "@minLength 3"
+                  "minLength": 3
                 },
                 "maximum": {
                   "type": "string",
-                  "description": "@maxLength 7"
+                  "maxLength": 7
                 },
                 "minimum_and_maximum": {
                   "type": "string",
-                  "description": "@minLength 3\n@maxLength 7"
+                  "minLength": 3,
+                  "maxLength": 7
                 },
                 "equal": {
                   "type": "string",
-                  "description": "@minLength 10\n@maxLength 19"
+                  "minLength": 10,
+                  "maxLength": 19
                 }
               },
               "required": [
@@ -229,23 +241,26 @@
                   "properties": {
                     "fixed": {
                       "type": "string",
-                      "description": "@minLength 5\n@maxLength 5"
+                      "minLength": 5,
+                      "maxLength": 5
                     },
                     "minimum": {
                       "type": "string",
-                      "description": "@minLength 3"
+                      "minLength": 3
                     },
                     "maximum": {
                       "type": "string",
-                      "description": "@maxLength 7"
+                      "maxLength": 7
                     },
                     "minimum_and_maximum": {
                       "type": "string",
-                      "description": "@minLength 3\n@maxLength 7"
+                      "minLength": 3,
+                      "maxLength": 7
                     },
                     "equal": {
                       "type": "string",
-                      "description": "@minLength 10\n@maxLength 19"
+                      "minLength": 10,
+                      "maxLength": 19
                     }
                   },
                   "required": [
@@ -275,23 +290,26 @@
                   "properties": {
                     "fixed": {
                       "type": "string",
-                      "description": "@minLength 5\n@maxLength 5"
+                      "minLength": 5,
+                      "maxLength": 5
                     },
                     "minimum": {
                       "type": "string",
-                      "description": "@minLength 3"
+                      "minLength": 3
                     },
                     "maximum": {
                       "type": "string",
-                      "description": "@maxLength 7"
+                      "maxLength": 7
                     },
                     "minimum_and_maximum": {
                       "type": "string",
-                      "description": "@minLength 3\n@maxLength 7"
+                      "minLength": 3,
+                      "maxLength": 7
                     },
                     "equal": {
                       "type": "string",
-                      "description": "@minLength 10\n@maxLength 19"
+                      "minLength": 10,
+                      "maxLength": 19
                     }
                   },
                   "required": [
@@ -321,23 +339,26 @@
                   "properties": {
                     "fixed": {
                       "type": "string",
-                      "description": "@minLength 5\n@maxLength 5"
+                      "minLength": 5,
+                      "maxLength": 5
                     },
                     "minimum": {
                       "type": "string",
-                      "description": "@minLength 3"
+                      "minLength": 3
                     },
                     "maximum": {
                       "type": "string",
-                      "description": "@maxLength 7"
+                      "maxLength": 7
                     },
                     "minimum_and_maximum": {
                       "type": "string",
-                      "description": "@minLength 3\n@maxLength 7"
+                      "minLength": 3,
+                      "maxLength": 7
                     },
                     "equal": {
                       "type": "string",
-                      "description": "@minLength 10\n@maxLength 19"
+                      "minLength": 10,
+                      "maxLength": 19
                     }
                   },
                   "required": [
@@ -374,23 +395,26 @@
               "properties": {
                 "fixed": {
                   "type": "string",
-                  "description": "@minLength 5\n@maxLength 5"
+                  "minLength": 5,
+                  "maxLength": 5
                 },
                 "minimum": {
                   "type": "string",
-                  "description": "@minLength 3"
+                  "minLength": 3
                 },
                 "maximum": {
                   "type": "string",
-                  "description": "@maxLength 7"
+                  "maxLength": 7
                 },
                 "minimum_and_maximum": {
                   "type": "string",
-                  "description": "@minLength 3\n@maxLength 7"
+                  "minLength": 3,
+                  "maxLength": 7
                 },
                 "equal": {
                   "type": "string",
-                  "description": "@minLength 10\n@maxLength 19"
+                  "minLength": 10,
+                  "maxLength": 19
                 }
               },
               "required": [

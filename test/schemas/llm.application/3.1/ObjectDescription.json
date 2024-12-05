@@ -1,7 +1,7 @@
 {
   "model": "3.1",
   "options": {
-    "constraint": false,
+    "constraint": true,
     "reference": false,
     "separate": null
   },
@@ -18,8 +18,9 @@
             "properties": {
               "id": {
                 "title": "Primary Key",
-                "description": "Primary Key.\n\n\n@format uuid",
-                "type": "string"
+                "description": "Primary Key.",
+                "type": "string",
+                "format": "uuid"
               },
               "deprecated": {
                 "title": "Deprecated property",
@@ -74,8 +75,9 @@
             "properties": {
               "id": {
                 "title": "Primary Key",
-                "description": "Primary Key.\n\n\n@format uuid",
-                "type": "string"
+                "description": "Primary Key.",
+                "type": "string",
+                "format": "uuid"
               },
               "deprecated": {
                 "title": "Deprecated property",
@@ -119,8 +121,9 @@
                 "properties": {
                   "id": {
                     "title": "Primary Key",
-                    "description": "Primary Key.\n\n\n@format uuid",
-                    "type": "string"
+                    "description": "Primary Key.",
+                    "type": "string",
+                    "format": "uuid"
                   },
                   "deprecated": {
                     "title": "Deprecated property",
@@ -173,8 +176,9 @@
         "properties": {
           "id": {
             "title": "Primary Key",
-            "description": "Primary Key.\n\n\n@format uuid",
-            "type": "string"
+            "description": "Primary Key.",
+            "type": "string",
+            "format": "uuid"
           },
           "deprecated": {
             "title": "Deprecated property",
@@ -225,8 +229,9 @@
                 "properties": {
                   "id": {
                     "title": "Primary Key",
-                    "description": "Primary Key.\n\n\n@format uuid",
-                    "type": "string"
+                    "description": "Primary Key.",
+                    "type": "string",
+                    "format": "uuid"
                   },
                   "deprecated": {
                     "title": "Deprecated property",
@@ -274,8 +279,9 @@
                 "properties": {
                   "id": {
                     "title": "Primary Key",
-                    "description": "Primary Key.\n\n\n@format uuid",
-                    "type": "string"
+                    "description": "Primary Key.",
+                    "type": "string",
+                    "format": "uuid"
                   },
                   "deprecated": {
                     "title": "Deprecated property",
@@ -323,8 +329,9 @@
                 "properties": {
                   "id": {
                     "title": "Primary Key",
-                    "description": "Primary Key.\n\n\n@format uuid",
-                    "type": "string"
+                    "description": "Primary Key.",
+                    "type": "string",
+                    "format": "uuid"
                   },
                   "deprecated": {
                     "title": "Deprecated property",
@@ -381,8 +388,9 @@
             "properties": {
               "id": {
                 "title": "Primary Key",
-                "description": "Primary Key.\n\n\n@format uuid",
-                "type": "string"
+                "description": "Primary Key.",
+                "type": "string",
+                "format": "uuid"
               },
               "deprecated": {
                 "title": "Deprecated property",

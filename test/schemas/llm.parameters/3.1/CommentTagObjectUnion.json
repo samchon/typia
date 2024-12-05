@@ -9,8 +9,8 @@
             "type": "object",
             "properties": {
               "value": {
-                "description": "@minimum 3",
-                "type": "number"
+                "type": "number",
+                "minimum": 3
               }
             },
             "required": [
@@ -21,8 +21,9 @@
             "type": "object",
             "properties": {
               "value": {
-                "description": "@minLength 3\n@maxLength 7",
-                "type": "string"
+                "type": "string",
+                "minLength": 3,
+                "maxLength": 7
               }
             },
             "required": [
@@ -45,8 +46,8 @@
                 "type": "object",
                 "properties": {
                   "value": {
-                    "description": "@minimum 3",
-                    "type": "number"
+                    "type": "number",
+                    "minimum": 3
                   }
                 },
                 "required": [
@@ -57,8 +58,9 @@
                 "type": "object",
                 "properties": {
                   "value": {
-                    "description": "@minLength 3\n@maxLength 7",
-                    "type": "string"
+                    "type": "string",
+                    "minLength": 3,
+                    "maxLength": 7
                   }
                 },
                 "required": [
@@ -78,8 +80,8 @@
             "type": "object",
             "properties": {
               "value": {
-                "description": "@minimum 3",
-                "type": "number"
+                "type": "number",
+                "minimum": 3
               }
             },
             "required": [
@@ -90,8 +92,9 @@
             "type": "object",
             "properties": {
               "value": {
-                "description": "@minLength 3\n@maxLength 7",
-                "type": "string"
+                "type": "string",
+                "minLength": 3,
+                "maxLength": 7
               }
             },
             "required": [
@@ -114,8 +117,8 @@
                 "type": "object",
                 "properties": {
                   "value": {
-                    "description": "@minimum 3",
-                    "type": "number"
+                    "type": "number",
+                    "minimum": 3
                   }
                 },
                 "required": [
@@ -126,8 +129,9 @@
                 "type": "object",
                 "properties": {
                   "value": {
-                    "description": "@minLength 3\n@maxLength 7",
-                    "type": "string"
+                    "type": "string",
+                    "minLength": 3,
+                    "maxLength": 7
                   }
                 },
                 "required": [
@@ -149,8 +153,8 @@
               "type": "object",
               "properties": {
                 "value": {
-                  "description": "@minimum 3",
-                  "type": "number"
+                  "type": "number",
+                  "minimum": 3
                 }
               },
               "required": [
@@ -161,8 +165,9 @@
               "type": "object",
               "properties": {
                 "value": {
-                  "description": "@minLength 3\n@maxLength 7",
-                  "type": "string"
+                  "type": "string",
+                  "minLength": 3,
+                  "maxLength": 7
                 }
               },
               "required": [

@@ -8,7 +8,7 @@
         },
         {
           "type": "string",
-          "description": "@format uuid"
+          "format": "uuid"
         }
       ]
     },
@@ -19,7 +19,7 @@
         },
         {
           "type": "integer",
-          "description": "@maximum 100"
+          "maximum": 100
         }
       ]
     }

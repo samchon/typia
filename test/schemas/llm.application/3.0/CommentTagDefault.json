@@ -1,7 +1,7 @@
 {
   "model": "3.0",
   "options": {
-    "constraint": false,
+    "constraint": true,
     "recursive": 3,
     "separate": null
   },
@@ -88,14 +88,16 @@
               },
               "vulnerable_range": {
                 "type": "number",
+                "minimum": 3,
+                "maximum": 5,
                 "title": "Default value on union typed property",
-                "description": "Default value on union typed property.\n\n\n@minimum 3\n@maximum 5"
+                "description": "Default value on union typed property."
               },
               "boolean_and_number_and_template": {
                 "oneOf": [
                   {
                     "type": "string",
-                    "description": "@pattern ^(prefix_(.*))"
+                    "pattern": "^(prefix_(.*))"
                   },
                   {
                     "type": "number"
@@ -210,14 +212,16 @@
               },
               "vulnerable_range": {
                 "type": "number",
+                "minimum": 3,
+                "maximum": 5,
                 "title": "Default value on union typed property",
-                "description": "Default value on union typed property.\n\n\n@minimum 3\n@maximum 5"
+                "description": "Default value on union typed property."
               },
               "boolean_and_number_and_template": {
                 "oneOf": [
                   {
                     "type": "string",
-                    "description": "@pattern ^(prefix_(.*))"
+                    "pattern": "^(prefix_(.*))"
                   },
                   {
                     "type": "number"
@@ -319,14 +323,16 @@
               },
               "vulnerable_range": {
                 "type": "number",
+                "minimum": 3,
+                "maximum": 5,
                 "title": "Default value on union typed property",
-                "description": "Default value on union typed property.\n\n\n@minimum 3\n@maximum 5"
+                "description": "Default value on union typed property."
               },
               "boolean_and_number_and_template": {
                 "oneOf": [
                   {
                     "type": "string",
-                    "description": "@pattern ^(prefix_(.*))"
+                    "pattern": "^(prefix_(.*))"
                   },
                   {
                     "type": "number"
@@ -436,14 +442,16 @@
           },
           "vulnerable_range": {
             "type": "number",
+            "minimum": 3,
+            "maximum": 5,
             "title": "Default value on union typed property",
-            "description": "Default value on union typed property.\n\n\n@minimum 3\n@maximum 5"
+            "description": "Default value on union typed property."
           },
           "boolean_and_number_and_template": {
             "oneOf": [
               {
                 "type": "string",
-                "description": "@pattern ^(prefix_(.*))"
+                "pattern": "^(prefix_(.*))"
               },
               {
                 "type": "number"
@@ -552,14 +560,16 @@
               },
               "vulnerable_range": {
                 "type": "number",
+                "minimum": 3,
+                "maximum": 5,
                 "title": "Default value on union typed property",
-                "description": "Default value on union typed property.\n\n\n@minimum 3\n@maximum 5"
+                "description": "Default value on union typed property."
               },
               "boolean_and_number_and_template": {
                 "oneOf": [
                   {
                     "type": "string",
-                    "description": "@pattern ^(prefix_(.*))"
+                    "pattern": "^(prefix_(.*))"
                   },
                   {
                     "type": "number"
@@ -662,14 +672,16 @@
               },
               "vulnerable_range": {
                 "type": "number",
+                "minimum": 3,
+                "maximum": 5,
                 "title": "Default value on union typed property",
-                "description": "Default value on union typed property.\n\n\n@minimum 3\n@maximum 5"
+                "description": "Default value on union typed property."
               },
               "boolean_and_number_and_template": {
                 "oneOf": [
                   {
                     "type": "string",
-                    "description": "@pattern ^(prefix_(.*))"
+                    "pattern": "^(prefix_(.*))"
                   },
                   {
                     "type": "number"
@@ -772,14 +784,16 @@
               },
               "vulnerable_range": {
                 "type": "number",
+                "minimum": 3,
+                "maximum": 5,
                 "title": "Default value on union typed property",
-                "description": "Default value on union typed property.\n\n\n@minimum 3\n@maximum 5"
+                "description": "Default value on union typed property."
               },
               "boolean_and_number_and_template": {
                 "oneOf": [
                   {
                     "type": "string",
-                    "description": "@pattern ^(prefix_(.*))"
+                    "pattern": "^(prefix_(.*))"
                   },
                   {
                     "type": "number"
@@ -889,14 +903,16 @@
           },
           "vulnerable_range": {
             "type": "number",
+            "minimum": 3,
+            "maximum": 5,
             "title": "Default value on union typed property",
-            "description": "Default value on union typed property.\n\n\n@minimum 3\n@maximum 5"
+            "description": "Default value on union typed property."
           },
           "boolean_and_number_and_template": {
             "oneOf": [
               {
                 "type": "string",
-                "description": "@pattern ^(prefix_(.*))"
+                "pattern": "^(prefix_(.*))"
               },
               {
                 "type": "number"

@@ -519,7 +519,7 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "one",
+                      "value": "three",
                       "tags": []
                     },
                     {
@@ -527,7 +527,7 @@
                       "tags": []
                     },
                     {
-                      "value": "three",
+                      "value": "one",
                       "tags": []
                     }
                   ]

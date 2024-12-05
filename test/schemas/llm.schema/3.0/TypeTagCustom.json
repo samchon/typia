@@ -3,7 +3,7 @@
   "properties": {
     "id": {
       "type": "string",
-      "description": "@format uuid"
+      "format": "uuid"
     },
     "dollar": {
       "type": "string",
