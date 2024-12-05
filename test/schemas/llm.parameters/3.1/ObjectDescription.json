@@ -8,8 +8,9 @@
       "properties": {
         "id": {
           "title": "Primary Key",
-          "description": "Primary Key.\n\n\n@format uuid",
-          "type": "string"
+          "description": "Primary Key.",
+          "type": "string",
+          "format": "uuid"
         },
         "deprecated": {
           "title": "Deprecated property",
@@ -53,8 +54,9 @@
           "properties": {
             "id": {
               "title": "Primary Key",
-              "description": "Primary Key.\n\n\n@format uuid",
-              "type": "string"
+              "description": "Primary Key.",
+              "type": "string",
+              "format": "uuid"
             },
             "deprecated": {
               "title": "Deprecated property",
@@ -99,8 +101,9 @@
       "properties": {
         "id": {
           "title": "Primary Key",
-          "description": "Primary Key.\n\n\n@format uuid",
-          "type": "string"
+          "description": "Primary Key.",
+          "type": "string",
+          "format": "uuid"
         },
         "deprecated": {
           "title": "Deprecated property",
@@ -144,8 +147,9 @@
           "properties": {
             "id": {
               "title": "Primary Key",
-              "description": "Primary Key.\n\n\n@format uuid",
-              "type": "string"
+              "description": "Primary Key.",
+              "type": "string",
+              "format": "uuid"
             },
             "deprecated": {
               "title": "Deprecated property",
@@ -192,8 +196,9 @@
         "properties": {
           "id": {
             "title": "Primary Key",
-            "description": "Primary Key.\n\n\n@format uuid",
-            "type": "string"
+            "description": "Primary Key.",
+            "type": "string",
+            "format": "uuid"
           },
           "deprecated": {
             "title": "Deprecated property",

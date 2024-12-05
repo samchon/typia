@@ -31,7 +31,7 @@
                                 "children": {
                                   "type": "array",
                                   "items": {},
-                                  "maxItems": 0
+                                  "description": "@maxItems 0"
                                 },
                                 "id": {
                                   "type": "number"
@@ -201,7 +201,7 @@
                                 "children": {
                                   "type": "array",
                                   "items": {},
-                                  "maxItems": 0
+                                  "description": "@maxItems 0"
                                 },
                                 "id": {
                                   "type": "number"
@@ -359,7 +359,7 @@
                                 "children": {
                                   "type": "array",
                                   "items": {},
-                                  "maxItems": 0
+                                  "description": "@maxItems 0"
                                 },
                                 "id": {
                                   "type": "number"
@@ -524,7 +524,7 @@
                             "children": {
                               "type": "array",
                               "items": {},
-                              "maxItems": 0
+                              "description": "@maxItems 0"
                             },
                             "id": {
                               "type": "number"
@@ -689,7 +689,7 @@
                                 "children": {
                                   "type": "array",
                                   "items": {},
-                                  "maxItems": 0
+                                  "description": "@maxItems 0"
                                 },
                                 "id": {
                                   "type": "number"
@@ -848,7 +848,7 @@
                                 "children": {
                                   "type": "array",
                                   "items": {},
-                                  "maxItems": 0
+                                  "description": "@maxItems 0"
                                 },
                                 "id": {
                                   "type": "number"
@@ -1007,7 +1007,7 @@
                                 "children": {
                                   "type": "array",
                                   "items": {},
-                                  "maxItems": 0
+                                  "description": "@maxItems 0"
                                 },
                                 "id": {
                                   "type": "number"
@@ -1172,7 +1172,7 @@
                             "children": {
                               "type": "array",
                               "items": {},
-                              "maxItems": 0
+                              "description": "@maxItems 0"
                             },
                             "id": {
                               "type": "number"

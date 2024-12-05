@@ -1,7 +1,7 @@
 {
   "model": "3.0",
   "options": {
-    "constraint": false,
+    "constraint": true,
     "recursive": 3,
     "separate": null
   },
@@ -16,28 +16,28 @@
             "properties": {
               "classDate": {
                 "type": "string",
-                "description": "@format date-time",
+                "format": "date-time",
                 "nullable": true
               },
               "date": {
                 "type": "string",
-                "nullable": true,
-                "description": "@format date"
+                "format": "date",
+                "nullable": true
               },
               "datetime": {
                 "type": "string",
-                "nullable": true,
-                "description": "@format date-time"
+                "format": "date-time",
+                "nullable": true
               },
               "time": {
                 "type": "string",
-                "nullable": true,
-                "description": "@format time"
+                "format": "time",
+                "nullable": true
               },
               "duration": {
                 "type": "string",
-                "nullable": true,
-                "description": "@format duration"
+                "format": "duration",
+                "nullable": true
               }
             },
             "required": [
@@ -66,28 +66,28 @@
             "properties": {
               "classDate": {
                 "type": "string",
-                "description": "@format date-time",
+                "format": "date-time",
                 "nullable": true
               },
               "date": {
                 "type": "string",
-                "nullable": true,
-                "description": "@format date"
+                "format": "date",
+                "nullable": true
               },
               "datetime": {
                 "type": "string",
-                "nullable": true,
-                "description": "@format date-time"
+                "format": "date-time",
+                "nullable": true
               },
               "time": {
                 "type": "string",
-                "nullable": true,
-                "description": "@format time"
+                "format": "time",
+                "nullable": true
               },
               "duration": {
                 "type": "string",
-                "nullable": true,
-                "description": "@format duration"
+                "format": "duration",
+                "nullable": true
               }
             },
             "required": [
@@ -103,28 +103,28 @@
             "properties": {
               "classDate": {
                 "type": "string",
-                "description": "@format date-time",
+                "format": "date-time",
                 "nullable": true
               },
               "date": {
                 "type": "string",
-                "nullable": true,
-                "description": "@format date"
+                "format": "date",
+                "nullable": true
               },
               "datetime": {
                 "type": "string",
-                "nullable": true,
-                "description": "@format date-time"
+                "format": "date-time",
+                "nullable": true
               },
               "time": {
                 "type": "string",
-                "nullable": true,
-                "description": "@format time"
+                "format": "time",
+                "nullable": true
               },
               "duration": {
                 "type": "string",
-                "nullable": true,
-                "description": "@format duration"
+                "format": "duration",
+                "nullable": true
               }
             },
             "required": [
@@ -148,28 +148,28 @@
         "properties": {
           "classDate": {
             "type": "string",
-            "description": "@format date-time",
+            "format": "date-time",
             "nullable": true
           },
           "date": {
             "type": "string",
-            "nullable": true,
-            "description": "@format date"
+            "format": "date",
+            "nullable": true
           },
           "datetime": {
             "type": "string",
-            "nullable": true,
-            "description": "@format date-time"
+            "format": "date-time",
+            "nullable": true
           },
           "time": {
             "type": "string",
-            "nullable": true,
-            "description": "@format time"
+            "format": "time",
+            "nullable": true
           },
           "duration": {
             "type": "string",
-            "nullable": true,
-            "description": "@format duration"
+            "format": "duration",
+            "nullable": true
           }
         },
         "required": [
@@ -192,28 +192,28 @@
             "properties": {
               "classDate": {
                 "type": "string",
-                "description": "@format date-time",
+                "format": "date-time",
                 "nullable": true
               },
               "date": {
                 "type": "string",
-                "nullable": true,
-                "description": "@format date"
+                "format": "date",
+                "nullable": true
               },
               "datetime": {
                 "type": "string",
-                "nullable": true,
-                "description": "@format date-time"
+                "format": "date-time",
+                "nullable": true
               },
               "time": {
                 "type": "string",
-                "nullable": true,
-                "description": "@format time"
+                "format": "time",
+                "nullable": true
               },
               "duration": {
                 "type": "string",
-                "nullable": true,
-                "description": "@format duration"
+                "format": "duration",
+                "nullable": true
               }
             },
             "required": [
@@ -230,28 +230,28 @@
             "properties": {
               "classDate": {
                 "type": "string",
-                "description": "@format date-time",
+                "format": "date-time",
                 "nullable": true
               },
               "date": {
                 "type": "string",
-                "nullable": true,
-                "description": "@format date"
+                "format": "date",
+                "nullable": true
               },
               "datetime": {
                 "type": "string",
-                "nullable": true,
-                "description": "@format date-time"
+                "format": "date-time",
+                "nullable": true
               },
               "time": {
                 "type": "string",
-                "nullable": true,
-                "description": "@format time"
+                "format": "time",
+                "nullable": true
               },
               "duration": {
                 "type": "string",
-                "nullable": true,
-                "description": "@format duration"
+                "format": "duration",
+                "nullable": true
               }
             },
             "required": [
@@ -268,28 +268,28 @@
             "properties": {
               "classDate": {
                 "type": "string",
-                "description": "@format date-time",
+                "format": "date-time",
                 "nullable": true
               },
               "date": {
                 "type": "string",
-                "nullable": true,
-                "description": "@format date"
+                "format": "date",
+                "nullable": true
               },
               "datetime": {
                 "type": "string",
-                "nullable": true,
-                "description": "@format date-time"
+                "format": "date-time",
+                "nullable": true
               },
               "time": {
                 "type": "string",
-                "nullable": true,
-                "description": "@format time"
+                "format": "time",
+                "nullable": true
               },
               "duration": {
                 "type": "string",
-                "nullable": true,
-                "description": "@format duration"
+                "format": "duration",
+                "nullable": true
               }
             },
             "required": [
@@ -313,28 +313,28 @@
         "properties": {
           "classDate": {
             "type": "string",
-            "description": "@format date-time",
+            "format": "date-time",
             "nullable": true
           },
           "date": {
             "type": "string",
-            "nullable": true,
-            "description": "@format date"
+            "format": "date",
+            "nullable": true
           },
           "datetime": {
             "type": "string",
-            "nullable": true,
-            "description": "@format date-time"
+            "format": "date-time",
+            "nullable": true
           },
           "time": {
             "type": "string",
-            "nullable": true,
-            "description": "@format time"
+            "format": "time",
+            "nullable": true
           },
           "duration": {
             "type": "string",
-            "nullable": true,
-            "description": "@format duration"
+            "format": "duration",
+            "nullable": true
           }
         },
         "required": [

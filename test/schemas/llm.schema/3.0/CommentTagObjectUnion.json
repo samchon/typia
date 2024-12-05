@@ -7,7 +7,7 @@
         "properties": {
           "value": {
             "type": "number",
-            "description": "@minimum 3"
+            "minimum": 3
           }
         },
         "required": [
@@ -20,7 +20,8 @@
         "properties": {
           "value": {
             "type": "string",
-            "description": "@minLength 3\n@maxLength 7"
+            "minLength": 3,
+            "maxLength": 7
           }
         },
         "required": [

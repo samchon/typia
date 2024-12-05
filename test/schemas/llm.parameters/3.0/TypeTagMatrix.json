@@ -10,7 +10,7 @@
             "type": "array",
             "items": {
               "type": "string",
-              "description": "@format uuid"
+              "format": "uuid"
             },
             "minItems": 4,
             "maxItems": 4
@@ -33,7 +33,7 @@
             "type": "array",
             "items": {
               "type": "string",
-              "description": "@format uuid"
+              "format": "uuid"
             },
             "minItems": 4,
             "maxItems": 4
@@ -57,7 +57,7 @@
             "type": "array",
             "items": {
               "type": "string",
-              "description": "@format uuid"
+              "format": "uuid"
             },
             "minItems": 4,
             "maxItems": 4
@@ -80,7 +80,7 @@
             "type": "array",
             "items": {
               "type": "string",
-              "description": "@format uuid"
+              "format": "uuid"
             },
             "minItems": 4,
             "maxItems": 4
@@ -106,7 +106,7 @@
               "type": "array",
               "items": {
                 "type": "string",
-                "description": "@format uuid"
+                "format": "uuid"
               },
               "minItems": 4,
               "maxItems": 4

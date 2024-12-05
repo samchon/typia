@@ -1,7 +1,7 @@
 {
   "model": "3.1",
   "options": {
-    "constraint": false,
+    "constraint": true,
     "reference": false,
     "separate": null
   },
@@ -20,18 +20,18 @@
                   "type": "object",
                   "properties": {
                     "prefix": {
-                      "description": "@pattern ^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$",
-                      "type": "string"
+                      "type": "string",
+                      "pattern": "^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$"
                     },
                     "postfix": {
-                      "description": "@pattern (((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$",
-                      "type": "string"
+                      "type": "string",
+                      "pattern": "(((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$"
                     },
                     "middle": {
                       "oneOf": [
                         {
                           "type": "string",
-                          "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                          "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
                         },
                         {
                           "const": "the_false_value"
@@ -45,7 +45,7 @@
                       "oneOf": [
                         {
                           "type": "string",
-                          "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                          "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
                         },
                         {
                           "const": "the_A_value"
@@ -109,18 +109,18 @@
                   "type": "object",
                   "properties": {
                     "prefix": {
-                      "description": "@pattern ^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$",
-                      "type": "string"
+                      "type": "string",
+                      "pattern": "^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$"
                     },
                     "postfix": {
-                      "description": "@pattern (((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$",
-                      "type": "string"
+                      "type": "string",
+                      "pattern": "(((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$"
                     },
                     "middle": {
                       "oneOf": [
                         {
                           "type": "string",
-                          "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                          "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
                         },
                         {
                           "const": "the_false_value"
@@ -134,7 +134,7 @@
                       "oneOf": [
                         {
                           "type": "string",
-                          "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                          "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
                         },
                         {
                           "const": "the_A_value"
@@ -189,18 +189,18 @@
                       "type": "object",
                       "properties": {
                         "prefix": {
-                          "description": "@pattern ^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$",
-                          "type": "string"
+                          "type": "string",
+                          "pattern": "^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$"
                         },
                         "postfix": {
-                          "description": "@pattern (((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$",
-                          "type": "string"
+                          "type": "string",
+                          "pattern": "(((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$"
                         },
                         "middle": {
                           "oneOf": [
                             {
                               "type": "string",
-                              "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                              "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
                             },
                             {
                               "const": "the_false_value"
@@ -214,7 +214,7 @@
                           "oneOf": [
                             {
                               "type": "string",
-                              "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                              "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
                             },
                             {
                               "const": "the_A_value"
@@ -274,18 +274,18 @@
               "type": "object",
               "properties": {
                 "prefix": {
-                  "description": "@pattern ^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$",
-                  "type": "string"
+                  "type": "string",
+                  "pattern": "^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$"
                 },
                 "postfix": {
-                  "description": "@pattern (((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$",
-                  "type": "string"
+                  "type": "string",
+                  "pattern": "(((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$"
                 },
                 "middle": {
                   "oneOf": [
                     {
                       "type": "string",
-                      "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                      "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
                     },
                     {
                       "const": "the_false_value"
@@ -299,7 +299,7 @@
                   "oneOf": [
                     {
                       "type": "string",
-                      "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                      "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
                     },
                     {
                       "const": "the_A_value"
@@ -361,18 +361,18 @@
                       "type": "object",
                       "properties": {
                         "prefix": {
-                          "description": "@pattern ^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$",
-                          "type": "string"
+                          "type": "string",
+                          "pattern": "^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$"
                         },
                         "postfix": {
-                          "description": "@pattern (((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$",
-                          "type": "string"
+                          "type": "string",
+                          "pattern": "(((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$"
                         },
                         "middle": {
                           "oneOf": [
                             {
                               "type": "string",
-                              "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                              "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
                             },
                             {
                               "const": "the_false_value"
@@ -386,7 +386,7 @@
                           "oneOf": [
                             {
                               "type": "string",
-                              "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                              "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
                             },
                             {
                               "const": "the_A_value"
@@ -443,18 +443,18 @@
                       "type": "object",
                       "properties": {
                         "prefix": {
-                          "description": "@pattern ^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$",
-                          "type": "string"
+                          "type": "string",
+                          "pattern": "^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$"
                         },
                         "postfix": {
-                          "description": "@pattern (((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$",
-                          "type": "string"
+                          "type": "string",
+                          "pattern": "(((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$"
                         },
                         "middle": {
                           "oneOf": [
                             {
                               "type": "string",
-                              "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                              "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
                             },
                             {
                               "const": "the_false_value"
@@ -468,7 +468,7 @@
                           "oneOf": [
                             {
                               "type": "string",
-                              "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                              "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
                             },
                             {
                               "const": "the_A_value"
@@ -525,18 +525,18 @@
                       "type": "object",
                       "properties": {
                         "prefix": {
-                          "description": "@pattern ^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$",
-                          "type": "string"
+                          "type": "string",
+                          "pattern": "^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$"
                         },
                         "postfix": {
-                          "description": "@pattern (((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$",
-                          "type": "string"
+                          "type": "string",
+                          "pattern": "(((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$"
                         },
                         "middle": {
                           "oneOf": [
                             {
                               "type": "string",
-                              "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                              "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
                             },
                             {
                               "const": "the_false_value"
@@ -550,7 +550,7 @@
                           "oneOf": [
                             {
                               "type": "string",
-                              "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                              "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
                             },
                             {
                               "const": "the_A_value"
@@ -616,18 +616,18 @@
                   "type": "object",
                   "properties": {
                     "prefix": {
-                      "description": "@pattern ^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$",
-                      "type": "string"
+                      "type": "string",
+                      "pattern": "^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$"
                     },
                     "postfix": {
-                      "description": "@pattern (((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$",
-                      "type": "string"
+                      "type": "string",
+                      "pattern": "(((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$"
                     },
                     "middle": {
                       "oneOf": [
                         {
                           "type": "string",
-                          "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                          "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
                         },
                         {
                           "const": "the_false_value"
@@ -641,7 +641,7 @@
                       "oneOf": [
                         {
                           "type": "string",
-                          "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                          "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
                         },
                         {
                           "const": "the_A_value"

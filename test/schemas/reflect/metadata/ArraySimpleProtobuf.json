@@ -529,7 +529,7 @@
               "rest": null,
               "arrays": [
                 {
-                  "name": "Array<Uint8Array>",
+                  "name": "Array<Uint8Array<ArrayBufferLike>>",
                   "tags": []
                 }
               ],
@@ -952,7 +952,7 @@
         "index": null
       },
       {
-        "name": "Array<Uint8Array>",
+        "name": "Array<Uint8Array<ArrayBufferLike>>",
         "value": {
           "any": false,
           "required": true,

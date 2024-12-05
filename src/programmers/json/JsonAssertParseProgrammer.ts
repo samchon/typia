@@ -1,6 +1,7 @@
 import ts from "typescript";
 
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
+import { JsonMetadataFactory } from "../../factories/JsonMetadataFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
@@ -19,6 +20,12 @@ export namespace JsonAssertParseProgrammer {
     name: string | undefined;
     init: ts.Expression | undefined;
   }): FeatureProgrammer.IDecomposed => {
+    JsonMetadataFactory.analyze({
+      method: props.functor.method,
+      checker: props.context.checker,
+      transformer: props.context.transformer,
+      type: props.type,
+    });
     const assert: FeatureProgrammer.IDecomposed = AssertProgrammer.decompose({
       ...props,
       context: {

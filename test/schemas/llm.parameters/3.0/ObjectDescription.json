@@ -6,8 +6,9 @@
       "properties": {
         "id": {
           "type": "string",
+          "format": "uuid",
           "title": "Primary Key",
-          "description": "Primary Key.\n\n\n@format uuid"
+          "description": "Primary Key."
         },
         "deprecated": {
           "type": "boolean",
@@ -48,8 +49,9 @@
       "properties": {
         "id": {
           "type": "string",
+          "format": "uuid",
           "title": "Primary Key",
-          "description": "Primary Key.\n\n\n@format uuid"
+          "description": "Primary Key."
         },
         "deprecated": {
           "type": "boolean",
@@ -89,8 +91,9 @@
       "properties": {
         "id": {
           "type": "string",
+          "format": "uuid",
           "title": "Primary Key",
-          "description": "Primary Key.\n\n\n@format uuid"
+          "description": "Primary Key."
         },
         "deprecated": {
           "type": "boolean",
@@ -131,8 +134,9 @@
       "properties": {
         "id": {
           "type": "string",
+          "format": "uuid",
           "title": "Primary Key",
-          "description": "Primary Key.\n\n\n@format uuid"
+          "description": "Primary Key."
         },
         "deprecated": {
           "type": "boolean",
@@ -174,8 +178,9 @@
         "properties": {
           "id": {
             "type": "string",
+            "format": "uuid",
             "title": "Primary Key",
-            "description": "Primary Key.\n\n\n@format uuid"
+            "description": "Primary Key."
           },
           "deprecated": {
             "type": "boolean",

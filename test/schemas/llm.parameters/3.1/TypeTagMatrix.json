@@ -5,16 +5,18 @@
       "type": "object",
       "properties": {
         "matrix": {
-          "description": "@minItems 3\n@maxItems 3",
           "type": "array",
           "items": {
-            "description": "@minItems 4\n@maxItems 4",
             "type": "array",
             "items": {
-              "description": "@format uuid",
-              "type": "string"
-            }
-          }
+              "type": "string",
+              "format": "uuid"
+            },
+            "minItems": 4,
+            "maxItems": 4
+          },
+          "minItems": 3,
+          "maxItems": 3
         }
       },
       "required": [
@@ -30,16 +32,18 @@
           "type": "object",
           "properties": {
             "matrix": {
-              "description": "@minItems 3\n@maxItems 3",
               "type": "array",
               "items": {
-                "description": "@minItems 4\n@maxItems 4",
                 "type": "array",
                 "items": {
-                  "description": "@format uuid",
-                  "type": "string"
-                }
-              }
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "minItems": 4,
+                "maxItems": 4
+              },
+              "minItems": 3,
+              "maxItems": 3
             }
           },
           "required": [
@@ -52,16 +56,18 @@
       "type": "object",
       "properties": {
         "matrix": {
-          "description": "@minItems 3\n@maxItems 3",
           "type": "array",
           "items": {
-            "description": "@minItems 4\n@maxItems 4",
             "type": "array",
             "items": {
-              "description": "@format uuid",
-              "type": "string"
-            }
-          }
+              "type": "string",
+              "format": "uuid"
+            },
+            "minItems": 4,
+            "maxItems": 4
+          },
+          "minItems": 3,
+          "maxItems": 3
         }
       },
       "required": [
@@ -77,16 +83,18 @@
           "type": "object",
           "properties": {
             "matrix": {
-              "description": "@minItems 3\n@maxItems 3",
               "type": "array",
               "items": {
-                "description": "@minItems 4\n@maxItems 4",
                 "type": "array",
                 "items": {
-                  "description": "@format uuid",
-                  "type": "string"
-                }
-              }
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "minItems": 4,
+                "maxItems": 4
+              },
+              "minItems": 3,
+              "maxItems": 3
             }
           },
           "required": [
@@ -101,16 +109,18 @@
         "type": "object",
         "properties": {
           "matrix": {
-            "description": "@minItems 3\n@maxItems 3",
             "type": "array",
             "items": {
-              "description": "@minItems 4\n@maxItems 4",
               "type": "array",
               "items": {
-                "description": "@format uuid",
-                "type": "string"
-              }
-            }
+                "type": "string",
+                "format": "uuid"
+              },
+              "minItems": 4,
+              "maxItems": 4
+            },
+            "minItems": 3,
+            "maxItems": 3
           }
         },
         "required": [

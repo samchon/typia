@@ -1,7 +1,7 @@
 {
   "model": "3.0",
   "options": {
-    "constraint": false,
+    "constraint": true,
     "recursive": 3,
     "separate": null
   },
@@ -16,7 +16,7 @@
             "properties": {
               "id": {
                 "type": "string",
-                "description": "@format uuid"
+                "format": "uuid"
               },
               "dollar": {
                 "type": "string",
@@ -57,7 +57,7 @@
             "properties": {
               "id": {
                 "type": "string",
-                "description": "@format uuid"
+                "format": "uuid"
               },
               "dollar": {
                 "type": "string",
@@ -85,7 +85,7 @@
             "properties": {
               "id": {
                 "type": "string",
-                "description": "@format uuid"
+                "format": "uuid"
               },
               "dollar": {
                 "type": "string",
@@ -121,7 +121,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "description": "@format uuid"
+            "format": "uuid"
           },
           "dollar": {
             "type": "string",
@@ -156,7 +156,7 @@
             "properties": {
               "id": {
                 "type": "string",
-                "description": "@format uuid"
+                "format": "uuid"
               },
               "dollar": {
                 "type": "string",
@@ -185,7 +185,7 @@
             "properties": {
               "id": {
                 "type": "string",
-                "description": "@format uuid"
+                "format": "uuid"
               },
               "dollar": {
                 "type": "string",
@@ -214,7 +214,7 @@
             "properties": {
               "id": {
                 "type": "string",
-                "description": "@format uuid"
+                "format": "uuid"
               },
               "dollar": {
                 "type": "string",
@@ -250,7 +250,7 @@
         "properties": {
           "id": {
             "type": "string",
-            "description": "@format uuid"
+            "format": "uuid"
           },
           "dollar": {
             "type": "string",
