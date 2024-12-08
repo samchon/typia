@@ -22,7 +22,7 @@ export namespace LlmApplicationTransformer {
     // GET GENERIC ARGUMENT
     if (!props.expression.typeArguments?.length)
       throw new TransformerError({
-        code: "typia.llm.schema",
+        code: "typia.llm.application",
         message: "no generic argument.",
       });
 
@@ -32,7 +32,7 @@ export namespace LlmApplicationTransformer {
     // GET TYPE
     const model: ILlmSchema.Model = LlmModelPredicator.getModel({
       checker: props.context.checker,
-      method: "application",
+      method: "applicationOfValidate",
       node: props.expression.typeArguments[1],
     });
     const type: ts.Type = props.context.checker.getTypeFromTypeNode(top);
@@ -55,7 +55,7 @@ export namespace LlmApplicationTransformer {
       });
     if (result.success === false)
       throw TransformerError.from({
-        code: "typia.llm.application",
+        code: "typia.llm.applicationOfValidate",
         errors: result.errors,
       });
 

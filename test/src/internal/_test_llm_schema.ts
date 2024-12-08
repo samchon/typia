@@ -1,6 +1,8 @@
 import { ILlmSchema } from "@samchon/openapi";
 import fs from "fs";
 
+import { primitive_equal_to } from "../helpers/primitive_equal_to";
+
 export const _test_llm_schema =
   <Model extends ILlmSchema.Model>(props: { model: Model; name: string }) =>
   (expected: ILlmSchema.ModelSchema[Model]): void => {
@@ -12,6 +14,11 @@ export const _test_llm_schema =
     );
     sort(expected);
     sort(actual);
+
+    if (primitive_equal_to(actual, expected) === false)
+      throw new Error(
+        `Bug on typia.llm.schema<${props.name}, "${props.model}">(): failed to understand the ${props.name} type.`,
+      );
   };
 
 function sort<Model extends ILlmSchema.Model>(

@@ -17,6 +17,8 @@ export * as tags from "./tags";
 export * from "./schemas/metadata/IJsDocTagInfo";
 export * from "./schemas/json/IJsonApplication";
 export * from "./schemas/json/IJsonSchemaCollection";
+export * from "./schemas/llm/ILlmApplicationOfValidate";
+export * from "./schemas/llm/ILlmFunctionOfValidate";
 export * from "./AssertionGuard";
 export * from "./IRandomGenerator";
 export * from "./IValidation";
