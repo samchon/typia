@@ -40,6 +40,18 @@ export namespace TypeScriptCompiler {
     //----
     const output = { value: "" };
     const diagnostics: ts.Diagnostic[] = [];
+    const returnFailure = (): ICompilerService.IErrorOutput => ({
+      success: false,
+      error: {
+        name: "Error",
+        message: "TypeScript Compilation failed.",
+        diagnostics: diagnostics.map((d) => ({
+          code: d.code,
+          category: d.category,
+          text: d.messageText,
+        })),
+      } as Error,
+    });
 
     // CREATE PROGRAM
     const program = ts.createProgram(["main.ts"], COMPILER_OPTIONS, {
@@ -66,6 +78,8 @@ export namespace TypeScriptCompiler {
     (self as any).checker = program.getTypeChecker();
     (self as any).source = source;
 
+    // diagnostics.push(...ts.getPreEmitDiagnostics(program));
+
     // TRANSFORMATION
     try {
       if (target === "javascript") {
@@ -78,6 +92,7 @@ export namespace TypeScriptCompiler {
             ),
           ],
         });
+        if (diagnostics.length) return returnFailure();
         return {
           success: true,
           target,
@@ -91,11 +106,15 @@ export namespace TypeScriptCompiler {
             transform(
               program,
               {},
-              { addDiagnostic: (input) => diagnostics.push(input) },
+              {
+                addDiagnostic: (input) => diagnostics.push(input),
+              },
             ),
           ],
           program.getCompilerOptions(),
         );
+        if (diagnostics.length) return returnFailure();
+
         const printer: ts.Printer = ts.createPrinter({
           newLine: ts.NewLineKind.LineFeed,
         });
@@ -107,7 +126,17 @@ export namespace TypeScriptCompiler {
         };
       }
     } catch (err: unknown) {
-      return { success: false, error: err as Error };
+      return {
+        success: false,
+        error:
+          err instanceof Error
+            ? {
+                ...err,
+                message: err.message,
+                name: err.name,
+              }
+            : (err as Error),
+      };
     }
   };
 }
