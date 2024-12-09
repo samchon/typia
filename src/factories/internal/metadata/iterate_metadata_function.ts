@@ -58,6 +58,7 @@ export const iterate_metadata_function = (
                 },
                 intersected: false,
               }),
+              tsType: props.checker.getTypeOfSymbol(p),
               description: CommentFactory.description(p) ?? null,
               jsDocTags: p?.getJsDocTags() ?? [],
             }),

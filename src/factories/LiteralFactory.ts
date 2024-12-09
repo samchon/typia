@@ -6,6 +6,8 @@ import { IdentifierFactory } from "./IdentifierFactory";
 export namespace LiteralFactory {
   export const write = (input: any): ts.Expression => {
     if (input === null) return ts.factory.createNull();
+    else if (ts.isArrowFunction(input)) return input;
+    else if (ts.isCallExpression(input)) return input;
     else if (ts.isIdentifier(input)) return input;
     else if (input instanceof Array) return writeArray(input);
     else if (typeof input === "object") return writeObject(input);

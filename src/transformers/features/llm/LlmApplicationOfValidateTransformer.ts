@@ -9,7 +9,7 @@ import { StatementFactory } from "../../../factories/StatementFactory";
 
 import { Metadata } from "../../../schemas/metadata/Metadata";
 
-import { LlmApplicationProgrammer } from "../../../programmers/llm/LlmApplicationProgrammer";
+import { LlmApplicationOfValidateProgrammer } from "../../../programmers/llm/LlmApplicationOfValidateProgrammer";
 import { LlmModelPredicator } from "../../../programmers/llm/LlmModelPredicator";
 
 import { ValidationPipe } from "../../../typings/ValidationPipe";
@@ -17,12 +17,12 @@ import { ValidationPipe } from "../../../typings/ValidationPipe";
 import { ITransformProps } from "../../ITransformProps";
 import { TransformerError } from "../../TransformerError";
 
-export namespace LlmApplicationTransformer {
+export namespace LlmApplicationOfValidateTransformer {
   export const transform = (props: ITransformProps): ts.Expression => {
     // GET GENERIC ARGUMENT
     if (!props.expression.typeArguments?.length)
       throw new TransformerError({
-        code: "typia.llm.application",
+        code: "typia.llm.schema",
         message: "no generic argument.",
       });
 
@@ -32,7 +32,7 @@ export namespace LlmApplicationTransformer {
     // GET TYPE
     const model: ILlmSchema.Model = LlmModelPredicator.getModel({
       checker: props.context.checker,
-      method: "applicationOfValidate",
+      method: "application",
       node: props.expression.typeArguments[1],
     });
     const type: ts.Type = props.context.checker.getTypeFromTypeNode(top);
@@ -48,21 +48,23 @@ export namespace LlmApplicationTransformer {
           constant: true,
           absorb: false,
           functional: true,
-          validate: LlmApplicationProgrammer.validate(model),
+          validate: LlmApplicationOfValidateProgrammer.validate(model),
         },
         collection,
         type,
       });
     if (result.success === false)
       throw TransformerError.from({
-        code: "typia.llm.applicationOfValidate",
+        code: "typia.llm.application",
         errors: result.errors,
       });
 
     // GENERATE LLM APPLICATION
     const schema: ILlmApplication<ILlmSchema.Model> =
-      LlmApplicationProgrammer.write({
+      LlmApplicationOfValidateProgrammer.write({
         model,
+        context: props.context,
+        modulo: props.modulo,
         metadata: result.data,
         config: LlmModelPredicator.getConfig({
           context: props.context,
@@ -74,8 +76,8 @@ export namespace LlmApplicationTransformer {
     const literal: ts.Expression = ts.factory.createAsExpression(
       LiteralFactory.write(schema),
       props.context.importer.type({
-        file: "@samchon/openapi",
-        name: "ILlmApplication",
+        file: "typia",
+        name: "ILlmApplicationOfValidate",
         arguments: [
           ts.factory.createLiteralTypeNode(
             ts.factory.createStringLiteral(model),
