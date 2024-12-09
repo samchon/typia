@@ -1,13 +1,5 @@
 import Editor from "@monaco-editor/react";
 
-import { Singleton } from "tstl";
-
-import { typia_packageJson } from "../../../raw/typia/packageJson";
-
-const version = new Singleton(
-  () => typia_packageJson.split(`"version": "`)[1].split(`"`)[0],
-);
-
 const OutputViewer = (props: {
   language: "typescript" | "javascript";
   content: string;
