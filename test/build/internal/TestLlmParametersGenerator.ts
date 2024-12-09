@@ -1,6 +1,7 @@
 import cp from "child_process";
 import fs from "fs";
 
+import { TestLlmApplicationGenerator } from "./TestLlmApplicationGenerator";
 import { TestStructure } from "./TestStructure";
 
 export namespace TestLlmParametersGenerator {
@@ -21,34 +22,11 @@ export namespace TestLlmParametersGenerator {
     structures: TestStructure<any>[],
   ): Promise<void> {
     for (const s of structures) {
-      if (s.name === "UltimateUnion")
-        continue; // TOO MUCH LARGE
-      else if (
-        fs.existsSync(
-          `${__dirname}/../../schemas/json.schemas/v3_1/${s.name}.json`,
-        ) === false
-      )
-        continue;
-
-      const v31: string = await fs.promises.readFile(
-        `${__dirname}/../../schemas/json.schemas/v3_1/${s.name}.json`,
-        "utf8",
-      );
       if (
-        (model === "chatgpt" || model === "gemini") &&
-        (v31.includes(`"additionalProperties": {`) === true ||
-          v31.includes(`"additionalProperties": true`) === true)
+        (await TestLlmApplicationGenerator.isApplicable(model, s.name)) ===
+        false
       )
         continue;
-      else if (v31.includes(`"prefixItems":`) === true) continue;
-      else if (model === "gemini") {
-        // GEMINI DOES NOT SUPPORT UNION TYPE
-        const json: string = await fs.promises.readFile(
-          `${__dirname}/../../schemas/json.schemas/v3_0/${s.name}.json`,
-          "utf8",
-        );
-        if (json.includes(`"oneOf":`) === true) continue;
-      }
       const content: string[] = [
         `import typia from "typia";`,
         `import { ${s.name} } from "../../../structures/${s.name}";`,
