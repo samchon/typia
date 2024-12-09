@@ -244,7 +244,7 @@ const Playground = () => {
                           })
                           .join("\n\n")
                       : output.content
-                    : output.error.message
+                    : JSON.stringify(output.error, null, 2)
               }
             />
             <div
