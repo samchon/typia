@@ -549,7 +549,7 @@ export const createValidateCamel = (() => {
       return {
         success,
         errors,
-        data: success ? input : undefined,
+        data: input,
       } as any;
     }
     return {
@@ -1101,7 +1101,7 @@ export const createValidatePascal = (() => {
       return {
         success,
         errors,
-        data: success ? input : undefined,
+        data: input,
       } as any;
     }
     return {
@@ -1653,7 +1653,7 @@ export const createValidateSnake = (() => {
       return {
         success,
         errors,
-        data: success ? input : undefined,
+        data: input,
       } as any;
     }
     return {
