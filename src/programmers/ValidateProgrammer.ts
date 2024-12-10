@@ -396,13 +396,7 @@ const create_output = () =>
       ts.factory.createShorthandPropertyAssignment("errors"),
       ts.factory.createPropertyAssignment(
         "data",
-        ts.factory.createConditionalExpression(
-          ts.factory.createIdentifier("success"),
-          undefined,
-          ts.factory.createIdentifier("input"),
-          undefined,
-          ts.factory.createIdentifier("undefined"),
-        ),
+        ts.factory.createIdentifier("input"),
       ),
     ],
     true,
