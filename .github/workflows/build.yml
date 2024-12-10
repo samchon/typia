@@ -1,13 +1,5 @@
 name: build
 on: 
-  push:
-    paths:
-      - 'src/**'
-      - 'test/**'
-      - 'test-error/**'
-      - 'test-esm/**'
-      - 'package.json'
-      - '.github/workflows/build.yml'
   pull_request:
     paths:
       - 'src/**'
