@@ -9,6 +9,7 @@ export namespace IValidation {
 
   export interface IFailure {
     success: false;
+    data: unknown;
     errors: IError[];
   }
 
