@@ -1,4 +1,4 @@
-import typia from "typia";
+import typia, { IValidation } from "typia";
 
 import { _test_protobuf_decode } from "./_test_protobuf_decode";
 
@@ -14,6 +14,7 @@ export const _test_protobuf_validateDecode =
       decode: (input) => {
         const result = functor.decode(input);
         if (!result.success) throw new Error();
+        typia.assertEquals<IValidation.ISuccess<unknown>>(result);
         return result.data;
       },
       encode: functor.encode,

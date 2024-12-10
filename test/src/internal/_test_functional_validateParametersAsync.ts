@@ -31,7 +31,7 @@ export const _test_functional_validateParametersAsync =
             throw new Error(
               `Bug on await typia.functional.validateFunction(): failed to detect error on the ${name} type.`,
             );
-          typia.assert(valid);
+          typia.assertEquals(valid);
           valid.errors.sort((x, y) => (x.path < y.path ? -1 : 1));
 
           if (

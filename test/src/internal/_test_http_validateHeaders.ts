@@ -22,6 +22,7 @@ export const _test_http_validateHeaders =
       throw new Error(
         `Bug on typia.http.validateHeaders(): failed to understand ${name} type.`,
       );
+    typia.assertEquals<typia.IValidation.ISuccess<unknown>>(result);
 
     const equal: boolean =
       result !== null && resolved_equal_to(name)(data, result.data);
@@ -43,7 +44,7 @@ export const _test_http_validateHeaders =
           `Bug on typia.http.validateHeaders(): failed to detect error on the ${name} type.`,
         );
 
-      typia.assert(valid);
+      typia.assertEquals(valid);
       expected.sort();
       valid.errors.sort((x, y) => (x.path < y.path ? -1 : 1));
 
