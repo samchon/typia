@@ -193,10 +193,6 @@ export namespace ValidateProgrammer {
                     ts.factory.createTrue(),
                   ),
                   ts.factory.createPropertyAssignment(
-                    "errors",
-                    ts.factory.createArrayLiteralExpression([]),
-                  ),
-                  ts.factory.createPropertyAssignment(
                     "data",
                     ts.factory.createIdentifier("input"),
                   ),
@@ -390,16 +386,31 @@ const joiner = (props: {
 });
 
 const create_output = () =>
-  ts.factory.createObjectLiteralExpression(
-    [
-      ts.factory.createShorthandPropertyAssignment("success"),
-      ts.factory.createShorthandPropertyAssignment("errors"),
-      ts.factory.createPropertyAssignment(
-        "data",
-        ts.factory.createIdentifier("input"),
-      ),
-    ],
-    true,
+  ts.factory.createConditionalExpression(
+    ts.factory.createIdentifier("success"),
+    undefined,
+    ts.factory.createObjectLiteralExpression(
+      [
+        ts.factory.createShorthandPropertyAssignment("success"),
+        ts.factory.createPropertyAssignment(
+          "data",
+          ts.factory.createIdentifier("input"),
+        ),
+      ],
+      true,
+    ),
+    undefined,
+    ts.factory.createObjectLiteralExpression(
+      [
+        ts.factory.createShorthandPropertyAssignment("success"),
+        ts.factory.createShorthandPropertyAssignment("errors"),
+        ts.factory.createPropertyAssignment(
+          "data",
+          ts.factory.createIdentifier("input"),
+        ),
+      ],
+      true,
+    ),
   );
 
 const create_report_call = (props: {
