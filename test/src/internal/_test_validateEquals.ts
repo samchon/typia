@@ -21,7 +21,7 @@ export const _test_validateEquals =
       throw new Error(
         "Bug on typia.validateEquals(): failed to archive the input value.",
       );
-    typia.assert(valid);
+    typia.assertEquals(valid);
     if (factory.ADDABLE === false) return;
 
     // EXPECTED

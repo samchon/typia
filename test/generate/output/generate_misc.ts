@@ -570,7 +570,7 @@ export const createValidateClone = (() => {
       return {
         success,
         errors,
-        data: success ? input : undefined,
+        data: input,
       } as any;
     }
     return {
@@ -1198,7 +1198,7 @@ export const createValidatePrune = (() => {
       return {
         success,
         errors,
-        data: success ? input : undefined,
+        data: input,
       } as any;
     }
     return {

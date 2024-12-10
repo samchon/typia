@@ -436,7 +436,7 @@ export const createValidateEncode = (() => {
       return {
         success,
         errors,
-        data: success ? input : undefined,
+        data: input,
       } as any;
     }
     return {
@@ -870,7 +870,7 @@ export const createValidateDecode = (() => {
       return {
         success,
         errors,
-        data: success ? input : undefined,
+        data: input,
       } as any;
     }
     return {

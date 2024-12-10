@@ -23,6 +23,7 @@ export const _test_json_validateParse =
         `Bug on typia.json.validateParse(): failed to understand the ${name} type.`,
       );
     }
+    typia.assertEquals<IValidation.ISuccess<unknown>>(valid);
 
     const wrong: ISpoiled[] = [];
     for (const spoil of factory.SPOILERS ?? []) {

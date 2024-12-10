@@ -305,7 +305,7 @@ export const validateQuery = (() => {
       return {
         success,
         errors,
-        data: success ? input : undefined,
+        data: input,
       } as any;
     }
     return {

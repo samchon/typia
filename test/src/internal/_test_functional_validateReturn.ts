@@ -26,7 +26,7 @@ export const _test_functional_validateReturn =
           throw new Error(
             `Bug on typia.functional.validateFunction(): failed to detect error on the ${name} type.`,
           );
-        typia.assert(valid);
+        typia.assertEquals(valid);
         valid.errors.sort((x, y) => (x.path < y.path ? -1 : 1));
 
         if (

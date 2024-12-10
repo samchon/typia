@@ -608,7 +608,7 @@ export const createValidateStringify = (() => {
       return {
         success,
         errors,
-        data: success ? input : undefined,
+        data: input,
       } as any;
     }
     return {
@@ -1101,7 +1101,7 @@ export const createValidateParse = (() => {
       return {
         success,
         errors,
-        data: success ? input : undefined,
+        data: input,
       } as any;
     }
     return {

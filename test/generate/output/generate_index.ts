@@ -761,7 +761,7 @@ export const validate = (() => {
       return {
         success,
         errors,
-        data: success ? input : undefined,
+        data: input,
       } as any;
     }
     return {
@@ -1707,7 +1707,7 @@ export const validateEquals = (() => {
       return {
         success,
         errors,
-        data: success ? input : undefined,
+        data: input,
       } as any;
     }
     return {
