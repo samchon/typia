@@ -4,9 +4,9 @@ export default {
     type: "page",
     hidden: true,
     display: "hidden",
-    theme: {
-      layout: "full",
-    },
+    // theme: {
+    //   layout: "full",
+    // },
   },
   docs: {
     title: "📖 Guide Documents",
