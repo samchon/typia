@@ -1,4 +1,4 @@
-import { Tabs, Tab } from 'nextra-theme-docs'
+import { Tabs } from 'nextra/components'
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 
@@ -30,7 +30,7 @@ Yeah, `typia` needs only pure TypeScript type. As `typia` is a compiler library,
 </Alert>
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy filename="examples/src/is.ts" showLineNumbers
 import typia, { tags } from "typia";
 import { v4 } from "uuid";
@@ -52,8 +52,8 @@ interface IMember {
     tags.Maximum<100>;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript filename="examples/bin/is.js" showLineNumbers
 import * as __typia_transform__isFormatUuid from "typia/lib/internal/_isFormatUuid.js";
 import * as __typia_transform__isFormatEmail from "typia/lib/internal/_isFormatEmail.js";
@@ -78,7 +78,7 @@ const matched = (() => {
 });
 console.log(matched); // true
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 
@@ -97,7 +97,7 @@ More strict checker prohibiting superfluous properties.
 If you want to prohibit those superfluous properties, you can use `typia.equals<T>()` function instead.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy filename="examples/src/equals.ts" showLineNumbers
 import typia, { tags } from "typia";
 import { v4 } from "uuid";
@@ -122,8 +122,8 @@ interface IMember {
     tags.Maximum<100>;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript filename="examples/bin/equals.js" showLineNumbers
 import * as __typia_transform__isFormatUuid from "typia/lib/internal/_isFormatUuid.js";
 import * as __typia_transform__isFormatEmail from "typia/lib/internal/_isFormatEmail.js";
@@ -170,7 +170,7 @@ const equals = (() => {
 })()(input);
 console.log(is, equals); // true, false
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 
@@ -189,7 +189,7 @@ If you repeat to call `typia.is<T>()` function on the same type, size of JavaScr
 Just look at the code below, then you may understand how to use it.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy filename="examples/src/createIs.ts" showLineNumbers
 import typia, { tags } from "typia";
 
@@ -204,8 +204,8 @@ interface IMember {
     tags.Maximum<100>;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript filename="examples/bin/createIs.js" showLineNumbers
 import * as __typia_transform__isFormatUuid from "typia/lib/internal/_isFormatUuid.js";
 import * as __typia_transform__isFormatEmail from "typia/lib/internal/_isFormatEmail.js";
@@ -224,7 +224,7 @@ export const check = (() => {
   return (input) => "object" === typeof input && null !== input && _io0(input);
 })();
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 
@@ -283,14 +283,14 @@ If JS native class type like `Date`, `Uint8Array`, or `Map<Key, T>` being utiliz
 Therefore, the `instanceof` statement does not be used only for the user-defined classes.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy filename="examples/src/is-map.ts" showLineNumbers
 import typia from "typia";
 
 typia.createIs<Map<string, boolean | number | string>>();
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript filename="examples/bin/is-map.js" showLineNumbers
 import typia from "typia";
 (() => {
@@ -308,7 +308,7 @@ import typia from "typia";
       ))();
 })();
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 
@@ -328,7 +328,7 @@ If you want to know about such special tags detaily, read below article:
     - [Customization](./tags/#customization)
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy filename="examples/src/is-custom-tags.ts" showLineNumbers
 import typia, { tags } from "typia";
 
@@ -371,8 +371,8 @@ interface Something {
   isEven: number & IsEven<number>;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript filename="examples/bin/is-comment-tags.js" showLineNumbers
 import typia from "typia";
 export const checkSomething = (() => {
@@ -387,7 +387,7 @@ export const checkSomething = (() => {
   return (input) => "object" === typeof input && null !== input && _io0(input);
 })();
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 

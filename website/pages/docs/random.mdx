@@ -1,4 +1,4 @@
-import { Tabs, Tab } from 'nextra-theme-docs'
+import { Tabs } from 'nextra/components'
 
 ## `random()` function
 <Tabs items={[
@@ -7,12 +7,12 @@ import { Tabs, Tab } from 'nextra-theme-docs'
   <code>Customizable.ts</code>,
   <code>Resolved.ts</code>
 ]}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy
 export function random<T>(g?: IRandomGenerator): Resolved<T>;
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript copy filename="typia/IRandomGenerator.ts"
 import { Customizable } from "./typings/Customizable";
 
@@ -76,8 +76,8 @@ export namespace IRandomGenerator {
   }
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript copy
 export interface Customizable {
   number: number;
@@ -85,8 +85,8 @@ export interface Customizable {
   bigint: bigint;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript copy filename="typia/Resolved.ts"
 /**
  * Resolved type erased every methods.
@@ -207,7 +207,7 @@ interface IValueOf<T> {
   valueOf(): T;
 }
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 You can make every random data just by calling `typia.random<T>()` function.
@@ -215,7 +215,7 @@ You can make every random data just by calling `typia.random<T>()` function.
 When you call the `typia.random<T>()` function, `typia` will analyze your type `T`, and writes optimal random generation code for the type `T`, in the compilation level. This is called AOT (Ahead of Time) compliation, and you may understand what it is just by reading below example code. 
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy filename="random.ts" showLineNumbers
 import typia, { tags } from "typia";
 
@@ -231,8 +231,8 @@ interface IMember {
     tags.Maximum<100>;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript filename="random.js"
 import * as __typia_transform__randomFormatUuid from "typia/lib/internal/_randomFormatUuid.js";
 import * as __typia_transform__randomFormatEmail from "typia/lib/internal/_randomFormatEmail.js";
@@ -264,7 +264,7 @@ const member = (() => {
 })()();
 console.log(member);
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 
@@ -277,12 +277,12 @@ console.log(member);
   <code>Customizable.ts</code>,
   <code>Resolved.ts</code>,
 ]}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy
 export function createRandom<T>(): (g?: IRandomGenerator) => Resolved<T>;
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript copy filename="typia/IRandomGenerator.ts"
 import { Customizable } from "./typings/Customizable";
 
@@ -346,8 +346,8 @@ export namespace IRandomGenerator {
   }
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript copy
 export interface Customizable {
   number: number;
@@ -355,8 +355,8 @@ export interface Customizable {
   bigint: bigint;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript copy filename="typia/Resolved.ts"
 /**
  * Resolved type erased every methods.
@@ -477,7 +477,7 @@ interface IValueOf<T> {
   valueOf(): T;
 }
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 
@@ -494,7 +494,7 @@ For reference, whether you choose [Type Tags](./validators/tags#type-tags) or [C
   'TypeScript (Comment Tags)', 
   'Compiled JavaScript File'
 ]}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy filename="random.tags.ts" showLineNumbers
 import typia, { tags } from "typia";
 
@@ -510,8 +510,8 @@ interface TypeTag {
   format: (string & tags.Format<"date-time">) | null;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript copy filename="random.tags.ts" showLineNumbers
 import typia from "typia";
 
@@ -547,8 +547,8 @@ interface CommentTag {
   format: string | null;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript filename="random.tags.js" showLineNumbers
 import * as __typia_transform__randomInteger from "typia/lib/internal/_randomInteger.js";
 import * as __typia_transform__randomNumber from "typia/lib/internal/_randomNumber.js";
@@ -600,7 +600,7 @@ const data = (() => {
 })()();
 console.log(data);
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 
@@ -613,12 +613,12 @@ console.log(data);
   <code>Customizable.ts</code>,
   <code>Resolved.ts</code>,
 ]}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy
 export function random<T>(g?: IRandomGenerator): Resolved<T>;
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript copy
 import { Customizable } from "./typings/Customizable";
 
@@ -683,8 +683,8 @@ export namespace IRandomGenerator {
   }
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript copy
 export interface Customizable {
   number: number;
@@ -692,8 +692,8 @@ export interface Customizable {
   bigint: bigint;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript copy filename="typia/Resolved.ts"
 /**
  * Resolved type erased every methods.
@@ -814,7 +814,7 @@ interface IValueOf<T> {
   valueOf(): T;
 }
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 You can add custom type tags for random data generation.
@@ -826,7 +826,7 @@ Just define custom type tags like below, then everything would be done.
 For reference, when defining custom type tag, `typia` enforces user to define `validate` function literal for type safety. Never forget it when you define custom type tags for random generation. Such validation logic definition may enhance your random data generator logic when combining with [`typia.assert<T>()`](./validators/assert) function.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy filename="examples/src/random-customization.ts"
 import typia from "typia";
 import { RandomGenerator } from "typia/lib/utils/RandomGenerator";
@@ -877,8 +877,8 @@ type PowerOf<Value extends number> = typia.tags.TagBase<{
     })()`;
 }>;
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript filename="examples/bin/random-customization.js"
 import * as __typia_transform__randomFormatUuid from "typia/lib/internal/_randomFormatUuid.js";
 import * as __typia_transform__randomString from "typia/lib/internal/_randomString.js";
@@ -924,5 +924,5 @@ const data = (() => {
 });
 console.log(data);
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>

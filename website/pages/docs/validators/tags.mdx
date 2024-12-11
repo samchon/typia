@@ -1,4 +1,4 @@
-import { Tabs, Tab } from 'nextra-theme-docs'
+import { Tabs } from 'nextra/components'
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 
@@ -19,7 +19,7 @@ Therefore, don't be afraid `typia` uses only pure TypeScript types for type vali
     - A2: Comment Tag is designed for legacy JSDoc styled projects
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy filename="is.tag.ts" showLineNumbers {3}
 import typia, { tags } from "typia";
 
@@ -63,8 +63,8 @@ interface CustomTag {
   >;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript filename="is.tag.js" showLineNumbers
 import * as __typia_transform__isFormatIpv4 from "typia/lib/internal/_isFormatIpv4.js";
 import * as __typia_transform__isFormatIpv6 from "typia/lib/internal/_isFormatIpv6.js";
@@ -116,7 +116,7 @@ export const checkCustomTag = (() => {
   return (input) => "object" === typeof input && null !== input && _io0(input);
 })();
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 
@@ -193,7 +193,7 @@ For reference, when you take a mistake that choosing different target type, Type
 Also, if you need custom validation logic, just make it by yourself referencing [Customization](#customization) section. It is easy to define. For such type safety and generous use case reasons even customization supporting, I recommend you to use type tags instead of [comment tags](#comment-tags), unless you are maintaining a legacy JSDoc styled project.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy filename="is.tag.ts" showLineNumbers {3}
 import typia, { tags } from "typia";
 
@@ -231,8 +231,8 @@ interface CustomTag {
   >;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript filename="is.tag.js" showLineNumbers
 import * as __typia_transform__isTypeUint32 from "typia/lib/internal/_isTypeUint32.js";
 import * as __typia_transform__isFormatIpv4 from "typia/lib/internal/_isFormatIpv4.js";
@@ -282,7 +282,7 @@ export const checkCustomTag = (() => {
   return (input) => "object" === typeof input && null !== input && _io0(input);
 })();
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 
@@ -361,7 +361,7 @@ Second, to support [Prisma](../utilization/prisma). If a comment is created in t
 </Alert>
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy filename="is.tag.ts" showLineNumbers {3}
 import typia from "typia";
 
@@ -415,8 +415,8 @@ interface CustomTag {
   // >;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript filename="is.tag.js" showLineNumbers
 import typia from "typia";
 export const checkCustomTag = (() => {
@@ -435,7 +435,7 @@ export const checkCustomTag = (() => {
   return (input) => "object" === typeof input && null !== input && _io0(input);
 })();
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 
@@ -448,7 +448,7 @@ export const checkCustomTag = (() => {
     <code>Type.ts</code>,
     <code>Pattern.ts</code>,
 ]}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript filename="TagBase.ts" showLineNumbers copy
 export type TagBase<Props extends TagBase.IProps<any, any, any, any, any>> = {
   /**
@@ -519,8 +519,8 @@ export namespace TagBase {
   }
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript filename="Minimum.ts" showLineNumbers copy
 import { TagBase } from "./TagBase";
 
@@ -536,8 +536,8 @@ type Numeric<Value extends number | bigint> = Value extends number
   ? Value
   : `BigInt(${Value})`;
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript filename="Type.ts" showLineNumbers copy
 import { TagBase } from "./TagBase";
 
@@ -567,8 +567,8 @@ export type Type<
   exclusive: true;
 }>;
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript filename="Pattern.ts" showLineNumbers copy
 import { TagBase } from "./TagBase";
 
@@ -579,7 +579,7 @@ export type Pattern<Value extends string> = TagBase<{
   validate: `/${Value}/.test($input)`;
 }>;
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 Above types are supported by `typia` basically. 
@@ -593,7 +593,7 @@ In the Korean proverb, there's a word that, "it is much better to do it once tha
 Here is the example code, and I think that it may easy to understand.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript showLineNumbers copy filename="is.tag.custom.ts"
 import typia from "typia";
 
@@ -631,8 +631,8 @@ type PowerOf<Value extends number> = typia.tags.TagBase<{
     })()`;
 }>;
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript showLineNumbers filename="is.tag.custom.js"
 import * as __typia_transform__isFormatUuid from "typia/lib/internal/_isFormatUuid.js";
 import typia from "typia";
@@ -654,5 +654,5 @@ export const checkTagCustom = (() => {
   return (input) => "object" === typeof input && null !== input && _io0(input);
 })();
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>

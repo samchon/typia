@@ -1,4 +1,4 @@
-import { Tabs, Tab } from 'nextra-theme-docs'
+import { Tabs } from 'nextra/components'
 
 ## `parse()` functions
 <Tabs items={[
@@ -7,7 +7,7 @@ import { Tabs, Tab } from 'nextra-theme-docs'
   <code>IValidation.ts</code>,
   <code>Primitive.ts</code>
 ]}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy
 export namespace json {
   export function isParse<T>(input: string): Primitive<T> | null;
@@ -15,8 +15,8 @@ export namespace json {
   export function validateParse<T>(input: string): IValidation<Primitive<T>>;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript copy
 export class TypeGuardError extends Error {
   public readonly method: string;
@@ -25,8 +25,8 @@ export class TypeGuardError extends Error {
   public readonly value: any;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript copy
 export type IValidation<T> = IValidation.ISuccess<T> | IValidation.IFailure;
 export namespace IValidation {
@@ -46,8 +46,8 @@ export namespace IValidation {
   }
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript showLineNumbers copy
 /**
  * Primitive type of JSON.
@@ -185,7 +185,7 @@ interface IJsonable<T> {
   toJSON(): T;
 }
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 Type safe JSON parser.
@@ -201,7 +201,7 @@ If you want to know every type error infos detaily, you can use `typia.json.vali
 Look at the below code, then you may understand how the `typia.json.assertParse<T>()` function works.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy filename="examples/src/assertParse.ts" showLineNumbers
 import typia, { tags } from "typia";
 
@@ -219,8 +219,8 @@ interface IMember {
     tags.Maximum<100>;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript filename="examples/bin/assertParse.js" showLineNumbers
 import * as __typia_transform__randomFormatUuid from "typia/lib/internal/_randomFormatUuid.js";
 import * as __typia_transform__randomFormatEmail from "typia/lib/internal/_randomFormatEmail.js";
@@ -393,8 +393,8 @@ const parsed = (() => {
 })()(json);
 console.log(json === JSON.stringify(parsed)); // true
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript showLineNumbers copy
 /**
  * Primitive type of JSON.
@@ -532,7 +532,7 @@ interface IJsonable<T> {
   toJSON(): T;
 }
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 
@@ -545,7 +545,7 @@ interface IJsonable<T> {
   <code>IValidation.ts</code>,
   <code>Primitive.ts</code>
 ]}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy
 export namespace json {
   export function createIsParse<T>(): (input: string) => Primitive<T> | null;
@@ -555,8 +555,8 @@ export namespace json {
   ) => IValidation<Primitive<T>>;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript copy
 export class TypeGuardError extends Error {
   public readonly method: string;
@@ -565,8 +565,8 @@ export class TypeGuardError extends Error {
   public readonly value: any;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript copy
 export type IValidation<T> = IValidation.ISuccess<T> | IValidation.IFailure;
 export namespace IValidation {
@@ -586,7 +586,7 @@ export namespace IValidation {
   }
 }
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 Reusable `typia.json.isParse<T>()` function generators.
@@ -596,7 +596,7 @@ If you repeat to call `typia.json.isParse<T>()` function on the same type, size 
 Just look at the code below, then you may understand how to use it.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy filename="examples/src/createIsParse.ts" showLineNumbers
 import typia, { tags } from "typia";
 
@@ -611,8 +611,8 @@ interface IMember {
     tags.Maximum<100>;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript filename="examples/bin/createIsParse.js" showLineNumbers
 import * as __typia_transform__isFormatUuid from "typia/lib/internal/_isFormatUuid.js";
 import * as __typia_transform__isFormatEmail from "typia/lib/internal/_isFormatEmail.js";
@@ -636,5 +636,5 @@ export const parseMember = (() => {
   };
 })();
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
