@@ -1,11 +1,11 @@
-import { Tabs, Tab } from 'nextra-theme-docs'
+import { Tabs } from 'nextra/components'
 
 # Prisma
 <Tabs items={[
   <code>prisma.schema</code>, 
   <code>.prisma/client</code>,
 ]}>
-  <Tab>
+  <Tabs.Tab>
 ```prisma copy filename="prisma.schema" showLineNumbers {2, 5, 10, 11, 14-15}
 model bbs_articles {
   id String @id @db.Uuid /// @format uuid
@@ -29,8 +29,8 @@ model bbs_article_snapshots {
   article bbs_articles @relation(fields: [bbs_article_id], references: [id])
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript filename=".prisma/client" showLineNumbers {6, 17, 21, 26-27}
 /**
  * Model bbs_articles
@@ -65,7 +65,7 @@ export type bbs_article_snapshots = {
   created_at: Date
 }
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 When defining `prisma.schema` file, you can write comment tags just by using `///` statement.

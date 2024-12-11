@@ -1,4 +1,4 @@
-import { Tabs, Tab } from 'nextra-theme-docs'
+import { Tabs } from 'nextra/components'
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 
@@ -9,7 +9,7 @@ import AlertTitle from '@mui/material/AlertTitle';
   <code>IValidation.ts</code>,
   <code>Resolved.ts</code>,
 ]}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript
 export namespace protobuf {
   export function decode<T>(buffer: Uint8Array): Resolved<T>;
@@ -20,8 +20,8 @@ export namespace protobuf {
   ): IValidation<Resolved<T>>;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript copy
 export class TypeGuardError extends Error {
   public readonly method: string;
@@ -30,8 +30,8 @@ export class TypeGuardError extends Error {
   public readonly value: any;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript copy
 export type IValidation<T> = IValidation.ISuccess<T> | IValidation.IFailure;
 export namespace IValidation {
@@ -51,8 +51,8 @@ export namespace IValidation {
   }
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript showLineNumbers copy
 /**
  * Resolved type erased every methods.
@@ -173,7 +173,7 @@ interface IValueOf<T> {
   valueOf(): T;
 }
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 Protocol Buffer Decoder.
@@ -204,7 +204,7 @@ For reference, `typia` provides type safe decorators like below, but they are ju
 </Alert>
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy filename="protobuf.decode.ts" showLineNumbers
 import typia, { tags } from "typia";
  
@@ -233,8 +233,8 @@ interface IHobby {
   valid: boolean;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript copy filename="protobuf.decode.js" showLineNumbers
 import * as __typia_transform__randomString from "typia/lib/internal/_randomString.js";
 import * as __typia_transform__randomInteger from "typia/lib/internal/_randomInteger.js";
@@ -639,7 +639,7 @@ const decoded = (() => {
 })()(encoded);
 console.log(member, decoded);
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 
@@ -651,7 +651,7 @@ console.log(member, decoded);
   <code>IValidation.ts</code>,
   <code>Resolved.ts</code>,
 ]}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript
 export namespace protobuf {
   export function createDecode<T>(): (buffer: Uint8Array) => Resolved<T>;
@@ -662,8 +662,8 @@ export namespace protobuf {
   ) => IValidation<Resolved<T>>;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript copy
 export class TypeGuardError extends Error {
   public readonly method: string;
@@ -672,8 +672,8 @@ export class TypeGuardError extends Error {
   public readonly value: any;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript copy
 export type IValidation<T> = IValidation.ISuccess<T> | IValidation.IFailure;
 export namespace IValidation {
@@ -693,8 +693,8 @@ export namespace IValidation {
   }
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript showLineNumbers copy
 /**
  * Resolved type erased every methods.
@@ -815,7 +815,7 @@ interface IValueOf<T> {
   valueOf(): T;
 }
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 Reusable `typia.protobuf.decode<T>()` function generators.
@@ -825,7 +825,7 @@ If you repeat to call `typia.protobuf.decode<T>()` function on the same type, si
 Just look at the code below, then you may understand how to use it.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy filename="protobuf.createDecode.ts" showLineNumbers
 import typia, { tags } from "typia";
  
@@ -851,8 +851,8 @@ interface IHobby {
   valid: boolean;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript copy filename="protobuf.createDecode.js" showLineNumbers
 import * as __typia_transform__ProtobufReader from "typia/lib/internal/_ProtobufReader.js";
 import typia from "typia";
@@ -977,7 +977,7 @@ export const decode = (() => {
   };
 })();
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 

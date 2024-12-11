@@ -1,4 +1,4 @@
-import { Tabs, Tab } from 'nextra-theme-docs'
+import { Tabs } from 'nextra/components'
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 
@@ -8,7 +8,7 @@ import AlertTitle from '@mui/material/AlertTitle';
   <code>TypeGuardError.ts</code>, 
   <code>IValidation.ts</code>
 ]}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy
 export namespace json {
   export function stringify<T>(input: T): string;
@@ -17,8 +17,8 @@ export namespace json {
   export function validateStringify<T>(input: T | unknown): IValidation<string>;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript copy
 export class TypeGuardError extends Error {
   public readonly method: string;
@@ -27,8 +27,8 @@ export class TypeGuardError extends Error {
   public readonly value: any;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript copy
 export type IValidation<T> = IValidation.ISuccess<T> | IValidation.IFailure;
 export namespace IValidation {
@@ -48,7 +48,7 @@ export namespace IValidation {
   }
 }
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 You can boost up JSON serialization speed just by calling `typia.json.stringify<T>()` function. Also, you even can ensure type safety of JSON serialization by calling other functions like `typia.json.isStringify()` and `typia.json.assertStringify()` functions.
@@ -72,7 +72,7 @@ Instead, `typia` supports type safe JSON serialization functions like `typia.jso
 </Alert>
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy filename="examples/src/isStringify.ts" showLineNumbers
 import typia, { tags } from "typia";
 
@@ -97,8 +97,8 @@ interface IClerk {
   joined_at: string & tags.Format<"date">;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript filename="examples/bin/isStringify.js" showLineNumbers
 import * as __typia_transform__randomFormatUuid from "typia/lib/internal/_randomFormatUuid.js";
 import * as __typia_transform__randomString from "typia/lib/internal/_randomString.js";
@@ -196,7 +196,7 @@ const json = (() => {
 })()(department);
 console.log(json); // not null, but string
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 
@@ -208,7 +208,7 @@ console.log(json); // not null, but string
   <code>TypeGuardError.ts</code>, 
   <code>IValidation.ts</code>
 ]}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy
 export namespace json {
   export function createStringify<T>(): (input: T) => string;
@@ -219,8 +219,8 @@ export namespace json {
   export function createValidateStringify<T>(): (input: unknown) => IValidation<string>;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript copy
 export class TypeGuardError extends Error {
   public readonly method: string;
@@ -229,8 +229,8 @@ export class TypeGuardError extends Error {
   public readonly value: any;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript copy
 export type IValidation<T> = IValidation.ISuccess<T> | IValidation.IFailure;
 export namespace IValidation {
@@ -250,7 +250,7 @@ export namespace IValidation {
   }
 }
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 Reusable `typia.json.stringify<T>()` function generators.
@@ -260,7 +260,7 @@ If you repeat to call `typia.json.stringify<T>()` function on the same type, siz
 Just look at the code below, then you may understand how to use it.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy filename="examples/src/createAssertStringify.ts" showLineNumbers
 import typia, { tags } from "typia";
 
@@ -282,8 +282,8 @@ interface IClerk {
   joined_at: string & tags.Format<"date">;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript filename="examples/bin/createAssertStringify.js" showLineNumbers
 import * as __typia_transform__isFormatUuid from "typia/lib/internal/_isFormatUuid.js";
 import * as __typia_transform__isTypeInt32 from "typia/lib/internal/_isTypeInt32.js";
@@ -564,7 +564,7 @@ export const assertDepartment = (() => {
   };
 })();
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 

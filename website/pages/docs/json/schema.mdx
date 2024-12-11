@@ -1,27 +1,27 @@
-import { Tabs, Tab } from 'nextra-theme-docs'
+import { Tabs } from 'nextra/components'
 
 ## `schemas()` function
 <Tabs items={[
   <code>typia</code>, 
-  <code>IJsonCollection.ts</code>, 
+  <code>IJsonSchemaCollection.ts</code>, 
 ]}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy
 export namespace json {
   export function schemas<
     Schemas extends unknown[],
     Version extends "3.0" | "3.1" = "3.1",
-  >(): IJsonCollection<Version>;
+  >(): IJsonSchemaCollection<Version>;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript copy
 import type { OpenApi, OpenApiV3 } from "@samchon/openapi";
 
-export type IJsonCollection<Version extends "3.0" | "3.1" = "3.1"> =
-  Version extends "3.0" ? IJsonCollection.IV3_0 : IJsonCollection.IV3_1;
-export namespace IJsonCollection {
+export type IJsonSchemaCollection<Version extends "3.0" | "3.1" = "3.1"> =
+  Version extends "3.0" ? IJsonSchemaCollection.IV3_0 : IJsonSchemaCollection.IV3_1;
+export namespace IJsonSchemaCollection {
   export interface IV3_0 {
     version: "3.0";
     schemas: OpenApiV3.IJsonSchema[];
@@ -34,13 +34,13 @@ export namespace IJsonCollection {
   }
 }
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 JSON schema generator.
 
   - Definitions:
-    - [`IJsonCollection`](https://github.com/samchon/typia/blob/master/src/schemas/json/IJsonCollection.ts)
+    - [`IJsonSchemaCollection`](https://github.com/samchon/typia/blob/master/src/schemas/json/IJsonSchemaCollection.ts)
     - [OpenAPI v3.0](https://github.com/samchon/openapi/blob/master/src/OpenApiV3.ts)
     - [OpenAPI v3.1](https://github.com/samchon/openapi/blob/master/src/OpenApi.ts)
 
@@ -52,7 +52,7 @@ If you call the `typia.json.schemas()` with specialization of target `Schemas`, 
   - Swagger can't express pattern property
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy filename="examples/src/application.ts" showLineNumbers
 import typia, { tags } from "typia";
 
@@ -80,8 +80,8 @@ interface IMember {
     tags.Maximum<100>;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript filename="examples/bin/application.js" showLineNumbers
 import typia from "typia";
 export const MemberSchema = {
@@ -124,7 +124,7 @@ export const MemberSchema = {
   ],
 };
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 
@@ -145,7 +145,7 @@ Let's see how those [type tags](../validators/tags/#type-tags), comment tags and
 
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy filename="examples/src/application-comment-tags.ts" showLineNumbers
 import typia, { tags } from "typia";
 
@@ -218,8 +218,8 @@ interface Special {
   array: Array<string & tags.Format<"uuid">> & tags.MinItems<3>;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript filename="examples/bin/application-comment-tags.js" showLineNumbers
 import typia from "typia";
 export const SpecialTagSchema = {
@@ -302,7 +302,7 @@ export const SpecialTagSchema = {
   ],
 };
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 
@@ -313,7 +313,7 @@ If what you want is not just filling regular properties of JSON schema specifica
 For reference, the custom property must be started with `x-` prefix. It's a rule of JSON schema.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy filename="examples/src/json-schema-custom.ts" copy showLineNumbers {7-9, 13, 17-18}
 import typia, { tags } from "typia";
  
@@ -337,8 +337,8 @@ interface IAccount {
  
 typia.json.schemas<[IAccount]>();
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript copy filename="examples/bin/json-schema-custom.js" showLineNumbers {11, 15}
 import typia from "typia";
 ({
@@ -369,7 +369,7 @@ import typia from "typia";
 });
 
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 
@@ -381,7 +381,7 @@ JSON schema does not support `bigint` type.
 So if you use `bigint` type in one of your onetarget schemas, `typia` will make compile error like below.
 
 <Tabs items={["TypeScript Source Code", "Console Output"]}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript filename="json.schemas.ts" copy showLineNumbers 
 import typia, { tags } from "typia";
 
@@ -396,8 +396,8 @@ interface Nested {
 
 typia.json.schemas<[Something]>();
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```bash
 main.ts:12:1 - error TS(typia.json.schemas): unsupported type detected
 
@@ -410,13 +410,13 @@ main.ts:12:1 - error TS(typia.json.schemas): unsupported type detected
 - Nested.uint64: (bigint & Type<"uint64">)
   - JSON does not support bigint type.
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 Also, if you put any type of native classes like `Map` or `Uint8Array`, it would also be error, either. By the way, only `Date` class is exceptional, and it would be considered as `string & Format<"date-time">` type like below.
 
 <Tabs items={["TypeScript Source Code", "Console Output"]}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript filename="json.schemas.native.ts" showLineNumbers copy
 import typia from "typia";
 
@@ -425,8 +425,8 @@ interface Native {
 }
 typia.json.schemas<[Native]>();
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript filename="json.schemas.native.js" showLineNumbers
 import typia from "typia";
 ({
@@ -452,5 +452,5 @@ import typia from "typia";
   ],
 });
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>

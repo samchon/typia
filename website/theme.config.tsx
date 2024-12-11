@@ -1,4 +1,4 @@
-import { DocsThemeConfig } from "nextra-theme-docs";
+import { DocsThemeConfig, useConfig } from "nextra-theme-docs";
 import React from "react";
 
 const config: DocsThemeConfig = {
@@ -28,7 +28,7 @@ const config: DocsThemeConfig = {
   },
   docsRepositoryBase: "https://github.com/samchon/typia/blob/master/website",
   footer: {
-    text: () => (
+    content: () => (
       <span>
         Released under the MIT License.
         <br />
@@ -45,77 +45,43 @@ const config: DocsThemeConfig = {
       </span>
     ),
   },
-  useNextSeoProps() {
-    return {
-      defaultTitle: "Typia Guide Documents",
-      titleTemplate: "Typia Guide Documents - %s",
-      description: "Superfast Runtime Validator with only one line",
-      additionalLinkTags: [
-        {
-          rel: "apple-touch-icon",
-          sizes: "180x180",
-          href: "/favicon/apple-touch-icon.png",
-        },
-        {
-          rel: "manifest",
-          href: "/favicon/site.webmanifest",
-        },
-        ...[16, 32].map((size) => ({
-          rel: "icon",
-          type: "image/png",
-          sizes: `${size}x${size}`,
-          href: `/favicon/favicon-${size}x${size}.png`,
-        })),
-      ],
-      additionalMetaTags: [
-        {
-          property: "og:image",
-          content: "/og.jpg",
-        },
-        {
-          property: "og:type",
-          content: "object",
-        },
-        {
-          property: "og:title",
-          content: "Typia Guide Documents",
-        },
-        {
-          property: "og:description",
-          content: "Superfast Runtime Validator with only one line",
-        },
-        {
-          property: "og:site_name",
-          content: "Typia Guide Documents",
-        },
-        {
-          property: "og:url",
-          content: "https://typia.io",
-        },
-        {
-          name: "twitter:card",
-          content: "summary",
-        },
-        {
-          name: "twitter:image",
-          content: "https://typia.io/og.jpg",
-        },
-        {
-          name: "twitter:title",
-          content: "Typia Guide Documents",
-        },
-        {
-          name: "twitter:description",
-          content: "Superfast Runtime Validator with only one line",
-        },
-        {
-          name: "twitter:site",
-          content: "@SamchonGithub",
-        },
-      ],
-    };
+  head: () => {
+    const config = useConfig();
+    return (
+      <>
+        <title>Typia Guide Documents - {config.title}</title>
+        <link rel="manifest" href="/favicon/site.webmanifest" />
+        {/* ICONS */}
+        <link
+          rel="apple-touch-icon"
+          sizes="180x180"
+          href="/favicon/apple-touch-icon.png"
+        />
+        {[16, 32].map((size) => (
+          <link
+            key={size}
+            rel="icon"
+            type="image/png"
+            sizes={`${size}x${size}`}
+            href={`/favicon/favicon-${size}x${size}.png`}
+          />
+        ))}
+        {/* OG */}
+        <meta name="og:type" content="object" />
+        <meta name="og:site_name" content="Typia Guide Documents" />
+        <meta name="og:url" content="https://typia.io" />
+        <meta name="og:image" content="/og.jpg" />
+        <meta name="og:title" content="Typia Guide Documents" />
+        <meta name="og:description" content="TypeScript Type Framework" />
+        {/* TWITTER */}
+        <meta name="twitter:card" content="summary" />
+        <meta name="twitter:site" content="@SamchonGithub" />
+        <meta name="twitter:image" content="https://typia.io/og.jpg" />
+        <meta name="twitter:title" content="Typia Guide Documents" />
+        <meta name="twitter:description" content="TypeScript Type Framework" />
+      </>
+    );
   },
-  head: <></>,
 };
 
 export default config;

@@ -1,4 +1,4 @@
-import { Tabs, Tab } from 'nextra-theme-docs'
+import { Tabs } from 'nextra/components'
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 
@@ -9,7 +9,7 @@ import AlertTitle from '@mui/material/AlertTitle';
   <code>IValidation.ts</code>,
   <code>Resolved.ts</code>
 ]}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript showLineNumbers
 export namespace protobuf {
   export function encode<T>(input: T): Uint8Array;
@@ -18,8 +18,8 @@ export namespace protobuf {
   export function validateEncode<T>(input: T): IValidation<Uint8Array>;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript showLineNumbers
 export class TypeGuardError extends Error {
   public readonly method: string;
@@ -28,8 +28,8 @@ export class TypeGuardError extends Error {
   public readonly value: any;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript showLineNumbers
 export type IValidation<T> = IValidation.ISuccess<T> | IValidation.IFailure;
 export namespace IValidation {
@@ -49,8 +49,8 @@ export namespace IValidation {
   }
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript filename="typia/Resolved.ts" showLineNumbers
 /**
  * Resolved type erased every methods.
@@ -171,7 +171,7 @@ interface IValueOf<T> {
   valueOf(): T;
 }
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 Protocol Buffer Encoder.
@@ -195,7 +195,7 @@ By the way, `typia.protobuf.encode<T>()` function does not validate the `input` 
 </Alert>
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy filename="protobuf.encode.ts" showLineNumbers
 import typia, { tags } from "typia";
 
@@ -223,8 +223,8 @@ interface IHobby {
   valid: boolean;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript copy filename="protobuf.encode.js" showLineNumbers
 import * as __typia_transform__randomString from "typia/lib/internal/_randomString.js";
 import * as __typia_transform__randomInteger from "typia/lib/internal/_randomInteger.js";
@@ -508,7 +508,7 @@ const byte = (() => {
 })()(member);
 console.log(byte);
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 
@@ -520,7 +520,7 @@ console.log(byte);
   <code>IValidation.ts</code>,
   <code>Resolved.ts</code>
 ]}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript showLineNumbers
 export namespace protobuf {
   export function encode<T>(): (input: T) => Uint8Array;
@@ -529,8 +529,8 @@ export namespace protobuf {
   export function validateEncode<T>(): (input: T) => IValidation<Uint8Array>;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript showLineNumbers
 export class TypeGuardError extends Error {
   public readonly method: string;
@@ -539,8 +539,8 @@ export class TypeGuardError extends Error {
   public readonly value: any;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript showLineNumbers
 export type IValidation<T> = IValidation.ISuccess<T> | IValidation.IFailure;
 export namespace IValidation {
@@ -560,8 +560,8 @@ export namespace IValidation {
   }
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript showLineNumbers
 /**
  * Resolved type erased every methods.
@@ -682,7 +682,7 @@ interface IValueOf<T> {
   valueOf(): T;
 }
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 Reusable `typia.protobuf.encode<T>()` function generators.
@@ -692,7 +692,7 @@ If you repeat to call `typia.protobuf.encode<T>()` function on the same type, si
 Just look at the code below, then you may understand how to use it.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy filename="protobuf.createEncode.ts" showLineNumbers
 import typia, { tags } from "typia";
 
@@ -718,8 +718,8 @@ interface IHobby {
   valid: boolean;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript copy filename="protobuf.createEncode.js" showLineNumbers
 import * as __typia_transform__throwTypeGuardError from "typia/lib/internal/_throwTypeGuardError.js";
 import * as __typia_transform__isTypeUint64 from "typia/lib/internal/_isTypeUint64.js";
@@ -864,7 +864,7 @@ export const encode = (() => {
   };
 })();
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 

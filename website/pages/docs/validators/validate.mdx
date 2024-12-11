@@ -1,4 +1,4 @@
-import { Tabs, Tab } from 'nextra-theme-docs'
+import { Tabs } from 'nextra/components'
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 
@@ -7,13 +7,13 @@ import AlertTitle from '@mui/material/AlertTitle';
   <code>typia</code>, 
   <code>IValidation.ts</code>,
 ]}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy
 export function validate<T>(input: T): IValidation<T>;
 export function validate<T>(input: unknown): IValidation<T>;
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript copy
 export type IValidation<T> = IValidation.ISuccess<T> | IValidation.IFailure;
 export namespace IValidation {
@@ -33,7 +33,7 @@ export namespace IValidation {
   }
 }
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 Validates a value type.
@@ -67,7 +67,7 @@ Yeah, `typia` needs only pure TypeScript type. As `typia` is a compiler library,
 </Alert>
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy filename="examples/src/validate.ts" showLineNumbers
 import typia, { tags } from "typia";
 
@@ -88,8 +88,8 @@ interface IMember {
     tags.Maximum<100>;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript filename="examples/bin/validate.js" showLineNumbers
 import * as __typia_transform__isFormatUuid from "typia/lib/internal/_isFormatUuid.js";
 import * as __typia_transform__isFormatEmail from "typia/lib/internal/_isFormatEmail.js";
@@ -199,7 +199,7 @@ const res = (() => {
 });
 if (!res.success) console.log(res.errors);
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 
@@ -210,13 +210,13 @@ if (!res.success) console.log(res.errors);
   <code>typia</code>, 
   <code>IValidation.ts</code>,
 ]}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy
 export function validateEquals<T>(input: T): IValidation<T>;
 export function validateEquals<T>(input: unknown): IValidation<T>;
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript copy
 export type IValidation<T> = IValidation.ISuccess<T> | IValidation.IFailure;
 export namespace IValidation {
@@ -236,7 +236,7 @@ export namespace IValidation {
   }
 }
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 More strict validatae function prohibiting superfluous properties.
@@ -255,7 +255,7 @@ In the below example case, as `id` property is different with its type definitio
     - `value`: `1`
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy filename="examples/src/validateEquals.ts" showLineNumbers
 import typia, { tags } from "typia";
 
@@ -277,8 +277,8 @@ interface IMember {
     tags.Maximum<100>;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript filename="examples/bin/validateEquals.js" showLineNumbers
 import * as __typia_transform__isFormatUuid from "typia/lib/internal/_isFormatUuid.js";
 import * as __typia_transform__isFormatEmail from "typia/lib/internal/_isFormatEmail.js";
@@ -416,7 +416,7 @@ const res = (() => {
 });
 if (!res.success) console.log(res.errors);
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 
@@ -427,13 +427,13 @@ if (!res.success) console.log(res.errors);
   <code>typia</code>, 
   <code>IValidation.ts</code>,
 ]}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy
 export function createValidate<T> = (input: unknown) => IValidation<T>;
 export function createValidateEquals<T> = (input: unknown) => IValidation<T>;
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript copy
 export type IValidation<T> = IValidation.ISuccess<T> | IValidation.IFailure;
 export namespace IValidation {
@@ -453,7 +453,7 @@ export namespace IValidation {
   }
 }
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 Reusable `typia.validate<T>()` function generators.
@@ -463,7 +463,7 @@ If you repeat to call `typia.validate<T>()` function on the same type, size of J
 Just look at the code below, then you may understand how to use it.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy filename="examples/src/createValidate.ts" showLineNumbers
 import typia, { tags } from "typia";
 
@@ -478,8 +478,8 @@ interface IMember {
     tags.Maximum<100>;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript filename="examples/bin/createValidate.js" showLineNumbers
 import * as __typia_transform__isFormatUuid from "typia/lib/internal/_isFormatUuid.js";
 import * as __typia_transform__isFormatEmail from "typia/lib/internal/_isFormatEmail.js";
@@ -584,7 +584,7 @@ export const validateMember = (() => {
   };
 })();
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 
@@ -615,14 +615,14 @@ If JS native class type like `Date`, `Uint8Array`, or `Map<Key, T>` being utiliz
 Therefore, the `instanceof` statement does not be used only for the user-defined classes.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy filename="examples/src/is-map.ts" showLineNumbers
 import typia from "typia";
 
 typia.createIs<Map<string, boolean | number | string>>();
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript filename="examples/bin/is-map.js" showLineNumbers
 import typia from "typia";
 (() => {
@@ -640,7 +640,7 @@ import typia from "typia";
       ))();
 })();
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 
@@ -653,14 +653,14 @@ import typia from "typia";
   ]}
   defaultIndex={1}
 >
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy
 export function validate<T>(input: T): IValidation<T>;
 export function validate<T>(input: unknown): IValidation<T>;
 export function createValidate<T>(): (input: unknown) => IValidation<T>;
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript copy
 export type IValidation<T> = IValidation.ISuccess<T> | IValidation.IFailure;
 export namespace IValidation {
@@ -680,7 +680,7 @@ export namespace IValidation {
   }
 }
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 Specify type through if condition.
@@ -721,7 +721,7 @@ If you want to know about such special tags detaily, read below article:
     - [Customization](./tags/#customization)
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy filename="examples/src/validate-custom-tags.ts" showLineNumbers
 import typia, { tags } from "typia";
 
@@ -764,8 +764,8 @@ interface Something {
   isEven: number & IsEven<number>;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript filename="examples/bin/validate-custom-tags.js" showLineNumbers
 import typia from "typia";
 export const validateSomething = (() => {
@@ -853,7 +853,7 @@ export const validateSomething = (() => {
   };
 })();
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 
