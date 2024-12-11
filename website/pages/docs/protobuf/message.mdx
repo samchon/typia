@@ -1,4 +1,4 @@
-import { Tabs, Tab } from 'nextra-theme-docs'
+import { Tabs } from 'nextra/components'
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 
@@ -7,13 +7,13 @@ import AlertTitle from '@mui/material/AlertTitle';
 <Tabs items={[
   <code>typia</code>
 ]}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript
 export namespace protobuf {
   export function message<T>(): string;
 }
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 `typia.protobuf.message()` function returns a Protocol Buffer message (structure) as a string value.
@@ -21,7 +21,7 @@ export namespace protobuf {
 With this `message()` function, you can share `*.proto` files with other languages. If you want to customize byte order or define specific type (that is not supported in the TypeScript) like `uint32`, use comment tags by following [comment tags](#comment-tags) section.
 
 <Tabs items={["TypeScript Source Code", "Compiled JavaScript File"]}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript filename="examples/src/protobuf.message.ts" showLineNumbers copy
 import typia, { tags } from "typia";
 
@@ -47,8 +47,8 @@ interface IHobby {
   valid: boolean;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript filename="examples/src/protobuf.message.js" showLineNumbers
 import typia from "typia";
 [
@@ -78,7 +78,7 @@ import typia from "typia";
   "}",
 ].join("\n");
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 
@@ -101,7 +101,7 @@ When you take a mistake that choosing different target type, TypeScript compiler
     - `bigint` is `uint64`
 
 <Tabs items={["TypeScript Source Code", "Compiled JavaScript File"]}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript filename="examples/src/protobuf.type.ts" showLineNumbers copy
 import typia, { tags } from "typia";
 
@@ -144,8 +144,8 @@ typia.protobuf.createDecode<TypeTagExample>();
 //----
 typia.protobuf.createEncode<TypeTagExample>();
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript filename="examples/bin/protobuf.type.js" showLineNumbers
 import * as __typia_transform__ProtobufReader from "typia/lib/internal/_ProtobufReader.js";
 import * as __typia_transform__throwTypeGuardError from "typia/lib/internal/_throwTypeGuardError.js";
@@ -441,7 +441,7 @@ import typia from "typia";
   };
 })();
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 By the way, how to specify the byte order of each properties?
@@ -451,7 +451,7 @@ Even though `typia` automatically assigns byte order to each properties, but in 
 In that case, you can specify the byte order of each properties by utilizing the `tags.Sequence<N>` type like below. If you have to define some union typed properties, combine the `tags.Sequence<N>` type with intersection symbol `&` to the target type.
 
 <Tabs items={["TypeScript Source Code", "Compiled JavaScript File"]}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript filename="examples/src/protobuf.sequence.ts" showLineNumbers copy
 import typia, { tags } from "typia";
 
@@ -504,8 +504,8 @@ typia.protobuf.createDecode<TypeTagExample>();
 //----
 typia.protobuf.createEncode<TypeTagExample>();
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript filename="examples/bin/protobuf.sequence.js" showLineNumbers
 import * as __typia_transform__ProtobufReader from "typia/lib/internal/_ProtobufReader.js";
 import * as __typia_transform__throwTypeGuardError from "typia/lib/internal/_throwTypeGuardError.js";
@@ -803,7 +803,7 @@ import typia from "typia";
   };
 })();
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 
@@ -831,7 +831,7 @@ Second, to support [Prisma](../utilization/prisma). If a comment is created in t
 </Alert>
 
 <Tabs items={["TypeScript Source Code", "Protobuf Schema", "Compiled JavaScript File"]}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript filename="CommentTagExample.ts" showLineNumbers copy
 import typia from "typia";
 
@@ -881,8 +881,8 @@ typia.protobuf.createDecode<CommentTagExample>();
 //----
 typia.protobuf.createEncode<CommentTagExample>();
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```proto filename="CommentTagExample.proto" showLineNumbers copy
 syntax = "proto3";
 
@@ -896,8 +896,8 @@ message CommentTagExample {
   required string string = 7;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript filename="CommentTagExample.js" showLineNumbers
 import * as __typia_transform__ProtobufReader from "typia/lib/internal/_ProtobufReader.js";
 import * as __typia_transform__ProtobufSizer from "typia/lib/internal/_ProtobufSizer.js";
@@ -1027,7 +1027,7 @@ import typia from "typia";
   };
 })();
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 
@@ -1045,7 +1045,7 @@ At first, top level type must be a sole and static object.
 If you try to use `number` or `Array<T>` type as a top level type, `typia` will generate compile error like below. Dynamic object types like `Record<string, T>`, or `Map<string, T>` types are not allowed either. For reference, the sole object means that, union of object types is not allowed, either.
 
 <Tabs items={["TypeScript Source Code", "Console Output"]}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript showLineNumbers copy
 import typia from "typia";
 
@@ -1066,8 +1066,8 @@ typia.protobuf.createDecode<Map<number & typia.tags.Type<"float">, Dog>>();
 typia.protobuf.createEncode<boolean[]>();
 typia.protobuf.createEncode<Cat | Dog>();
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```bash
 main.ts:14:1 - error TS(typia.protobuf.message): unsupported type detected
 
@@ -1097,7 +1097,7 @@ main.ts:18:1 - error TS(typia.protobuf.typia.protobuf.createEncode): unsupported
 - (Cat | Dog)
   - target type must be a sole and static object type
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 At next, in Protocol Buffer, those types are categorized as container types.
@@ -1111,7 +1111,7 @@ Also, those container types does not allow over two-dimensional stacking. Theref
 Additionally, about `Map<Key, T>` type, key type must be an atomic type. It means that, only `boolean`, `number`, `bigint` and `string` types are allowed. Also, key type cannot be union type, either.
 
 <Tabs items={["TypeScript Source Code", "Console Output"]}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript showLineNumbers copy
 import typia from "typia";
 
@@ -1136,8 +1136,8 @@ typia.protobuf.createDecode<IPointer<Map<string, Cat | Dog>>>();
 typia.protobuf.message<IPointer<Map<Cat, string>>>();
 typia.protobuf.message<IPointer<Map<number | string, Dog>>>();
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```bash
 main.ts:17:1 - error TS(typia.protobuf.message): unsupported type detected
 
@@ -1165,7 +1165,7 @@ main.ts:22:1 - error TS(typia.protobuf.message): unsupported type detected
   - does not support union key typed map
   - does not support non-atomic key typed map
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 At last, those types are all not allowed.
@@ -1180,7 +1180,7 @@ At last, those types are all not allowed.
     - `ArrayBuffer`, `SharedArrayBuffer` and `DataView`
 
 <Tabs items={["TypeScript Source Code", "Console Output"]}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript showLineNumbers copy
 import typia from "typia";
 
@@ -1196,8 +1196,8 @@ interface Something {
 
 typia.protobuf.message<Something>();
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```bash
 main.ts:13:1 - error TS(typia.protobuf.message): unsupported type detected
 
@@ -1224,5 +1224,5 @@ main.ts:13:1 - error TS(typia.protobuf.message): unsupported type detected
 - Something.buffer: ArrayBuffer
   - does not support ArrayBuffer type. Use Uint8Array type instead.
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>

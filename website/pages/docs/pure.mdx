@@ -1,4 +1,4 @@
-import { Tabs, Tab } from 'nextra-theme-docs'
+import { Tabs } from 'nextra/components'
 
 # Pure TypeScript
 ## Outline
@@ -43,7 +43,7 @@ This is the power of `typia`, with pure TypeScript type.
     <code>typia</code> <sub>(Pure TypeScript)</sub>
   </span>
 ]}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript filename="BbsArticle.ts" showLineNumbers {24-35}
 import { ApiProperty } from "@nestjs/swagger";
 import {
@@ -139,8 +139,8 @@ export class AttachmentFile {
   url!: string;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```json filename="BbsArticle.json" showLineNumbers {18-26}
 {
   "schemas": [
@@ -234,8 +234,8 @@ export class AttachmentFile {
   "surplus": false
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript filename="IBbsArticle.ts" showLineNumbers {9-12}
 import typia, { tags } from "typia";
 
@@ -283,7 +283,7 @@ export interface IAttachmentFile {
   url: string;
 }
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 
@@ -310,7 +310,7 @@ Such compile time optimization is called AOT (Ahead of Time) compilation. And th
     'Compiled JavaScript File'
   ]}
   defaultIndex={1}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy filenam="IBbsArticle.ts" showLineNumbers
 import typia, { tags } from "typia";
 
@@ -358,8 +358,8 @@ export interface IAttachmentFile {
   url: string;
 }
 ```
-    </Tab>
-    <Tab>
+    </Tabs.Tab>
+    <Tabs.Tab>
 ```typescript filename="assertArticle.ts" showLineNumbers
 import typia from "typia";
 
@@ -367,8 +367,8 @@ import { IBbsArticle } from "./IBbsArticle";
 
 export const assertArticle = typia.createAssert<IBbsArticle>();
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript filename="assertArticle.js" showLineNumbers
 import * as __typia_transform__isFormatUuid from "typia/lib/internal/_isFormatUuid.js";
 import * as __typia_transform__isFormatDateTime from "typia/lib/internal/_isFormatDateTime.js";
@@ -655,7 +655,7 @@ export const assertArticle = (() => {
   };
 })();
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 ![Assert Function Benchmark](https://github.com/samchon/typia/raw/master/benchmark/results/AMD%20Ryzen%209%207940HS%20w%20Radeon%20780M%20Graphics/images/assert.svg)

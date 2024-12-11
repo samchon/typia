@@ -1,4 +1,4 @@
-import { Tabs, Tab } from 'nextra-theme-docs'
+import { Tabs } from 'nextra/components'
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 
@@ -7,7 +7,7 @@ import AlertTitle from '@mui/material/AlertTitle';
   <code>typia</code>,
   <code>TypeGuardError.ts</code>
 ]}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript showLineNumbers
 export namespace functional {
   export function assertFunction<T extends Function>(func: T): T;
@@ -19,8 +19,8 @@ export namespace functional {
   export function assertEqualsReturn<T extends Function>(func: T): T;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript showLineNumbers
 export class TypeGuardError extends Error {
   public readonly method: string;
@@ -29,7 +29,7 @@ export class TypeGuardError extends Error {
   public readonly value: any;
 }
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 Asserts a function.
@@ -46,7 +46,7 @@ By the way, if you don't want to assert both paramters and return value, but one
 Also, if what you want is not just finding the first type error through assertion, but also finding every type errors, utilize [`typia.functional.validateFunction<T>()`](#validatefunction) function instead. Otherwise, you don't need the reason why, but just want to know whether the function is valid or not, use [`typia.functional.isFunction<T>()`](#isfunction) function.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy filename="examples/src/assertFunction.ts" showLineNumbers
 import typia from "typia";
 
@@ -56,8 +56,8 @@ const func = typia.functional.assertFunction(
 func(3, 4);
 func(4, 5);
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript filename="examples/bin/assertFunction.js" showLineNumbers
 import * as __typia_transform__functionalTypeGuardErrorFactory from "typia/lib/internal/_functionalTypeGuardErrorFactory.js";
 import * as __typia_transform__assertGuard from "typia/lib/internal/_assertGuard.js";
@@ -165,7 +165,7 @@ const func = (() => {
 func(3, 4);
 func(4, 5);
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 
@@ -199,7 +199,7 @@ By the way, if you don't want to test both paramters and return value, but one o
 Also, if what you want is not just type checking, but want to know the detailed reason(s) why, utilize [`typia.functional.assertFunction<T>`()](#assertfunction) or [`typia.functional.validateFunction<T>()`](#validatefunction) instead.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy filename="examples/src/isFunction.ts" showLineNumbers
 import typia from "typia";
 
@@ -209,8 +209,8 @@ const func = typia.functional.isFunction(
 func(3, 4);
 func(4, 5);
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript filename="examples/bin/isFunction.js" showLineNumbers
 import typia from "typia";
 import typia from "typia";
@@ -234,7 +234,7 @@ const func = (() => {
 func(3, 4);
 func(4, 5);
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 Validates a function.
@@ -251,7 +251,7 @@ By the way, if you don't want to validate both paramters and return value, but o
 Also, if what you want is not retrieving every type errors, but just finding the first type error, utilize [`typia.functional.assertFunction<T>()`](#assertfunction) function instead. Otherwise, you don't need the reason why, but just want to know whether the function is valid or not, use [`typia.functional.isFunction<T>()`](#isfunction) function.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy filename="examples/src/validateFunction.ts" showLineNumbers
 import typia from "typia";
 
@@ -261,8 +261,8 @@ const func = typia.functional.validateFunction(
 func(3, 4);
 func(4, 5);
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript filename="examples/bin/validateFunction.js" showLineNumbers
 import * as __typia_transform__validateReport from "typia/lib/internal/_validateReport.js";
 import typia from "typia";
@@ -385,5 +385,5 @@ const func = (() => {
 func(3, 4);
 func(4, 5);
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>

@@ -1,4 +1,4 @@
-import { Tabs, Tab } from 'nextra-theme-docs'
+import { Tabs } from 'nextra/components'
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 
@@ -12,7 +12,7 @@ import AlertTitle from '@mui/material/AlertTitle';
   <code>IValidation.ts</code>,
   <code>Resolved.ts</code>
 ]}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript
 export namespace misc {
   export function clone<T>(input: T): T;
@@ -28,8 +28,8 @@ export namespace misc {
   ) => IValidation<Resolved<T>>;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript
 export class TypeGuardError extends Error {
   public readonly method: string;
@@ -38,8 +38,8 @@ export class TypeGuardError extends Error {
   public readonly value: any;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript
 export type IValidation<T> = IValidation.ISuccess<T> | IValidation.IFailure;
 export namespace IValidation {
@@ -59,8 +59,8 @@ export namespace IValidation {
   }
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript
 /**
  * Resolved type erased every methods.
@@ -181,7 +181,7 @@ interface IValueOf<T> {
   valueOf(): T;
 }
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 Deep copy functions.
@@ -193,7 +193,7 @@ When you want to copy an instance, just call `typia.misc.clone()` function. It w
   - `typia.misc.validateClone()`: [`typia.validate<T>()`](./validators/validate) + `typia.misc.clone<T>()`
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy filename="examples/src/assertClone.ts" showLineNumbers {4}
 import typia from "typia";
 
@@ -237,8 +237,8 @@ interface IClerk {
   joined_at: string;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript filename="examples/bin/assertClone.js" showLineNumbers {67-325}
 import * as __typia_transform__randomFormatUuid from "typia/lib/internal/_randomFormatUuid.js";
 import * as __typia_transform__randomString from "typia/lib/internal/_randomString.js";
@@ -571,7 +571,7 @@ const cloned = (() => {
 })()(department);
 console.log(cloned);
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 ### `prune()` functions
@@ -580,7 +580,7 @@ console.log(cloned);
   <code>TypeGuardError.ts</code>, 
   <code>IValidation.ts</code>
 ]}>
-    <Tab>
+    <Tabs.Tab>
 ```typescript
 export function prune<T>(input: T): void;
 export function assertPrune<T>(input: T | unknown): T;
@@ -592,8 +592,8 @@ export function createAssertPrune<T>(): (input: T | unknown) => T;
 export function createIsPrune<T>(): (input: T | unknown) => T | null;
 export function createValidatePrune<T>(): (input: T | unknown) => IValidation<T>;
 ```
-    </Tab>
-    <Tab>
+    </Tabs.Tab>
+    <Tabs.Tab>
 ```typescript
 export class TypeGuardError extends Error {
   public readonly method: string;
@@ -602,8 +602,8 @@ export class TypeGuardError extends Error {
   public readonly value: any;
 }
 ```
-    </Tab>
-    <Tab>
+    </Tabs.Tab>
+    <Tabs.Tab>
 ```typescript
 export type IValidation<T = unknown> =
   | IValidation.ISuccess<T>
@@ -625,7 +625,7 @@ export namespace IValidation {
   }
 }
 ```
-    </Tab>
+    </Tabs.Tab>
 </Tabs>
 
 Deep prune functions.
@@ -637,7 +637,7 @@ When you want to remove every extra properties that are not defined in the type 
   - `typia.misc.validatePrune()`: [`typia.validate<T>()`](./validators/validate) + `typia.misc.prune<T>()`
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy filename="examples/src/assertPrune.ts" showLineNumbers {4}
 import typia from "typia";
 
@@ -680,8 +680,8 @@ interface IClerk {
   joined_at: string;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript filename="examples/bin/assertPrune.js" showLineNumbers {67-334}
 import * as __typia_transform__randomFormatUuid from "typia/lib/internal/_randomFormatUuid.js";
 import * as __typia_transform__randomString from "typia/lib/internal/_randomString.js";
@@ -1031,7 +1031,7 @@ const pruned = (() => {
 })()(department);
 console.log(pruned);
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 ### `literals()` function
@@ -1048,19 +1048,19 @@ Union literal type to array.
 When you call `typia.misc.literals<T>()` function with union literal type, it returns an array of literal values listed in the generic `T` argument. This `typia.misc.literals<T>` function is useful when you are developing test program, especially handling some discriminated union types.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript filename="examples/src/literals.ts" showLineNumbers
 import typia from "typia";
 
 typia.misc.literals<"A" | "B" | "C" | 1 | 2n>();
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript filename="examples/bin/literals.js" showLineNumbers
 import typia from "typia";
 ["A", "B", "C", 1, BigInt(2)];
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 
@@ -1074,7 +1074,7 @@ import typia from "typia";
   <code>IValidation.ts</code>,
   <code>CamelCase.ts</code>
 ]}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript
 export namespace notations {
   export function camel<T>(input: T): CamelCase<T>;
@@ -1094,8 +1094,8 @@ export namespace notations {
   ) => IValidation<CamelCase<T>>;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript
 export class TypeGuardError extends Error {
   public readonly method: string;
@@ -1104,8 +1104,8 @@ export class TypeGuardError extends Error {
   public readonly value: any;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript
 export type IValidation<T> = IValidation.ISuccess<T> | IValidation.IFailure;
 export namespace IValidation {
@@ -1125,8 +1125,8 @@ export namespace IValidation {
   }
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript
 /**
  * Camel case type.
@@ -1247,7 +1247,7 @@ type CamelizeStringRepeatedly<Key extends string> =
     ? `${F}${Capitalize<CamelizeStringRepeatedly<R>>}`
     : Key;
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 Camel case converters.
@@ -1261,7 +1261,7 @@ When you need type safe functions, you can utilize below them.
   - `typia.notations.validateCamel<T>`: [`typia.validate<T>()`](./validators/validate) + `typia.notations.camel<T>()`
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript filename="examples/src/camel.ts" showLineNumbers {}
 import typia from "typia";
 
@@ -1272,8 +1272,8 @@ interface IPerson {
 }
 typia.notations.createCamel<IPerson>();
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript filename="examples/bin/camel.js" showLineNumbers
 import typia from "typia";
 (() => {
@@ -1286,7 +1286,7 @@ import typia from "typia";
     "object" === typeof input && null !== input ? $co0(input) : input;
 })();
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 ### `pascal()` functions
@@ -1296,7 +1296,7 @@ import typia from "typia";
   <code>IValidation.ts</code>,
   <code>PascalCase.ts</code>
 ]}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript
 export namespace notations {
   export function pascal<T>(input: T): PascalCase<T>;
@@ -1318,8 +1318,8 @@ export namespace notations {
   ) => IValidation<PascalCase<T>>;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript
 export class TypeGuardError extends Error {
   public readonly method: string;
@@ -1328,8 +1328,8 @@ export class TypeGuardError extends Error {
   public readonly value: any;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript
 export type IValidation<T> = IValidation.ISuccess<T> | IValidation.IFailure;
 export namespace IValidation {
@@ -1349,8 +1349,8 @@ export namespace IValidation {
   }
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript
 /**
  * Pascal case type.
@@ -1471,7 +1471,7 @@ type PascalizeStringRepeatedly<Key extends string> =
     ? `${F}${Capitalize<PascalizeStringRepeatedly<R>>}`
     : Key;
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 Pascal case converters.
@@ -1485,7 +1485,7 @@ When you need type safe functions, you can utilize below them.
   - `typia.notations.validatePascal<T>`: [`typia.validate<T>()`](./validators/validate) + `typia.notations.pascal<T>()`
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript filename="examples/src/pascal.ts" showLineNumbers {}
 import typia from "typia";
 
@@ -1496,8 +1496,8 @@ interface IPerson {
 }
 typia.notations.createPascal<IPerson>();
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript filename="examples/bin/pascal.js" showLineNumbers
 import typia from "typia";
 (() => {
@@ -1510,7 +1510,7 @@ import typia from "typia";
     "object" === typeof input && null !== input ? $co0(input) : input;
 })();
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 ### `snake()` functions
@@ -1520,7 +1520,7 @@ import typia from "typia";
   <code>IValidation.ts</code>,
   <code>SnakeCase.ts</code>
 ]}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript
 export namespace notations {
   export function snake<T>(input: T): SnakeCase<T>;
@@ -1540,8 +1540,8 @@ export namespace notations {
   ) => IValidation<SnakeCase<T>>;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript
 export class TypeGuardError extends Error {
   public readonly method: string;
@@ -1550,8 +1550,8 @@ export class TypeGuardError extends Error {
   public readonly value: any;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript
 export type IValidation<T> = IValidation.ISuccess<T> | IValidation.IFailure;
 export namespace IValidation {
@@ -1571,8 +1571,8 @@ export namespace IValidation {
   }
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript
 /**
  * Snake case type.
@@ -1733,7 +1733,7 @@ type UpperAlphabetic =
   | "Y"
   | "Z";
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 Snake case converters.
@@ -1747,7 +1747,7 @@ When you need type safe functions, you can utilize below them.
   - `typia.notations.validateSnake<T>`: [`typia.validate<T>()`](./validators/validate) + `typia.notations.snake<T>()`
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript filename="examples/src/snake.ts" showLineNumbers {}
 import typia from "typia";
 
@@ -1758,8 +1758,8 @@ interface IPerson {
 }
 typia.notations.createSnake<IPerson>();
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript filename="examples/bin/snake.js" showLineNumbers
 import typia from "typia";
 (() => {
@@ -1772,7 +1772,7 @@ import typia from "typia";
     "object" === typeof input && null !== input ? $co0(input) : input;
 })();
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 ## `http` module
@@ -1797,7 +1797,7 @@ import typia from "typia";
   <code>IValidation.ts</code>,
   <code>Resolved.ts</code>
 ]}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript
 export namespace http {
   export function query<T extends object>(input: Query): Resolved<T>;
@@ -1822,8 +1822,8 @@ export namespace http {
 }
 type Query = string | URLSearchParams;
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript
 export class TypeGuardError extends Error {
   public readonly method: string;
@@ -1832,8 +1832,8 @@ export class TypeGuardError extends Error {
   public readonly value: any;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript
 export type IValidation<T> = IValidation.ISuccess<T> | IValidation.IFailure;
 export namespace IValidation {
@@ -1853,8 +1853,8 @@ export namespace IValidation {
   }
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript
 /**
  * Resolved type erased every methods.
@@ -1975,7 +1975,7 @@ interface IValueOf<T> {
   valueOf(): T;
 }
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 URL query decoder functions.
@@ -1996,7 +1996,7 @@ Also, `typia.http.query<T>()` function does not perform validation about the dec
   - `typia.http.validateQuery<T>()`: [`typia.validate<T>()`](./validators/validate) + `typia.http.query<T>()`
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript filename="examples/src/query.ts" showLineNumbers {}
 import typia from "typia";
 
@@ -2009,8 +2009,8 @@ interface IQuery {
 }
 typia.http.createQuery<IQuery>();
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript filename="examples/bin/query.js" showLineNumbers
 import * as __typia_transform__httpQueryParseURLSearchParams from "typia/lib/internal/_httpQueryParseURLSearchParams.js";
 import * as __typia_transform__httpQueryReadNumber from "typia/lib/internal/_httpQueryReadNumber.js";
@@ -2053,7 +2053,7 @@ import typia from "typia";
   };
 })();
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 ### `headers()` functions
@@ -2063,7 +2063,7 @@ import typia from "typia";
   <code>IValidation.ts</code>,
   <code>Resolved.ts</code>
 ]}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript
 export namespace http {
   export function headers<T extends object>(input: Headers): Resolved<T>;
@@ -2090,8 +2090,8 @@ export namespace http {
 }
 type Headers = Record<string, string | string[] | undefined>;
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript
 export class TypeGuardError extends Error {
   public readonly method: string;
@@ -2100,8 +2100,8 @@ export class TypeGuardError extends Error {
   public readonly value: any;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript
 export type IValidation<T> = IValidation.ISuccess<T> | IValidation.IFailure;
 export namespace IValidation {
@@ -2121,8 +2121,8 @@ export namespace IValidation {
   }
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript
 /**
  * Resolved type erased every methods.
@@ -2243,7 +2243,7 @@ interface IValueOf<T> {
   valueOf(): T;
 }
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 Headers decoder (for express and fastify).
@@ -2286,7 +2286,7 @@ Also, `typia.http.headers<t>()` function does not perform validation about the d
   - `typia.http.validateHeaders<T>()`: [`typia.validate<T>()`](./validators/validate) + `typia.http.headers<T>()`
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript filename="examples/src/headers.ts" showLineNumbers {}
 import typia from "typia";
 
@@ -2300,8 +2300,8 @@ interface IHeaders {
 }
 typia.http.createHeaders<IHeaders>();
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript filename="examples/bin/headers.js" showLineNumbers
 import * as __typia_transform__httpHeaderReadNumber from "typia/lib/internal/_httpHeaderReadNumber.js";
 import * as __typia_transform__httpHeaderReadBoolean from "typia/lib/internal/_httpHeaderReadBoolean.js";
@@ -2339,7 +2339,7 @@ import typia from "typia";
   };
 })();
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 ### `parameter()` functions
@@ -2347,7 +2347,7 @@ import typia from "typia";
   <code>typia</code>, 
   <code>TypeGuardError.ts</code>, 
 ]}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript
 export namespace http {
   export function parameter<T extends Atomic.Type | null>(input: string): T;
@@ -2356,8 +2356,8 @@ export namespace http {
   ) => T;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript
 export class TypeGuardError extends Error {
   public readonly method: string;
@@ -2366,7 +2366,7 @@ export class TypeGuardError extends Error {
   public readonly value: any;
 }
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 URL path parameter decoder.
@@ -2376,15 +2376,15 @@ URL path parameter decoder.
 Also, `typia.http.parameter<T>()` performs type assertion to the decoded value by combining with assert function. Therefore, when the decoded value is not following the `T` type, `TypeGuardError` would be thrown.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript filename="examples/src/parameter.ts" showLineNumbers {}
 import typia, { tags } from "typia";
 
 typia.http.createParameter<string & tags.Format<"uuid">>();
 typia.http.createParameter<number & tags.Type<"uint32">>();
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript filename="examples/bin/parameter.js" showLineNumbers
 import * as __typia_transform__isFormatUuid from "typia/lib/internal/_isFormatUuid.js";
 import * as __typia_transform__assertGuard from "typia/lib/internal/_assertGuard.js";
@@ -2473,5 +2473,5 @@ import typia from "typia";
   return assert(value);
 };
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
