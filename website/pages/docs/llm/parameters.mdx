@@ -1,4 +1,4 @@
-import { Callout, Tabs, Tab } from 'nextra-theme-docs'
+import { Callout, Tabs } from 'nextra/components'
 
 ## `parameters()` function
 <Tabs items={[
@@ -7,7 +7,7 @@ import { Callout, Tabs, Tab } from 'nextra-theme-docs'
     <code>ILlmFunction</code>,
     <code>ILlmSchema</code>,
   ]}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript filename="typia" showLineNumbers {20-25}
 export namespace llm {
   // LLM FUNCTION CALLING APPLICATION SCHEMA
@@ -50,8 +50,8 @@ export namespace llm {
   ): ILlmSchema.ModelSchema[Model];
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript filename="@samchon/openapi" showLineNumbers
 import { IGeminiSchema } from "./IGeminiSchema";
 import { ILlmFunction } from "./ILlmFunction";
@@ -135,8 +135,8 @@ export namespace ILlmApplication {
   } & ILlmSchema.ModelConfig[Model];
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript filename="@samchon/openapi" showLineNumbers
 import { ILlmSchema } from "./ILlmSchema";
 
@@ -241,8 +241,8 @@ export namespace ILlmFunction {
   }
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript filename="@samchon/openapi" showLineNumbers
 import { IChatGptSchema } from "./IChatGptSchema";
 import { IClaudeSchema } from "./IClaudeSchema";
@@ -314,8 +314,8 @@ export namespace ILlmSchema {
     ILlmSchema.ModelConfig[Model];
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript filename="typia" showLineNumbers
 import { ILlmApplication, ILlmFunction, ILlmSchema } from "@samchon/openapi";
 
@@ -409,7 +409,7 @@ export namespace ILlmFunctionOfValidate {
   export import ISeparated = ILlmFunction.ISeparated;
 }
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 Structured output schema of LLM (Large Language Model).
@@ -461,7 +461,7 @@ In the LLM function calling and structured output, the parameters must be a keyw
 If you don't follow the LLM's keyworded arguments rule, `typia.llm.parameters<Parameters, Model>()` will throw compilation error like below.
 
 <Tabs items={["TypeScript Source Code", "Console Output"]}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript filename="src/examples/llm.parameters.violation.ts" showLineNumbers
 import typia from "typia";
 
@@ -469,8 +469,8 @@ typia.llm.parameters<string>();
 typia.llm.parameters<Record<string, boolean>, "chatgpt">();
 typia.llm.parameters<Array<number>>();
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```bash filename="Terminal"
 src/examples/llm.parameters.violation.ts:3:1 - error TS(typia.llm.parameters): unsupported type detected       
 
@@ -511,5 +511,5 @@ src/examples/llm.parameters.violation.ts:5:1 - error TS(typia.llm.parameters): u
 
 Found 4 errors in the same file, starting at: src/examples/llm.parameters.violation.ts
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>

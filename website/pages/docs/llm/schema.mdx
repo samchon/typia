@@ -1,4 +1,4 @@
-import { Callout, Tabs, Tab } from 'nextra-theme-docs'
+import { Callout, Tabs } from 'nextra/components'
 
 ## `schema()` function
 <Tabs items={[
@@ -7,7 +7,7 @@ import { Callout, Tabs, Tab } from 'nextra-theme-docs'
     <code>ILlmFunction</code>,
     <code>ILlmSchema</code>,
   ]}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript filename="typia" showLineNumbers {27-39}
 export namespace llm {
   // LLM FUNCTION CALLING APPLICATION SCHEMA
@@ -50,8 +50,8 @@ export namespace llm {
   ): ILlmSchema.ModelSchema[Model];
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript filename="@samchon/openapi" showLineNumbers
 import { IGeminiSchema } from "./IGeminiSchema";
 import { ILlmFunction } from "./ILlmFunction";
@@ -135,8 +135,8 @@ export namespace ILlmApplication {
   } & ILlmSchema.ModelConfig[Model];
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript filename="@samchon/openapi" showLineNumbers
 import { ILlmSchema } from "./ILlmSchema";
 
@@ -241,8 +241,8 @@ export namespace ILlmFunction {
   }
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript filename="@samchon/openapi" showLineNumbers
 import { IChatGptSchema } from "./IChatGptSchema";
 import { IClaudeSchema } from "./IClaudeSchema";
@@ -314,8 +314,8 @@ export namespace ILlmSchema {
     ILlmSchema.ModelConfig[Model];
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript filename="typia" showLineNumbers
 import { ILlmApplication, ILlmFunction, ILlmSchema } from "@samchon/openapi";
 
@@ -409,7 +409,7 @@ export namespace ILlmFunctionOfValidate {
   export import ISeparated = ILlmFunction.ISeparated;
 }
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 Type schema in the LLM function calling application.
@@ -457,7 +457,7 @@ If you write any comment on a property, it would fill the `IJsonSchema.descripti
 Let's see how those [type tags](../validators/tags/#type-tags), comment tags and description comments are working with example code.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy filename="examples/src/llm-schema.ts" showLineNumbers
 import { IChatGptSchema } from "@samchon/openapi";
 import typia, { tags } from "typia";
@@ -531,8 +531,8 @@ interface Special {
   array: Array<string & tags.Format<"uuid">> & tags.MinItems<3>;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript filename="examples/bin/llm-schema.js" showLineNumbers
 import typia from "typia";
 export const schema = {
@@ -603,7 +603,7 @@ export const schema = {
   additionalProperties: false,
 };
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 
@@ -615,7 +615,7 @@ If what you want is not just filling regular properties of LLM schema specificat
 For reference, the custom property must be started with `x-` prefix. It's a rule of LLM schema.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy filename="examples/src/llm-schema-custom.ts" copy showLineNumbers {7-9, 13, 17-18}
 import typia, { tags } from "typia";
  
@@ -639,8 +639,8 @@ interface IAccount {
  
 typia.llm.schema<IAccount, "chatgpt">();
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript copy filename="examples/bin/llm-schema-custom.js" showLineNumbers {7, 11}
 import typia from "typia";
 ({
@@ -659,7 +659,7 @@ import typia from "typia";
   additionalProperties: false,
 });
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 
@@ -673,15 +673,15 @@ LLM schema is based on the JSON schema definition of the OpenAPI v3.0 specificat
 Also, LLM schema does not support the tuple type, which is represented by the `OpenApi.IJsonSchema.ITuple` type. It's no LLM providers are supporting the tuple type, and such tuple type harms the separation option of the [`typia.llm.application<App, Model>()`](./application) function. If you need a tuple type, just change the tuple type to a regular object type instead.
 
 <Tabs items={["TypeScript Source Code", "Console Output"]}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript filename="src/examples/llm.schema.bigint-and-tuple.ts" showLineNumbers
 import typia from "typia";
 
 typia.llm.schema<bigint, "chatgpt">({});
 typia.llm.schema<[number, string], "claude">({});
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```bash
 src/examples/llm.schema.bigint-and-tuple.ts:3:1 - error TS(typia.llm.schema): unsupported type detected
 
@@ -698,7 +698,7 @@ src/examples/llm.schema.bigint-and-tuple.ts:4:1 - error TS(typia.llm.schema): fa
 4 typia.llm.schema<[number, string], "claude">({});
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 If you're using Google Gemini ([`IGeminiSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IGeminiSchema.ts)) or middle layer schema of [`ILlmSchemaV3`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3.ts), they do not support the reference type that is embodied by the `OpenApi.IJsonSchema.IReference` type with `$ref` property. Therefore, if recursive type comes, no way to express it perfectly in those [`IGeminiSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IGeminiSchema.ts) and [`ILlmSchemaV3`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3.ts). They just repeat the recursive structure 3 times, and remove the recursive type after the 4 depths.
@@ -706,7 +706,7 @@ If you're using Google Gemini ([`IGeminiSchema`](https://github.com/samchon/open
 For reference, if the recursive type comes from the array type, it would be zero length array type at the fourth step. Otherwise the recursive type comes from a property and the property is optional, the 4th property would be removed from the object type. At last, if the recursive type is combined as an `oneOf` type, the type would be removed from there.
 
 <Tabs items={["TypeScript Source Code", "Compiled JavaScript File"]}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript filename="src/examples/llm.schema.recursive.ts" showLineNumbers
 import typia, { tags } from "typia";
 
@@ -718,8 +718,8 @@ interface IDepartment {
   department: IDepartment[];
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript filename="example/bin/llm.schema.recursive.js" showLineNumbers
 "use strict";
 var __importDefault =
@@ -800,7 +800,7 @@ const typia_1 = __importDefault(require("typia"));
   additionalProperties: false,
 });
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 And OpenAI ChatGPT ([`IChatGptSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IChatGptSchema.ts)) and Google Gemini ([`IGeminiSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IGeminiSchema.ts)) do not support the `OpenApi.IJsonSchema.IObject.additionalProperties` type, which represent the dynamic key typed object like `Record<string, T>` type in the TypeScript. Therefore, if you put the dynamic `Record<string, T>` type like below, `typia.llm.schema<T, "chatgpt">()` and `typia.llm.schema<T, "gemini">` functions throw the compilation error like below.
@@ -811,15 +811,15 @@ Therefore, if you want to utilzie OpenAI hatGPT ([`IChatGptSchema`](https://gith
   - not recommended: `Array<[string, T]>`
 
 <Tabs items={["TypeScript Source Code", "Console Output"]}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript filename="src/examples/llm.schema.additionalProperties.ts" showLineNumbers
 import typia from "typia";
 
 typia.llm.schema<Record<string, number>, "chatgpt">({});
 typia.llm.schema<Record<string, number>, "gemini">();
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```bash
 src/examples/llm.schema.additionalProperties.ts:3:1 - error TS(typia.llm.schema): unsupported type detected
 
@@ -843,5 +843,5 @@ src/examples/llm.schema.additionalProperties.ts:4:1 - error TS(typia.llm.schema)
 4 typia.llm.schema<Record<string, number>, "gemini">();
   ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>

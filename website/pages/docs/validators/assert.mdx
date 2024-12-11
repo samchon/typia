@@ -1,4 +1,4 @@
-import { Tabs, Tab } from 'nextra-theme-docs'
+import { Tabs } from 'nextra/components'
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 
@@ -7,13 +7,13 @@ import AlertTitle from '@mui/material/AlertTitle';
   <code>typia</code>, 
   <code>TypeGuardError.ts</code>,
 ]}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript
 export function assert<T>(input: T): T;
 export function assert<T>(input: unknown): T;
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript
 export class TypeGuardError extends Error {
   public readonly method: string;
@@ -22,7 +22,7 @@ export class TypeGuardError extends Error {
   public readonly value: any;
 }
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 Asserts a value type.
@@ -52,7 +52,7 @@ Yeah, `typia` needs only pure TypeScript type. As `typia` is a compiler library,
 </Alert>
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy filename="examples/src/assert.ts" showLineNumbers
 import typia, { tags } from "typia";
 import { v4 } from "uuid";
@@ -72,8 +72,8 @@ interface IMember {
     tags.Maximum<100>;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript filename="examples/bin/assert.js" showLineNumbers
 import * as __typia_transform__isFormatUuid from "typia/lib/internal/_isFormatUuid.js";
 import * as __typia_transform__isFormatEmail from "typia/lib/internal/_isFormatEmail.js";
@@ -219,7 +219,7 @@ import { v4 } from "uuid";
   age: 18, // wrong, must be greater than 19
 });
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 
@@ -230,13 +230,13 @@ import { v4 } from "uuid";
   <code>typia</code>, 
   <code>TypeGuardError.ts</code>,
 ]}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript
 export function assertEquals<T>(input: T): T;
 export function assertEquals<T>(input: unknown): T;
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript
 export class TypeGuardError extends Error {
   public readonly method: string;
@@ -245,7 +245,7 @@ export class TypeGuardError extends Error {
   public readonly value: any;
 }
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 More strict assert function prohibiting superfluous properties.
@@ -260,7 +260,7 @@ In the below example case, as `sex` property is not defined in the `IMember` typ
   ` expected`: `undefined`
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy filename="examples/src/assert.ts" showLineNumbers
 import typia, { tags } from "typia";
 import { v4 } from "uuid";
@@ -281,8 +281,8 @@ interface IMember {
     tags.Maximum<100>;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript filename="examples/bin/assertEquals.js" showLineNumbers
 import * as __typia_transform__isFormatUuid from "typia/lib/internal/_isFormatUuid.js";
 import * as __typia_transform__isFormatEmail from "typia/lib/internal/_isFormatEmail.js";
@@ -429,7 +429,7 @@ import { v4 } from "uuid";
   sex: 1, // extra
 });
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 
@@ -440,7 +440,7 @@ import { v4 } from "uuid";
     <code>typia</code>, 
     <code>TypeGuardError.ts</code>,
 ]}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript
 export function assertGuard<T>(input: T): asserts input is T;
 export function assertGuard<T>(input: unknown): asserts input is T;
@@ -448,8 +448,8 @@ export function assertGuard<T>(input: unknown): asserts input is T;
 export function assertGuardEquals<T>(input: T): asserts input is T;
 export function assertGuardEquals<T>(input: unknown): asserts input is T;
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript
 export class TypeGuardError extends Error {
   public readonly method: string;
@@ -458,7 +458,7 @@ export class TypeGuardError extends Error {
   public readonly value: any;
 }
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 Assertion guard of a value type.
@@ -497,7 +497,7 @@ input.y; // OK
   <code>TypeGuardError.ts</code>,
   <code>AssertionGuard.ts</code>,
 ]}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript
 export function createAssert<T>(): (input: unknown) => T;
 export function createAssertEquals<T>(): (input: unknown) => T;
@@ -505,8 +505,8 @@ export function createAssertEquals<T>(): (input: unknown) => T;
 export function createAssertGuard<T>(): AssertionGuard<T>;
 export function createAssertGuardEquals<T>(): AssertionGuard<T>;
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript
 export class TypeGuardError extends Error {
   public readonly method: string;
@@ -515,12 +515,12 @@ export class TypeGuardError extends Error {
   public readonly value: any;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript
 export type AssertionGuard<T> = (input: unknown) => asserts input is T;
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 Reusable `typia.assert<T>()` function generators.
@@ -530,7 +530,7 @@ If you repeat to call `typia.assert<T>()` function on the same type, size of Jav
 Just look at the code below, then you may understand how to use it.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy filename="examples/src/createAssert.ts" showLineNumbers
 import typia, { tags } from "typia";
 
@@ -545,8 +545,8 @@ interface IMember {
     tags.Maximum<100>;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript filename="examples/bin/createAssert.js" showLineNumbers
 import * as __typia_transform__isFormatUuid from "typia/lib/internal/_isFormatUuid.js";
 import * as __typia_transform__isFormatEmail from "typia/lib/internal/_isFormatEmail.js";
@@ -687,7 +687,7 @@ export const assertMember = (() => {
   };
 })();
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 <Alert severity="warning">
@@ -743,14 +743,14 @@ If JS native class type like `Date`, `Uint8Array`, or `Map<Key, T>` being utiliz
 Therefore, the `instanceof` statement does not be used only for the user-defined classes.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy filename="examples/src/is-map.ts" showLineNumbers
 import typia from "typia";
 
 typia.createIs<Map<string, boolean | number | string>>();
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript filename="examples/bin/is-map.js" showLineNumbers
 import typia from "typia";
 (() => {
@@ -768,7 +768,7 @@ import typia from "typia";
       ))();
 })();
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 
@@ -788,7 +788,7 @@ If you want to know about such special tags detaily, read below article:
     - [Customization](./tags/#customization)
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy filename="examples/src/assert-custom-tags.ts" showLineNumbers
 import typia, { tags } from "typia";
 
@@ -831,8 +831,8 @@ interface Something {
   isEven: number & IsEven<number>;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript filename="examples/bin/assert-custom-tags.js" showLineNumbers
 import * as __typia_transform__assertGuard from "typia/lib/internal/_assertGuard.js";
 import typia from "typia";
@@ -947,7 +947,7 @@ export const assertSomething = (() => {
   };
 })();
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 

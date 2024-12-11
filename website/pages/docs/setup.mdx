@@ -1,32 +1,32 @@
-import { Callout, Tabs, Tab } from 'nextra-theme-docs'
+import { Callout, Tabs } from 'nextra/components'
 
 ## Summary
 <Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
-  <Tab>
+  <Tabs.Tab>
 ```bash filename="Terminal" showLineNumbers copy
 npm install typia
 npx typia setup
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```bash filename="Terminal" showLineNumbers copy
 pnpm install typia
 pnpm typia setup --manager pnpm
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```bash filename="Terminal" showLineNumbers copy
 # YARN BERRY IS NOT SUPPORTED
 yarn add typia
 yarn typia setup --manager yarn
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```bash filename="Terminal" showLineNumbers copy
 bun add typia
 bun typia setup --manager bun
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 Just run `npx typia setup` command if you're using `tsc`. The setup wizard will do everything. 
@@ -54,7 +54,7 @@ When you write a TypeScript code calling `typia.createIs<IMember>()` function an
 This is the transform mode performing AOT (Ahead of Time) compilation.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy filename="examples/src/check.ts" showLineNumbers {3}
 import typia, { tags } from "typia";
 
@@ -66,8 +66,8 @@ interface IMember {
   age: number & tags.ExclusiveMinimum<19> & tags.Maximum<100>;
 }
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript filename="examples/bin/check.js" showLineNumbers {2-16}
 import * as __typia_transform__isFormatUuid from "typia/lib/internal/_isFormatUuid.js";
 import * as __typia_transform__isFormatEmail from "typia/lib/internal/_isFormatEmail.js";
@@ -84,36 +84,36 @@ export const check = (() => {
   return (input) => "object" === typeof input && null !== input && _io0(input);
 })();
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 ### Setup Wizard
 <Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
-  <Tab>
+  <Tabs.Tab>
 ```bash filename="Terminal" copy showLineNumbers
 npm install --save typia
 npx typia setup
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```bash filename="Terminal" copy showLineNumbers
 pnpm install --save typia
 pnpm typia setup --manager pnpm
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```bash filename="Terminal" copy showLineNumbers
 # YARN BERRY IS NOT SUPPORTED
 yarn add typia
 yarn typia setup --manager yarn
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```bash filename="Terminal" copy showLineNumbers
 bun add typia
 bun typia setup --manager bun
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 You can turn on transformation mode just by running `npx typia setup` command.
@@ -122,31 +122,31 @@ Setup wizard would be executed, and it will do everything for the transformation
 
 ### Manual Setup
 <Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
-  <Tab>
+  <Tabs.Tab>
 ```bash filename="Terminal" copy showLineNumbers
 npm install --save typia
 npm install --save-dev typescript ts-patch
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```bash filename="Terminal" copy showLineNumbers
 pnpm install --save typia
 pnpm install --save-dev typescript ts-patch
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```bash filename="Terminal" copy showLineNumbers
 # YARN BERRY IS NOT SUPPORTED
 yarn add typia
 yarn add -D typescript ts-patch
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```bash filename="Terminal" copy showLineNumbers
 bun add typia
 bun add -d typescript ts-patch
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 If you want to install `typia` manually, just follow the steps.
@@ -185,27 +185,27 @@ As `typia` generates optimal operation code through transformation, it must be c
 ```
 
 <Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
-  <Tab>
+  <Tabs.Tab>
 ```bash filename="Terminal" copy showLineNumbers
 npm run prepare
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```bash filename="Terminal" copy showLineNumbers
 pnpm prepare
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```bash filename="Terminal" copy showLineNumbers
 # YARN BERRY IS NOT SUPPORTED
 yarn prepare
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```bash filename="Terminal" copy showLineNumbers
 bun prepare
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 Finally open `package.json` file and configure `npm run prepare` command like above.
@@ -233,7 +233,7 @@ Currently, `unplugin-typia` supports the following bundlers:
   - [Webpack](https://webpack.js.org/)
 
 <Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
-  <Tab>
+  <Tabs.Tab>
 ```bash filename="Terminal" showLineNumbers copy
 npx jsr add -D @ryoppippi/unplugin-typia # via jsr (recommended)
 # npm install -D @ryoppippi/unplugin-typia # via npm
@@ -241,29 +241,29 @@ npx jsr add -D @ryoppippi/unplugin-typia # via jsr (recommended)
 npm install --save typia
 npx typia setup
 ```
- </Tab>
-  <Tab>
+ </Tabs.Tab>
+  <Tabs.Tab>
 ```bash filename="Terminal" showLineNumbers copy
 pnpm dlx jsr add -D @ryoppippi/unplugin-typia
 pnpm install typia
 pnpm typia setup --manager pnpm
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```bash filename="Terminal" showLineNumbers copy
 # YARN BERRY IS NOT SUPPORTED
 yarn dlx jsr add -D @ryoppippi/unplugin-typia
 yarn add typia
 yarn typia setup --manager yarn
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```bash filename="Terminal" showLineNumbers copy
 bunx jsr add @ryoppippi/unplugin-typia
 bun add typia
 bun typia setup
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 At first, install both `unplugin-typia` and `typia`, with `npx typia setup` command.
@@ -273,7 +273,7 @@ After that, follow the next section steps to integrate `unplugin-typia` into you
 For reference, there are a couple of ways to integrate `unplugin-typia` into your bundlers. For the full integration guide, please refer to the [`unplugin-typia` documentation](https://jsr.io/@ryoppippi/unplugin-typia/doc). Also, you can see the examples projects in [`unplugin-typia` repository](https://github.com/ryoppippi/unplugin-typia/tree/main/examples).
 
 <Tabs items={['Vite', 'Next.js', 'esbuild', 'Bun.runtime', 'Bun.build']}>
-  <Tab>
+  <Tabs.Tab>
   <Callout type="info">
   You can use any plugins with [`unplugin-typia`](#unplugin-typia) in Vite (including [`@vitejs/plugin-react-swc`](https://github.com/vitejs/vite-plugin-react-swc)).
   `unplugin-typia` processes the TypeScript code before transforming it to JavaScript, so it can be used with any plugins.
@@ -287,8 +287,8 @@ export default defineConfig({
   ],
 })
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript filename="next.config.mjs" copy showLineNumbers
 import unTypiaNext from "@ryoppippi/unplugin-typia/next";
  
@@ -301,8 +301,8 @@ export default unTypiaNext(
   {} // options of unplugin-typia
 );
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```javascript filename="esbuild.config.js" copy showLineNumbers
 import { build } from 'esbuild'
 import UnpluginTypia from '@ryoppippi/unplugin-typia/esbuild';
@@ -313,8 +313,8 @@ build({
   ],
 });
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 First, create a `preload.ts` file and add the following code.
 
 ```typescript filename="preload.ts" copy showLineNumbers
@@ -338,8 +338,8 @@ And, run the `bun run` command.
 bun run index.ts
 ```
 For more details, please refer to the [`unplugin-typia` documentation](https://jsr.io/@ryoppippi/unplugin-typia).
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 
 ```typescript filename="Build.ts" copy showLineNumbers
 import UnpluginTypia from '@ryoppippi/unplugin-typia/bun'
@@ -352,7 +352,7 @@ await Bun.build({
 ```
 
 For more details, please refer to the [`unplugin-typia` documentation](https://jsr.io/@ryoppippi/unplugin-typia).
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 
@@ -364,7 +364,7 @@ For more details, please refer to the [`unplugin-typia` documentation](https://j
 </Callout>
 
 <Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
-  <Tab>
+  <Tabs.Tab>
 ```bash filename="Terminal" copy showLineNumbers
 # TYPIA
 npm install typia
@@ -374,8 +374,8 @@ npx typia setup
 npm install --save-dev ts-loader
 npm install --save-dev webpack webpack-cli
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```bash filename="Terminal" copy showLineNumbers
 # TYPIA
 pnpm install typia
@@ -385,8 +385,8 @@ pnpm typia setup --manager pnpm
 pnpm install --save-dev ts-loader
 pnpm install --save-dev webpack webpack-cli
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```bash filename="Terminal" copy showLineNumbers
 ###########################################
 # YARN BERRY IS NOT SUPPORTED
@@ -399,8 +399,8 @@ yarn typia setup --manager yarn
 yarn add -D ts-loader
 yarn add -D webpack webpack-cli
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
     ```bash filename="Terminal" copy showLineNumbers
 # TYPIA
 bun add typia
@@ -410,7 +410,7 @@ bun typia setup
 bun add -d ts-loader
 bun add -d webpack webpack-cli
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 When you're using `webpack` as a bundler, you can still utilize the [transformation](#transformation) mode.
@@ -453,31 +453,31 @@ module.exports = {
 From now on, you can build the single JS file just by running the `npx webpack` command. By the way, when removing `devDependencies` for `--production` install, never forget to add the `--ignore-scripts` option to prevent the `prepare` script.
 
 <Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
-  <Tab>
+  <Tabs.Tab>
 ```bash filename="Terminal" copy showLineNumbers
 npx webpack
 npm ci --omit=dev --ignore-scripts
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```bash filename="Terminal" copy showLineNumbers
 pnpm webpack
 pnpm install --production --ignore-scripts
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```bash filename="Terminal" copy showLineNumbers
 yarn webpack
 rm -rf node_modules
 yarn install --production --ignore-scripts --immutable
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```bash filename="Terminal" copy showLineNumbers
 bun webpack
 bun install --production --ignore-scripts
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 Additionally, if you're using `typia` in the NodeJS project especially for the backend development, *Setup Guide Documents* of [`nestia`](https://github.com/samchon/nestia) would be helpful. Even though you're not using NestJS, you can still utilize below documents, and "Single JS file only" mode would be especially helpful for you.
@@ -491,31 +491,31 @@ Additionally, if you're using `typia` in the NodeJS project especially for the b
 
 ### Nx
 <Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
-  <Tab>
+  <Tabs.Tab>
 ```bash filename="Terminal" copy showLineNumbers
 npm install --save typia
 npx typia setup
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```bash filename="Terminal" copy showLineNumbers
 pnpm install --save typia
 pnpm typia setup --manager pnpm
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```bash filename="Terminal" copy showLineNumbers
 # YARN BERRY IS NOT SUPPORTED
 yarn add typia
 yarn typia setup --manager yarn
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```bash filename="Terminal" copy showLineNumbers
 bun add typia
 bun typia setup --manager bun
 ```
-    </Tab>
+    </Tabs.Tab>
 </Tabs>
 
 After installing `typia` like above, and ensuring the `prepare` script is something similar to `ts-patch install` you have to modify the `tsconfig.lib.json` on each `@nx/js` package to be similar to the below.
@@ -556,7 +556,7 @@ Note: While Nx has a `transformers` feature on the `@nx/js` plugin, that won't w
 
 ## Generation
 <Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
-  <Tab>
+  <Tabs.Tab>
 ```bash filename="Terminal" copy showLineNumbers
 # INSTALL TYPIA
 npm install --save typia
@@ -568,8 +568,8 @@ npx typia generate \
   --output src/generated \
   --project tsconfig.json
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```bash filename="Terminal" copy showLineNumbers
 # INSTALL TYPIA
 pnpm install --save typia
@@ -581,8 +581,8 @@ pnpm typia generate \
   --output src/generated \
   --project tsconfig.json
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```bash filename="Terminal" copy showLineNumbers
 # INSTALL TYPIA
 yarn add typia
@@ -594,8 +594,8 @@ yarn typia generate \
   --output src/generated \
   --project tsconfig.json
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```bash filename="Terminal" copy showLineNumbers
 # INSTALL TYPIA
 bun add typia
@@ -605,7 +605,7 @@ bun typia generate \
   --output src/generated \
   --project tsconfig.json
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 For frontend projects.
@@ -626,7 +626,7 @@ For clarification, the input directory should contain one or more TypeScript fil
 If you want to specify other TypeScript project file instead of `tsconfig.json`, you can use `--project` option.
 
 <Tabs items={['TypeScript Source Code', 'Generated TypeScript File']}>
-  <Tab>
+  <Tabs.Tab>
 ```typescript copy filename="examples/src/templates/check.ts" showLineNumbers {5}
 import typia from "typia";
 
@@ -634,8 +634,8 @@ import { IMember } from "../structures/IMember";
 
 export const check = typia.createIs<IMember>();
 ```
-  </Tab>
-  <Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
 ```typescript copy filename="examples/src/generated/check.ts" showLineNumbers {3-13}
 import typia from "typia";
 import { IMember } from "../structures/IMember";
@@ -655,7 +655,7 @@ export const check = (input: any): input is IMember => {
   );
 };
 ```
-  </Tab>
+  </Tabs.Tab>
 </Tabs>
 
 <Callout type="error">
