@@ -180,8 +180,7 @@
         "required": [
           "first"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -692,8 +691,7 @@
           "sequence",
           "created_at"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -1373,8 +1371,7 @@
           "created_at"
         ],
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

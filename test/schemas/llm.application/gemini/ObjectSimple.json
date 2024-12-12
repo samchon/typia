@@ -101,8 +101,7 @@
         "required": [
           "first"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -376,8 +375,7 @@
           "rotate",
           "pivot"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -741,8 +739,7 @@
           "pivot"
         ],
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

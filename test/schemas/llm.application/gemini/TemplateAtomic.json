@@ -64,8 +64,7 @@
         "required": [
           "first"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -228,8 +227,7 @@
           "ipv4",
           "email"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -445,8 +443,7 @@
           "email"
         ],
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

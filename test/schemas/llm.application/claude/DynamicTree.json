@@ -48,8 +48,7 @@
             }
           }
         }
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -108,8 +107,7 @@
       },
       "output": {
         "$ref": "#/$defs/DynamicTree"
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -193,8 +191,7 @@
             "$ref": "#/$defs/DynamicTree"
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

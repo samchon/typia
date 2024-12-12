@@ -32,8 +32,7 @@
         ],
         "additionalProperties": false,
         "$defs": {}
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -102,8 +101,7 @@
           "age"
         ],
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -210,8 +208,7 @@
             "additionalProperties": false
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

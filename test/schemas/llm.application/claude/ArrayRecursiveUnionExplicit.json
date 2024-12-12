@@ -207,8 +207,7 @@
             ]
           }
         }
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -432,8 +431,7 @@
         "items": {
           "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IBucket"
         }
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -685,8 +683,7 @@
             }
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

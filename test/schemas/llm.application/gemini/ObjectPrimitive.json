@@ -81,8 +81,7 @@
         "required": [
           "first"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -296,8 +295,7 @@
           "secret",
           "created_at"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -581,8 +579,7 @@
           "created_at"
         ],
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

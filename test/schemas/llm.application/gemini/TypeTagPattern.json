@@ -41,8 +41,7 @@
         "required": [
           "first"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -136,8 +135,7 @@
           "ipv4",
           "ipv6"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -261,8 +259,7 @@
           "ipv6"
         ],
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

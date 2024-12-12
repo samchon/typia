@@ -151,8 +151,7 @@
         "required": [
           "first"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -575,8 +574,7 @@
         },
         "required": [],
         "description": "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional"
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -1136,8 +1134,7 @@
         },
         "required": [],
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

@@ -22,8 +22,7 @@
         ],
         "additionalProperties": false,
         "$defs": {}
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -59,8 +58,7 @@
         "type": "object",
         "properties": {},
         "required": []
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -123,8 +121,7 @@
             "required": []
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

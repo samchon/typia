@@ -58,8 +58,7 @@
             "additionalProperties": false
           }
         }
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -128,8 +127,7 @@
       },
       "output": {
         "$ref": "#/$defs/ObjectPartialAndRequired"
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -223,8 +221,7 @@
             "$ref": "#/$defs/ObjectPartialAndRequired"
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

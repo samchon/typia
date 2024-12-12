@@ -57,8 +57,7 @@
         ],
         "additionalProperties": false,
         "$defs": {}
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -202,8 +201,7 @@
             "hobbies"
           ]
         }
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -410,8 +408,7 @@
             }
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

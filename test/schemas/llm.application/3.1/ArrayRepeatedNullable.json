@@ -43,8 +43,7 @@
             }
           }
         }
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -90,8 +89,7 @@
       },
       "output": {
         "$ref": "#/$defs/ArrayRepeatedNullable"
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -141,8 +139,7 @@
       },
       "output": {
         "$ref": "#/$defs/ArrayRepeatedNullable"
-      },
-      "strict": true
+      }
     }
   ]
 }

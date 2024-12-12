@@ -19,8 +19,7 @@
         "required": [
           "first"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -48,8 +47,7 @@
         "type": "object",
         "properties": {},
         "required": []
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -85,8 +83,7 @@
         "properties": {},
         "required": [],
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

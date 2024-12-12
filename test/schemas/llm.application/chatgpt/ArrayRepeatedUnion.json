@@ -140,8 +140,7 @@
             }
           }
         }
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -399,8 +398,7 @@
       },
       "output": {
         "$ref": "#/$defs/ArrayRepeatedUnion"
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -1004,8 +1002,7 @@
             }
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

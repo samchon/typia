@@ -71,8 +71,7 @@
             ]
           }
         }
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -153,8 +152,7 @@
       },
       "output": {
         "$ref": "#/$defs/ObjectRecursive.IDepartment"
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -260,8 +258,7 @@
             "$ref": "#/$defs/ObjectRecursive.IDepartment"
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

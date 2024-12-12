@@ -338,7 +338,6 @@ export const application = (() => {
           },
           required: ["id", "serial", "name", "established_at", "departments"],
         },
-        strict: true,
       },
       {
         name: "createDepartment",
@@ -448,7 +447,6 @@ export const application = (() => {
         output: {
           $ref: "#/$defs/IDepartment",
         },
-        strict: true,
       },
       {
         name: "hire",
@@ -601,7 +599,6 @@ export const application = (() => {
           },
           required: ["id", "name", "age", "grade", "employeed_at"],
         },
-        strict: true,
       },
       {
         name: "erase",
@@ -739,7 +736,6 @@ export const application = (() => {
           type: "string",
           format: "uuid",
         },
-        strict: true,
       },
     ],
   } as import("@samchon/openapi").ILlmApplication<"llama">;
