@@ -46,7 +46,7 @@ export namespace protobuf {
 export function random<T>(g?: Partial<IRandomGenerator>): T;
 ```
 
-Typia is a transformer library supporting below features:
+`typia` is a transformer library supporting below features:
 
   - Super-fast Runtime Validators
   - Enhanced JSON schema and serde functions
@@ -60,6 +60,31 @@ Typia is a transformer library supporting below features:
 > - Runtime validator is **20,000x faster** than `class-validator`
 > - JSON serialization is **200x faster** than `class-transformer`
 
+
+
+
+## Transformation
+If you call `typia` function, it would be compiled like below.
+
+This is the key concept of `typia`, transforming TypeScript type to a runtime function. The `typia.is<T>()` function is transformed to a dedicated type checker by analyzing the target type `T` in the compilation level.
+
+This feature enables developers to ensure type safety in their applications, leveraging TypeScript's static typing while also providing runtime validation. Instead of defining additional schemas, you can simply utilize the pure TypeScript type itself.
+
+```typescript
+//----
+// examples/checkString.ts
+//----
+import typia, { tags } from "typia";
+export const checkString = typia.createIs<string>();
+
+//----
+// examples/checkUUID.js
+//----
+import typia from "typia";
+export const checkString = (() => {
+  return (input) => "string" === typeof input;
+})();
+```
 
 
 
