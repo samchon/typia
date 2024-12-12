@@ -139,6 +139,8 @@ export namespace LlmApplicationProgrammer {
       JsonApplicationProgrammer.write({
         version: "3.1",
         metadata: props.metadata,
+        filter: (p) =>
+          p.jsDocTags.some((tag) => tag.name === "human") === false,
       });
     const functions: Array<ILlmFunction<Model> | null> =
       application.functions.map((func) =>
