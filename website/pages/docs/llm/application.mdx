@@ -1119,7 +1119,7 @@ interface BbsArticleController {
 ## Function Hiding
 Hiding some functions by comment tag.
 
-If you write `@hidden` or `@internal` tag onto a function description comment, the function would not participate in the LLM (Large Language Model) function calling application composition. `ILlmFunction` schema does not be genrated in the `ILlmApplication.functions` collection.
+If you write `@hidden`, `@human` or `@internal` tag onto a function description comment, the function would not participate in the LLM (Large Language Model) function calling application composition. `ILlmFunction` schema does not be genrated in the `ILlmApplication.functions` collection.
 
 It's a good feature to hide some internal functions, so that avoiding the LLM function calling.
 
@@ -1128,7 +1128,7 @@ It's a good feature to hide some internal functions, so that avoiding the LLM fu
     "Compiled JavaScript File",
   ]}>
   <Tabs.Tab>
-```typescript filename="example/src/llm.application.hideden.ts" showLineNumbers {25, 38}
+```typescript filename="example/src/llm.application.hideden.ts" showLineNumbers {38, 54, 74}
 import {
   ClaudeTypeChecker,
   ILlmApplication,
@@ -1160,13 +1160,29 @@ interface BbsArticleController {
   }): Promise<IBbsArticle>;
 
   /**
+   * Read an article.
+   * 
+   * Reads an article from the DB.
+   * 
+   * @param props Properties of read function
+   * @returns The article
+   * @hidden
+   */
+  at(props: {
+    /**
+     * Target article's {@link IBbsArticle.id}.
+     */
+    id: string & tags.Format<"uuid">;
+  }): Promise<IBbsArticle>;
+
+  /**
    * Update an article.
    *
    * Updates an article with new content.
    *
    * @param props Properties of update function
    * @param input New content to update
-   * @hidden
+   * @internal
    */
   update(props: {
     /**
@@ -1186,7 +1202,7 @@ interface BbsArticleController {
    * Erases an article from the DB.
    *
    * @param props Properties of erase function
-   * @internal
+   * @human
    */
   erase(props: {
     /**

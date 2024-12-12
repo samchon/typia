@@ -5,6 +5,7 @@ import { IJsDocTagInfo } from "../../schemas/metadata/IJsDocTagInfo";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataFunction } from "../../schemas/metadata/MetadataFunction";
 import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
+import { MetadataProperty } from "../../schemas/metadata/MetadataProperty";
 
 import { JsonSchemasProgrammer } from "./JsonSchemasProgrammer";
 
@@ -60,6 +61,7 @@ export namespace JsonApplicationProgrammer {
   export const write = <Version extends "3.0" | "3.1">(props: {
     version: Version;
     metadata: Metadata;
+    filter?: (prop: MetadataProperty) => boolean;
   }): __IJsonApplication<Version> => {
     const errors: string[] = validate(props.metadata, {
       top: true,
@@ -101,7 +103,8 @@ export namespace JsonApplicationProgrammer {
         (p) =>
           p.jsDocTags.find(
             (tag) => tag.name === "hidden" || tag.name === "internal",
-          ) === undefined,
+          ) === undefined &&
+          (props.filter === undefined || props.filter(p) === true),
       )
       .map((r) =>
         collectFunction({
