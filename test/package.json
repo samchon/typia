@@ -17,7 +17,8 @@
     "prettier": "prettier ./src/**/*.ts --write",
     "setup": "node build/setup.js",
     "start": "node bin",
-    "debug": "node debug",
+    "debug": "ts-node debug",
+    "issue": "ts-node issue",
     "template": "ts-node --project build/tsconfig.json build/template.ts"
   },
   "repository": {

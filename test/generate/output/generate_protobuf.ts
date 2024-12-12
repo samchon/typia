@@ -433,15 +433,19 @@ export const createValidateEncode = (() => {
           value: input,
         }))(input, "$input", true);
       const success = 0 === errors.length;
-      return {
-        success,
-        errors,
-        data: input,
-      } as any;
+      return success
+        ? {
+            success,
+            data: input,
+          }
+        : ({
+            success,
+            errors,
+            data: input,
+          } as any);
     }
     return {
       success: true,
-      errors: [],
       data: input,
     } as any;
   };
@@ -867,15 +871,19 @@ export const createValidateDecode = (() => {
           value: input,
         }))(input, "$input", true);
       const success = 0 === errors.length;
-      return {
-        success,
-        errors,
-        data: input,
-      } as any;
+      return success
+        ? {
+            success,
+            data: input,
+          }
+        : ({
+            success,
+            errors,
+            data: input,
+          } as any);
     }
     return {
       success: true,
-      errors: [],
       data: input,
     } as any;
   };
