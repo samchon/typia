@@ -50,8 +50,7 @@
         "required": [
           "first"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -172,8 +171,7 @@
           "time",
           "duration"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -333,8 +331,7 @@
           "duration"
         ],
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

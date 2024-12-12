@@ -72,8 +72,7 @@
         "required": [
           "first"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -260,8 +259,7 @@
         "required": [
           "value"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -509,8 +507,7 @@
           "value"
         ],
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

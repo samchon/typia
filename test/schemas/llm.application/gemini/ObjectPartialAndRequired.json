@@ -116,8 +116,7 @@
         "required": [
           "first"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -436,8 +435,7 @@
           "object",
           "array"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -861,8 +859,7 @@
           "array"
         ],
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

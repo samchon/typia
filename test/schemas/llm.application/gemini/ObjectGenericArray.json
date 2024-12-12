@@ -64,8 +64,7 @@
         "required": [
           "first"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -228,8 +227,7 @@
           "pagination",
           "data"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -445,8 +443,7 @@
           "data"
         ],
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

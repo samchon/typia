@@ -92,8 +92,7 @@
             ]
           }
         }
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -266,8 +265,7 @@
           "array",
           "object"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -500,8 +498,7 @@
             "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required"
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

@@ -66,8 +66,7 @@
         "required": [
           "first"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -236,8 +235,7 @@
           "nullables2",
           "union"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -461,8 +459,7 @@
           "union"
         ],
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

@@ -50,8 +50,7 @@
         ],
         "additionalProperties": false,
         "$defs": {}
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -174,8 +173,7 @@
           "incremental"
         ],
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -354,8 +352,7 @@
             "additionalProperties": false
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

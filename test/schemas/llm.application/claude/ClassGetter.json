@@ -42,8 +42,7 @@
         ],
         "additionalProperties": false,
         "$defs": {}
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -142,8 +141,7 @@
           "name",
           "dead"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -290,8 +288,7 @@
             ]
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

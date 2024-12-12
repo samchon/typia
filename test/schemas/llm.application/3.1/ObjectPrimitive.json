@@ -89,8 +89,7 @@
         ],
         "additionalProperties": false,
         "$defs": {}
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -327,8 +326,7 @@
           "secret",
           "created_at"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -659,8 +657,7 @@
             ]
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

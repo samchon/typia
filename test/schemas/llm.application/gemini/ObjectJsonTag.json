@@ -41,8 +41,7 @@
         "required": [
           "first"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -136,8 +135,7 @@
           "title",
           "complicate_title"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -261,8 +259,7 @@
           "complicate_title"
         ],
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

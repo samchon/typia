@@ -136,8 +136,7 @@
         ],
         "additionalProperties": false,
         "$defs": {}
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -518,8 +517,7 @@
           "vulnerable_range",
           "boolean_and_number_and_template"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -1042,8 +1040,7 @@
             ]
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

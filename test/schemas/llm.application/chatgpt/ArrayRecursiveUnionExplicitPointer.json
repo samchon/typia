@@ -257,8 +257,7 @@
             "additionalProperties": false
           }
         }
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -550,8 +549,7 @@
           "value"
         ],
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -880,8 +878,7 @@
             "additionalProperties": false
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

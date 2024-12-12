@@ -62,8 +62,7 @@
             ]
           }
         }
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -136,8 +135,7 @@
       },
       "output": {
         "$ref": "#/$defs/ArrayRecursive.ICategory"
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -235,8 +233,7 @@
             "$ref": "#/$defs/ArrayRecursive.ICategory"
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

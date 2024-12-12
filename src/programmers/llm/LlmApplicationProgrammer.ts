@@ -216,7 +216,6 @@ export namespace LlmApplicationProgrammer {
       })(),
       deprecated: props.function.deprecated,
       tags: props.function.tags,
-      strict: true,
     };
   };
 

@@ -134,8 +134,7 @@
         "required": [
           "first"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -508,8 +507,7 @@
             "departments"
           ]
         }
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -1005,8 +1003,7 @@
           ]
         },
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

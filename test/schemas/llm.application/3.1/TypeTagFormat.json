@@ -134,8 +134,7 @@
         ],
         "additionalProperties": false,
         "$defs": {}
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -507,8 +506,7 @@
           "jsonPointer",
           "relativeJsonPointer"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -1019,8 +1017,7 @@
             ]
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

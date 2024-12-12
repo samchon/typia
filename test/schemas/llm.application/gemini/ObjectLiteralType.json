@@ -33,8 +33,7 @@
         "required": [
           "first"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -104,8 +103,7 @@
           "name",
           "age"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -197,8 +195,7 @@
           "age"
         ],
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

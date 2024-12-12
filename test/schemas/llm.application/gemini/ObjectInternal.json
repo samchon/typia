@@ -29,8 +29,7 @@
         "required": [
           "first"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -88,8 +87,7 @@
           "id",
           "name"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -165,8 +163,7 @@
           "name"
         ],
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

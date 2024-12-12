@@ -84,8 +84,7 @@
         ],
         "additionalProperties": false,
         "$defs": {}
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -307,8 +306,7 @@
           "time",
           "duration"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -619,8 +617,7 @@
             ]
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

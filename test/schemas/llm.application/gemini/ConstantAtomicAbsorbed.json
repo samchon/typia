@@ -31,8 +31,7 @@
         "required": [
           "first"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -96,8 +95,7 @@
           "id",
           "age"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -181,8 +179,7 @@
           "age"
         ],
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

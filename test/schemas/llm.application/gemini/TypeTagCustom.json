@@ -41,8 +41,7 @@
         "required": [
           "first"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -136,8 +135,7 @@
           "postfix",
           "powerOf"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -261,8 +259,7 @@
           "powerOf"
         ],
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

@@ -59,8 +59,7 @@
           "first"
         ],
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -201,8 +200,7 @@
         "title": "This is the title of object type",
         "description": "An interface designed to test JSON schema's object description.",
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -383,8 +381,7 @@
         ],
         "additionalProperties": false,
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

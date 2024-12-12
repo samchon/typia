@@ -36,8 +36,7 @@
         ],
         "additionalProperties": false,
         "$defs": {}
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -118,8 +117,7 @@
           "vulnerable"
         ],
         "additionalProperties": false
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -242,8 +240,7 @@
             "additionalProperties": false
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

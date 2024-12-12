@@ -38,8 +38,7 @@
         ],
         "additionalProperties": false,
         "$defs": {}
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -126,8 +125,7 @@
         "required": [
           "matrix"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -258,8 +256,7 @@
             ]
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

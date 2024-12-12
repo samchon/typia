@@ -133,8 +133,7 @@
         "required": [
           "first"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -503,8 +502,7 @@
           "object"
         ],
         "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required"
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -992,8 +990,7 @@
           "object"
         ],
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

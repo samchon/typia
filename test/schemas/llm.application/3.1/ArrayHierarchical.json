@@ -137,8 +137,7 @@
         ],
         "additionalProperties": false,
         "$defs": {}
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -519,8 +518,7 @@
             "departments"
           ]
         }
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -1043,8 +1041,7 @@
             }
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

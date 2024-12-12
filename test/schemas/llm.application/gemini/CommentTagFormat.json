@@ -131,8 +131,7 @@
         "required": [
           "first"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -496,8 +495,7 @@
           "jsonPointer",
           "relativeJsonPointer"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -981,8 +979,7 @@
           "relativeJsonPointer"
         ],
         "nullable": true
-      },
-      "strict": true
+      }
     }
   ]
 }

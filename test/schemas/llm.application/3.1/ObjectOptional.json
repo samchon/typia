@@ -40,8 +40,7 @@
         ],
         "additionalProperties": false,
         "$defs": {}
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -131,8 +130,7 @@
           "email",
           "sequence"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -267,8 +265,7 @@
             ]
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

@@ -103,8 +103,7 @@
         ],
         "additionalProperties": false,
         "$defs": {}
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -386,8 +385,7 @@
           "both3",
           "union"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -778,8 +776,7 @@
             ]
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

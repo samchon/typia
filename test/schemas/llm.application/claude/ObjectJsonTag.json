@@ -46,8 +46,7 @@
         ],
         "additionalProperties": false,
         "$defs": {}
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -158,8 +157,7 @@
           "title",
           "complicate_title"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -322,8 +320,7 @@
             ]
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

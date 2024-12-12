@@ -92,8 +92,7 @@
         ],
         "additionalProperties": false,
         "$defs": {}
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -342,8 +341,7 @@
             }
           ]
         }
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -690,8 +688,7 @@
             }
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }

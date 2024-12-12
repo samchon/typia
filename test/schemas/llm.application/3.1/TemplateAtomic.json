@@ -70,8 +70,7 @@
         ],
         "additionalProperties": false,
         "$defs": {}
-      },
-      "strict": true
+      }
     },
     {
       "name": "reduce",
@@ -251,8 +250,7 @@
           "ipv4",
           "email"
         ]
-      },
-      "strict": true
+      }
     },
     {
       "name": "coalesce",
@@ -507,8 +505,7 @@
             ]
           }
         ]
-      },
-      "strict": true
+      }
     }
   ]
 }
