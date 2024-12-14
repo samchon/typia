@@ -36,6 +36,13 @@ export namespace LlmSchemaTransformer {
       method: "schema",
       node: props.expression.typeArguments[1],
     });
+    const config: Partial<ILlmSchema.IConfig> = LlmModelPredicator.getConfig({
+      context: props.context,
+      method: "schema",
+      model,
+      node: props.expression.typeArguments[2],
+    }) as Partial<ILlmSchema.IConfig>;
+
     const type: ts.Type = props.context.checker.getTypeFromTypeNode(top);
     const collection: MetadataCollection = new MetadataCollection({
       replace: MetadataCollection.replace,
@@ -48,7 +55,10 @@ export namespace LlmSchemaTransformer {
           escape: true,
           constant: true,
           absorb: false,
-          validate: LlmSchemaProgrammer.validate(model),
+          validate: LlmSchemaProgrammer.validate({
+            model,
+            config,
+          }),
         },
         collection,
         type,
@@ -63,12 +73,7 @@ export namespace LlmSchemaTransformer {
     const out: LlmSchemaProgrammer.IOutput<any> = LlmSchemaProgrammer.write({
       model,
       metadata: result.data,
-      config: LlmModelPredicator.getConfig({
-        context: props.context,
-        method: "schema",
-        model,
-        node: props.expression.typeArguments[2],
-      }),
+      config,
     });
     const schemaTypeNode = props.context.importer.type({
       file: "@samchon/openapi",
