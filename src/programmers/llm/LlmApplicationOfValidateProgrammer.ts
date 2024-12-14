@@ -12,8 +12,10 @@ import { ValidateProgrammer } from "../ValidateProgrammer";
 import { LlmApplicationProgrammer } from "./LlmApplicationProgrammer";
 
 export namespace LlmApplicationOfValidateProgrammer {
-  export const validate = (model: ILlmSchema.Model) =>
-    LlmApplicationProgrammer.validate(model);
+  export const validate = <Model extends ILlmSchema.Model>(props: {
+    model: Model;
+    config?: Partial<ILlmSchema.ModelConfig[Model]>;
+  }) => LlmApplicationProgrammer.validate(props);
 
   export const write = <Model extends ILlmSchema.Model>(props: {
     context: ITypiaContext;

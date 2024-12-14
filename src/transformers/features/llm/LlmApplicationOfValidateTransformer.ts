@@ -35,6 +35,13 @@ export namespace LlmApplicationOfValidateTransformer {
       method: "application",
       node: props.expression.typeArguments[1],
     });
+    const config: Partial<ILlmSchema.IConfig> = LlmModelPredicator.getConfig({
+      context: props.context,
+      method: "application",
+      model,
+      node: props.expression.typeArguments[2],
+    }) as Partial<ILlmSchema.IConfig>;
+
     const type: ts.Type = props.context.checker.getTypeFromTypeNode(top);
     const collection: MetadataCollection = new MetadataCollection({
       replace: MetadataCollection.replace,
@@ -48,7 +55,10 @@ export namespace LlmApplicationOfValidateTransformer {
           constant: true,
           absorb: false,
           functional: true,
-          validate: LlmApplicationOfValidateProgrammer.validate(model),
+          validate: LlmApplicationOfValidateProgrammer.validate({
+            model,
+            config,
+          }),
         },
         collection,
         type,
@@ -66,12 +76,7 @@ export namespace LlmApplicationOfValidateTransformer {
         context: props.context,
         modulo: props.modulo,
         metadata: result.data,
-        config: LlmModelPredicator.getConfig({
-          context: props.context,
-          method: "application",
-          model,
-          node: props.expression.typeArguments[2],
-        }),
+        config,
       });
     const literal: ts.Expression = ts.factory.createAsExpression(
       LiteralFactory.write(schema),
