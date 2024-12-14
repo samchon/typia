@@ -2,6 +2,7 @@
   "model": "chatgpt",
   "options": {
     "reference": false,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -47,25 +48,12 @@
                     "type": "string"
                   }
                 },
-                "required": [
-                  "ar",
-                  "zh-Hans",
-                  "zh-Hant",
-                  "en",
-                  "fr",
-                  "de",
-                  "ja",
-                  "ko",
-                  "pt",
-                  "ru"
-                ],
-                "additionalProperties": false
+                "required": []
               }
             },
             "required": [
               "value"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -117,25 +105,12 @@
                     "type": "string"
                   }
                 },
-                "required": [
-                  "ar",
-                  "zh-Hans",
-                  "zh-Hant",
-                  "en",
-                  "fr",
-                  "de",
-                  "ja",
-                  "ko",
-                  "pt",
-                  "ru"
-                ],
-                "additionalProperties": false
+                "required": []
               }
             },
             "required": [
               "value"
-            ],
-            "additionalProperties": false
+            ]
           },
           "second": {
             "anyOf": [
@@ -179,25 +154,12 @@
                         "type": "string"
                       }
                     },
-                    "required": [
-                      "ar",
-                      "zh-Hans",
-                      "zh-Hant",
-                      "en",
-                      "fr",
-                      "de",
-                      "ja",
-                      "ko",
-                      "pt",
-                      "ru"
-                    ],
-                    "additionalProperties": false
+                    "required": []
                   }
                 },
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
@@ -246,25 +208,12 @@
                 "type": "string"
               }
             },
-            "required": [
-              "ar",
-              "zh-Hans",
-              "zh-Hant",
-              "en",
-              "fr",
-              "de",
-              "ja",
-              "ko",
-              "pt",
-              "ru"
-            ],
-            "additionalProperties": false
+            "required": []
           }
         },
         "required": [
           "value"
-        ],
-        "additionalProperties": false
+        ]
       }
     },
     {
@@ -314,25 +263,12 @@
                         "type": "string"
                       }
                     },
-                    "required": [
-                      "ar",
-                      "zh-Hans",
-                      "zh-Hant",
-                      "en",
-                      "fr",
-                      "de",
-                      "ja",
-                      "ko",
-                      "pt",
-                      "ru"
-                    ],
-                    "additionalProperties": false
+                    "required": []
                   }
                 },
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           },
@@ -378,25 +314,12 @@
                         "type": "string"
                       }
                     },
-                    "required": [
-                      "ar",
-                      "zh-Hans",
-                      "zh-Hant",
-                      "en",
-                      "fr",
-                      "de",
-                      "ja",
-                      "ko",
-                      "pt",
-                      "ru"
-                    ],
-                    "additionalProperties": false
+                    "required": []
                   }
                 },
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           },
@@ -442,33 +365,19 @@
                         "type": "string"
                       }
                     },
-                    "required": [
-                      "ar",
-                      "zh-Hans",
-                      "zh-Hant",
-                      "en",
-                      "fr",
-                      "de",
-                      "ja",
-                      "ko",
-                      "pt",
-                      "ru"
-                    ],
-                    "additionalProperties": false
+                    "required": []
                   }
                 },
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -515,25 +424,12 @@
                     "type": "string"
                   }
                 },
-                "required": [
-                  "ar",
-                  "zh-Hans",
-                  "zh-Hant",
-                  "en",
-                  "fr",
-                  "de",
-                  "ja",
-                  "ko",
-                  "pt",
-                  "ru"
-                ],
-                "additionalProperties": false
+                "required": []
               }
             },
             "required": [
               "value"
-            ],
-            "additionalProperties": false
+            ]
           }
         ]
       }

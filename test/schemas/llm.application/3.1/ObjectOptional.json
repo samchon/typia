@@ -27,12 +27,7 @@
                 "type": "number"
               }
             },
-            "required": [
-              "id",
-              "name",
-              "email",
-              "sequence"
-            ]
+            "required": []
           }
         },
         "required": [
@@ -63,12 +58,7 @@
                 "type": "number"
               }
             },
-            "required": [
-              "id",
-              "name",
-              "email",
-              "sequence"
-            ]
+            "required": []
           },
           "second": {
             "oneOf": [
@@ -91,12 +81,7 @@
                     "type": "number"
                   }
                 },
-                "required": [
-                  "id",
-                  "name",
-                  "email",
-                  "sequence"
-                ]
+                "required": []
               }
             ]
           }
@@ -124,12 +109,7 @@
             "type": "number"
           }
         },
-        "required": [
-          "id",
-          "name",
-          "email",
-          "sequence"
-        ]
+        "required": []
       }
     },
     {
@@ -158,12 +138,7 @@
                     "type": "number"
                   }
                 },
-                "required": [
-                  "id",
-                  "name",
-                  "email",
-                  "sequence"
-                ]
+                "required": []
               }
             ]
           },
@@ -188,12 +163,7 @@
                     "type": "number"
                   }
                 },
-                "required": [
-                  "id",
-                  "name",
-                  "email",
-                  "sequence"
-                ]
+                "required": []
               }
             ]
           },
@@ -218,20 +188,14 @@
                     "type": "number"
                   }
                 },
-                "required": [
-                  "id",
-                  "name",
-                  "email",
-                  "sequence"
-                ]
+                "required": []
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -257,12 +221,7 @@
                 "type": "number"
               }
             },
-            "required": [
-              "id",
-              "name",
-              "email",
-              "sequence"
-            ]
+            "required": []
           }
         ]
       }

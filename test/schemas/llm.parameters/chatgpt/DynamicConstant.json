@@ -25,14 +25,12 @@
             "b",
             "c",
             "d"
-          ],
-          "additionalProperties": false
+          ]
         }
       },
       "required": [
         "value"
-      ],
-      "additionalProperties": false
+      ]
     },
     "nullable": {
       "anyOf": [
@@ -63,14 +61,12 @@
                 "b",
                 "c",
                 "d"
-              ],
-              "additionalProperties": false
+              ]
             }
           },
           "required": [
             "value"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -98,14 +94,12 @@
             "b",
             "c",
             "d"
-          ],
-          "additionalProperties": false
+          ]
         }
       },
       "required": [
         "value"
-      ],
-      "additionalProperties": false
+      ]
     },
     "faint": {
       "anyOf": [
@@ -136,14 +130,12 @@
                 "b",
                 "c",
                 "d"
-              ],
-              "additionalProperties": false
+              ]
             }
           },
           "required": [
             "value"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -173,22 +165,18 @@
               "b",
               "c",
               "d"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
           "value"
-        ],
-        "additionalProperties": false
+        ]
       }
     }
   },
   "required": [
     "regular",
     "nullable",
-    "optional",
-    "faint",
     "array"
   ],
   "additionalProperties": false,

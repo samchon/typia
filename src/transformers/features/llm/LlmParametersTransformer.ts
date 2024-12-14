@@ -36,6 +36,13 @@ export namespace LlmParametersTransformer {
       method: "parameters",
       node: props.expression.typeArguments[1],
     });
+    const config: Partial<ILlmSchema.IConfig> = LlmModelPredicator.getConfig({
+      context: props.context,
+      method: "parameters",
+      model,
+      node: props.expression.typeArguments[2],
+    }) as Partial<ILlmSchema.IConfig>;
+
     const type: ts.Type = props.context.checker.getTypeFromTypeNode(top);
     const collection: MetadataCollection = new MetadataCollection({
       replace: MetadataCollection.replace,
@@ -48,7 +55,10 @@ export namespace LlmParametersTransformer {
           escape: true,
           constant: true,
           absorb: false,
-          validate: LlmParametersProgrammer.validate(model),
+          validate: LlmParametersProgrammer.validate({
+            model,
+            config,
+          }),
         },
         collection,
         type,
@@ -63,12 +73,7 @@ export namespace LlmParametersTransformer {
     const out: ILlmFunction<any>["parameters"] = LlmParametersProgrammer.write({
       model,
       metadata: result.data,
-      config: LlmModelPredicator.getConfig({
-        context: props.context,
-        method: "parameters",
-        model,
-        node: props.expression.typeArguments[2],
-      }),
+      config,
     });
     return ts.factory.createAsExpression(
       LiteralFactory.write(out),

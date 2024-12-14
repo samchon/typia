@@ -38,9 +38,6 @@
     },
     "required": [
       "name",
-      "professor",
-      "classroom",
-      "grade",
       "unknown"
     ]
   }

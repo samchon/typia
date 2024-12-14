@@ -41,8 +41,7 @@
         "title",
         "descriptions",
         "newLine"
-      ],
-      "additionalProperties": false
+      ]
     },
     "nullable": {
       "anyOf": [
@@ -89,8 +88,7 @@
             "newLine"
           ],
           "title": "This is the title of object type",
-          "description": "An interface designed to test JSON schema's object description.",
-          "additionalProperties": false
+          "description": "An interface designed to test JSON schema's object description."
         }
       ]
     },
@@ -134,8 +132,7 @@
         "title",
         "descriptions",
         "newLine"
-      ],
-      "additionalProperties": false
+      ]
     },
     "faint": {
       "anyOf": [
@@ -182,8 +179,7 @@
             "newLine"
           ],
           "title": "This is the title of object type",
-          "description": "An interface designed to test JSON schema's object description.",
-          "additionalProperties": false
+          "description": "An interface designed to test JSON schema's object description."
         }
       ]
     },
@@ -229,16 +225,13 @@
           "title",
           "descriptions",
           "newLine"
-        ],
-        "additionalProperties": false
+        ]
       }
     }
   },
   "required": [
     "regular",
     "nullable",
-    "optional",
-    "faint",
     "array"
   ],
   "additionalProperties": false,

@@ -27,10 +27,8 @@
             },
             "required": [
               "x",
-              "y",
-              "slope"
-            ],
-            "additionalProperties": false
+              "y"
+            ]
           },
           {
             "type": "object",
@@ -57,10 +55,8 @@
                 },
                 "required": [
                   "x",
-                  "y",
-                  "slope"
-                ],
-                "additionalProperties": false
+                  "y"
+                ]
               },
               "p2": {
                 "type": "object",
@@ -84,10 +80,8 @@
                 },
                 "required": [
                   "x",
-                  "y",
-                  "slope"
-                ],
-                "additionalProperties": false
+                  "y"
+                ]
               },
               "width": {
                 "anyOf": [
@@ -112,11 +106,8 @@
             },
             "required": [
               "p1",
-              "p2",
-              "width",
-              "distance"
-            ],
-            "additionalProperties": false
+              "p2"
+            ]
           },
           {
             "type": "object",
@@ -143,10 +134,8 @@
                 },
                 "required": [
                   "x",
-                  "y",
-                  "slope"
-                ],
-                "additionalProperties": false
+                  "y"
+                ]
               },
               "p2": {
                 "type": "object",
@@ -170,10 +159,8 @@
                 },
                 "required": [
                   "x",
-                  "y",
-                  "slope"
-                ],
-                "additionalProperties": false
+                  "y"
+                ]
               },
               "p3": {
                 "type": "object",
@@ -197,10 +184,8 @@
                 },
                 "required": [
                   "x",
-                  "y",
-                  "slope"
-                ],
-                "additionalProperties": false
+                  "y"
+                ]
               },
               "width": {
                 "anyOf": [
@@ -236,12 +221,8 @@
             "required": [
               "p1",
               "p2",
-              "p3",
-              "width",
-              "height",
-              "area"
-            ],
-            "additionalProperties": false
+              "p3"
+            ]
           },
           {
             "type": "object",
@@ -268,10 +249,8 @@
                 },
                 "required": [
                   "x",
-                  "y",
-                  "slope"
-                ],
-                "additionalProperties": false
+                  "y"
+                ]
               },
               "p2": {
                 "type": "object",
@@ -295,10 +274,8 @@
                 },
                 "required": [
                   "x",
-                  "y",
-                  "slope"
-                ],
-                "additionalProperties": false
+                  "y"
+                ]
               },
               "p3": {
                 "type": "object",
@@ -322,10 +299,8 @@
                 },
                 "required": [
                   "x",
-                  "y",
-                  "slope"
-                ],
-                "additionalProperties": false
+                  "y"
+                ]
               },
               "p4": {
                 "type": "object",
@@ -349,10 +324,8 @@
                 },
                 "required": [
                   "x",
-                  "y",
-                  "slope"
-                ],
-                "additionalProperties": false
+                  "y"
+                ]
               },
               "width": {
                 "anyOf": [
@@ -389,12 +362,8 @@
               "p1",
               "p2",
               "p3",
-              "p4",
-              "width",
-              "height",
-              "area"
-            ],
-            "additionalProperties": false
+              "p4"
+            ]
           },
           {
             "type": "object",
@@ -423,10 +392,8 @@
                   },
                   "required": [
                     "x",
-                    "y",
-                    "slope"
-                  ],
-                  "additionalProperties": false
+                    "y"
+                  ]
                 }
               },
               "length": {
@@ -441,10 +408,8 @@
               }
             },
             "required": [
-              "points",
-              "length"
-            ],
-            "additionalProperties": false
+              "points"
+            ]
           },
           {
             "type": "object",
@@ -476,10 +441,8 @@
                       },
                       "required": [
                         "x",
-                        "y",
-                        "slope"
-                      ],
-                      "additionalProperties": false
+                        "y"
+                      ]
                     }
                   },
                   "length": {
@@ -494,10 +457,8 @@
                   }
                 },
                 "required": [
-                  "points",
-                  "length"
-                ],
-                "additionalProperties": false
+                  "points"
+                ]
               },
               "inner": {
                 "type": "array",
@@ -528,10 +489,8 @@
                         },
                         "required": [
                           "x",
-                          "y",
-                          "slope"
-                        ],
-                        "additionalProperties": false
+                          "y"
+                        ]
                       }
                     },
                     "length": {
@@ -546,10 +505,8 @@
                     }
                   },
                   "required": [
-                    "points",
-                    "length"
-                  ],
-                  "additionalProperties": false
+                    "points"
+                  ]
                 }
               },
               "area": {
@@ -564,11 +521,8 @@
               }
             },
             "required": [
-              "outer",
-              "inner",
-              "area"
-            ],
-            "additionalProperties": false
+              "outer"
+            ]
           },
           {
             "type": "object",
@@ -598,10 +552,8 @@
                 },
                 "required": [
                   "x",
-                  "y",
-                  "slope"
-                ],
-                "additionalProperties": false
+                  "y"
+                ]
               },
               "area": {
                 "anyOf": [
@@ -615,11 +567,8 @@
               }
             },
             "required": [
-              "radius",
-              "centroid",
-              "area"
-            ],
-            "additionalProperties": false
+              "radius"
+            ]
           }
         ]
       }
@@ -655,10 +604,8 @@
                 },
                 "required": [
                   "x",
-                  "y",
-                  "slope"
-                ],
-                "additionalProperties": false
+                  "y"
+                ]
               },
               {
                 "type": "object",
@@ -685,10 +632,8 @@
                     },
                     "required": [
                       "x",
-                      "y",
-                      "slope"
-                    ],
-                    "additionalProperties": false
+                      "y"
+                    ]
                   },
                   "p2": {
                     "type": "object",
@@ -712,10 +657,8 @@
                     },
                     "required": [
                       "x",
-                      "y",
-                      "slope"
-                    ],
-                    "additionalProperties": false
+                      "y"
+                    ]
                   },
                   "width": {
                     "anyOf": [
@@ -740,11 +683,8 @@
                 },
                 "required": [
                   "p1",
-                  "p2",
-                  "width",
-                  "distance"
-                ],
-                "additionalProperties": false
+                  "p2"
+                ]
               },
               {
                 "type": "object",
@@ -771,10 +711,8 @@
                     },
                     "required": [
                       "x",
-                      "y",
-                      "slope"
-                    ],
-                    "additionalProperties": false
+                      "y"
+                    ]
                   },
                   "p2": {
                     "type": "object",
@@ -798,10 +736,8 @@
                     },
                     "required": [
                       "x",
-                      "y",
-                      "slope"
-                    ],
-                    "additionalProperties": false
+                      "y"
+                    ]
                   },
                   "p3": {
                     "type": "object",
@@ -825,10 +761,8 @@
                     },
                     "required": [
                       "x",
-                      "y",
-                      "slope"
-                    ],
-                    "additionalProperties": false
+                      "y"
+                    ]
                   },
                   "width": {
                     "anyOf": [
@@ -864,12 +798,8 @@
                 "required": [
                   "p1",
                   "p2",
-                  "p3",
-                  "width",
-                  "height",
-                  "area"
-                ],
-                "additionalProperties": false
+                  "p3"
+                ]
               },
               {
                 "type": "object",
@@ -896,10 +826,8 @@
                     },
                     "required": [
                       "x",
-                      "y",
-                      "slope"
-                    ],
-                    "additionalProperties": false
+                      "y"
+                    ]
                   },
                   "p2": {
                     "type": "object",
@@ -923,10 +851,8 @@
                     },
                     "required": [
                       "x",
-                      "y",
-                      "slope"
-                    ],
-                    "additionalProperties": false
+                      "y"
+                    ]
                   },
                   "p3": {
                     "type": "object",
@@ -950,10 +876,8 @@
                     },
                     "required": [
                       "x",
-                      "y",
-                      "slope"
-                    ],
-                    "additionalProperties": false
+                      "y"
+                    ]
                   },
                   "p4": {
                     "type": "object",
@@ -977,10 +901,8 @@
                     },
                     "required": [
                       "x",
-                      "y",
-                      "slope"
-                    ],
-                    "additionalProperties": false
+                      "y"
+                    ]
                   },
                   "width": {
                     "anyOf": [
@@ -1017,12 +939,8 @@
                   "p1",
                   "p2",
                   "p3",
-                  "p4",
-                  "width",
-                  "height",
-                  "area"
-                ],
-                "additionalProperties": false
+                  "p4"
+                ]
               },
               {
                 "type": "object",
@@ -1051,10 +969,8 @@
                       },
                       "required": [
                         "x",
-                        "y",
-                        "slope"
-                      ],
-                      "additionalProperties": false
+                        "y"
+                      ]
                     }
                   },
                   "length": {
@@ -1069,10 +985,8 @@
                   }
                 },
                 "required": [
-                  "points",
-                  "length"
-                ],
-                "additionalProperties": false
+                  "points"
+                ]
               },
               {
                 "type": "object",
@@ -1104,10 +1018,8 @@
                           },
                           "required": [
                             "x",
-                            "y",
-                            "slope"
-                          ],
-                          "additionalProperties": false
+                            "y"
+                          ]
                         }
                       },
                       "length": {
@@ -1122,10 +1034,8 @@
                       }
                     },
                     "required": [
-                      "points",
-                      "length"
-                    ],
-                    "additionalProperties": false
+                      "points"
+                    ]
                   },
                   "inner": {
                     "type": "array",
@@ -1156,10 +1066,8 @@
                             },
                             "required": [
                               "x",
-                              "y",
-                              "slope"
-                            ],
-                            "additionalProperties": false
+                              "y"
+                            ]
                           }
                         },
                         "length": {
@@ -1174,10 +1082,8 @@
                         }
                       },
                       "required": [
-                        "points",
-                        "length"
-                      ],
-                      "additionalProperties": false
+                        "points"
+                      ]
                     }
                   },
                   "area": {
@@ -1192,11 +1098,8 @@
                   }
                 },
                 "required": [
-                  "outer",
-                  "inner",
-                  "area"
-                ],
-                "additionalProperties": false
+                  "outer"
+                ]
               },
               {
                 "type": "object",
@@ -1226,10 +1129,8 @@
                     },
                     "required": [
                       "x",
-                      "y",
-                      "slope"
-                    ],
-                    "additionalProperties": false
+                      "y"
+                    ]
                   },
                   "area": {
                     "anyOf": [
@@ -1243,11 +1144,8 @@
                   }
                 },
                 "required": [
-                  "radius",
-                  "centroid",
-                  "area"
-                ],
-                "additionalProperties": false
+                  "radius"
+                ]
               }
             ]
           }
@@ -1280,10 +1178,8 @@
             },
             "required": [
               "x",
-              "y",
-              "slope"
-            ],
-            "additionalProperties": false
+              "y"
+            ]
           },
           {
             "type": "object",
@@ -1310,10 +1206,8 @@
                 },
                 "required": [
                   "x",
-                  "y",
-                  "slope"
-                ],
-                "additionalProperties": false
+                  "y"
+                ]
               },
               "p2": {
                 "type": "object",
@@ -1337,10 +1231,8 @@
                 },
                 "required": [
                   "x",
-                  "y",
-                  "slope"
-                ],
-                "additionalProperties": false
+                  "y"
+                ]
               },
               "width": {
                 "anyOf": [
@@ -1365,11 +1257,8 @@
             },
             "required": [
               "p1",
-              "p2",
-              "width",
-              "distance"
-            ],
-            "additionalProperties": false
+              "p2"
+            ]
           },
           {
             "type": "object",
@@ -1396,10 +1285,8 @@
                 },
                 "required": [
                   "x",
-                  "y",
-                  "slope"
-                ],
-                "additionalProperties": false
+                  "y"
+                ]
               },
               "p2": {
                 "type": "object",
@@ -1423,10 +1310,8 @@
                 },
                 "required": [
                   "x",
-                  "y",
-                  "slope"
-                ],
-                "additionalProperties": false
+                  "y"
+                ]
               },
               "p3": {
                 "type": "object",
@@ -1450,10 +1335,8 @@
                 },
                 "required": [
                   "x",
-                  "y",
-                  "slope"
-                ],
-                "additionalProperties": false
+                  "y"
+                ]
               },
               "width": {
                 "anyOf": [
@@ -1489,12 +1372,8 @@
             "required": [
               "p1",
               "p2",
-              "p3",
-              "width",
-              "height",
-              "area"
-            ],
-            "additionalProperties": false
+              "p3"
+            ]
           },
           {
             "type": "object",
@@ -1521,10 +1400,8 @@
                 },
                 "required": [
                   "x",
-                  "y",
-                  "slope"
-                ],
-                "additionalProperties": false
+                  "y"
+                ]
               },
               "p2": {
                 "type": "object",
@@ -1548,10 +1425,8 @@
                 },
                 "required": [
                   "x",
-                  "y",
-                  "slope"
-                ],
-                "additionalProperties": false
+                  "y"
+                ]
               },
               "p3": {
                 "type": "object",
@@ -1575,10 +1450,8 @@
                 },
                 "required": [
                   "x",
-                  "y",
-                  "slope"
-                ],
-                "additionalProperties": false
+                  "y"
+                ]
               },
               "p4": {
                 "type": "object",
@@ -1602,10 +1475,8 @@
                 },
                 "required": [
                   "x",
-                  "y",
-                  "slope"
-                ],
-                "additionalProperties": false
+                  "y"
+                ]
               },
               "width": {
                 "anyOf": [
@@ -1642,12 +1513,8 @@
               "p1",
               "p2",
               "p3",
-              "p4",
-              "width",
-              "height",
-              "area"
-            ],
-            "additionalProperties": false
+              "p4"
+            ]
           },
           {
             "type": "object",
@@ -1676,10 +1543,8 @@
                   },
                   "required": [
                     "x",
-                    "y",
-                    "slope"
-                  ],
-                  "additionalProperties": false
+                    "y"
+                  ]
                 }
               },
               "length": {
@@ -1694,10 +1559,8 @@
               }
             },
             "required": [
-              "points",
-              "length"
-            ],
-            "additionalProperties": false
+              "points"
+            ]
           },
           {
             "type": "object",
@@ -1729,10 +1592,8 @@
                       },
                       "required": [
                         "x",
-                        "y",
-                        "slope"
-                      ],
-                      "additionalProperties": false
+                        "y"
+                      ]
                     }
                   },
                   "length": {
@@ -1747,10 +1608,8 @@
                   }
                 },
                 "required": [
-                  "points",
-                  "length"
-                ],
-                "additionalProperties": false
+                  "points"
+                ]
               },
               "inner": {
                 "type": "array",
@@ -1781,10 +1640,8 @@
                         },
                         "required": [
                           "x",
-                          "y",
-                          "slope"
-                        ],
-                        "additionalProperties": false
+                          "y"
+                        ]
                       }
                     },
                     "length": {
@@ -1799,10 +1656,8 @@
                     }
                   },
                   "required": [
-                    "points",
-                    "length"
-                  ],
-                  "additionalProperties": false
+                    "points"
+                  ]
                 }
               },
               "area": {
@@ -1817,11 +1672,8 @@
               }
             },
             "required": [
-              "outer",
-              "inner",
-              "area"
-            ],
-            "additionalProperties": false
+              "outer"
+            ]
           },
           {
             "type": "object",
@@ -1851,10 +1703,8 @@
                 },
                 "required": [
                   "x",
-                  "y",
-                  "slope"
-                ],
-                "additionalProperties": false
+                  "y"
+                ]
               },
               "area": {
                 "anyOf": [
@@ -1868,11 +1718,8 @@
               }
             },
             "required": [
-              "radius",
-              "centroid",
-              "area"
-            ],
-            "additionalProperties": false
+              "radius"
+            ]
           }
         ]
       }
@@ -1908,10 +1755,8 @@
                 },
                 "required": [
                   "x",
-                  "y",
-                  "slope"
-                ],
-                "additionalProperties": false
+                  "y"
+                ]
               },
               {
                 "type": "object",
@@ -1938,10 +1783,8 @@
                     },
                     "required": [
                       "x",
-                      "y",
-                      "slope"
-                    ],
-                    "additionalProperties": false
+                      "y"
+                    ]
                   },
                   "p2": {
                     "type": "object",
@@ -1965,10 +1808,8 @@
                     },
                     "required": [
                       "x",
-                      "y",
-                      "slope"
-                    ],
-                    "additionalProperties": false
+                      "y"
+                    ]
                   },
                   "width": {
                     "anyOf": [
@@ -1993,11 +1834,8 @@
                 },
                 "required": [
                   "p1",
-                  "p2",
-                  "width",
-                  "distance"
-                ],
-                "additionalProperties": false
+                  "p2"
+                ]
               },
               {
                 "type": "object",
@@ -2024,10 +1862,8 @@
                     },
                     "required": [
                       "x",
-                      "y",
-                      "slope"
-                    ],
-                    "additionalProperties": false
+                      "y"
+                    ]
                   },
                   "p2": {
                     "type": "object",
@@ -2051,10 +1887,8 @@
                     },
                     "required": [
                       "x",
-                      "y",
-                      "slope"
-                    ],
-                    "additionalProperties": false
+                      "y"
+                    ]
                   },
                   "p3": {
                     "type": "object",
@@ -2078,10 +1912,8 @@
                     },
                     "required": [
                       "x",
-                      "y",
-                      "slope"
-                    ],
-                    "additionalProperties": false
+                      "y"
+                    ]
                   },
                   "width": {
                     "anyOf": [
@@ -2117,12 +1949,8 @@
                 "required": [
                   "p1",
                   "p2",
-                  "p3",
-                  "width",
-                  "height",
-                  "area"
-                ],
-                "additionalProperties": false
+                  "p3"
+                ]
               },
               {
                 "type": "object",
@@ -2149,10 +1977,8 @@
                     },
                     "required": [
                       "x",
-                      "y",
-                      "slope"
-                    ],
-                    "additionalProperties": false
+                      "y"
+                    ]
                   },
                   "p2": {
                     "type": "object",
@@ -2176,10 +2002,8 @@
                     },
                     "required": [
                       "x",
-                      "y",
-                      "slope"
-                    ],
-                    "additionalProperties": false
+                      "y"
+                    ]
                   },
                   "p3": {
                     "type": "object",
@@ -2203,10 +2027,8 @@
                     },
                     "required": [
                       "x",
-                      "y",
-                      "slope"
-                    ],
-                    "additionalProperties": false
+                      "y"
+                    ]
                   },
                   "p4": {
                     "type": "object",
@@ -2230,10 +2052,8 @@
                     },
                     "required": [
                       "x",
-                      "y",
-                      "slope"
-                    ],
-                    "additionalProperties": false
+                      "y"
+                    ]
                   },
                   "width": {
                     "anyOf": [
@@ -2270,12 +2090,8 @@
                   "p1",
                   "p2",
                   "p3",
-                  "p4",
-                  "width",
-                  "height",
-                  "area"
-                ],
-                "additionalProperties": false
+                  "p4"
+                ]
               },
               {
                 "type": "object",
@@ -2304,10 +2120,8 @@
                       },
                       "required": [
                         "x",
-                        "y",
-                        "slope"
-                      ],
-                      "additionalProperties": false
+                        "y"
+                      ]
                     }
                   },
                   "length": {
@@ -2322,10 +2136,8 @@
                   }
                 },
                 "required": [
-                  "points",
-                  "length"
-                ],
-                "additionalProperties": false
+                  "points"
+                ]
               },
               {
                 "type": "object",
@@ -2357,10 +2169,8 @@
                           },
                           "required": [
                             "x",
-                            "y",
-                            "slope"
-                          ],
-                          "additionalProperties": false
+                            "y"
+                          ]
                         }
                       },
                       "length": {
@@ -2375,10 +2185,8 @@
                       }
                     },
                     "required": [
-                      "points",
-                      "length"
-                    ],
-                    "additionalProperties": false
+                      "points"
+                    ]
                   },
                   "inner": {
                     "type": "array",
@@ -2409,10 +2217,8 @@
                             },
                             "required": [
                               "x",
-                              "y",
-                              "slope"
-                            ],
-                            "additionalProperties": false
+                              "y"
+                            ]
                           }
                         },
                         "length": {
@@ -2427,10 +2233,8 @@
                         }
                       },
                       "required": [
-                        "points",
-                        "length"
-                      ],
-                      "additionalProperties": false
+                        "points"
+                      ]
                     }
                   },
                   "area": {
@@ -2445,11 +2249,8 @@
                   }
                 },
                 "required": [
-                  "outer",
-                  "inner",
-                  "area"
-                ],
-                "additionalProperties": false
+                  "outer"
+                ]
               },
               {
                 "type": "object",
@@ -2479,10 +2280,8 @@
                     },
                     "required": [
                       "x",
-                      "y",
-                      "slope"
-                    ],
-                    "additionalProperties": false
+                      "y"
+                    ]
                   },
                   "area": {
                     "anyOf": [
@@ -2496,11 +2295,8 @@
                   }
                 },
                 "required": [
-                  "radius",
-                  "centroid",
-                  "area"
-                ],
-                "additionalProperties": false
+                  "radius"
+                ]
               }
             ]
           }
@@ -2535,10 +2331,8 @@
               },
               "required": [
                 "x",
-                "y",
-                "slope"
-              ],
-              "additionalProperties": false
+                "y"
+              ]
             },
             {
               "type": "object",
@@ -2565,10 +2359,8 @@
                   },
                   "required": [
                     "x",
-                    "y",
-                    "slope"
-                  ],
-                  "additionalProperties": false
+                    "y"
+                  ]
                 },
                 "p2": {
                   "type": "object",
@@ -2592,10 +2384,8 @@
                   },
                   "required": [
                     "x",
-                    "y",
-                    "slope"
-                  ],
-                  "additionalProperties": false
+                    "y"
+                  ]
                 },
                 "width": {
                   "anyOf": [
@@ -2620,11 +2410,8 @@
               },
               "required": [
                 "p1",
-                "p2",
-                "width",
-                "distance"
-              ],
-              "additionalProperties": false
+                "p2"
+              ]
             },
             {
               "type": "object",
@@ -2651,10 +2438,8 @@
                   },
                   "required": [
                     "x",
-                    "y",
-                    "slope"
-                  ],
-                  "additionalProperties": false
+                    "y"
+                  ]
                 },
                 "p2": {
                   "type": "object",
@@ -2678,10 +2463,8 @@
                   },
                   "required": [
                     "x",
-                    "y",
-                    "slope"
-                  ],
-                  "additionalProperties": false
+                    "y"
+                  ]
                 },
                 "p3": {
                   "type": "object",
@@ -2705,10 +2488,8 @@
                   },
                   "required": [
                     "x",
-                    "y",
-                    "slope"
-                  ],
-                  "additionalProperties": false
+                    "y"
+                  ]
                 },
                 "width": {
                   "anyOf": [
@@ -2744,12 +2525,8 @@
               "required": [
                 "p1",
                 "p2",
-                "p3",
-                "width",
-                "height",
-                "area"
-              ],
-              "additionalProperties": false
+                "p3"
+              ]
             },
             {
               "type": "object",
@@ -2776,10 +2553,8 @@
                   },
                   "required": [
                     "x",
-                    "y",
-                    "slope"
-                  ],
-                  "additionalProperties": false
+                    "y"
+                  ]
                 },
                 "p2": {
                   "type": "object",
@@ -2803,10 +2578,8 @@
                   },
                   "required": [
                     "x",
-                    "y",
-                    "slope"
-                  ],
-                  "additionalProperties": false
+                    "y"
+                  ]
                 },
                 "p3": {
                   "type": "object",
@@ -2830,10 +2603,8 @@
                   },
                   "required": [
                     "x",
-                    "y",
-                    "slope"
-                  ],
-                  "additionalProperties": false
+                    "y"
+                  ]
                 },
                 "p4": {
                   "type": "object",
@@ -2857,10 +2628,8 @@
                   },
                   "required": [
                     "x",
-                    "y",
-                    "slope"
-                  ],
-                  "additionalProperties": false
+                    "y"
+                  ]
                 },
                 "width": {
                   "anyOf": [
@@ -2897,12 +2666,8 @@
                 "p1",
                 "p2",
                 "p3",
-                "p4",
-                "width",
-                "height",
-                "area"
-              ],
-              "additionalProperties": false
+                "p4"
+              ]
             },
             {
               "type": "object",
@@ -2931,10 +2696,8 @@
                     },
                     "required": [
                       "x",
-                      "y",
-                      "slope"
-                    ],
-                    "additionalProperties": false
+                      "y"
+                    ]
                   }
                 },
                 "length": {
@@ -2949,10 +2712,8 @@
                 }
               },
               "required": [
-                "points",
-                "length"
-              ],
-              "additionalProperties": false
+                "points"
+              ]
             },
             {
               "type": "object",
@@ -2984,10 +2745,8 @@
                         },
                         "required": [
                           "x",
-                          "y",
-                          "slope"
-                        ],
-                        "additionalProperties": false
+                          "y"
+                        ]
                       }
                     },
                     "length": {
@@ -3002,10 +2761,8 @@
                     }
                   },
                   "required": [
-                    "points",
-                    "length"
-                  ],
-                  "additionalProperties": false
+                    "points"
+                  ]
                 },
                 "inner": {
                   "type": "array",
@@ -3036,10 +2793,8 @@
                           },
                           "required": [
                             "x",
-                            "y",
-                            "slope"
-                          ],
-                          "additionalProperties": false
+                            "y"
+                          ]
                         }
                       },
                       "length": {
@@ -3054,10 +2809,8 @@
                       }
                     },
                     "required": [
-                      "points",
-                      "length"
-                    ],
-                    "additionalProperties": false
+                      "points"
+                    ]
                   }
                 },
                 "area": {
@@ -3072,11 +2825,8 @@
                 }
               },
               "required": [
-                "outer",
-                "inner",
-                "area"
-              ],
-              "additionalProperties": false
+                "outer"
+              ]
             },
             {
               "type": "object",
@@ -3106,10 +2856,8 @@
                   },
                   "required": [
                     "x",
-                    "y",
-                    "slope"
-                  ],
-                  "additionalProperties": false
+                    "y"
+                  ]
                 },
                 "area": {
                   "anyOf": [
@@ -3123,11 +2871,8 @@
                 }
               },
               "required": [
-                "radius",
-                "centroid",
-                "area"
-              ],
-              "additionalProperties": false
+                "radius"
+              ]
             }
           ]
         }
@@ -3137,8 +2882,6 @@
   "required": [
     "regular",
     "nullable",
-    "optional",
-    "faint",
     "array"
   ],
   "additionalProperties": false,

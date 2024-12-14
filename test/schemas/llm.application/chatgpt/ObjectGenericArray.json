@@ -2,6 +2,7 @@
   "model": "chatgpt",
   "options": {
     "reference": false,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -34,8 +35,7 @@
                   "limit",
                   "total_count",
                   "total_pages"
-                ],
-                "additionalProperties": false
+                ]
               },
               "data": {
                 "type": "array",
@@ -52,16 +52,14 @@
                   "required": [
                     "name",
                     "age"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               }
             },
             "required": [
               "pagination",
               "data"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -100,8 +98,7 @@
                   "limit",
                   "total_count",
                   "total_pages"
-                ],
-                "additionalProperties": false
+                ]
               },
               "data": {
                 "type": "array",
@@ -118,16 +115,14 @@
                   "required": [
                     "name",
                     "age"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               }
             },
             "required": [
               "pagination",
               "data"
-            ],
-            "additionalProperties": false
+            ]
           },
           "second": {
             "anyOf": [
@@ -158,8 +153,7 @@
                       "limit",
                       "total_count",
                       "total_pages"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   "data": {
                     "type": "array",
@@ -176,16 +170,14 @@
                       "required": [
                         "name",
                         "age"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 },
                 "required": [
                   "pagination",
                   "data"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
@@ -221,8 +213,7 @@
               "limit",
               "total_count",
               "total_pages"
-            ],
-            "additionalProperties": false
+            ]
           },
           "data": {
             "type": "array",
@@ -239,16 +230,14 @@
               "required": [
                 "name",
                 "age"
-              ],
-              "additionalProperties": false
+              ]
             }
           }
         },
         "required": [
           "pagination",
           "data"
-        ],
-        "additionalProperties": false
+        ]
       }
     },
     {
@@ -285,8 +274,7 @@
                       "limit",
                       "total_count",
                       "total_pages"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   "data": {
                     "type": "array",
@@ -303,16 +291,14 @@
                       "required": [
                         "name",
                         "age"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 },
                 "required": [
                   "pagination",
                   "data"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           },
@@ -345,8 +331,7 @@
                       "limit",
                       "total_count",
                       "total_pages"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   "data": {
                     "type": "array",
@@ -363,16 +348,14 @@
                       "required": [
                         "name",
                         "age"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 },
                 "required": [
                   "pagination",
                   "data"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           },
@@ -405,8 +388,7 @@
                       "limit",
                       "total_count",
                       "total_pages"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   "data": {
                     "type": "array",
@@ -423,24 +405,21 @@
                       "required": [
                         "name",
                         "age"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 },
                 "required": [
                   "pagination",
                   "data"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -474,8 +453,7 @@
                   "limit",
                   "total_count",
                   "total_pages"
-                ],
-                "additionalProperties": false
+                ]
               },
               "data": {
                 "type": "array",
@@ -492,16 +470,14 @@
                   "required": [
                     "name",
                     "age"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               }
             },
             "required": [
               "pagination",
               "data"
-            ],
-            "additionalProperties": false
+            ]
           }
         ]
       }

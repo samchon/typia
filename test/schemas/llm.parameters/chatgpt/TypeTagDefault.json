@@ -101,8 +101,7 @@
         "union_but_number",
         "union_but_string",
         "boolean_and_number_and_template"
-      ],
-      "additionalProperties": false
+      ]
     },
     "nullable": {
       "anyOf": [
@@ -209,8 +208,7 @@
             "union_but_number",
             "union_but_string",
             "boolean_and_number_and_template"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -314,8 +312,7 @@
         "union_but_number",
         "union_but_string",
         "boolean_and_number_and_template"
-      ],
-      "additionalProperties": false
+      ]
     },
     "faint": {
       "anyOf": [
@@ -422,8 +419,7 @@
             "union_but_number",
             "union_but_string",
             "boolean_and_number_and_template"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -529,16 +525,13 @@
           "union_but_number",
           "union_but_string",
           "boolean_and_number_and_template"
-        ],
-        "additionalProperties": false
+        ]
       }
     }
   },
   "required": [
     "regular",
     "nullable",
-    "optional",
-    "faint",
     "array"
   ],
   "additionalProperties": false,

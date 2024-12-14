@@ -32,8 +32,7 @@
         "note",
         "editable",
         "incremental"
-      ],
-      "additionalProperties": false
+      ]
     },
     "nullable": {
       "anyOf": [
@@ -71,8 +70,7 @@
             "note",
             "editable",
             "incremental"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -107,8 +105,7 @@
         "note",
         "editable",
         "incremental"
-      ],
-      "additionalProperties": false
+      ]
     },
     "faint": {
       "anyOf": [
@@ -146,8 +143,7 @@
             "note",
             "editable",
             "incremental"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -184,16 +180,13 @@
           "note",
           "editable",
           "incremental"
-        ],
-        "additionalProperties": false
+        ]
       }
     }
   },
   "required": [
     "regular",
     "nullable",
-    "optional",
-    "faint",
     "array"
   ],
   "additionalProperties": false,

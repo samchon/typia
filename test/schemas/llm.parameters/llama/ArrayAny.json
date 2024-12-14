@@ -78,13 +78,8 @@
       },
       "required": [
         "anys",
-        "undefindable1",
-        "undefindable2",
         "nullables1",
         "nullables2",
-        "both1",
-        "both2",
-        "both3",
         "union"
       ]
     },
@@ -170,13 +165,8 @@
           },
           "required": [
             "anys",
-            "undefindable1",
-            "undefindable2",
             "nullables1",
             "nullables2",
-            "both1",
-            "both2",
-            "both3",
             "union"
           ]
         }
@@ -259,13 +249,8 @@
       },
       "required": [
         "anys",
-        "undefindable1",
-        "undefindable2",
         "nullables1",
         "nullables2",
-        "both1",
-        "both2",
-        "both3",
         "union"
       ]
     },
@@ -351,13 +336,8 @@
           },
           "required": [
             "anys",
-            "undefindable1",
-            "undefindable2",
             "nullables1",
             "nullables2",
-            "both1",
-            "both2",
-            "both3",
             "union"
           ]
         }
@@ -442,13 +422,8 @@
         },
         "required": [
           "anys",
-          "undefindable1",
-          "undefindable2",
           "nullables1",
           "nullables2",
-          "both1",
-          "both2",
-          "both3",
           "union"
         ]
       }
@@ -457,8 +432,6 @@
   "required": [
     "regular",
     "nullable",
-    "optional",
-    "faint",
     "array"
   ],
   "additionalProperties": false,

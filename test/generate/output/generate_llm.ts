@@ -53,12 +53,10 @@ export const schema = ((
               },
             },
             required: ["id", "name", "age", "grade", "employeed_at"],
-            additionalProperties: false,
           },
         },
       },
       required: ["id", "code", "sales", "created_at", "children", "employees"],
-      additionalProperties: false,
     },
   } as Record<string, import("@samchon/openapi").ILlmSchema<"chatgpt">>);
   return {
@@ -86,7 +84,6 @@ export const schema = ((
       },
     },
     required: ["id", "serial", "name", "established_at", "departments"],
-    additionalProperties: false,
   } as import("@samchon/openapi").ILlmSchema<"chatgpt">;
 })({});
 export const parameters = {

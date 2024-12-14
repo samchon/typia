@@ -2,6 +2,7 @@
   "model": "chatgpt",
   "options": {
     "reference": false,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -13,8 +14,7 @@
           "first": {
             "type": "object",
             "properties": {},
-            "required": [],
-            "additionalProperties": false
+            "required": []
           }
         },
         "required": [
@@ -32,8 +32,7 @@
           "first": {
             "type": "object",
             "properties": {},
-            "required": [],
-            "additionalProperties": false
+            "required": []
           },
           "second": {
             "anyOf": [
@@ -43,8 +42,7 @@
               {
                 "type": "object",
                 "properties": {},
-                "required": [],
-                "additionalProperties": false
+                "required": []
               }
             ]
           }
@@ -59,8 +57,7 @@
       "output": {
         "type": "object",
         "properties": {},
-        "required": [],
-        "additionalProperties": false
+        "required": []
       }
     },
     {
@@ -76,8 +73,7 @@
               {
                 "type": "object",
                 "properties": {},
-                "required": [],
-                "additionalProperties": false
+                "required": []
               }
             ]
           },
@@ -89,8 +85,7 @@
               {
                 "type": "object",
                 "properties": {},
-                "required": [],
-                "additionalProperties": false
+                "required": []
               }
             ]
           },
@@ -102,16 +97,14 @@
               {
                 "type": "object",
                 "properties": {},
-                "required": [],
-                "additionalProperties": false
+                "required": []
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -124,8 +117,7 @@
           {
             "type": "object",
             "properties": {},
-            "required": [],
-            "additionalProperties": false
+            "required": []
           }
         ]
       }

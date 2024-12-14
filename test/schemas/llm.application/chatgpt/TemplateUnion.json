@@ -2,6 +2,7 @@
   "model": "chatgpt",
   "options": {
     "reference": false,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -59,8 +60,7 @@
                           },
                           "required": [
                             "name"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       ]
                     }
@@ -70,15 +70,13 @@
                     "postfix",
                     "middle",
                     "mixed"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               }
             },
             "required": [
               "value"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -142,8 +140,7 @@
                           },
                           "required": [
                             "name"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       ]
                     }
@@ -153,15 +150,13 @@
                     "postfix",
                     "middle",
                     "mixed"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               }
             },
             "required": [
               "value"
-            ],
-            "additionalProperties": false
+            ]
           },
           "second": {
             "anyOf": [
@@ -217,8 +212,7 @@
                               },
                               "required": [
                                 "name"
-                              ],
-                              "additionalProperties": false
+                              ]
                             }
                           ]
                         }
@@ -228,15 +222,13 @@
                         "postfix",
                         "middle",
                         "mixed"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 },
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
@@ -297,8 +289,7 @@
                       },
                       "required": [
                         "name"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   ]
                 }
@@ -308,15 +299,13 @@
                 "postfix",
                 "middle",
                 "mixed"
-              ],
-              "additionalProperties": false
+              ]
             }
           }
         },
         "required": [
           "value"
-        ],
-        "additionalProperties": false
+        ]
       }
     },
     {
@@ -378,8 +367,7 @@
                               },
                               "required": [
                                 "name"
-                              ],
-                              "additionalProperties": false
+                              ]
                             }
                           ]
                         }
@@ -389,15 +377,13 @@
                         "postfix",
                         "middle",
                         "mixed"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 },
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           },
@@ -455,8 +441,7 @@
                               },
                               "required": [
                                 "name"
-                              ],
-                              "additionalProperties": false
+                              ]
                             }
                           ]
                         }
@@ -466,15 +451,13 @@
                         "postfix",
                         "middle",
                         "mixed"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 },
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           },
@@ -532,8 +515,7 @@
                               },
                               "required": [
                                 "name"
-                              ],
-                              "additionalProperties": false
+                              ]
                             }
                           ]
                         }
@@ -543,23 +525,20 @@
                         "postfix",
                         "middle",
                         "mixed"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 },
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -618,8 +597,7 @@
                           },
                           "required": [
                             "name"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       ]
                     }
@@ -629,15 +607,13 @@
                     "postfix",
                     "middle",
                     "mixed"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               }
             },
             "required": [
               "value"
-            ],
-            "additionalProperties": false
+            ]
           }
         ]
       }

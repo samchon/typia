@@ -28,8 +28,7 @@
                 "required": [
                   "type",
                   "name"
-                ],
-                "additionalProperties": false
+                ]
               },
               "brand": {
                 "anyOf": [
@@ -52,8 +51,7 @@
                     "required": [
                       "type",
                       "name"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               },
@@ -78,8 +76,7 @@
                     "required": [
                       "type",
                       "name"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   {
                     "type": "object",
@@ -97,8 +94,7 @@
                     "required": [
                       "type",
                       "name"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               }
@@ -108,15 +104,13 @@
               "manufacturer",
               "brand",
               "similar"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       },
       "required": [
         "value"
-      ],
-      "additionalProperties": false
+      ]
     },
     "nullable": {
       "anyOf": [
@@ -150,8 +144,7 @@
                     "required": [
                       "type",
                       "name"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   "brand": {
                     "anyOf": [
@@ -174,8 +167,7 @@
                         "required": [
                           "type",
                           "name"
-                        ],
-                        "additionalProperties": false
+                        ]
                       }
                     ]
                   },
@@ -200,8 +192,7 @@
                         "required": [
                           "type",
                           "name"
-                        ],
-                        "additionalProperties": false
+                        ]
                       },
                       {
                         "type": "object",
@@ -219,8 +210,7 @@
                         "required": [
                           "type",
                           "name"
-                        ],
-                        "additionalProperties": false
+                        ]
                       }
                     ]
                   }
@@ -230,15 +220,13 @@
                   "manufacturer",
                   "brand",
                   "similar"
-                ],
-                "additionalProperties": false
+                ]
               }
             }
           },
           "required": [
             "value"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -269,8 +257,7 @@
                 "required": [
                   "type",
                   "name"
-                ],
-                "additionalProperties": false
+                ]
               },
               "brand": {
                 "anyOf": [
@@ -293,8 +280,7 @@
                     "required": [
                       "type",
                       "name"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               },
@@ -319,8 +305,7 @@
                     "required": [
                       "type",
                       "name"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   {
                     "type": "object",
@@ -338,8 +323,7 @@
                     "required": [
                       "type",
                       "name"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               }
@@ -349,15 +333,13 @@
               "manufacturer",
               "brand",
               "similar"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       },
       "required": [
         "value"
-      ],
-      "additionalProperties": false
+      ]
     },
     "faint": {
       "anyOf": [
@@ -391,8 +373,7 @@
                     "required": [
                       "type",
                       "name"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   "brand": {
                     "anyOf": [
@@ -415,8 +396,7 @@
                         "required": [
                           "type",
                           "name"
-                        ],
-                        "additionalProperties": false
+                        ]
                       }
                     ]
                   },
@@ -441,8 +421,7 @@
                         "required": [
                           "type",
                           "name"
-                        ],
-                        "additionalProperties": false
+                        ]
                       },
                       {
                         "type": "object",
@@ -460,8 +439,7 @@
                         "required": [
                           "type",
                           "name"
-                        ],
-                        "additionalProperties": false
+                        ]
                       }
                     ]
                   }
@@ -471,15 +449,13 @@
                   "manufacturer",
                   "brand",
                   "similar"
-                ],
-                "additionalProperties": false
+                ]
               }
             }
           },
           "required": [
             "value"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -512,8 +488,7 @@
                   "required": [
                     "type",
                     "name"
-                  ],
-                  "additionalProperties": false
+                  ]
                 },
                 "brand": {
                   "anyOf": [
@@ -536,8 +511,7 @@
                       "required": [
                         "type",
                         "name"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   ]
                 },
@@ -562,8 +536,7 @@
                       "required": [
                         "type",
                         "name"
-                      ],
-                      "additionalProperties": false
+                      ]
                     },
                     {
                       "type": "object",
@@ -581,8 +554,7 @@
                       "required": [
                         "type",
                         "name"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   ]
                 }
@@ -592,23 +564,19 @@
                 "manufacturer",
                 "brand",
                 "similar"
-              ],
-              "additionalProperties": false
+              ]
             }
           }
         },
         "required": [
           "value"
-        ],
-        "additionalProperties": false
+        ]
       }
     }
   },
   "required": [
     "regular",
     "nullable",
-    "optional",
-    "faint",
     "array"
   ],
   "additionalProperties": false,

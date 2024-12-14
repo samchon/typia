@@ -2,6 +2,7 @@
   "model": "chatgpt",
   "options": {
     "reference": false,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -38,8 +39,7 @@
               "description",
               "title",
               "complicate_title"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -82,8 +82,7 @@
               "description",
               "title",
               "complicate_title"
-            ],
-            "additionalProperties": false
+            ]
           },
           "second": {
             "anyOf": [
@@ -118,8 +117,7 @@
                   "description",
                   "title",
                   "complicate_title"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
@@ -159,8 +157,7 @@
           "description",
           "title",
           "complicate_title"
-        ],
-        "additionalProperties": false
+        ]
       }
     },
     {
@@ -201,8 +198,7 @@
                   "description",
                   "title",
                   "complicate_title"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           },
@@ -239,8 +235,7 @@
                   "description",
                   "title",
                   "complicate_title"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           },
@@ -277,16 +272,14 @@
                   "description",
                   "title",
                   "complicate_title"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -324,8 +317,7 @@
               "description",
               "title",
               "complicate_title"
-            ],
-            "additionalProperties": false
+            ]
           }
         ]
       }

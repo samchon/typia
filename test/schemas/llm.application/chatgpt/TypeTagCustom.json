@@ -2,6 +2,7 @@
   "model": "chatgpt",
   "options": {
     "reference": false,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -35,8 +36,7 @@
               "dollar",
               "postfix",
               "powerOf"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -76,8 +76,7 @@
               "dollar",
               "postfix",
               "powerOf"
-            ],
-            "additionalProperties": false
+            ]
           },
           "second": {
             "anyOf": [
@@ -109,8 +108,7 @@
                   "dollar",
                   "postfix",
                   "powerOf"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
@@ -147,8 +145,7 @@
           "dollar",
           "postfix",
           "powerOf"
-        ],
-        "additionalProperties": false
+        ]
       }
     },
     {
@@ -186,8 +183,7 @@
                   "dollar",
                   "postfix",
                   "powerOf"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           },
@@ -221,8 +217,7 @@
                   "dollar",
                   "postfix",
                   "powerOf"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           },
@@ -256,16 +251,14 @@
                   "dollar",
                   "postfix",
                   "powerOf"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -300,8 +293,7 @@
               "dollar",
               "postfix",
               "powerOf"
-            ],
-            "additionalProperties": false
+            ]
           }
         ]
       }

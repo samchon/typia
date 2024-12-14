@@ -2,6 +2,7 @@
   "model": "chatgpt",
   "options": {
     "reference": false,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -126,8 +127,7 @@
               "union_but_string",
               "vulnerable_range",
               "boolean_and_number_and_template"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -258,8 +258,7 @@
               "union_but_string",
               "vulnerable_range",
               "boolean_and_number_and_template"
-            ],
-            "additionalProperties": false
+            ]
           },
           "second": {
             "anyOf": [
@@ -382,8 +381,7 @@
                   "union_but_string",
                   "vulnerable_range",
                   "boolean_and_number_and_template"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
@@ -511,8 +509,7 @@
           "union_but_string",
           "vulnerable_range",
           "boolean_and_number_and_template"
-        ],
-        "additionalProperties": false
+        ]
       }
     },
     {
@@ -641,8 +638,7 @@
                   "union_but_string",
                   "vulnerable_range",
                   "boolean_and_number_and_template"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           },
@@ -767,8 +763,7 @@
                   "union_but_string",
                   "vulnerable_range",
                   "boolean_and_number_and_template"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           },
@@ -893,16 +888,14 @@
                   "union_but_string",
                   "vulnerable_range",
                   "boolean_and_number_and_template"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -1028,8 +1021,7 @@
               "union_but_string",
               "vulnerable_range",
               "boolean_and_number_and_template"
-            ],
-            "additionalProperties": false
+            ]
           }
         ]
       }

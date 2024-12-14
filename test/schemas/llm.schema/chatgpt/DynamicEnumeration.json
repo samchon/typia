@@ -35,23 +35,10 @@
           "type": "string"
         }
       },
-      "required": [
-        "ar",
-        "zh-Hans",
-        "zh-Hant",
-        "en",
-        "fr",
-        "de",
-        "ja",
-        "ko",
-        "pt",
-        "ru"
-      ],
-      "additionalProperties": false
+      "required": []
     }
   },
   "required": [
     "value"
-  ],
-  "additionalProperties": false
+  ]
 }

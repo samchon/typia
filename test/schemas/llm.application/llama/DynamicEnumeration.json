@@ -47,18 +47,7 @@
                     "type": "string"
                   }
                 },
-                "required": [
-                  "ar",
-                  "zh-Hans",
-                  "zh-Hant",
-                  "en",
-                  "fr",
-                  "de",
-                  "ja",
-                  "ko",
-                  "pt",
-                  "ru"
-                ]
+                "required": []
               }
             },
             "required": [
@@ -115,18 +104,7 @@
                     "type": "string"
                   }
                 },
-                "required": [
-                  "ar",
-                  "zh-Hans",
-                  "zh-Hant",
-                  "en",
-                  "fr",
-                  "de",
-                  "ja",
-                  "ko",
-                  "pt",
-                  "ru"
-                ]
+                "required": []
               }
             },
             "required": [
@@ -175,18 +153,7 @@
                         "type": "string"
                       }
                     },
-                    "required": [
-                      "ar",
-                      "zh-Hans",
-                      "zh-Hant",
-                      "en",
-                      "fr",
-                      "de",
-                      "ja",
-                      "ko",
-                      "pt",
-                      "ru"
-                    ]
+                    "required": []
                   }
                 },
                 "required": [
@@ -240,18 +207,7 @@
                 "type": "string"
               }
             },
-            "required": [
-              "ar",
-              "zh-Hans",
-              "zh-Hant",
-              "en",
-              "fr",
-              "de",
-              "ja",
-              "ko",
-              "pt",
-              "ru"
-            ]
+            "required": []
           }
         },
         "required": [
@@ -306,18 +262,7 @@
                         "type": "string"
                       }
                     },
-                    "required": [
-                      "ar",
-                      "zh-Hans",
-                      "zh-Hant",
-                      "en",
-                      "fr",
-                      "de",
-                      "ja",
-                      "ko",
-                      "pt",
-                      "ru"
-                    ]
+                    "required": []
                   }
                 },
                 "required": [
@@ -368,18 +313,7 @@
                         "type": "string"
                       }
                     },
-                    "required": [
-                      "ar",
-                      "zh-Hans",
-                      "zh-Hant",
-                      "en",
-                      "fr",
-                      "de",
-                      "ja",
-                      "ko",
-                      "pt",
-                      "ru"
-                    ]
+                    "required": []
                   }
                 },
                 "required": [
@@ -430,18 +364,7 @@
                         "type": "string"
                       }
                     },
-                    "required": [
-                      "ar",
-                      "zh-Hans",
-                      "zh-Hant",
-                      "en",
-                      "fr",
-                      "de",
-                      "ja",
-                      "ko",
-                      "pt",
-                      "ru"
-                    ]
+                    "required": []
                   }
                 },
                 "required": [
@@ -453,8 +376,7 @@
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -501,18 +423,7 @@
                     "type": "string"
                   }
                 },
-                "required": [
-                  "ar",
-                  "zh-Hans",
-                  "zh-Hant",
-                  "en",
-                  "fr",
-                  "de",
-                  "ja",
-                  "ko",
-                  "pt",
-                  "ru"
-                ]
+                "required": []
               }
             },
             "required": [

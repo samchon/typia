@@ -2,6 +2,7 @@
   "model": "chatgpt",
   "options": {
     "reference": false,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -50,8 +51,7 @@
                 "required": [
                   "time",
                   "zone"
-                ],
-                "additionalProperties": false
+                ]
               }
             },
             "required": [
@@ -60,8 +60,7 @@
               "code",
               "sequence",
               "created_at"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       }
@@ -122,8 +121,7 @@
                 "required": [
                   "time",
                   "zone"
-                ],
-                "additionalProperties": false
+                ]
               }
             },
             "required": [
@@ -132,8 +130,7 @@
               "code",
               "sequence",
               "created_at"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       },
@@ -179,8 +176,7 @@
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {
@@ -215,8 +211,7 @@
                 "required": [
                   "time",
                   "zone"
-                ],
-                "additionalProperties": false
+                ]
               }
             },
             "required": [
@@ -225,8 +220,7 @@
               "code",
               "sequence",
               "created_at"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       },

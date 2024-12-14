@@ -58,11 +58,9 @@
     }
   },
   "required": [
-    "classDate",
     "date",
     "datetime",
     "time",
     "duration"
-  ],
-  "additionalProperties": false
+  ]
 }

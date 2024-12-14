@@ -212,8 +212,6 @@
   "required": [
     "regular",
     "nullable",
-    "optional",
-    "faint",
     "array"
   ],
   "additionalProperties": false,
@@ -247,13 +245,7 @@
           ]
         }
       },
-      "required": [
-        "boolean",
-        "number",
-        "string",
-        "array",
-        "object"
-      ]
+      "required": []
     }
   }
 }

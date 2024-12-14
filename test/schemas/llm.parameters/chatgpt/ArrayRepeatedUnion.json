@@ -46,8 +46,7 @@
                   "x",
                   "y",
                   "z"
-                ],
-                "additionalProperties": false
+                ]
               },
               "position": {
                 "type": "object",
@@ -66,8 +65,7 @@
                   "x",
                   "y",
                   "z"
-                ],
-                "additionalProperties": false
+                ]
               },
               "rotate": {
                 "type": "object",
@@ -86,8 +84,7 @@
                   "x",
                   "y",
                   "z"
-                ],
-                "additionalProperties": false
+                ]
               },
               "pivot": {
                 "type": "object",
@@ -106,8 +103,7 @@
                   "x",
                   "y",
                   "z"
-                ],
-                "additionalProperties": false
+                ]
               }
             },
             "required": [
@@ -115,8 +111,7 @@
               "position",
               "rotate",
               "pivot"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       ]
@@ -160,8 +155,7 @@
                   "x",
                   "y",
                   "z"
-                ],
-                "additionalProperties": false
+                ]
               },
               "position": {
                 "type": "object",
@@ -180,8 +174,7 @@
                   "x",
                   "y",
                   "z"
-                ],
-                "additionalProperties": false
+                ]
               },
               "rotate": {
                 "type": "object",
@@ -200,8 +193,7 @@
                   "x",
                   "y",
                   "z"
-                ],
-                "additionalProperties": false
+                ]
               },
               "pivot": {
                 "type": "object",
@@ -220,8 +212,7 @@
                   "x",
                   "y",
                   "z"
-                ],
-                "additionalProperties": false
+                ]
               }
             },
             "required": [
@@ -229,8 +220,7 @@
               "position",
               "rotate",
               "pivot"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       ]
@@ -277,8 +267,7 @@
                   "x",
                   "y",
                   "z"
-                ],
-                "additionalProperties": false
+                ]
               },
               "position": {
                 "type": "object",
@@ -297,8 +286,7 @@
                   "x",
                   "y",
                   "z"
-                ],
-                "additionalProperties": false
+                ]
               },
               "rotate": {
                 "type": "object",
@@ -317,8 +305,7 @@
                   "x",
                   "y",
                   "z"
-                ],
-                "additionalProperties": false
+                ]
               },
               "pivot": {
                 "type": "object",
@@ -337,8 +324,7 @@
                   "x",
                   "y",
                   "z"
-                ],
-                "additionalProperties": false
+                ]
               }
             },
             "required": [
@@ -346,8 +332,7 @@
               "position",
               "rotate",
               "pivot"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       ]
@@ -362,8 +347,6 @@
   "required": [
     "regular",
     "nullable",
-    "optional",
-    "faint",
     "array"
   ],
   "additionalProperties": false,
@@ -407,8 +390,7 @@
                   "x",
                   "y",
                   "z"
-                ],
-                "additionalProperties": false
+                ]
               },
               "position": {
                 "type": "object",
@@ -427,8 +409,7 @@
                   "x",
                   "y",
                   "z"
-                ],
-                "additionalProperties": false
+                ]
               },
               "rotate": {
                 "type": "object",
@@ -447,8 +428,7 @@
                   "x",
                   "y",
                   "z"
-                ],
-                "additionalProperties": false
+                ]
               },
               "pivot": {
                 "type": "object",
@@ -467,8 +447,7 @@
                   "x",
                   "y",
                   "z"
-                ],
-                "additionalProperties": false
+                ]
               }
             },
             "required": [
@@ -476,8 +455,7 @@
               "position",
               "rotate",
               "pivot"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       ]

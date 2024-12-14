@@ -32,8 +32,7 @@
             "required": [
               "id",
               "name"
-            ],
-            "additionalProperties": false
+            ]
           },
           "grade": {
             "type": "number"
@@ -42,12 +41,8 @@
         },
         "required": [
           "name",
-          "professor",
-          "classroom",
-          "grade",
           "unknown"
-        ],
-        "additionalProperties": false
+        ]
       }
     },
     "nullable": {
@@ -86,8 +81,7 @@
                 "required": [
                   "id",
                   "name"
-                ],
-                "additionalProperties": false
+                ]
               },
               "grade": {
                 "type": "number"
@@ -96,12 +90,8 @@
             },
             "required": [
               "name",
-              "professor",
-              "classroom",
-              "grade",
               "unknown"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       ]
@@ -137,8 +127,7 @@
             "required": [
               "id",
               "name"
-            ],
-            "additionalProperties": false
+            ]
           },
           "grade": {
             "type": "number"
@@ -147,12 +136,8 @@
         },
         "required": [
           "name",
-          "professor",
-          "classroom",
-          "grade",
           "unknown"
-        ],
-        "additionalProperties": false
+        ]
       }
     },
     "faint": {
@@ -191,8 +176,7 @@
                 "required": [
                   "id",
                   "name"
-                ],
-                "additionalProperties": false
+                ]
               },
               "grade": {
                 "type": "number"
@@ -201,12 +185,8 @@
             },
             "required": [
               "name",
-              "professor",
-              "classroom",
-              "grade",
               "unknown"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       ]
@@ -244,8 +224,7 @@
               "required": [
                 "id",
                 "name"
-              ],
-              "additionalProperties": false
+              ]
             },
             "grade": {
               "type": "number"
@@ -254,12 +233,8 @@
           },
           "required": [
             "name",
-            "professor",
-            "classroom",
-            "grade",
             "unknown"
-          ],
-          "additionalProperties": false
+          ]
         }
       }
     }
@@ -267,8 +242,6 @@
   "required": [
     "regular",
     "nullable",
-    "optional",
-    "faint",
     "array"
   ],
   "additionalProperties": false,

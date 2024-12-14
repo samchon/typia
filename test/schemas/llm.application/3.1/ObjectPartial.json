@@ -41,13 +41,7 @@
                 ]
               }
             },
-            "required": [
-              "boolean",
-              "number",
-              "string",
-              "array",
-              "object"
-            ]
+            "required": []
           }
         },
         "required": [
@@ -130,13 +124,7 @@
                 ]
               }
             },
-            "required": [
-              "boolean",
-              "number",
-              "string",
-              "array",
-              "object"
-            ]
+            "required": []
           },
           "second": {
             "oneOf": [
@@ -172,13 +160,7 @@
                     ]
                   }
                 },
-                "required": [
-                  "boolean",
-                  "number",
-                  "string",
-                  "array",
-                  "object"
-                ],
+                "required": [],
                 "description": "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional"
               }
             ]
@@ -259,13 +241,7 @@
             ]
           }
         },
-        "required": [
-          "boolean",
-          "number",
-          "string",
-          "array",
-          "object"
-        ]
+        "required": []
       }
     },
     {
@@ -307,13 +283,7 @@
                     ]
                   }
                 },
-                "required": [
-                  "boolean",
-                  "number",
-                  "string",
-                  "array",
-                  "object"
-                ],
+                "required": [],
                 "description": "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional"
               }
             ]
@@ -352,13 +322,7 @@
                     ]
                   }
                 },
-                "required": [
-                  "boolean",
-                  "number",
-                  "string",
-                  "array",
-                  "object"
-                ],
+                "required": [],
                 "description": "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional"
               }
             ]
@@ -397,13 +361,7 @@
                     ]
                   }
                 },
-                "required": [
-                  "boolean",
-                  "number",
-                  "string",
-                  "array",
-                  "object"
-                ],
+                "required": [],
                 "description": "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional"
               }
             ]
@@ -411,8 +369,7 @@
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {
@@ -489,13 +446,7 @@
                 ]
               }
             },
-            "required": [
-              "boolean",
-              "number",
-              "string",
-              "array",
-              "object"
-            ],
+            "required": [],
             "description": "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional"
           }
         ]

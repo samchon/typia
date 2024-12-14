@@ -29,8 +29,7 @@
       "required": [
         "id",
         "age"
-      ],
-      "additionalProperties": false
+      ]
     },
     "nullable": {
       "anyOf": [
@@ -65,8 +64,7 @@
           "required": [
             "id",
             "age"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -98,8 +96,7 @@
       "required": [
         "id",
         "age"
-      ],
-      "additionalProperties": false
+      ]
     },
     "faint": {
       "anyOf": [
@@ -134,8 +131,7 @@
           "required": [
             "id",
             "age"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -169,16 +165,13 @@
         "required": [
           "id",
           "age"
-        ],
-        "additionalProperties": false
+        ]
       }
     }
   },
   "required": [
     "regular",
     "nullable",
-    "optional",
-    "faint",
     "array"
   ],
   "additionalProperties": false,

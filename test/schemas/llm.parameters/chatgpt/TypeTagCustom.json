@@ -26,8 +26,7 @@
         "dollar",
         "postfix",
         "powerOf"
-      ],
-      "additionalProperties": false
+      ]
     },
     "nullable": {
       "anyOf": [
@@ -59,8 +58,7 @@
             "dollar",
             "postfix",
             "powerOf"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -89,8 +87,7 @@
         "dollar",
         "postfix",
         "powerOf"
-      ],
-      "additionalProperties": false
+      ]
     },
     "faint": {
       "anyOf": [
@@ -122,8 +119,7 @@
             "dollar",
             "postfix",
             "powerOf"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -154,16 +150,13 @@
           "dollar",
           "postfix",
           "powerOf"
-        ],
-        "additionalProperties": false
+        ]
       }
     }
   },
   "required": [
     "regular",
     "nullable",
-    "optional",
-    "faint",
     "array"
   ],
   "additionalProperties": false,

@@ -14,8 +14,7 @@
         },
         "required": [
           "key"
-        ],
-        "additionalProperties": false
+        ]
       },
       {
         "type": "boolean",

@@ -48,8 +48,7 @@
               "extension",
               "url",
               "created_at"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "secret": {
@@ -67,8 +66,7 @@
         "files",
         "secret",
         "created_at"
-      ],
-      "additionalProperties": false
+      ]
     },
     "nullable": {
       "anyOf": [
@@ -122,8 +120,7 @@
                   "extension",
                   "url",
                   "created_at"
-                ],
-                "additionalProperties": false
+                ]
               }
             },
             "secret": {
@@ -141,8 +138,7 @@
             "files",
             "secret",
             "created_at"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -193,8 +189,7 @@
               "extension",
               "url",
               "created_at"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "secret": {
@@ -212,8 +207,7 @@
         "files",
         "secret",
         "created_at"
-      ],
-      "additionalProperties": false
+      ]
     },
     "faint": {
       "anyOf": [
@@ -267,8 +261,7 @@
                   "extension",
                   "url",
                   "created_at"
-                ],
-                "additionalProperties": false
+                ]
               }
             },
             "secret": {
@@ -286,8 +279,7 @@
             "files",
             "secret",
             "created_at"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -340,8 +332,7 @@
                 "extension",
                 "url",
                 "created_at"
-              ],
-              "additionalProperties": false
+              ]
             }
           },
           "secret": {
@@ -359,16 +350,13 @@
           "files",
           "secret",
           "created_at"
-        ],
-        "additionalProperties": false
+        ]
       }
     }
   },
   "required": [
     "regular",
     "nullable",
-    "optional",
-    "faint",
     "array"
   ],
   "additionalProperties": false,

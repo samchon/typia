@@ -2,6 +2,7 @@
   "model": "chatgpt",
   "options": {
     "reference": false,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -25,8 +26,7 @@
             "required": [
               "id",
               "age"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -56,8 +56,7 @@
             "required": [
               "id",
               "age"
-            ],
-            "additionalProperties": false
+            ]
           },
           "second": {
             "anyOf": [
@@ -79,8 +78,7 @@
                 "required": [
                   "id",
                   "age"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
@@ -107,8 +105,7 @@
         "required": [
           "id",
           "age"
-        ],
-        "additionalProperties": false
+        ]
       }
     },
     {
@@ -136,8 +133,7 @@
                 "required": [
                   "id",
                   "age"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           },
@@ -161,8 +157,7 @@
                 "required": [
                   "id",
                   "age"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           },
@@ -186,16 +181,14 @@
                 "required": [
                   "id",
                   "age"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -220,8 +213,7 @@
             "required": [
               "id",
               "age"
-            ],
-            "additionalProperties": false
+            ]
           }
         ]
       }

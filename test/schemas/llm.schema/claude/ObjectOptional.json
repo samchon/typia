@@ -14,10 +14,5 @@
       "type": "number"
     }
   },
-  "required": [
-    "id",
-    "name",
-    "email",
-    "sequence"
-  ]
+  "required": []
 }

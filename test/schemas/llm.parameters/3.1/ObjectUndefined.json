@@ -41,9 +41,6 @@
         },
         "required": [
           "name",
-          "professor",
-          "classroom",
-          "grade",
           "unknown"
         ]
       }
@@ -93,9 +90,6 @@
             },
             "required": [
               "name",
-              "professor",
-              "classroom",
-              "grade",
               "unknown"
             ]
           }
@@ -142,9 +136,6 @@
         },
         "required": [
           "name",
-          "professor",
-          "classroom",
-          "grade",
           "unknown"
         ]
       }
@@ -194,9 +185,6 @@
             },
             "required": [
               "name",
-              "professor",
-              "classroom",
-              "grade",
               "unknown"
             ]
           }
@@ -245,9 +233,6 @@
           },
           "required": [
             "name",
-            "professor",
-            "classroom",
-            "grade",
             "unknown"
           ]
         }
@@ -257,8 +242,6 @@
   "required": [
     "regular",
     "nullable",
-    "optional",
-    "faint",
     "array"
   ],
   "additionalProperties": false,

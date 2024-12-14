@@ -17,13 +17,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "id",
-        "name",
-        "email",
-        "sequence"
-      ],
-      "additionalProperties": false
+      "required": []
     },
     "nullable": {
       "anyOf": [
@@ -46,13 +40,7 @@
               "type": "number"
             }
           },
-          "required": [
-            "id",
-            "name",
-            "email",
-            "sequence"
-          ],
-          "additionalProperties": false
+          "required": []
         }
       ]
     },
@@ -72,13 +60,7 @@
           "type": "number"
         }
       },
-      "required": [
-        "id",
-        "name",
-        "email",
-        "sequence"
-      ],
-      "additionalProperties": false
+      "required": []
     },
     "faint": {
       "anyOf": [
@@ -101,13 +83,7 @@
               "type": "number"
             }
           },
-          "required": [
-            "id",
-            "name",
-            "email",
-            "sequence"
-          ],
-          "additionalProperties": false
+          "required": []
         }
       ]
     },
@@ -129,21 +105,13 @@
             "type": "number"
           }
         },
-        "required": [
-          "id",
-          "name",
-          "email",
-          "sequence"
-        ],
-        "additionalProperties": false
+        "required": []
       }
     }
   },
   "required": [
     "regular",
     "nullable",
-    "optional",
-    "faint",
     "array"
   ],
   "additionalProperties": false,

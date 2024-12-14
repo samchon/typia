@@ -2,6 +2,7 @@
   "model": "chatgpt",
   "options": {
     "reference": false,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -40,8 +41,7 @@
                       "required": [
                         "time",
                         "zone"
-                      ],
-                      "additionalProperties": false
+                      ]
                     },
                     "departments": {
                       "type": "array",
@@ -70,8 +70,7 @@
                             "required": [
                               "time",
                               "zone"
-                            ],
-                            "additionalProperties": false
+                            ]
                           },
                           "employees": {
                             "type": "array",
@@ -103,8 +102,7 @@
                                   "required": [
                                     "time",
                                     "zone"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
                               },
                               "required": [
@@ -113,8 +111,7 @@
                                 "age",
                                 "grade",
                                 "employeed_at"
-                              ],
-                              "additionalProperties": false
+                              ]
                             }
                           }
                         },
@@ -124,8 +121,7 @@
                           "sales",
                           "created_at",
                           "employees"
-                        ],
-                        "additionalProperties": false
+                        ]
                       }
                     }
                   },
@@ -135,15 +131,13 @@
                     "name",
                     "established_at",
                     "departments"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               }
             },
             "required": [
               "value"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -188,8 +182,7 @@
                       "required": [
                         "time",
                         "zone"
-                      ],
-                      "additionalProperties": false
+                      ]
                     },
                     "departments": {
                       "type": "array",
@@ -218,8 +211,7 @@
                             "required": [
                               "time",
                               "zone"
-                            ],
-                            "additionalProperties": false
+                            ]
                           },
                           "employees": {
                             "type": "array",
@@ -251,8 +243,7 @@
                                   "required": [
                                     "time",
                                     "zone"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
                               },
                               "required": [
@@ -261,8 +252,7 @@
                                 "age",
                                 "grade",
                                 "employeed_at"
-                              ],
-                              "additionalProperties": false
+                              ]
                             }
                           }
                         },
@@ -272,8 +262,7 @@
                           "sales",
                           "created_at",
                           "employees"
-                        ],
-                        "additionalProperties": false
+                        ]
                       }
                     }
                   },
@@ -283,15 +272,13 @@
                     "name",
                     "established_at",
                     "departments"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               }
             },
             "required": [
               "value"
-            ],
-            "additionalProperties": false
+            ]
           },
           "second": {
             "anyOf": [
@@ -328,8 +315,7 @@
                           "required": [
                             "time",
                             "zone"
-                          ],
-                          "additionalProperties": false
+                          ]
                         },
                         "departments": {
                           "type": "array",
@@ -358,8 +344,7 @@
                                 "required": [
                                   "time",
                                   "zone"
-                                ],
-                                "additionalProperties": false
+                                ]
                               },
                               "employees": {
                                 "type": "array",
@@ -391,8 +376,7 @@
                                       "required": [
                                         "time",
                                         "zone"
-                                      ],
-                                      "additionalProperties": false
+                                      ]
                                     }
                                   },
                                   "required": [
@@ -401,8 +385,7 @@
                                     "age",
                                     "grade",
                                     "employeed_at"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
                               }
                             },
@@ -412,8 +395,7 @@
                               "sales",
                               "created_at",
                               "employees"
-                            ],
-                            "additionalProperties": false
+                            ]
                           }
                         }
                       },
@@ -423,15 +405,13 @@
                         "name",
                         "established_at",
                         "departments"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 },
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
@@ -473,8 +453,7 @@
                   "required": [
                     "time",
                     "zone"
-                  ],
-                  "additionalProperties": false
+                  ]
                 },
                 "departments": {
                   "type": "array",
@@ -503,8 +482,7 @@
                         "required": [
                           "time",
                           "zone"
-                        ],
-                        "additionalProperties": false
+                        ]
                       },
                       "employees": {
                         "type": "array",
@@ -536,8 +514,7 @@
                               "required": [
                                 "time",
                                 "zone"
-                              ],
-                              "additionalProperties": false
+                              ]
                             }
                           },
                           "required": [
@@ -546,8 +523,7 @@
                             "age",
                             "grade",
                             "employeed_at"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       }
                     },
@@ -557,8 +533,7 @@
                       "sales",
                       "created_at",
                       "employees"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 }
               },
@@ -568,15 +543,13 @@
                 "name",
                 "established_at",
                 "departments"
-              ],
-              "additionalProperties": false
+              ]
             }
           }
         },
         "required": [
           "value"
-        ],
-        "additionalProperties": false
+        ]
       }
     },
     {
@@ -619,8 +592,7 @@
                           "required": [
                             "time",
                             "zone"
-                          ],
-                          "additionalProperties": false
+                          ]
                         },
                         "departments": {
                           "type": "array",
@@ -649,8 +621,7 @@
                                 "required": [
                                   "time",
                                   "zone"
-                                ],
-                                "additionalProperties": false
+                                ]
                               },
                               "employees": {
                                 "type": "array",
@@ -682,8 +653,7 @@
                                       "required": [
                                         "time",
                                         "zone"
-                                      ],
-                                      "additionalProperties": false
+                                      ]
                                     }
                                   },
                                   "required": [
@@ -692,8 +662,7 @@
                                     "age",
                                     "grade",
                                     "employeed_at"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
                               }
                             },
@@ -703,8 +672,7 @@
                               "sales",
                               "created_at",
                               "employees"
-                            ],
-                            "additionalProperties": false
+                            ]
                           }
                         }
                       },
@@ -714,15 +682,13 @@
                         "name",
                         "established_at",
                         "departments"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 },
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           },
@@ -761,8 +727,7 @@
                           "required": [
                             "time",
                             "zone"
-                          ],
-                          "additionalProperties": false
+                          ]
                         },
                         "departments": {
                           "type": "array",
@@ -791,8 +756,7 @@
                                 "required": [
                                   "time",
                                   "zone"
-                                ],
-                                "additionalProperties": false
+                                ]
                               },
                               "employees": {
                                 "type": "array",
@@ -824,8 +788,7 @@
                                       "required": [
                                         "time",
                                         "zone"
-                                      ],
-                                      "additionalProperties": false
+                                      ]
                                     }
                                   },
                                   "required": [
@@ -834,8 +797,7 @@
                                     "age",
                                     "grade",
                                     "employeed_at"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
                               }
                             },
@@ -845,8 +807,7 @@
                               "sales",
                               "created_at",
                               "employees"
-                            ],
-                            "additionalProperties": false
+                            ]
                           }
                         }
                       },
@@ -856,15 +817,13 @@
                         "name",
                         "established_at",
                         "departments"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 },
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           },
@@ -903,8 +862,7 @@
                           "required": [
                             "time",
                             "zone"
-                          ],
-                          "additionalProperties": false
+                          ]
                         },
                         "departments": {
                           "type": "array",
@@ -933,8 +891,7 @@
                                 "required": [
                                   "time",
                                   "zone"
-                                ],
-                                "additionalProperties": false
+                                ]
                               },
                               "employees": {
                                 "type": "array",
@@ -966,8 +923,7 @@
                                       "required": [
                                         "time",
                                         "zone"
-                                      ],
-                                      "additionalProperties": false
+                                      ]
                                     }
                                   },
                                   "required": [
@@ -976,8 +932,7 @@
                                     "age",
                                     "grade",
                                     "employeed_at"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
                               }
                             },
@@ -987,8 +942,7 @@
                               "sales",
                               "created_at",
                               "employees"
-                            ],
-                            "additionalProperties": false
+                            ]
                           }
                         }
                       },
@@ -998,23 +952,20 @@
                         "name",
                         "established_at",
                         "departments"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 },
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -1054,8 +1005,7 @@
                       "required": [
                         "time",
                         "zone"
-                      ],
-                      "additionalProperties": false
+                      ]
                     },
                     "departments": {
                       "type": "array",
@@ -1084,8 +1034,7 @@
                             "required": [
                               "time",
                               "zone"
-                            ],
-                            "additionalProperties": false
+                            ]
                           },
                           "employees": {
                             "type": "array",
@@ -1117,8 +1066,7 @@
                                   "required": [
                                     "time",
                                     "zone"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
                               },
                               "required": [
@@ -1127,8 +1075,7 @@
                                 "age",
                                 "grade",
                                 "employeed_at"
-                              ],
-                              "additionalProperties": false
+                              ]
                             }
                           }
                         },
@@ -1138,8 +1085,7 @@
                           "sales",
                           "created_at",
                           "employees"
-                        ],
-                        "additionalProperties": false
+                        ]
                       }
                     }
                   },
@@ -1149,15 +1095,13 @@
                     "name",
                     "established_at",
                     "departments"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               }
             },
             "required": [
               "value"
-            ],
-            "additionalProperties": false
+            ]
           }
         ]
       }

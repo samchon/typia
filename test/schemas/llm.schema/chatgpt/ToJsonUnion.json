@@ -22,8 +22,7 @@
           "id",
           "mobile",
           "name"
-        ],
-        "additionalProperties": false
+        ]
       },
       {
         "type": "object",
@@ -42,8 +41,7 @@
           "manufacturer",
           "brand",
           "name"
-        ],
-        "additionalProperties": false
+        ]
       },
       {
         "type": "string"
@@ -68,8 +66,7 @@
           "id",
           "mobile",
           "name"
-        ],
-        "additionalProperties": false
+        ]
       }
     ]
   }

@@ -17,8 +17,7 @@
                 },
                 "required": [
                   "x"
-                ],
-                "additionalProperties": false
+                ]
               },
               "child": {
                 "anyOf": [
@@ -34,14 +33,12 @@
                         },
                         "required": [
                           "y"
-                        ],
-                        "additionalProperties": false
+                        ]
                       }
                     },
                     "required": [
                       "value"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   {
                     "type": "object",
@@ -55,14 +52,12 @@
                         },
                         "required": [
                           "y"
-                        ],
-                        "additionalProperties": false
+                        ]
                       }
                     },
                     "required": [
                       "value"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               }
@@ -70,8 +65,7 @@
             "required": [
               "value",
               "child"
-            ],
-            "additionalProperties": false
+            ]
           },
           {
             "type": "object",
@@ -85,8 +79,7 @@
                 },
                 "required": [
                   "x"
-                ],
-                "additionalProperties": false
+                ]
               },
               "child": {
                 "anyOf": [
@@ -105,14 +98,12 @@
                         },
                         "required": [
                           "y"
-                        ],
-                        "additionalProperties": false
+                        ]
                       }
                     },
                     "required": [
                       "value"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   {
                     "type": "object",
@@ -126,14 +117,12 @@
                         },
                         "required": [
                           "y"
-                        ],
-                        "additionalProperties": false
+                        ]
                       }
                     },
                     "required": [
                       "value"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               }
@@ -141,8 +130,7 @@
             "required": [
               "value",
               "child"
-            ],
-            "additionalProperties": false
+            ]
           }
         ]
       }
@@ -168,8 +156,7 @@
                     },
                     "required": [
                       "x"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   "child": {
                     "anyOf": [
@@ -185,14 +172,12 @@
                             },
                             "required": [
                               "y"
-                            ],
-                            "additionalProperties": false
+                            ]
                           }
                         },
                         "required": [
                           "value"
-                        ],
-                        "additionalProperties": false
+                        ]
                       },
                       {
                         "type": "object",
@@ -206,14 +191,12 @@
                             },
                             "required": [
                               "y"
-                            ],
-                            "additionalProperties": false
+                            ]
                           }
                         },
                         "required": [
                           "value"
-                        ],
-                        "additionalProperties": false
+                        ]
                       }
                     ]
                   }
@@ -221,8 +204,7 @@
                 "required": [
                   "value",
                   "child"
-                ],
-                "additionalProperties": false
+                ]
               },
               {
                 "type": "object",
@@ -236,8 +218,7 @@
                     },
                     "required": [
                       "x"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   "child": {
                     "anyOf": [
@@ -256,14 +237,12 @@
                             },
                             "required": [
                               "y"
-                            ],
-                            "additionalProperties": false
+                            ]
                           }
                         },
                         "required": [
                           "value"
-                        ],
-                        "additionalProperties": false
+                        ]
                       },
                       {
                         "type": "object",
@@ -277,14 +256,12 @@
                             },
                             "required": [
                               "y"
-                            ],
-                            "additionalProperties": false
+                            ]
                           }
                         },
                         "required": [
                           "value"
-                        ],
-                        "additionalProperties": false
+                        ]
                       }
                     ]
                   }
@@ -292,8 +269,7 @@
                 "required": [
                   "value",
                   "child"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
@@ -316,8 +292,7 @@
                 },
                 "required": [
                   "x"
-                ],
-                "additionalProperties": false
+                ]
               },
               "child": {
                 "anyOf": [
@@ -333,14 +308,12 @@
                         },
                         "required": [
                           "y"
-                        ],
-                        "additionalProperties": false
+                        ]
                       }
                     },
                     "required": [
                       "value"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   {
                     "type": "object",
@@ -354,14 +327,12 @@
                         },
                         "required": [
                           "y"
-                        ],
-                        "additionalProperties": false
+                        ]
                       }
                     },
                     "required": [
                       "value"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               }
@@ -369,8 +340,7 @@
             "required": [
               "value",
               "child"
-            ],
-            "additionalProperties": false
+            ]
           },
           {
             "type": "object",
@@ -384,8 +354,7 @@
                 },
                 "required": [
                   "x"
-                ],
-                "additionalProperties": false
+                ]
               },
               "child": {
                 "anyOf": [
@@ -404,14 +373,12 @@
                         },
                         "required": [
                           "y"
-                        ],
-                        "additionalProperties": false
+                        ]
                       }
                     },
                     "required": [
                       "value"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   {
                     "type": "object",
@@ -425,14 +392,12 @@
                         },
                         "required": [
                           "y"
-                        ],
-                        "additionalProperties": false
+                        ]
                       }
                     },
                     "required": [
                       "value"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               }
@@ -440,8 +405,7 @@
             "required": [
               "value",
               "child"
-            ],
-            "additionalProperties": false
+            ]
           }
         ]
       }
@@ -467,8 +431,7 @@
                     },
                     "required": [
                       "x"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   "child": {
                     "anyOf": [
@@ -484,14 +447,12 @@
                             },
                             "required": [
                               "y"
-                            ],
-                            "additionalProperties": false
+                            ]
                           }
                         },
                         "required": [
                           "value"
-                        ],
-                        "additionalProperties": false
+                        ]
                       },
                       {
                         "type": "object",
@@ -505,14 +466,12 @@
                             },
                             "required": [
                               "y"
-                            ],
-                            "additionalProperties": false
+                            ]
                           }
                         },
                         "required": [
                           "value"
-                        ],
-                        "additionalProperties": false
+                        ]
                       }
                     ]
                   }
@@ -520,8 +479,7 @@
                 "required": [
                   "value",
                   "child"
-                ],
-                "additionalProperties": false
+                ]
               },
               {
                 "type": "object",
@@ -535,8 +493,7 @@
                     },
                     "required": [
                       "x"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   "child": {
                     "anyOf": [
@@ -555,14 +512,12 @@
                             },
                             "required": [
                               "y"
-                            ],
-                            "additionalProperties": false
+                            ]
                           }
                         },
                         "required": [
                           "value"
-                        ],
-                        "additionalProperties": false
+                        ]
                       },
                       {
                         "type": "object",
@@ -576,14 +531,12 @@
                             },
                             "required": [
                               "y"
-                            ],
-                            "additionalProperties": false
+                            ]
                           }
                         },
                         "required": [
                           "value"
-                        ],
-                        "additionalProperties": false
+                        ]
                       }
                     ]
                   }
@@ -591,8 +544,7 @@
                 "required": [
                   "value",
                   "child"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
@@ -617,8 +569,7 @@
                   },
                   "required": [
                     "x"
-                  ],
-                  "additionalProperties": false
+                  ]
                 },
                 "child": {
                   "anyOf": [
@@ -634,14 +585,12 @@
                           },
                           "required": [
                             "y"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       },
                       "required": [
                         "value"
-                      ],
-                      "additionalProperties": false
+                      ]
                     },
                     {
                       "type": "object",
@@ -655,14 +604,12 @@
                           },
                           "required": [
                             "y"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       },
                       "required": [
                         "value"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   ]
                 }
@@ -670,8 +617,7 @@
               "required": [
                 "value",
                 "child"
-              ],
-              "additionalProperties": false
+              ]
             },
             {
               "type": "object",
@@ -685,8 +631,7 @@
                   },
                   "required": [
                     "x"
-                  ],
-                  "additionalProperties": false
+                  ]
                 },
                 "child": {
                   "anyOf": [
@@ -705,14 +650,12 @@
                           },
                           "required": [
                             "y"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       },
                       "required": [
                         "value"
-                      ],
-                      "additionalProperties": false
+                      ]
                     },
                     {
                       "type": "object",
@@ -726,14 +669,12 @@
                           },
                           "required": [
                             "y"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       },
                       "required": [
                         "value"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   ]
                 }
@@ -741,8 +682,7 @@
               "required": [
                 "value",
                 "child"
-              ],
-              "additionalProperties": false
+              ]
             }
           ]
         }
@@ -752,8 +692,6 @@
   "required": [
     "regular",
     "nullable",
-    "optional",
-    "faint",
     "array"
   ],
   "additionalProperties": false,

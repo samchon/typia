@@ -2,6 +2,7 @@
   "model": "chatgpt",
   "options": {
     "reference": false,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -87,16 +88,10 @@
             },
             "required": [
               "anys",
-              "undefindable1",
-              "undefindable2",
               "nullables1",
               "nullables2",
-              "both1",
-              "both2",
-              "both3",
               "union"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -188,16 +183,10 @@
             },
             "required": [
               "anys",
-              "undefindable1",
-              "undefindable2",
               "nullables1",
               "nullables2",
-              "both1",
-              "both2",
-              "both3",
               "union"
-            ],
-            "additionalProperties": false
+            ]
           },
           "second": {
             "anyOf": [
@@ -281,16 +270,10 @@
                 },
                 "required": [
                   "anys",
-                  "undefindable1",
-                  "undefindable2",
                   "nullables1",
                   "nullables2",
-                  "both1",
-                  "both2",
-                  "both3",
                   "union"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
@@ -379,16 +362,10 @@
         },
         "required": [
           "anys",
-          "undefindable1",
-          "undefindable2",
           "nullables1",
           "nullables2",
-          "both1",
-          "both2",
-          "both3",
           "union"
-        ],
-        "additionalProperties": false
+        ]
       }
     },
     {
@@ -478,16 +455,10 @@
                 },
                 "required": [
                   "anys",
-                  "undefindable1",
-                  "undefindable2",
                   "nullables1",
                   "nullables2",
-                  "both1",
-                  "both2",
-                  "both3",
                   "union"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           },
@@ -573,16 +544,10 @@
                 },
                 "required": [
                   "anys",
-                  "undefindable1",
-                  "undefindable2",
                   "nullables1",
                   "nullables2",
-                  "both1",
-                  "both2",
-                  "both3",
                   "union"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           },
@@ -668,24 +633,17 @@
                 },
                 "required": [
                   "anys",
-                  "undefindable1",
-                  "undefindable2",
                   "nullables1",
                   "nullables2",
-                  "both1",
-                  "both2",
-                  "both3",
                   "union"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -772,16 +730,10 @@
             },
             "required": [
               "anys",
-              "undefindable1",
-              "undefindable2",
               "nullables1",
               "nullables2",
-              "both1",
-              "both2",
-              "both3",
               "union"
-            ],
-            "additionalProperties": false
+            ]
           }
         ]
       }

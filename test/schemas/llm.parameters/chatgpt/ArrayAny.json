@@ -78,16 +78,10 @@
       },
       "required": [
         "anys",
-        "undefindable1",
-        "undefindable2",
         "nullables1",
         "nullables2",
-        "both1",
-        "both2",
-        "both3",
         "union"
-      ],
-      "additionalProperties": false
+      ]
     },
     "nullable": {
       "anyOf": [
@@ -171,16 +165,10 @@
           },
           "required": [
             "anys",
-            "undefindable1",
-            "undefindable2",
             "nullables1",
             "nullables2",
-            "both1",
-            "both2",
-            "both3",
             "union"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -261,16 +249,10 @@
       },
       "required": [
         "anys",
-        "undefindable1",
-        "undefindable2",
         "nullables1",
         "nullables2",
-        "both1",
-        "both2",
-        "both3",
         "union"
-      ],
-      "additionalProperties": false
+      ]
     },
     "faint": {
       "anyOf": [
@@ -354,16 +336,10 @@
           },
           "required": [
             "anys",
-            "undefindable1",
-            "undefindable2",
             "nullables1",
             "nullables2",
-            "both1",
-            "both2",
-            "both3",
             "union"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -446,24 +422,16 @@
         },
         "required": [
           "anys",
-          "undefindable1",
-          "undefindable2",
           "nullables1",
           "nullables2",
-          "both1",
-          "both2",
-          "both3",
           "union"
-        ],
-        "additionalProperties": false
+        ]
       }
     }
   },
   "required": [
     "regular",
     "nullable",
-    "optional",
-    "faint",
     "array"
   ],
   "additionalProperties": false,

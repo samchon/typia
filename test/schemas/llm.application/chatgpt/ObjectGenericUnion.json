@@ -2,6 +2,7 @@
   "model": "chatgpt",
   "options": {
     "reference": false,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -78,8 +79,7 @@
                                           "name",
                                           "extension",
                                           "url"
-                                        ],
-                                        "additionalProperties": false
+                                        ]
                                       }
                                     }
                                   },
@@ -89,8 +89,7 @@
                                     "title",
                                     "body",
                                     "files"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
                               },
                               "created_at": {
@@ -102,8 +101,7 @@
                               "hit",
                               "contents",
                               "created_at"
-                            ],
-                            "additionalProperties": false
+                            ]
                           }
                         ]
                       },
@@ -156,8 +154,7 @@
                                   "name",
                                   "extension",
                                   "url"
-                                ],
-                                "additionalProperties": false
+                                ]
                               }
                             }
                           },
@@ -167,8 +164,7 @@
                             "title",
                             "body",
                             "files"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       },
                       "created_at": {
@@ -182,8 +178,7 @@
                       "hit",
                       "contents",
                       "created_at"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   {
                     "type": "object",
@@ -248,8 +243,7 @@
                                           "name",
                                           "extension",
                                           "url"
-                                        ],
-                                        "additionalProperties": false
+                                        ]
                                       }
                                     }
                                   },
@@ -259,8 +253,7 @@
                                     "title",
                                     "body",
                                     "files"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
                               },
                               "created_at": {
@@ -272,8 +265,7 @@
                               "hit",
                               "contents",
                               "created_at"
-                            ],
-                            "additionalProperties": false
+                            ]
                           }
                         ]
                       },
@@ -329,8 +321,7 @@
                                   "name",
                                   "extension",
                                   "url"
-                                ],
-                                "additionalProperties": false
+                                ]
                               }
                             }
                           },
@@ -341,8 +332,7 @@
                             "title",
                             "body",
                             "files"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       },
                       "created_at": {
@@ -356,16 +346,14 @@
                       "hit",
                       "contents",
                       "created_at"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               }
             },
             "required": [
               "value"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -448,8 +436,7 @@
                                           "name",
                                           "extension",
                                           "url"
-                                        ],
-                                        "additionalProperties": false
+                                        ]
                                       }
                                     }
                                   },
@@ -459,8 +446,7 @@
                                     "title",
                                     "body",
                                     "files"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
                               },
                               "created_at": {
@@ -472,8 +458,7 @@
                               "hit",
                               "contents",
                               "created_at"
-                            ],
-                            "additionalProperties": false
+                            ]
                           }
                         ]
                       },
@@ -526,8 +511,7 @@
                                   "name",
                                   "extension",
                                   "url"
-                                ],
-                                "additionalProperties": false
+                                ]
                               }
                             }
                           },
@@ -537,8 +521,7 @@
                             "title",
                             "body",
                             "files"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       },
                       "created_at": {
@@ -552,8 +535,7 @@
                       "hit",
                       "contents",
                       "created_at"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   {
                     "type": "object",
@@ -618,8 +600,7 @@
                                           "name",
                                           "extension",
                                           "url"
-                                        ],
-                                        "additionalProperties": false
+                                        ]
                                       }
                                     }
                                   },
@@ -629,8 +610,7 @@
                                     "title",
                                     "body",
                                     "files"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
                               },
                               "created_at": {
@@ -642,8 +622,7 @@
                               "hit",
                               "contents",
                               "created_at"
-                            ],
-                            "additionalProperties": false
+                            ]
                           }
                         ]
                       },
@@ -699,8 +678,7 @@
                                   "name",
                                   "extension",
                                   "url"
-                                ],
-                                "additionalProperties": false
+                                ]
                               }
                             }
                           },
@@ -711,8 +689,7 @@
                             "title",
                             "body",
                             "files"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       },
                       "created_at": {
@@ -726,16 +703,14 @@
                       "hit",
                       "contents",
                       "created_at"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               }
             },
             "required": [
               "value"
-            ],
-            "additionalProperties": false
+            ]
           },
           "second": {
             "anyOf": [
@@ -810,8 +785,7 @@
                                               "name",
                                               "extension",
                                               "url"
-                                            ],
-                                            "additionalProperties": false
+                                            ]
                                           }
                                         }
                                       },
@@ -821,8 +795,7 @@
                                         "title",
                                         "body",
                                         "files"
-                                      ],
-                                      "additionalProperties": false
+                                      ]
                                     }
                                   },
                                   "created_at": {
@@ -834,8 +807,7 @@
                                   "hit",
                                   "contents",
                                   "created_at"
-                                ],
-                                "additionalProperties": false
+                                ]
                               }
                             ]
                           },
@@ -888,8 +860,7 @@
                                       "name",
                                       "extension",
                                       "url"
-                                    ],
-                                    "additionalProperties": false
+                                    ]
                                   }
                                 }
                               },
@@ -899,8 +870,7 @@
                                 "title",
                                 "body",
                                 "files"
-                              ],
-                              "additionalProperties": false
+                              ]
                             }
                           },
                           "created_at": {
@@ -914,8 +884,7 @@
                           "hit",
                           "contents",
                           "created_at"
-                        ],
-                        "additionalProperties": false
+                        ]
                       },
                       {
                         "type": "object",
@@ -980,8 +949,7 @@
                                               "name",
                                               "extension",
                                               "url"
-                                            ],
-                                            "additionalProperties": false
+                                            ]
                                           }
                                         }
                                       },
@@ -991,8 +959,7 @@
                                         "title",
                                         "body",
                                         "files"
-                                      ],
-                                      "additionalProperties": false
+                                      ]
                                     }
                                   },
                                   "created_at": {
@@ -1004,8 +971,7 @@
                                   "hit",
                                   "contents",
                                   "created_at"
-                                ],
-                                "additionalProperties": false
+                                ]
                               }
                             ]
                           },
@@ -1061,8 +1027,7 @@
                                       "name",
                                       "extension",
                                       "url"
-                                    ],
-                                    "additionalProperties": false
+                                    ]
                                   }
                                 }
                               },
@@ -1073,8 +1038,7 @@
                                 "title",
                                 "body",
                                 "files"
-                              ],
-                              "additionalProperties": false
+                              ]
                             }
                           },
                           "created_at": {
@@ -1088,16 +1052,14 @@
                           "hit",
                           "contents",
                           "created_at"
-                        ],
-                        "additionalProperties": false
+                        ]
                       }
                     ]
                   }
                 },
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
@@ -1177,8 +1139,7 @@
                                       "name",
                                       "extension",
                                       "url"
-                                    ],
-                                    "additionalProperties": false
+                                    ]
                                   }
                                 }
                               },
@@ -1188,8 +1149,7 @@
                                 "title",
                                 "body",
                                 "files"
-                              ],
-                              "additionalProperties": false
+                              ]
                             }
                           },
                           "created_at": {
@@ -1201,8 +1161,7 @@
                           "hit",
                           "contents",
                           "created_at"
-                        ],
-                        "additionalProperties": false
+                        ]
                       }
                     ]
                   },
@@ -1255,8 +1214,7 @@
                               "name",
                               "extension",
                               "url"
-                            ],
-                            "additionalProperties": false
+                            ]
                           }
                         }
                       },
@@ -1266,8 +1224,7 @@
                         "title",
                         "body",
                         "files"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   },
                   "created_at": {
@@ -1281,8 +1238,7 @@
                   "hit",
                   "contents",
                   "created_at"
-                ],
-                "additionalProperties": false
+                ]
               },
               {
                 "type": "object",
@@ -1347,8 +1303,7 @@
                                       "name",
                                       "extension",
                                       "url"
-                                    ],
-                                    "additionalProperties": false
+                                    ]
                                   }
                                 }
                               },
@@ -1358,8 +1313,7 @@
                                 "title",
                                 "body",
                                 "files"
-                              ],
-                              "additionalProperties": false
+                              ]
                             }
                           },
                           "created_at": {
@@ -1371,8 +1325,7 @@
                           "hit",
                           "contents",
                           "created_at"
-                        ],
-                        "additionalProperties": false
+                        ]
                       }
                     ]
                   },
@@ -1428,8 +1381,7 @@
                               "name",
                               "extension",
                               "url"
-                            ],
-                            "additionalProperties": false
+                            ]
                           }
                         }
                       },
@@ -1440,8 +1392,7 @@
                         "title",
                         "body",
                         "files"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   },
                   "created_at": {
@@ -1455,16 +1406,14 @@
                   "hit",
                   "contents",
                   "created_at"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
         },
         "required": [
           "value"
-        ],
-        "additionalProperties": false
+        ]
       }
     },
     {
@@ -1545,8 +1494,7 @@
                                               "name",
                                               "extension",
                                               "url"
-                                            ],
-                                            "additionalProperties": false
+                                            ]
                                           }
                                         }
                                       },
@@ -1556,8 +1504,7 @@
                                         "title",
                                         "body",
                                         "files"
-                                      ],
-                                      "additionalProperties": false
+                                      ]
                                     }
                                   },
                                   "created_at": {
@@ -1569,8 +1516,7 @@
                                   "hit",
                                   "contents",
                                   "created_at"
-                                ],
-                                "additionalProperties": false
+                                ]
                               }
                             ]
                           },
@@ -1623,8 +1569,7 @@
                                       "name",
                                       "extension",
                                       "url"
-                                    ],
-                                    "additionalProperties": false
+                                    ]
                                   }
                                 }
                               },
@@ -1634,8 +1579,7 @@
                                 "title",
                                 "body",
                                 "files"
-                              ],
-                              "additionalProperties": false
+                              ]
                             }
                           },
                           "created_at": {
@@ -1649,8 +1593,7 @@
                           "hit",
                           "contents",
                           "created_at"
-                        ],
-                        "additionalProperties": false
+                        ]
                       },
                       {
                         "type": "object",
@@ -1715,8 +1658,7 @@
                                               "name",
                                               "extension",
                                               "url"
-                                            ],
-                                            "additionalProperties": false
+                                            ]
                                           }
                                         }
                                       },
@@ -1726,8 +1668,7 @@
                                         "title",
                                         "body",
                                         "files"
-                                      ],
-                                      "additionalProperties": false
+                                      ]
                                     }
                                   },
                                   "created_at": {
@@ -1739,8 +1680,7 @@
                                   "hit",
                                   "contents",
                                   "created_at"
-                                ],
-                                "additionalProperties": false
+                                ]
                               }
                             ]
                           },
@@ -1796,8 +1736,7 @@
                                       "name",
                                       "extension",
                                       "url"
-                                    ],
-                                    "additionalProperties": false
+                                    ]
                                   }
                                 }
                               },
@@ -1808,8 +1747,7 @@
                                 "title",
                                 "body",
                                 "files"
-                              ],
-                              "additionalProperties": false
+                              ]
                             }
                           },
                           "created_at": {
@@ -1823,16 +1761,14 @@
                           "hit",
                           "contents",
                           "created_at"
-                        ],
-                        "additionalProperties": false
+                        ]
                       }
                     ]
                   }
                 },
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           },
@@ -1909,8 +1845,7 @@
                                               "name",
                                               "extension",
                                               "url"
-                                            ],
-                                            "additionalProperties": false
+                                            ]
                                           }
                                         }
                                       },
@@ -1920,8 +1855,7 @@
                                         "title",
                                         "body",
                                         "files"
-                                      ],
-                                      "additionalProperties": false
+                                      ]
                                     }
                                   },
                                   "created_at": {
@@ -1933,8 +1867,7 @@
                                   "hit",
                                   "contents",
                                   "created_at"
-                                ],
-                                "additionalProperties": false
+                                ]
                               }
                             ]
                           },
@@ -1987,8 +1920,7 @@
                                       "name",
                                       "extension",
                                       "url"
-                                    ],
-                                    "additionalProperties": false
+                                    ]
                                   }
                                 }
                               },
@@ -1998,8 +1930,7 @@
                                 "title",
                                 "body",
                                 "files"
-                              ],
-                              "additionalProperties": false
+                              ]
                             }
                           },
                           "created_at": {
@@ -2013,8 +1944,7 @@
                           "hit",
                           "contents",
                           "created_at"
-                        ],
-                        "additionalProperties": false
+                        ]
                       },
                       {
                         "type": "object",
@@ -2079,8 +2009,7 @@
                                               "name",
                                               "extension",
                                               "url"
-                                            ],
-                                            "additionalProperties": false
+                                            ]
                                           }
                                         }
                                       },
@@ -2090,8 +2019,7 @@
                                         "title",
                                         "body",
                                         "files"
-                                      ],
-                                      "additionalProperties": false
+                                      ]
                                     }
                                   },
                                   "created_at": {
@@ -2103,8 +2031,7 @@
                                   "hit",
                                   "contents",
                                   "created_at"
-                                ],
-                                "additionalProperties": false
+                                ]
                               }
                             ]
                           },
@@ -2160,8 +2087,7 @@
                                       "name",
                                       "extension",
                                       "url"
-                                    ],
-                                    "additionalProperties": false
+                                    ]
                                   }
                                 }
                               },
@@ -2172,8 +2098,7 @@
                                 "title",
                                 "body",
                                 "files"
-                              ],
-                              "additionalProperties": false
+                              ]
                             }
                           },
                           "created_at": {
@@ -2187,16 +2112,14 @@
                           "hit",
                           "contents",
                           "created_at"
-                        ],
-                        "additionalProperties": false
+                        ]
                       }
                     ]
                   }
                 },
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           },
@@ -2273,8 +2196,7 @@
                                               "name",
                                               "extension",
                                               "url"
-                                            ],
-                                            "additionalProperties": false
+                                            ]
                                           }
                                         }
                                       },
@@ -2284,8 +2206,7 @@
                                         "title",
                                         "body",
                                         "files"
-                                      ],
-                                      "additionalProperties": false
+                                      ]
                                     }
                                   },
                                   "created_at": {
@@ -2297,8 +2218,7 @@
                                   "hit",
                                   "contents",
                                   "created_at"
-                                ],
-                                "additionalProperties": false
+                                ]
                               }
                             ]
                           },
@@ -2351,8 +2271,7 @@
                                       "name",
                                       "extension",
                                       "url"
-                                    ],
-                                    "additionalProperties": false
+                                    ]
                                   }
                                 }
                               },
@@ -2362,8 +2281,7 @@
                                 "title",
                                 "body",
                                 "files"
-                              ],
-                              "additionalProperties": false
+                              ]
                             }
                           },
                           "created_at": {
@@ -2377,8 +2295,7 @@
                           "hit",
                           "contents",
                           "created_at"
-                        ],
-                        "additionalProperties": false
+                        ]
                       },
                       {
                         "type": "object",
@@ -2443,8 +2360,7 @@
                                               "name",
                                               "extension",
                                               "url"
-                                            ],
-                                            "additionalProperties": false
+                                            ]
                                           }
                                         }
                                       },
@@ -2454,8 +2370,7 @@
                                         "title",
                                         "body",
                                         "files"
-                                      ],
-                                      "additionalProperties": false
+                                      ]
                                     }
                                   },
                                   "created_at": {
@@ -2467,8 +2382,7 @@
                                   "hit",
                                   "contents",
                                   "created_at"
-                                ],
-                                "additionalProperties": false
+                                ]
                               }
                             ]
                           },
@@ -2524,8 +2438,7 @@
                                       "name",
                                       "extension",
                                       "url"
-                                    ],
-                                    "additionalProperties": false
+                                    ]
                                   }
                                 }
                               },
@@ -2536,8 +2449,7 @@
                                 "title",
                                 "body",
                                 "files"
-                              ],
-                              "additionalProperties": false
+                              ]
                             }
                           },
                           "created_at": {
@@ -2551,24 +2463,21 @@
                           "hit",
                           "contents",
                           "created_at"
-                        ],
-                        "additionalProperties": false
+                        ]
                       }
                     ]
                   }
                 },
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -2646,8 +2555,7 @@
                                           "name",
                                           "extension",
                                           "url"
-                                        ],
-                                        "additionalProperties": false
+                                        ]
                                       }
                                     }
                                   },
@@ -2657,8 +2565,7 @@
                                     "title",
                                     "body",
                                     "files"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
                               },
                               "created_at": {
@@ -2670,8 +2577,7 @@
                               "hit",
                               "contents",
                               "created_at"
-                            ],
-                            "additionalProperties": false
+                            ]
                           }
                         ]
                       },
@@ -2724,8 +2630,7 @@
                                   "name",
                                   "extension",
                                   "url"
-                                ],
-                                "additionalProperties": false
+                                ]
                               }
                             }
                           },
@@ -2735,8 +2640,7 @@
                             "title",
                             "body",
                             "files"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       },
                       "created_at": {
@@ -2750,8 +2654,7 @@
                       "hit",
                       "contents",
                       "created_at"
-                    ],
-                    "additionalProperties": false
+                    ]
                   },
                   {
                     "type": "object",
@@ -2816,8 +2719,7 @@
                                           "name",
                                           "extension",
                                           "url"
-                                        ],
-                                        "additionalProperties": false
+                                        ]
                                       }
                                     }
                                   },
@@ -2827,8 +2729,7 @@
                                     "title",
                                     "body",
                                     "files"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
                               },
                               "created_at": {
@@ -2840,8 +2741,7 @@
                               "hit",
                               "contents",
                               "created_at"
-                            ],
-                            "additionalProperties": false
+                            ]
                           }
                         ]
                       },
@@ -2897,8 +2797,7 @@
                                   "name",
                                   "extension",
                                   "url"
-                                ],
-                                "additionalProperties": false
+                                ]
                               }
                             }
                           },
@@ -2909,8 +2808,7 @@
                             "title",
                             "body",
                             "files"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       },
                       "created_at": {
@@ -2924,16 +2822,14 @@
                       "hit",
                       "contents",
                       "created_at"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 ]
               }
             },
             "required": [
               "value"
-            ],
-            "additionalProperties": false
+            ]
           }
         ]
       }

@@ -2,6 +2,7 @@
   "model": "chatgpt",
   "options": {
     "reference": false,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -125,8 +126,7 @@
               "duration",
               "jsonPointer",
               "relativeJsonPointer"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -256,8 +256,7 @@
               "duration",
               "jsonPointer",
               "relativeJsonPointer"
-            ],
-            "additionalProperties": false
+            ]
           },
           "second": {
             "anyOf": [
@@ -379,8 +378,7 @@
                   "duration",
                   "jsonPointer",
                   "relativeJsonPointer"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
@@ -507,8 +505,7 @@
           "duration",
           "jsonPointer",
           "relativeJsonPointer"
-        ],
-        "additionalProperties": false
+        ]
       }
     },
     {
@@ -636,8 +633,7 @@
                   "duration",
                   "jsonPointer",
                   "relativeJsonPointer"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           },
@@ -761,8 +757,7 @@
                   "duration",
                   "jsonPointer",
                   "relativeJsonPointer"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           },
@@ -886,16 +881,14 @@
                   "duration",
                   "jsonPointer",
                   "relativeJsonPointer"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -1020,8 +1013,7 @@
               "duration",
               "jsonPointer",
               "relativeJsonPointer"
-            ],
-            "additionalProperties": false
+            ]
           }
         ]
       }

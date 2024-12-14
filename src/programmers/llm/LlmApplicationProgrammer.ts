@@ -19,7 +19,10 @@ import { JsonApplicationProgrammer } from "../json/JsonApplicationProgrammer";
 import { LlmSchemaProgrammer } from "./LlmSchemaProgrammer";
 
 export namespace LlmApplicationProgrammer {
-  export const validate = (model: ILlmSchema.Model) => {
+  export const validate = <Model extends ILlmSchema.Model>(props: {
+    model: Model;
+    config?: Partial<ILlmSchema.ModelConfig[Model]>;
+  }) => {
     let top: Metadata | undefined;
     return (
       metadata: Metadata,
@@ -36,7 +39,7 @@ export namespace LlmApplicationProgrammer {
           metadata.functions.length === 1
         )
           return validateFunction(explore.property, metadata.functions[0]!);
-        else return LlmSchemaProgrammer.validate(model)(metadata);
+        else return LlmSchemaProgrammer.validate(props)(metadata);
 
       const output: string[] = [];
       const valid: boolean =
@@ -121,7 +124,7 @@ export namespace LlmApplicationProgrammer {
     metadata: Metadata;
     config?: Partial<ILlmSchema.ModelConfig[Model]>;
   }): ILlmApplication<Model> => {
-    const errors: string[] = validate(props.model)(props.metadata, {
+    const errors: string[] = validate(props)(props.metadata, {
       top: true,
       object: null,
       property: null,

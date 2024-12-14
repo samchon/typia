@@ -37,8 +37,6 @@
   "required": [
     "regular",
     "nullable",
-    "optional",
-    "faint",
     "array"
   ],
   "additionalProperties": false,
@@ -73,13 +71,9 @@
         }
       },
       "required": [
-        "string",
-        "number",
-        "boolean",
         "object",
         "array"
-      ],
-      "additionalProperties": false
+      ]
     }
   }
 }

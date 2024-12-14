@@ -2,6 +2,7 @@
   "model": "chatgpt",
   "options": {
     "reference": false,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -58,8 +59,7 @@
               "middle_boolean",
               "ipv4",
               "email"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -122,8 +122,7 @@
               "middle_boolean",
               "ipv4",
               "email"
-            ],
-            "additionalProperties": false
+            ]
           },
           "second": {
             "anyOf": [
@@ -178,8 +177,7 @@
                   "middle_boolean",
                   "ipv4",
                   "email"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
@@ -239,8 +237,7 @@
           "middle_boolean",
           "ipv4",
           "email"
-        ],
-        "additionalProperties": false
+        ]
       }
     },
     {
@@ -301,8 +298,7 @@
                   "middle_boolean",
                   "ipv4",
                   "email"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           },
@@ -359,8 +355,7 @@
                   "middle_boolean",
                   "ipv4",
                   "email"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           },
@@ -417,16 +412,14 @@
                   "middle_boolean",
                   "ipv4",
                   "email"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -484,8 +477,7 @@
               "middle_boolean",
               "ipv4",
               "email"
-            ],
-            "additionalProperties": false
+            ]
           }
         ]
       }

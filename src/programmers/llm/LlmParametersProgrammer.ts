@@ -63,7 +63,10 @@ export namespace LlmParametersProgrammer {
   };
 
   export const validate =
-    (model: ILlmSchema.Model) =>
+    <Model extends ILlmSchema.Model>(props: {
+      model: Model;
+      config?: Partial<ILlmSchema.ModelConfig[Model]>;
+    }) =>
     (metadata: Metadata, explore: MetadataFactory.IExplore): string[] => {
       const output: string[] = [];
       if (explore.top === true) {
@@ -84,7 +87,7 @@ export namespace LlmParametersProgrammer {
             output.push("LLM parameters must be a non-undefined object type.");
         }
       }
-      output.push(...LlmSchemaProgrammer.validate(model)(metadata));
+      output.push(...LlmSchemaProgrammer.validate(props)(metadata));
       return output;
     };
 }
