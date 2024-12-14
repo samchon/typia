@@ -2,6 +2,7 @@
   "model": "chatgpt",
   "options": {
     "reference": false,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -45,15 +46,13 @@
                     "maximum",
                     "minimum_and_maximum",
                     "equal"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               }
             },
             "required": [
               "value"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -103,15 +102,13 @@
                     "maximum",
                     "minimum_and_maximum",
                     "equal"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               }
             },
             "required": [
               "value"
-            ],
-            "additionalProperties": false
+            ]
           },
           "second": {
             "anyOf": [
@@ -153,15 +150,13 @@
                         "maximum",
                         "minimum_and_maximum",
                         "equal"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 },
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
@@ -208,15 +203,13 @@
                 "maximum",
                 "minimum_and_maximum",
                 "equal"
-              ],
-              "additionalProperties": false
+              ]
             }
           }
         },
         "required": [
           "value"
-        ],
-        "additionalProperties": false
+        ]
       }
     },
     {
@@ -264,15 +257,13 @@
                         "maximum",
                         "minimum_and_maximum",
                         "equal"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 },
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           },
@@ -316,15 +307,13 @@
                         "maximum",
                         "minimum_and_maximum",
                         "equal"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 },
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           },
@@ -368,23 +357,20 @@
                         "maximum",
                         "minimum_and_maximum",
                         "equal"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 },
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -429,15 +415,13 @@
                     "maximum",
                     "minimum_and_maximum",
                     "equal"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               }
             },
             "required": [
               "value"
-            ],
-            "additionalProperties": false
+            ]
           }
         ]
       }

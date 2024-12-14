@@ -71,8 +71,7 @@
           "sex",
           "age",
           "dead"
-        ],
-        "additionalProperties": false
+        ]
       }
     },
     "nullable": {
@@ -150,8 +149,7 @@
               "sex",
               "age",
               "dead"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       ]
@@ -226,8 +224,7 @@
           "sex",
           "age",
           "dead"
-        ],
-        "additionalProperties": false
+        ]
       }
     },
     "faint": {
@@ -305,8 +302,7 @@
               "sex",
               "age",
               "dead"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       ]
@@ -383,8 +379,7 @@
             "sex",
             "age",
             "dead"
-          ],
-          "additionalProperties": false
+          ]
         }
       }
     }
@@ -392,8 +387,6 @@
   "required": [
     "regular",
     "nullable",
-    "optional",
-    "faint",
     "array"
   ],
   "additionalProperties": false,

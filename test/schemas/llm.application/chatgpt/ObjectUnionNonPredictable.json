@@ -2,6 +2,7 @@
   "model": "chatgpt",
   "options": {
     "reference": false,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -35,14 +36,12 @@
                                   },
                                   "required": [
                                     "value"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
                               },
                               "required": [
                                 "value"
-                              ],
-                              "additionalProperties": false
+                              ]
                             },
                             {
                               "type": "object",
@@ -56,14 +55,12 @@
                                   },
                                   "required": [
                                     "value"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
                               },
                               "required": [
                                 "value"
-                              ],
-                              "additionalProperties": false
+                              ]
                             },
                             {
                               "type": "object",
@@ -77,35 +74,30 @@
                                   },
                                   "required": [
                                     "value"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
                               },
                               "required": [
                                 "value"
-                              ],
-                              "additionalProperties": false
+                              ]
                             }
                           ]
                         }
                       },
                       "required": [
                         "value"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   },
                   "required": [
                     "value"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               }
             },
             "required": [
               "value"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -145,14 +137,12 @@
                                   },
                                   "required": [
                                     "value"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
                               },
                               "required": [
                                 "value"
-                              ],
-                              "additionalProperties": false
+                              ]
                             },
                             {
                               "type": "object",
@@ -166,14 +156,12 @@
                                   },
                                   "required": [
                                     "value"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
                               },
                               "required": [
                                 "value"
-                              ],
-                              "additionalProperties": false
+                              ]
                             },
                             {
                               "type": "object",
@@ -187,35 +175,30 @@
                                   },
                                   "required": [
                                     "value"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
                               },
                               "required": [
                                 "value"
-                              ],
-                              "additionalProperties": false
+                              ]
                             }
                           ]
                         }
                       },
                       "required": [
                         "value"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   },
                   "required": [
                     "value"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               }
             },
             "required": [
               "value"
-            ],
-            "additionalProperties": false
+            ]
           },
           "second": {
             "anyOf": [
@@ -247,14 +230,12 @@
                                       },
                                       "required": [
                                         "value"
-                                      ],
-                                      "additionalProperties": false
+                                      ]
                                     }
                                   },
                                   "required": [
                                     "value"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 },
                                 {
                                   "type": "object",
@@ -268,14 +249,12 @@
                                       },
                                       "required": [
                                         "value"
-                                      ],
-                                      "additionalProperties": false
+                                      ]
                                     }
                                   },
                                   "required": [
                                     "value"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 },
                                 {
                                   "type": "object",
@@ -289,35 +268,30 @@
                                       },
                                       "required": [
                                         "value"
-                                      ],
-                                      "additionalProperties": false
+                                      ]
                                     }
                                   },
                                   "required": [
                                     "value"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
                               ]
                             }
                           },
                           "required": [
                             "value"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       },
                       "required": [
                         "value"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 },
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
@@ -354,14 +328,12 @@
                               },
                               "required": [
                                 "value"
-                              ],
-                              "additionalProperties": false
+                              ]
                             }
                           },
                           "required": [
                             "value"
-                          ],
-                          "additionalProperties": false
+                          ]
                         },
                         {
                           "type": "object",
@@ -375,14 +347,12 @@
                               },
                               "required": [
                                 "value"
-                              ],
-                              "additionalProperties": false
+                              ]
                             }
                           },
                           "required": [
                             "value"
-                          ],
-                          "additionalProperties": false
+                          ]
                         },
                         {
                           "type": "object",
@@ -396,35 +366,30 @@
                               },
                               "required": [
                                 "value"
-                              ],
-                              "additionalProperties": false
+                              ]
                             }
                           },
                           "required": [
                             "value"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       ]
                     }
                   },
                   "required": [
                     "value"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               },
               "required": [
                 "value"
-              ],
-              "additionalProperties": false
+              ]
             }
           }
         },
         "required": [
           "value"
-        ],
-        "additionalProperties": false
+        ]
       }
     },
     {
@@ -462,14 +427,12 @@
                                       },
                                       "required": [
                                         "value"
-                                      ],
-                                      "additionalProperties": false
+                                      ]
                                     }
                                   },
                                   "required": [
                                     "value"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 },
                                 {
                                   "type": "object",
@@ -483,14 +446,12 @@
                                       },
                                       "required": [
                                         "value"
-                                      ],
-                                      "additionalProperties": false
+                                      ]
                                     }
                                   },
                                   "required": [
                                     "value"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 },
                                 {
                                   "type": "object",
@@ -504,35 +465,30 @@
                                       },
                                       "required": [
                                         "value"
-                                      ],
-                                      "additionalProperties": false
+                                      ]
                                     }
                                   },
                                   "required": [
                                     "value"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
                               ]
                             }
                           },
                           "required": [
                             "value"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       },
                       "required": [
                         "value"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 },
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           },
@@ -566,14 +522,12 @@
                                       },
                                       "required": [
                                         "value"
-                                      ],
-                                      "additionalProperties": false
+                                      ]
                                     }
                                   },
                                   "required": [
                                     "value"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 },
                                 {
                                   "type": "object",
@@ -587,14 +541,12 @@
                                       },
                                       "required": [
                                         "value"
-                                      ],
-                                      "additionalProperties": false
+                                      ]
                                     }
                                   },
                                   "required": [
                                     "value"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 },
                                 {
                                   "type": "object",
@@ -608,35 +560,30 @@
                                       },
                                       "required": [
                                         "value"
-                                      ],
-                                      "additionalProperties": false
+                                      ]
                                     }
                                   },
                                   "required": [
                                     "value"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
                               ]
                             }
                           },
                           "required": [
                             "value"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       },
                       "required": [
                         "value"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 },
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           },
@@ -670,14 +617,12 @@
                                       },
                                       "required": [
                                         "value"
-                                      ],
-                                      "additionalProperties": false
+                                      ]
                                     }
                                   },
                                   "required": [
                                     "value"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 },
                                 {
                                   "type": "object",
@@ -691,14 +636,12 @@
                                       },
                                       "required": [
                                         "value"
-                                      ],
-                                      "additionalProperties": false
+                                      ]
                                     }
                                   },
                                   "required": [
                                     "value"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 },
                                 {
                                   "type": "object",
@@ -712,43 +655,37 @@
                                       },
                                       "required": [
                                         "value"
-                                      ],
-                                      "additionalProperties": false
+                                      ]
                                     }
                                   },
                                   "required": [
                                     "value"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
                               ]
                             }
                           },
                           "required": [
                             "value"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       },
                       "required": [
                         "value"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 },
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -783,14 +720,12 @@
                                   },
                                   "required": [
                                     "value"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
                               },
                               "required": [
                                 "value"
-                              ],
-                              "additionalProperties": false
+                              ]
                             },
                             {
                               "type": "object",
@@ -804,14 +739,12 @@
                                   },
                                   "required": [
                                     "value"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
                               },
                               "required": [
                                 "value"
-                              ],
-                              "additionalProperties": false
+                              ]
                             },
                             {
                               "type": "object",
@@ -825,35 +758,30 @@
                                   },
                                   "required": [
                                     "value"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
                               },
                               "required": [
                                 "value"
-                              ],
-                              "additionalProperties": false
+                              ]
                             }
                           ]
                         }
                       },
                       "required": [
                         "value"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   },
                   "required": [
                     "value"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               }
             },
             "required": [
               "value"
-            ],
-            "additionalProperties": false
+            ]
           }
         ]
       }

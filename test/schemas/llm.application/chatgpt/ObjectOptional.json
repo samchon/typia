@@ -2,6 +2,7 @@
   "model": "chatgpt",
   "options": {
     "reference": false,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -26,13 +27,7 @@
                 "type": "number"
               }
             },
-            "required": [
-              "id",
-              "name",
-              "email",
-              "sequence"
-            ],
-            "additionalProperties": false
+            "required": []
           }
         },
         "required": [
@@ -63,13 +58,7 @@
                 "type": "number"
               }
             },
-            "required": [
-              "id",
-              "name",
-              "email",
-              "sequence"
-            ],
-            "additionalProperties": false
+            "required": []
           },
           "second": {
             "anyOf": [
@@ -92,13 +81,7 @@
                     "type": "number"
                   }
                 },
-                "required": [
-                  "id",
-                  "name",
-                  "email",
-                  "sequence"
-                ],
-                "additionalProperties": false
+                "required": []
               }
             ]
           }
@@ -126,13 +109,7 @@
             "type": "number"
           }
         },
-        "required": [
-          "id",
-          "name",
-          "email",
-          "sequence"
-        ],
-        "additionalProperties": false
+        "required": []
       }
     },
     {
@@ -161,13 +138,7 @@
                     "type": "number"
                   }
                 },
-                "required": [
-                  "id",
-                  "name",
-                  "email",
-                  "sequence"
-                ],
-                "additionalProperties": false
+                "required": []
               }
             ]
           },
@@ -192,13 +163,7 @@
                     "type": "number"
                   }
                 },
-                "required": [
-                  "id",
-                  "name",
-                  "email",
-                  "sequence"
-                ],
-                "additionalProperties": false
+                "required": []
               }
             ]
           },
@@ -223,21 +188,14 @@
                     "type": "number"
                   }
                 },
-                "required": [
-                  "id",
-                  "name",
-                  "email",
-                  "sequence"
-                ],
-                "additionalProperties": false
+                "required": []
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -263,13 +221,7 @@
                 "type": "number"
               }
             },
-            "required": [
-              "id",
-              "name",
-              "email",
-              "sequence"
-            ],
-            "additionalProperties": false
+            "required": []
           }
         ]
       }

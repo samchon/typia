@@ -2,6 +2,7 @@
   "model": "chatgpt",
   "options": {
     "reference": false,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -27,8 +28,7 @@
               "email",
               "name",
               "vulnerable"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -60,8 +60,7 @@
               "email",
               "name",
               "vulnerable"
-            ],
-            "additionalProperties": false
+            ]
           },
           "second": {
             "anyOf": [
@@ -85,8 +84,7 @@
                   "email",
                   "name",
                   "vulnerable"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
@@ -115,8 +113,7 @@
           "email",
           "name",
           "vulnerable"
-        ],
-        "additionalProperties": false
+        ]
       }
     },
     {
@@ -146,8 +143,7 @@
                   "email",
                   "name",
                   "vulnerable"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           },
@@ -173,8 +169,7 @@
                   "email",
                   "name",
                   "vulnerable"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           },
@@ -200,16 +195,14 @@
                   "email",
                   "name",
                   "vulnerable"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -236,8 +229,7 @@
               "email",
               "name",
               "vulnerable"
-            ],
-            "additionalProperties": false
+            ]
           }
         ]
       }

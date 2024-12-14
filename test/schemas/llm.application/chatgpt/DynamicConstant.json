@@ -2,6 +2,7 @@
   "model": "chatgpt",
   "options": {
     "reference": false,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -34,14 +35,12 @@
                   "b",
                   "c",
                   "d"
-                ],
-                "additionalProperties": false
+                ]
               }
             },
             "required": [
               "value"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -80,14 +79,12 @@
                   "b",
                   "c",
                   "d"
-                ],
-                "additionalProperties": false
+                ]
               }
             },
             "required": [
               "value"
-            ],
-            "additionalProperties": false
+            ]
           },
           "second": {
             "anyOf": [
@@ -118,14 +115,12 @@
                       "b",
                       "c",
                       "d"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 },
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
@@ -161,14 +156,12 @@
               "b",
               "c",
               "d"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
           "value"
-        ],
-        "additionalProperties": false
+        ]
       }
     },
     {
@@ -205,14 +198,12 @@
                       "b",
                       "c",
                       "d"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 },
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           },
@@ -245,14 +236,12 @@
                       "b",
                       "c",
                       "d"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 },
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           },
@@ -285,22 +274,19 @@
                       "b",
                       "c",
                       "d"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 },
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -334,14 +320,12 @@
                   "b",
                   "c",
                   "d"
-                ],
-                "additionalProperties": false
+                ]
               }
             },
             "required": [
               "value"
-            ],
-            "additionalProperties": false
+            ]
           }
         ]
       }

@@ -47,8 +47,7 @@
                 },
                 "required": [
                   "name"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
@@ -58,13 +57,11 @@
           "postfix",
           "middle",
           "mixed"
-        ],
-        "additionalProperties": false
+        ]
       }
     }
   },
   "required": [
     "value"
-  ],
-  "additionalProperties": false
+  ]
 }

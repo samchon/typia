@@ -2,6 +2,7 @@
   "model": "chatgpt",
   "options": {
     "reference": false,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -49,13 +50,9 @@
               }
             },
             "required": [
-              "string",
-              "number",
-              "boolean",
               "object",
               "array"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       }
@@ -115,13 +112,9 @@
               }
             },
             "required": [
-              "string",
-              "number",
-              "boolean",
               "object",
               "array"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       },
@@ -167,8 +160,7 @@
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {
@@ -202,13 +194,9 @@
               }
             },
             "required": [
-              "string",
-              "number",
-              "boolean",
               "object",
               "array"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       },

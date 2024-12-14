@@ -36,15 +36,13 @@
               "maximum",
               "minimum_and_maximum",
               "equal"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       },
       "required": [
         "value"
-      ],
-      "additionalProperties": false
+      ]
     },
     "nullable": {
       "anyOf": [
@@ -86,15 +84,13 @@
                   "maximum",
                   "minimum_and_maximum",
                   "equal"
-                ],
-                "additionalProperties": false
+                ]
               }
             }
           },
           "required": [
             "value"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -133,15 +129,13 @@
               "maximum",
               "minimum_and_maximum",
               "equal"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       },
       "required": [
         "value"
-      ],
-      "additionalProperties": false
+      ]
     },
     "faint": {
       "anyOf": [
@@ -183,15 +177,13 @@
                   "maximum",
                   "minimum_and_maximum",
                   "equal"
-                ],
-                "additionalProperties": false
+                ]
               }
             }
           },
           "required": [
             "value"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -232,23 +224,19 @@
                 "maximum",
                 "minimum_and_maximum",
                 "equal"
-              ],
-              "additionalProperties": false
+              ]
             }
           }
         },
         "required": [
           "value"
-        ],
-        "additionalProperties": false
+        ]
       }
     }
   },
   "required": [
     "regular",
     "nullable",
-    "optional",
-    "faint",
     "array"
   ],
   "additionalProperties": false,

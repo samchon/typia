@@ -31,14 +31,7 @@
           ]
         }
       },
-      "required": [
-        "boolean",
-        "number",
-        "string",
-        "array",
-        "object"
-      ],
-      "additionalProperties": false
+      "required": []
     },
     "nullable": {
       "anyOf": [
@@ -74,15 +67,8 @@
               ]
             }
           },
-          "required": [
-            "boolean",
-            "number",
-            "string",
-            "array",
-            "object"
-          ],
-          "description": "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional",
-          "additionalProperties": false
+          "required": [],
+          "description": "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional"
         }
       ]
     },
@@ -116,14 +102,7 @@
           ]
         }
       },
-      "required": [
-        "boolean",
-        "number",
-        "string",
-        "array",
-        "object"
-      ],
-      "additionalProperties": false
+      "required": []
     },
     "faint": {
       "anyOf": [
@@ -159,15 +138,8 @@
               ]
             }
           },
-          "required": [
-            "boolean",
-            "number",
-            "string",
-            "array",
-            "object"
-          ],
-          "description": "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional",
-          "additionalProperties": false
+          "required": [],
+          "description": "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional"
         }
       ]
     },
@@ -203,22 +175,13 @@
             ]
           }
         },
-        "required": [
-          "boolean",
-          "number",
-          "string",
-          "array",
-          "object"
-        ],
-        "additionalProperties": false
+        "required": []
       }
     }
   },
   "required": [
     "regular",
     "nullable",
-    "optional",
-    "faint",
     "array"
   ],
   "additionalProperties": false,
@@ -258,8 +221,7 @@
         "string",
         "array",
         "object"
-      ],
-      "additionalProperties": false
+      ]
     }
   }
 }

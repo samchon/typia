@@ -26,8 +26,7 @@
         "email",
         "ipv4",
         "ipv6"
-      ],
-      "additionalProperties": false
+      ]
     },
     "nullable": {
       "anyOf": [
@@ -59,8 +58,7 @@
             "email",
             "ipv4",
             "ipv6"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -89,8 +87,7 @@
         "email",
         "ipv4",
         "ipv6"
-      ],
-      "additionalProperties": false
+      ]
     },
     "faint": {
       "anyOf": [
@@ -122,8 +119,7 @@
             "email",
             "ipv4",
             "ipv6"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -154,16 +150,13 @@
           "email",
           "ipv4",
           "ipv6"
-        ],
-        "additionalProperties": false
+        ]
       }
     }
   },
   "required": [
     "regular",
     "nullable",
-    "optional",
-    "faint",
     "array"
   ],
   "additionalProperties": false,

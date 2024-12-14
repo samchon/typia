@@ -2,6 +2,7 @@
   "model": "chatgpt",
   "options": {
     "reference": false,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -40,14 +41,7 @@
                 ]
               }
             },
-            "required": [
-              "boolean",
-              "number",
-              "string",
-              "array",
-              "object"
-            ],
-            "additionalProperties": false
+            "required": []
           }
         },
         "required": [
@@ -90,8 +84,7 @@
               "string",
               "array",
               "object"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       }
@@ -131,14 +124,7 @@
                 ]
               }
             },
-            "required": [
-              "boolean",
-              "number",
-              "string",
-              "array",
-              "object"
-            ],
-            "additionalProperties": false
+            "required": []
           },
           "second": {
             "anyOf": [
@@ -174,15 +160,8 @@
                     ]
                   }
                 },
-                "required": [
-                  "boolean",
-                  "number",
-                  "string",
-                  "array",
-                  "object"
-                ],
-                "description": "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional",
-                "additionalProperties": false
+                "required": [],
+                "description": "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional"
               }
             ]
           }
@@ -228,8 +207,7 @@
               "string",
               "array",
               "object"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       },
@@ -263,14 +241,7 @@
             ]
           }
         },
-        "required": [
-          "boolean",
-          "number",
-          "string",
-          "array",
-          "object"
-        ],
-        "additionalProperties": false
+        "required": []
       }
     },
     {
@@ -312,15 +283,8 @@
                     ]
                   }
                 },
-                "required": [
-                  "boolean",
-                  "number",
-                  "string",
-                  "array",
-                  "object"
-                ],
-                "description": "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional",
-                "additionalProperties": false
+                "required": [],
+                "description": "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional"
               }
             ]
           },
@@ -358,15 +322,8 @@
                     ]
                   }
                 },
-                "required": [
-                  "boolean",
-                  "number",
-                  "string",
-                  "array",
-                  "object"
-                ],
-                "description": "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional",
-                "additionalProperties": false
+                "required": [],
+                "description": "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional"
               }
             ]
           },
@@ -404,23 +361,15 @@
                     ]
                   }
                 },
-                "required": [
-                  "boolean",
-                  "number",
-                  "string",
-                  "array",
-                  "object"
-                ],
-                "description": "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional",
-                "additionalProperties": false
+                "required": [],
+                "description": "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional"
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {
@@ -459,8 +408,7 @@
               "string",
               "array",
               "object"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       },
@@ -498,15 +446,8 @@
                 ]
               }
             },
-            "required": [
-              "boolean",
-              "number",
-              "string",
-              "array",
-              "object"
-            ],
-            "description": "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional",
-            "additionalProperties": false
+            "required": [],
+            "description": "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional"
           }
         ]
       }

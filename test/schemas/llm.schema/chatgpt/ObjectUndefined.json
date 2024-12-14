@@ -29,8 +29,7 @@
         "required": [
           "id",
           "name"
-        ],
-        "additionalProperties": false
+        ]
       },
       "grade": {
         "type": "number"
@@ -39,11 +38,7 @@
     },
     "required": [
       "name",
-      "professor",
-      "classroom",
-      "grade",
       "unknown"
-    ],
-    "additionalProperties": false
+    ]
   }
 }

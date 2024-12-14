@@ -2,6 +2,7 @@
   "model": "chatgpt",
   "options": {
     "reference": false,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -41,8 +42,7 @@
               "note",
               "editable",
               "incremental"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -88,8 +88,7 @@
               "note",
               "editable",
               "incremental"
-            ],
-            "additionalProperties": false
+            ]
           },
           "second": {
             "anyOf": [
@@ -127,8 +126,7 @@
                   "note",
                   "editable",
                   "incremental"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
@@ -171,8 +169,7 @@
           "note",
           "editable",
           "incremental"
-        ],
-        "additionalProperties": false
+        ]
       }
     },
     {
@@ -216,8 +213,7 @@
                   "note",
                   "editable",
                   "incremental"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           },
@@ -257,8 +253,7 @@
                   "note",
                   "editable",
                   "incremental"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           },
@@ -298,16 +293,14 @@
                   "note",
                   "editable",
                   "incremental"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -348,8 +341,7 @@
               "note",
               "editable",
               "incremental"
-            ],
-            "additionalProperties": false
+            ]
           }
         ]
       }

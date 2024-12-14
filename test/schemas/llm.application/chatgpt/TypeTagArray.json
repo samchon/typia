@@ -2,6 +2,7 @@
   "model": "chatgpt",
   "options": {
     "reference": false,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -64,15 +65,13 @@
                     "both",
                     "equal",
                     "unique"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               }
             },
             "required": [
               "value"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -141,15 +140,13 @@
                     "both",
                     "equal",
                     "unique"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               }
             },
             "required": [
               "value"
-            ],
-            "additionalProperties": false
+            ]
           },
           "second": {
             "anyOf": [
@@ -210,15 +207,13 @@
                         "both",
                         "equal",
                         "unique"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 },
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
@@ -284,15 +279,13 @@
                 "both",
                 "equal",
                 "unique"
-              ],
-              "additionalProperties": false
+              ]
             }
           }
         },
         "required": [
           "value"
-        ],
-        "additionalProperties": false
+        ]
       }
     },
     {
@@ -359,15 +352,13 @@
                         "both",
                         "equal",
                         "unique"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 },
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           },
@@ -430,15 +421,13 @@
                         "both",
                         "equal",
                         "unique"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 },
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           },
@@ -501,23 +490,20 @@
                         "both",
                         "equal",
                         "unique"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 },
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -581,15 +567,13 @@
                     "both",
                     "equal",
                     "unique"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               }
             },
             "required": [
               "value"
-            ],
-            "additionalProperties": false
+            ]
           }
         ]
       }

@@ -56,15 +56,13 @@
               "greater_less_equal",
               "greater_equal_less_equal",
               "equal"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       },
       "required": [
         "value"
-      ],
-      "additionalProperties": false
+      ]
     },
     "nullable": {
       "anyOf": [
@@ -126,15 +124,13 @@
                   "greater_less_equal",
                   "greater_equal_less_equal",
                   "equal"
-                ],
-                "additionalProperties": false
+                ]
               }
             }
           },
           "required": [
             "value"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -193,15 +189,13 @@
               "greater_less_equal",
               "greater_equal_less_equal",
               "equal"
-            ],
-            "additionalProperties": false
+            ]
           }
         }
       },
       "required": [
         "value"
-      ],
-      "additionalProperties": false
+      ]
     },
     "faint": {
       "anyOf": [
@@ -263,15 +257,13 @@
                   "greater_less_equal",
                   "greater_equal_less_equal",
                   "equal"
-                ],
-                "additionalProperties": false
+                ]
               }
             }
           },
           "required": [
             "value"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -332,23 +324,19 @@
                 "greater_less_equal",
                 "greater_equal_less_equal",
                 "equal"
-              ],
-              "additionalProperties": false
+              ]
             }
           }
         },
         "required": [
           "value"
-        ],
-        "additionalProperties": false
+        ]
       }
     }
   },
   "required": [
     "regular",
     "nullable",
-    "optional",
-    "faint",
     "array"
   ],
   "additionalProperties": false,

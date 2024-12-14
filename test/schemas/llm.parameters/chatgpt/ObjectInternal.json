@@ -14,8 +14,7 @@
       "required": [
         "id",
         "name"
-      ],
-      "additionalProperties": false
+      ]
     },
     "nullable": {
       "anyOf": [
@@ -35,8 +34,7 @@
           "required": [
             "id",
             "name"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -53,8 +51,7 @@
       "required": [
         "id",
         "name"
-      ],
-      "additionalProperties": false
+      ]
     },
     "faint": {
       "anyOf": [
@@ -74,8 +71,7 @@
           "required": [
             "id",
             "name"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -94,16 +90,13 @@
         "required": [
           "id",
           "name"
-        ],
-        "additionalProperties": false
+        ]
       }
     }
   },
   "required": [
     "regular",
     "nullable",
-    "optional",
-    "faint",
     "array"
   ],
   "additionalProperties": false,

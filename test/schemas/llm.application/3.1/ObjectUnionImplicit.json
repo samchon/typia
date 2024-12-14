@@ -37,8 +37,7 @@
                   },
                   "required": [
                     "x",
-                    "y",
-                    "slope"
+                    "y"
                   ]
                 },
                 {
@@ -66,8 +65,7 @@
                       },
                       "required": [
                         "x",
-                        "y",
-                        "slope"
+                        "y"
                       ]
                     },
                     "p2": {
@@ -92,8 +90,7 @@
                       },
                       "required": [
                         "x",
-                        "y",
-                        "slope"
+                        "y"
                       ]
                     },
                     "width": {
@@ -119,9 +116,7 @@
                   },
                   "required": [
                     "p1",
-                    "p2",
-                    "width",
-                    "distance"
+                    "p2"
                   ]
                 },
                 {
@@ -149,8 +144,7 @@
                       },
                       "required": [
                         "x",
-                        "y",
-                        "slope"
+                        "y"
                       ]
                     },
                     "p2": {
@@ -175,8 +169,7 @@
                       },
                       "required": [
                         "x",
-                        "y",
-                        "slope"
+                        "y"
                       ]
                     },
                     "p3": {
@@ -201,8 +194,7 @@
                       },
                       "required": [
                         "x",
-                        "y",
-                        "slope"
+                        "y"
                       ]
                     },
                     "width": {
@@ -239,10 +231,7 @@
                   "required": [
                     "p1",
                     "p2",
-                    "p3",
-                    "width",
-                    "height",
-                    "area"
+                    "p3"
                   ]
                 },
                 {
@@ -270,8 +259,7 @@
                       },
                       "required": [
                         "x",
-                        "y",
-                        "slope"
+                        "y"
                       ]
                     },
                     "p2": {
@@ -296,8 +284,7 @@
                       },
                       "required": [
                         "x",
-                        "y",
-                        "slope"
+                        "y"
                       ]
                     },
                     "p3": {
@@ -322,8 +309,7 @@
                       },
                       "required": [
                         "x",
-                        "y",
-                        "slope"
+                        "y"
                       ]
                     },
                     "p4": {
@@ -348,8 +334,7 @@
                       },
                       "required": [
                         "x",
-                        "y",
-                        "slope"
+                        "y"
                       ]
                     },
                     "width": {
@@ -387,10 +372,7 @@
                     "p1",
                     "p2",
                     "p3",
-                    "p4",
-                    "width",
-                    "height",
-                    "area"
+                    "p4"
                   ]
                 },
                 {
@@ -420,8 +402,7 @@
                         },
                         "required": [
                           "x",
-                          "y",
-                          "slope"
+                          "y"
                         ]
                       }
                     },
@@ -437,8 +418,7 @@
                     }
                   },
                   "required": [
-                    "points",
-                    "length"
+                    "points"
                   ]
                 },
                 {
@@ -471,8 +451,7 @@
                             },
                             "required": [
                               "x",
-                              "y",
-                              "slope"
+                              "y"
                             ]
                           }
                         },
@@ -488,8 +467,7 @@
                         }
                       },
                       "required": [
-                        "points",
-                        "length"
+                        "points"
                       ]
                     },
                     "inner": {
@@ -521,8 +499,7 @@
                               },
                               "required": [
                                 "x",
-                                "y",
-                                "slope"
+                                "y"
                               ]
                             }
                           },
@@ -538,8 +515,7 @@
                           }
                         },
                         "required": [
-                          "points",
-                          "length"
+                          "points"
                         ]
                       }
                     },
@@ -555,9 +531,7 @@
                     }
                   },
                   "required": [
-                    "outer",
-                    "inner",
-                    "area"
+                    "outer"
                   ]
                 },
                 {
@@ -588,8 +562,7 @@
                       },
                       "required": [
                         "x",
-                        "y",
-                        "slope"
+                        "y"
                       ]
                     },
                     "area": {
@@ -604,9 +577,7 @@
                     }
                   },
                   "required": [
-                    "radius",
-                    "centroid",
-                    "area"
+                    "radius"
                   ]
                 }
               ]
@@ -651,8 +622,7 @@
                   },
                   "required": [
                     "x",
-                    "y",
-                    "slope"
+                    "y"
                   ]
                 },
                 {
@@ -680,8 +650,7 @@
                       },
                       "required": [
                         "x",
-                        "y",
-                        "slope"
+                        "y"
                       ]
                     },
                     "p2": {
@@ -706,8 +675,7 @@
                       },
                       "required": [
                         "x",
-                        "y",
-                        "slope"
+                        "y"
                       ]
                     },
                     "width": {
@@ -733,9 +701,7 @@
                   },
                   "required": [
                     "p1",
-                    "p2",
-                    "width",
-                    "distance"
+                    "p2"
                   ]
                 },
                 {
@@ -763,8 +729,7 @@
                       },
                       "required": [
                         "x",
-                        "y",
-                        "slope"
+                        "y"
                       ]
                     },
                     "p2": {
@@ -789,8 +754,7 @@
                       },
                       "required": [
                         "x",
-                        "y",
-                        "slope"
+                        "y"
                       ]
                     },
                     "p3": {
@@ -815,8 +779,7 @@
                       },
                       "required": [
                         "x",
-                        "y",
-                        "slope"
+                        "y"
                       ]
                     },
                     "width": {
@@ -853,10 +816,7 @@
                   "required": [
                     "p1",
                     "p2",
-                    "p3",
-                    "width",
-                    "height",
-                    "area"
+                    "p3"
                   ]
                 },
                 {
@@ -884,8 +844,7 @@
                       },
                       "required": [
                         "x",
-                        "y",
-                        "slope"
+                        "y"
                       ]
                     },
                     "p2": {
@@ -910,8 +869,7 @@
                       },
                       "required": [
                         "x",
-                        "y",
-                        "slope"
+                        "y"
                       ]
                     },
                     "p3": {
@@ -936,8 +894,7 @@
                       },
                       "required": [
                         "x",
-                        "y",
-                        "slope"
+                        "y"
                       ]
                     },
                     "p4": {
@@ -962,8 +919,7 @@
                       },
                       "required": [
                         "x",
-                        "y",
-                        "slope"
+                        "y"
                       ]
                     },
                     "width": {
@@ -1001,10 +957,7 @@
                     "p1",
                     "p2",
                     "p3",
-                    "p4",
-                    "width",
-                    "height",
-                    "area"
+                    "p4"
                   ]
                 },
                 {
@@ -1034,8 +987,7 @@
                         },
                         "required": [
                           "x",
-                          "y",
-                          "slope"
+                          "y"
                         ]
                       }
                     },
@@ -1051,8 +1003,7 @@
                     }
                   },
                   "required": [
-                    "points",
-                    "length"
+                    "points"
                   ]
                 },
                 {
@@ -1085,8 +1036,7 @@
                             },
                             "required": [
                               "x",
-                              "y",
-                              "slope"
+                              "y"
                             ]
                           }
                         },
@@ -1102,8 +1052,7 @@
                         }
                       },
                       "required": [
-                        "points",
-                        "length"
+                        "points"
                       ]
                     },
                     "inner": {
@@ -1135,8 +1084,7 @@
                               },
                               "required": [
                                 "x",
-                                "y",
-                                "slope"
+                                "y"
                               ]
                             }
                           },
@@ -1152,8 +1100,7 @@
                           }
                         },
                         "required": [
-                          "points",
-                          "length"
+                          "points"
                         ]
                       }
                     },
@@ -1169,9 +1116,7 @@
                     }
                   },
                   "required": [
-                    "outer",
-                    "inner",
-                    "area"
+                    "outer"
                   ]
                 },
                 {
@@ -1202,8 +1147,7 @@
                       },
                       "required": [
                         "x",
-                        "y",
-                        "slope"
+                        "y"
                       ]
                     },
                     "area": {
@@ -1218,9 +1162,7 @@
                     }
                   },
                   "required": [
-                    "radius",
-                    "centroid",
-                    "area"
+                    "radius"
                   ]
                 }
               ]
@@ -1257,8 +1199,7 @@
                       },
                       "required": [
                         "x",
-                        "y",
-                        "slope"
+                        "y"
                       ]
                     },
                     {
@@ -1286,8 +1227,7 @@
                           },
                           "required": [
                             "x",
-                            "y",
-                            "slope"
+                            "y"
                           ]
                         },
                         "p2": {
@@ -1312,8 +1252,7 @@
                           },
                           "required": [
                             "x",
-                            "y",
-                            "slope"
+                            "y"
                           ]
                         },
                         "width": {
@@ -1339,9 +1278,7 @@
                       },
                       "required": [
                         "p1",
-                        "p2",
-                        "width",
-                        "distance"
+                        "p2"
                       ]
                     },
                     {
@@ -1369,8 +1306,7 @@
                           },
                           "required": [
                             "x",
-                            "y",
-                            "slope"
+                            "y"
                           ]
                         },
                         "p2": {
@@ -1395,8 +1331,7 @@
                           },
                           "required": [
                             "x",
-                            "y",
-                            "slope"
+                            "y"
                           ]
                         },
                         "p3": {
@@ -1421,8 +1356,7 @@
                           },
                           "required": [
                             "x",
-                            "y",
-                            "slope"
+                            "y"
                           ]
                         },
                         "width": {
@@ -1459,10 +1393,7 @@
                       "required": [
                         "p1",
                         "p2",
-                        "p3",
-                        "width",
-                        "height",
-                        "area"
+                        "p3"
                       ]
                     },
                     {
@@ -1490,8 +1421,7 @@
                           },
                           "required": [
                             "x",
-                            "y",
-                            "slope"
+                            "y"
                           ]
                         },
                         "p2": {
@@ -1516,8 +1446,7 @@
                           },
                           "required": [
                             "x",
-                            "y",
-                            "slope"
+                            "y"
                           ]
                         },
                         "p3": {
@@ -1542,8 +1471,7 @@
                           },
                           "required": [
                             "x",
-                            "y",
-                            "slope"
+                            "y"
                           ]
                         },
                         "p4": {
@@ -1568,8 +1496,7 @@
                           },
                           "required": [
                             "x",
-                            "y",
-                            "slope"
+                            "y"
                           ]
                         },
                         "width": {
@@ -1607,10 +1534,7 @@
                         "p1",
                         "p2",
                         "p3",
-                        "p4",
-                        "width",
-                        "height",
-                        "area"
+                        "p4"
                       ]
                     },
                     {
@@ -1640,8 +1564,7 @@
                             },
                             "required": [
                               "x",
-                              "y",
-                              "slope"
+                              "y"
                             ]
                           }
                         },
@@ -1657,8 +1580,7 @@
                         }
                       },
                       "required": [
-                        "points",
-                        "length"
+                        "points"
                       ]
                     },
                     {
@@ -1691,8 +1613,7 @@
                                 },
                                 "required": [
                                   "x",
-                                  "y",
-                                  "slope"
+                                  "y"
                                 ]
                               }
                             },
@@ -1708,8 +1629,7 @@
                             }
                           },
                           "required": [
-                            "points",
-                            "length"
+                            "points"
                           ]
                         },
                         "inner": {
@@ -1741,8 +1661,7 @@
                                   },
                                   "required": [
                                     "x",
-                                    "y",
-                                    "slope"
+                                    "y"
                                   ]
                                 }
                               },
@@ -1758,8 +1677,7 @@
                               }
                             },
                             "required": [
-                              "points",
-                              "length"
+                              "points"
                             ]
                           }
                         },
@@ -1775,9 +1693,7 @@
                         }
                       },
                       "required": [
-                        "outer",
-                        "inner",
-                        "area"
+                        "outer"
                       ]
                     },
                     {
@@ -1808,8 +1724,7 @@
                           },
                           "required": [
                             "x",
-                            "y",
-                            "slope"
+                            "y"
                           ]
                         },
                         "area": {
@@ -1824,9 +1739,7 @@
                         }
                       },
                       "required": [
-                        "radius",
-                        "centroid",
-                        "area"
+                        "radius"
                       ]
                     }
                   ]
@@ -1868,8 +1781,7 @@
               },
               "required": [
                 "x",
-                "y",
-                "slope"
+                "y"
               ]
             },
             {
@@ -1897,8 +1809,7 @@
                   },
                   "required": [
                     "x",
-                    "y",
-                    "slope"
+                    "y"
                   ]
                 },
                 "p2": {
@@ -1923,8 +1834,7 @@
                   },
                   "required": [
                     "x",
-                    "y",
-                    "slope"
+                    "y"
                   ]
                 },
                 "width": {
@@ -1950,9 +1860,7 @@
               },
               "required": [
                 "p1",
-                "p2",
-                "width",
-                "distance"
+                "p2"
               ]
             },
             {
@@ -1980,8 +1888,7 @@
                   },
                   "required": [
                     "x",
-                    "y",
-                    "slope"
+                    "y"
                   ]
                 },
                 "p2": {
@@ -2006,8 +1913,7 @@
                   },
                   "required": [
                     "x",
-                    "y",
-                    "slope"
+                    "y"
                   ]
                 },
                 "p3": {
@@ -2032,8 +1938,7 @@
                   },
                   "required": [
                     "x",
-                    "y",
-                    "slope"
+                    "y"
                   ]
                 },
                 "width": {
@@ -2070,10 +1975,7 @@
               "required": [
                 "p1",
                 "p2",
-                "p3",
-                "width",
-                "height",
-                "area"
+                "p3"
               ]
             },
             {
@@ -2101,8 +2003,7 @@
                   },
                   "required": [
                     "x",
-                    "y",
-                    "slope"
+                    "y"
                   ]
                 },
                 "p2": {
@@ -2127,8 +2028,7 @@
                   },
                   "required": [
                     "x",
-                    "y",
-                    "slope"
+                    "y"
                   ]
                 },
                 "p3": {
@@ -2153,8 +2053,7 @@
                   },
                   "required": [
                     "x",
-                    "y",
-                    "slope"
+                    "y"
                   ]
                 },
                 "p4": {
@@ -2179,8 +2078,7 @@
                   },
                   "required": [
                     "x",
-                    "y",
-                    "slope"
+                    "y"
                   ]
                 },
                 "width": {
@@ -2218,10 +2116,7 @@
                 "p1",
                 "p2",
                 "p3",
-                "p4",
-                "width",
-                "height",
-                "area"
+                "p4"
               ]
             },
             {
@@ -2251,8 +2146,7 @@
                     },
                     "required": [
                       "x",
-                      "y",
-                      "slope"
+                      "y"
                     ]
                   }
                 },
@@ -2268,8 +2162,7 @@
                 }
               },
               "required": [
-                "points",
-                "length"
+                "points"
               ]
             },
             {
@@ -2302,8 +2195,7 @@
                         },
                         "required": [
                           "x",
-                          "y",
-                          "slope"
+                          "y"
                         ]
                       }
                     },
@@ -2319,8 +2211,7 @@
                     }
                   },
                   "required": [
-                    "points",
-                    "length"
+                    "points"
                   ]
                 },
                 "inner": {
@@ -2352,8 +2243,7 @@
                           },
                           "required": [
                             "x",
-                            "y",
-                            "slope"
+                            "y"
                           ]
                         }
                       },
@@ -2369,8 +2259,7 @@
                       }
                     },
                     "required": [
-                      "points",
-                      "length"
+                      "points"
                     ]
                   }
                 },
@@ -2386,9 +2275,7 @@
                 }
               },
               "required": [
-                "outer",
-                "inner",
-                "area"
+                "outer"
               ]
             },
             {
@@ -2419,8 +2306,7 @@
                   },
                   "required": [
                     "x",
-                    "y",
-                    "slope"
+                    "y"
                   ]
                 },
                 "area": {
@@ -2435,9 +2321,7 @@
                 }
               },
               "required": [
-                "radius",
-                "centroid",
-                "area"
+                "radius"
               ]
             }
           ]
@@ -2480,8 +2364,7 @@
                       },
                       "required": [
                         "x",
-                        "y",
-                        "slope"
+                        "y"
                       ]
                     },
                     {
@@ -2509,8 +2392,7 @@
                           },
                           "required": [
                             "x",
-                            "y",
-                            "slope"
+                            "y"
                           ]
                         },
                         "p2": {
@@ -2535,8 +2417,7 @@
                           },
                           "required": [
                             "x",
-                            "y",
-                            "slope"
+                            "y"
                           ]
                         },
                         "width": {
@@ -2562,9 +2443,7 @@
                       },
                       "required": [
                         "p1",
-                        "p2",
-                        "width",
-                        "distance"
+                        "p2"
                       ]
                     },
                     {
@@ -2592,8 +2471,7 @@
                           },
                           "required": [
                             "x",
-                            "y",
-                            "slope"
+                            "y"
                           ]
                         },
                         "p2": {
@@ -2618,8 +2496,7 @@
                           },
                           "required": [
                             "x",
-                            "y",
-                            "slope"
+                            "y"
                           ]
                         },
                         "p3": {
@@ -2644,8 +2521,7 @@
                           },
                           "required": [
                             "x",
-                            "y",
-                            "slope"
+                            "y"
                           ]
                         },
                         "width": {
@@ -2682,10 +2558,7 @@
                       "required": [
                         "p1",
                         "p2",
-                        "p3",
-                        "width",
-                        "height",
-                        "area"
+                        "p3"
                       ]
                     },
                     {
@@ -2713,8 +2586,7 @@
                           },
                           "required": [
                             "x",
-                            "y",
-                            "slope"
+                            "y"
                           ]
                         },
                         "p2": {
@@ -2739,8 +2611,7 @@
                           },
                           "required": [
                             "x",
-                            "y",
-                            "slope"
+                            "y"
                           ]
                         },
                         "p3": {
@@ -2765,8 +2636,7 @@
                           },
                           "required": [
                             "x",
-                            "y",
-                            "slope"
+                            "y"
                           ]
                         },
                         "p4": {
@@ -2791,8 +2661,7 @@
                           },
                           "required": [
                             "x",
-                            "y",
-                            "slope"
+                            "y"
                           ]
                         },
                         "width": {
@@ -2830,10 +2699,7 @@
                         "p1",
                         "p2",
                         "p3",
-                        "p4",
-                        "width",
-                        "height",
-                        "area"
+                        "p4"
                       ]
                     },
                     {
@@ -2863,8 +2729,7 @@
                             },
                             "required": [
                               "x",
-                              "y",
-                              "slope"
+                              "y"
                             ]
                           }
                         },
@@ -2880,8 +2745,7 @@
                         }
                       },
                       "required": [
-                        "points",
-                        "length"
+                        "points"
                       ]
                     },
                     {
@@ -2914,8 +2778,7 @@
                                 },
                                 "required": [
                                   "x",
-                                  "y",
-                                  "slope"
+                                  "y"
                                 ]
                               }
                             },
@@ -2931,8 +2794,7 @@
                             }
                           },
                           "required": [
-                            "points",
-                            "length"
+                            "points"
                           ]
                         },
                         "inner": {
@@ -2964,8 +2826,7 @@
                                   },
                                   "required": [
                                     "x",
-                                    "y",
-                                    "slope"
+                                    "y"
                                   ]
                                 }
                               },
@@ -2981,8 +2842,7 @@
                               }
                             },
                             "required": [
-                              "points",
-                              "length"
+                              "points"
                             ]
                           }
                         },
@@ -2998,9 +2858,7 @@
                         }
                       },
                       "required": [
-                        "outer",
-                        "inner",
-                        "area"
+                        "outer"
                       ]
                     },
                     {
@@ -3031,8 +2889,7 @@
                           },
                           "required": [
                             "x",
-                            "y",
-                            "slope"
+                            "y"
                           ]
                         },
                         "area": {
@@ -3047,9 +2904,7 @@
                         }
                       },
                       "required": [
-                        "radius",
-                        "centroid",
-                        "area"
+                        "radius"
                       ]
                     }
                   ]
@@ -3088,8 +2943,7 @@
                       },
                       "required": [
                         "x",
-                        "y",
-                        "slope"
+                        "y"
                       ]
                     },
                     {
@@ -3117,8 +2971,7 @@
                           },
                           "required": [
                             "x",
-                            "y",
-                            "slope"
+                            "y"
                           ]
                         },
                         "p2": {
@@ -3143,8 +2996,7 @@
                           },
                           "required": [
                             "x",
-                            "y",
-                            "slope"
+                            "y"
                           ]
                         },
                         "width": {
@@ -3170,9 +3022,7 @@
                       },
                       "required": [
                         "p1",
-                        "p2",
-                        "width",
-                        "distance"
+                        "p2"
                       ]
                     },
                     {
@@ -3200,8 +3050,7 @@
                           },
                           "required": [
                             "x",
-                            "y",
-                            "slope"
+                            "y"
                           ]
                         },
                         "p2": {
@@ -3226,8 +3075,7 @@
                           },
                           "required": [
                             "x",
-                            "y",
-                            "slope"
+                            "y"
                           ]
                         },
                         "p3": {
@@ -3252,8 +3100,7 @@
                           },
                           "required": [
                             "x",
-                            "y",
-                            "slope"
+                            "y"
                           ]
                         },
                         "width": {
@@ -3290,10 +3137,7 @@
                       "required": [
                         "p1",
                         "p2",
-                        "p3",
-                        "width",
-                        "height",
-                        "area"
+                        "p3"
                       ]
                     },
                     {
@@ -3321,8 +3165,7 @@
                           },
                           "required": [
                             "x",
-                            "y",
-                            "slope"
+                            "y"
                           ]
                         },
                         "p2": {
@@ -3347,8 +3190,7 @@
                           },
                           "required": [
                             "x",
-                            "y",
-                            "slope"
+                            "y"
                           ]
                         },
                         "p3": {
@@ -3373,8 +3215,7 @@
                           },
                           "required": [
                             "x",
-                            "y",
-                            "slope"
+                            "y"
                           ]
                         },
                         "p4": {
@@ -3399,8 +3240,7 @@
                           },
                           "required": [
                             "x",
-                            "y",
-                            "slope"
+                            "y"
                           ]
                         },
                         "width": {
@@ -3438,10 +3278,7 @@
                         "p1",
                         "p2",
                         "p3",
-                        "p4",
-                        "width",
-                        "height",
-                        "area"
+                        "p4"
                       ]
                     },
                     {
@@ -3471,8 +3308,7 @@
                             },
                             "required": [
                               "x",
-                              "y",
-                              "slope"
+                              "y"
                             ]
                           }
                         },
@@ -3488,8 +3324,7 @@
                         }
                       },
                       "required": [
-                        "points",
-                        "length"
+                        "points"
                       ]
                     },
                     {
@@ -3522,8 +3357,7 @@
                                 },
                                 "required": [
                                   "x",
-                                  "y",
-                                  "slope"
+                                  "y"
                                 ]
                               }
                             },
@@ -3539,8 +3373,7 @@
                             }
                           },
                           "required": [
-                            "points",
-                            "length"
+                            "points"
                           ]
                         },
                         "inner": {
@@ -3572,8 +3405,7 @@
                                   },
                                   "required": [
                                     "x",
-                                    "y",
-                                    "slope"
+                                    "y"
                                   ]
                                 }
                               },
@@ -3589,8 +3421,7 @@
                               }
                             },
                             "required": [
-                              "points",
-                              "length"
+                              "points"
                             ]
                           }
                         },
@@ -3606,9 +3437,7 @@
                         }
                       },
                       "required": [
-                        "outer",
-                        "inner",
-                        "area"
+                        "outer"
                       ]
                     },
                     {
@@ -3639,8 +3468,7 @@
                           },
                           "required": [
                             "x",
-                            "y",
-                            "slope"
+                            "y"
                           ]
                         },
                         "area": {
@@ -3655,9 +3483,7 @@
                         }
                       },
                       "required": [
-                        "radius",
-                        "centroid",
-                        "area"
+                        "radius"
                       ]
                     }
                   ]
@@ -3696,8 +3522,7 @@
                       },
                       "required": [
                         "x",
-                        "y",
-                        "slope"
+                        "y"
                       ]
                     },
                     {
@@ -3725,8 +3550,7 @@
                           },
                           "required": [
                             "x",
-                            "y",
-                            "slope"
+                            "y"
                           ]
                         },
                         "p2": {
@@ -3751,8 +3575,7 @@
                           },
                           "required": [
                             "x",
-                            "y",
-                            "slope"
+                            "y"
                           ]
                         },
                         "width": {
@@ -3778,9 +3601,7 @@
                       },
                       "required": [
                         "p1",
-                        "p2",
-                        "width",
-                        "distance"
+                        "p2"
                       ]
                     },
                     {
@@ -3808,8 +3629,7 @@
                           },
                           "required": [
                             "x",
-                            "y",
-                            "slope"
+                            "y"
                           ]
                         },
                         "p2": {
@@ -3834,8 +3654,7 @@
                           },
                           "required": [
                             "x",
-                            "y",
-                            "slope"
+                            "y"
                           ]
                         },
                         "p3": {
@@ -3860,8 +3679,7 @@
                           },
                           "required": [
                             "x",
-                            "y",
-                            "slope"
+                            "y"
                           ]
                         },
                         "width": {
@@ -3898,10 +3716,7 @@
                       "required": [
                         "p1",
                         "p2",
-                        "p3",
-                        "width",
-                        "height",
-                        "area"
+                        "p3"
                       ]
                     },
                     {
@@ -3929,8 +3744,7 @@
                           },
                           "required": [
                             "x",
-                            "y",
-                            "slope"
+                            "y"
                           ]
                         },
                         "p2": {
@@ -3955,8 +3769,7 @@
                           },
                           "required": [
                             "x",
-                            "y",
-                            "slope"
+                            "y"
                           ]
                         },
                         "p3": {
@@ -3981,8 +3794,7 @@
                           },
                           "required": [
                             "x",
-                            "y",
-                            "slope"
+                            "y"
                           ]
                         },
                         "p4": {
@@ -4007,8 +3819,7 @@
                           },
                           "required": [
                             "x",
-                            "y",
-                            "slope"
+                            "y"
                           ]
                         },
                         "width": {
@@ -4046,10 +3857,7 @@
                         "p1",
                         "p2",
                         "p3",
-                        "p4",
-                        "width",
-                        "height",
-                        "area"
+                        "p4"
                       ]
                     },
                     {
@@ -4079,8 +3887,7 @@
                             },
                             "required": [
                               "x",
-                              "y",
-                              "slope"
+                              "y"
                             ]
                           }
                         },
@@ -4096,8 +3903,7 @@
                         }
                       },
                       "required": [
-                        "points",
-                        "length"
+                        "points"
                       ]
                     },
                     {
@@ -4130,8 +3936,7 @@
                                 },
                                 "required": [
                                   "x",
-                                  "y",
-                                  "slope"
+                                  "y"
                                 ]
                               }
                             },
@@ -4147,8 +3952,7 @@
                             }
                           },
                           "required": [
-                            "points",
-                            "length"
+                            "points"
                           ]
                         },
                         "inner": {
@@ -4180,8 +3984,7 @@
                                   },
                                   "required": [
                                     "x",
-                                    "y",
-                                    "slope"
+                                    "y"
                                   ]
                                 }
                               },
@@ -4197,8 +4000,7 @@
                               }
                             },
                             "required": [
-                              "points",
-                              "length"
+                              "points"
                             ]
                           }
                         },
@@ -4214,9 +4016,7 @@
                         }
                       },
                       "required": [
-                        "outer",
-                        "inner",
-                        "area"
+                        "outer"
                       ]
                     },
                     {
@@ -4247,8 +4047,7 @@
                           },
                           "required": [
                             "x",
-                            "y",
-                            "slope"
+                            "y"
                           ]
                         },
                         "area": {
@@ -4263,9 +4062,7 @@
                         }
                       },
                       "required": [
-                        "radius",
-                        "centroid",
-                        "area"
+                        "radius"
                       ]
                     }
                   ]
@@ -4276,8 +4073,7 @@
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -4313,8 +4109,7 @@
                   },
                   "required": [
                     "x",
-                    "y",
-                    "slope"
+                    "y"
                   ]
                 },
                 {
@@ -4342,8 +4137,7 @@
                       },
                       "required": [
                         "x",
-                        "y",
-                        "slope"
+                        "y"
                       ]
                     },
                     "p2": {
@@ -4368,8 +4162,7 @@
                       },
                       "required": [
                         "x",
-                        "y",
-                        "slope"
+                        "y"
                       ]
                     },
                     "width": {
@@ -4395,9 +4188,7 @@
                   },
                   "required": [
                     "p1",
-                    "p2",
-                    "width",
-                    "distance"
+                    "p2"
                   ]
                 },
                 {
@@ -4425,8 +4216,7 @@
                       },
                       "required": [
                         "x",
-                        "y",
-                        "slope"
+                        "y"
                       ]
                     },
                     "p2": {
@@ -4451,8 +4241,7 @@
                       },
                       "required": [
                         "x",
-                        "y",
-                        "slope"
+                        "y"
                       ]
                     },
                     "p3": {
@@ -4477,8 +4266,7 @@
                       },
                       "required": [
                         "x",
-                        "y",
-                        "slope"
+                        "y"
                       ]
                     },
                     "width": {
@@ -4515,10 +4303,7 @@
                   "required": [
                     "p1",
                     "p2",
-                    "p3",
-                    "width",
-                    "height",
-                    "area"
+                    "p3"
                   ]
                 },
                 {
@@ -4546,8 +4331,7 @@
                       },
                       "required": [
                         "x",
-                        "y",
-                        "slope"
+                        "y"
                       ]
                     },
                     "p2": {
@@ -4572,8 +4356,7 @@
                       },
                       "required": [
                         "x",
-                        "y",
-                        "slope"
+                        "y"
                       ]
                     },
                     "p3": {
@@ -4598,8 +4381,7 @@
                       },
                       "required": [
                         "x",
-                        "y",
-                        "slope"
+                        "y"
                       ]
                     },
                     "p4": {
@@ -4624,8 +4406,7 @@
                       },
                       "required": [
                         "x",
-                        "y",
-                        "slope"
+                        "y"
                       ]
                     },
                     "width": {
@@ -4663,10 +4444,7 @@
                     "p1",
                     "p2",
                     "p3",
-                    "p4",
-                    "width",
-                    "height",
-                    "area"
+                    "p4"
                   ]
                 },
                 {
@@ -4696,8 +4474,7 @@
                         },
                         "required": [
                           "x",
-                          "y",
-                          "slope"
+                          "y"
                         ]
                       }
                     },
@@ -4713,8 +4490,7 @@
                     }
                   },
                   "required": [
-                    "points",
-                    "length"
+                    "points"
                   ]
                 },
                 {
@@ -4747,8 +4523,7 @@
                             },
                             "required": [
                               "x",
-                              "y",
-                              "slope"
+                              "y"
                             ]
                           }
                         },
@@ -4764,8 +4539,7 @@
                         }
                       },
                       "required": [
-                        "points",
-                        "length"
+                        "points"
                       ]
                     },
                     "inner": {
@@ -4797,8 +4571,7 @@
                               },
                               "required": [
                                 "x",
-                                "y",
-                                "slope"
+                                "y"
                               ]
                             }
                           },
@@ -4814,8 +4587,7 @@
                           }
                         },
                         "required": [
-                          "points",
-                          "length"
+                          "points"
                         ]
                       }
                     },
@@ -4831,9 +4603,7 @@
                     }
                   },
                   "required": [
-                    "outer",
-                    "inner",
-                    "area"
+                    "outer"
                   ]
                 },
                 {
@@ -4864,8 +4634,7 @@
                       },
                       "required": [
                         "x",
-                        "y",
-                        "slope"
+                        "y"
                       ]
                     },
                     "area": {
@@ -4880,9 +4649,7 @@
                     }
                   },
                   "required": [
-                    "radius",
-                    "centroid",
-                    "area"
+                    "radius"
                   ]
                 }
               ]

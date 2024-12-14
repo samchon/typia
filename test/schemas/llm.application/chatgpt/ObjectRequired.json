@@ -2,6 +2,7 @@
   "model": "chatgpt",
   "options": {
     "reference": false,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -46,8 +47,7 @@
               "string",
               "array",
               "object"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -84,14 +84,7 @@
                 ]
               }
             },
-            "required": [
-              "boolean",
-              "number",
-              "string",
-              "array",
-              "object"
-            ],
-            "additionalProperties": false
+            "required": []
           }
         }
       }
@@ -137,8 +130,7 @@
               "string",
               "array",
               "object"
-            ],
-            "additionalProperties": false
+            ]
           },
           "second": {
             "anyOf": [
@@ -181,8 +173,7 @@
                   "array",
                   "object"
                 ],
-                "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required",
-                "additionalProperties": false
+                "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required"
               }
             ]
           }
@@ -222,14 +213,7 @@
                 ]
               }
             },
-            "required": [
-              "boolean",
-              "number",
-              "string",
-              "array",
-              "object"
-            ],
-            "additionalProperties": false
+            "required": []
           }
         }
       },
@@ -269,8 +253,7 @@
           "string",
           "array",
           "object"
-        ],
-        "additionalProperties": false
+        ]
       }
     },
     {
@@ -319,8 +302,7 @@
                   "array",
                   "object"
                 ],
-                "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required",
-                "additionalProperties": false
+                "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required"
               }
             ]
           },
@@ -365,8 +347,7 @@
                   "array",
                   "object"
                 ],
-                "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required",
-                "additionalProperties": false
+                "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required"
               }
             ]
           },
@@ -411,16 +392,14 @@
                   "array",
                   "object"
                 ],
-                "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required",
-                "additionalProperties": false
+                "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required"
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {
@@ -453,14 +432,7 @@
                 ]
               }
             },
-            "required": [
-              "boolean",
-              "number",
-              "string",
-              "array",
-              "object"
-            ],
-            "additionalProperties": false
+            "required": []
           }
         }
       },
@@ -505,8 +477,7 @@
               "array",
               "object"
             ],
-            "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required",
-            "additionalProperties": false
+            "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required"
           }
         ]
       }

@@ -2,6 +2,7 @@
   "model": "chatgpt",
   "options": {
     "reference": false,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -65,15 +66,13 @@
                     "greater_less_equal",
                     "greater_equal_less_equal",
                     "equal"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               }
             },
             "required": [
               "value"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -143,15 +142,13 @@
                     "greater_less_equal",
                     "greater_equal_less_equal",
                     "equal"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               }
             },
             "required": [
               "value"
-            ],
-            "additionalProperties": false
+            ]
           },
           "second": {
             "anyOf": [
@@ -213,15 +210,13 @@
                         "greater_less_equal",
                         "greater_equal_less_equal",
                         "equal"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 },
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
@@ -288,15 +283,13 @@
                 "greater_less_equal",
                 "greater_equal_less_equal",
                 "equal"
-              ],
-              "additionalProperties": false
+              ]
             }
           }
         },
         "required": [
           "value"
-        ],
-        "additionalProperties": false
+        ]
       }
     },
     {
@@ -364,15 +357,13 @@
                         "greater_less_equal",
                         "greater_equal_less_equal",
                         "equal"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 },
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           },
@@ -436,15 +427,13 @@
                         "greater_less_equal",
                         "greater_equal_less_equal",
                         "equal"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 },
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           },
@@ -508,23 +497,20 @@
                         "greater_less_equal",
                         "greater_equal_less_equal",
                         "equal"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   }
                 },
                 "required": [
                   "value"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -589,15 +575,13 @@
                     "greater_less_equal",
                     "greater_equal_less_equal",
                     "equal"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               }
             },
             "required": [
               "value"
-            ],
-            "additionalProperties": false
+            ]
           }
         ]
       }

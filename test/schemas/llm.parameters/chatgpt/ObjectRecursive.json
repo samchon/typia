@@ -37,8 +37,6 @@
   "required": [
     "regular",
     "nullable",
-    "optional",
-    "faint",
     "array"
   ],
   "additionalProperties": false,
@@ -81,8 +79,7 @@
           "required": [
             "time",
             "zone"
-          ],
-          "additionalProperties": false
+          ]
         }
       },
       "required": [
@@ -92,8 +89,7 @@
         "name",
         "sequence",
         "created_at"
-      ],
-      "additionalProperties": false
+      ]
     }
   }
 }

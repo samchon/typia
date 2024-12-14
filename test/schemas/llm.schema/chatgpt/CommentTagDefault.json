@@ -114,6 +114,5 @@
     "union_but_string",
     "vulnerable_range",
     "boolean_and_number_and_template"
-  ],
-  "additionalProperties": false
+  ]
 }

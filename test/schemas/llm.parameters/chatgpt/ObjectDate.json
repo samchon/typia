@@ -61,13 +61,11 @@
         }
       },
       "required": [
-        "classDate",
         "date",
         "datetime",
         "time",
         "duration"
-      ],
-      "additionalProperties": false
+      ]
     },
     "nullable": {
       "anyOf": [
@@ -134,13 +132,11 @@
             }
           },
           "required": [
-            "classDate",
             "date",
             "datetime",
             "time",
             "duration"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -204,13 +200,11 @@
         }
       },
       "required": [
-        "classDate",
         "date",
         "datetime",
         "time",
         "duration"
-      ],
-      "additionalProperties": false
+      ]
     },
     "faint": {
       "anyOf": [
@@ -277,13 +271,11 @@
             }
           },
           "required": [
-            "classDate",
             "date",
             "datetime",
             "time",
             "duration"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -349,21 +341,17 @@
           }
         },
         "required": [
-          "classDate",
           "date",
           "datetime",
           "time",
           "duration"
-        ],
-        "additionalProperties": false
+        ]
       }
     }
   },
   "required": [
     "regular",
     "nullable",
-    "optional",
-    "faint",
     "array"
   ],
   "additionalProperties": false,

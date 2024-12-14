@@ -2,6 +2,7 @@
   "model": "chatgpt",
   "options": {
     "reference": false,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -70,13 +71,11 @@
               }
             },
             "required": [
-              "classDate",
               "date",
               "datetime",
               "time",
               "duration"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -151,13 +150,11 @@
               }
             },
             "required": [
-              "classDate",
               "date",
               "datetime",
               "time",
               "duration"
-            ],
-            "additionalProperties": false
+            ]
           },
           "second": {
             "anyOf": [
@@ -224,13 +221,11 @@
                   }
                 },
                 "required": [
-                  "classDate",
                   "date",
                   "datetime",
                   "time",
                   "duration"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
@@ -302,13 +297,11 @@
           }
         },
         "required": [
-          "classDate",
           "date",
           "datetime",
           "time",
           "duration"
-        ],
-        "additionalProperties": false
+        ]
       }
     },
     {
@@ -381,13 +374,11 @@
                   }
                 },
                 "required": [
-                  "classDate",
                   "date",
                   "datetime",
                   "time",
                   "duration"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           },
@@ -456,13 +447,11 @@
                   }
                 },
                 "required": [
-                  "classDate",
                   "date",
                   "datetime",
                   "time",
                   "duration"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           },
@@ -531,21 +520,18 @@
                   }
                 },
                 "required": [
-                  "classDate",
                   "date",
                   "datetime",
                   "time",
                   "duration"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -615,13 +601,11 @@
               }
             },
             "required": [
-              "classDate",
               "date",
               "datetime",
               "time",
               "duration"
-            ],
-            "additionalProperties": false
+            ]
           }
         ]
       }

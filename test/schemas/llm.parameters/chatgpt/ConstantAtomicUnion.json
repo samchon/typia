@@ -17,8 +17,7 @@
             },
             "required": [
               "key"
-            ],
-            "additionalProperties": false
+            ]
           },
           {
             "type": "boolean",
@@ -64,8 +63,7 @@
                 },
                 "required": [
                   "key"
-                ],
-                "additionalProperties": false
+                ]
               },
               {
                 "type": "boolean",
@@ -108,8 +106,7 @@
             },
             "required": [
               "key"
-            ],
-            "additionalProperties": false
+            ]
           },
           {
             "type": "boolean",
@@ -155,8 +152,7 @@
                 },
                 "required": [
                   "key"
-                ],
-                "additionalProperties": false
+                ]
               },
               {
                 "type": "boolean",
@@ -201,8 +197,7 @@
               },
               "required": [
                 "key"
-              ],
-              "additionalProperties": false
+              ]
             },
             {
               "type": "boolean",
@@ -232,8 +227,6 @@
   "required": [
     "regular",
     "nullable",
-    "optional",
-    "faint",
     "array"
   ],
   "additionalProperties": false,

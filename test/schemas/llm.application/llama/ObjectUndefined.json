@@ -50,9 +50,6 @@
               },
               "required": [
                 "name",
-                "professor",
-                "classroom",
-                "grade",
                 "unknown"
               ]
             }
@@ -110,9 +107,6 @@
               },
               "required": [
                 "name",
-                "professor",
-                "classroom",
-                "grade",
                 "unknown"
               ]
             }
@@ -162,9 +156,6 @@
                   },
                   "required": [
                     "name",
-                    "professor",
-                    "classroom",
-                    "grade",
                     "unknown"
                   ]
                 }
@@ -219,9 +210,6 @@
           },
           "required": [
             "name",
-            "professor",
-            "classroom",
-            "grade",
             "unknown"
           ]
         }
@@ -277,9 +265,6 @@
                   },
                   "required": [
                     "name",
-                    "professor",
-                    "classroom",
-                    "grade",
                     "unknown"
                   ]
                 }
@@ -331,9 +316,6 @@
                   },
                   "required": [
                     "name",
-                    "professor",
-                    "classroom",
-                    "grade",
                     "unknown"
                   ]
                 }
@@ -385,9 +367,6 @@
                   },
                   "required": [
                     "name",
-                    "professor",
-                    "classroom",
-                    "grade",
                     "unknown"
                   ]
                 }
@@ -397,8 +376,7 @@
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -448,9 +426,6 @@
               },
               "required": [
                 "name",
-                "professor",
-                "classroom",
-                "grade",
                 "unknown"
               ]
             }

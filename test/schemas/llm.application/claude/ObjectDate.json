@@ -70,7 +70,6 @@
               }
             },
             "required": [
-              "classDate",
               "date",
               "datetime",
               "time",
@@ -150,7 +149,6 @@
               }
             },
             "required": [
-              "classDate",
               "date",
               "datetime",
               "time",
@@ -222,7 +220,6 @@
                   }
                 },
                 "required": [
-                  "classDate",
                   "date",
                   "datetime",
                   "time",
@@ -299,7 +296,6 @@
           }
         },
         "required": [
-          "classDate",
           "date",
           "datetime",
           "time",
@@ -377,7 +373,6 @@
                   }
                 },
                 "required": [
-                  "classDate",
                   "date",
                   "datetime",
                   "time",
@@ -451,7 +446,6 @@
                   }
                 },
                 "required": [
-                  "classDate",
                   "date",
                   "datetime",
                   "time",
@@ -525,7 +519,6 @@
                   }
                 },
                 "required": [
-                  "classDate",
                   "date",
                   "datetime",
                   "time",
@@ -537,8 +530,7 @@
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -608,7 +600,6 @@
               }
             },
             "required": [
-              "classDate",
               "date",
               "datetime",
               "time",

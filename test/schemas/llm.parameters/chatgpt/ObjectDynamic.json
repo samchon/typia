@@ -1,0 +1,119 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "type": "object",
+      "properties": {},
+      "required": [],
+      "additionalProperties": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "boolean"
+          }
+        ]
+      }
+    },
+    "nullable": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {},
+          "required": [],
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "boolean"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "optional": {
+      "type": "object",
+      "properties": {},
+      "required": [],
+      "additionalProperties": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "boolean"
+          }
+        ]
+      }
+    },
+    "faint": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {},
+          "required": [],
+          "additionalProperties": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "boolean"
+              }
+            ]
+          }
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {},
+        "required": [],
+        "additionalProperties": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {}
+}

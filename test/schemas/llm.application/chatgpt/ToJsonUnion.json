@@ -2,6 +2,7 @@
   "model": "chatgpt",
   "options": {
     "reference": false,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -34,8 +35,7 @@
                     "id",
                     "mobile",
                     "name"
-                  ],
-                  "additionalProperties": false
+                  ]
                 },
                 {
                   "type": "object",
@@ -54,8 +54,7 @@
                     "manufacturer",
                     "brand",
                     "name"
-                  ],
-                  "additionalProperties": false
+                  ]
                 },
                 {
                   "type": "string"
@@ -80,8 +79,7 @@
                     "id",
                     "mobile",
                     "name"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               ]
             }
@@ -123,8 +121,7 @@
                     "id",
                     "mobile",
                     "name"
-                  ],
-                  "additionalProperties": false
+                  ]
                 },
                 {
                   "type": "object",
@@ -143,8 +140,7 @@
                     "manufacturer",
                     "brand",
                     "name"
-                  ],
-                  "additionalProperties": false
+                  ]
                 },
                 {
                   "type": "string"
@@ -169,8 +165,7 @@
                     "id",
                     "mobile",
                     "name"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               ]
             }
@@ -204,8 +199,7 @@
                         "id",
                         "mobile",
                         "name"
-                      ],
-                      "additionalProperties": false
+                      ]
                     },
                     {
                       "type": "object",
@@ -224,8 +218,7 @@
                         "manufacturer",
                         "brand",
                         "name"
-                      ],
-                      "additionalProperties": false
+                      ]
                     },
                     {
                       "type": "string"
@@ -250,8 +243,7 @@
                         "id",
                         "mobile",
                         "name"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   ]
                 }
@@ -290,8 +282,7 @@
                 "id",
                 "mobile",
                 "name"
-              ],
-              "additionalProperties": false
+              ]
             },
             {
               "type": "object",
@@ -310,8 +301,7 @@
                 "manufacturer",
                 "brand",
                 "name"
-              ],
-              "additionalProperties": false
+              ]
             },
             {
               "type": "string"
@@ -336,8 +326,7 @@
                 "id",
                 "mobile",
                 "name"
-              ],
-              "additionalProperties": false
+              ]
             }
           ]
         }
@@ -377,8 +366,7 @@
                         "id",
                         "mobile",
                         "name"
-                      ],
-                      "additionalProperties": false
+                      ]
                     },
                     {
                       "type": "object",
@@ -397,8 +385,7 @@
                         "manufacturer",
                         "brand",
                         "name"
-                      ],
-                      "additionalProperties": false
+                      ]
                     },
                     {
                       "type": "string"
@@ -423,8 +410,7 @@
                         "id",
                         "mobile",
                         "name"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   ]
                 }
@@ -460,8 +446,7 @@
                         "id",
                         "mobile",
                         "name"
-                      ],
-                      "additionalProperties": false
+                      ]
                     },
                     {
                       "type": "object",
@@ -480,8 +465,7 @@
                         "manufacturer",
                         "brand",
                         "name"
-                      ],
-                      "additionalProperties": false
+                      ]
                     },
                     {
                       "type": "string"
@@ -506,8 +490,7 @@
                         "id",
                         "mobile",
                         "name"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   ]
                 }
@@ -543,8 +526,7 @@
                         "id",
                         "mobile",
                         "name"
-                      ],
-                      "additionalProperties": false
+                      ]
                     },
                     {
                       "type": "object",
@@ -563,8 +545,7 @@
                         "manufacturer",
                         "brand",
                         "name"
-                      ],
-                      "additionalProperties": false
+                      ]
                     },
                     {
                       "type": "string"
@@ -589,8 +570,7 @@
                         "id",
                         "mobile",
                         "name"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   ]
                 }
@@ -600,8 +580,7 @@
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -635,8 +614,7 @@
                     "id",
                     "mobile",
                     "name"
-                  ],
-                  "additionalProperties": false
+                  ]
                 },
                 {
                   "type": "object",
@@ -655,8 +633,7 @@
                     "manufacturer",
                     "brand",
                     "name"
-                  ],
-                  "additionalProperties": false
+                  ]
                 },
                 {
                   "type": "string"
@@ -681,8 +658,7 @@
                     "id",
                     "mobile",
                     "name"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               ]
             }

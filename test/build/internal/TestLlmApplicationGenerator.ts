@@ -18,7 +18,7 @@ export namespace TestLlmApplicationGenerator {
 
       const v31: string = await fs.promises.readFile(location, "utf8");
       if (
-        (model === "chatgpt" || model === "gemini") &&
+        model === "gemini" &&
         (v31.includes(`"additionalProperties": {`) === true ||
           v31.includes(`"additionalProperties": true`) === true)
       )

@@ -50,9 +50,6 @@
               }
             },
             "required": [
-              "string",
-              "number",
-              "boolean",
               "object",
               "array"
             ]
@@ -115,9 +112,6 @@
               }
             },
             "required": [
-              "string",
-              "number",
-              "boolean",
               "object",
               "array"
             ]
@@ -166,8 +160,7 @@
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {
@@ -201,9 +194,6 @@
               }
             },
             "required": [
-              "string",
-              "number",
-              "boolean",
               "object",
               "array"
             ]

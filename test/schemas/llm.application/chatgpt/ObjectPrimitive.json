@@ -2,6 +2,7 @@
   "model": "chatgpt",
   "options": {
     "reference": false,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -57,8 +58,7 @@
                     "extension",
                     "url",
                     "created_at"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               },
               "secret": {
@@ -76,8 +76,7 @@
               "files",
               "secret",
               "created_at"
-            ],
-            "additionalProperties": false
+            ]
           }
         },
         "required": [
@@ -139,8 +138,7 @@
                     "extension",
                     "url",
                     "created_at"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               },
               "secret": {
@@ -158,8 +156,7 @@
               "files",
               "secret",
               "created_at"
-            ],
-            "additionalProperties": false
+            ]
           },
           "second": {
             "anyOf": [
@@ -213,8 +210,7 @@
                         "extension",
                         "url",
                         "created_at"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   },
                   "secret": {
@@ -232,8 +228,7 @@
                   "files",
                   "secret",
                   "created_at"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
@@ -292,8 +287,7 @@
                 "extension",
                 "url",
                 "created_at"
-              ],
-              "additionalProperties": false
+              ]
             }
           },
           "secret": {
@@ -311,8 +305,7 @@
           "files",
           "secret",
           "created_at"
-        ],
-        "additionalProperties": false
+        ]
       }
     },
     {
@@ -372,8 +365,7 @@
                         "extension",
                         "url",
                         "created_at"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   },
                   "secret": {
@@ -391,8 +383,7 @@
                   "files",
                   "secret",
                   "created_at"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           },
@@ -448,8 +439,7 @@
                         "extension",
                         "url",
                         "created_at"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   },
                   "secret": {
@@ -467,8 +457,7 @@
                   "files",
                   "secret",
                   "created_at"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           },
@@ -524,8 +513,7 @@
                         "extension",
                         "url",
                         "created_at"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   },
                   "secret": {
@@ -543,16 +531,14 @@
                   "files",
                   "secret",
                   "created_at"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -609,8 +595,7 @@
                     "extension",
                     "url",
                     "created_at"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               },
               "secret": {
@@ -628,8 +613,7 @@
               "files",
               "secret",
               "created_at"
-            ],
-            "additionalProperties": false
+            ]
           }
         ]
       }

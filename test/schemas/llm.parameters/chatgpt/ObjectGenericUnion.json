@@ -69,8 +69,7 @@
                                     "name",
                                     "extension",
                                     "url"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
                               }
                             },
@@ -80,8 +79,7 @@
                               "title",
                               "body",
                               "files"
-                            ],
-                            "additionalProperties": false
+                            ]
                           }
                         },
                         "created_at": {
@@ -93,8 +91,7 @@
                         "hit",
                         "contents",
                         "created_at"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   ]
                 },
@@ -147,8 +144,7 @@
                             "name",
                             "extension",
                             "url"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       }
                     },
@@ -158,8 +154,7 @@
                       "title",
                       "body",
                       "files"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 },
                 "created_at": {
@@ -173,8 +168,7 @@
                 "hit",
                 "contents",
                 "created_at"
-              ],
-              "additionalProperties": false
+              ]
             },
             {
               "type": "object",
@@ -239,8 +233,7 @@
                                     "name",
                                     "extension",
                                     "url"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
                               }
                             },
@@ -250,8 +243,7 @@
                               "title",
                               "body",
                               "files"
-                            ],
-                            "additionalProperties": false
+                            ]
                           }
                         },
                         "created_at": {
@@ -263,8 +255,7 @@
                         "hit",
                         "contents",
                         "created_at"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   ]
                 },
@@ -320,8 +311,7 @@
                             "name",
                             "extension",
                             "url"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       }
                     },
@@ -332,8 +322,7 @@
                       "title",
                       "body",
                       "files"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 },
                 "created_at": {
@@ -347,16 +336,14 @@
                 "hit",
                 "contents",
                 "created_at"
-              ],
-              "additionalProperties": false
+              ]
             }
           ]
         }
       },
       "required": [
         "value"
-      ],
-      "additionalProperties": false
+      ]
     },
     "nullable": {
       "anyOf": [
@@ -431,8 +418,7 @@
                                         "name",
                                         "extension",
                                         "url"
-                                      ],
-                                      "additionalProperties": false
+                                      ]
                                     }
                                   }
                                 },
@@ -442,8 +428,7 @@
                                   "title",
                                   "body",
                                   "files"
-                                ],
-                                "additionalProperties": false
+                                ]
                               }
                             },
                             "created_at": {
@@ -455,8 +440,7 @@
                             "hit",
                             "contents",
                             "created_at"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       ]
                     },
@@ -509,8 +493,7 @@
                                 "name",
                                 "extension",
                                 "url"
-                              ],
-                              "additionalProperties": false
+                              ]
                             }
                           }
                         },
@@ -520,8 +503,7 @@
                           "title",
                           "body",
                           "files"
-                        ],
-                        "additionalProperties": false
+                        ]
                       }
                     },
                     "created_at": {
@@ -535,8 +517,7 @@
                     "hit",
                     "contents",
                     "created_at"
-                  ],
-                  "additionalProperties": false
+                  ]
                 },
                 {
                   "type": "object",
@@ -601,8 +582,7 @@
                                         "name",
                                         "extension",
                                         "url"
-                                      ],
-                                      "additionalProperties": false
+                                      ]
                                     }
                                   }
                                 },
@@ -612,8 +592,7 @@
                                   "title",
                                   "body",
                                   "files"
-                                ],
-                                "additionalProperties": false
+                                ]
                               }
                             },
                             "created_at": {
@@ -625,8 +604,7 @@
                             "hit",
                             "contents",
                             "created_at"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       ]
                     },
@@ -682,8 +660,7 @@
                                 "name",
                                 "extension",
                                 "url"
-                              ],
-                              "additionalProperties": false
+                              ]
                             }
                           }
                         },
@@ -694,8 +671,7 @@
                           "title",
                           "body",
                           "files"
-                        ],
-                        "additionalProperties": false
+                        ]
                       }
                     },
                     "created_at": {
@@ -709,16 +685,14 @@
                     "hit",
                     "contents",
                     "created_at"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               ]
             }
           },
           "required": [
             "value"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -790,8 +764,7 @@
                                     "name",
                                     "extension",
                                     "url"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
                               }
                             },
@@ -801,8 +774,7 @@
                               "title",
                               "body",
                               "files"
-                            ],
-                            "additionalProperties": false
+                            ]
                           }
                         },
                         "created_at": {
@@ -814,8 +786,7 @@
                         "hit",
                         "contents",
                         "created_at"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   ]
                 },
@@ -868,8 +839,7 @@
                             "name",
                             "extension",
                             "url"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       }
                     },
@@ -879,8 +849,7 @@
                       "title",
                       "body",
                       "files"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 },
                 "created_at": {
@@ -894,8 +863,7 @@
                 "hit",
                 "contents",
                 "created_at"
-              ],
-              "additionalProperties": false
+              ]
             },
             {
               "type": "object",
@@ -960,8 +928,7 @@
                                     "name",
                                     "extension",
                                     "url"
-                                  ],
-                                  "additionalProperties": false
+                                  ]
                                 }
                               }
                             },
@@ -971,8 +938,7 @@
                               "title",
                               "body",
                               "files"
-                            ],
-                            "additionalProperties": false
+                            ]
                           }
                         },
                         "created_at": {
@@ -984,8 +950,7 @@
                         "hit",
                         "contents",
                         "created_at"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   ]
                 },
@@ -1041,8 +1006,7 @@
                             "name",
                             "extension",
                             "url"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       }
                     },
@@ -1053,8 +1017,7 @@
                       "title",
                       "body",
                       "files"
-                    ],
-                    "additionalProperties": false
+                    ]
                   }
                 },
                 "created_at": {
@@ -1068,16 +1031,14 @@
                 "hit",
                 "contents",
                 "created_at"
-              ],
-              "additionalProperties": false
+              ]
             }
           ]
         }
       },
       "required": [
         "value"
-      ],
-      "additionalProperties": false
+      ]
     },
     "faint": {
       "anyOf": [
@@ -1152,8 +1113,7 @@
                                         "name",
                                         "extension",
                                         "url"
-                                      ],
-                                      "additionalProperties": false
+                                      ]
                                     }
                                   }
                                 },
@@ -1163,8 +1123,7 @@
                                   "title",
                                   "body",
                                   "files"
-                                ],
-                                "additionalProperties": false
+                                ]
                               }
                             },
                             "created_at": {
@@ -1176,8 +1135,7 @@
                             "hit",
                             "contents",
                             "created_at"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       ]
                     },
@@ -1230,8 +1188,7 @@
                                 "name",
                                 "extension",
                                 "url"
-                              ],
-                              "additionalProperties": false
+                              ]
                             }
                           }
                         },
@@ -1241,8 +1198,7 @@
                           "title",
                           "body",
                           "files"
-                        ],
-                        "additionalProperties": false
+                        ]
                       }
                     },
                     "created_at": {
@@ -1256,8 +1212,7 @@
                     "hit",
                     "contents",
                     "created_at"
-                  ],
-                  "additionalProperties": false
+                  ]
                 },
                 {
                   "type": "object",
@@ -1322,8 +1277,7 @@
                                         "name",
                                         "extension",
                                         "url"
-                                      ],
-                                      "additionalProperties": false
+                                      ]
                                     }
                                   }
                                 },
@@ -1333,8 +1287,7 @@
                                   "title",
                                   "body",
                                   "files"
-                                ],
-                                "additionalProperties": false
+                                ]
                               }
                             },
                             "created_at": {
@@ -1346,8 +1299,7 @@
                             "hit",
                             "contents",
                             "created_at"
-                          ],
-                          "additionalProperties": false
+                          ]
                         }
                       ]
                     },
@@ -1403,8 +1355,7 @@
                                 "name",
                                 "extension",
                                 "url"
-                              ],
-                              "additionalProperties": false
+                              ]
                             }
                           }
                         },
@@ -1415,8 +1366,7 @@
                           "title",
                           "body",
                           "files"
-                        ],
-                        "additionalProperties": false
+                        ]
                       }
                     },
                     "created_at": {
@@ -1430,16 +1380,14 @@
                     "hit",
                     "contents",
                     "created_at"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               ]
             }
           },
           "required": [
             "value"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -1513,8 +1461,7 @@
                                       "name",
                                       "extension",
                                       "url"
-                                    ],
-                                    "additionalProperties": false
+                                    ]
                                   }
                                 }
                               },
@@ -1524,8 +1471,7 @@
                                 "title",
                                 "body",
                                 "files"
-                              ],
-                              "additionalProperties": false
+                              ]
                             }
                           },
                           "created_at": {
@@ -1537,8 +1483,7 @@
                           "hit",
                           "contents",
                           "created_at"
-                        ],
-                        "additionalProperties": false
+                        ]
                       }
                     ]
                   },
@@ -1591,8 +1536,7 @@
                               "name",
                               "extension",
                               "url"
-                            ],
-                            "additionalProperties": false
+                            ]
                           }
                         }
                       },
@@ -1602,8 +1546,7 @@
                         "title",
                         "body",
                         "files"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   },
                   "created_at": {
@@ -1617,8 +1560,7 @@
                   "hit",
                   "contents",
                   "created_at"
-                ],
-                "additionalProperties": false
+                ]
               },
               {
                 "type": "object",
@@ -1683,8 +1625,7 @@
                                       "name",
                                       "extension",
                                       "url"
-                                    ],
-                                    "additionalProperties": false
+                                    ]
                                   }
                                 }
                               },
@@ -1694,8 +1635,7 @@
                                 "title",
                                 "body",
                                 "files"
-                              ],
-                              "additionalProperties": false
+                              ]
                             }
                           },
                           "created_at": {
@@ -1707,8 +1647,7 @@
                           "hit",
                           "contents",
                           "created_at"
-                        ],
-                        "additionalProperties": false
+                        ]
                       }
                     ]
                   },
@@ -1764,8 +1703,7 @@
                               "name",
                               "extension",
                               "url"
-                            ],
-                            "additionalProperties": false
+                            ]
                           }
                         }
                       },
@@ -1776,8 +1714,7 @@
                         "title",
                         "body",
                         "files"
-                      ],
-                      "additionalProperties": false
+                      ]
                     }
                   },
                   "created_at": {
@@ -1791,24 +1728,20 @@
                   "hit",
                   "contents",
                   "created_at"
-                ],
-                "additionalProperties": false
+                ]
               }
             ]
           }
         },
         "required": [
           "value"
-        ],
-        "additionalProperties": false
+        ]
       }
     }
   },
   "required": [
     "regular",
     "nullable",
-    "optional",
-    "faint",
     "array"
   ],
   "additionalProperties": false,

@@ -49,8 +49,7 @@
         "middle_boolean",
         "ipv4",
         "email"
-      ],
-      "additionalProperties": false
+      ]
     },
     "nullable": {
       "anyOf": [
@@ -105,8 +104,7 @@
             "middle_boolean",
             "ipv4",
             "email"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -158,8 +156,7 @@
         "middle_boolean",
         "ipv4",
         "email"
-      ],
-      "additionalProperties": false
+      ]
     },
     "faint": {
       "anyOf": [
@@ -214,8 +211,7 @@
             "middle_boolean",
             "ipv4",
             "email"
-          ],
-          "additionalProperties": false
+          ]
         }
       ]
     },
@@ -269,16 +265,13 @@
           "middle_boolean",
           "ipv4",
           "email"
-        ],
-        "additionalProperties": false
+        ]
       }
     }
   },
   "required": [
     "regular",
     "nullable",
-    "optional",
-    "faint",
     "array"
   ],
   "additionalProperties": false,

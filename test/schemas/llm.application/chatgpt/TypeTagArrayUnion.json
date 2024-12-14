@@ -2,6 +2,7 @@
   "model": "chatgpt",
   "options": {
     "reference": false,
+    "strict": false,
     "separate": null
   },
   "functions": [
@@ -61,8 +62,7 @@
                 "minItems",
                 "maxItems",
                 "both"
-              ],
-              "additionalProperties": false
+              ]
             }
           }
         },
@@ -129,8 +129,7 @@
                 "minItems",
                 "maxItems",
                 "both"
-              ],
-              "additionalProperties": false
+              ]
             }
           },
           "second": {
@@ -189,8 +188,7 @@
                     "minItems",
                     "maxItems",
                     "both"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               }
             ]
@@ -254,8 +252,7 @@
             "minItems",
             "maxItems",
             "both"
-          ],
-          "additionalProperties": false
+          ]
         }
       }
     },
@@ -320,8 +317,7 @@
                     "minItems",
                     "maxItems",
                     "both"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               }
             ]
@@ -382,8 +378,7 @@
                     "minItems",
                     "maxItems",
                     "both"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               }
             ]
@@ -444,8 +439,7 @@
                     "minItems",
                     "maxItems",
                     "both"
-                  ],
-                  "additionalProperties": false
+                  ]
                 }
               }
             ]
@@ -453,8 +447,7 @@
         },
         "required": [
           "first",
-          "second",
-          "third"
+          "second"
         ],
         "additionalProperties": false,
         "$defs": {}
@@ -515,8 +508,7 @@
                 "minItems",
                 "maxItems",
                 "both"
-              ],
-              "additionalProperties": false
+              ]
             }
           }
         ]
