@@ -1,0 +1,29 @@
+{
+  "name": "test-nextjs",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev --turbopack",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typia": "rimraf app/types/generated && typia generate --input app/types/templates --output app/types/generated --project tsconfig.json",
+    "prepare": "npm run typia"
+  },
+  "dependencies": {
+    "next": "15.1.0",
+    "react": "^19.0.0",
+    "react-dom": "^19.0.0",
+    "typia": "^7.4.0"
+  },
+  "devDependencies": {
+    "eslint-config-next": "15.1.0",
+    "eslint": "^9",
+    "rimraf": "^6.0.1",
+    "typescript": "^5",
+    "@eslint/eslintrc": "^3",
+    "@types/node": "^20",
+    "@types/react-dom": "^19",
+    "@types/react": "^19"
+  }
+}
