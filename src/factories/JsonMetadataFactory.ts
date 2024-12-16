@@ -17,6 +17,7 @@ export namespace JsonMetadataFactory {
     checker: ts.TypeChecker;
     transformer?: ts.TransformationContext;
     type: ts.Type;
+    validate?: MetadataFactory.Validator;
   }
   export interface IOutput {
     collection: MetadataCollection;
@@ -33,7 +34,13 @@ export namespace JsonMetadataFactory {
           escape: true,
           constant: true,
           absorb: true,
-          validate,
+          validate: props.validate
+            ? (meta, explore) => {
+                const errors: string[] = validate(meta);
+                errors.push(...props.validate!(meta, explore));
+                return errors;
+              }
+            : validate,
         },
         collection,
         type: props.type,
