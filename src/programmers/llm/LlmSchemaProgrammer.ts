@@ -1,6 +1,8 @@
 import {
   IChatGptSchema,
+  IGeminiSchema,
   ILlmSchema,
+  ILlmSchemaV3,
   IOpenApiSchemaError,
   IResult,
 } from "@samchon/openapi";
@@ -104,6 +106,23 @@ export namespace LlmSchemaProgrammer {
       // Gemini does not support the union type
       if (props.model === "gemini" && size(metadata) > 1)
         output.push("Gemini model does not support the union type.");
+
+      // no recursive rule of Gemini and V3
+      if (
+        (props.model === "gemini" || props.model === "3.0") &&
+        ((props.config as IGeminiSchema.IConfig | undefined)?.recursive ===
+          false ||
+          (props.config as ILlmSchemaV3.IConfig | undefined)?.recursive === 0)
+      ) {
+        if (metadata.objects.some((o) => o.type.recursive))
+          output.push(
+            `LLM schema of "${props.model}" does not support recursive object.`,
+          );
+        if (metadata.arrays.some((a) => a.type.recursive))
+          output.push(
+            `LLM schema of "${props.model}" does not support recursive array.`,
+          );
+      }
 
       // just JSON rule
       if (
