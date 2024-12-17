@@ -1,754 +1,15 @@
-import { LlmTypeCheckerV3_1 } from "@samchon/openapi";
-import typia, { tags } from "typia";
+import typia, { ILlmApplicationOfValidate } from "typia";
 import * as __typia_transform__isFormatDateTime from "typia/lib/internal/_isFormatDateTime.js";
 import * as __typia_transform__isFormatUuid from "typia/lib/internal/_isFormatUuid.js";
-import * as __typia_transform__llmApplicationFinalize from "typia/lib/internal/_llmApplicationFinalize.js";
 import * as __typia_transform__validateReport from "typia/lib/internal/_validateReport.js";
 
-export const schema = ((
-  $defs: Record<string, import("@samchon/openapi").ILlmSchema<"chatgpt">>,
-) => {
-  Object.assign($defs, {
-    IDepartment: {
-      type: "object",
-      properties: {
-        id: {
-          description: "@format uuid",
-          type: "string",
-        },
-        code: {
-          type: "string",
-        },
-        sales: {
-          type: "number",
-        },
-        created_at: {
-          description: "@format date-time",
-          type: "string",
-        },
-        children: {
-          type: "array",
-          items: {
-            $ref: "#/$defs/IDepartment",
-          },
-        },
-        employees: {
-          type: "array",
-          items: {
-            type: "object",
-            properties: {
-              id: {
-                description: "@format uuid",
-                type: "string",
-              },
-              name: {
-                type: "string",
-              },
-              age: {
-                type: "number",
-              },
-              grade: {
-                type: "number",
-              },
-              employeed_at: {
-                description: "@format date-time",
-                type: "string",
-              },
-            },
-            required: ["id", "name", "age", "grade", "employeed_at"],
-          },
-        },
-      },
-      required: ["id", "code", "sales", "created_at", "children", "employees"],
-    },
-  } as Record<string, import("@samchon/openapi").ILlmSchema<"chatgpt">>);
-  return {
-    type: "object",
-    properties: {
-      id: {
-        description: "@format uuid",
-        type: "string",
-      },
-      serial: {
-        type: "number",
-      },
-      name: {
-        type: "string",
-      },
-      established_at: {
-        description: "@format date-time",
-        type: "string",
-      },
-      departments: {
-        type: "array",
-        items: {
-          $ref: "#/$defs/IDepartment",
-        },
-      },
-    },
-    required: ["id", "serial", "name", "established_at", "departments"],
-  } as import("@samchon/openapi").ILlmSchema<"chatgpt">;
-})({});
-export const parameters = {
-  type: "object",
-  properties: {
-    company: {
-      type: "object",
-      properties: {
-        id: {
-          type: "string",
-          format: "uuid",
-        },
-        serial: {
-          type: "number",
-        },
-        name: {
-          type: "string",
-        },
-        established_at: {
-          type: "string",
-          format: "date-time",
-        },
-        departments: {
-          type: "array",
-          items: {
-            $ref: "#/$defs/IDepartment",
-          },
-        },
-      },
-      required: ["id", "serial", "name", "established_at", "departments"],
-    },
-    department: {
-      $ref: "#/$defs/IDepartment",
-    },
-    employee: {
-      type: "object",
-      properties: {
-        id: {
-          type: "string",
-          format: "uuid",
-        },
-        name: {
-          type: "string",
-        },
-        age: {
-          type: "number",
-        },
-        grade: {
-          type: "number",
-        },
-        employeed_at: {
-          type: "string",
-          format: "date-time",
-        },
-      },
-      required: ["id", "name", "age", "grade", "employeed_at"],
-    },
-  },
-  required: ["company", "department", "employee"],
-  additionalProperties: false,
-  $defs: {
-    IDepartment: {
-      type: "object",
-      properties: {
-        id: {
-          type: "string",
-          format: "uuid",
-        },
-        code: {
-          type: "string",
-        },
-        sales: {
-          type: "number",
-        },
-        created_at: {
-          type: "string",
-          format: "date-time",
-        },
-        children: {
-          type: "array",
-          items: {
-            $ref: "#/$defs/IDepartment",
-          },
-        },
-        employees: {
-          type: "array",
-          items: {
-            type: "object",
-            properties: {
-              id: {
-                type: "string",
-                format: "uuid",
-              },
-              name: {
-                type: "string",
-              },
-              age: {
-                type: "number",
-              },
-              grade: {
-                type: "number",
-              },
-              employeed_at: {
-                type: "string",
-                format: "date-time",
-              },
-            },
-            required: ["id", "name", "age", "grade", "employeed_at"],
-          },
-        },
-      },
-      required: ["id", "code", "sales", "created_at", "children", "employees"],
-    },
-  },
-} as import("@samchon/openapi").ILlmSchema.IParameters<"claude">;
-export const application = (() => {
-  const app = {
-    model: "llama",
-    options: {
-      reference: false,
-      separate: null,
-    },
-    functions: [
-      {
-        name: "establishCompany",
-        parameters: {
-          type: "object",
-          properties: {
-            company: {
-              type: "object",
-              properties: {
-                id: {
-                  type: "string",
-                  format: "uuid",
-                },
-                serial: {
-                  type: "number",
-                },
-                name: {
-                  type: "string",
-                },
-                established_at: {
-                  type: "string",
-                  format: "date-time",
-                },
-                departments: {
-                  type: "array",
-                  items: {
-                    $ref: "#/$defs/IDepartment",
-                  },
-                },
-              },
-              required: [
-                "id",
-                "serial",
-                "name",
-                "established_at",
-                "departments",
-              ],
-            },
-          },
-          required: ["company"],
-          additionalProperties: false,
-          $defs: {
-            IDepartment: {
-              type: "object",
-              properties: {
-                id: {
-                  type: "string",
-                  format: "uuid",
-                },
-                code: {
-                  type: "string",
-                },
-                sales: {
-                  type: "number",
-                },
-                created_at: {
-                  type: "string",
-                  format: "date-time",
-                },
-                children: {
-                  type: "array",
-                  items: {
-                    $ref: "#/$defs/IDepartment",
-                  },
-                },
-                employees: {
-                  type: "array",
-                  items: {
-                    type: "object",
-                    properties: {
-                      id: {
-                        type: "string",
-                        format: "uuid",
-                      },
-                      name: {
-                        type: "string",
-                      },
-                      age: {
-                        type: "number",
-                      },
-                      grade: {
-                        type: "number",
-                      },
-                      employeed_at: {
-                        type: "string",
-                        format: "date-time",
-                      },
-                    },
-                    required: ["id", "name", "age", "grade", "employeed_at"],
-                  },
-                },
-              },
-              required: [
-                "id",
-                "code",
-                "sales",
-                "created_at",
-                "children",
-                "employees",
-              ],
-            },
-          },
-        },
-        output: {
-          type: "object",
-          properties: {
-            id: {
-              type: "string",
-              format: "uuid",
-            },
-            serial: {
-              type: "number",
-            },
-            name: {
-              type: "string",
-            },
-            established_at: {
-              type: "string",
-              format: "date-time",
-            },
-            departments: {
-              type: "array",
-              items: {
-                $ref: "#/$defs/IDepartment",
-              },
-            },
-          },
-          required: ["id", "serial", "name", "established_at", "departments"],
-        },
-      },
-      {
-        name: "createDepartment",
-        parameters: {
-          type: "object",
-          properties: {
-            company: {
-              type: "object",
-              properties: {
-                id: {
-                  type: "string",
-                  format: "uuid",
-                },
-                serial: {
-                  type: "number",
-                },
-                name: {
-                  type: "string",
-                },
-                established_at: {
-                  type: "string",
-                  format: "date-time",
-                },
-                departments: {
-                  type: "array",
-                  items: {
-                    $ref: "#/$defs/IDepartment",
-                  },
-                },
-              },
-              required: [
-                "id",
-                "serial",
-                "name",
-                "established_at",
-                "departments",
-              ],
-            },
-            department: {
-              $ref: "#/$defs/IDepartment",
-            },
-          },
-          required: ["company", "department"],
-          additionalProperties: false,
-          $defs: {
-            IDepartment: {
-              type: "object",
-              properties: {
-                id: {
-                  type: "string",
-                  format: "uuid",
-                },
-                code: {
-                  type: "string",
-                },
-                sales: {
-                  type: "number",
-                },
-                created_at: {
-                  type: "string",
-                  format: "date-time",
-                },
-                children: {
-                  type: "array",
-                  items: {
-                    $ref: "#/$defs/IDepartment",
-                  },
-                },
-                employees: {
-                  type: "array",
-                  items: {
-                    type: "object",
-                    properties: {
-                      id: {
-                        type: "string",
-                        format: "uuid",
-                      },
-                      name: {
-                        type: "string",
-                      },
-                      age: {
-                        type: "number",
-                      },
-                      grade: {
-                        type: "number",
-                      },
-                      employeed_at: {
-                        type: "string",
-                        format: "date-time",
-                      },
-                    },
-                    required: ["id", "name", "age", "grade", "employeed_at"],
-                  },
-                },
-              },
-              required: [
-                "id",
-                "code",
-                "sales",
-                "created_at",
-                "children",
-                "employees",
-              ],
-            },
-          },
-        },
-        output: {
-          $ref: "#/$defs/IDepartment",
-        },
-      },
-      {
-        name: "hire",
-        parameters: {
-          type: "object",
-          properties: {
-            company: {
-              type: "object",
-              properties: {
-                id: {
-                  type: "string",
-                  format: "uuid",
-                },
-                serial: {
-                  type: "number",
-                },
-                name: {
-                  type: "string",
-                },
-                established_at: {
-                  type: "string",
-                  format: "date-time",
-                },
-                departments: {
-                  type: "array",
-                  items: {
-                    $ref: "#/$defs/IDepartment",
-                  },
-                },
-              },
-              required: [
-                "id",
-                "serial",
-                "name",
-                "established_at",
-                "departments",
-              ],
-            },
-            department: {
-              $ref: "#/$defs/IDepartment",
-            },
-            employee: {
-              type: "object",
-              properties: {
-                id: {
-                  type: "string",
-                  format: "uuid",
-                },
-                name: {
-                  type: "string",
-                },
-                age: {
-                  type: "number",
-                },
-                grade: {
-                  type: "number",
-                },
-                employeed_at: {
-                  type: "string",
-                  format: "date-time",
-                },
-              },
-              required: ["id", "name", "age", "grade", "employeed_at"],
-            },
-          },
-          required: ["company", "department", "employee"],
-          additionalProperties: false,
-          $defs: {
-            IDepartment: {
-              type: "object",
-              properties: {
-                id: {
-                  type: "string",
-                  format: "uuid",
-                },
-                code: {
-                  type: "string",
-                },
-                sales: {
-                  type: "number",
-                },
-                created_at: {
-                  type: "string",
-                  format: "date-time",
-                },
-                children: {
-                  type: "array",
-                  items: {
-                    $ref: "#/$defs/IDepartment",
-                  },
-                },
-                employees: {
-                  type: "array",
-                  items: {
-                    type: "object",
-                    properties: {
-                      id: {
-                        type: "string",
-                        format: "uuid",
-                      },
-                      name: {
-                        type: "string",
-                      },
-                      age: {
-                        type: "number",
-                      },
-                      grade: {
-                        type: "number",
-                      },
-                      employeed_at: {
-                        type: "string",
-                        format: "date-time",
-                      },
-                    },
-                    required: ["id", "name", "age", "grade", "employeed_at"],
-                  },
-                },
-              },
-              required: [
-                "id",
-                "code",
-                "sales",
-                "created_at",
-                "children",
-                "employees",
-              ],
-            },
-          },
-        },
-        output: {
-          type: "object",
-          properties: {
-            id: {
-              type: "string",
-              format: "uuid",
-            },
-            name: {
-              type: "string",
-            },
-            age: {
-              type: "number",
-            },
-            grade: {
-              type: "number",
-            },
-            employeed_at: {
-              type: "string",
-              format: "date-time",
-            },
-          },
-          required: ["id", "name", "age", "grade", "employeed_at"],
-        },
-      },
-      {
-        name: "erase",
-        parameters: {
-          type: "object",
-          properties: {
-            entity: {
-              oneOf: [
-                {
-                  type: "object",
-                  properties: {
-                    id: {
-                      type: "string",
-                      format: "uuid",
-                    },
-                    serial: {
-                      type: "number",
-                    },
-                    name: {
-                      type: "string",
-                    },
-                    established_at: {
-                      type: "string",
-                      format: "date-time",
-                    },
-                    departments: {
-                      type: "array",
-                      items: {
-                        $ref: "#/$defs/IDepartment",
-                      },
-                    },
-                  },
-                  required: [
-                    "id",
-                    "serial",
-                    "name",
-                    "established_at",
-                    "departments",
-                  ],
-                },
-                {
-                  $ref: "#/$defs/IDepartment",
-                },
-                {
-                  type: "object",
-                  properties: {
-                    id: {
-                      type: "string",
-                      format: "uuid",
-                    },
-                    name: {
-                      type: "string",
-                    },
-                    age: {
-                      type: "number",
-                    },
-                    grade: {
-                      type: "number",
-                    },
-                    employeed_at: {
-                      type: "string",
-                      format: "date-time",
-                    },
-                  },
-                  required: ["id", "name", "age", "grade", "employeed_at"],
-                },
-              ],
-            },
-          },
-          required: ["entity"],
-          additionalProperties: false,
-          $defs: {
-            IDepartment: {
-              type: "object",
-              properties: {
-                id: {
-                  type: "string",
-                  format: "uuid",
-                },
-                code: {
-                  type: "string",
-                },
-                sales: {
-                  type: "number",
-                },
-                created_at: {
-                  type: "string",
-                  format: "date-time",
-                },
-                children: {
-                  type: "array",
-                  items: {
-                    $ref: "#/$defs/IDepartment",
-                  },
-                },
-                employees: {
-                  type: "array",
-                  items: {
-                    type: "object",
-                    properties: {
-                      id: {
-                        type: "string",
-                        format: "uuid",
-                      },
-                      name: {
-                        type: "string",
-                      },
-                      age: {
-                        type: "number",
-                      },
-                      grade: {
-                        type: "number",
-                      },
-                      employeed_at: {
-                        type: "string",
-                        format: "date-time",
-                      },
-                    },
-                    required: ["id", "name", "age", "grade", "employeed_at"],
-                  },
-                },
-              },
-              required: [
-                "id",
-                "code",
-                "sales",
-                "created_at",
-                "children",
-                "employees",
-              ],
-            },
-          },
-        },
-        output: {
-          type: "string",
-          format: "uuid",
-        },
-      },
-    ],
-  } as import("@samchon/openapi").ILlmApplication<"llama">;
-  __typia_transform__llmApplicationFinalize._llmApplicationFinalize(app, {
-    separate: (schema) =>
-      LlmTypeCheckerV3_1.isString(schema) && schema.format === "date-time",
-  });
-  return app;
-})();
-export const applicationOfValidate = {
-  model: "llama",
+import IApplication from "./IApplication";
+
+const application: ILlmApplicationOfValidate<"chatgpt"> = {
+  model: "chatgpt",
   options: {
     reference: false,
+    strict: false,
     separate: null,
   },
   functions: [
@@ -758,11 +19,18 @@ export const applicationOfValidate = {
         type: "object",
         properties: {
           company: {
+            $ref: "#/$defs/default.o1",
+          },
+        },
+        required: ["company"],
+        additionalProperties: false,
+        $defs: {
+          "default.o1": {
             type: "object",
             properties: {
               id: {
+                description: "@format uuid",
                 type: "string",
-                format: "uuid",
               },
               serial: {
                 type: "number",
@@ -771,28 +39,24 @@ export const applicationOfValidate = {
                 type: "string",
               },
               established_at: {
+                description: "@format date-time",
                 type: "string",
-                format: "date-time",
               },
               departments: {
                 type: "array",
                 items: {
-                  $ref: "#/$defs/IDepartment",
+                  $ref: "#/$defs/default.o2",
                 },
               },
             },
             required: ["id", "serial", "name", "established_at", "departments"],
           },
-        },
-        required: ["company"],
-        additionalProperties: false,
-        $defs: {
-          IDepartment: {
+          "default.o2": {
             type: "object",
             properties: {
               id: {
+                description: "@format uuid",
                 type: "string",
-                format: "uuid",
               },
               code: {
                 type: "string",
@@ -801,39 +65,19 @@ export const applicationOfValidate = {
                 type: "number",
               },
               created_at: {
+                description: "@format date-time",
                 type: "string",
-                format: "date-time",
               },
               children: {
                 type: "array",
                 items: {
-                  $ref: "#/$defs/IDepartment",
+                  $ref: "#/$defs/default.o2",
                 },
               },
               employees: {
                 type: "array",
                 items: {
-                  type: "object",
-                  properties: {
-                    id: {
-                      type: "string",
-                      format: "uuid",
-                    },
-                    name: {
-                      type: "string",
-                    },
-                    age: {
-                      type: "number",
-                    },
-                    grade: {
-                      type: "number",
-                    },
-                    employeed_at: {
-                      type: "string",
-                      format: "date-time",
-                    },
-                  },
-                  required: ["id", "name", "age", "grade", "employeed_at"],
+                  $ref: "#/$defs/default.o1",
                 },
               },
             },
@@ -849,30 +93,7 @@ export const applicationOfValidate = {
         },
       },
       output: {
-        type: "object",
-        properties: {
-          id: {
-            type: "string",
-            format: "uuid",
-          },
-          serial: {
-            type: "number",
-          },
-          name: {
-            type: "string",
-          },
-          established_at: {
-            type: "string",
-            format: "date-time",
-          },
-          departments: {
-            type: "array",
-            items: {
-              $ref: "#/$defs/IDepartment",
-            },
-          },
-        },
-        required: ["id", "serial", "name", "established_at", "departments"],
+        $ref: "#/$defs/default.o1",
       },
       validate: (() => {
         const _io0 = (input: any): boolean =>
@@ -912,19 +133,7 @@ export const applicationOfValidate = {
           Array.isArray(input.employees) &&
           input.employees.every(
             (elem: any) =>
-              "object" === typeof elem && null !== elem && _io3(elem),
-          );
-        const _io3 = (input: any): boolean =>
-          "string" === typeof input.id &&
-          __typia_transform__isFormatUuid._isFormatUuid(input.id) &&
-          "string" === typeof input.name &&
-          "number" === typeof input.age &&
-          Number.isFinite(input.age) &&
-          "number" === typeof input.grade &&
-          Number.isFinite(input.grade) &&
-          "string" === typeof input.employeed_at &&
-          __typia_transform__isFormatDateTime._isFormatDateTime(
-            input.employeed_at,
+              "object" === typeof elem && null !== elem && _io1(elem),
           );
         const _vo0 = (
           input: any,
@@ -935,7 +144,7 @@ export const applicationOfValidate = {
             ((("object" === typeof input.company && null !== input.company) ||
               _report(_exceptionable, {
                 path: _path + ".company",
-                expected: "ICompany",
+                expected: "default",
                 value: input.company,
               })) &&
               _vo1(
@@ -945,7 +154,7 @@ export const applicationOfValidate = {
               )) ||
               _report(_exceptionable, {
                 path: _path + ".company",
-                expected: "ICompany",
+                expected: "default",
                 value: input.company,
               }),
           ].every((flag: boolean) => flag);
@@ -997,7 +206,7 @@ export const applicationOfValidate = {
             ((Array.isArray(input.departments) ||
               _report(_exceptionable, {
                 path: _path + ".departments",
-                expected: "Array<IDepartment>",
+                expected: "Array<default>",
                 value: input.departments,
               })) &&
               input.departments
@@ -1006,7 +215,7 @@ export const applicationOfValidate = {
                     ((("object" === typeof elem && null !== elem) ||
                       _report(_exceptionable, {
                         path: _path + ".departments[" + _index4 + "]",
-                        expected: "IDepartment",
+                        expected: "default.o1",
                         value: elem,
                       })) &&
                       _vo2(
@@ -1016,14 +225,14 @@ export const applicationOfValidate = {
                       )) ||
                     _report(_exceptionable, {
                       path: _path + ".departments[" + _index4 + "]",
-                      expected: "IDepartment",
+                      expected: "default.o1",
                       value: elem,
                     }),
                 )
                 .every((flag: boolean) => flag)) ||
               _report(_exceptionable, {
                 path: _path + ".departments",
-                expected: "Array<IDepartment>",
+                expected: "Array<default>",
                 value: input.departments,
               }),
           ].every((flag: boolean) => flag);
@@ -1074,7 +283,7 @@ export const applicationOfValidate = {
             ((Array.isArray(input.children) ||
               _report(_exceptionable, {
                 path: _path + ".children",
-                expected: "Array<IDepartment>",
+                expected: "Array<default>",
                 value: input.children,
               })) &&
               input.children
@@ -1083,7 +292,7 @@ export const applicationOfValidate = {
                     ((("object" === typeof elem && null !== elem) ||
                       _report(_exceptionable, {
                         path: _path + ".children[" + _index5 + "]",
-                        expected: "IDepartment",
+                        expected: "default.o1",
                         value: elem,
                       })) &&
                       _vo2(
@@ -1093,20 +302,20 @@ export const applicationOfValidate = {
                       )) ||
                     _report(_exceptionable, {
                       path: _path + ".children[" + _index5 + "]",
-                      expected: "IDepartment",
+                      expected: "default.o1",
                       value: elem,
                     }),
                 )
                 .every((flag: boolean) => flag)) ||
               _report(_exceptionable, {
                 path: _path + ".children",
-                expected: "Array<IDepartment>",
+                expected: "Array<default>",
                 value: input.children,
               }),
             ((Array.isArray(input.employees) ||
               _report(_exceptionable, {
                 path: _path + ".employees",
-                expected: "Array<IEmployee>",
+                expected: "Array<default>.o1",
                 value: input.employees,
               })) &&
               input.employees
@@ -1115,76 +324,25 @@ export const applicationOfValidate = {
                     ((("object" === typeof elem && null !== elem) ||
                       _report(_exceptionable, {
                         path: _path + ".employees[" + _index6 + "]",
-                        expected: "IEmployee",
+                        expected: "default",
                         value: elem,
                       })) &&
-                      _vo3(
+                      _vo1(
                         elem,
                         _path + ".employees[" + _index6 + "]",
                         true && _exceptionable,
                       )) ||
                     _report(_exceptionable, {
                       path: _path + ".employees[" + _index6 + "]",
-                      expected: "IEmployee",
+                      expected: "default",
                       value: elem,
                     }),
                 )
                 .every((flag: boolean) => flag)) ||
               _report(_exceptionable, {
                 path: _path + ".employees",
-                expected: "Array<IEmployee>",
+                expected: "Array<default>.o1",
                 value: input.employees,
-              }),
-          ].every((flag: boolean) => flag);
-        const _vo3 = (
-          input: any,
-          _path: string,
-          _exceptionable: boolean = true,
-        ): boolean =>
-          [
-            ("string" === typeof input.id &&
-              (__typia_transform__isFormatUuid._isFormatUuid(input.id) ||
-                _report(_exceptionable, {
-                  path: _path + ".id",
-                  expected: 'string & Format<"uuid">',
-                  value: input.id,
-                }))) ||
-              _report(_exceptionable, {
-                path: _path + ".id",
-                expected: '(string & Format<"uuid">)',
-                value: input.id,
-              }),
-            "string" === typeof input.name ||
-              _report(_exceptionable, {
-                path: _path + ".name",
-                expected: "string",
-                value: input.name,
-              }),
-            ("number" === typeof input.age && Number.isFinite(input.age)) ||
-              _report(_exceptionable, {
-                path: _path + ".age",
-                expected: "number",
-                value: input.age,
-              }),
-            ("number" === typeof input.grade && Number.isFinite(input.grade)) ||
-              _report(_exceptionable, {
-                path: _path + ".grade",
-                expected: "number",
-                value: input.grade,
-              }),
-            ("string" === typeof input.employeed_at &&
-              (__typia_transform__isFormatDateTime._isFormatDateTime(
-                input.employeed_at,
-              ) ||
-                _report(_exceptionable, {
-                  path: _path + ".employeed_at",
-                  expected: 'string & Format<"date-time">',
-                  value: input.employeed_at,
-                }))) ||
-              _report(_exceptionable, {
-                path: _path + ".employeed_at",
-                expected: '(string & Format<"date-time">)',
-                value: input.employeed_at,
               }),
           ].every((flag: boolean) => flag);
         const __is = (
@@ -1241,11 +399,21 @@ export const applicationOfValidate = {
         type: "object",
         properties: {
           company: {
+            $ref: "#/$defs/default.o1",
+          },
+          department: {
+            $ref: "#/$defs/default.o2",
+          },
+        },
+        required: ["company", "department"],
+        additionalProperties: false,
+        $defs: {
+          "default.o1": {
             type: "object",
             properties: {
               id: {
+                description: "@format uuid",
                 type: "string",
-                format: "uuid",
               },
               serial: {
                 type: "number",
@@ -1254,31 +422,24 @@ export const applicationOfValidate = {
                 type: "string",
               },
               established_at: {
+                description: "@format date-time",
                 type: "string",
-                format: "date-time",
               },
               departments: {
                 type: "array",
                 items: {
-                  $ref: "#/$defs/IDepartment",
+                  $ref: "#/$defs/default.o2",
                 },
               },
             },
             required: ["id", "serial", "name", "established_at", "departments"],
           },
-          department: {
-            $ref: "#/$defs/IDepartment",
-          },
-        },
-        required: ["company", "department"],
-        additionalProperties: false,
-        $defs: {
-          IDepartment: {
+          "default.o2": {
             type: "object",
             properties: {
               id: {
+                description: "@format uuid",
                 type: "string",
-                format: "uuid",
               },
               code: {
                 type: "string",
@@ -1287,39 +448,19 @@ export const applicationOfValidate = {
                 type: "number",
               },
               created_at: {
+                description: "@format date-time",
                 type: "string",
-                format: "date-time",
               },
               children: {
                 type: "array",
                 items: {
-                  $ref: "#/$defs/IDepartment",
+                  $ref: "#/$defs/default.o2",
                 },
               },
               employees: {
                 type: "array",
                 items: {
-                  type: "object",
-                  properties: {
-                    id: {
-                      type: "string",
-                      format: "uuid",
-                    },
-                    name: {
-                      type: "string",
-                    },
-                    age: {
-                      type: "number",
-                    },
-                    grade: {
-                      type: "number",
-                    },
-                    employeed_at: {
-                      type: "string",
-                      format: "date-time",
-                    },
-                  },
-                  required: ["id", "name", "age", "grade", "employeed_at"],
+                  $ref: "#/$defs/default.o1",
                 },
               },
             },
@@ -1335,7 +476,7 @@ export const applicationOfValidate = {
         },
       },
       output: {
-        $ref: "#/$defs/IDepartment",
+        $ref: "#/$defs/default.o2",
       },
       validate: (() => {
         const _io0 = (input: any): boolean =>
@@ -1378,19 +519,7 @@ export const applicationOfValidate = {
           Array.isArray(input.employees) &&
           input.employees.every(
             (elem: any) =>
-              "object" === typeof elem && null !== elem && _io3(elem),
-          );
-        const _io3 = (input: any): boolean =>
-          "string" === typeof input.id &&
-          __typia_transform__isFormatUuid._isFormatUuid(input.id) &&
-          "string" === typeof input.name &&
-          "number" === typeof input.age &&
-          Number.isFinite(input.age) &&
-          "number" === typeof input.grade &&
-          Number.isFinite(input.grade) &&
-          "string" === typeof input.employeed_at &&
-          __typia_transform__isFormatDateTime._isFormatDateTime(
-            input.employeed_at,
+              "object" === typeof elem && null !== elem && _io1(elem),
           );
         const _vo0 = (
           input: any,
@@ -1401,7 +530,7 @@ export const applicationOfValidate = {
             ((("object" === typeof input.company && null !== input.company) ||
               _report(_exceptionable, {
                 path: _path + ".company",
-                expected: "ICompany",
+                expected: "default",
                 value: input.company,
               })) &&
               _vo1(
@@ -1411,14 +540,14 @@ export const applicationOfValidate = {
               )) ||
               _report(_exceptionable, {
                 path: _path + ".company",
-                expected: "ICompany",
+                expected: "default",
                 value: input.company,
               }),
             ((("object" === typeof input.department &&
               null !== input.department) ||
               _report(_exceptionable, {
                 path: _path + ".department",
-                expected: "IDepartment",
+                expected: "default.o1",
                 value: input.department,
               })) &&
               _vo2(
@@ -1428,7 +557,7 @@ export const applicationOfValidate = {
               )) ||
               _report(_exceptionable, {
                 path: _path + ".department",
-                expected: "IDepartment",
+                expected: "default.o1",
                 value: input.department,
               }),
           ].every((flag: boolean) => flag);
@@ -1480,7 +609,7 @@ export const applicationOfValidate = {
             ((Array.isArray(input.departments) ||
               _report(_exceptionable, {
                 path: _path + ".departments",
-                expected: "Array<IDepartment>",
+                expected: "Array<default>",
                 value: input.departments,
               })) &&
               input.departments
@@ -1489,7 +618,7 @@ export const applicationOfValidate = {
                     ((("object" === typeof elem && null !== elem) ||
                       _report(_exceptionable, {
                         path: _path + ".departments[" + _index4 + "]",
-                        expected: "IDepartment",
+                        expected: "default.o1",
                         value: elem,
                       })) &&
                       _vo2(
@@ -1499,14 +628,14 @@ export const applicationOfValidate = {
                       )) ||
                     _report(_exceptionable, {
                       path: _path + ".departments[" + _index4 + "]",
-                      expected: "IDepartment",
+                      expected: "default.o1",
                       value: elem,
                     }),
                 )
                 .every((flag: boolean) => flag)) ||
               _report(_exceptionable, {
                 path: _path + ".departments",
-                expected: "Array<IDepartment>",
+                expected: "Array<default>",
                 value: input.departments,
               }),
           ].every((flag: boolean) => flag);
@@ -1557,7 +686,7 @@ export const applicationOfValidate = {
             ((Array.isArray(input.children) ||
               _report(_exceptionable, {
                 path: _path + ".children",
-                expected: "Array<IDepartment>",
+                expected: "Array<default>",
                 value: input.children,
               })) &&
               input.children
@@ -1566,7 +695,7 @@ export const applicationOfValidate = {
                     ((("object" === typeof elem && null !== elem) ||
                       _report(_exceptionable, {
                         path: _path + ".children[" + _index5 + "]",
-                        expected: "IDepartment",
+                        expected: "default.o1",
                         value: elem,
                       })) &&
                       _vo2(
@@ -1576,20 +705,20 @@ export const applicationOfValidate = {
                       )) ||
                     _report(_exceptionable, {
                       path: _path + ".children[" + _index5 + "]",
-                      expected: "IDepartment",
+                      expected: "default.o1",
                       value: elem,
                     }),
                 )
                 .every((flag: boolean) => flag)) ||
               _report(_exceptionable, {
                 path: _path + ".children",
-                expected: "Array<IDepartment>",
+                expected: "Array<default>",
                 value: input.children,
               }),
             ((Array.isArray(input.employees) ||
               _report(_exceptionable, {
                 path: _path + ".employees",
-                expected: "Array<IEmployee>",
+                expected: "Array<default>.o1",
                 value: input.employees,
               })) &&
               input.employees
@@ -1598,76 +727,25 @@ export const applicationOfValidate = {
                     ((("object" === typeof elem && null !== elem) ||
                       _report(_exceptionable, {
                         path: _path + ".employees[" + _index6 + "]",
-                        expected: "IEmployee",
+                        expected: "default",
                         value: elem,
                       })) &&
-                      _vo3(
+                      _vo1(
                         elem,
                         _path + ".employees[" + _index6 + "]",
                         true && _exceptionable,
                       )) ||
                     _report(_exceptionable, {
                       path: _path + ".employees[" + _index6 + "]",
-                      expected: "IEmployee",
+                      expected: "default",
                       value: elem,
                     }),
                 )
                 .every((flag: boolean) => flag)) ||
               _report(_exceptionable, {
                 path: _path + ".employees",
-                expected: "Array<IEmployee>",
+                expected: "Array<default>.o1",
                 value: input.employees,
-              }),
-          ].every((flag: boolean) => flag);
-        const _vo3 = (
-          input: any,
-          _path: string,
-          _exceptionable: boolean = true,
-        ): boolean =>
-          [
-            ("string" === typeof input.id &&
-              (__typia_transform__isFormatUuid._isFormatUuid(input.id) ||
-                _report(_exceptionable, {
-                  path: _path + ".id",
-                  expected: 'string & Format<"uuid">',
-                  value: input.id,
-                }))) ||
-              _report(_exceptionable, {
-                path: _path + ".id",
-                expected: '(string & Format<"uuid">)',
-                value: input.id,
-              }),
-            "string" === typeof input.name ||
-              _report(_exceptionable, {
-                path: _path + ".name",
-                expected: "string",
-                value: input.name,
-              }),
-            ("number" === typeof input.age && Number.isFinite(input.age)) ||
-              _report(_exceptionable, {
-                path: _path + ".age",
-                expected: "number",
-                value: input.age,
-              }),
-            ("number" === typeof input.grade && Number.isFinite(input.grade)) ||
-              _report(_exceptionable, {
-                path: _path + ".grade",
-                expected: "number",
-                value: input.grade,
-              }),
-            ("string" === typeof input.employeed_at &&
-              (__typia_transform__isFormatDateTime._isFormatDateTime(
-                input.employeed_at,
-              ) ||
-                _report(_exceptionable, {
-                  path: _path + ".employeed_at",
-                  expected: 'string & Format<"date-time">',
-                  value: input.employeed_at,
-                }))) ||
-              _report(_exceptionable, {
-                path: _path + ".employeed_at",
-                expected: '(string & Format<"date-time">)',
-                value: input.employeed_at,
               }),
           ].every((flag: boolean) => flag);
         const __is = (
@@ -1724,11 +802,24 @@ export const applicationOfValidate = {
         type: "object",
         properties: {
           company: {
+            $ref: "#/$defs/default.o1",
+          },
+          department: {
+            $ref: "#/$defs/default.o2",
+          },
+          employee: {
+            $ref: "#/$defs/default.o1",
+          },
+        },
+        required: ["company", "department", "employee"],
+        additionalProperties: false,
+        $defs: {
+          "default.o1": {
             type: "object",
             properties: {
               id: {
+                description: "@format uuid",
                 type: "string",
-                format: "uuid",
               },
               serial: {
                 type: "number",
@@ -1737,54 +828,24 @@ export const applicationOfValidate = {
                 type: "string",
               },
               established_at: {
+                description: "@format date-time",
                 type: "string",
-                format: "date-time",
               },
               departments: {
                 type: "array",
                 items: {
-                  $ref: "#/$defs/IDepartment",
+                  $ref: "#/$defs/default.o2",
                 },
               },
             },
             required: ["id", "serial", "name", "established_at", "departments"],
           },
-          department: {
-            $ref: "#/$defs/IDepartment",
-          },
-          employee: {
+          "default.o2": {
             type: "object",
             properties: {
               id: {
+                description: "@format uuid",
                 type: "string",
-                format: "uuid",
-              },
-              name: {
-                type: "string",
-              },
-              age: {
-                type: "number",
-              },
-              grade: {
-                type: "number",
-              },
-              employeed_at: {
-                type: "string",
-                format: "date-time",
-              },
-            },
-            required: ["id", "name", "age", "grade", "employeed_at"],
-          },
-        },
-        required: ["company", "department", "employee"],
-        additionalProperties: false,
-        $defs: {
-          IDepartment: {
-            type: "object",
-            properties: {
-              id: {
-                type: "string",
-                format: "uuid",
               },
               code: {
                 type: "string",
@@ -1793,39 +854,19 @@ export const applicationOfValidate = {
                 type: "number",
               },
               created_at: {
+                description: "@format date-time",
                 type: "string",
-                format: "date-time",
               },
               children: {
                 type: "array",
                 items: {
-                  $ref: "#/$defs/IDepartment",
+                  $ref: "#/$defs/default.o2",
                 },
               },
               employees: {
                 type: "array",
                 items: {
-                  type: "object",
-                  properties: {
-                    id: {
-                      type: "string",
-                      format: "uuid",
-                    },
-                    name: {
-                      type: "string",
-                    },
-                    age: {
-                      type: "number",
-                    },
-                    grade: {
-                      type: "number",
-                    },
-                    employeed_at: {
-                      type: "string",
-                      format: "date-time",
-                    },
-                  },
-                  required: ["id", "name", "age", "grade", "employeed_at"],
+                  $ref: "#/$defs/default.o1",
                 },
               },
             },
@@ -1841,27 +882,7 @@ export const applicationOfValidate = {
         },
       },
       output: {
-        type: "object",
-        properties: {
-          id: {
-            type: "string",
-            format: "uuid",
-          },
-          name: {
-            type: "string",
-          },
-          age: {
-            type: "number",
-          },
-          grade: {
-            type: "number",
-          },
-          employeed_at: {
-            type: "string",
-            format: "date-time",
-          },
-        },
-        required: ["id", "name", "age", "grade", "employeed_at"],
+        $ref: "#/$defs/default.o1",
       },
       validate: (() => {
         const _io0 = (input: any): boolean =>
@@ -1873,7 +894,7 @@ export const applicationOfValidate = {
           _io2(input.department) &&
           "object" === typeof input.employee &&
           null !== input.employee &&
-          _io3(input.employee);
+          _io1(input.employee);
         const _io1 = (input: any): boolean =>
           "string" === typeof input.id &&
           __typia_transform__isFormatUuid._isFormatUuid(input.id) &&
@@ -1907,19 +928,7 @@ export const applicationOfValidate = {
           Array.isArray(input.employees) &&
           input.employees.every(
             (elem: any) =>
-              "object" === typeof elem && null !== elem && _io3(elem),
-          );
-        const _io3 = (input: any): boolean =>
-          "string" === typeof input.id &&
-          __typia_transform__isFormatUuid._isFormatUuid(input.id) &&
-          "string" === typeof input.name &&
-          "number" === typeof input.age &&
-          Number.isFinite(input.age) &&
-          "number" === typeof input.grade &&
-          Number.isFinite(input.grade) &&
-          "string" === typeof input.employeed_at &&
-          __typia_transform__isFormatDateTime._isFormatDateTime(
-            input.employeed_at,
+              "object" === typeof elem && null !== elem && _io1(elem),
           );
         const _vo0 = (
           input: any,
@@ -1930,7 +939,7 @@ export const applicationOfValidate = {
             ((("object" === typeof input.company && null !== input.company) ||
               _report(_exceptionable, {
                 path: _path + ".company",
-                expected: "ICompany",
+                expected: "default",
                 value: input.company,
               })) &&
               _vo1(
@@ -1940,14 +949,14 @@ export const applicationOfValidate = {
               )) ||
               _report(_exceptionable, {
                 path: _path + ".company",
-                expected: "ICompany",
+                expected: "default",
                 value: input.company,
               }),
             ((("object" === typeof input.department &&
               null !== input.department) ||
               _report(_exceptionable, {
                 path: _path + ".department",
-                expected: "IDepartment",
+                expected: "default.o1",
                 value: input.department,
               })) &&
               _vo2(
@@ -1957,23 +966,23 @@ export const applicationOfValidate = {
               )) ||
               _report(_exceptionable, {
                 path: _path + ".department",
-                expected: "IDepartment",
+                expected: "default.o1",
                 value: input.department,
               }),
             ((("object" === typeof input.employee && null !== input.employee) ||
               _report(_exceptionable, {
                 path: _path + ".employee",
-                expected: "IEmployee",
+                expected: "default",
                 value: input.employee,
               })) &&
-              _vo3(
+              _vo1(
                 input.employee,
                 _path + ".employee",
                 true && _exceptionable,
               )) ||
               _report(_exceptionable, {
                 path: _path + ".employee",
-                expected: "IEmployee",
+                expected: "default",
                 value: input.employee,
               }),
           ].every((flag: boolean) => flag);
@@ -2025,7 +1034,7 @@ export const applicationOfValidate = {
             ((Array.isArray(input.departments) ||
               _report(_exceptionable, {
                 path: _path + ".departments",
-                expected: "Array<IDepartment>",
+                expected: "Array<default>",
                 value: input.departments,
               })) &&
               input.departments
@@ -2034,7 +1043,7 @@ export const applicationOfValidate = {
                     ((("object" === typeof elem && null !== elem) ||
                       _report(_exceptionable, {
                         path: _path + ".departments[" + _index4 + "]",
-                        expected: "IDepartment",
+                        expected: "default.o1",
                         value: elem,
                       })) &&
                       _vo2(
@@ -2044,14 +1053,14 @@ export const applicationOfValidate = {
                       )) ||
                     _report(_exceptionable, {
                       path: _path + ".departments[" + _index4 + "]",
-                      expected: "IDepartment",
+                      expected: "default.o1",
                       value: elem,
                     }),
                 )
                 .every((flag: boolean) => flag)) ||
               _report(_exceptionable, {
                 path: _path + ".departments",
-                expected: "Array<IDepartment>",
+                expected: "Array<default>",
                 value: input.departments,
               }),
           ].every((flag: boolean) => flag);
@@ -2102,7 +1111,7 @@ export const applicationOfValidate = {
             ((Array.isArray(input.children) ||
               _report(_exceptionable, {
                 path: _path + ".children",
-                expected: "Array<IDepartment>",
+                expected: "Array<default>",
                 value: input.children,
               })) &&
               input.children
@@ -2111,7 +1120,7 @@ export const applicationOfValidate = {
                     ((("object" === typeof elem && null !== elem) ||
                       _report(_exceptionable, {
                         path: _path + ".children[" + _index5 + "]",
-                        expected: "IDepartment",
+                        expected: "default.o1",
                         value: elem,
                       })) &&
                       _vo2(
@@ -2121,20 +1130,20 @@ export const applicationOfValidate = {
                       )) ||
                     _report(_exceptionable, {
                       path: _path + ".children[" + _index5 + "]",
-                      expected: "IDepartment",
+                      expected: "default.o1",
                       value: elem,
                     }),
                 )
                 .every((flag: boolean) => flag)) ||
               _report(_exceptionable, {
                 path: _path + ".children",
-                expected: "Array<IDepartment>",
+                expected: "Array<default>",
                 value: input.children,
               }),
             ((Array.isArray(input.employees) ||
               _report(_exceptionable, {
                 path: _path + ".employees",
-                expected: "Array<IEmployee>",
+                expected: "Array<default>.o1",
                 value: input.employees,
               })) &&
               input.employees
@@ -2143,76 +1152,25 @@ export const applicationOfValidate = {
                     ((("object" === typeof elem && null !== elem) ||
                       _report(_exceptionable, {
                         path: _path + ".employees[" + _index6 + "]",
-                        expected: "IEmployee",
+                        expected: "default",
                         value: elem,
                       })) &&
-                      _vo3(
+                      _vo1(
                         elem,
                         _path + ".employees[" + _index6 + "]",
                         true && _exceptionable,
                       )) ||
                     _report(_exceptionable, {
                       path: _path + ".employees[" + _index6 + "]",
-                      expected: "IEmployee",
+                      expected: "default",
                       value: elem,
                     }),
                 )
                 .every((flag: boolean) => flag)) ||
               _report(_exceptionable, {
                 path: _path + ".employees",
-                expected: "Array<IEmployee>",
+                expected: "Array<default>.o1",
                 value: input.employees,
-              }),
-          ].every((flag: boolean) => flag);
-        const _vo3 = (
-          input: any,
-          _path: string,
-          _exceptionable: boolean = true,
-        ): boolean =>
-          [
-            ("string" === typeof input.id &&
-              (__typia_transform__isFormatUuid._isFormatUuid(input.id) ||
-                _report(_exceptionable, {
-                  path: _path + ".id",
-                  expected: 'string & Format<"uuid">',
-                  value: input.id,
-                }))) ||
-              _report(_exceptionable, {
-                path: _path + ".id",
-                expected: '(string & Format<"uuid">)',
-                value: input.id,
-              }),
-            "string" === typeof input.name ||
-              _report(_exceptionable, {
-                path: _path + ".name",
-                expected: "string",
-                value: input.name,
-              }),
-            ("number" === typeof input.age && Number.isFinite(input.age)) ||
-              _report(_exceptionable, {
-                path: _path + ".age",
-                expected: "number",
-                value: input.age,
-              }),
-            ("number" === typeof input.grade && Number.isFinite(input.grade)) ||
-              _report(_exceptionable, {
-                path: _path + ".grade",
-                expected: "number",
-                value: input.grade,
-              }),
-            ("string" === typeof input.employeed_at &&
-              (__typia_transform__isFormatDateTime._isFormatDateTime(
-                input.employeed_at,
-              ) ||
-                _report(_exceptionable, {
-                  path: _path + ".employeed_at",
-                  expected: 'string & Format<"date-time">',
-                  value: input.employeed_at,
-                }))) ||
-              _report(_exceptionable, {
-                path: _path + ".employeed_at",
-                expected: '(string & Format<"date-time">)',
-                value: input.employeed_at,
               }),
           ].every((flag: boolean) => flag);
         const __is = (
@@ -2267,64 +1225,12 @@ export const applicationOfValidate = {
         type: "object",
         properties: {
           entity: {
-            oneOf: [
+            anyOf: [
               {
-                type: "object",
-                properties: {
-                  id: {
-                    type: "string",
-                    format: "uuid",
-                  },
-                  serial: {
-                    type: "number",
-                  },
-                  name: {
-                    type: "string",
-                  },
-                  established_at: {
-                    type: "string",
-                    format: "date-time",
-                  },
-                  departments: {
-                    type: "array",
-                    items: {
-                      $ref: "#/$defs/IDepartment",
-                    },
-                  },
-                },
-                required: [
-                  "id",
-                  "serial",
-                  "name",
-                  "established_at",
-                  "departments",
-                ],
+                $ref: "#/$defs/default.o1",
               },
               {
-                $ref: "#/$defs/IDepartment",
-              },
-              {
-                type: "object",
-                properties: {
-                  id: {
-                    type: "string",
-                    format: "uuid",
-                  },
-                  name: {
-                    type: "string",
-                  },
-                  age: {
-                    type: "number",
-                  },
-                  grade: {
-                    type: "number",
-                  },
-                  employeed_at: {
-                    type: "string",
-                    format: "date-time",
-                  },
-                },
-                required: ["id", "name", "age", "grade", "employeed_at"],
+                $ref: "#/$defs/default.o2",
               },
             ],
           },
@@ -2332,12 +1238,38 @@ export const applicationOfValidate = {
         required: ["entity"],
         additionalProperties: false,
         $defs: {
-          IDepartment: {
+          "default.o1": {
             type: "object",
             properties: {
               id: {
+                description: "@format uuid",
                 type: "string",
-                format: "uuid",
+              },
+              serial: {
+                type: "number",
+              },
+              name: {
+                type: "string",
+              },
+              established_at: {
+                description: "@format date-time",
+                type: "string",
+              },
+              departments: {
+                type: "array",
+                items: {
+                  $ref: "#/$defs/default.o2",
+                },
+              },
+            },
+            required: ["id", "serial", "name", "established_at", "departments"],
+          },
+          "default.o2": {
+            type: "object",
+            properties: {
+              id: {
+                description: "@format uuid",
+                type: "string",
               },
               code: {
                 type: "string",
@@ -2346,39 +1278,19 @@ export const applicationOfValidate = {
                 type: "number",
               },
               created_at: {
+                description: "@format date-time",
                 type: "string",
-                format: "date-time",
               },
               children: {
                 type: "array",
                 items: {
-                  $ref: "#/$defs/IDepartment",
+                  $ref: "#/$defs/default.o2",
                 },
               },
               employees: {
                 type: "array",
                 items: {
-                  type: "object",
-                  properties: {
-                    id: {
-                      type: "string",
-                      format: "uuid",
-                    },
-                    name: {
-                      type: "string",
-                    },
-                    age: {
-                      type: "number",
-                    },
-                    grade: {
-                      type: "number",
-                    },
-                    employeed_at: {
-                      type: "string",
-                      format: "date-time",
-                    },
-                  },
-                  required: ["id", "name", "age", "grade", "employeed_at"],
+                  $ref: "#/$defs/default.o1",
                 },
               },
             },
@@ -2394,8 +1306,8 @@ export const applicationOfValidate = {
         },
       },
       output: {
+        description: "@format uuid",
         type: "string",
-        format: "uuid",
       },
       validate: (() => {
         const _io0 = (input: any): boolean =>
@@ -2435,25 +1347,12 @@ export const applicationOfValidate = {
           Array.isArray(input.employees) &&
           input.employees.every(
             (elem: any) =>
-              "object" === typeof elem && null !== elem && _io3(elem),
-          );
-        const _io3 = (input: any): boolean =>
-          "string" === typeof input.id &&
-          __typia_transform__isFormatUuid._isFormatUuid(input.id) &&
-          "string" === typeof input.name &&
-          "number" === typeof input.age &&
-          Number.isFinite(input.age) &&
-          "number" === typeof input.grade &&
-          Number.isFinite(input.grade) &&
-          "string" === typeof input.employeed_at &&
-          __typia_transform__isFormatDateTime._isFormatDateTime(
-            input.employeed_at,
+              "object" === typeof elem && null !== elem && _io1(elem),
           );
         const _iu0 = (input: any): any =>
           (() => {
             if (undefined !== input.serial) return _io1(input);
             else if (undefined !== input.code) return _io2(input);
-            else if (undefined !== input.age) return _io3(input);
             else return false;
           })();
         const _vo0 = (
@@ -2465,13 +1364,13 @@ export const applicationOfValidate = {
             ((("object" === typeof input.entity && null !== input.entity) ||
               _report(_exceptionable, {
                 path: _path + ".entity",
-                expected: "(ICompany | IDepartment | IEmployee)",
+                expected: "(default | default.o1)",
                 value: input.entity,
               })) &&
               _vu0(input.entity, _path + ".entity", true && _exceptionable)) ||
               _report(_exceptionable, {
                 path: _path + ".entity",
-                expected: "(ICompany | IDepartment | IEmployee)",
+                expected: "(default | default.o1)",
                 value: input.entity,
               }),
           ].every((flag: boolean) => flag);
@@ -2523,7 +1422,7 @@ export const applicationOfValidate = {
             ((Array.isArray(input.departments) ||
               _report(_exceptionable, {
                 path: _path + ".departments",
-                expected: "Array<IDepartment>",
+                expected: "Array<default>",
                 value: input.departments,
               })) &&
               input.departments
@@ -2532,7 +1431,7 @@ export const applicationOfValidate = {
                     ((("object" === typeof elem && null !== elem) ||
                       _report(_exceptionable, {
                         path: _path + ".departments[" + _index4 + "]",
-                        expected: "IDepartment",
+                        expected: "default.o1",
                         value: elem,
                       })) &&
                       _vo2(
@@ -2542,14 +1441,14 @@ export const applicationOfValidate = {
                       )) ||
                     _report(_exceptionable, {
                       path: _path + ".departments[" + _index4 + "]",
-                      expected: "IDepartment",
+                      expected: "default.o1",
                       value: elem,
                     }),
                 )
                 .every((flag: boolean) => flag)) ||
               _report(_exceptionable, {
                 path: _path + ".departments",
-                expected: "Array<IDepartment>",
+                expected: "Array<default>",
                 value: input.departments,
               }),
           ].every((flag: boolean) => flag);
@@ -2600,7 +1499,7 @@ export const applicationOfValidate = {
             ((Array.isArray(input.children) ||
               _report(_exceptionable, {
                 path: _path + ".children",
-                expected: "Array<IDepartment>",
+                expected: "Array<default>",
                 value: input.children,
               })) &&
               input.children
@@ -2609,7 +1508,7 @@ export const applicationOfValidate = {
                     ((("object" === typeof elem && null !== elem) ||
                       _report(_exceptionable, {
                         path: _path + ".children[" + _index5 + "]",
-                        expected: "IDepartment",
+                        expected: "default.o1",
                         value: elem,
                       })) &&
                       _vo2(
@@ -2619,20 +1518,20 @@ export const applicationOfValidate = {
                       )) ||
                     _report(_exceptionable, {
                       path: _path + ".children[" + _index5 + "]",
-                      expected: "IDepartment",
+                      expected: "default.o1",
                       value: elem,
                     }),
                 )
                 .every((flag: boolean) => flag)) ||
               _report(_exceptionable, {
                 path: _path + ".children",
-                expected: "Array<IDepartment>",
+                expected: "Array<default>",
                 value: input.children,
               }),
             ((Array.isArray(input.employees) ||
               _report(_exceptionable, {
                 path: _path + ".employees",
-                expected: "Array<IEmployee>",
+                expected: "Array<default>.o1",
                 value: input.employees,
               })) &&
               input.employees
@@ -2641,76 +1540,25 @@ export const applicationOfValidate = {
                     ((("object" === typeof elem && null !== elem) ||
                       _report(_exceptionable, {
                         path: _path + ".employees[" + _index6 + "]",
-                        expected: "IEmployee",
+                        expected: "default",
                         value: elem,
                       })) &&
-                      _vo3(
+                      _vo1(
                         elem,
                         _path + ".employees[" + _index6 + "]",
                         true && _exceptionable,
                       )) ||
                     _report(_exceptionable, {
                       path: _path + ".employees[" + _index6 + "]",
-                      expected: "IEmployee",
+                      expected: "default",
                       value: elem,
                     }),
                 )
                 .every((flag: boolean) => flag)) ||
               _report(_exceptionable, {
                 path: _path + ".employees",
-                expected: "Array<IEmployee>",
+                expected: "Array<default>.o1",
                 value: input.employees,
-              }),
-          ].every((flag: boolean) => flag);
-        const _vo3 = (
-          input: any,
-          _path: string,
-          _exceptionable: boolean = true,
-        ): boolean =>
-          [
-            ("string" === typeof input.id &&
-              (__typia_transform__isFormatUuid._isFormatUuid(input.id) ||
-                _report(_exceptionable, {
-                  path: _path + ".id",
-                  expected: 'string & Format<"uuid">',
-                  value: input.id,
-                }))) ||
-              _report(_exceptionable, {
-                path: _path + ".id",
-                expected: '(string & Format<"uuid">)',
-                value: input.id,
-              }),
-            "string" === typeof input.name ||
-              _report(_exceptionable, {
-                path: _path + ".name",
-                expected: "string",
-                value: input.name,
-              }),
-            ("number" === typeof input.age && Number.isFinite(input.age)) ||
-              _report(_exceptionable, {
-                path: _path + ".age",
-                expected: "number",
-                value: input.age,
-              }),
-            ("number" === typeof input.grade && Number.isFinite(input.grade)) ||
-              _report(_exceptionable, {
-                path: _path + ".grade",
-                expected: "number",
-                value: input.grade,
-              }),
-            ("string" === typeof input.employeed_at &&
-              (__typia_transform__isFormatDateTime._isFormatDateTime(
-                input.employeed_at,
-              ) ||
-                _report(_exceptionable, {
-                  path: _path + ".employeed_at",
-                  expected: 'string & Format<"date-time">',
-                  value: input.employeed_at,
-                }))) ||
-              _report(_exceptionable, {
-                path: _path + ".employeed_at",
-                expected: '(string & Format<"date-time">)',
-                value: input.employeed_at,
               }),
           ].every((flag: boolean) => flag);
         const _vu0 = (
@@ -2723,12 +1571,10 @@ export const applicationOfValidate = {
               return _vo1(input, _path, true && _exceptionable);
             else if (undefined !== input.code)
               return _vo2(input, _path, true && _exceptionable);
-            else if (undefined !== input.age)
-              return _vo3(input, _path, true && _exceptionable);
             else
               return _report(_exceptionable, {
                 path: _path,
-                expected: "(ICompany | IDepartment | IEmployee)",
+                expected: "(default | default.o1)",
                 value: input,
               });
           })();
@@ -2781,41 +1627,5 @@ export const applicationOfValidate = {
       })(),
     },
   ],
-} as import("typia").ILlmApplicationOfValidate<"llama">;
-export interface IApplication {
-  establishCompany(props: { company: ICompany }): ICompany;
-  createDepartment(props: {
-    company: ICompany;
-    department: IDepartment;
-  }): IDepartment;
-  hire(props: {
-    company: ICompany;
-    department: IDepartment;
-    employee: IEmployee;
-  }): Promise<IEmployee>;
-  erase(props: {
-    entity: ICompany | IDepartment | IEmployee;
-  }): Promise<string & tags.Format<"uuid">>;
-}
-export interface ICompany {
-  id: string & tags.Format<"uuid">;
-  serial: number;
-  name: string;
-  established_at: string & tags.Format<"date-time">;
-  departments: IDepartment[];
-}
-export interface IDepartment {
-  id: string & tags.Format<"uuid">;
-  code: string;
-  sales: number;
-  created_at: string & tags.Format<"date-time">;
-  children: IDepartment[];
-  employees: IEmployee[];
-}
-export interface IEmployee {
-  id: string & tags.Format<"uuid">;
-  name: string;
-  age: number;
-  grade: number;
-  employeed_at: string & tags.Format<"date-time">;
-}
+} as import("typia").ILlmApplicationOfValidate<"chatgpt">;
+export default application;

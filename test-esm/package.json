@@ -12,8 +12,9 @@
   },
   "scripts": {
     "build": "tsc",
+    "generate": "typia generate --input generate/input --output generate/output --project tsconfig.generate.json && tsc --project tsconfig.generate.json && prettier generate/output/*.ts --write",
     "prepare": "ts-patch install",
-    "start": "node bin"
+    "start": "node bin && npm run generate"
   },
   "repository": {
     "type": "git",

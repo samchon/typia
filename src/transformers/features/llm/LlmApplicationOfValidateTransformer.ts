@@ -77,6 +77,7 @@ export namespace LlmApplicationOfValidateTransformer {
         modulo: props.modulo,
         metadata: result.data,
         config,
+        name: top.getFullText().trim(),
       });
     const literal: ts.Expression = ts.factory.createAsExpression(
       LiteralFactory.write(schema),
