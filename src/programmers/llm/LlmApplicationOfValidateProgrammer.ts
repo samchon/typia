@@ -23,6 +23,7 @@ export namespace LlmApplicationOfValidateProgrammer {
     model: Model;
     metadata: Metadata;
     config?: Partial<ILlmSchema.ModelConfig[Model]>;
+    name?: string;
   }): ILlmApplicationOfValidate<Model> => {
     const app: ILlmApplication<Model> = LlmApplicationProgrammer.write(props);
     const parameters: Record<string, MetadataParameter> = Object.fromEntries(
@@ -52,6 +53,8 @@ export namespace LlmApplicationOfValidateProgrammer {
         validate: writeValidadtor({
           context: props.context,
           modulo: props.modulo,
+          className: props.name,
+          name: func.name,
           parameter: parameters[func.name]!,
         }),
       })),
@@ -62,6 +65,8 @@ export namespace LlmApplicationOfValidateProgrammer {
     context: ITypiaContext;
     modulo: ts.LeftHandSideExpression;
     parameter: MetadataParameter;
+    name: string;
+    className?: string;
   }): ((props: object) => IValidation<unknown>) => {
     const type = props.parameter.tsType;
     if (type === undefined)
@@ -75,7 +80,9 @@ export namespace LlmApplicationOfValidateProgrammer {
       config: {
         equals: false,
       },
-      name: undefined,
+      name: props.className
+        ? `Parameters<${props.className}[${JSON.stringify(props.name)}]>[0]`
+        : undefined,
     }) satisfies ts.CallExpression as any as (
       props: object,
     ) => IValidation<unknown>;
