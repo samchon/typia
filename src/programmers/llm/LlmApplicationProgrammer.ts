@@ -96,9 +96,9 @@ export namespace LlmApplicationProgrammer {
         `${prefix}'s return type must not be union type with undefined.`,
       );
     if (/^[0-9]/.test(name[0] ?? "") === true)
-      output.push(`name must not start with a number`);
+      output.push(`name must not start with a number.`);
     if (/^[a-zA-Z0-9_-]+$/.test(name) === false)
-      output.push(`name must be alphanumeric with underscore`);
+      output.push(`name must be alphanumeric with underscore or hypen.`);
     if (func.parameters.length !== 1)
       output.push(`${prefix} must have a single parameter.`);
     if (func.parameters.length !== 0) {
