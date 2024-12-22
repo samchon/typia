@@ -66,6 +66,12 @@ export const pageMap = [{
       frontMatter: {
         "sidebarTitle": "Schema"
       }
+    }, {
+      name: "strategy",
+      route: "/docs/llm/strategy",
+      frontMatter: {
+        "sidebarTitle": "Strategy"
+      }
     }]
   }, {
     name: "misc",
