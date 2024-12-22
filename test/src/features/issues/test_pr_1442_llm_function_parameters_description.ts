@@ -1,15 +1,26 @@
 import { ILlmApplication, ILlmFunction } from "@samchon/openapi";
 import typia, { tags } from "typia";
 
-const app: ILlmApplication<"chatgpt"> = typia.llm.application<
-  BbsArticleController,
-  "chatgpt"
->();
-const func: ILlmFunction<"chatgpt"> | undefined = app.functions.find(
-  (func) => func.name === "create",
-);
-console.log(func?.parameters.description);
-console.log(func?.output?.description);
+import { TestValidator } from "../../helpers/TestValidator";
+
+export const test_pr_1442_llm_function_parameters_description = (): void => {
+  const app: ILlmApplication<"chatgpt"> = typia.llm.application<
+    BbsArticleController,
+    "chatgpt"
+  >();
+  for (const func of app.functions)
+    TestValidator.equals("parameters.description")(
+      !!func.parameters.description,
+    )(true);
+
+  const func: ILlmFunction<"chatgpt"> | undefined = app.functions.find(
+    (func) => func.name === "create",
+  );
+  TestValidator.equals("parameters.description")(
+    !!func?.parameters.description,
+  )(true);
+  TestValidator.equals("output.description")(!!func?.output?.description)(true);
+};
 
 interface BbsArticleController {
   /**
