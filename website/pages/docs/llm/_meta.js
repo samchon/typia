@@ -1,5 +1,6 @@
 export default {
-  application: "application() function",
+  application: "application() functions",
   parameters: "parameters() function",
   schema: "schema() function",
+  strategy: "Documentation Strategy",
 };
