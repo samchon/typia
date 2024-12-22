@@ -242,9 +242,14 @@ export namespace LlmApplicationProgrammer {
     > = LlmSchemaComposer.parameters(props.model)({
       config: LlmSchemaComposer.defaultConfig(props.model) as any,
       components: props.components,
-      schema: schema as
-        | OpenApi.IJsonSchema.IObject
-        | OpenApi.IJsonSchema.IReference,
+      schema: {
+        ...(schema as
+          | OpenApi.IJsonSchema.IObject
+          | OpenApi.IJsonSchema.IReference),
+        title: schema.title ?? props.function.parameters[0]?.title,
+        description:
+          schema.description ?? props.function.parameters[0]?.description,
+      },
       accessor: props.accessor,
     }) as IResult<ILlmSchema.ModelParameters[Model], IOpenApiSchemaError>;
     if (result.success === false) {
