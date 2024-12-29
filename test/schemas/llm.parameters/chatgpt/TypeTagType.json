@@ -10,24 +10,31 @@
             "type": "object",
             "properties": {
               "int": {
+                "description": "@format int32",
                 "type": "integer"
               },
               "uint": {
+                "description": "@format uint32",
                 "type": "integer"
               },
               "int32": {
+                "description": "@format int32",
                 "type": "integer"
               },
               "uint32": {
+                "description": "@format uint32",
                 "type": "integer"
               },
               "int64": {
+                "description": "@format int64",
                 "type": "integer"
               },
               "uint64": {
+                "description": "@format uint64",
                 "type": "integer"
               },
               "float": {
+                "description": "@format float",
                 "type": "number"
               }
             },
@@ -61,24 +68,31 @@
                 "type": "object",
                 "properties": {
                   "int": {
+                    "description": "@format int32",
                     "type": "integer"
                   },
                   "uint": {
+                    "description": "@format uint32",
                     "type": "integer"
                   },
                   "int32": {
+                    "description": "@format int32",
                     "type": "integer"
                   },
                   "uint32": {
+                    "description": "@format uint32",
                     "type": "integer"
                   },
                   "int64": {
+                    "description": "@format int64",
                     "type": "integer"
                   },
                   "uint64": {
+                    "description": "@format uint64",
                     "type": "integer"
                   },
                   "float": {
+                    "description": "@format float",
                     "type": "number"
                   }
                 },
@@ -109,24 +123,31 @@
             "type": "object",
             "properties": {
               "int": {
+                "description": "@format int32",
                 "type": "integer"
               },
               "uint": {
+                "description": "@format uint32",
                 "type": "integer"
               },
               "int32": {
+                "description": "@format int32",
                 "type": "integer"
               },
               "uint32": {
+                "description": "@format uint32",
                 "type": "integer"
               },
               "int64": {
+                "description": "@format int64",
                 "type": "integer"
               },
               "uint64": {
+                "description": "@format uint64",
                 "type": "integer"
               },
               "float": {
+                "description": "@format float",
                 "type": "number"
               }
             },
@@ -160,24 +181,31 @@
                 "type": "object",
                 "properties": {
                   "int": {
+                    "description": "@format int32",
                     "type": "integer"
                   },
                   "uint": {
+                    "description": "@format uint32",
                     "type": "integer"
                   },
                   "int32": {
+                    "description": "@format int32",
                     "type": "integer"
                   },
                   "uint32": {
+                    "description": "@format uint32",
                     "type": "integer"
                   },
                   "int64": {
+                    "description": "@format int64",
                     "type": "integer"
                   },
                   "uint64": {
+                    "description": "@format uint64",
                     "type": "integer"
                   },
                   "float": {
+                    "description": "@format float",
                     "type": "number"
                   }
                 },
@@ -210,24 +238,31 @@
               "type": "object",
               "properties": {
                 "int": {
+                  "description": "@format int32",
                   "type": "integer"
                 },
                 "uint": {
+                  "description": "@format uint32",
                   "type": "integer"
                 },
                 "int32": {
+                  "description": "@format int32",
                   "type": "integer"
                 },
                 "uint32": {
+                  "description": "@format uint32",
                   "type": "integer"
                 },
                 "int64": {
+                  "description": "@format int64",
                   "type": "integer"
                 },
                 "uint64": {
+                  "description": "@format uint64",
                   "type": "integer"
                 },
                 "float": {
+                  "description": "@format float",
                   "type": "number"
                 }
               },

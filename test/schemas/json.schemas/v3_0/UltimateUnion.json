@@ -191,6 +191,11 @@
             "title": "Default value",
             "description": "Default value."
           },
+          "format": {
+            "type": "string",
+            "title": "Format restriction",
+            "description": "Format restriction."
+          },
           "minimum": {
             "type": "number",
             "title": "Minimum value restriction",
@@ -357,6 +362,11 @@
             "type": "integer",
             "title": "Default value",
             "description": "Default value."
+          },
+          "format": {
+            "type": "string",
+            "title": "Format restriction",
+            "description": "Format restriction."
           },
           "minimum": {
             "type": "integer",

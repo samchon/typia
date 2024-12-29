@@ -79,7 +79,8 @@
                         "validate": "$importInternal(\"isTypeInt32\")($input)",
                         "exclusive": true,
                         "schema": {
-                          "type": "integer"
+                          "type": "integer",
+                          "format": "int32"
                         }
                       }
                     ]
@@ -150,7 +151,8 @@
                         "validate": "BigInt(0) <= $input",
                         "exclusive": true,
                         "schema": {
-                          "type": "integer"
+                          "type": "integer",
+                          "format": "uint64"
                         }
                       }
                     ]

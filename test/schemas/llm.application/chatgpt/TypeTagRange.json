@@ -20,39 +20,39 @@
                   "type": "object",
                   "properties": {
                     "greater": {
-                      "description": "@minimum 3\n@exclusiveMinimum true",
+                      "description": "@minimum 3\n@exclusiveMinimum true\n@format int32",
                       "type": "integer"
                     },
                     "greater_equal": {
-                      "description": "@minimum 3",
+                      "description": "@minimum 3\n@format int32",
                       "type": "integer"
                     },
                     "less": {
-                      "description": "@maximum 7\n@exclusiveMaximum true",
+                      "description": "@maximum 7\n@exclusiveMaximum true\n@format int32",
                       "type": "integer"
                     },
                     "less_equal": {
-                      "description": "@maximum 7",
+                      "description": "@maximum 7\n@format int32",
                       "type": "integer"
                     },
                     "greater_less": {
-                      "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true\n@exclusiveMaximum true",
+                      "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true\n@exclusiveMaximum true\n@format int32",
                       "type": "integer"
                     },
                     "greater_equal_less": {
-                      "description": "@minimum 3\n@maximum 7\n@exclusiveMaximum true",
+                      "description": "@minimum 3\n@maximum 7\n@exclusiveMaximum true\n@format int32",
                       "type": "integer"
                     },
                     "greater_less_equal": {
-                      "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true",
+                      "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true\n@format int32",
                       "type": "integer"
                     },
                     "greater_equal_less_equal": {
-                      "description": "@minimum 3\n@maximum 7",
+                      "description": "@minimum 3\n@maximum 7\n@format int32",
                       "type": "integer"
                     },
                     "equal": {
-                      "description": "@minimum 10\n@maximum 10",
+                      "description": "@minimum 10\n@maximum 10\n@format int32",
                       "type": "integer"
                     }
                   },
@@ -96,39 +96,39 @@
                   "type": "object",
                   "properties": {
                     "greater": {
-                      "description": "@minimum 3\n@exclusiveMinimum true",
+                      "description": "@minimum 3\n@exclusiveMinimum true\n@format int32",
                       "type": "integer"
                     },
                     "greater_equal": {
-                      "description": "@minimum 3",
+                      "description": "@minimum 3\n@format int32",
                       "type": "integer"
                     },
                     "less": {
-                      "description": "@maximum 7\n@exclusiveMaximum true",
+                      "description": "@maximum 7\n@exclusiveMaximum true\n@format int32",
                       "type": "integer"
                     },
                     "less_equal": {
-                      "description": "@maximum 7",
+                      "description": "@maximum 7\n@format int32",
                       "type": "integer"
                     },
                     "greater_less": {
-                      "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true\n@exclusiveMaximum true",
+                      "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true\n@exclusiveMaximum true\n@format int32",
                       "type": "integer"
                     },
                     "greater_equal_less": {
-                      "description": "@minimum 3\n@maximum 7\n@exclusiveMaximum true",
+                      "description": "@minimum 3\n@maximum 7\n@exclusiveMaximum true\n@format int32",
                       "type": "integer"
                     },
                     "greater_less_equal": {
-                      "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true",
+                      "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true\n@format int32",
                       "type": "integer"
                     },
                     "greater_equal_less_equal": {
-                      "description": "@minimum 3\n@maximum 7",
+                      "description": "@minimum 3\n@maximum 7\n@format int32",
                       "type": "integer"
                     },
                     "equal": {
-                      "description": "@minimum 10\n@maximum 10",
+                      "description": "@minimum 10\n@maximum 10\n@format int32",
                       "type": "integer"
                     }
                   },
@@ -164,39 +164,39 @@
                       "type": "object",
                       "properties": {
                         "greater": {
-                          "description": "@minimum 3\n@exclusiveMinimum true",
+                          "description": "@minimum 3\n@exclusiveMinimum true\n@format int32",
                           "type": "integer"
                         },
                         "greater_equal": {
-                          "description": "@minimum 3",
+                          "description": "@minimum 3\n@format int32",
                           "type": "integer"
                         },
                         "less": {
-                          "description": "@maximum 7\n@exclusiveMaximum true",
+                          "description": "@maximum 7\n@exclusiveMaximum true\n@format int32",
                           "type": "integer"
                         },
                         "less_equal": {
-                          "description": "@maximum 7",
+                          "description": "@maximum 7\n@format int32",
                           "type": "integer"
                         },
                         "greater_less": {
-                          "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true\n@exclusiveMaximum true",
+                          "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true\n@exclusiveMaximum true\n@format int32",
                           "type": "integer"
                         },
                         "greater_equal_less": {
-                          "description": "@minimum 3\n@maximum 7\n@exclusiveMaximum true",
+                          "description": "@minimum 3\n@maximum 7\n@exclusiveMaximum true\n@format int32",
                           "type": "integer"
                         },
                         "greater_less_equal": {
-                          "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true",
+                          "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true\n@format int32",
                           "type": "integer"
                         },
                         "greater_equal_less_equal": {
-                          "description": "@minimum 3\n@maximum 7",
+                          "description": "@minimum 3\n@maximum 7\n@format int32",
                           "type": "integer"
                         },
                         "equal": {
-                          "description": "@minimum 10\n@maximum 10",
+                          "description": "@minimum 10\n@maximum 10\n@format int32",
                           "type": "integer"
                         }
                       },
@@ -237,39 +237,39 @@
               "type": "object",
               "properties": {
                 "greater": {
-                  "description": "@minimum 3\n@exclusiveMinimum true",
+                  "description": "@minimum 3\n@exclusiveMinimum true\n@format int32",
                   "type": "integer"
                 },
                 "greater_equal": {
-                  "description": "@minimum 3",
+                  "description": "@minimum 3\n@format int32",
                   "type": "integer"
                 },
                 "less": {
-                  "description": "@maximum 7\n@exclusiveMaximum true",
+                  "description": "@maximum 7\n@exclusiveMaximum true\n@format int32",
                   "type": "integer"
                 },
                 "less_equal": {
-                  "description": "@maximum 7",
+                  "description": "@maximum 7\n@format int32",
                   "type": "integer"
                 },
                 "greater_less": {
-                  "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true\n@exclusiveMaximum true",
+                  "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true\n@exclusiveMaximum true\n@format int32",
                   "type": "integer"
                 },
                 "greater_equal_less": {
-                  "description": "@minimum 3\n@maximum 7\n@exclusiveMaximum true",
+                  "description": "@minimum 3\n@maximum 7\n@exclusiveMaximum true\n@format int32",
                   "type": "integer"
                 },
                 "greater_less_equal": {
-                  "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true",
+                  "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true\n@format int32",
                   "type": "integer"
                 },
                 "greater_equal_less_equal": {
-                  "description": "@minimum 3\n@maximum 7",
+                  "description": "@minimum 3\n@maximum 7\n@format int32",
                   "type": "integer"
                 },
                 "equal": {
-                  "description": "@minimum 10\n@maximum 10",
+                  "description": "@minimum 10\n@maximum 10\n@format int32",
                   "type": "integer"
                 }
               },
@@ -311,39 +311,39 @@
                       "type": "object",
                       "properties": {
                         "greater": {
-                          "description": "@minimum 3\n@exclusiveMinimum true",
+                          "description": "@minimum 3\n@exclusiveMinimum true\n@format int32",
                           "type": "integer"
                         },
                         "greater_equal": {
-                          "description": "@minimum 3",
+                          "description": "@minimum 3\n@format int32",
                           "type": "integer"
                         },
                         "less": {
-                          "description": "@maximum 7\n@exclusiveMaximum true",
+                          "description": "@maximum 7\n@exclusiveMaximum true\n@format int32",
                           "type": "integer"
                         },
                         "less_equal": {
-                          "description": "@maximum 7",
+                          "description": "@maximum 7\n@format int32",
                           "type": "integer"
                         },
                         "greater_less": {
-                          "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true\n@exclusiveMaximum true",
+                          "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true\n@exclusiveMaximum true\n@format int32",
                           "type": "integer"
                         },
                         "greater_equal_less": {
-                          "description": "@minimum 3\n@maximum 7\n@exclusiveMaximum true",
+                          "description": "@minimum 3\n@maximum 7\n@exclusiveMaximum true\n@format int32",
                           "type": "integer"
                         },
                         "greater_less_equal": {
-                          "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true",
+                          "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true\n@format int32",
                           "type": "integer"
                         },
                         "greater_equal_less_equal": {
-                          "description": "@minimum 3\n@maximum 7",
+                          "description": "@minimum 3\n@maximum 7\n@format int32",
                           "type": "integer"
                         },
                         "equal": {
-                          "description": "@minimum 10\n@maximum 10",
+                          "description": "@minimum 10\n@maximum 10\n@format int32",
                           "type": "integer"
                         }
                       },
@@ -381,39 +381,39 @@
                       "type": "object",
                       "properties": {
                         "greater": {
-                          "description": "@minimum 3\n@exclusiveMinimum true",
+                          "description": "@minimum 3\n@exclusiveMinimum true\n@format int32",
                           "type": "integer"
                         },
                         "greater_equal": {
-                          "description": "@minimum 3",
+                          "description": "@minimum 3\n@format int32",
                           "type": "integer"
                         },
                         "less": {
-                          "description": "@maximum 7\n@exclusiveMaximum true",
+                          "description": "@maximum 7\n@exclusiveMaximum true\n@format int32",
                           "type": "integer"
                         },
                         "less_equal": {
-                          "description": "@maximum 7",
+                          "description": "@maximum 7\n@format int32",
                           "type": "integer"
                         },
                         "greater_less": {
-                          "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true\n@exclusiveMaximum true",
+                          "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true\n@exclusiveMaximum true\n@format int32",
                           "type": "integer"
                         },
                         "greater_equal_less": {
-                          "description": "@minimum 3\n@maximum 7\n@exclusiveMaximum true",
+                          "description": "@minimum 3\n@maximum 7\n@exclusiveMaximum true\n@format int32",
                           "type": "integer"
                         },
                         "greater_less_equal": {
-                          "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true",
+                          "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true\n@format int32",
                           "type": "integer"
                         },
                         "greater_equal_less_equal": {
-                          "description": "@minimum 3\n@maximum 7",
+                          "description": "@minimum 3\n@maximum 7\n@format int32",
                           "type": "integer"
                         },
                         "equal": {
-                          "description": "@minimum 10\n@maximum 10",
+                          "description": "@minimum 10\n@maximum 10\n@format int32",
                           "type": "integer"
                         }
                       },
@@ -451,39 +451,39 @@
                       "type": "object",
                       "properties": {
                         "greater": {
-                          "description": "@minimum 3\n@exclusiveMinimum true",
+                          "description": "@minimum 3\n@exclusiveMinimum true\n@format int32",
                           "type": "integer"
                         },
                         "greater_equal": {
-                          "description": "@minimum 3",
+                          "description": "@minimum 3\n@format int32",
                           "type": "integer"
                         },
                         "less": {
-                          "description": "@maximum 7\n@exclusiveMaximum true",
+                          "description": "@maximum 7\n@exclusiveMaximum true\n@format int32",
                           "type": "integer"
                         },
                         "less_equal": {
-                          "description": "@maximum 7",
+                          "description": "@maximum 7\n@format int32",
                           "type": "integer"
                         },
                         "greater_less": {
-                          "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true\n@exclusiveMaximum true",
+                          "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true\n@exclusiveMaximum true\n@format int32",
                           "type": "integer"
                         },
                         "greater_equal_less": {
-                          "description": "@minimum 3\n@maximum 7\n@exclusiveMaximum true",
+                          "description": "@minimum 3\n@maximum 7\n@exclusiveMaximum true\n@format int32",
                           "type": "integer"
                         },
                         "greater_less_equal": {
-                          "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true",
+                          "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true\n@format int32",
                           "type": "integer"
                         },
                         "greater_equal_less_equal": {
-                          "description": "@minimum 3\n@maximum 7",
+                          "description": "@minimum 3\n@maximum 7\n@format int32",
                           "type": "integer"
                         },
                         "equal": {
-                          "description": "@minimum 10\n@maximum 10",
+                          "description": "@minimum 10\n@maximum 10\n@format int32",
                           "type": "integer"
                         }
                       },
@@ -529,39 +529,39 @@
                   "type": "object",
                   "properties": {
                     "greater": {
-                      "description": "@minimum 3\n@exclusiveMinimum true",
+                      "description": "@minimum 3\n@exclusiveMinimum true\n@format int32",
                       "type": "integer"
                     },
                     "greater_equal": {
-                      "description": "@minimum 3",
+                      "description": "@minimum 3\n@format int32",
                       "type": "integer"
                     },
                     "less": {
-                      "description": "@maximum 7\n@exclusiveMaximum true",
+                      "description": "@maximum 7\n@exclusiveMaximum true\n@format int32",
                       "type": "integer"
                     },
                     "less_equal": {
-                      "description": "@maximum 7",
+                      "description": "@maximum 7\n@format int32",
                       "type": "integer"
                     },
                     "greater_less": {
-                      "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true\n@exclusiveMaximum true",
+                      "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true\n@exclusiveMaximum true\n@format int32",
                       "type": "integer"
                     },
                     "greater_equal_less": {
-                      "description": "@minimum 3\n@maximum 7\n@exclusiveMaximum true",
+                      "description": "@minimum 3\n@maximum 7\n@exclusiveMaximum true\n@format int32",
                       "type": "integer"
                     },
                     "greater_less_equal": {
-                      "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true",
+                      "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true\n@format int32",
                       "type": "integer"
                     },
                     "greater_equal_less_equal": {
-                      "description": "@minimum 3\n@maximum 7",
+                      "description": "@minimum 3\n@maximum 7\n@format int32",
                       "type": "integer"
                     },
                     "equal": {
-                      "description": "@minimum 10\n@maximum 10",
+                      "description": "@minimum 10\n@maximum 10\n@format int32",
                       "type": "integer"
                     }
                   },

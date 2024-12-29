@@ -12,6 +12,7 @@
       "oneOf": [
         {
           "type": "integer",
+          "format": "uint32",
           "maximum": 100
         },
         {

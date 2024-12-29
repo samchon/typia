@@ -15,7 +15,7 @@
           "anyOf": [
             {
               "type": "integer",
-              "description": "@maximum 100"
+              "description": "@maximum 100\n@format uint32"
             },
             {
               "type": "number",
@@ -50,7 +50,7 @@
               "anyOf": [
                 {
                   "type": "integer",
-                  "description": "@maximum 100"
+                  "description": "@maximum 100\n@format uint32"
                 },
                 {
                   "type": "number",
@@ -82,7 +82,7 @@
           "anyOf": [
             {
               "type": "integer",
-              "description": "@maximum 100"
+              "description": "@maximum 100\n@format uint32"
             },
             {
               "type": "number",
@@ -117,7 +117,7 @@
               "anyOf": [
                 {
                   "type": "integer",
-                  "description": "@maximum 100"
+                  "description": "@maximum 100\n@format uint32"
                 },
                 {
                   "type": "number",
@@ -151,7 +151,7 @@
             "anyOf": [
               {
                 "type": "integer",
-                "description": "@maximum 100"
+                "description": "@maximum 100\n@format uint32"
               },
               {
                 "type": "number",

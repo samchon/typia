@@ -31,6 +31,7 @@
                   },
                   {
                     "type": "integer",
+                    "format": "uint32",
                     "maximum": 100
                   }
                 ]
@@ -75,6 +76,7 @@
                   },
                   {
                     "type": "integer",
+                    "format": "uint32",
                     "maximum": 100
                   }
                 ]
@@ -111,6 +113,7 @@
                       },
                       {
                         "type": "integer",
+                        "format": "uint32",
                         "maximum": 100
                       }
                     ]
@@ -152,6 +155,7 @@
               },
               {
                 "type": "integer",
+                "format": "uint32",
                 "maximum": 100
               }
             ]
@@ -194,6 +198,7 @@
                       },
                       {
                         "type": "integer",
+                        "format": "uint32",
                         "maximum": 100
                       }
                     ]
@@ -232,6 +237,7 @@
                       },
                       {
                         "type": "integer",
+                        "format": "uint32",
                         "maximum": 100
                       }
                     ]
@@ -270,6 +276,7 @@
                       },
                       {
                         "type": "integer",
+                        "format": "uint32",
                         "maximum": 100
                       }
                     ]
@@ -316,6 +323,7 @@
                   },
                   {
                     "type": "integer",
+                    "format": "uint32",
                     "maximum": 100
                   }
                 ]

@@ -39,6 +39,7 @@ export const collection = {
           },
           age: {
             type: "integer",
+            format: "uint32",
             exclusiveMaximum: true,
             maximum: 100,
           },
