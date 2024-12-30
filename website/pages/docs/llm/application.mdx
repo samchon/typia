@@ -771,7 +771,9 @@ LLM function calling application schema with validators.
 
 This validator function is useful when implementing the actual LLM function calling feature. It's because LLM function calling sometimes takes a mistake that composing wrong typed arguments. In that case, you can correct the arguments by delivering the return value of the `ILlmFunctionOfValidate.validate()` function to the LLM provider. Then, the LLM provider will correct the arguments at the next function calling.
 
-Here is an actual program code correcting the OpenAI (ChatGPT) function calling.
+Here is an actual program code correcting the OpenAI (ChatGPT) function calling. 
+
+Note that, if you are developing an A.I. chatbot project, such validation feedback strategy is essential for both LLM function calling and structured output features. Tends to my experiments, even though the LLM makes a wrong typed structured data, it always be corrected just by only one validation feedback step.
 
 ```typescript filename="ChatGptFunctionCaller.ts" showLineNumbers {22, 33-43, 72} copy
 import OpenAI from "openai";
@@ -795,7 +797,7 @@ export namespace ChatGptFunctionCaller {
 
   const step = async (
     props: IProps,
-    previous?: IValidation.IFailure,
+    previous?: IValidation.IFailure | undefined,
   ): Promise<IValidation<any>> => {
     const client: OpenAI = new OpenAI({
       apiKey: "YOUR-SECRET-KEY",
