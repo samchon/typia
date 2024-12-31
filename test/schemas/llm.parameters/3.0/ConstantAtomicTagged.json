@@ -15,6 +15,7 @@
           "oneOf": [
             {
               "type": "integer",
+              "format": "uint32",
               "maximum": 100
             },
             {
@@ -46,6 +47,7 @@
           "oneOf": [
             {
               "type": "integer",
+              "format": "uint32",
               "maximum": 100
             },
             {
@@ -78,6 +80,7 @@
           "oneOf": [
             {
               "type": "integer",
+              "format": "uint32",
               "maximum": 100
             },
             {
@@ -109,6 +112,7 @@
           "oneOf": [
             {
               "type": "integer",
+              "format": "uint32",
               "maximum": 100
             },
             {
@@ -143,6 +147,7 @@
             "oneOf": [
               {
                 "type": "integer",
+                "format": "uint32",
                 "maximum": 100
               },
               {

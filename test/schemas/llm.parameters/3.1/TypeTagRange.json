@@ -11,24 +11,29 @@
             "properties": {
               "greater": {
                 "type": "integer",
+                "format": "int32",
                 "exclusiveMinimum": true,
                 "minimum": 3
               },
               "greater_equal": {
                 "type": "integer",
+                "format": "int32",
                 "minimum": 3
               },
               "less": {
                 "type": "integer",
+                "format": "int32",
                 "exclusiveMaximum": true,
                 "maximum": 7
               },
               "less_equal": {
                 "type": "integer",
+                "format": "int32",
                 "maximum": 7
               },
               "greater_less": {
                 "type": "integer",
+                "format": "int32",
                 "exclusiveMinimum": true,
                 "minimum": 3,
                 "exclusiveMaximum": true,
@@ -36,23 +41,27 @@
               },
               "greater_equal_less": {
                 "type": "integer",
+                "format": "int32",
                 "minimum": 3,
                 "exclusiveMaximum": true,
                 "maximum": 7
               },
               "greater_less_equal": {
                 "type": "integer",
+                "format": "int32",
                 "exclusiveMinimum": true,
                 "minimum": 3,
                 "maximum": 7
               },
               "greater_equal_less_equal": {
                 "type": "integer",
+                "format": "int32",
                 "minimum": 3,
                 "maximum": 7
               },
               "equal": {
                 "type": "integer",
+                "format": "int32",
                 "minimum": 10,
                 "maximum": 10
               }
@@ -90,24 +99,29 @@
                 "properties": {
                   "greater": {
                     "type": "integer",
+                    "format": "int32",
                     "exclusiveMinimum": true,
                     "minimum": 3
                   },
                   "greater_equal": {
                     "type": "integer",
+                    "format": "int32",
                     "minimum": 3
                   },
                   "less": {
                     "type": "integer",
+                    "format": "int32",
                     "exclusiveMaximum": true,
                     "maximum": 7
                   },
                   "less_equal": {
                     "type": "integer",
+                    "format": "int32",
                     "maximum": 7
                   },
                   "greater_less": {
                     "type": "integer",
+                    "format": "int32",
                     "exclusiveMinimum": true,
                     "minimum": 3,
                     "exclusiveMaximum": true,
@@ -115,23 +129,27 @@
                   },
                   "greater_equal_less": {
                     "type": "integer",
+                    "format": "int32",
                     "minimum": 3,
                     "exclusiveMaximum": true,
                     "maximum": 7
                   },
                   "greater_less_equal": {
                     "type": "integer",
+                    "format": "int32",
                     "exclusiveMinimum": true,
                     "minimum": 3,
                     "maximum": 7
                   },
                   "greater_equal_less_equal": {
                     "type": "integer",
+                    "format": "int32",
                     "minimum": 3,
                     "maximum": 7
                   },
                   "equal": {
                     "type": "integer",
+                    "format": "int32",
                     "minimum": 10,
                     "maximum": 10
                   }
@@ -166,24 +184,29 @@
             "properties": {
               "greater": {
                 "type": "integer",
+                "format": "int32",
                 "exclusiveMinimum": true,
                 "minimum": 3
               },
               "greater_equal": {
                 "type": "integer",
+                "format": "int32",
                 "minimum": 3
               },
               "less": {
                 "type": "integer",
+                "format": "int32",
                 "exclusiveMaximum": true,
                 "maximum": 7
               },
               "less_equal": {
                 "type": "integer",
+                "format": "int32",
                 "maximum": 7
               },
               "greater_less": {
                 "type": "integer",
+                "format": "int32",
                 "exclusiveMinimum": true,
                 "minimum": 3,
                 "exclusiveMaximum": true,
@@ -191,23 +214,27 @@
               },
               "greater_equal_less": {
                 "type": "integer",
+                "format": "int32",
                 "minimum": 3,
                 "exclusiveMaximum": true,
                 "maximum": 7
               },
               "greater_less_equal": {
                 "type": "integer",
+                "format": "int32",
                 "exclusiveMinimum": true,
                 "minimum": 3,
                 "maximum": 7
               },
               "greater_equal_less_equal": {
                 "type": "integer",
+                "format": "int32",
                 "minimum": 3,
                 "maximum": 7
               },
               "equal": {
                 "type": "integer",
+                "format": "int32",
                 "minimum": 10,
                 "maximum": 10
               }
@@ -245,24 +272,29 @@
                 "properties": {
                   "greater": {
                     "type": "integer",
+                    "format": "int32",
                     "exclusiveMinimum": true,
                     "minimum": 3
                   },
                   "greater_equal": {
                     "type": "integer",
+                    "format": "int32",
                     "minimum": 3
                   },
                   "less": {
                     "type": "integer",
+                    "format": "int32",
                     "exclusiveMaximum": true,
                     "maximum": 7
                   },
                   "less_equal": {
                     "type": "integer",
+                    "format": "int32",
                     "maximum": 7
                   },
                   "greater_less": {
                     "type": "integer",
+                    "format": "int32",
                     "exclusiveMinimum": true,
                     "minimum": 3,
                     "exclusiveMaximum": true,
@@ -270,23 +302,27 @@
                   },
                   "greater_equal_less": {
                     "type": "integer",
+                    "format": "int32",
                     "minimum": 3,
                     "exclusiveMaximum": true,
                     "maximum": 7
                   },
                   "greater_less_equal": {
                     "type": "integer",
+                    "format": "int32",
                     "exclusiveMinimum": true,
                     "minimum": 3,
                     "maximum": 7
                   },
                   "greater_equal_less_equal": {
                     "type": "integer",
+                    "format": "int32",
                     "minimum": 3,
                     "maximum": 7
                   },
                   "equal": {
                     "type": "integer",
+                    "format": "int32",
                     "minimum": 10,
                     "maximum": 10
                   }
@@ -323,24 +359,29 @@
               "properties": {
                 "greater": {
                   "type": "integer",
+                  "format": "int32",
                   "exclusiveMinimum": true,
                   "minimum": 3
                 },
                 "greater_equal": {
                   "type": "integer",
+                  "format": "int32",
                   "minimum": 3
                 },
                 "less": {
                   "type": "integer",
+                  "format": "int32",
                   "exclusiveMaximum": true,
                   "maximum": 7
                 },
                 "less_equal": {
                   "type": "integer",
+                  "format": "int32",
                   "maximum": 7
                 },
                 "greater_less": {
                   "type": "integer",
+                  "format": "int32",
                   "exclusiveMinimum": true,
                   "minimum": 3,
                   "exclusiveMaximum": true,
@@ -348,23 +389,27 @@
                 },
                 "greater_equal_less": {
                   "type": "integer",
+                  "format": "int32",
                   "minimum": 3,
                   "exclusiveMaximum": true,
                   "maximum": 7
                 },
                 "greater_less_equal": {
                   "type": "integer",
+                  "format": "int32",
                   "exclusiveMinimum": true,
                   "minimum": 3,
                   "maximum": 7
                 },
                 "greater_equal_less_equal": {
                   "type": "integer",
+                  "format": "int32",
                   "minimum": 3,
                   "maximum": 7
                 },
                 "equal": {
                   "type": "integer",
+                  "format": "int32",
                   "minimum": 10,
                   "maximum": 10
                 }

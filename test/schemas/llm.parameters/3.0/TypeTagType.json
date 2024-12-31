@@ -10,25 +10,32 @@
             "type": "object",
             "properties": {
               "int": {
-                "type": "integer"
+                "type": "integer",
+                "format": "int32"
               },
               "uint": {
-                "type": "integer"
+                "type": "integer",
+                "format": "uint32"
               },
               "int32": {
-                "type": "integer"
+                "type": "integer",
+                "format": "int32"
               },
               "uint32": {
-                "type": "integer"
+                "type": "integer",
+                "format": "uint32"
               },
               "int64": {
-                "type": "integer"
+                "type": "integer",
+                "format": "int64"
               },
               "uint64": {
-                "type": "integer"
+                "type": "integer",
+                "format": "uint64"
               },
               "float": {
-                "type": "number"
+                "type": "number",
+                "format": "float"
               }
             },
             "required": [
@@ -58,25 +65,32 @@
             "type": "object",
             "properties": {
               "int": {
-                "type": "integer"
+                "type": "integer",
+                "format": "int32"
               },
               "uint": {
-                "type": "integer"
+                "type": "integer",
+                "format": "uint32"
               },
               "int32": {
-                "type": "integer"
+                "type": "integer",
+                "format": "int32"
               },
               "uint32": {
-                "type": "integer"
+                "type": "integer",
+                "format": "uint32"
               },
               "int64": {
-                "type": "integer"
+                "type": "integer",
+                "format": "int64"
               },
               "uint64": {
-                "type": "integer"
+                "type": "integer",
+                "format": "uint64"
               },
               "float": {
-                "type": "number"
+                "type": "number",
+                "format": "float"
               }
             },
             "required": [
@@ -107,25 +121,32 @@
             "type": "object",
             "properties": {
               "int": {
-                "type": "integer"
+                "type": "integer",
+                "format": "int32"
               },
               "uint": {
-                "type": "integer"
+                "type": "integer",
+                "format": "uint32"
               },
               "int32": {
-                "type": "integer"
+                "type": "integer",
+                "format": "int32"
               },
               "uint32": {
-                "type": "integer"
+                "type": "integer",
+                "format": "uint32"
               },
               "int64": {
-                "type": "integer"
+                "type": "integer",
+                "format": "int64"
               },
               "uint64": {
-                "type": "integer"
+                "type": "integer",
+                "format": "uint64"
               },
               "float": {
-                "type": "number"
+                "type": "number",
+                "format": "float"
               }
             },
             "required": [
@@ -155,25 +176,32 @@
             "type": "object",
             "properties": {
               "int": {
-                "type": "integer"
+                "type": "integer",
+                "format": "int32"
               },
               "uint": {
-                "type": "integer"
+                "type": "integer",
+                "format": "uint32"
               },
               "int32": {
-                "type": "integer"
+                "type": "integer",
+                "format": "int32"
               },
               "uint32": {
-                "type": "integer"
+                "type": "integer",
+                "format": "uint32"
               },
               "int64": {
-                "type": "integer"
+                "type": "integer",
+                "format": "int64"
               },
               "uint64": {
-                "type": "integer"
+                "type": "integer",
+                "format": "uint64"
               },
               "float": {
-                "type": "number"
+                "type": "number",
+                "format": "float"
               }
             },
             "required": [
@@ -206,25 +234,32 @@
               "type": "object",
               "properties": {
                 "int": {
-                  "type": "integer"
+                  "type": "integer",
+                  "format": "int32"
                 },
                 "uint": {
-                  "type": "integer"
+                  "type": "integer",
+                  "format": "uint32"
                 },
                 "int32": {
-                  "type": "integer"
+                  "type": "integer",
+                  "format": "int32"
                 },
                 "uint32": {
-                  "type": "integer"
+                  "type": "integer",
+                  "format": "uint32"
                 },
                 "int64": {
-                  "type": "integer"
+                  "type": "integer",
+                  "format": "int64"
                 },
                 "uint64": {
-                  "type": "integer"
+                  "type": "integer",
+                  "format": "uint64"
                 },
                 "float": {
-                  "type": "number"
+                  "type": "number",
+                  "format": "float"
                 }
               },
               "required": [

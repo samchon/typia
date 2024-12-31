@@ -147,7 +147,8 @@
                         "validate": "$importInternal(\"isTypeInt32\")($input)",
                         "exclusive": true,
                         "schema": {
-                          "type": "integer"
+                          "type": "integer",
+                          "format": "int32"
                         }
                       }
                     ]
@@ -218,7 +219,8 @@
                         "validate": "$importInternal(\"isTypeUint32\")($input)",
                         "exclusive": true,
                         "schema": {
-                          "type": "integer"
+                          "type": "integer",
+                          "format": "uint32"
                         }
                       }
                     ]
@@ -289,7 +291,8 @@
                         "validate": "$importInternal(\"isTypeInt32\")($input)",
                         "exclusive": true,
                         "schema": {
-                          "type": "integer"
+                          "type": "integer",
+                          "format": "int32"
                         }
                       }
                     ]
@@ -360,7 +363,8 @@
                         "validate": "$importInternal(\"isTypeUint32\")($input)",
                         "exclusive": true,
                         "schema": {
-                          "type": "integer"
+                          "type": "integer",
+                          "format": "uint32"
                         }
                       }
                     ]
@@ -431,7 +435,8 @@
                         "validate": "$importInternal(\"isTypeInt64\")($input)",
                         "exclusive": true,
                         "schema": {
-                          "type": "integer"
+                          "type": "integer",
+                          "format": "int64"
                         }
                       }
                     ]
@@ -502,7 +507,8 @@
                         "validate": "$importInternal(\"isTypeUint64\")($input)",
                         "exclusive": true,
                         "schema": {
-                          "type": "integer"
+                          "type": "integer",
+                          "format": "uint64"
                         }
                       }
                     ]
@@ -573,7 +579,8 @@
                         "validate": "$importInternal(\"isTypeFloat\")($input)",
                         "exclusive": true,
                         "schema": {
-                          "type": "number"
+                          "type": "number",
+                          "format": "float"
                         }
                       }
                     ]

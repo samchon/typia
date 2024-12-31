@@ -147,7 +147,8 @@
                         "validate": "$importInternal(\"isTypeInt32\")($input)",
                         "exclusive": true,
                         "schema": {
-                          "type": "integer"
+                          "type": "integer",
+                          "format": "int32"
                         }
                       },
                       {
@@ -233,7 +234,8 @@
                         "validate": "$importInternal(\"isTypeInt32\")($input)",
                         "exclusive": true,
                         "schema": {
-                          "type": "integer"
+                          "type": "integer",
+                          "format": "int32"
                         }
                       },
                       {
@@ -318,7 +320,8 @@
                         "validate": "$importInternal(\"isTypeInt32\")($input)",
                         "exclusive": true,
                         "schema": {
-                          "type": "integer"
+                          "type": "integer",
+                          "format": "int32"
                         }
                       },
                       {
@@ -404,7 +407,8 @@
                         "validate": "$importInternal(\"isTypeInt32\")($input)",
                         "exclusive": true,
                         "schema": {
-                          "type": "integer"
+                          "type": "integer",
+                          "format": "int32"
                         }
                       },
                       {
@@ -489,7 +493,8 @@
                         "validate": "$importInternal(\"isTypeInt32\")($input)",
                         "exclusive": true,
                         "schema": {
-                          "type": "integer"
+                          "type": "integer",
+                          "format": "int32"
                         }
                       },
                       {
@@ -590,7 +595,8 @@
                         "validate": "$importInternal(\"isTypeInt32\")($input)",
                         "exclusive": true,
                         "schema": {
-                          "type": "integer"
+                          "type": "integer",
+                          "format": "int32"
                         }
                       },
                       {
@@ -690,7 +696,8 @@
                         "validate": "$importInternal(\"isTypeInt32\")($input)",
                         "exclusive": true,
                         "schema": {
-                          "type": "integer"
+                          "type": "integer",
+                          "format": "int32"
                         }
                       },
                       {
@@ -790,7 +797,8 @@
                         "validate": "$importInternal(\"isTypeInt32\")($input)",
                         "exclusive": true,
                         "schema": {
-                          "type": "integer"
+                          "type": "integer",
+                          "format": "int32"
                         }
                       },
                       {
@@ -889,7 +897,8 @@
                         "validate": "$importInternal(\"isTypeInt32\")($input)",
                         "exclusive": true,
                         "schema": {
-                          "type": "integer"
+                          "type": "integer",
+                          "format": "int32"
                         }
                       },
                       {

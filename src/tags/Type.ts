@@ -28,5 +28,6 @@ export type Type<
     type: Value extends "int32" | "uint32" | "int64" | "uint64"
       ? "integer"
       : "number";
+    format: Value;
   };
 }>;
