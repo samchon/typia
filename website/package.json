@@ -38,7 +38,7 @@
     "react-dom": "^18.2.0",
     "tgrid": "^1.0.3",
     "tstl": "^3.0.0",
-    "typescript": "~5.7.2",
+    "typescript": "~5.7.3",
     "typia": "latest"
   },
   "devDependencies": {
@@ -55,7 +55,7 @@
     "ts-loader": "^9.5.1",
     "ts-node": "^10.9.1",
     "typedoc": "^0.27.6",
-    "typedoc-github-theme": "^0.2.0",
+    "typedoc-github-theme": "^0.2.1",
     "write-file-webpack-plugin": "^4.5.1"
   }
 }
