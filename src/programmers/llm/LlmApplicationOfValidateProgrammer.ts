@@ -1,6 +1,8 @@
 import { ILlmApplication, ILlmSchema } from "@samchon/openapi";
 import ts from "typescript";
 
+import { TypeFactory } from "../../factories/TypeFactory";
+
 import { ILlmApplicationOfValidate } from "../../schemas/llm/ILlmApplicationOfValidate";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataParameter } from "../../schemas/metadata/MetadataParameter";
@@ -55,7 +57,7 @@ export namespace LlmApplicationOfValidateProgrammer {
           modulo: props.modulo,
           className: props.name,
           name: func.name,
-          parameter: parameters[func.name]!,
+          parameter: parameters[func.name] ?? null,
         }),
       })),
     };
@@ -64,10 +66,22 @@ export namespace LlmApplicationOfValidateProgrammer {
   const writeValidadtor = (props: {
     context: ITypiaContext;
     modulo: ts.LeftHandSideExpression;
-    parameter: MetadataParameter;
+    parameter: MetadataParameter | null;
     name: string;
     className?: string;
   }): ((props: object) => IValidation<unknown>) => {
+    if (props.parameter === null)
+      return ValidateProgrammer.write({
+        ...props,
+        type: props.context.checker.getTypeFromTypeNode(
+          TypeFactory.keyword("any"),
+        ),
+        config: {
+          equals: false,
+        },
+        name: undefined,
+      }) as any;
+
     const type = props.parameter.tsType;
     if (type === undefined)
       // unreachable

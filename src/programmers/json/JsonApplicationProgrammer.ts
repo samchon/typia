@@ -130,6 +130,33 @@ export namespace JsonApplicationProgrammer {
     };
   };
 
+  export const writeDescription = <Kind extends "summary" | "title">(props: {
+    description: string | null;
+    jsDocTags: IJsDocTagInfo[];
+    kind: Kind;
+  }): Kind extends "summary"
+    ? { summary?: string; description?: string }
+    : { title?: string; description?: string } => {
+    const title: string | undefined = (() => {
+      const [explicit] = getJsDocTexts({
+        jsDocTags: props.jsDocTags,
+        name: props.kind,
+      });
+      if (explicit?.length) return explicit;
+      else if (!props.description?.length) return undefined;
+
+      const index: number = props.description.indexOf("\n");
+      const top: string = (
+        index === -1 ? props.description : props.description.substring(0, index)
+      ).trim();
+      return top.endsWith(".") ? top.substring(0, top.length - 1) : undefined;
+    })();
+    return {
+      [props.kind]: title,
+      description: props.description?.length ? props.description : undefined,
+    } as any;
+  };
+
   const collectFunction = <Version extends "3.0" | "3.1">(props: {
     version: Version;
     name: string;
@@ -216,33 +243,6 @@ export namespace JsonApplicationProgrammer {
     };
   };
 }
-
-const writeDescription = <Kind extends "summary" | "title">(props: {
-  description: string | null;
-  jsDocTags: IJsDocTagInfo[];
-  kind: Kind;
-}): Kind extends "summary"
-  ? { summary?: string; description?: string }
-  : { title?: string; description?: string } => {
-  const title: string | undefined = (() => {
-    const [explicit] = getJsDocTexts({
-      jsDocTags: props.jsDocTags,
-      name: props.kind,
-    });
-    if (explicit?.length) return explicit;
-    else if (!props.description?.length) return undefined;
-
-    const index: number = props.description.indexOf("\n");
-    const top: string = (
-      index === -1 ? props.description : props.description.substring(0, index)
-    ).trim();
-    return top.endsWith(".") ? top.substring(0, top.length - 1) : undefined;
-  })();
-  return {
-    [props.kind]: title,
-    description: props.description?.length ? props.description : undefined,
-  } as any;
-};
 
 const writeDescriptionFromJsDocTag = (props: {
   jsDocTags: IJsDocTagInfo[];

@@ -42,12 +42,12 @@ export namespace LlmApplicationProgrammer {
         else return LlmSchemaProgrammer.validate(props)(metadata);
 
       const output: string[] = [];
-      const valid: boolean =
+      const validity: boolean =
         metadata.size() === 1 &&
         metadata.objects.length === 1 &&
         metadata.isRequired() === true &&
         metadata.nullable === false;
-      if (valid === false)
+      if (validity === false)
         output.push(
           "LLM application's generic arugment must be a class/interface type.",
         );
@@ -60,23 +60,40 @@ export namespace LlmApplicationProgrammer {
           );
         let least: boolean = false;
         for (const p of object.properties) {
+          const name: string = JSON.stringify(p.key.getSoleLiteral()!);
           const value: Metadata = p.value;
           if (value.functions.length) {
             least ||= true;
-            if (valid === false) {
+            if (validity === false) {
               if (value.functions.length !== 1 || value.size() !== 1)
                 output.push(
-                  "LLM application's function type does not allow union type.",
+                  `LLM application's function (${name}) type does not allow union type.`,
                 );
               if (value.isRequired() === false)
                 output.push(
-                  "LLM application's function type must be required.",
+                  `LLM application's function (${name}) type must be required.`,
                 );
               if (value.nullable === true)
                 output.push(
-                  "LLM application's function type must not be nullable.",
+                  `LLM application's function (${name}) type must not be nullable.`,
                 );
             }
+
+            const description: string | undefined = concatDescription(
+              JsonApplicationProgrammer.writeDescription({
+                description:
+                  p.description ??
+                  p.jsDocTags.find((tag) => tag.name === "description")
+                    ?.text?.[0]?.text ??
+                  null,
+                jsDocTags: p.jsDocTags,
+                kind: "summary",
+              }),
+            );
+            if (description !== undefined && description.length > 1_024)
+              output.push(
+                `LLM application's function (${name}) description must not exceed 1,024 characters.`,
+              );
           }
         }
         if (least === false)
@@ -96,10 +113,14 @@ export namespace LlmApplicationProgrammer {
         `${prefix}'s return type must not be union type with undefined.`,
       );
     if (/^[0-9]/.test(name[0] ?? "") === true)
-      output.push(`name must not start with a number.`);
+      output.push(`${prefix} name must not start with a number.`);
     if (/^[a-zA-Z0-9_-]+$/.test(name) === false)
-      output.push(`name must be alphanumeric with underscore or hypen.`);
-    if (func.parameters.length !== 1)
+      output.push(
+        `${prefix} name must be alphanumeric with underscore or hypen.`,
+      );
+    if (name.length > 64)
+      output.push(`${prefix} name must not exceed 64 characters.`);
+    if (func.parameters.length !== 0 && func.parameters.length !== 1)
       output.push(`${prefix} must have a single parameter.`);
     if (func.parameters.length !== 0) {
       const type: Metadata = func.parameters[0]!.type;
@@ -233,9 +254,12 @@ export namespace LlmApplicationProgrammer {
     errors: string[];
     accessor: string;
   }): ILlmSchema.ModelParameters[Model] | null => {
-    const schema = props.function.parameters[0]?.schema;
-    if (!schema) return null;
-
+    const schema = props.function.parameters[0]?.schema ?? {
+      type: "object",
+      properties: {},
+      additionalProperties: false,
+      required: [],
+    };
     const result: IResult<
       ILlmSchema.ModelParameters[Model],
       IOpenApiSchemaError
@@ -285,5 +309,19 @@ export namespace LlmApplicationProgrammer {
       return null;
     }
     return result.value;
+  };
+
+  const concatDescription = (p: {
+    summary?: string | undefined;
+    description?: string | undefined;
+  }): string | undefined => {
+    if (!p.summary?.length || !p.description?.length)
+      return p.summary ?? p.description;
+    const summary: string = p.summary.endsWith(".")
+      ? p.summary.slice(0, -1)
+      : p.summary;
+    return p.description.startsWith(summary)
+      ? p.description
+      : summary + ".\n\n" + p.description;
   };
 }
