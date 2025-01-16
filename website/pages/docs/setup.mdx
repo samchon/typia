@@ -155,9 +155,9 @@ Firstly install `typia` as a dependency. And then, install `typescript` and `ts-
 
 ```json filename="tsconfig.json" copy showLineNumbers
 {
-  "strict": true,
-  "strictNullChecks": true,
   "compilerOptions": {
+    "strict": true,
+    "strictNullChecks": true, 
     "plugins": [
       { "transform": "typia/lib/transform" }
     ]
