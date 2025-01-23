@@ -73,7 +73,7 @@ export function message(): never {
  *
  * For reference, as Protocol Buffer handles binary data directly, there's no way
  * when `input` binary data was not encoded from the `T` typed value. In that case,
- * unexpected behavior or internal error would be occured. Therefore, I recommend you
+ * unexpected behavior or internal error would be occurred. Therefore, I recommend you
  * to encode binary data of Protocol Buffer from type safe encode functions like below.
  * Use {@link encode} function only when you can ensure it.
  *
@@ -103,7 +103,7 @@ export function decode(input: Uint8Array): never;
  *
  * For reference, as Protocol Buffer handles binary data directly, there's no way
  * when `input` binary data was not encoded from the `T` typed value. In that case,
- * unexpected behavior or internal error would be occured. Therefore, I recommend you
+ * unexpected behavior or internal error would be occurred. Therefore, I recommend you
  * to encode binary data of Protocol Buffer from type safe encode functions like below.
  * Use {@link encode} function only when you can ensure it.
  *

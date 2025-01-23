@@ -1977,7 +1977,7 @@ URL query decoder functions.
 
 `typia.http.query<T>()` is a function decoding a query string or an `URLSearchParams` instance, with automatic type casting to the expected type. When property type be defined as boolean or number type, `typia.http.query<T>()` will cast the value to the expected type when decoding.
 
-By the way, as URL query is not enough to express complex data structures, `typia.http.query<T>()` function has some limitations. If target type `T` is not following those restrictions, compilation errors would be occured.
+By the way, as URL query is not enough to express complex data structures, `typia.http.query<T>()` function has some limitations. If target type `T` is not following those restrictions, compilation errors would be occurred.
 
   1. Type T must be an object type
   2. Do not allow dynamic property
@@ -2244,7 +2244,7 @@ Headers decoder (for express and fastify).
 
 `typia.http.headers<t>()` is a function decoding an header instance, with automatic type casting to the expected type. When property type be defined as boolean or number type, `typia.http.headers<t>()` will cast the value to the expected type.
 
-By the way, as HTTP headers are not enough to express complex data structures, `typia.http.headers<t>()` function has some limitations. If target type `T` is not following those restrictions, compilation errors would be occured.
+By the way, as HTTP headers are not enough to express complex data structures, `typia.http.headers<t>()` function has some limitations. If target type `T` is not following those restrictions, compilation errors would be occurred.
 
   1. Type T must be an object type
   2. Do not allow dynamic property

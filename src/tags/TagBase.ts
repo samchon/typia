@@ -57,7 +57,7 @@ export namespace TagBase {
      * `$input` would be transformed to the suitable when compilation.
      *
      * Also, If you've take a mistake on this script, compile error would be
-     * occured. So, define it with confidence. Compiler will block all your
+     * occurred. So, define it with confidence. Compiler will block all your
      * mistakes.
      */
     validate?: Validate;

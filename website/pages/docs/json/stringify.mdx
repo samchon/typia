@@ -52,7 +52,7 @@ export namespace IValidation {
 
 You can boost up JSON serialization speed just by calling `typia.json.stringify<T>()` function. Also, you even can ensure type safety of JSON serialization by calling other functions like `typia.json.isStringify()` and `typia.json.assertStringify()` functions.
 
-As `typia.json.stringify<T>()` function writes dedicated JSON serialization code only for the target type `T`, its performance is much faster than native `JSON.stringify()` function. However, because of the dedicated optimal JSON serialization code, when wrong typed data comes, unexpected error be occured.
+As `typia.json.stringify<T>()` function writes dedicated JSON serialization code only for the target type `T`, its performance is much faster than native `JSON.stringify()` function. However, because of the dedicated optimal JSON serialization code, when wrong typed data comes, unexpected error be occurred.
 
 Instead, `typia` supports type safe JSON serialization functions like `typia.json.isStringify()`. The `typia.json.isStringify()` is a combination function of `typia.is<T>()` and `typia.json.stringify<T>()` function. It checks whether the input value is valid for the target type `T` or not first, and operate JSON serialization later. If the input value is not matched with the type `T`, it returns `null` value.
 
