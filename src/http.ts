@@ -34,7 +34,7 @@ import { TypeGuardError } from "./TypeGuardError";
  *
  * Also, `typia.http.formData()` function does not perform validation about the
  * decoded value. Therefore, if you can't sure that input data is following the
- * `T` type, it would better to call one of below functions intead.
+ * `T` type, it would better to call one of below functions instead.
  *
  * @template T Expected type of decoded value
  * @param input FormData instance
@@ -192,7 +192,7 @@ export function validateFormData(): never {
  *
  * Also, `typia.http.query()` function does not perform validation about the decoded
  * value. Therefore, if you can't sure that input data is following the `T` type,
- * it would better to call one of below functions intead.
+ * it would better to call one of below functions instead.
  *
  *  - {@link assertQuery}
  *  - {@link isQuery}
@@ -376,7 +376,7 @@ export function validateQuery(): never {
  *
  * Also, `typia.http.headers()` function does not perform validation about the decoded
  * value. Therefore, if you can't sure that input data is following the `T` type,
- * it would better to call one of below functions intead.
+ * it would better to call one of below functions instead.
  *
  *  - {@link assertHeaders}
  *  - {@link isHeaders}
