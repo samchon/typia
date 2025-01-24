@@ -73,7 +73,7 @@ export function message(): never {
  *
  * For reference, as Protocol Buffer handles binary data directly, there's no way
  * when `input` binary data was not encoded from the `T` typed value. In that case,
- * unexpected behavior or internal error would be occured. Therefore, I recommend you
+ * unexpected behavior or internal error would be occurred. Therefore, I recommend you
  * to encode binary data of Protocol Buffer from type safe encode functions like below.
  * Use {@link encode} function only when you can ensure it.
  *
@@ -103,7 +103,7 @@ export function decode(input: Uint8Array): never;
  *
  * For reference, as Protocol Buffer handles binary data directly, there's no way
  * when `input` binary data was not encoded from the `T` typed value. In that case,
- * unexpected behavior or internal error would be occured. Therefore, I recommend you
+ * unexpected behavior or internal error would be occurred. Therefore, I recommend you
  * to encode binary data of Protocol Buffer from type safe encode functions like below.
  * Use {@link encode} function only when you can ensure it.
  *
@@ -354,7 +354,7 @@ export function validateDecode(): never {
  * For reference, this `typia.protobuf.encode()` does not validate the `input` value.
  * It just believes that the `input` value is valid and converts it to a binary data
  * directly. Therefore, if you can't ensure the `input` value type, it would better to
- * call one of below functions intead.
+ * call one of below functions instead.
  *
  *  - {@link assertEncode}
  *  - {@link isEncode}
@@ -394,7 +394,7 @@ export function encode(): never {
  * Protocol Buffer binary data would be returned.
  *
  * If you can trust `input` value, or want to perform other type of validation, use
- * below functions intead.
+ * below functions instead.
  *
  *  - {@link encode}
  *  - {@link isEncode}
@@ -431,7 +431,7 @@ export function assertEncode<T>(
  * Protocol Buffer binary data would be returned.
  *
  * If you can trust `input` value, or want to perform other type of validation, use
- * below functions intead.
+ * below functions instead.
  *
  *  - {@link encode}
  *  - {@link isEncode}
@@ -475,7 +475,7 @@ export function assertEncode(): never {
  * Buffer binary data would be returned.
  *
  * If you can trust `input` value, or want to perform other type of validation, use
- * below functions intead.
+ * below functions instead.
  *
  *  - {@link encode}
  *  - {@link assertEncode}
@@ -508,7 +508,7 @@ export function isEncode<T>(input: T): Uint8Array | null;
  * Buffer binary data would be returned.
  *
  * If you can trust `input` value, or want to perform other type of validation, use
- * below functions intead.
+ * below functions instead.
  *
  *  - {@link encode}
  *  - {@link assertEncode}
@@ -549,7 +549,7 @@ export function isEncode(): never {
  * `data` property of the output {@link IValidation.ISuccess} instance.
  *
  * If you can trust `input` value, or want to perform other type of validation, use
- * below functions intead.
+ * below functions instead.
  *
  *  - {@link encode}
  *  - {@link assertEncode}
@@ -583,7 +583,7 @@ export function validateEncode<T>(input: T): IValidation<Uint8Array>;
  * `data` property of the output {@link IValidation.ISuccess} instance.
  *
  * If you can trust `input` value, or want to perform other type of validation, use
- * below functions intead.
+ * below functions instead.
  *
  *  - {@link encode}
  *  - {@link assertEncode}

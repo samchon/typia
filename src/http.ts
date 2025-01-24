@@ -25,7 +25,7 @@ import { TypeGuardError } from "./TypeGuardError";
  *
  * By the way, as `FormData` is not enough to express complex data structures,
  * `typia.http.formData()` function has some limitations. If target type `T` is
- * not following those restrictions, compilation errors would be occured.
+ * not following those restrictions, compilation errors would be occurred.
  *
  * 1. Type `T` must be an object type
  * 2. Do not allow dynamic property
@@ -34,7 +34,7 @@ import { TypeGuardError } from "./TypeGuardError";
  *
  * Also, `typia.http.formData()` function does not perform validation about the
  * decoded value. Therefore, if you can't sure that input data is following the
- * `T` type, it would better to call one of below functions intead.
+ * `T` type, it would better to call one of below functions instead.
  *
  * @template T Expected type of decoded value
  * @param input FormData instance
@@ -66,7 +66,7 @@ export function formData(): never {
  *
  * By the way, as `FormData` is not enough to express complex data structures,
  * `typia.http.assertFormData()` function has some limitations. If target type `T`
- * is not following those restrictions, compilation errors would be occured.
+ * is not following those restrictions, compilation errors would be occurred.
  *
  * 1. Type `T` must be an object type
  * 2. Do not allow dynamic property
@@ -106,7 +106,7 @@ export function assertFormData(): never {
  *
  * By the way, as `FormData` is not enough to express complex data structures,
  * `typia.http.isFormData()` function has some limitations. If target type `T` is
- * not following those restrictions, compilation errors would be occured.
+ * not following those restrictions, compilation errors would be occurred.
  *
  * 1. Type `T` must be an object type
  * 2. Do not allow dynamic property
@@ -146,7 +146,7 @@ export function isFormData(): never {
  *
  * By the way, as `FormData` is not enough to express complex data structures,
  * `typia.http.validateFormData()` function has some limitations. If target type
- * `T` is not following those restrictions, compilation errors would be occured.
+ * `T` is not following those restrictions, compilation errors would be occurred.
  *
  * 1. Type `T` must be an object type
  * 2. Do not allow dynamic property
@@ -183,7 +183,7 @@ export function validateFormData(): never {
  *
  * By the way, as URL query is not enough to express complex data structures,
  * `typia.http.query()` function has some limitations. If target type `T` is not
- * following those restrictions, compilation errors would be occured.
+ * following those restrictions, compilation errors would be occurred.
  *
  *  1. Type `T` must be an object type
  *  2. Do not allow dynamic property
@@ -192,7 +192,7 @@ export function validateFormData(): never {
  *
  * Also, `typia.http.query()` function does not perform validation about the decoded
  * value. Therefore, if you can't sure that input data is following the `T` type,
- * it would better to call one of below functions intead.
+ * it would better to call one of below functions instead.
  *
  *  - {@link assertQuery}
  *  - {@link isQuery}
@@ -230,7 +230,7 @@ export function query(): never {
  *
  * By the way, as URL query is not enough to express complex data structures,
  * `typia.http.assertQuery()` function has some limitations. If target type `T` is
- * notfollowing those restrictions, compilation errors would be occured.
+ * notfollowing those restrictions, compilation errors would be occurred.
  *
  *  1. Type `T` must be an object type
  *  2. Do not allow dynamic property
@@ -270,7 +270,7 @@ export function assertQuery(): never {
  *
  * By the way, as URL query is not enough to express complex data structures,
  * `typia.http.isQuery()` function has some limitations. If target type `T` is
- * notfollowing those restrictions, compilation errors would be occured.
+ * notfollowing those restrictions, compilation errors would be occurred.
  *
  *  1. Type `T` must be an object type
  *  2. Do not allow dynamic property
@@ -309,7 +309,7 @@ export function isQuery(): never {
  *
  * By the way, as URL query is not enough to express complex data structures,
  * `typia.http.validateQuery()` function has some limitations. If target type `T` is
- * notfollowing those restrictions, compilation errors would be occured.
+ * notfollowing those restrictions, compilation errors would be occurred.
  *
  *  1. Type `T` must be an object type
  *  2. Do not allow dynamic property
@@ -345,7 +345,7 @@ export function validateQuery(): never {
  *
  * By the way, as HTTP headers are not enough to express complex data structures,
  * `typia.http.headers()` function has some limitations. If target type `T` is not
- * following those restrictions, compilation errors would be occured.
+ * following those restrictions, compilation errors would be occurred.
  *
  *  1. Type `T` must be an object type
  *  2. Do not allow dynamic property
@@ -376,7 +376,7 @@ export function validateQuery(): never {
  *
  * Also, `typia.http.headers()` function does not perform validation about the decoded
  * value. Therefore, if you can't sure that input data is following the `T` type,
- * it would better to call one of below functions intead.
+ * it would better to call one of below functions instead.
  *
  *  - {@link assertHeaders}
  *  - {@link isHeaders}
@@ -414,7 +414,7 @@ export function headers(): never {
  *
  * By the way, as HTTP headers are not enough to express complex data structures,
  * `typia.http.headers()` function has some limitations. If target type `T` is not
- * following those restrictions, compilation errors would be occured.
+ * following those restrictions, compilation errors would be occurred.
  *
  *  1. Type `T` must be an object type
  *  2. Do not allow dynamic property
@@ -478,7 +478,7 @@ export function assertHeaders(): never {
  *
  * By the way, as HTTP headers are not enough to express complex data structures,
  * `typia.http.headers()` function has some limitations. If target type `T` is not
- * following those restrictions, compilation errors would be occured.
+ * following those restrictions, compilation errors would be occurred.
  *
  *  1. Type `T` must be an object type
  *  2. Do not allow dynamic property
@@ -539,7 +539,7 @@ export function isHeaders(): never {
  *
  * By the way, as HTTP headers are not enough to express complex data structures,
  * `typia.http.headers()` function has some limitations. If target type `T` is not
- * following those restrictions, compilation errors would be occured.
+ * following those restrictions, compilation errors would be occurred.
  *
  *  1. Type `T` must be an object type
  *  2. Do not allow dynamic property

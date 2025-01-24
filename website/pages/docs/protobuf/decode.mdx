@@ -180,7 +180,7 @@ Protocol Buffer Decoder.
 
 You can easily convert a Protocol Buffer's binary data to a JavaScript object, without any extra Protocol Buffer [Message Schema](./message) definition. `typia.protobuf.decode<T>()` function analyzes your type `T`, and generates a Protocol Buffer Message Schema internally.And then, it converts the binary data to a JavaScript object.
 
-By the way, as Protocol Buffer handles binary data directly, there's no way when `input` binary data was not encoded from the `T` typed value. In that case, unexpected behavior or internal error would be occured. Therefore, I recommend you to encode binary data of Protocol Buffer from type safe encode functions like below, Use `typia.protobuf.encode<T>()` function only when you can trust it.
+By the way, as Protocol Buffer handles binary data directly, there's no way when `input` binary data was not encoded from the `T` typed value. In that case, unexpected behavior or internal error would be occurred. Therefore, I recommend you to encode binary data of Protocol Buffer from type safe encode functions like below, Use `typia.protobuf.encode<T>()` function only when you can trust it.
 
   - [`typia.protobuf.isEncode<T>()`](./encode)
   - [`typia.protobuf.assertEncode<T>()`](./encode)
