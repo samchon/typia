@@ -630,7 +630,7 @@ export function createAssert<T>(): (input: unknown) => T {
  * // MUST DECLARE THE VARIABLE TYPE
  * const func: typia.AssertionGuard<number> = typia.createAssertGuard<number>();
  *
- * // IF NOT, COMPILATION ERROR BE OCCURED
+ * // IF NOT, COMPILATION ERROR BE OCCURRED
  * const func = typia.createAssertGuard<number>();
  * ```
  *
@@ -659,7 +659,7 @@ export function createAssertGuard(
  * // MUST DECLARE THE VARIABLE TYPE
  * const func: typia.AssertionGuard<number> = typia.createAssertGuard<number>();
  *
- * // IF NOT, COMPILATION ERROR BE OCCURED
+ * // IF NOT, COMPILATION ERROR BE OCCURRED
  * const func = typia.createAssertGuard<number>();
  * ```
  *
@@ -784,7 +784,7 @@ export function createAssertEquals<T>(): (input: unknown) => T {
  * // MUST DECLARE THE VARIABLE TYPE
  * const func: typia.AssertionGuard<number> = typia.createAssertGuardEquals<number>();
  *
- * // IF NOT, COMPILATION ERROR BE OCCURED
+ * // IF NOT, COMPILATION ERROR BE OCCURRED
  * const func = typia.createAssertGuardEquals<number>();
  * ```
  *
@@ -813,7 +813,7 @@ export function createAssertGuardEquals(
  * // MUST DECLARE THE VARIABLE TYPE
  * const func: typia.AssertionGuard<number> = typia.createAssertGuardEquals<number>();
  *
- * // IF NOT, COMPILATION ERROR BE OCCURED
+ * // IF NOT, COMPILATION ERROR BE OCCURRED
  * const func = typia.createAssertGuardEquals<number>();
  * ```
  *
