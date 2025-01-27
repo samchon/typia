@@ -29,8 +29,9 @@ module.exports = {
       }
       return `[name].${ext}`;
     },
-    // preserveModules: true,
-    // preserveModulesRoot: "src",
+    preserveModules: true,
+    preserveModulesRoot: "src",
+    external: ["randexp"],
   },
   plugins: [
     nodeResolve(),
