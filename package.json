@@ -3,11 +3,11 @@
   "version": "7.6.4",
   "type": "module",
   "description": "Superfast runtime validators with only one line",
-  "main": "lib/index.js",
+  "main": "lib-cjs/index.js",
   "typings": "lib/index.d.ts",
-  "module": "lib/index.mjs",
+  "module": "lib/index.js",
   "bin": {
-    "typia": "./lib/executable/typia.js"
+    "typia": "./lib-cjs/executable/typia.js"
   },
   "tsp": {
     "tscOptions": {
@@ -19,7 +19,9 @@
     "test:bun": "bun run deploy/bun.ts",
     "test:template": "npm run --tag test --template",
     "-------------------------------------------------": "",
-    "build": "rimraf lib && tsc && rollup -c",
+    "build": "rimraf lib lib-cjs lib-esm && npm run build:esm && npm run build:cjs",
+    "build:esm": "tsc -p ./tsconfig.json",
+    "build:cjs": "tsc -p ./tsconfig.cjs.json",
     "dev": "rimraf lib && tsc --watch",
     "dev:errors": "tsc --project tsconfig.errors.json --watch",
     "eslint": "eslint",
