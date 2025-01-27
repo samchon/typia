@@ -9,6 +9,7 @@
     "prepare": "ts-patch install",
     "prettier": "prettier ./src/**/*.ts --write",
     "start": "node bin",
+    "start:bun": "bun bin/bun.js",
     "template": "ts-node src/template && npm run prettier && npm run build"
   },
   "repository": {
