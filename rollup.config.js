@@ -31,6 +31,7 @@ module.exports = {
     },
     // preserveModules: true,
     // preserveModulesRoot: "src",
+    external: ["randexp"],
   },
   plugins: [
     nodeResolve(),
