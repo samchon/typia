@@ -1,9 +1,9 @@
-const path = require("path");
-const typescript = require("@rollup/plugin-typescript");
-const nodeResolve = require("@rollup/plugin-node-resolve");
-const commomnjs = require("@rollup/plugin-commonjs");
+import path from "path";
+import typescript from "@rollup/plugin-typescript";
+import nodeResolve from "@rollup/plugin-node-resolve";
+import commonjs from "@rollup/plugin-commonjs";
 
-module.exports = {
+export default {
   input: "./src/index.ts",
   output: {
     dir: "./lib",
@@ -35,7 +35,7 @@ module.exports = {
   },
   plugins: [
     nodeResolve(),
-    commomnjs(),
+    commonjs(),
     typescript({
       tsconfig: "tsconfig.json",
       module: "ESNext",
