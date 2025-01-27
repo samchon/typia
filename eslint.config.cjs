@@ -1,19 +1,15 @@
 module.exports = {
-  root: true,
-  plugins: ["@typescript-eslint"],
+  plugins: ["@typescript-eslint", "deprecation"],
   extends: ["plugin:@typescript-eslint/recommended"],
   parser: "@typescript-eslint/parser",
   parserOptions: {
     project: ["tsconfig.json", "test/tsconfig.json", "benchmark/tsconfig.json"],
   },
-  ignorePatterns: ["bin", "website", "lib/**/*.d.ts", "node_modules"],
   overrides: [
     {
-      files: ["benchmark/**/*.ts", "src/**/*.ts", "test/**/*.ts"],
+      files: ["src/**/*.ts", "test/**/*.ts", "benchmark/**/*.ts"],
       rules: {
-        "@typescript-eslint/ban-types": "off",
         "@typescript-eslint/consistent-type-definitions": "off",
-        "@typescript-eslint/no-duplicate-imports": "error",
         "@typescript-eslint/no-empty-function": "off",
         "@typescript-eslint/no-empty-interface": "off",
         "@typescript-eslint/no-explicit-any": "off",
@@ -23,7 +19,9 @@ module.exports = {
         "@typescript-eslint/no-unused-vars": "off",
         "@typescript-eslint/no-var-requires": "off",
         "@typescript-eslint/no-floating-promises": "error",
-        "@typescript-eslint/prefer-as-const": "error",
+        "@typescript-eslint/no-require-imports": "off",
+        "@typescript-eslint/no-empty-object-type": "off",
+        "@typescript-eslint/no-unsafe-function-type": "off",
       },
     },
   ],
