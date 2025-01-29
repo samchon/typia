@@ -1,0 +1,352 @@
+import { Callout, Tabs } from 'nextra/components'
+
+# Super A.I. Chatbot
+<br/>
+<iframe 
+  src="https://www.youtube.com/embed/pdsplQyok8k?si=geL7DH5CWcC8qlz_" 
+  title="Shopping A.I. Chatbot built with Typia" 
+  width="100%" 
+  height="600" 
+  frameborder="0" 
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" 
+  allowfullscreen 
+/>
+
+  - BBS A.I. Chatbot Application: https://nestia.io/chat/bbs
+
+The above demonstration video shows BBS chatbot built with [`typia.llm.applicationOfValidate`](./application) function.
+
+As you can see, just by using the [`typia.llm.applicationOfValidate<App, Model>()`](./application) function with [`@nestia/chat`](https://nestia.io/docs/swagger/chat) package, the BBS (Bullet-in Board System) A.I. chatbot automatically composed. And in BBS A.I. chatbot, the user can write and read articles just by conversation texts.
+
+No special coding and configuration required. Just deliver you TypeScript class type to the [`typia.llm.applicationOfValidate<App, Model>()`](./application) function. Then you can start conversation with your TypeScript class instance performing the LLM (Large Language Model) function calling. The super A.I. chatbot selects proper functions defined in the TypeScript class type by analyzing the conversation contexts with the user. And then the super A.I. chatbot requests the user to write arguments for the selected function by connversation text, and actually calls the function with the arguments.
+
+If the TypeScript class type you provide contains a reasonable level of functions, DTO schemas, and descriptions, everything is ready. Just by delivering the TypeScript class type to the [`typia.llm.applicationOfValidate<App, Model>()`](./application) function, you can start conversation with your TypeScript class instance calling the proper functions by chatting texts.
+
+
+
+
+## Application Setup
+<Tabs items={['npm', 'pnpm', 'yarn']}>
+  <Tabs.Tab>
+```bash filename="Terminal"
+npm create vite@latest bbs -- --template react-ts
+cd bbs
+
+npm install @nestia/agent @nestia/chat @samchon/openapi openai
+npx typia setup
+npm install -D @ryoppippi/unplugin-typia
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```bash filename="Terminal"
+pnpm create vite@latest bbs -- --template react-ts
+cd bbs
+
+pnpm install @nestia/agent @nestia/chat @samchon/openapi openai
+pnpm typia setup
+pnpm install -D @ryoppippi/unplugin-typia
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```bash filename="Terminal"
+yarn create vite@latest bbs --template react-ts
+cd bbs
+
+yarn add @nestia/agent @nestia/chat @samchon/openapi openai
+yarn typia setup
+yarn add -D @ryoppippi/unplugin-typia
+```
+  </Tabs.Tab>
+</Tabs>
+
+I'll decribe how to setup the A.I. chatbot application within framework of the `vite`.
+
+At first, create a `vite` + `react` + `typescript` project by executing the `npm create vite@latest bbs -- --template react-ts` command. Then, move to the created project directory `bbs`. And then, install `@nestia/chat` and its dependency packages. After that, run the `npx typia setup` command and `npm i -D @ryoppippi/unplugin-typia` to setup the `typia` library with the transformer configuration.
+
+At last, configure `vite.config.ts` file with `@ryoppippi/unplugin-typia` configuration like below. Import `@ryoppippi/unplugin-typia/vite` file and add it to the `plugins` array. Then you can use `typia` in the `vite` frontend development environment.
+
+```typescript filename="vite.config.ts" showLineNumbers {1, 9}
+import typia from "@ryoppippi/unplugin-typia/vite";
+import react from "@vitejs/plugin-react";
+import { defineConfig } from "vite";
+
+export default defineConfig({
+  base: "./",
+  plugins: [
+    react(), 
+    typia(),
+  ],
+});
+```
+
+From now on, let's start the A.I. chatbot development.
+
+Create a `NestiaAgent` instance with the OpenAI API key, its model name, and LLM function calling schema composed by the `typia.llm.applicationOfValidate<BbsArticleService, "chatgpt">()` function. And then, render the `NestiaChatApplication` component with the `NestiaAgent` instance.
+
+For reference, when developing the TypeScript controller class, description comments written on each controller method and DTO schema types are very important. They are used for the A.I. chatbot to understand the purpose of the controller method and the characteristics of the DTO schema types.
+
+<Tabs 
+  items={[
+    <code>BbsChatApplication.tsx</code>,
+    <code>BbsArticleService.ts</code>, 
+    <code>IBbsArticle.ts</code>, 
+  ]}>
+  <Tabs.Tab>
+```typescript filename="src/BbsChatApplication.tsx" showLineNumbers {23-26, 37}
+import { NestiaAgent } from "@nestia/agent";
+import { NestiaChatApplication } from "@nestia/chat";
+import OpenAI from "openai";
+import typia from "typia";
+
+import { BbsArticleService } from "./BbsArticleService";
+
+export const BbsChatApplication = (props: BbsChatApplication.IProps) => {
+  const service: BbsArticleService = new BbsArticleService();
+  const agent: NestiaAgent = new NestiaAgent({
+    provider: {
+      type: "chatgpt",
+      api: new OpenAI({
+        apiKey: props.apiKey,
+        dangerouslyAllowBrowser: true,
+      }),
+      model: props.model ?? "gpt-4o-mini",
+    },
+    controllers: [
+      {
+        protocol: "class",
+        name: "bbs",
+        application: typia.llm.applicationOfValidate<
+          BbsArticleService,
+          "chatgpt"
+        >(),
+        execute: async (props) => {
+          return (service as any)[props.function.name](props.arguments);
+        },
+      },
+    ],
+    config: {
+      locale: props.locale,
+      timezone: props.timezone,
+    },
+  });
+  return <NestiaChatApplication agent={agent} />;
+};
+export namespace BbsChatApplication {
+  export interface IProps {
+    apiKey: string;
+    model?: OpenAI.ChatModel;
+    locale?: string;
+    timezone?: string;
+  }
+}
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```typescript filename="src/BbsArticleService.ts" showLineNumbers
+import { tags } from "typia";
+import { v4 } from "uuid";
+
+import { IBbsArticle } from "./IBbsArticle";
+
+export class BbsArticleService {
+  private readonly articles: IBbsArticle[] = [];
+
+  /**
+   * Create a new article.
+   *
+   * Writes a new article and archives it into the DB.
+   *
+   * @param props Properties of create function
+   * @returns Newly created article
+   */
+  public create(props: {
+    /**
+     * Information of the article to create
+     */
+    input: IBbsArticle.ICreate;
+  }): IBbsArticle {
+    const article: IBbsArticle = {
+      id: v4(),
+      title: props.input.title,
+      body: props.input.body,
+      thumbnail: props.input.thumbnail,
+      created_at: new Date().toISOString(),
+      updated_at: new Date().toISOString(),
+    };
+    this.articles.push(article);
+    return article;
+  }
+
+  /**
+   * Update an article.
+   *
+   * Updates an article with new content.
+   *
+   * @param props Properties of update function
+   * @param input New content to update
+   */
+  public update(props: {
+    /**
+     * Target article's {@link IBbsArticle.id}.
+     */
+    id: string & tags.Format<"uuid">;
+
+    /**
+     * New content to update.
+     */
+    input: IBbsArticle.IUpdate;
+  }): void {
+    const article: IBbsArticle | undefined = this.articles.find(
+      (a) => a.id === props.id,
+    );
+    if (article === undefined)
+      throw new Error("Unable to find the matched article.");
+    if (props.input.title !== undefined) article.title = props.input.title;
+    if (props.input.body !== undefined) article.body = props.input.body;
+    if (props.input.thumbnail !== undefined)
+      article.thumbnail = props.input.thumbnail;
+    article.updated_at = new Date().toISOString();
+  }
+
+  /**
+   * Erase an article.
+   *
+   * Erases an article from the DB.
+   *
+   * @param props Properties of erase function
+   */
+  public erase(props: {
+    /**
+     * Target article's {@link IBbsArticle.id}.
+     */
+    id: string & tags.Format<"uuid">;
+  }): void {
+    const index: number = this.articles.findIndex((a) => a.id === props.id);
+    if (index === -1) throw new Error("Unable to find the matched article.");
+    this.articles.splice(index, 1);
+  }
+}
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```typescript filename="src/IBbsArticle.ts" showLineNumbers
+import { tags } from "typia";
+
+/**
+ * Article entity.
+ *
+ * `IBbsArticle` is an entity representing an article in the BBS (Bulletin Board System).
+ */
+export interface IBbsArticle extends IBbsArticle.ICreate {
+  /**
+   * Primary Key.
+   */
+  id: string & tags.Format<"uuid">;
+
+  /**
+   * Creation time of the article.
+   */
+  created_at: string & tags.Format<"date-time">;
+
+  /**
+   * Last updated time of the article.
+   */
+  updated_at: string & tags.Format<"date-time">;
+}
+export namespace IBbsArticle {
+  /**
+   * Information of the article to create.
+   */
+  export interface ICreate {
+    /**
+     * Title of the article.
+     *
+     * Representative title of the article.
+     */
+    title: string;
+
+    /**
+     * Content body.
+     *
+     * Content body of the article writtn in the markdown format.
+     */
+    body: string;
+
+    /**
+     * Thumbnail image URI.
+     *
+     * Thumbnail image URI which can represent the article.
+     *
+     * If configured as `null`, it means that no thumbnail image in the article.
+     */
+    thumbnail:
+      | null
+      | (string & tags.Format<"uri"> & tags.ContentMediaType<"image/*">);
+  }
+
+  /**
+   * Information of the article to update.
+   *
+   * Only the filled properties will be updated.
+   */
+  export type IUpdate = Partial<ICreate>;
+}
+
+```
+  </Tabs.Tab>
+</Tabs>
+
+
+
+
+## Make your A.I. Chatbot
+Above `@nestia/agent` and `@nestia/chat` libraries are just for testing and demonstration. I’ve made them to prove a conncept that every TypeScript classes can be conversed with the A.I. chatbot, and `typia` / `nestia` are especially efficient for the A.I. chatbot development purpose.
+
+However, `@nestia/agent` support only OpenAI, and has not optimized for specific purpose. As it has not been optimized without any RAG (Retrieval Augmented Generation) models, it may consume a lot of LLM cost than what you may expected. Therefore, use the `@nestia/agent` for studying the A.I. chatbot development, or just demonstrating your TypeScript class before the production development.
+
+  - Source Codes:
+    - `@nestia/agent`: https://github.com/samchon/nestia/tree/master/packages/agent
+    - `@nestia/chat`: https://github.com/samchon/nestia/tree/master/packages/chat
+
+
+
+
+## Backend Development
+<br/>
+<iframe src="https://www.youtube.com/embed/m47p4iJ90Ms?si=cvgfckN25GJhjLTB" 
+        title="Shopping A.I. Chatbot built with Nestia" 
+        width="100%" 
+        height="600" 
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" 
+        allowfullscreen></iframe>
+
+- Shopping A.I. Chatbot Application: [https://nestia.io/chat/shopping](/chat/shopping)
+- Shopping Backend Repository: https://github.com/samchon/shopping-backend
+- Shopping Swagger Document (`@nestia/editor`): [https://nestia.io/editor/?url=...](https://nestia.io/editor/?simulate=true&e2e=true&url=https%3A%2F%2Fraw.githubusercontent.com%2Fsamchon%2Fshopping-backend%2Frefs%2Fheads%2Fmaster%2Fpackages%2Fapi%2Fswagger.json)
+
+You can make the super A.I. chatbot by Swagger document too.
+
+Until now, we've leared how to build an A.I. chatbot with the TypeScript class type. By the way, `@nestia/agent` and `@nestia/chat` supports another way to building the A.I. chatbot. It is the Swagger document. If you have a backend server and the backend server has a Swagger document, you also can create the super A.I. chatbot.
+
+Just deliver the Swagger document to the `@nestia/agent` and `@nestia/chat`, then you also can start conversation with the A.I. chatbot. The A.I. chatbot will automatically analyze the Swagger document and convert it to the LLM function calling schemas, so that the A.I. chatbot will select the proper functions to call by the conversation contexts with the user.
+
+If you want to learn how to build the A.I. chatbot with the Swagger document, read below document.
+
+  - [**Nestia** > **Guide Documents** > **Swagger Document** > **A.I. Chatbot**](https://nestia.io/docs/swagger/chat)
+
+
+
+
+## Wrtn OS
+[![Wrtn Logo](/images/sponsors/wrtn-logo.png)](https://wrtnlabs.io)
+
+> https://wrtnlabs.io
+
+The new era of software development.
+
+If you are not familiar with LLM (Large Language Moodel) development or RAG implementation, you can take another option. Prepare your swagger document file, and visit WrtnLabs homepage https://wrtnlabs.io. You can create your own A.I. chatbot with "Wrtn OS", and re-distribute it as you want. The A.I. assistant in the Wrtn OS is much more optimized and cost efficient than the `@nestia/agent`, and it is fully open sourced.
+
+Also, you can sell your swagger document (backend API functions) in the "Wrtn Store", so that let other users to create their own A.I. chatbot with your backend API functions. Conversely, you can purchase the functions you need to create an A.I. chatbot from the store. If you have create an A.I. chatbot with only the functions purchased in the Wrtn Store, it is the no coding development.
+
+I think this is a new way of software development, and a new way of software distribution. It is a new era of software development, and I hope you to be a part of it.
