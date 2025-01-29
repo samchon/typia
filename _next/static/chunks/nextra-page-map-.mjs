@@ -55,6 +55,12 @@ export const pageMap = [{
         "sidebarTitle": "Application"
       }
     }, {
+      name: "chat",
+      route: "/docs/llm/chat",
+      frontMatter: {
+        "sidebarTitle": "Chat"
+      }
+    }, {
       name: "parameters",
       route: "/docs/llm/parameters",
       frontMatter: {
