@@ -17,7 +17,7 @@ export const pageMap = [{
     name: "index",
     route: "/docs",
     frontMatter: {
-      "sidebarTitle": "Index"
+      "title": "Guide Documents > Introduction"
     }
   }, {
     name: "json",
@@ -28,19 +28,19 @@ export const pageMap = [{
       name: "parse",
       route: "/docs/json/parse",
       frontMatter: {
-        "sidebarTitle": "Parse"
+        "title": "Guide Documents > JSON < parse() functions"
       }
     }, {
       name: "schema",
       route: "/docs/json/schema",
       frontMatter: {
-        "sidebarTitle": "Schema"
+        "title": "Guide Documents > JSON > Schema"
       }
     }, {
       name: "stringify",
       route: "/docs/json/stringify",
       frontMatter: {
-        "sidebarTitle": "Stringify"
+        "title": "Guide Documents > JSON > stringify() function"
       }
     }]
   }, {
@@ -52,38 +52,38 @@ export const pageMap = [{
       name: "application",
       route: "/docs/llm/application",
       frontMatter: {
-        "sidebarTitle": "Application"
+        "title": "Guide Documents > Large Language Model > application() function"
       }
     }, {
       name: "chat",
       route: "/docs/llm/chat",
       frontMatter: {
-        "sidebarTitle": "Chat"
+        "title": "Guide Documents > Large Language Model > A.I. Chatbot"
       }
     }, {
       name: "parameters",
       route: "/docs/llm/parameters",
       frontMatter: {
-        "sidebarTitle": "Parameters"
+        "title": "Guide Documents > Large Language Model > parameters() function"
       }
     }, {
       name: "schema",
       route: "/docs/llm/schema",
       frontMatter: {
-        "sidebarTitle": "Schema"
+        "title": "Guide Documents > Large Language Model > schema() function"
       }
     }, {
       name: "strategy",
       route: "/docs/llm/strategy",
       frontMatter: {
-        "sidebarTitle": "Strategy"
+        "title": "Guide Documents > Large Language Model > Documentation Strategy"
       }
     }]
   }, {
     name: "misc",
     route: "/docs/misc",
     frontMatter: {
-      "sidebarTitle": "Misc"
+      "title": "Guide Documents > Miscellaneous"
     }
   }, {
     name: "protobuf",
@@ -94,38 +94,38 @@ export const pageMap = [{
       name: "decode",
       route: "/docs/protobuf/decode",
       frontMatter: {
-        "sidebarTitle": "Decode"
+        "title": "Guide Documents > Protobuf > decode() functions"
       }
     }, {
       name: "encode",
       route: "/docs/protobuf/encode",
       frontMatter: {
-        "sidebarTitle": "Encode"
+        "title": "Guide Documents > Protobuf > encode() functions"
       }
     }, {
       name: "message",
       route: "/docs/protobuf/message",
       frontMatter: {
-        "sidebarTitle": "Message"
+        "title": "Guide Documents > Protobuf > Schema"
       }
     }]
   }, {
     name: "pure",
     route: "/docs/pure",
     frontMatter: {
-      "sidebarTitle": "Pure"
+      "title": "Guide Documents > Pure TypeScript Type"
     }
   }, {
     name: "random",
     route: "/docs/random",
     frontMatter: {
-      "sidebarTitle": "Random"
+      "title": "Guide Documents > random() function"
     }
   }, {
     name: "setup",
     route: "/docs/setup",
     frontMatter: {
-      "sidebarTitle": "Setup"
+      "title": "Guide Documents > Setup"
     }
   }, {
     name: "utilization",
@@ -136,25 +136,25 @@ export const pageMap = [{
       name: "hono",
       route: "/docs/utilization/hono",
       frontMatter: {
-        "sidebarTitle": "Hono"
+        "title": "Guide Documents > Utilization Cases > Hono"
       }
     }, {
       name: "nestjs",
       route: "/docs/utilization/nestjs",
       frontMatter: {
-        "sidebarTitle": "Nestjs"
+        "title": "Guide Documents > Utilization Cases > NestJS"
       }
     }, {
       name: "prisma",
       route: "/docs/utilization/prisma",
       frontMatter: {
-        "sidebarTitle": "Prisma"
+        "title": "Guide Documents > Utilization Cases > Prisma"
       }
     }, {
       name: "trpc",
       route: "/docs/utilization/trpc",
       frontMatter: {
-        "sidebarTitle": "Trpc"
+        "title": "Guide Documents > Utilization Cases > tRPC"
       }
     }]
   }, {
@@ -166,31 +166,31 @@ export const pageMap = [{
       name: "assert",
       route: "/docs/validators/assert",
       frontMatter: {
-        "sidebarTitle": "Assert"
+        "title": "Guide Documents > Runtime Validators > assert() functions"
       }
     }, {
       name: "functional",
       route: "/docs/validators/functional",
       frontMatter: {
-        "sidebarTitle": "Functional"
+        "title": "Guide Documents > Runtime Validators > Functional Module"
       }
     }, {
       name: "is",
       route: "/docs/validators/is",
       frontMatter: {
-        "sidebarTitle": "Is"
+        "title": "Guide Documents > Runtime Validators > is() functions"
       }
     }, {
       name: "tags",
       route: "/docs/validators/tags",
       frontMatter: {
-        "sidebarTitle": "Tags"
+        "title": "Guide Documents > Runtime Validators > Special Tags"
       }
     }, {
       name: "validate",
       route: "/docs/validators/validate",
       frontMatter: {
-        "sidebarTitle": "Validate"
+        "title": "Guide Documents > Runtime Validators > validate() functions"
       }
     }]
   }]
@@ -198,7 +198,7 @@ export const pageMap = [{
   name: "index",
   route: "/",
   frontMatter: {
-    "sidebarTitle": "Index"
+    "title": "Home"
   }
 }, {
   name: "playground",
@@ -209,7 +209,7 @@ export const pageMap = [{
     name: "index",
     route: "/playground",
     frontMatter: {
-      "sidebarTitle": "Index"
+      "title": "Playground"
     }
   }]
 }];
