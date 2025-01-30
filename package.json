@@ -1,6 +1,6 @@
 {
   "name": "typia",
-  "version": "7.6.0",
+  "version": "7.7.0-dev.20250130",
   "description": "Superfast runtime validators with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -41,7 +41,7 @@
   },
   "homepage": "https://typia.io",
   "dependencies": {
-    "@samchon/openapi": ">=2.4.0 <3.0.0",
+    "@samchon/openapi": "^2.4.0",
     "commander": "^10.0.0",
     "comment-json": "^4.2.3",
     "inquirer": "^8.2.5",
@@ -50,7 +50,7 @@
   },
   "peerDependencies": {
     "@samchon/openapi": ">=2.4.0 <3.0.0",
-    "typescript": ">=4.8.0 <5.8.0"
+    "typescript": ">=4.8.0 <5.9.0"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^26.0.1",
@@ -69,7 +69,7 @@
     "rollup": "^4.18.0",
     "suppress-warnings": "^1.0.2",
     "ts-node": "^10.9.2",
-    "typescript": "~5.7.3"
+    "typescript": "~5.8.0-beta"
   },
   "stackblitz": {
     "startCommand": "npm install && npm run test"
