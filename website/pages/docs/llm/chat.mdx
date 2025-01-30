@@ -1,6 +1,6 @@
 import { Callout, Tabs } from 'nextra/components'
 
-# Super A.I. Chatbot
+## Super A.I. Chatbot
 <br/>
 <iframe 
   src="https://www.youtube.com/embed/pdsplQyok8k?si=geL7DH5CWcC8qlz_" 
@@ -16,11 +16,11 @@ import { Callout, Tabs } from 'nextra/components'
 
 The above demonstration video shows BBS chatbot built with [`typia.llm.applicationOfValidate`](./application) function.
 
-As you can see, just by using the [`typia.llm.applicationOfValidate<App, Model>()`](./application) function with [`@nestia/chat`](https://nestia.io/docs/swagger/chat) package, the BBS (Bullet-in Board System) A.I. chatbot automatically composed. And in BBS A.I. chatbot, the user can write and read articles just by conversation texts.
+As you can see, in the BBS A.I. chatbot application, the user can do everything defined in the TypeScript class just by conversation texts. Writing and reading articles, user can do these things just by chatting texts.
 
-No special coding and configuration required. Just deliver you TypeScript class type to the [`typia.llm.applicationOfValidate<App, Model>()`](./application) function. Then you can start conversation with your TypeScript class instance performing the LLM (Large Language Model) function calling. The super A.I. chatbot selects proper functions defined in the TypeScript class type by analyzing the conversation contexts with the user. And then the super A.I. chatbot requests the user to write arguments for the selected function by connversation text, and actually calls the function with the arguments.
+Just by delivering the TypeScript class type using [`typia.llm.applicationOfValidate<App, Model>()`](./application) function, Super A.I. chatbot performing the LLM (Large Language Model) function calling is automatically composed. The Super A.I. chatbot will select proper functions defined in the TypeScript class type by analyzing conversation texts with the user. And then Super A.I. chatbot requests the user to write arguments for the selected functions by conversation text, and actually calls the function with the arguments. This is the key concept of the Super A.I. chatbot of `typia` and `nestia` A.I. chatbot.
 
-If the TypeScript class type you provide contains a reasonable level of functions, DTO schemas, and descriptions, everything is ready. Just by delivering the TypeScript class type to the [`typia.llm.applicationOfValidate<App, Model>()`](./application) function, you can start conversation with your TypeScript class instance calling the proper functions by chatting texts.
+In other words, every TypeScript classes can be conversed to the A.I. chatbot. In the new A.I. era, you don't need to develop GUI (Graphical User Interface) application more. Just prepare TypeScript class with enough documentations, and let the A.I. chatbot to do the rest. The A.I. chatbot can replace your new GUI application, and it can be more efficient and user-friendly than the traditional GUI applications.
 
 
 
@@ -299,18 +299,6 @@ export namespace IBbsArticle {
 
 
 
-## Make your A.I. Chatbot
-Above `@nestia/agent` and `@nestia/chat` libraries are just for testing and demonstration. I’ve made them to prove a conncept that every TypeScript classes can be conversed with the A.I. chatbot, and `typia` / `nestia` are especially efficient for the A.I. chatbot development purpose.
-
-However, `@nestia/agent` support only OpenAI, and has not optimized for specific purpose. As it has not been optimized without any RAG (Retrieval Augmented Generation) models, it may consume a lot of LLM cost than what you may expected. Therefore, use the `@nestia/agent` for studying the A.I. chatbot development, or just demonstrating your TypeScript class before the production development.
-
-  - Source Codes:
-    - `@nestia/agent`: https://github.com/samchon/nestia/tree/master/packages/agent
-    - `@nestia/chat`: https://github.com/samchon/nestia/tree/master/packages/chat
-
-
-
-
 ## Backend Development
 <br/>
 <iframe src="https://www.youtube.com/embed/m47p4iJ90Ms?si=cvgfckN25GJhjLTB" 
@@ -329,11 +317,24 @@ You can make the super A.I. chatbot by Swagger document too.
 
 Until now, we've leared how to build an A.I. chatbot with the TypeScript class type. By the way, `@nestia/agent` and `@nestia/chat` supports another way to building the A.I. chatbot. It is the Swagger document. If you have a backend server and the backend server has a Swagger document, you also can create the super A.I. chatbot.
 
-Just deliver the Swagger document to the `@nestia/agent` and `@nestia/chat`, then you also can start conversation with the A.I. chatbot. The A.I. chatbot will automatically analyze the Swagger document and convert it to the LLM function calling schemas, so that the A.I. chatbot will select the proper functions to call by the conversation contexts with the user.
+Just deliver the Swagger document to the `@nestia/agent` and `@nestia/chat`, then you also can start conversation with the Super A.I. chatbot. The A.I. chatbot will automatically analyze the Swagger document and convert it to the LLM function calling schemas, so that the A.I. chatbot will select the proper functions to call by the conversation contexts with the user.
 
-If you want to learn how to build the A.I. chatbot with the Swagger document, read below document.
+If you want to learn how to build the A.I. chatbot with the Swagger document, read below document. The most important thing is that, every backend servers providing Swagger documents also can be conversed to the A.I. chatbot too. Therefore, in the new A.I. era, you don't need to develop GUI (Graphical User Interface) application more. Just develop TypeScript class or backend server, and let the A.I. chatbot to do the rest. The A.I. chatbot can replace the GUI application development, and it can be more efficient and user-friendly than the traditional GUI applications.
 
   - [**Nestia** > **Guide Documents** > **Swagger Document** > **A.I. Chatbot**](https://nestia.io/docs/swagger/chat)
+  - [**Nestia** > **A.I. Chatbot** > **Playground**](https://nestia.io/chat/playground)
+
+
+
+
+## Make your A.I. Chatbot
+Above `@nestia/agent` and `@nestia/chat` libraries are just for testing and demonstration. I’ve made them to prove a conncept that every TypeScript classes can be conversed with the A.I. chatbot, and `typia` / `nestia` are especially efficient for the A.I. chatbot development purpose.
+
+However, `@nestia/agent` support only OpenAI, and has not optimized for specific purpose. As it has not been optimized without any RAG (Retrieval Augmented Generation) models, it may consume a lot of LLM cost than what you may expected. Therefore, use the `@nestia/agent` for studying the A.I. chatbot development, or just demonstrating your TypeScript class before the production development.
+
+  - Source Codes:
+    - `@nestia/agent`: https://github.com/samchon/nestia/tree/master/packages/agent
+    - `@nestia/chat`: https://github.com/samchon/nestia/tree/master/packages/chat
 
 
 
