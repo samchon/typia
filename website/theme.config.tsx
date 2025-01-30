@@ -49,7 +49,7 @@ const config: DocsThemeConfig = {
     const config = useConfig();
     return (
       <>
-        <title>Typia Guide Documents - {config.title}</title>
+        <title>{`Typia > ${config.title}`}</title>
         <link rel="manifest" href="/favicon/site.webmanifest" />
         {/* ICONS */}
         <link
