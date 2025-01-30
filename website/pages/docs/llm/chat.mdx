@@ -155,6 +155,17 @@ export class BbsArticleService {
   private readonly articles: IBbsArticle[] = [];
 
   /**
+   * Get all articles.
+   *
+   * List up every articles archived in the BBS DB.
+   *
+   * @returns List of every articles
+   */
+  public index(): IBbsArticle[] {
+    return this.articles;
+  }
+
+  /**
    * Create a new article.
    *
    * Writes a new article and archives it into the DB.
