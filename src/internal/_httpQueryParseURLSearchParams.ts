@@ -1,4 +1,4 @@
-import { IReadableURLSearchParams } from "../IReadableURLSearchParams";
+import type { IReadableURLSearchParams } from "../IReadableURLSearchParams";
 
 export const _httpQueryParseURLSearchParams = (
   input: string | IReadableURLSearchParams,

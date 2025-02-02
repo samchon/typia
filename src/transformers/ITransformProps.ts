@@ -1,6 +1,6 @@
-import ts from "typescript";
+import type ts from "typescript";
 
-import { ITypiaContext } from "./ITypiaContext";
+import type { ITypiaContext } from "./ITypiaContext";
 
 export interface ITransformProps {
   context: ITypiaContext;

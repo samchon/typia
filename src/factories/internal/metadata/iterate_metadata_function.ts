@@ -1,4 +1,4 @@
-import ts from "typescript";
+import type ts from "typescript";
 
 import { FunctionalGeneralProgrammer } from "../../../programmers/functional/internal/FunctionalGeneralProgrammer";
 
@@ -8,7 +8,7 @@ import { MetadataParameter } from "../../../schemas/metadata/MetadataParameter";
 
 import { CommentFactory } from "../../CommentFactory";
 import { TypeFactory } from "../../TypeFactory";
-import { IMetadataIteratorProps } from "./IMetadataIteratorProps";
+import type { IMetadataIteratorProps } from "./IMetadataIteratorProps";
 import { explore_metadata } from "./explore_metadata";
 
 export const iterate_metadata_function = (

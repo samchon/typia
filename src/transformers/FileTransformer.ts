@@ -4,9 +4,9 @@ import { ImportProgrammer } from "../programmers/ImportProgrammer";
 
 import { Singleton } from "../utils/Singleton";
 
-import { ITypiaContext } from "./ITypiaContext";
+import type { ITypiaContext } from "./ITypiaContext";
 import { NodeTransformer } from "./NodeTransformer";
-import { TransformerError } from "./TransformerError";
+import type { TransformerError } from "./TransformerError";
 
 export namespace FileTransformer {
   export const transform =

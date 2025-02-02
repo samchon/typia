@@ -1,6 +1,7 @@
-import { ILlmApplication, ILlmSchema } from "@samchon/openapi";
+import type { ILlmSchema } from "@samchon/openapi";
+import { ILlmApplication } from "@samchon/openapi";
 
-import { ILlmFunctionOfValidate } from "./ILlmFunctionOfValidate";
+import type { ILlmFunctionOfValidate } from "./ILlmFunctionOfValidate";
 
 /**
  * Application of LLM function calling with validators.

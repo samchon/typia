@@ -1,4 +1,4 @@
-import { ClassProperties } from "./ClassProperties";
+import type { ClassProperties } from "./ClassProperties";
 
 export type Writable<T extends object> = {
   -readonly [P in keyof T]: T[P];

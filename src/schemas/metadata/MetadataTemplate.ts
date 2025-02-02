@@ -1,8 +1,8 @@
-import { ClassProperties } from "../../typings/ClassProperties";
+import type { ClassProperties } from "../../typings/ClassProperties";
 
-import { IMetadataDictionary } from "./IMetadataDictionary";
-import { IMetadataTemplate } from "./IMetadataTemplate";
-import { IMetadataTypeTag } from "./IMetadataTypeTag";
+import type { IMetadataDictionary } from "./IMetadataDictionary";
+import type { IMetadataTemplate } from "./IMetadataTemplate";
+import type { IMetadataTypeTag } from "./IMetadataTypeTag";
 import { Metadata } from "./Metadata";
 
 export class MetadataTemplate {

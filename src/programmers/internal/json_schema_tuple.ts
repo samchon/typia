@@ -1,7 +1,7 @@
-import { OpenApi } from "@samchon/openapi";
+import type { OpenApi } from "@samchon/openapi";
 
-import { Metadata } from "../../schemas/metadata/Metadata";
-import { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
+import type { Metadata } from "../../schemas/metadata/Metadata";
+import type { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
 
 import { json_schema_station } from "./json_schema_station";
 

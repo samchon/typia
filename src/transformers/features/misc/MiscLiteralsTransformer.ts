@@ -1,8 +1,8 @@
-import ts from "typescript";
+import type ts from "typescript";
 
 import { MiscLiteralsProgrammer } from "../../../programmers/misc/MiscLiteralsProgrammer";
 
-import { ITransformProps } from "../../ITransformProps";
+import type { ITransformProps } from "../../ITransformProps";
 import { TransformerError } from "../../TransformerError";
 
 export namespace MiscLiteralsTransformer {

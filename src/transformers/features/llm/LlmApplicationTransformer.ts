@@ -1,4 +1,4 @@
-import { ILlmApplication, ILlmSchema } from "@samchon/openapi";
+import type { ILlmApplication, ILlmSchema } from "@samchon/openapi";
 import ts from "typescript";
 
 import { ExpressionFactory } from "../../../factories/ExpressionFactory";
@@ -7,14 +7,14 @@ import { MetadataCollection } from "../../../factories/MetadataCollection";
 import { MetadataFactory } from "../../../factories/MetadataFactory";
 import { StatementFactory } from "../../../factories/StatementFactory";
 
-import { Metadata } from "../../../schemas/metadata/Metadata";
+import type { Metadata } from "../../../schemas/metadata/Metadata";
 
 import { LlmApplicationProgrammer } from "../../../programmers/llm/LlmApplicationProgrammer";
 import { LlmModelPredicator } from "../../../programmers/llm/LlmModelPredicator";
 
-import { ValidationPipe } from "../../../typings/ValidationPipe";
+import type { ValidationPipe } from "../../../typings/ValidationPipe";
 
-import { ITransformProps } from "../../ITransformProps";
+import type { ITransformProps } from "../../ITransformProps";
 import { TransformerError } from "../../TransformerError";
 
 export namespace LlmApplicationTransformer {

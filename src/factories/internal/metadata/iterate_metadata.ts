@@ -1,7 +1,7 @@
-import ts from "typescript";
+import type ts from "typescript";
 
 import { TypeFactory } from "../../TypeFactory";
-import { IMetadataIteratorProps } from "./IMetadataIteratorProps";
+import type { IMetadataIteratorProps } from "./IMetadataIteratorProps";
 import { iterate_metadata_alias } from "./iterate_metadata_alias";
 import { iterate_metadata_array } from "./iterate_metadata_array";
 import { iterate_metadata_atomic } from "./iterate_metadata_atomic";

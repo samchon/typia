@@ -1,4 +1,4 @@
-import { IJsDocTagInfo } from "../../schemas/metadata/IJsDocTagInfo";
+import type { IJsDocTagInfo } from "../../schemas/metadata/IJsDocTagInfo";
 
 export const json_schema_description = (props: {
   description?: string | null | undefined;

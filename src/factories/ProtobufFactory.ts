@@ -1,21 +1,21 @@
-import ts from "typescript";
+import type ts from "typescript";
 
-import { IMetadataTypeTag } from "../schemas/metadata/IMetadataTypeTag";
-import { Metadata } from "../schemas/metadata/Metadata";
-import { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
-import { MetadataProperty } from "../schemas/metadata/MetadataProperty";
-import { IProtobufProperty } from "../schemas/protobuf/IProtobufProperty";
-import { IProtobufPropertyType } from "../schemas/protobuf/IProtobufPropertyType";
-import { IProtobufSchema } from "../schemas/protobuf/IProtobufSchema";
+import type { IMetadataTypeTag } from "../schemas/metadata/IMetadataTypeTag";
+import type { Metadata } from "../schemas/metadata/Metadata";
+import type { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
+import type { MetadataProperty } from "../schemas/metadata/MetadataProperty";
+import type { IProtobufProperty } from "../schemas/protobuf/IProtobufProperty";
+import type { IProtobufPropertyType } from "../schemas/protobuf/IProtobufPropertyType";
+import type { IProtobufSchema } from "../schemas/protobuf/IProtobufSchema";
 
 import { ProtobufUtil } from "../programmers/helpers/ProtobufUtil";
 
 import { TransformerError } from "../transformers/TransformerError";
 
-import { ProtobufAtomic } from "../typings/ProtobufAtomic";
-import { ValidationPipe } from "../typings/ValidationPipe";
+import type { ProtobufAtomic } from "../typings/ProtobufAtomic";
+import type { ValidationPipe } from "../typings/ValidationPipe";
 
-import { MetadataCollection } from "./MetadataCollection";
+import type { MetadataCollection } from "./MetadataCollection";
 import { MetadataFactory } from "./MetadataFactory";
 
 export namespace ProtobufFactory {

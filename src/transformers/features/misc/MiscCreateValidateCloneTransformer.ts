@@ -1,6 +1,6 @@
 import { MiscValidateCloneProgrammer } from "../../../programmers/misc/MiscValidateCloneProgrammer";
 
-import { ITransformProps } from "../../ITransformProps";
+import type { ITransformProps } from "../../ITransformProps";
 import { GenericTransformer } from "../../internal/GenericTransformer";
 
 export namespace MiscCreateValidateCloneTransformer {

@@ -1,21 +1,21 @@
 import ts from "typescript";
 
 import { Metadata } from "../schemas/metadata/Metadata";
-import { MetadataAliasType } from "../schemas/metadata/MetadataAliasType";
-import { MetadataArrayType } from "../schemas/metadata/MetadataArrayType";
+import type { MetadataAliasType } from "../schemas/metadata/MetadataAliasType";
+import type { MetadataArrayType } from "../schemas/metadata/MetadataArrayType";
 import { MetadataConstant } from "../schemas/metadata/MetadataConstant";
-import { MetadataFunction } from "../schemas/metadata/MetadataFunction";
+import type { MetadataFunction } from "../schemas/metadata/MetadataFunction";
 import { MetadataObject } from "../schemas/metadata/MetadataObject";
-import { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
-import { MetadataTupleType } from "../schemas/metadata/MetadataTupleType";
+import type { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
+import type { MetadataTupleType } from "../schemas/metadata/MetadataTupleType";
 import { explore_metadata } from "./internal/metadata/explore_metadata";
 import { iterate_metadata_collection } from "./internal/metadata/iterate_metadata_collection";
 import { iterate_metadata_sort } from "./internal/metadata/iterate_metadata_sort";
 
-import { ValidationPipe } from "../typings/ValidationPipe";
+import type { ValidationPipe } from "../typings/ValidationPipe";
 
 import { ExpressionFactory } from "./ExpressionFactory";
-import { MetadataCollection } from "./MetadataCollection";
+import type { MetadataCollection } from "./MetadataCollection";
 
 export namespace MetadataFactory {
   export type Validator = (meta: Metadata, explore: IExplore) => string[];

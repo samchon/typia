@@ -8,24 +8,24 @@ import { StatementFactory } from "../factories/StatementFactory";
 import { TypeFactory } from "../factories/TypeFactory";
 import { ValueFactory } from "../factories/ValueFactory";
 
-import { Metadata } from "../schemas/metadata/Metadata";
+import type { Metadata } from "../schemas/metadata/Metadata";
 import { MetadataArray } from "../schemas/metadata/MetadataArray";
-import { MetadataConstant } from "../schemas/metadata/MetadataConstant";
-import { MetadataMap } from "../schemas/metadata/MetadataMap";
-import { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
-import { MetadataSet } from "../schemas/metadata/MetadataSet";
+import type { MetadataConstant } from "../schemas/metadata/MetadataConstant";
+import type { MetadataMap } from "../schemas/metadata/MetadataMap";
+import type { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
+import type { MetadataSet } from "../schemas/metadata/MetadataSet";
 import { MetadataTuple } from "../schemas/metadata/MetadataTuple";
-import { MetadataTupleType } from "../schemas/metadata/MetadataTupleType";
+import type { MetadataTupleType } from "../schemas/metadata/MetadataTupleType";
 
-import { ITypiaContext } from "../transformers/ITypiaContext";
+import type { ITypiaContext } from "../transformers/ITypiaContext";
 import { TransformerError } from "../transformers/TransformerError";
 
 import { FeatureProgrammer } from "./FeatureProgrammer";
 import { IsProgrammer } from "./IsProgrammer";
 import { AtomicPredicator } from "./helpers/AtomicPredicator";
-import { FunctionProgrammer } from "./helpers/FunctionProgrammer";
-import { ICheckEntry } from "./helpers/ICheckEntry";
-import { IExpressionEntry } from "./helpers/IExpressionEntry";
+import type { FunctionProgrammer } from "./helpers/FunctionProgrammer";
+import type { ICheckEntry } from "./helpers/ICheckEntry";
+import type { IExpressionEntry } from "./helpers/IExpressionEntry";
 import { OptionPredicator } from "./helpers/OptionPredicator";
 import { UnionExplorer } from "./helpers/UnionExplorer";
 import { check_array_length } from "./internal/check_array_length";

@@ -1,12 +1,12 @@
 // import ts from "typescript";
-import { IMetadataTypeTag } from "../../../schemas/metadata/IMetadataTypeTag";
-import { Metadata } from "../../../schemas/metadata/Metadata";
-import { MetadataObjectType } from "../../../schemas/metadata/MetadataObjectType";
+import type { IMetadataTypeTag } from "../../../schemas/metadata/IMetadataTypeTag";
+import type { Metadata } from "../../../schemas/metadata/Metadata";
+import type { MetadataObjectType } from "../../../schemas/metadata/MetadataObjectType";
 
-import { MetadataCollection } from "../../MetadataCollection";
-import { MetadataFactory } from "../../MetadataFactory";
+import type { MetadataCollection } from "../../MetadataCollection";
+import type { MetadataFactory } from "../../MetadataFactory";
 import { MetadataTypeTagFactory } from "../../MetadataTypeTagFactory";
-import { IMetadataIteratorProps } from "./IMetadataIteratorProps";
+import type { IMetadataIteratorProps } from "./IMetadataIteratorProps";
 import { explore_metadata } from "./explore_metadata";
 import { iterate_metadata } from "./iterate_metadata";
 

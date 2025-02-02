@@ -1,19 +1,19 @@
-import { ILlmSchema } from "@samchon/openapi";
-import { ILlmFunction } from "@samchon/openapi/lib/structures/ILlmFunction";
+import type { ILlmSchema } from "@samchon/openapi";
+import type { ILlmFunction } from "@samchon/openapi/lib/structures/ILlmFunction";
 import ts from "typescript";
 
 import { LiteralFactory } from "../../../factories/LiteralFactory";
 import { MetadataCollection } from "../../../factories/MetadataCollection";
 import { MetadataFactory } from "../../../factories/MetadataFactory";
 
-import { Metadata } from "../../../schemas/metadata/Metadata";
+import type { Metadata } from "../../../schemas/metadata/Metadata";
 
 import { LlmModelPredicator } from "../../../programmers/llm/LlmModelPredicator";
 import { LlmParametersProgrammer } from "../../../programmers/llm/LlmParametersProgrammer";
 
-import { ValidationPipe } from "../../../typings/ValidationPipe";
+import type { ValidationPipe } from "../../../typings/ValidationPipe";
 
-import { ITransformProps } from "../../ITransformProps";
+import type { ITransformProps } from "../../ITransformProps";
 import { TransformerError } from "../../TransformerError";
 
 export namespace LlmParametersTransformer {

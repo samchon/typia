@@ -2,11 +2,11 @@ import ts from "typescript";
 
 import { ExpressionFactory } from "../../factories/ExpressionFactory";
 
-import { MetadataAtomic } from "../../schemas/metadata/MetadataAtomic";
+import type { MetadataAtomic } from "../../schemas/metadata/MetadataAtomic";
 
-import { ITypiaContext } from "../../transformers/ITypiaContext";
+import type { ITypiaContext } from "../../transformers/ITypiaContext";
 
-import { ICheckEntry } from "../helpers/ICheckEntry";
+import type { ICheckEntry } from "../helpers/ICheckEntry";
 import { OptionPredicator } from "../helpers/OptionPredicator";
 
 /**

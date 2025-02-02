@@ -4,12 +4,12 @@ import { ExpressionFactory } from "../../factories/ExpressionFactory";
 import { MetadataCollection } from "../../factories/MetadataCollection";
 import { MetadataFactory } from "../../factories/MetadataFactory";
 
-import { Metadata } from "../../schemas/metadata/Metadata";
+import type { Metadata } from "../../schemas/metadata/Metadata";
 
-import { ITypiaContext } from "../../transformers/ITypiaContext";
+import type { ITypiaContext } from "../../transformers/ITypiaContext";
 import { TransformerError } from "../../transformers/TransformerError";
 
-import { Atomic } from "../../typings/Atomic";
+import type { Atomic } from "../../typings/Atomic";
 
 export namespace MiscLiteralsProgrammer {
   export interface IProps {

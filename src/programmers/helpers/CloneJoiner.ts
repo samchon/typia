@@ -7,7 +7,7 @@ import { TypeFactory } from "../../factories/TypeFactory";
 import { Escaper } from "../../utils/Escaper";
 
 import { metadata_to_pattern } from "../internal/metadata_to_pattern";
-import { IExpressionEntry } from "./IExpressionEntry";
+import type { IExpressionEntry } from "./IExpressionEntry";
 
 export namespace CloneJoiner {
   export const object = (props: {

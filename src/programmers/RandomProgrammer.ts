@@ -1,4 +1,4 @@
-import { OpenApi } from "@samchon/openapi";
+import type { OpenApi } from "@samchon/openapi";
 import ts from "typescript";
 
 import { ExpressionFactory } from "../factories/ExpressionFactory";
@@ -15,14 +15,14 @@ import { Metadata } from "../schemas/metadata/Metadata";
 import { MetadataArray } from "../schemas/metadata/MetadataArray";
 import { MetadataArrayType } from "../schemas/metadata/MetadataArrayType";
 import { MetadataAtomic } from "../schemas/metadata/MetadataAtomic";
-import { MetadataMap } from "../schemas/metadata/MetadataMap";
-import { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
-import { MetadataSet } from "../schemas/metadata/MetadataSet";
-import { MetadataTemplate } from "../schemas/metadata/MetadataTemplate";
+import type { MetadataMap } from "../schemas/metadata/MetadataMap";
+import type { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
+import type { MetadataSet } from "../schemas/metadata/MetadataSet";
+import type { MetadataTemplate } from "../schemas/metadata/MetadataTemplate";
 import { MetadataTuple } from "../schemas/metadata/MetadataTuple";
 import { MetadataTupleType } from "../schemas/metadata/MetadataTupleType";
 
-import { ITypiaContext } from "../transformers/ITypiaContext";
+import type { ITypiaContext } from "../transformers/ITypiaContext";
 import { TransformerError } from "../transformers/TransformerError";
 
 import { StringUtil } from "../utils/StringUtil";

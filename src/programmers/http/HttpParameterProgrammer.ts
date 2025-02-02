@@ -6,9 +6,9 @@ import { MetadataFactory } from "../../factories/MetadataFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
-import { Metadata } from "../../schemas/metadata/Metadata";
+import type { Metadata } from "../../schemas/metadata/Metadata";
 
-import { IProgrammerProps } from "../../transformers/IProgrammerProps";
+import type { IProgrammerProps } from "../../transformers/IProgrammerProps";
 import { TransformerError } from "../../transformers/TransformerError";
 
 import { StringUtil } from "../../utils/StringUtil";

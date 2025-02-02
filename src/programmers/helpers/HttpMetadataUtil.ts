@@ -1,4 +1,4 @@
-import { Metadata } from "../../schemas/metadata/Metadata";
+import type { Metadata } from "../../schemas/metadata/Metadata";
 
 export namespace HttpMetadataUtil {
   export const atomics = (

@@ -1,4 +1,4 @@
-import { _IProtobufWriter } from "./_IProtobufWriter";
+import type { _IProtobufWriter } from "./_IProtobufWriter";
 
 /// @reference https://github.com/piotr-oles/as-proto/blob/main/packages/as-proto/assembly/internal/FixedSizer.ts
 export class _ProtobufSizer implements _IProtobufWriter {

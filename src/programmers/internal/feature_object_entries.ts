@@ -2,13 +2,13 @@ import ts from "typescript";
 
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
 
-import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
+import type { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 
-import { ITypiaContext } from "../../transformers/ITypiaContext";
+import type { ITypiaContext } from "../../transformers/ITypiaContext";
 
 import { Escaper } from "../../utils/Escaper";
 
-import { FeatureProgrammer } from "../FeatureProgrammer";
+import type { FeatureProgrammer } from "../FeatureProgrammer";
 
 /**
  * @internal

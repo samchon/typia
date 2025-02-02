@@ -1,4 +1,4 @@
-import { ITransformOptions } from "../../transformers/ITransformOptions";
+import type { ITransformOptions } from "../../transformers/ITransformOptions";
 
 export namespace OptionPredicator {
   export const numeric = (options: ITransformOptions): boolean =>

@@ -1,9 +1,9 @@
-import { ClassProperties } from "../../typings/ClassProperties";
+import type { ClassProperties } from "../../typings/ClassProperties";
 
-import { IProtobufProperty } from "../protobuf/IProtobufProperty";
-import { IJsDocTagInfo } from "./IJsDocTagInfo";
-import { IMetadataDictionary } from "./IMetadataDictionary";
-import { IMetadataProperty } from "./IMetadataProperty";
+import type { IProtobufProperty } from "../protobuf/IProtobufProperty";
+import type { IJsDocTagInfo } from "./IJsDocTagInfo";
+import type { IMetadataDictionary } from "./IMetadataDictionary";
+import type { IMetadataProperty } from "./IMetadataProperty";
 import { Metadata } from "./Metadata";
 
 export class MetadataProperty {

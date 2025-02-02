@@ -1,6 +1,6 @@
 import { HttpAssertFormDataProgrammer } from "../../../programmers/http/HttpAssertFormDataProgrammer";
 
-import { ITransformProps } from "../../ITransformProps";
+import type { ITransformProps } from "../../ITransformProps";
 import { GenericTransformer } from "../../internal/GenericTransformer";
 
 export namespace CreateHttpAssertFormDataTransformer {

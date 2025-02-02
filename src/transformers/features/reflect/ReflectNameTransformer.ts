@@ -3,12 +3,12 @@ import ts from "typescript";
 import { MetadataCollection } from "../../../factories/MetadataCollection";
 import { MetadataFactory } from "../../../factories/MetadataFactory";
 
-import { Metadata } from "../../../schemas/metadata/Metadata";
+import type { Metadata } from "../../../schemas/metadata/Metadata";
 
-import { ValidationPipe } from "../../../typings/ValidationPipe";
+import type { ValidationPipe } from "../../../typings/ValidationPipe";
 
-import { ITransformProps } from "../../ITransformProps";
-import { ITypiaContext } from "../../ITypiaContext";
+import type { ITransformProps } from "../../ITransformProps";
+import type { ITypiaContext } from "../../ITypiaContext";
 import { TransformerError } from "../../TransformerError";
 
 export namespace ReflectNameTransformer {

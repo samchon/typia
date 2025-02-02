@@ -1,4 +1,4 @@
-import ts from "typescript";
+import type ts from "typescript";
 
 import { TypeFactory } from "../../../factories/TypeFactory";
 

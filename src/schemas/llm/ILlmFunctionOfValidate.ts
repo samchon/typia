@@ -1,6 +1,7 @@
-import { ILlmFunction, ILlmSchema } from "@samchon/openapi";
+import type { ILlmSchema } from "@samchon/openapi";
+import { ILlmFunction } from "@samchon/openapi";
 
-import { IValidation } from "../../IValidation";
+import type { IValidation } from "../../IValidation";
 
 /**
  * LLM function metadata with validator.

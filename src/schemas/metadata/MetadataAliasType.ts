@@ -1,8 +1,8 @@
-import { ClassProperties } from "../../typings/ClassProperties";
+import type { ClassProperties } from "../../typings/ClassProperties";
 
-import { IJsDocTagInfo } from "./IJsDocTagInfo";
-import { IMetadataAliasType } from "./IMetadataAliasType";
-import { Metadata } from "./Metadata";
+import type { IJsDocTagInfo } from "./IJsDocTagInfo";
+import type { IMetadataAliasType } from "./IMetadataAliasType";
+import type { Metadata } from "./Metadata";
 
 export class MetadataAliasType {
   public readonly name: string;

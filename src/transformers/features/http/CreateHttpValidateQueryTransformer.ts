@@ -1,6 +1,6 @@
 import { HttpValidateQueryProgrammer } from "../../../programmers/http/HttpValidateQueryProgrammer";
 
-import { ITransformProps } from "../../ITransformProps";
+import type { ITransformProps } from "../../ITransformProps";
 import { GenericTransformer } from "../../internal/GenericTransformer";
 
 export namespace CreateHttpValidateQueryTransformer {

@@ -1,4 +1,4 @@
-import { IProtobufSchema } from "./IProtobufSchema";
+import type { IProtobufSchema } from "./IProtobufSchema";
 
 export type IProtobufPropertyType =
   | IProtobufPropertyType.IByte

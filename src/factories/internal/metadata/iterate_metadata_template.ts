@@ -1,9 +1,9 @@
 import ts from "typescript";
 
-import { Metadata } from "../../../schemas/metadata/Metadata";
+import type { Metadata } from "../../../schemas/metadata/Metadata";
 import { MetadataTemplate } from "../../../schemas/metadata/MetadataTemplate";
 
-import { IMetadataIteratorProps } from "./IMetadataIteratorProps";
+import type { IMetadataIteratorProps } from "./IMetadataIteratorProps";
 import { MetadataHelper } from "./MetadataHelper";
 import { explore_metadata } from "./explore_metadata";
 

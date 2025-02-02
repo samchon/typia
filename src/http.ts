@@ -1,9 +1,9 @@
-import { Atomic } from "./typings/Atomic";
+import type { Atomic } from "./typings/Atomic";
 
-import { IReadableURLSearchParams } from "./IReadableURLSearchParams";
-import { IValidation } from "./IValidation";
-import { Resolved } from "./Resolved";
-import { TypeGuardError } from "./TypeGuardError";
+import type { IReadableURLSearchParams } from "./IReadableURLSearchParams";
+import type { IValidation } from "./IValidation";
+import type { Resolved } from "./Resolved";
+import type { TypeGuardError } from "./TypeGuardError";
 
 /* ===========================================================
     HTTP

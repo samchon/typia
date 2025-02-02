@@ -1,6 +1,6 @@
-import { OpenApi } from "@samchon/openapi";
+import type { OpenApi } from "@samchon/openapi";
 
-import { Metadata } from "../../schemas/metadata/Metadata";
+import type { Metadata } from "../../schemas/metadata/Metadata";
 
 import { UnionPredicator } from "../helpers/UnionPredicator";
 

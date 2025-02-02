@@ -1,5 +1,5 @@
-import { Metadata } from "../schemas/metadata/Metadata";
-import { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
+import type { Metadata } from "../schemas/metadata/Metadata";
+import type { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
 
 export namespace MetadataTypeTagSchemaFactory {
   export const object = (props: {

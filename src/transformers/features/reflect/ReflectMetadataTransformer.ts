@@ -4,10 +4,10 @@ import { LiteralFactory } from "../../../factories/LiteralFactory";
 import { MetadataCollection } from "../../../factories/MetadataCollection";
 import { MetadataFactory } from "../../../factories/MetadataFactory";
 
-import { IMetadataApplication } from "../../../schemas/metadata/IMetadataApplication";
-import { Metadata } from "../../../schemas/metadata/Metadata";
+import type { IMetadataApplication } from "../../../schemas/metadata/IMetadataApplication";
+import type { Metadata } from "../../../schemas/metadata/Metadata";
 
-import { ITransformProps } from "../../ITransformProps";
+import type { ITransformProps } from "../../ITransformProps";
 import { TransformerError } from "../../TransformerError";
 
 export namespace ReflectMetadataTransformer {

@@ -1,8 +1,8 @@
-import { IMetadataTypeTag } from "../../schemas/metadata/IMetadataTypeTag";
-import { Metadata } from "../../schemas/metadata/Metadata";
-import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
+import type { IMetadataTypeTag } from "../../schemas/metadata/IMetadataTypeTag";
+import type { Metadata } from "../../schemas/metadata/Metadata";
+import type { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 
-import { ProtobufAtomic } from "../../typings/ProtobufAtomic";
+import type { ProtobufAtomic } from "../../typings/ProtobufAtomic";
 
 export namespace ProtobufUtil {
   export const isStaticObject = (obj: MetadataObjectType): boolean =>

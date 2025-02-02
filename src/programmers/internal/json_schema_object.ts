@@ -1,10 +1,10 @@
-import { OpenApi } from "@samchon/openapi";
+import type { OpenApi } from "@samchon/openapi";
 
 import { CommentFactory } from "../../factories/CommentFactory";
 
-import { IJsDocTagInfo } from "../../schemas/metadata/IJsDocTagInfo";
+import type { IJsDocTagInfo } from "../../schemas/metadata/IJsDocTagInfo";
 import { Metadata } from "../../schemas/metadata/Metadata";
-import { MetadataObject } from "../../schemas/metadata/MetadataObject";
+import type { MetadataObject } from "../../schemas/metadata/MetadataObject";
 
 import { PatternUtil } from "../../utils/PatternUtil";
 

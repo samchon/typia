@@ -3,9 +3,9 @@ import ts from "typescript";
 import { TemplateFactory } from "../../factories/TemplateFactory";
 import { ValueFactory } from "../../factories/ValueFactory";
 
-import { Metadata } from "../../schemas/metadata/Metadata";
+import type { Metadata } from "../../schemas/metadata/Metadata";
 
-import { IExpressionEntry } from "../helpers/IExpressionEntry";
+import type { IExpressionEntry } from "../helpers/IExpressionEntry";
 
 /**
  * @internal

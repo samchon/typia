@@ -6,13 +6,13 @@ import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
 import { MetadataArrayType } from "../../schemas/metadata/MetadataArrayType";
-import { MetadataMap } from "../../schemas/metadata/MetadataMap";
-import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
-import { MetadataSet } from "../../schemas/metadata/MetadataSet";
+import type { MetadataMap } from "../../schemas/metadata/MetadataMap";
+import type { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
+import type { MetadataSet } from "../../schemas/metadata/MetadataSet";
 import { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
 import { MetadataTupleType } from "../../schemas/metadata/MetadataTupleType";
 
-import { FeatureProgrammer } from "../FeatureProgrammer";
+import type { FeatureProgrammer } from "../FeatureProgrammer";
 import { check_union_array_like } from "../internal/check_union_array_like";
 import { UnionPredicator } from "./UnionPredicator";
 

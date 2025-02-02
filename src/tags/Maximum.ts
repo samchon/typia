@@ -1,4 +1,4 @@
-import { TagBase } from "./TagBase";
+import type { TagBase } from "./TagBase";
 
 export type Maximum<Value extends number | bigint> = TagBase<{
   target: Value extends bigint ? "bigint" : "number";

@@ -1,7 +1,7 @@
-import { MetadataObjectType } from "../../../schemas/metadata/MetadataObjectType";
+import type { MetadataObjectType } from "../../../schemas/metadata/MetadataObjectType";
 
 import { MetadataCommentTagFactory } from "../../MetadataCommentTagFactory";
-import { MetadataFactory } from "../../MetadataFactory";
+import type { MetadataFactory } from "../../MetadataFactory";
 
 export const iterate_metadata_comment_tags = (props: {
   errors: MetadataFactory.IError[];

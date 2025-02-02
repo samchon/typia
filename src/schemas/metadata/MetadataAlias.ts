@@ -1,8 +1,8 @@
-import { ClassProperties } from "../../typings/ClassProperties";
+import type { ClassProperties } from "../../typings/ClassProperties";
 
-import { IMetadataAlias } from "./IMetadataAlias";
-import { IMetadataTypeTag } from "./IMetadataTypeTag";
-import { MetadataAliasType } from "./MetadataAliasType";
+import type { IMetadataAlias } from "./IMetadataAlias";
+import type { IMetadataTypeTag } from "./IMetadataTypeTag";
+import type { MetadataAliasType } from "./MetadataAliasType";
 
 export class MetadataAlias {
   public readonly type: MetadataAliasType;

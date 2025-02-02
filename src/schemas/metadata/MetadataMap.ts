@@ -1,8 +1,8 @@
-import { ClassProperties } from "../../typings/ClassProperties";
+import type { ClassProperties } from "../../typings/ClassProperties";
 
-import { IMetadataMap } from "./IMetadataMap";
-import { IMetadataTypeTag } from "./IMetadataTypeTag";
-import { Metadata } from "./Metadata";
+import type { IMetadataMap } from "./IMetadataMap";
+import type { IMetadataTypeTag } from "./IMetadataTypeTag";
+import type { Metadata } from "./Metadata";
 
 export class MetadataMap {
   public readonly key: Metadata;

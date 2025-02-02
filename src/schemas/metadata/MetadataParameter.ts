@@ -1,10 +1,10 @@
-import ts from "typescript";
+import type ts from "typescript";
 
-import { ClassProperties } from "../../typings/ClassProperties";
+import type { ClassProperties } from "../../typings/ClassProperties";
 
-import { IJsDocTagInfo } from "./IJsDocTagInfo";
-import { IMetadataDictionary } from "./IMetadataDictionary";
-import { IMetadataParameter } from "./IMetadataParameter";
+import type { IJsDocTagInfo } from "./IJsDocTagInfo";
+import type { IMetadataDictionary } from "./IMetadataDictionary";
+import type { IMetadataParameter } from "./IMetadataParameter";
 import { Metadata } from "./Metadata";
 
 export class MetadataParameter {

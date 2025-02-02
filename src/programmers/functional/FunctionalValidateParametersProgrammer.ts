@@ -5,7 +5,7 @@ import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
-import { ITypiaContext } from "../../transformers/ITypiaContext";
+import type { ITypiaContext } from "../../transformers/ITypiaContext";
 
 import { StringUtil } from "../../utils/StringUtil";
 

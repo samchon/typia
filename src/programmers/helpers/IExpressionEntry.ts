@@ -1,6 +1,6 @@
-import ts from "typescript";
+import type ts from "typescript";
 
-import { Metadata } from "../../schemas/metadata/Metadata";
+import type { Metadata } from "../../schemas/metadata/Metadata";
 
 export interface IExpressionEntry<
   Expression extends ts.ConciseBody = ts.ConciseBody,

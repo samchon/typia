@@ -1,4 +1,4 @@
-import { IMetadataTypeTag } from "./IMetadataTypeTag";
+import type { IMetadataTypeTag } from "./IMetadataTypeTag";
 
 export interface IMetadataNative {
   name: string;

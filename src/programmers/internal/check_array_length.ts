@@ -1,12 +1,12 @@
-import ts from "typescript";
+import type ts from "typescript";
 
 import { ExpressionFactory } from "../../factories/ExpressionFactory";
 
-import { MetadataArray } from "../../schemas/metadata/MetadataArray";
+import type { MetadataArray } from "../../schemas/metadata/MetadataArray";
 
-import { ITypiaContext } from "../../transformers/ITypiaContext";
+import type { ITypiaContext } from "../../transformers/ITypiaContext";
 
-import { ICheckEntry } from "../helpers/ICheckEntry";
+import type { ICheckEntry } from "../helpers/ICheckEntry";
 
 /**
  * @internal

@@ -8,17 +8,17 @@ import { ProtobufFactory } from "../../factories/ProtobufFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
-import { Metadata } from "../../schemas/metadata/Metadata";
+import type { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataMap } from "../../schemas/metadata/MetadataMap";
 import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
-import { IProtobufProperty } from "../../schemas/protobuf/IProtobufProperty";
-import { IProtobufPropertyType } from "../../schemas/protobuf/IProtobufPropertyType";
-import { IProtobufSchema } from "../../schemas/protobuf/IProtobufSchema";
+import type { IProtobufProperty } from "../../schemas/protobuf/IProtobufProperty";
+import type { IProtobufPropertyType } from "../../schemas/protobuf/IProtobufPropertyType";
+import type { IProtobufSchema } from "../../schemas/protobuf/IProtobufSchema";
 
-import { IProgrammerProps } from "../../transformers/IProgrammerProps";
-import { ITypiaContext } from "../../transformers/ITypiaContext";
+import type { IProgrammerProps } from "../../transformers/IProgrammerProps";
+import type { ITypiaContext } from "../../transformers/ITypiaContext";
 
-import { ProtobufAtomic } from "../../typings/ProtobufAtomic";
+import type { ProtobufAtomic } from "../../typings/ProtobufAtomic";
 
 import { FeatureProgrammer } from "../FeatureProgrammer";
 import { IsProgrammer } from "../IsProgrammer";

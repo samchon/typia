@@ -1,6 +1,6 @@
-import { Metadata } from "../../schemas/metadata/Metadata";
+import type { Metadata } from "../../schemas/metadata/Metadata";
 
-import { Atomic } from "../../typings/Atomic";
+import type { Atomic } from "../../typings/Atomic";
 
 import { ArrayUtil } from "../../utils/ArrayUtil";
 

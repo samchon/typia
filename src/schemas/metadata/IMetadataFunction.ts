@@ -1,5 +1,5 @@
-import { IMetadata } from "./IMetadata";
-import { IMetadataParameter } from "./IMetadataParameter";
+import type { IMetadata } from "./IMetadata";
+import type { IMetadataParameter } from "./IMetadataParameter";
 
 export interface IMetadataFunction {
   parameters: IMetadataParameter[];

@@ -1,4 +1,4 @@
-import { Resolved } from "../Resolved";
+import type { Resolved } from "../Resolved";
 
 export const _miscCloneAny = <T>(value: T): Resolved<T> =>
   cloneMain(value) as Resolved<T>;

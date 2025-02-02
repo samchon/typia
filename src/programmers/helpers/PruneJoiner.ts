@@ -2,11 +2,11 @@ import ts from "typescript";
 
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
 
-import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
+import type { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 
 import { metadata_to_pattern } from "../internal/metadata_to_pattern";
 import { prune_object_properties } from "../internal/prune_object_properties";
-import { IExpressionEntry } from "./IExpressionEntry";
+import type { IExpressionEntry } from "./IExpressionEntry";
 
 export namespace PruneJoiner {
   export const object = (props: {

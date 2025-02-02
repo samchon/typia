@@ -1,7 +1,7 @@
-import { Atomic } from "../../typings/Atomic";
+import type { Atomic } from "../../typings/Atomic";
 
-import { IJsDocTagInfo } from "./IJsDocTagInfo";
-import { IMetadataTypeTag } from "./IMetadataTypeTag";
+import type { IJsDocTagInfo } from "./IJsDocTagInfo";
+import type { IMetadataTypeTag } from "./IMetadataTypeTag";
 
 export interface IMetadataConstantValue<T extends Atomic.Type> {
   value: T;

@@ -1,7 +1,7 @@
-import { ClassProperties } from "../../typings/ClassProperties";
+import type { ClassProperties } from "../../typings/ClassProperties";
 
-import { IMetadataDictionary } from "./IMetadataDictionary";
-import { IMetadataFunction } from "./IMetadataFunction";
+import type { IMetadataDictionary } from "./IMetadataDictionary";
+import type { IMetadataFunction } from "./IMetadataFunction";
 import { Metadata } from "./Metadata";
 import { MetadataParameter } from "./MetadataParameter";
 

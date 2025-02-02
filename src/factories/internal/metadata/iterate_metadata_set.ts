@@ -1,12 +1,12 @@
-import ts from "typescript";
+import type ts from "typescript";
 
-import { Metadata } from "../../../schemas/metadata/Metadata";
+import type { Metadata } from "../../../schemas/metadata/Metadata";
 import { MetadataSet } from "../../../schemas/metadata/MetadataSet";
 
 import { ArrayUtil } from "../../../utils/ArrayUtil";
 
 import { TypeFactory } from "../../TypeFactory";
-import { IMetadataIteratorProps } from "./IMetadataIteratorProps";
+import type { IMetadataIteratorProps } from "./IMetadataIteratorProps";
 import { explore_metadata } from "./explore_metadata";
 
 export const iterate_metadata_set = (

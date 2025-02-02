@@ -1,7 +1,7 @@
 import ts from "typescript";
 
-import { Metadata } from "../../../schemas/metadata/Metadata";
-import { MetadataObjectType } from "../../../schemas/metadata/MetadataObjectType";
+import type { Metadata } from "../../../schemas/metadata/Metadata";
+import type { MetadataObjectType } from "../../../schemas/metadata/MetadataObjectType";
 import { MetadataProperty } from "../../../schemas/metadata/MetadataProperty";
 
 import { Writable } from "../../../typings/Writable";
@@ -9,7 +9,7 @@ import { Writable } from "../../../typings/Writable";
 import { ArrayUtil } from "../../../utils/ArrayUtil";
 
 import { CommentFactory } from "../../CommentFactory";
-import { IMetadataIteratorProps } from "./IMetadataIteratorProps";
+import type { IMetadataIteratorProps } from "./IMetadataIteratorProps";
 import { MetadataHelper } from "./MetadataHelper";
 import { explore_metadata } from "./explore_metadata";
 import { iterate_metadata_coalesce } from "./iterate_metadata_coalesce";

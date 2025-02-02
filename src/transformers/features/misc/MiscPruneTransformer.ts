@@ -1,6 +1,6 @@
 import { MiscPruneProgrammer } from "../../../programmers/misc/MiscPruneProgrammer";
 
-import { ITransformProps } from "../../ITransformProps";
+import type { ITransformProps } from "../../ITransformProps";
 import { GenericTransformer } from "../../internal/GenericTransformer";
 
 export namespace MiscPruneTransformer {

@@ -3,11 +3,11 @@ import ts from "typescript";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { TemplateFactory } from "../../factories/TemplateFactory";
 
-import { ITypiaContext } from "../../transformers/ITypiaContext";
+import type { ITypiaContext } from "../../transformers/ITypiaContext";
 
 import { stringify_dynamic_properties } from "../internal/stringify_dynamic_properties";
 import { stringify_regular_properties } from "../internal/stringify_regular_properties";
-import { IExpressionEntry } from "./IExpressionEntry";
+import type { IExpressionEntry } from "./IExpressionEntry";
 
 export namespace StringifyJoiner {
   export const object = (props: {

@@ -1,8 +1,8 @@
-import ts from "typescript";
+import type ts from "typescript";
 
-import { ImportProgrammer } from "../programmers/ImportProgrammer";
+import type { ImportProgrammer } from "../programmers/ImportProgrammer";
 
-import { ITransformOptions } from "./ITransformOptions";
+import type { ITransformOptions } from "./ITransformOptions";
 
 export interface ITypiaContext {
   program: ts.Program;

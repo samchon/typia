@@ -1,6 +1,6 @@
-import { OpenApi } from "@samchon/openapi";
+import type { OpenApi } from "@samchon/openapi";
 
-import { MetadataAtomic } from "../../schemas/metadata/MetadataAtomic";
+import type { MetadataAtomic } from "../../schemas/metadata/MetadataAtomic";
 
 import { json_schema_plugin } from "./json_schema_plugin";
 

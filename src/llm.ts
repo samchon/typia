@@ -1,6 +1,6 @@
-import { ILlmApplication, ILlmSchema } from "@samchon/openapi";
+import type { ILlmApplication, ILlmSchema } from "@samchon/openapi";
 
-import { ILlmApplicationOfValidate } from "./module";
+import type { ILlmApplicationOfValidate } from "./module";
 
 /**
  * > You must configure the generic argument `App`.

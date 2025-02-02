@@ -1,4 +1,4 @@
-import { TagBase } from "./TagBase";
+import type { TagBase } from "./TagBase";
 
 export type ContentMediaType<Value extends string> = TagBase<{
   target: "string";

@@ -1,6 +1,6 @@
-import { ClassProperties } from "../../typings/ClassProperties";
+import type { ClassProperties } from "../../typings/ClassProperties";
 
-import { IMetadataConstant } from "./IMetadataConstant";
+import type { IMetadataConstant } from "./IMetadataConstant";
 import { MetadataConstantValue } from "./MetadataConstantValue";
 
 export class MetadataConstant {

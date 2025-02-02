@@ -1,4 +1,4 @@
-import {
+import type {
   ILlmApplication,
   ILlmSchema,
   IOpenApiSchemaError,
@@ -6,14 +6,14 @@ import {
   OpenApi,
 } from "@samchon/openapi";
 import { LlmSchemaComposer } from "@samchon/openapi/lib/composers/LlmSchemaComposer";
-import { ILlmFunction } from "@samchon/openapi/lib/structures/ILlmFunction";
+import type { ILlmFunction } from "@samchon/openapi/lib/structures/ILlmFunction";
 
-import { MetadataFactory } from "../../factories/MetadataFactory";
+import type { MetadataFactory } from "../../factories/MetadataFactory";
 
-import { __IJsonApplication } from "../../schemas/json/__IJsonApplication";
-import { Metadata } from "../../schemas/metadata/Metadata";
-import { MetadataFunction } from "../../schemas/metadata/MetadataFunction";
-import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
+import type { __IJsonApplication } from "../../schemas/json/__IJsonApplication";
+import type { Metadata } from "../../schemas/metadata/Metadata";
+import type { MetadataFunction } from "../../schemas/metadata/MetadataFunction";
+import type { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 
 import { JsonApplicationProgrammer } from "../json/JsonApplicationProgrammer";
 import { LlmSchemaProgrammer } from "./LlmSchemaProgrammer";

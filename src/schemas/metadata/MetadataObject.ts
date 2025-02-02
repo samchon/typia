@@ -1,8 +1,8 @@
-import { ClassProperties } from "../../typings/ClassProperties";
+import type { ClassProperties } from "../../typings/ClassProperties";
 
-import { IMetadataObject } from "./IMetadataObject";
-import { IMetadataTypeTag } from "./IMetadataTypeTag";
-import { MetadataObjectType } from "./MetadataObjectType";
+import type { IMetadataObject } from "./IMetadataObject";
+import type { IMetadataTypeTag } from "./IMetadataTypeTag";
+import type { MetadataObjectType } from "./MetadataObjectType";
 
 export class MetadataObject {
   public readonly type: MetadataObjectType;

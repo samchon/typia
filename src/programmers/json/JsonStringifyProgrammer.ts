@@ -3,7 +3,7 @@ import ts from "typescript";
 import { ExpressionFactory } from "../../factories/ExpressionFactory";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { JsonMetadataFactory } from "../../factories/JsonMetadataFactory";
-import { MetadataCollection } from "../../factories/MetadataCollection";
+import type { MetadataCollection } from "../../factories/MetadataCollection";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 import { ValueFactory } from "../../factories/ValueFactory";
@@ -11,14 +11,14 @@ import { ValueFactory } from "../../factories/ValueFactory";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
 import { MetadataAtomic } from "../../schemas/metadata/MetadataAtomic";
-import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
-import { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
-import { MetadataTupleType } from "../../schemas/metadata/MetadataTupleType";
+import type { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
+import type { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
+import type { MetadataTupleType } from "../../schemas/metadata/MetadataTupleType";
 
-import { IProgrammerProps } from "../../transformers/IProgrammerProps";
-import { ITypiaContext } from "../../transformers/ITypiaContext";
+import type { IProgrammerProps } from "../../transformers/IProgrammerProps";
+import type { ITypiaContext } from "../../transformers/ITypiaContext";
 
-import { Atomic } from "../../typings/Atomic";
+import type { Atomic } from "../../typings/Atomic";
 
 import { FeatureProgrammer } from "../FeatureProgrammer";
 import { IsProgrammer } from "../IsProgrammer";

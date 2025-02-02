@@ -1,7 +1,7 @@
-import { ClassProperties } from "../../typings/ClassProperties";
+import type { ClassProperties } from "../../typings/ClassProperties";
 
-import { IMetadataArrayType } from "./IMetadataArrayType";
-import { Metadata } from "./Metadata";
+import type { IMetadataArrayType } from "./IMetadataArrayType";
+import type { Metadata } from "./Metadata";
 
 export class MetadataArrayType {
   public readonly name: string;

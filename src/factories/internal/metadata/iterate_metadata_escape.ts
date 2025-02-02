@@ -1,4 +1,4 @@
-import ts from "typescript";
+import type ts from "typescript";
 
 import { Metadata } from "../../../schemas/metadata/Metadata";
 import { MetadataEscaped } from "../../../schemas/metadata/MetadataEscaped";
@@ -6,7 +6,7 @@ import { MetadataEscaped } from "../../../schemas/metadata/MetadataEscaped";
 import { Writable } from "../../../typings/Writable";
 
 import { TypeFactory } from "../../TypeFactory";
-import { IMetadataIteratorProps } from "./IMetadataIteratorProps";
+import type { IMetadataIteratorProps } from "./IMetadataIteratorProps";
 import { iterate_metadata } from "./iterate_metadata";
 
 export const iterate_metadata_escape = (

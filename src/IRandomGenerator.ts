@@ -1,4 +1,4 @@
-import { OpenApi } from "@samchon/openapi";
+import type { OpenApi } from "@samchon/openapi";
 
 export interface IRandomGenerator {
   // REGULAR

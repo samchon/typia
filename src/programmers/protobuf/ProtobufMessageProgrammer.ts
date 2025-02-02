@@ -4,13 +4,13 @@ import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { MetadataCollection } from "../../factories/MetadataCollection";
 import { ProtobufFactory } from "../../factories/ProtobufFactory";
 
-import { Metadata } from "../../schemas/metadata/Metadata";
-import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
-import { IProtobufProperty } from "../../schemas/protobuf/IProtobufProperty";
-import { IProtobufPropertyType } from "../../schemas/protobuf/IProtobufPropertyType";
-import { IProtobufSchema } from "../../schemas/protobuf/IProtobufSchema";
+import type { Metadata } from "../../schemas/metadata/Metadata";
+import type { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
+import type { IProtobufProperty } from "../../schemas/protobuf/IProtobufProperty";
+import type { IProtobufPropertyType } from "../../schemas/protobuf/IProtobufPropertyType";
+import type { IProtobufSchema } from "../../schemas/protobuf/IProtobufSchema";
 
-import { ITypiaContext } from "../../transformers/ITypiaContext";
+import type { ITypiaContext } from "../../transformers/ITypiaContext";
 
 import { MapUtil } from "../../utils/MapUtil";
 import { ProtobufNameEncoder } from "../../utils/ProtobufNameEncoder";

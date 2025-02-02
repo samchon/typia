@@ -1,17 +1,17 @@
-import { ILlmSchema } from "@samchon/openapi";
+import type { ILlmSchema } from "@samchon/openapi";
 import { LlmSchemaComposer } from "@samchon/openapi/lib/composers/LlmSchemaComposer";
 import ts from "typescript";
 
 import { MetadataCollection } from "../../factories/MetadataCollection";
 import { MetadataFactory } from "../../factories/MetadataFactory";
 
-import { Metadata } from "../../schemas/metadata/Metadata";
-import { MetadataObject } from "../../schemas/metadata/MetadataObject";
+import type { Metadata } from "../../schemas/metadata/Metadata";
+import type { MetadataObject } from "../../schemas/metadata/MetadataObject";
 
-import { ITypiaContext } from "../../transformers/ITypiaContext";
+import type { ITypiaContext } from "../../transformers/ITypiaContext";
 import { TransformerError } from "../../transformers/TransformerError";
 
-import { ValidationPipe } from "../../typings/ValidationPipe";
+import type { ValidationPipe } from "../../typings/ValidationPipe";
 
 export namespace LlmModelPredicator {
   export const getConfig = (props: {

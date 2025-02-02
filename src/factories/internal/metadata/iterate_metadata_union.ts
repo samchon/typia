@@ -1,4 +1,4 @@
-import { IMetadataIteratorProps } from "./IMetadataIteratorProps";
+import type { IMetadataIteratorProps } from "./IMetadataIteratorProps";
 import { iterate_metadata } from "./iterate_metadata";
 
 export const iterate_metadata_union = (

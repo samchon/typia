@@ -1,4 +1,4 @@
-import { TagBase } from "./TagBase";
+import type { TagBase } from "./TagBase";
 
 export type MinItems<Value extends number> = TagBase<{
   target: "array";

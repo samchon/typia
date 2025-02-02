@@ -1,15 +1,15 @@
-import { ILlmApplication, ILlmSchema } from "@samchon/openapi";
-import ts from "typescript";
+import type { ILlmApplication, ILlmSchema } from "@samchon/openapi";
+import type ts from "typescript";
 
 import { TypeFactory } from "../../factories/TypeFactory";
 
-import { ILlmApplicationOfValidate } from "../../schemas/llm/ILlmApplicationOfValidate";
-import { Metadata } from "../../schemas/metadata/Metadata";
-import { MetadataParameter } from "../../schemas/metadata/MetadataParameter";
+import type { ILlmApplicationOfValidate } from "../../schemas/llm/ILlmApplicationOfValidate";
+import type { Metadata } from "../../schemas/metadata/Metadata";
+import type { MetadataParameter } from "../../schemas/metadata/MetadataParameter";
 
-import { ITypiaContext } from "../../transformers/ITypiaContext";
+import type { ITypiaContext } from "../../transformers/ITypiaContext";
 
-import { IValidation } from "../../IValidation";
+import type { IValidation } from "../../IValidation";
 import { ValidateProgrammer } from "../ValidateProgrammer";
 import { LlmApplicationProgrammer } from "./LlmApplicationProgrammer";
 

@@ -2,19 +2,19 @@ import ts from "typescript";
 
 import { ExpressionFactory } from "../factories/ExpressionFactory";
 import { IdentifierFactory } from "../factories/IdentifierFactory";
-import { MetadataCollection } from "../factories/MetadataCollection";
+import type { MetadataCollection } from "../factories/MetadataCollection";
 import { ValueFactory } from "../factories/ValueFactory";
 
-import { Metadata } from "../schemas/metadata/Metadata";
-import { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
+import type { Metadata } from "../schemas/metadata/Metadata";
+import type { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
 
-import { IProgrammerProps } from "../transformers/IProgrammerProps";
-import { ITypiaContext } from "../transformers/ITypiaContext";
+import type { IProgrammerProps } from "../transformers/IProgrammerProps";
+import type { ITypiaContext } from "../transformers/ITypiaContext";
 
 import { CheckerProgrammer } from "./CheckerProgrammer";
 import { FeatureProgrammer } from "./FeatureProgrammer";
 import { FunctionProgrammer } from "./helpers/FunctionProgrammer";
-import { IExpressionEntry } from "./helpers/IExpressionEntry";
+import type { IExpressionEntry } from "./helpers/IExpressionEntry";
 import { OptionPredicator } from "./helpers/OptionPredicator";
 import { check_object } from "./internal/check_object";
 

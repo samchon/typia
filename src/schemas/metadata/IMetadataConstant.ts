@@ -1,6 +1,6 @@
-import { Atomic } from "../../typings/Atomic";
+import type { Atomic } from "../../typings/Atomic";
 
-import { IMetadataConstantValue } from "./IMetadataConstantValue";
+import type { IMetadataConstantValue } from "./IMetadataConstantValue";
 
 export type IMetadataConstant =
   | IMetadataConstant.IBase<"boolean", boolean>

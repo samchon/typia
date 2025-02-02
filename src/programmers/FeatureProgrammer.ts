@@ -1,20 +1,20 @@
 import ts from "typescript";
 
 import { IdentifierFactory } from "../factories/IdentifierFactory";
-import { MetadataCollection } from "../factories/MetadataCollection";
+import type { MetadataCollection } from "../factories/MetadataCollection";
 import { StatementFactory } from "../factories/StatementFactory";
 import { TypeFactory } from "../factories/TypeFactory";
 import { ValueFactory } from "../factories/ValueFactory";
 
-import { Metadata } from "../schemas/metadata/Metadata";
-import { MetadataArray } from "../schemas/metadata/MetadataArray";
-import { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
+import type { Metadata } from "../schemas/metadata/Metadata";
+import type { MetadataArray } from "../schemas/metadata/MetadataArray";
+import type { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
 
-import { ITypiaContext } from "../transformers/ITypiaContext";
+import type { ITypiaContext } from "../transformers/ITypiaContext";
 
-import { CheckerProgrammer } from "./CheckerProgrammer";
-import { FunctionProgrammer } from "./helpers/FunctionProgrammer";
-import { IExpressionEntry } from "./helpers/IExpressionEntry";
+import type { CheckerProgrammer } from "./CheckerProgrammer";
+import type { FunctionProgrammer } from "./helpers/FunctionProgrammer";
+import type { IExpressionEntry } from "./helpers/IExpressionEntry";
 import { UnionExplorer } from "./helpers/UnionExplorer";
 import { feature_object_entries } from "./internal/feature_object_entries";
 

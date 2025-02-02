@@ -1,4 +1,4 @@
-import { IMetadata } from "./IMetadata";
+import type { IMetadata } from "./IMetadata";
 
 export interface IMetadataArrayType {
   name: string;

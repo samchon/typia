@@ -1,7 +1,7 @@
-import { ClassProperties } from "../../typings/ClassProperties";
+import type { ClassProperties } from "../../typings/ClassProperties";
 
-import { IMetadataTupleType } from "./IMetadataTupleType";
-import { Metadata } from "./Metadata";
+import type { IMetadataTupleType } from "./IMetadataTupleType";
+import type { Metadata } from "./Metadata";
 
 export class MetadataTupleType {
   public readonly name: string;

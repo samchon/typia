@@ -1,7 +1,7 @@
 import commander from "commander";
 import inquirer from "inquirer";
 
-import { PackageManager } from "./PackageManager";
+import type { PackageManager } from "./PackageManager";
 
 export namespace ArgumentParser {
   export type Inquiry<T> = (

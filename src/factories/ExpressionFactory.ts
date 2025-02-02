@@ -1,6 +1,6 @@
 import ts from "typescript";
 
-import { ImportProgrammer } from "../programmers/ImportProgrammer";
+import type { ImportProgrammer } from "../programmers/ImportProgrammer";
 
 import { _randomFormatUuid } from "../internal/_randomFormatUuid";
 

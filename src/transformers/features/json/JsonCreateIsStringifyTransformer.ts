@@ -1,6 +1,6 @@
 import { JsonIsStringifyProgrammer } from "../../../programmers/json/JsonIsStringifyProgrammer";
 
-import { ITransformProps } from "../../ITransformProps";
+import type { ITransformProps } from "../../ITransformProps";
 import { GenericTransformer } from "../../internal/GenericTransformer";
 
 export namespace JsonCreateIsStringifyTransformer {

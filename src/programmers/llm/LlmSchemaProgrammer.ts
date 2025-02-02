@@ -1,4 +1,4 @@
-import {
+import type {
   IChatGptSchema,
   IGeminiSchema,
   ILlmSchema,
@@ -8,8 +8,8 @@ import {
 } from "@samchon/openapi";
 import { LlmSchemaComposer } from "@samchon/openapi/lib/composers/LlmSchemaComposer";
 
-import { IJsonSchemaCollection } from "../../schemas/json/IJsonSchemaCollection";
-import { Metadata } from "../../schemas/metadata/Metadata";
+import type { IJsonSchemaCollection } from "../../schemas/json/IJsonSchemaCollection";
+import type { Metadata } from "../../schemas/metadata/Metadata";
 
 import { TransformerError } from "../../transformers/TransformerError";
 

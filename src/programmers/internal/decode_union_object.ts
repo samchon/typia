@@ -1,8 +1,8 @@
 import ts from "typescript";
 
-import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
+import type { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 
-import { FeatureProgrammer } from "../FeatureProgrammer";
+import type { FeatureProgrammer } from "../FeatureProgrammer";
 
 /**
  * @internal

@@ -1,11 +1,11 @@
-import ts from "typescript";
+import type ts from "typescript";
 
 import { MetadataMap } from "../../../schemas/metadata/MetadataMap";
 
 import { ArrayUtil } from "../../../utils/ArrayUtil";
 
 import { TypeFactory } from "../../TypeFactory";
-import { IMetadataIteratorProps } from "./IMetadataIteratorProps";
+import type { IMetadataIteratorProps } from "./IMetadataIteratorProps";
 import { explore_metadata } from "./explore_metadata";
 
 export const iterate_metadata_map = (

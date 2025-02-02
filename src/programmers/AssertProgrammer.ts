@@ -4,14 +4,14 @@ import { IdentifierFactory } from "../factories/IdentifierFactory";
 import { StatementFactory } from "../factories/StatementFactory";
 import { TypeFactory } from "../factories/TypeFactory";
 
-import { IProgrammerProps } from "../transformers/IProgrammerProps";
-import { ITypiaContext } from "../transformers/ITypiaContext";
+import type { IProgrammerProps } from "../transformers/IProgrammerProps";
+import type { ITypiaContext } from "../transformers/ITypiaContext";
 
 import { CheckerProgrammer } from "./CheckerProgrammer";
 import { FeatureProgrammer } from "./FeatureProgrammer";
 import { IsProgrammer } from "./IsProgrammer";
 import { FunctionProgrammer } from "./helpers/FunctionProgrammer";
-import { IExpressionEntry } from "./helpers/IExpressionEntry";
+import type { IExpressionEntry } from "./helpers/IExpressionEntry";
 import { OptionPredicator } from "./helpers/OptionPredicator";
 import { check_object } from "./internal/check_object";
 

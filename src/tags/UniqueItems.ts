@@ -1,4 +1,4 @@
-import { TagBase } from "./TagBase";
+import type { TagBase } from "./TagBase";
 
 export type UniqueItems<Value extends boolean = true> = TagBase<{
   target: "array";

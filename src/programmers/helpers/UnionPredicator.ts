@@ -1,6 +1,6 @@
 import { Metadata } from "../../schemas/metadata/Metadata";
-import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
-import { MetadataProperty } from "../../schemas/metadata/MetadataProperty";
+import type { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
+import type { MetadataProperty } from "../../schemas/metadata/MetadataProperty";
 
 import { ArrayUtil } from "../../utils/ArrayUtil";
 import { MapUtil } from "../../utils/MapUtil";

@@ -1,11 +1,11 @@
-import ts from "typescript";
+import type ts from "typescript";
 
 import { MetadataAlias } from "../../../schemas/metadata/MetadataAlias";
-import { MetadataAliasType } from "../../../schemas/metadata/MetadataAliasType";
+import type { MetadataAliasType } from "../../../schemas/metadata/MetadataAliasType";
 
 import { ArrayUtil } from "../../../utils/ArrayUtil";
 
-import { IMetadataIteratorProps } from "./IMetadataIteratorProps";
+import type { IMetadataIteratorProps } from "./IMetadataIteratorProps";
 import { emplace_metadata_alias } from "./emplace_metadata_alias";
 
 export const iterate_metadata_alias = (

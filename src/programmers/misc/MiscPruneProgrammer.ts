@@ -9,12 +9,12 @@ import { TypeFactory } from "../../factories/TypeFactory";
 
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
-import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
-import { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
-import { MetadataTupleType } from "../../schemas/metadata/MetadataTupleType";
+import type { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
+import type { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
+import type { MetadataTupleType } from "../../schemas/metadata/MetadataTupleType";
 
-import { IProgrammerProps } from "../../transformers/IProgrammerProps";
-import { ITypiaContext } from "../../transformers/ITypiaContext";
+import type { IProgrammerProps } from "../../transformers/IProgrammerProps";
+import type { ITypiaContext } from "../../transformers/ITypiaContext";
 import { TransformerError } from "../../transformers/TransformerError";
 
 import { FeatureProgrammer } from "../FeatureProgrammer";

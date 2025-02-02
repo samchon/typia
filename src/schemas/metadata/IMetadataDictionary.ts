@@ -1,7 +1,7 @@
-import { MetadataAliasType } from "./MetadataAliasType";
-import { MetadataArrayType } from "./MetadataArrayType";
-import { MetadataObjectType } from "./MetadataObjectType";
-import { MetadataTupleType } from "./MetadataTupleType";
+import type { MetadataAliasType } from "./MetadataAliasType";
+import type { MetadataArrayType } from "./MetadataArrayType";
+import type { MetadataObjectType } from "./MetadataObjectType";
+import type { MetadataTupleType } from "./MetadataTupleType";
 
 export interface IMetadataDictionary {
   objects: Map<string, MetadataObjectType>;

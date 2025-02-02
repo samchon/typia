@@ -1,7 +1,7 @@
-import ts from "typescript";
+import type ts from "typescript";
 
-import { IMetadataComponents } from "../schemas/metadata/IMetadataComponents";
-import { Metadata } from "../schemas/metadata/Metadata";
+import type { IMetadataComponents } from "../schemas/metadata/IMetadataComponents";
+import type { Metadata } from "../schemas/metadata/Metadata";
 import { MetadataAliasType } from "../schemas/metadata/MetadataAliasType";
 import { MetadataArrayType } from "../schemas/metadata/MetadataArrayType";
 import { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";

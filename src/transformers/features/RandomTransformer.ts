@@ -2,7 +2,7 @@ import ts from "typescript";
 
 import { RandomProgrammer } from "../../programmers/RandomProgrammer";
 
-import { ITransformProps } from "../ITransformProps";
+import type { ITransformProps } from "../ITransformProps";
 import { TransformerError } from "../TransformerError";
 
 export namespace RandomTransformer {

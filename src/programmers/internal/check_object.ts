@@ -1,8 +1,8 @@
 import ts from "typescript";
 
-import { ITypiaContext } from "../../transformers/ITypiaContext";
+import type { ITypiaContext } from "../../transformers/ITypiaContext";
 
-import { IExpressionEntry } from "../helpers/IExpressionEntry";
+import type { IExpressionEntry } from "../helpers/IExpressionEntry";
 import { check_dynamic_properties } from "./check_dynamic_properties";
 import { check_everything } from "./check_everything";
 

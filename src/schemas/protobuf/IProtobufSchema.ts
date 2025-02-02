@@ -1,6 +1,6 @@
-import { MetadataArrayType } from "../metadata/MetadataArrayType";
-import { MetadataMap } from "../metadata/MetadataMap";
-import { MetadataObjectType } from "../metadata/MetadataObjectType";
+import type { MetadataArrayType } from "../metadata/MetadataArrayType";
+import type { MetadataMap } from "../metadata/MetadataMap";
+import type { MetadataObjectType } from "../metadata/MetadataObjectType";
 
 export type IProtobufSchema =
   | IProtobufSchema.IByte

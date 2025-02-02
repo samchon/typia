@@ -1,7 +1,8 @@
-import { OpenApi, OpenApiTypeChecker } from "@samchon/openapi";
+import type { OpenApi} from "@samchon/openapi";
+import { OpenApiTypeChecker } from "@samchon/openapi";
 
-import { Metadata } from "../../schemas/metadata/Metadata";
-import { MetadataEscaped } from "../../schemas/metadata/MetadataEscaped";
+import type { Metadata } from "../../schemas/metadata/Metadata";
+import type { MetadataEscaped } from "../../schemas/metadata/MetadataEscaped";
 
 import { json_schema_station } from "./json_schema_station";
 

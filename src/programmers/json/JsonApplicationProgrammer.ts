@@ -1,11 +1,11 @@
-import { MetadataFactory } from "../../factories/MetadataFactory";
+import type { MetadataFactory } from "../../factories/MetadataFactory";
 
-import { __IJsonApplication } from "../../schemas/json/__IJsonApplication";
-import { IJsDocTagInfo } from "../../schemas/metadata/IJsDocTagInfo";
-import { Metadata } from "../../schemas/metadata/Metadata";
-import { MetadataFunction } from "../../schemas/metadata/MetadataFunction";
-import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
-import { MetadataProperty } from "../../schemas/metadata/MetadataProperty";
+import type { __IJsonApplication } from "../../schemas/json/__IJsonApplication";
+import type { IJsDocTagInfo } from "../../schemas/metadata/IJsDocTagInfo";
+import type { Metadata } from "../../schemas/metadata/Metadata";
+import type { MetadataFunction } from "../../schemas/metadata/MetadataFunction";
+import type { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
+import type { MetadataProperty } from "../../schemas/metadata/MetadataProperty";
 
 import { JsonSchemasProgrammer } from "./JsonSchemasProgrammer";
 

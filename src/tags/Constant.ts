@@ -1,4 +1,4 @@
-import { TagBase } from "./TagBase";
+import type { TagBase } from "./TagBase";
 
 export type Constant<
   Value extends boolean | number | string | bigint,

@@ -4,14 +4,14 @@ import { LiteralFactory } from "../../../factories/LiteralFactory";
 import { MetadataCollection } from "../../../factories/MetadataCollection";
 import { MetadataFactory } from "../../../factories/MetadataFactory";
 
-import { IJsonSchemaCollection } from "../../../schemas/json/IJsonSchemaCollection";
-import { Metadata } from "../../../schemas/metadata/Metadata";
+import type { IJsonSchemaCollection } from "../../../schemas/json/IJsonSchemaCollection";
+import type { Metadata } from "../../../schemas/metadata/Metadata";
 
 import { JsonSchemasProgrammer } from "../../../programmers/json/JsonSchemasProgrammer";
 
-import { ValidationPipe } from "../../../typings/ValidationPipe";
+import type { ValidationPipe } from "../../../typings/ValidationPipe";
 
-import { ITransformProps } from "../../ITransformProps";
+import type { ITransformProps } from "../../ITransformProps";
 import { TransformerError } from "../../TransformerError";
 
 export namespace JsonSchemasTransformer {

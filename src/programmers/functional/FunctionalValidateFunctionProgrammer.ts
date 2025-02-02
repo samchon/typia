@@ -3,7 +3,7 @@ import ts from "typescript";
 import { ExpressionFactory } from "../../factories/ExpressionFactory";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
 
-import { ITypiaContext } from "../../transformers/ITypiaContext";
+import type { ITypiaContext } from "../../transformers/ITypiaContext";
 
 import { FunctionalValidateParametersProgrammer } from "./FunctionalValidateParametersProgrammer";
 import { FunctionalValidateReturnProgrammer } from "./FunctionalValidateReturnProgrammer";

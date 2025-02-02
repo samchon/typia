@@ -1,6 +1,6 @@
 import { HttpIsQueryProgrammer } from "../../../programmers/http/HttpIsQueryProgrammer";
 
-import { ITransformProps } from "../../ITransformProps";
+import type { ITransformProps } from "../../ITransformProps";
 import { GenericTransformer } from "../../internal/GenericTransformer";
 
 export namespace HttpIsQueryTransformer {

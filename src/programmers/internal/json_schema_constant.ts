@@ -1,6 +1,6 @@
-import { OpenApi } from "@samchon/openapi";
+import type { OpenApi } from "@samchon/openapi";
 
-import { MetadataConstant } from "../../schemas/metadata/MetadataConstant";
+import type { MetadataConstant } from "../../schemas/metadata/MetadataConstant";
 
 import { json_schema_description } from "./json_schema_description";
 import { json_schema_plugin } from "./json_schema_plugin";

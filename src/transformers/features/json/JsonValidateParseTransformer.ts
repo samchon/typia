@@ -1,6 +1,6 @@
 import { JsonValidateParseProgrammer } from "../../../programmers/json/JsonValidateParseProgrammer";
 
-import { ITransformProps } from "../../ITransformProps";
+import type { ITransformProps } from "../../ITransformProps";
 import { GenericTransformer } from "../../internal/GenericTransformer";
 
 export namespace JsonValidateParseTransformer {

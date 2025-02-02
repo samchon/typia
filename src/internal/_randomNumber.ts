@@ -1,4 +1,4 @@
-import { OpenApi } from "@samchon/openapi";
+import type { OpenApi } from "@samchon/openapi";
 
 export const _randomNumber = (schema: OpenApi.IJsonSchema.INumber): number => {
   const minimum: number =

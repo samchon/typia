@@ -1,8 +1,8 @@
-import { CamelCase } from "./CamelCase";
-import { IValidation } from "./IValidation";
-import { PascalCase } from "./PascalCase";
-import { SnakeCase } from "./SnakeCase";
-import { TypeGuardError } from "./TypeGuardError";
+import type { CamelCase } from "./CamelCase";
+import type { IValidation } from "./IValidation";
+import type { PascalCase } from "./PascalCase";
+import type { SnakeCase } from "./SnakeCase";
+import type { TypeGuardError } from "./TypeGuardError";
 
 /* ===========================================================
     NOTATIONS (NAMING CONVENTIONS)

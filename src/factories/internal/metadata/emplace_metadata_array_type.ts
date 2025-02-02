@@ -1,11 +1,11 @@
-import ts from "typescript";
+import type ts from "typescript";
 
-import { Metadata } from "../../../schemas/metadata/Metadata";
-import { MetadataArrayType } from "../../../schemas/metadata/MetadataArrayType";
+import type { Metadata } from "../../../schemas/metadata/Metadata";
+import type { MetadataArrayType } from "../../../schemas/metadata/MetadataArrayType";
 
 import { ArrayUtil } from "../../../utils/ArrayUtil";
 
-import { IMetadataIteratorProps } from "./IMetadataIteratorProps";
+import type { IMetadataIteratorProps } from "./IMetadataIteratorProps";
 import { explore_metadata } from "./explore_metadata";
 
 interface IProps extends IMetadataIteratorProps {

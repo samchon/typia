@@ -1,4 +1,4 @@
-import { TagBase } from "./TagBase";
+import type { TagBase } from "./TagBase";
 
 export type MaxLength<Value extends number> = TagBase<{
   target: "string";

@@ -1,6 +1,6 @@
-import { IValidation } from "./IValidation";
-import { Resolved } from "./Resolved";
-import { TypeGuardError } from "./TypeGuardError";
+import type { IValidation } from "./IValidation";
+import type { Resolved } from "./Resolved";
+import type { TypeGuardError } from "./TypeGuardError";
 
 /* ===========================================================
     PROTOCOL BUFFER

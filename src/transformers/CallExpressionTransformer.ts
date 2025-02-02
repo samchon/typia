@@ -1,5 +1,5 @@
 import path from "path";
-import ts from "typescript";
+import type ts from "typescript";
 
 import { FunctionalAssertFunctionProgrammer } from "../programmers/functional/FunctionalAssertFunctionProgrammer";
 import { FunctionalAssertParametersProgrammer } from "../programmers/functional/FunctionalAssertParametersProgrammer";
@@ -14,8 +14,8 @@ import { FunctionalGenericTransformer } from "./features/functional/FunctionalGe
 
 import { NamingConvention } from "../utils/NamingConvention";
 
-import { ITransformProps } from "./ITransformProps";
-import { ITypiaContext } from "./ITypiaContext";
+import type { ITransformProps } from "./ITransformProps";
+import type { ITypiaContext } from "./ITypiaContext";
 import { AssertTransformer } from "./features/AssertTransformer";
 import { CreateAssertTransformer } from "./features/CreateAssertTransformer";
 import { CreateIsTransformer } from "./features/CreateIsTransformer";

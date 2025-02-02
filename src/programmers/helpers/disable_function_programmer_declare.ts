@@ -1,6 +1,6 @@
-import ts from "typescript";
+import type ts from "typescript";
 
-import { FunctionProgrammer } from "./FunctionProgrammer";
+import type { FunctionProgrammer } from "./FunctionProgrammer";
 
 export const disable_function_programmer_declare = (
   functor: FunctionProgrammer,

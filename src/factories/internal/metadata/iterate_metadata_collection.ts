@@ -1,10 +1,10 @@
-import { Metadata } from "../../../schemas/metadata/Metadata";
-import { MetadataArrayType } from "../../../schemas/metadata/MetadataArrayType";
-import { MetadataObjectType } from "../../../schemas/metadata/MetadataObjectType";
-import { MetadataTupleType } from "../../../schemas/metadata/MetadataTupleType";
+import type { Metadata } from "../../../schemas/metadata/Metadata";
+import type { MetadataArrayType } from "../../../schemas/metadata/MetadataArrayType";
+import type { MetadataObjectType } from "../../../schemas/metadata/MetadataObjectType";
+import type { MetadataTupleType } from "../../../schemas/metadata/MetadataTupleType";
 
-import { MetadataCollection } from "../../MetadataCollection";
-import { MetadataFactory } from "../../MetadataFactory";
+import type { MetadataCollection } from "../../MetadataCollection";
+import type { MetadataFactory } from "../../MetadataFactory";
 import { iterate_metadata_comment_tags } from "./iterate_metadata_comment_tags";
 
 export const iterate_metadata_collection = (props: {

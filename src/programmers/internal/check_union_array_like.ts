@@ -5,15 +5,15 @@ import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
-import { Metadata } from "../../schemas/metadata/Metadata";
+import type { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
 import { MetadataArrayType } from "../../schemas/metadata/MetadataArrayType";
-import { MetadataMap } from "../../schemas/metadata/MetadataMap";
+import type { MetadataMap } from "../../schemas/metadata/MetadataMap";
 import { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
 
-import { CheckerProgrammer } from "../CheckerProgrammer";
-import { FeatureProgrammer } from "../FeatureProgrammer";
-import { UnionExplorer } from "../helpers/UnionExplorer";
+import type { CheckerProgrammer } from "../CheckerProgrammer";
+import type { FeatureProgrammer } from "../FeatureProgrammer";
+import type { UnionExplorer } from "../helpers/UnionExplorer";
 
 /**
  * @internal

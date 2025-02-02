@@ -6,7 +6,7 @@ import { MetadataConstantValue } from "../../../schemas/metadata/MetadataConstan
 import { ArrayUtil } from "../../../utils/ArrayUtil";
 
 import { CommentFactory } from "../../CommentFactory";
-import { IMetadataIteratorProps } from "./IMetadataIteratorProps";
+import type { IMetadataIteratorProps } from "./IMetadataIteratorProps";
 
 export const iterate_metadata_constant = (
   props: IMetadataIteratorProps,

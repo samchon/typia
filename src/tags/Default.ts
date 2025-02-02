@@ -1,4 +1,4 @@
-import { TagBase } from "./TagBase";
+import type { TagBase } from "./TagBase";
 
 export type Default<Value extends boolean | bigint | number | string> =
   TagBase<{

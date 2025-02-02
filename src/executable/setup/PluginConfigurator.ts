@@ -1,7 +1,7 @@
 import comments from "comment-json";
 import fs from "fs";
 
-import { TypiaSetupWizard } from "../TypiaSetupWizard";
+import type { TypiaSetupWizard } from "../TypiaSetupWizard";
 
 export namespace PluginConfigurator {
   export async function configure(

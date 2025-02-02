@@ -2,7 +2,7 @@ import { NotationValidateGeneralProgrammer } from "../../../programmers/notation
 
 import { StringUtil } from "../../../utils/StringUtil";
 
-import { ITransformProps } from "../../ITransformProps";
+import type { ITransformProps } from "../../ITransformProps";
 import { GenericTransformer } from "../../internal/GenericTransformer";
 
 export namespace NotationValidateGeneralTransformer {

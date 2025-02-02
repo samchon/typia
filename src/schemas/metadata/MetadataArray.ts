@@ -1,8 +1,8 @@
-import { ClassProperties } from "../../typings/ClassProperties";
+import type { ClassProperties } from "../../typings/ClassProperties";
 
-import { IMetadataArray } from "./IMetadataArray";
-import { IMetadataTypeTag } from "./IMetadataTypeTag";
-import { MetadataArrayType } from "./MetadataArrayType";
+import type { IMetadataArray } from "./IMetadataArray";
+import type { IMetadataTypeTag } from "./IMetadataTypeTag";
+import type { MetadataArrayType } from "./MetadataArrayType";
 
 export class MetadataArray {
   public readonly type: MetadataArrayType;

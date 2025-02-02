@@ -1,8 +1,8 @@
-import { ClassProperties } from "../../typings/ClassProperties";
+import type { ClassProperties } from "../../typings/ClassProperties";
 import { Writable } from "../../typings/Writable";
 
-import { IMetadataComponents } from "./IMetadataComponents";
-import { IMetadataDictionary } from "./IMetadataDictionary";
+import type { IMetadataComponents } from "./IMetadataComponents";
+import type { IMetadataDictionary } from "./IMetadataDictionary";
 import { Metadata } from "./Metadata";
 import { MetadataAliasType } from "./MetadataAliasType";
 import { MetadataArrayType } from "./MetadataArrayType";

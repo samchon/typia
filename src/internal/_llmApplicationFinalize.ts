@@ -1,4 +1,4 @@
-import { ILlmApplication, ILlmFunction, ILlmSchema } from "@samchon/openapi";
+import type { ILlmApplication, ILlmFunction, ILlmSchema } from "@samchon/openapi";
 import { LlmSchemaComposer } from "@samchon/openapi/lib/composers/LlmSchemaComposer";
 
 export const _llmApplicationFinalize = <Model extends ILlmSchema.Model>(

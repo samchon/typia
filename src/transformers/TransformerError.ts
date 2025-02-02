@@ -1,6 +1,6 @@
-import { MetadataFactory } from "../factories/MetadataFactory";
+import type { MetadataFactory } from "../factories/MetadataFactory";
 
-import { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
+import type { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
 
 import { Escaper } from "../utils/Escaper";
 

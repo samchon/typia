@@ -1,12 +1,12 @@
-import ts from "typescript";
+import type ts from "typescript";
 
-import { IMetadataTypeTag } from "../schemas/metadata/IMetadataTypeTag";
-import { Metadata } from "../schemas/metadata/Metadata";
+import type { IMetadataTypeTag } from "../schemas/metadata/IMetadataTypeTag";
+import type { Metadata } from "../schemas/metadata/Metadata";
 
 import { Writable } from "../typings/Writable";
 
 import { FormatCheatSheet } from "../tags/internal/FormatCheatSheet";
-import { MetadataFactory } from "./MetadataFactory";
+import type { MetadataFactory } from "./MetadataFactory";
 import { MetadataTypeTagFactory } from "./MetadataTypeTagFactory";
 
 /**

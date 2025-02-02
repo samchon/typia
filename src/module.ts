@@ -1,8 +1,8 @@
-import { AssertionGuard } from "./AssertionGuard";
-import { IRandomGenerator } from "./IRandomGenerator";
-import { IValidation } from "./IValidation";
-import { Resolved } from "./Resolved";
-import { TypeGuardError } from "./TypeGuardError";
+import type { AssertionGuard } from "./AssertionGuard";
+import type { IRandomGenerator } from "./IRandomGenerator";
+import type { IValidation } from "./IValidation";
+import type { Resolved } from "./Resolved";
+import type { TypeGuardError } from "./TypeGuardError";
 
 export * as functional from "./functional";
 export * as http from "./http";

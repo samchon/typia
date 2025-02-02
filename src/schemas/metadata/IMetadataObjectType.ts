@@ -1,5 +1,5 @@
-import { IJsDocTagInfo } from "./IJsDocTagInfo";
-import { IMetadataProperty } from "./IMetadataProperty";
+import type { IJsDocTagInfo } from "./IJsDocTagInfo";
+import type { IMetadataProperty } from "./IMetadataProperty";
 
 export interface IMetadataObjectType {
   name: string;

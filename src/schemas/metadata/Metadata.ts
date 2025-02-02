@@ -1,10 +1,10 @@
-import { ClassProperties } from "../../typings/ClassProperties";
+import type { ClassProperties } from "../../typings/ClassProperties";
 
 import { ArrayUtil } from "../../utils/ArrayUtil";
 
-import { IMetadata } from "./IMetadata";
-import { IMetadataDictionary } from "./IMetadataDictionary";
-import { IMetadataTypeTag } from "./IMetadataTypeTag";
+import type { IMetadata } from "./IMetadata";
+import type { IMetadataDictionary } from "./IMetadataDictionary";
+import type { IMetadataTypeTag } from "./IMetadataTypeTag";
 import { MetadataAlias } from "./MetadataAlias";
 import { MetadataArray } from "./MetadataArray";
 import { MetadataAtomic } from "./MetadataAtomic";

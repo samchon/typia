@@ -1,4 +1,4 @@
-import { IMetadataApplication } from "./schemas/metadata/IMetadataApplication";
+import type { IMetadataApplication } from "./schemas/metadata/IMetadataApplication";
 
 /**
  * > You must configure the generic argument `Types`.

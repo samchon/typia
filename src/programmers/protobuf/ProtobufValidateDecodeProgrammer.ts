@@ -3,8 +3,8 @@ import ts from "typescript";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
-import { IProgrammerProps } from "../../transformers/IProgrammerProps";
-import { ITypiaContext } from "../../transformers/ITypiaContext";
+import type { IProgrammerProps } from "../../transformers/IProgrammerProps";
+import type { ITypiaContext } from "../../transformers/ITypiaContext";
 
 import { FeatureProgrammer } from "../FeatureProgrammer";
 import { ValidateProgrammer } from "../ValidateProgrammer";

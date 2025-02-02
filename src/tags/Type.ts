@@ -1,4 +1,4 @@
-import { TagBase } from "./TagBase";
+import type { TagBase } from "./TagBase";
 
 export type Type<
   Value extends "int32" | "uint32" | "int64" | "uint64" | "float" | "double",

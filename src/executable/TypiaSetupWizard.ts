@@ -1,5 +1,6 @@
 import fs from "fs";
-import { DetectResult, detect } from "package-manager-detector";
+import type { DetectResult} from "package-manager-detector";
+import { detect } from "package-manager-detector";
 
 import { ArgumentParser } from "./setup/ArgumentParser";
 import { CommandExecutor } from "./setup/CommandExecutor";

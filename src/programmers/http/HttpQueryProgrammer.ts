@@ -6,16 +6,16 @@ import { MetadataFactory } from "../../factories/MetadataFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
-import { Metadata } from "../../schemas/metadata/Metadata";
+import type { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataArrayType } from "../../schemas/metadata/MetadataArrayType";
-import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
-import { MetadataProperty } from "../../schemas/metadata/MetadataProperty";
+import type { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
+import type { MetadataProperty } from "../../schemas/metadata/MetadataProperty";
 
-import { IProgrammerProps } from "../../transformers/IProgrammerProps";
-import { ITypiaContext } from "../../transformers/ITypiaContext";
+import type { IProgrammerProps } from "../../transformers/IProgrammerProps";
+import type { ITypiaContext } from "../../transformers/ITypiaContext";
 import { TransformerError } from "../../transformers/TransformerError";
 
-import { Atomic } from "../../typings/Atomic";
+import type { Atomic } from "../../typings/Atomic";
 
 import { Escaper } from "../../utils/Escaper";
 import { StringUtil } from "../../utils/StringUtil";

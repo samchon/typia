@@ -1,6 +1,6 @@
-import { ClassProperties } from "../../typings/ClassProperties";
+import type { ClassProperties } from "../../typings/ClassProperties";
 
-import { IMetadataApplication } from "./IMetadataApplication";
+import type { IMetadataApplication } from "./IMetadataApplication";
 import { Metadata } from "./Metadata";
 import { MetadataComponents } from "./MetadataComponents";
 

@@ -1,4 +1,4 @@
-import { OpenApi, OpenApiV3 } from "@samchon/openapi";
+import type { OpenApi, OpenApiV3 } from "@samchon/openapi";
 
 export interface __IJsonApplication<
   Version extends "3.0" | "3.1" = "3.1",

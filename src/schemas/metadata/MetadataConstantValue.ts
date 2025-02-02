@@ -1,8 +1,8 @@
-import { ClassProperties } from "../../typings/ClassProperties";
+import type { ClassProperties } from "../../typings/ClassProperties";
 
-import { IJsDocTagInfo } from "./IJsDocTagInfo";
-import { IMetadataConstantValue } from "./IMetadataConstantValue";
-import { IMetadataTypeTag } from "./IMetadataTypeTag";
+import type { IJsDocTagInfo } from "./IJsDocTagInfo";
+import type { IMetadataConstantValue } from "./IMetadataConstantValue";
+import type { IMetadataTypeTag } from "./IMetadataTypeTag";
 
 export class MetadataConstantValue {
   public readonly value: boolean | bigint | number | string;

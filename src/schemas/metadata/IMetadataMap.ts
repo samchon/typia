@@ -1,5 +1,5 @@
-import { IMetadata } from "./IMetadata";
-import { IMetadataTypeTag } from "./IMetadataTypeTag";
+import type { IMetadata } from "./IMetadata";
+import type { IMetadataTypeTag } from "./IMetadataTypeTag";
 
 export interface IMetadataMap {
   key: IMetadata;

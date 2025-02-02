@@ -1,9 +1,9 @@
-import { Equal } from "./typings/Equal";
-import { IsTuple } from "./typings/IsTuple";
-import { NativeClass } from "./typings/NativeClass";
-import { ValueOf } from "./typings/ValueOf";
+import type { Equal } from "./typings/Equal";
+import type { IsTuple } from "./typings/IsTuple";
+import type { NativeClass } from "./typings/NativeClass";
+import type { ValueOf } from "./typings/ValueOf";
 
-import { Format } from "./tags";
+import type { Format } from "./tags";
 
 /**
  * Primitive type of JSON.

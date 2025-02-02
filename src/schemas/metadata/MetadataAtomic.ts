@@ -1,7 +1,7 @@
-import { ClassProperties } from "../../typings/ClassProperties";
+import type { ClassProperties } from "../../typings/ClassProperties";
 
-import { IMetadataAtomic } from "./IMetadataAtomic";
-import { IMetadataTypeTag } from "./IMetadataTypeTag";
+import type { IMetadataAtomic } from "./IMetadataAtomic";
+import type { IMetadataTypeTag } from "./IMetadataTypeTag";
 
 export class MetadataAtomic {
   public readonly type: "boolean" | "bigint" | "number" | "string";

@@ -1,7 +1,7 @@
-import { ClassProperties } from "../../typings/ClassProperties";
+import type { ClassProperties } from "../../typings/ClassProperties";
 
-import { IMetadataNative } from "./IMetadataNative";
-import { IMetadataTypeTag } from "./IMetadataTypeTag";
+import type { IMetadataNative } from "./IMetadataNative";
+import type { IMetadataTypeTag } from "./IMetadataTypeTag";
 
 export class MetadataNative {
   public readonly name: string;

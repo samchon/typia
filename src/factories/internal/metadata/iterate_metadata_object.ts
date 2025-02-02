@@ -1,11 +1,11 @@
 import ts from "typescript";
 
 import { MetadataObject } from "../../../schemas/metadata/MetadataObject";
-import { MetadataObjectType } from "../../../schemas/metadata/MetadataObjectType";
+import type { MetadataObjectType } from "../../../schemas/metadata/MetadataObjectType";
 
 import { ArrayUtil } from "../../../utils/ArrayUtil";
 
-import { IMetadataIteratorProps } from "./IMetadataIteratorProps";
+import type { IMetadataIteratorProps } from "./IMetadataIteratorProps";
 import { emplace_metadata_object } from "./emplace_metadata_object";
 
 export const iterate_metadata_object = (

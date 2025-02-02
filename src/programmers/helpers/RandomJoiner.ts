@@ -1,4 +1,4 @@
-import { OpenApi } from "@samchon/openapi";
+import type { OpenApi } from "@samchon/openapi";
 import ts from "typescript";
 
 import { ExpressionFactory } from "../../factories/ExpressionFactory";
@@ -8,8 +8,8 @@ import { LiteralFactory } from "../../factories/LiteralFactory";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
 import { MetadataArrayType } from "../../schemas/metadata/MetadataArrayType";
-import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
-import { MetadataProperty } from "../../schemas/metadata/MetadataProperty";
+import type { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
+import type { MetadataProperty } from "../../schemas/metadata/MetadataProperty";
 import { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
 import { MetadataTupleType } from "../../schemas/metadata/MetadataTupleType";
 

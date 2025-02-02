@@ -1,12 +1,12 @@
-import ts from "typescript";
+import type ts from "typescript";
 
-import { Metadata } from "../schemas/metadata/Metadata";
+import type { Metadata } from "../schemas/metadata/Metadata";
 
 import { AtomicPredicator } from "../programmers/helpers/AtomicPredicator";
 
 import { TransformerError } from "../transformers/TransformerError";
 
-import { ValidationPipe } from "../typings/ValidationPipe";
+import type { ValidationPipe } from "../typings/ValidationPipe";
 
 import { MetadataCollection } from "./MetadataCollection";
 import { MetadataFactory } from "./MetadataFactory";

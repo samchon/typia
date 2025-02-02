@@ -1,6 +1,6 @@
 import { CommentFactory } from "../../factories/CommentFactory";
 
-import { IJsDocTagInfo } from "../../schemas/metadata/IJsDocTagInfo";
+import type { IJsDocTagInfo } from "../../schemas/metadata/IJsDocTagInfo";
 
 export const json_schema_title = (schema: {
   description?: string | null | undefined;

@@ -1,4 +1,4 @@
-import { IMetadataTypeTag } from "./IMetadataTypeTag";
+import type { IMetadataTypeTag } from "./IMetadataTypeTag";
 
 export interface IMetadataAtomic {
   type: "boolean" | "bigint" | "number" | "string";

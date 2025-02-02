@@ -1,8 +1,8 @@
-import { IJsonSchemaCollection } from "./schemas/json/IJsonSchemaCollection";
+import type { IJsonSchemaCollection } from "./schemas/json/IJsonSchemaCollection";
 
-import { IValidation } from "./IValidation";
-import { Primitive } from "./Primitive";
-import { TypeGuardError } from "./TypeGuardError";
+import type { IValidation } from "./IValidation";
+import type { Primitive } from "./Primitive";
+import type { TypeGuardError } from "./TypeGuardError";
 
 /* ===========================================================
     JSON

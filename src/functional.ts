@@ -1,5 +1,5 @@
-import { IValidation } from "./IValidation";
-import { TypeGuardError } from "./TypeGuardError";
+import type { IValidation } from "./IValidation";
+import type { TypeGuardError } from "./TypeGuardError";
 
 /* ===========================================================
   FUNCTIONAL

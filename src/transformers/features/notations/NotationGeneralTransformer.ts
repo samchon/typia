@@ -1,6 +1,6 @@
 import { NotationGeneralProgrammer } from "../../../programmers/notations/NotationGeneralProgrammer";
 
-import { ITransformProps } from "../../ITransformProps";
+import type { ITransformProps } from "../../ITransformProps";
 import { GenericTransformer } from "../../internal/GenericTransformer";
 
 export namespace NotationGeneralTransformer {

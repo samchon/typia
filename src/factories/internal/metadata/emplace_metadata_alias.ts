@@ -1,9 +1,9 @@
-import { Metadata } from "../../../schemas/metadata/Metadata";
-import { MetadataAliasType } from "../../../schemas/metadata/MetadataAliasType";
+import type { Metadata } from "../../../schemas/metadata/Metadata";
+import type { MetadataAliasType } from "../../../schemas/metadata/MetadataAliasType";
 
 import { ArrayUtil } from "../../../utils/ArrayUtil";
 
-import { IMetadataIteratorProps } from "./IMetadataIteratorProps";
+import type { IMetadataIteratorProps } from "./IMetadataIteratorProps";
 import { explore_metadata } from "./explore_metadata";
 
 export const emplace_metadata_alias = (

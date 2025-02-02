@@ -1,7 +1,7 @@
-import { ClassProperties } from "../../typings/ClassProperties";
+import type { ClassProperties } from "../../typings/ClassProperties";
 
-import { IMetadataDictionary } from "./IMetadataDictionary";
-import { IMetadataEscaped } from "./IMetadataEscaped";
+import type { IMetadataDictionary } from "./IMetadataDictionary";
+import type { IMetadataEscaped } from "./IMetadataEscaped";
 import { Metadata } from "./Metadata";
 
 export class MetadataEscaped {

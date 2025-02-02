@@ -1,6 +1,6 @@
-import { OpenApi } from "@samchon/openapi";
+import type { OpenApi } from "@samchon/openapi";
 
-import { MetadataNative } from "../../schemas/metadata/MetadataNative";
+import type { MetadataNative } from "../../schemas/metadata/MetadataNative";
 
 import { json_schema_plugin } from "./json_schema_plugin";
 

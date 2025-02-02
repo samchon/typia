@@ -2,7 +2,7 @@ import ts from "typescript";
 
 import { ExpressionFactory } from "../../factories/ExpressionFactory";
 
-import { ITypiaContext } from "../../transformers/ITypiaContext";
+import type { ITypiaContext } from "../../transformers/ITypiaContext";
 
 import { FunctionalIsParametersProgrammer } from "./FunctionalIsParametersProgrammer";
 import { FunctionalIsReturnProgrammer } from "./FunctionalIsReturnProgrammer";

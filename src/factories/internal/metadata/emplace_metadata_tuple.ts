@@ -1,13 +1,13 @@
 import ts from "typescript";
 
 import { Metadata } from "../../../schemas/metadata/Metadata";
-import { MetadataTupleType } from "../../../schemas/metadata/MetadataTupleType";
+import type { MetadataTupleType } from "../../../schemas/metadata/MetadataTupleType";
 
 import { Writable } from "../../../typings/Writable";
 
 import { ArrayUtil } from "../../../utils/ArrayUtil";
 
-import { IMetadataIteratorProps } from "./IMetadataIteratorProps";
+import type { IMetadataIteratorProps } from "./IMetadataIteratorProps";
 import { explore_metadata } from "./explore_metadata";
 
 export const emplace_metadata_tuple = (

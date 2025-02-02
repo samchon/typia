@@ -4,12 +4,12 @@ import { ExpressionFactory } from "../../factories/ExpressionFactory";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 
-import { ITypiaContext } from "../../transformers/ITypiaContext";
+import type { ITypiaContext } from "../../transformers/ITypiaContext";
 
-import { IExpressionEntry } from "../helpers/IExpressionEntry";
+import type { IExpressionEntry } from "../helpers/IExpressionEntry";
 import { check_dynamic_key } from "./check_dynamic_key";
 import { check_everything } from "./check_everything";
-import { check_object } from "./check_object";
+import type { check_object } from "./check_object";
 
 /**
  * @internal

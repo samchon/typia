@@ -1,7 +1,7 @@
 import ts from "typescript";
 
-import { IProgrammerProps } from "../IProgrammerProps";
-import { ITransformProps } from "../ITransformProps";
+import type { IProgrammerProps } from "../IProgrammerProps";
+import type { ITransformProps } from "../ITransformProps";
 import { TransformerError } from "../TransformerError";
 
 export namespace GenericTransformer {

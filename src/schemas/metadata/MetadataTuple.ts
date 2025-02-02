@@ -1,8 +1,8 @@
-import { ClassProperties } from "../../typings/ClassProperties";
+import type { ClassProperties } from "../../typings/ClassProperties";
 
-import { IMetadataTuple } from "./IMetadataTuple";
-import { IMetadataTypeTag } from "./IMetadataTypeTag";
-import { MetadataTupleType } from "./MetadataTupleType";
+import type { IMetadataTuple } from "./IMetadataTuple";
+import type { IMetadataTypeTag } from "./IMetadataTypeTag";
+import type { MetadataTupleType } from "./MetadataTupleType";
 
 export class MetadataTuple {
   public readonly type: MetadataTupleType;

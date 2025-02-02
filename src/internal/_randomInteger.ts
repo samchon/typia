@@ -1,4 +1,4 @@
-import { OpenApi } from "@samchon/openapi";
+import type { OpenApi } from "@samchon/openapi";
 
 export const _randomInteger = (props: OpenApi.IJsonSchema.IInteger) => {
   let minimum: number =

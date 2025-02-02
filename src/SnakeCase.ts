@@ -1,6 +1,6 @@
-import { Equal } from "./typings/Equal";
-import { NativeClass } from "./typings/NativeClass";
-import { ValueOf } from "./typings/ValueOf";
+import type { Equal } from "./typings/Equal";
+import type { NativeClass } from "./typings/NativeClass";
+import type { ValueOf } from "./typings/ValueOf";
 
 /**
  * Snake case type.

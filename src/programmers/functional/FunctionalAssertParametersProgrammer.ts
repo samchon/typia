@@ -4,7 +4,7 @@ import { ExpressionFactory } from "../../factories/ExpressionFactory";
 import { StatementFactory } from "../../factories/StatementFactory";
 import { TypeFactory } from "../../factories/TypeFactory";
 
-import { ITypiaContext } from "../../transformers/ITypiaContext";
+import type { ITypiaContext } from "../../transformers/ITypiaContext";
 
 import { AssertProgrammer } from "../AssertProgrammer";
 import { FunctionalAssertFunctionProgrammer } from "./FunctionalAssertFunctionProgrammer";

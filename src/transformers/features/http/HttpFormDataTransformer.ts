@@ -1,6 +1,6 @@
 import { HttpFormDataProgrammer } from "../../../programmers/http/HttpFormDataProgrammer";
 
-import { ITransformProps } from "../../ITransformProps";
+import type { ITransformProps } from "../../ITransformProps";
 import { GenericTransformer } from "../../internal/GenericTransformer";
 
 export namespace HttpFormDataTransformer {

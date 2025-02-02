@@ -1,8 +1,8 @@
-import { OpenApi } from "@samchon/openapi";
+import type { OpenApi } from "@samchon/openapi";
 import { OpenApiV3Downgrader } from "@samchon/openapi/lib/converters/OpenApiV3Downgrader";
 
-import { IJsonSchemaCollection } from "../../schemas/json/IJsonSchemaCollection";
-import { Metadata } from "../../schemas/metadata/Metadata";
+import type { IJsonSchemaCollection } from "../../schemas/json/IJsonSchemaCollection";
+import type { Metadata } from "../../schemas/metadata/Metadata";
 
 import { TransformerError } from "../../transformers/TransformerError";
 

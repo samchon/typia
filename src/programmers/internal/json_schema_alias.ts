@@ -1,6 +1,6 @@
-import { OpenApi } from "@samchon/openapi";
+import type { OpenApi } from "@samchon/openapi";
 
-import { MetadataAlias } from "../../schemas/metadata/MetadataAlias";
+import type { MetadataAlias } from "../../schemas/metadata/MetadataAlias";
 
 import { json_schema_description } from "./json_schema_description";
 import { json_schema_object } from "./json_schema_object";

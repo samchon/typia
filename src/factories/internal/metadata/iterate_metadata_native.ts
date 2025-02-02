@@ -1,11 +1,11 @@
-import ts from "typescript";
+import type ts from "typescript";
 
 import { MetadataNative } from "../../../schemas/metadata/MetadataNative";
 
 import { ArrayUtil } from "../../../utils/ArrayUtil";
 
 import { TypeFactory } from "../../TypeFactory";
-import { IMetadataIteratorProps } from "./IMetadataIteratorProps";
+import type { IMetadataIteratorProps } from "./IMetadataIteratorProps";
 
 export const iterate_metadata_native = (
   props: IMetadataIteratorProps,

@@ -1,8 +1,8 @@
-import ts from "typescript";
+import type ts from "typescript";
 
 import { ProtobufMessageProgrammer } from "../../../programmers/protobuf/ProtobufMessageProgrammer";
 
-import { ITransformProps } from "../../ITransformProps";
+import type { ITransformProps } from "../../ITransformProps";
 import { TransformerError } from "../../TransformerError";
 
 export namespace ProtobufMessageTransformer {

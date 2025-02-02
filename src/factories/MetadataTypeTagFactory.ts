@@ -1,9 +1,9 @@
-import { IMetadataTypeTag } from "../schemas/metadata/IMetadataTypeTag";
-import { Metadata } from "../schemas/metadata/Metadata";
-import { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
-import { MetadataProperty } from "../schemas/metadata/MetadataProperty";
+import type { IMetadataTypeTag } from "../schemas/metadata/IMetadataTypeTag";
+import type { Metadata } from "../schemas/metadata/Metadata";
+import type { MetadataObjectType } from "../schemas/metadata/MetadataObjectType";
+import type { MetadataProperty } from "../schemas/metadata/MetadataProperty";
 
-import { MetadataFactory } from "./MetadataFactory";
+import type { MetadataFactory } from "./MetadataFactory";
 import { MetadataTypeTagSchemaFactory } from "./MetadataTypeTagSchemaFactory";
 
 export namespace MetadataTypeTagFactory {
