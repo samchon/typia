@@ -66,7 +66,6 @@
     "@typescript-eslint/parser": "^8.1.0",
     "chalk": "^4.0.0",
     "eslint": "^9.19.0",
-    "eslint-plugin-deprecation": "^3.0.0",
     "prettier": "^3.2.5",
     "rimraf": "^5.0.5",
     "rollup": "^4.18.0",
