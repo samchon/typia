@@ -254,9 +254,9 @@ export namespace TestValidator {
    *
    * Test a pagination API supporting sorting options.
    *
-   * You can validate detailed sorting options both asceding and descending orders
+   * You can validate detailed sorting options both ascending and descending orders
    * with multiple fields. However, as it forms a complicate currying function,
-   * I recomend you to see below example code before using.
+   * I recommend you to see below example code before using.
    *
    * @param title Title of error message when sorting is invalid
    * @example https://github.com/samchon/nestia-template/blob/master/src/test/features/api/bbs/test_api_bbs_article_index_sort.ts

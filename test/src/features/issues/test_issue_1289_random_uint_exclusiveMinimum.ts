@@ -1,6 +1,6 @@
 import typia, { tags } from "typia";
 
-export const test_issue_1289_random_uint_exlcusiveMinimum = (): void => {
+export const test_issue_1289_random_uint_exclusiveMinimum = (): void => {
   typia.assert<Int32Array>(typia.random<Int32Array>());
   typia.assert<Int64Array>(typia.random<Int64Array>());
   typia.assert<Uint32Array>(typia.random<Uint32Array>());

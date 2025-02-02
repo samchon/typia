@@ -23,7 +23,7 @@
               },
               "deprecated": {
                 "title": "Deprecated property",
-                "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON scheam.",
+                "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON schema.",
                 "type": "boolean",
                 "deprecated": true
               },
@@ -78,7 +78,7 @@
               },
               "deprecated": {
                 "title": "Deprecated property",
-                "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON scheam.",
+                "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON schema.",
                 "type": "boolean",
                 "deprecated": true
               },
@@ -123,7 +123,7 @@
                   },
                   "deprecated": {
                     "title": "Deprecated property",
-                    "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON scheam.",
+                    "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON schema.",
                     "type": "boolean",
                     "deprecated": true
                   },
@@ -177,7 +177,7 @@
           },
           "deprecated": {
             "title": "Deprecated property",
-            "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON scheam.",
+            "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON schema.",
             "type": "boolean",
             "deprecated": true
           },
@@ -228,7 +228,7 @@
                   },
                   "deprecated": {
                     "title": "Deprecated property",
-                    "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON scheam.",
+                    "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON schema.",
                     "type": "boolean",
                     "deprecated": true
                   },
@@ -277,7 +277,7 @@
                   },
                   "deprecated": {
                     "title": "Deprecated property",
-                    "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON scheam.",
+                    "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON schema.",
                     "type": "boolean",
                     "deprecated": true
                   },
@@ -326,7 +326,7 @@
                   },
                   "deprecated": {
                     "title": "Deprecated property",
-                    "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON scheam.",
+                    "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON schema.",
                     "type": "boolean",
                     "deprecated": true
                   },
@@ -383,7 +383,7 @@
               },
               "deprecated": {
                 "title": "Deprecated property",
-                "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON scheam.",
+                "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON schema.",
                 "type": "boolean",
                 "deprecated": true
               },

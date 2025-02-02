@@ -439,7 +439,7 @@
           "minItems": {
             "type": "integer",
             "title": "Minimum items restriction",
-            "description": "Minimum items restriction.\n\nRestriction of minumum number of items in the array."
+            "description": "Minimum items restriction.\n\nRestriction of minimum number of items in the array."
           },
           "maxItems": {
             "type": "integer",
@@ -549,7 +549,7 @@
           "minItems": {
             "type": "integer",
             "title": "Minimum items restriction",
-            "description": "Minimum items restriction.\n\nRestriction of minumum number of items in the tuple."
+            "description": "Minimum items restriction.\n\nRestriction of minimum number of items in the tuple."
           },
           "maxItems": {
             "type": "integer",
