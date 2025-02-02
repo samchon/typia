@@ -73,7 +73,7 @@ export namespace IdentifierFactory {
         type ?? TypeFactory.keyword("any"),
         init && init.kind !== ts.SyntaxKind.QuestionToken ? init : undefined,
       );
-    // eslint-disable-next-line
+     
     return (ts.factory.createParameterDeclaration as any)(
       undefined,
       undefined,

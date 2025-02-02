@@ -4,7 +4,7 @@ export const __notationUnsnake =
     snake: (str: string, index: number) => string;
   }) =>
   (str: string): string => {
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+     
     let prefix: string = "";
     for (let i: number = 0; i < str.length; i++) {
       if (str[i] === "_") prefix += "_";
