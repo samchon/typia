@@ -70,7 +70,7 @@ import { ILlmSchema } from "./ILlmSchema";
  *
  * Also, there can be some parameters (or their nested properties) which must be
  * composed by Human, not by LLM. File uploading feature or some sensitive information
- * like secret key (password) are the examples. In that case, you can separate the
+ * like secret keys (password) are the examples. In that case, you can separate the
  * function parameters to both LLM and human sides by configuring the
  * {@link ILlmApplication.IOptions.separate} property. The separated parameters are
  * assigned to the {@link ILlmFunction.separated} property.
@@ -423,7 +423,7 @@ import { ILlmSchema } from "./ILlmSchema";
  *
  * Also, there can be some parameters (or their nested properties) which must be
  * composed by Human, not by LLM. File uploading feature or some sensitive information
- * like secret key (password) are the examples. In that case, you can separate the
+ * like secret keys (password) are the examples. In that case, you can separate the
  * function parameters to both LLM and human sides by configuring the
  * {@link ILlmApplication.IOptions.separate} property. The separated parameters are
  * assigned to the {@link ILlmFunction.separated} property.
@@ -698,7 +698,7 @@ import { IValidation } from "../../IValidation";
  *
  * By the way, there can be some parameters (or their nested properties) which must be
  * composed by Human, not by LLM. File uploading feature or some sensitive information
- * like secret key (password) are the examples. In that case, you can separate the
+ * like secret keys (password) are the examples. In that case, you can separate the
  * function parameters to both LLM and human sides by configuring the
  * {@link ILlmApplication.IOptions.separate} property. The separated parameters are
  * assigned to the {@link ILlmFunction.separated} property.
@@ -863,7 +863,7 @@ export namespace ChatGptFunctionCaller {
 ## Parameters' Separation
 Parameter values from both LLM and Human sides.
 
-When composing parameter arguments through the LLM (Large Language Model) function calling, there can be a case that some parameters (or nested properties) must be composed not by LLM, but by Human. File uploading feature, or sensitive information like secret key (password) cases are the representative examples.
+When composing parameter arguments through the LLM (Large Language Model) function calling, there can be a case that some parameters (or nested properties) must be composed not by LLM, but by Human. File uploading feature, or sensitive information like secret keys (password) cases are the representative examples.
 
 In that case, you can configure the LLM function calling schemas to exclude such Human side parameters (or nested properties) by `ILlmApplication.options.separate` property. Instead, you have to merge both Human and LLM composed parameters into one by calling the `HttpLlm.mergeParameters()` before the LLM function call execution.
 
