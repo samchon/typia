@@ -352,7 +352,7 @@ Here is the entire list of comment tags that `typia` supports.
 
 By the way, I do not recommend this way, because it can't perform union numeric types, and can be used for only object property type. It can't be used standalone, and cannot be used for element type of `Array` and `Map` even when they're declared on object property. Also, When you declare `@type int32` statement, target `number` type be fixed as `int32` type, and never can have another numeric type by declaring union statements.
 
-Also, those comment tags are not type safe. If you take a mistake when writing a comment tag, it will not be detected by the compiler, and will cause an error at runtime. For example, if you write a mis-spelled keyword like `@type unit32`, the target `number` type would be `double` type, and you can identify it just by running the program (or visiting playground website).
+Also, those comment tags are not type safe. If you take a mistake when writing a comment tag, it will not be detected by the compiler, and will cause an error at runtime. For example, if you write a miss-spelled keyword like `@type unit32`, the target `number` type would be `double` type, and you can identify it just by running the program (or visiting playground website).
 
 <br/>
 <Alert severity="warning">
