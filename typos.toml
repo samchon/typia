@@ -1,3 +1,7 @@
 [default]
 locale = 'en-us'
 
+[default.extend-words]
+Jeongho = "Jeongho"
+Nam = "Nam"
+typia = "typia"
