@@ -1,5 +1,4 @@
 import typescriptEslint from "@typescript-eslint/eslint-plugin";
-import deprecation from "eslint-plugin-deprecation";
 import tsParser from "@typescript-eslint/parser";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
@@ -17,7 +16,6 @@ const compat = new FlatCompat({
 export default [...compat.extends("plugin:@typescript-eslint/recommended"), {
     plugins: {
         "@typescript-eslint": typescriptEslint,
-        deprecation,
     },
 
     languageOptions: {
@@ -44,5 +42,6 @@ export default [...compat.extends("plugin:@typescript-eslint/recommended"), {
         "@typescript-eslint/no-require-imports": "off",
         "@typescript-eslint/no-empty-object-type": "off",
         "@typescript-eslint/no-unsafe-function-type": "off",
+        "@typescript-eslint/no-deprecated": "error"
     },
 }];
