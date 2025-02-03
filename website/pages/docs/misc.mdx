@@ -2290,6 +2290,9 @@ Also, `typia.http.headers<t>()` function does not perform validation about the d
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
+
+<!-- spellchecker:off -->
+
 ```typescript filename="examples/src/headers.ts" showLineNumbers {}
 import typia from "typia";
 
@@ -2342,6 +2345,9 @@ import typia from "typia";
   };
 })();
 ```
+
+<!-- spellchecker:on -->
+
   </Tabs.Tab>
 </Tabs>
 
@@ -2374,7 +2380,7 @@ export class TypeGuardError extends Error {
 
 URL path parameter decoder.
 
-`typia.http.parameter<T>()` is a function decoding a path parameter, with automatic type casting to the expected type. When type T has beeen defined as boolean or number `type, typia.http.parameter<T>()` will cast the value to the expected type.
+`typia.http.parameter<T>()` is a function decoding a path parameter, with automatic type casting to the expected type. When type T has been defined as boolean or number `type, typia.http.parameter<T>()` will cast the value to the expected type.
 
 Also, `typia.http.parameter<T>()` performs type assertion to the decoded value by combining with assert function. Therefore, when the decoded value is not following the `T` type, `TypeGuardError` would be thrown.
 

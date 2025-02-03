@@ -16,7 +16,7 @@ typia.llm.parameters<
 >();
 typia.llm.application<
   {
-    inser(props: {
+    insert(props: {
       input: {
         dictionary: string | number;
       };

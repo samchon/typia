@@ -49,7 +49,7 @@ export namespace LlmApplicationProgrammer {
         metadata.nullable === false;
       if (validity === false)
         output.push(
-          "LLM application's generic arugment must be a class/interface type.",
+          "LLM application's generic argument must be a class/interface type.",
         );
 
       const object: MetadataObjectType | undefined = metadata.objects[0]?.type;
@@ -116,7 +116,7 @@ export namespace LlmApplicationProgrammer {
       output.push(`${prefix} name must not start with a number.`);
     if (/^[a-zA-Z0-9_-]+$/.test(name) === false)
       output.push(
-        `${prefix} name must be alphanumeric with underscore or hypen.`,
+        `${prefix} name must be alphanumeric with underscore or hyphen.`,
       );
     if (name.length > 64)
       output.push(`${prefix} name must not exceed 64 characters.`);

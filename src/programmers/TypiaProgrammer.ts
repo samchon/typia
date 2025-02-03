@@ -104,7 +104,7 @@ export namespace TypiaProgrammer {
               ? "suggestion"
               : diag.category === ts.DiagnosticCategory.Message
                 ? "message"
-                : "unkown";
+                : "unknown";
       const [line, pos] = diag.file
         ? (() => {
             const lines: string[] = diag

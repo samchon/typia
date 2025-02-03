@@ -4,9 +4,9 @@ import { IoTsUtils } from "../../../structures/io-ts/IoTsUtils";
 import { createAssertErrorBenchmarkProgram } from "../createAssertErrorBenchmarkProgram";
 
 export const createAssertErrorIoTsBenchmarkProgram = <Schema extends Mixed>(
-  instace: Schema,
+  instance: Schema,
 ) => {
-  const schema = array(instace);
+  const schema = array(instance);
   return createAssertErrorBenchmarkProgram((input) => {
     if (schema.is(input) === false) {
       const validation: Validation<any> = schema.decode(input);

@@ -174,7 +174,7 @@ export function application(): never {
  * Safe `JSON.parse()` function with type assertion.
  *
  * `typia.json.assertParse()` is a combination function of `JSON.parse()` and
- * {@link assert}. Therefore, it convers a JSON (JavaScript Object Notation) string
+ * {@link assert}. Therefore, it converts a JSON (JavaScript Object Notation) string
  * to a `T` typed instance with type assertion.
  *
  * In such reason, when parsed JSON string value is not matched with the type `T`, it
@@ -197,7 +197,7 @@ export function assertParse(
  * Safe `JSON.parse()` function with type assertion.
  *
  * `typia.json.assertParse()` is a combination function of `JSON.parse()` and
- * {@link assert}. Therefore, it convers a JSON (JavaScript Object Notation) string
+ * {@link assert}. Therefore, it converts a JSON (JavaScript Object Notation) string
  * to a `T` typed instance with type assertion.
  *
  * In such reason, when parsed JSON string value is not matched with the type `T`,
@@ -230,7 +230,7 @@ export function assertParse<T>(): Primitive<T> {
  * Safe `JSON.parse()` function with type checking.
  *
  * `typia.json.isParse()` is a combination function of `JSON.parse()` and {@link is}.
- * Therefore, it convers a JSON (JavaScript Object Notation) string to a `T` typed
+ * Therefore, it converts a JSON (JavaScript Object Notation) string to a `T` typed
  * instance with type checking.
  *
  * In such reason, when parsed JSON string value is not matched with the type `T`, it
@@ -249,7 +249,7 @@ export function isParse(input: string): never;
  * Safe `JSON.parse()` function with type checking.
  *
  * `typia.json.isParse()` is a combination function of `JSON.parse()` and {@link is}.
- * Therefore, it convers a JSON (JavaScript Object Notation) string to a `T` typed
+ * Therefore, it converts a JSON (JavaScript Object Notation) string to a `T` typed
  * instance with type checking.
  *
  * In such reason, when parsed JSON string value is not matched with the type `T`, it
@@ -277,7 +277,7 @@ export function isParse<T>(): Primitive<T> | null {
  * Safe `JSON.parse()` function with detailed type validation.
  *
  * `typia.json.validateParse()` is a combination function of `JSON.parse()` and
- * {@link validate}. Therefore, it convers a JSON (JavaScript Object Notation) string
+ * {@link validate}. Therefore, it converts a JSON (JavaScript Object Notation) string
  * to a `T` typed instance with detailed type validation.
  *
  * In such reason, when parsed JSON string value is not matched with the type `T`, it
@@ -297,7 +297,7 @@ export function validateParse(input: string): never;
  * Safe `JSON.parse()` function with detailed type validation.
  *
  * `typia.json.validateParse()` is a combination function of `JSON.parse()` and
- * {@link validate}. Therefore, it convers a JSON (JavaScript Object Notation) string
+ * {@link validate}. Therefore, it converts a JSON (JavaScript Object Notation) string
  * to a `T` typed instance with detailed type validation.
  *
  * In such reason, when parsed JSON string value is not matched with the type `T`, it

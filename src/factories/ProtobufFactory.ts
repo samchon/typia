@@ -409,14 +409,14 @@ export namespace ProtobufFactory {
             );
       }
       //----
-      // ARRRAY CASES
+      // ARRAY CASES
       //----
-      // DO NOT ALLOW MULTI-DIMENTIONAL ARRAY
+      // DO NOT ALLOW MULTI-DIMENSIONAL ARRAY
       if (
         meta.arrays.length &&
         meta.arrays.some((array) => !!array.type.value.arrays.length)
       )
-        noSupport("over two dimenstional array type");
+        noSupport("over two dimensional array type");
       // CHILD OF ARRAY TYPE MUST BE REQUIRED
       if (
         meta.arrays.length &&
@@ -494,7 +494,7 @@ export namespace ProtobufFactory {
         meta.objects[0]!.type.properties.some((p) => !!p.value.arrays.length)
       )
         noSupport("dynamic object with array value type");
-      // UNION WITH DYNAMIC OBJECTa
+      // UNION WITH DYNAMIC OBJECTTa
       if (
         meta.size() > 1 &&
         meta.objects.length &&

@@ -4,7 +4,7 @@ import tgrid from "tgrid";
 import { IBenchmarkProgram } from "./IBenchmarkProgram";
 
 export const createSuccessBenchmarkProgram =
-  (multipler: number) =>
+  (multiplier: number) =>
   <T>(process: (input: T) => any) =>
   async (validate: (input: T) => boolean, skip?: (name: string) => boolean) => {
     const provider: IBenchmarkProgram<T> = {
@@ -17,7 +17,7 @@ export const createSuccessBenchmarkProgram =
         return suite.map((elem: benchmark) => {
           const count: number = elem.hz * elem.times.elapsed;
           const size: number =
-            multipler * Buffer.from(JSON.stringify(input)).byteLength;
+            multiplier * Buffer.from(JSON.stringify(input)).byteLength;
 
           return {
             amount: size * count,

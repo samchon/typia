@@ -6,12 +6,15 @@ interface IPointer<T> {
 type IArray<Key extends string> = {
   [P in Key]: string[];
 };
+
+// spellchecker:off
 interface ISomething {
   something: boolean;
   sOmething: bigint;
   soMething: number;
-  somEthing: string;
+  someEthing: string;
 }
+// spellchecker:on
 
 typia.http.createHeaders<ISomething>();
 typia.http.createHeaders<IPointer<number | string>>();

@@ -1,5 +1,5 @@
 /* ===========================================================
-    MISCELLAENOUS
+    MISCELLANEOUS
       - LITERALS
       - CLONE
       - PRUNE
@@ -365,7 +365,7 @@ export function isPrune(): never {
  *
  * In such reason, when `input` value is not matched with the type `T`, it returns
  * {@link IValidation.IFailure} value with detailed error reasons. Otherwise, there's
- * no problem on the `input` value, it returns {@link IValidation.ISucess} value after
+ * no problem on the `input` value, it returns {@link IValidation.ISuccess} value after
  * removing every superfluous properties, including nested objects.
  *
  * @template T Type of the input value
@@ -385,7 +385,7 @@ export function validatePrune<T>(input: T): IValidation<T>;
  *
  * In such reason, when `input` value is not matched with the type `T`, it returns
  * {@link IValidation.IFailure} value with detailed error reasons. Otherwise, there's
- * no problem on the `input` value, it returns {@link IValidation.ISucess} value after
+ * no problem on the `input` value, it returns {@link IValidation.ISuccess} value after
  * removing every superfluous properties, including nested objects.
  *
  * @template T Type of the input value
@@ -418,7 +418,7 @@ export function validatePrune<T>(): IValidation<T> {
 export function createClone(): never;
 
 /**
- * Creates a resuable {@link clone} function.
+ * Creates a reusable {@link clone} function.
  *
  * @template T Type of the input value
  * @returns A reusable `clone` function
@@ -449,7 +449,7 @@ export function createAssertClone(
 ): never;
 
 /**
- * Creates a resuable {@link assertClone} function.
+ * Creates a reusable {@link assertClone} function.
  *
  * @template T Type of the input value
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
@@ -480,7 +480,7 @@ export function createAssertClone(): never {
 export function createIsClone(): never;
 
 /**
- * Creates a resuable {@link isClone} function.
+ * Creates a reusable {@link isClone} function.
  *
  * @template T Type of the input value
  * @returns A reusable `clone` function
@@ -508,7 +508,7 @@ export function createIsClone(): never {
 export function createValidateClone(): never;
 
 /**
- * Creates a resuable {@link validateClone} function.
+ * Creates a reusable {@link validateClone} function.
  *
  * @template T Type of the input value
  * @returns A reusable `clone` function
@@ -538,7 +538,7 @@ export function createValidateClone(): never {
 export function createPrune(): never;
 
 /**
- * Creates a resuable {@link prune} function.
+ * Creates a reusable {@link prune} function.
  *
  * @template T Type of the input value
  * @returns A reusable `prune` function
@@ -569,7 +569,7 @@ export function createAssertPrune(
 ): never;
 
 /**
- * Creates a resuable {@link assertPrune} function.
+ * Creates a reusable {@link assertPrune} function.
  *
  * @template T Type of the input value
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
@@ -600,7 +600,7 @@ export function createAssertPrune<T extends object>(): (input: T) => T {
 export function createIsPrune(): never;
 
 /**
- * Creates a resuable {@link isPrune} function.
+ * Creates a reusable {@link isPrune} function.
  *
  * @template T Type of the input value
  * @returns A reusable `isPrune` function
@@ -628,7 +628,7 @@ export function createIsPrune<T extends object>(): (input: T) => input is T {
 export function createValidatePrune(): never;
 
 /**
- * Creates a resuable {@link validatePrune} function.
+ * Creates a reusable {@link validatePrune} function.
  *
  * @template T Type of the input value
  * @returns A reusable `validatePrune` function

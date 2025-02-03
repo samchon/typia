@@ -79,7 +79,7 @@ export namespace UnionExplorer {
           props.input,
           key,
         );
-        const pred: ts.Expression = spec.neighbour
+        const pred: ts.Expression = spec.neighbor
           ? props.config.objector.checker({
               input: accessor,
               metadata: spec.property.value,

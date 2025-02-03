@@ -23,7 +23,7 @@ import { ILlmFunctionOfValidate } from "./ILlmFunctionOfValidate";
  *
  * By the way, there can be some parameters (or their nested properties) which must be
  * composed by Human, not by LLM. File uploading feature or some sensitive information
- * like secrety key (password) are the examples. In that case, you can separate the
+ * like secret keys (password) are the examples. In that case, you can separate the
  * function parameters to both LLM and human sides by configuring the
  * {@link ILlmApplication.IOptions.separate} property. The separated parameters are
  * assigned to the {@link ILlmFunction.separated} property.
@@ -31,7 +31,7 @@ import { ILlmFunctionOfValidate } from "./ILlmFunctionOfValidate";
  * For reference, when both LLM and Human filled parameter values to call, you can
  * merge them by calling the {@link HttpLlm.mergeParameters} function. In other words,
  * if you've configured the {@link ILlmApplication.IOptions.separate} property, you
- * have to merge the separated parameters before the funtion call execution.
+ * have to merge the separated parameters before the function call execution.
  *
  * @reference https://platform.openai.com/docs/guides/function-calling
  * @author Jeongho Nam - https://github.com/samchon

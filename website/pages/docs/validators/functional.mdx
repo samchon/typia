@@ -37,14 +37,14 @@ export class TypeGuardError extends Error {
 
 Asserts a function.
 
-`typia.functional.assertFunction<T>()` asserts a function, by wrapping the parameter function and checking its parametrs and return value through [`typia.assert<T>()`](./assert) function. If some parameter or return value does not match the expected type, it throws a `TypeGuardError` error.
+`typia.functional.assertFunction<T>()` asserts a function, by wrapping the parameter function and checking its parameters and return value through [`typia.assert<T>()`](./assert) function. If some parameter or return value does not match the expected type, it throws a `TypeGuardError` error.
 
-For reference, `TypeGuardError.path` would be a little bit different with individual [`typia.assert<T>()`](./assert) function. If `TypeGuardError` occurs from some parameter, the path wouold start from `$input.parameters[<index>]`. Otherwise the path would start from `$input.return`.
+For reference, `TypeGuardError.path` would be a little bit different with individual [`typia.assert<T>()`](./assert) function. If `TypeGuardError` occurs from some parameter, the path would start from `$input.parameters[<index>]`. Otherwise the path would start from `$input.return`.
 
   - `$input.parameters[0].~`
   - `$input.return.~`
 
-By the way, if you don't want to assert both paramters and return value, but one of them, you can use `typia.functional.assertParameters<T>()` or `typia.functional.assertReturn<T>()` instead. Otherwise, if you want to prohibit superfluous properties, `typia.functional.assertEqualsFunction<T>()` would be helpful.
+By the way, if you don't want to assert both parameters and return value, but one of them, you can use `typia.functional.assertParameters<T>()` or `typia.functional.assertReturn<T>()` instead. Otherwise, if you want to prohibit superfluous properties, `typia.functional.assertEqualsFunction<T>()` would be helpful.
 
 Also, if what you want is not just finding the first type error through assertion, but also finding every type errors, utilize [`typia.functional.validateFunction<T>()`](#validatefunction) function instead. Otherwise, you don't need the reason why, but just want to know whether the function is valid or not, use [`typia.functional.isFunction<T>()`](#isfunction) function.
 
@@ -195,9 +195,9 @@ export namespace functional {
 
 Tests a function.
 
-`typia.functional.isFunction<T>()` tests a function, by wrapping the parameter function and checking its paramters and return value through [`typia.is<T>()`](./is) function. If some parameter or return value does not match the expected type, it returns `null`. Otherwise, it returns the return value of the parameter function.
+`typia.functional.isFunction<T>()` tests a function, by wrapping the parameter function and checking its parameters and return value through [`typia.is<T>()`](./is) function. If some parameter or return value does not match the expected type, it returns `null`. Otherwise, it returns the return value of the parameter function.
 
-By the way, if you don't want to test both paramters and return value, but one of them, you can use `typia.functional.isParameters<T>()` or `typia.functional.isReturn<T>()` instead. Otherwise, if you want to prohibit superfluous properties, `typia.functional.equalsFunction<T>()` would be helpful.
+By the way, if you don't want to test both parameters and return value, but one of them, you can use `typia.functional.isParameters<T>()` or `typia.functional.isReturn<T>()` instead. Otherwise, if you want to prohibit superfluous properties, `typia.functional.equalsFunction<T>()` would be helpful.
 
 Also, if what you want is not just type checking, but want to know the detailed reason(s) why, utilize [`typia.functional.assertFunction<T>`()](#assertfunction) or [`typia.functional.validateFunction<T>()`](#validatefunction) instead.
 
@@ -242,14 +242,14 @@ func(4, 5);
 
 Validates a function.
 
-`typia.functional.validateFunction<T>()` validates a function, by wrapping the parameter function and checking its paramters and return value through [`typia.validate<T>()`](./validate) function. If some parameter or return value does not match the expected type, it returns a `IValidation.IFailure` typed object. Otherwise, it returns a `IValidation.ISuccess` typed object instead.
+`typia.functional.validateFunction<T>()` validates a function, by wrapping the parameter function and checking its parameters and return value through [`typia.validate<T>()`](./validate) function. If some parameter or return value does not match the expected type, it returns a `IValidation.IFailure` typed object. Otherwise, it returns a `IValidation.ISuccess` typed object instead.
 
-For reference, `IValidation.IError.path` would be a little bit different with individual [`typia.validate<T>()`](./validate) function. If `IValidation.IError` occurs from some parameter, the path wouold start from `$input.parameters[<index>]`. Otherwise the path would start from `$input.return`.
+For reference, `IValidation.IError.path` would be a little bit different with individual [`typia.validate<T>()`](./validate) function. If `IValidation.IError` occurs from some parameter, the path would start from `$input.parameters[<index>]`. Otherwise the path would start from `$input.return`.
 
   - `$input.parameters[0].~`
   - `$input.return.~`
 
-By the way, if you don't want to validate both paramters and return value, but one of them, you can use `typia.functional.validateParameters<T>()` or `typia.functional.validateReturn<T>()` instead. Otherwise, if you want to prohibit superfluous properties, `typia.functional.validateEqualsFunction<T>()` would be helpful.
+By the way, if you don't want to validate both parameters and return value, but one of them, you can use `typia.functional.validateParameters<T>()` or `typia.functional.validateReturn<T>()` instead. Otherwise, if you want to prohibit superfluous properties, `typia.functional.validateEqualsFunction<T>()` would be helpful.
 
 Also, if what you want is not retrieving every type errors, but just finding the first type error, utilize [`typia.functional.assertFunction<T>()`](#assertfunction) function instead. Otherwise, you don't need the reason why, but just want to know whether the function is valid or not, use [`typia.functional.isFunction<T>()`](#isfunction) function.
 

@@ -12,7 +12,7 @@ const Employee = Type.Object({
   name: Type.String(),
   age: Type.Number(),
   grade: Type.Number(),
-  employeed_at: Timestamp,
+  employed_at: Timestamp,
 });
 
 const Department = Type.Object({

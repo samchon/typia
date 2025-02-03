@@ -24,7 +24,7 @@ export namespace JsonApplicationProgrammer {
       metadata.nullable === false;
     if (valid === false)
       output.push(
-        "JSON application's generic arugment must be a class/interface type.",
+        "JSON application's generic argument must be a class/interface type.",
       );
 
     const object: MetadataObjectType | undefined = metadata.objects[0]?.type;

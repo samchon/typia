@@ -908,7 +908,7 @@ export function createValidateEquals(): (input: unknown) => IValidation {
 export function createRandom(generator?: Partial<IRandomGenerator>): never;
 
 /**
- * Creates a resuable {@link random} function.
+ * Creates a reusable {@link random} function.
  *
  * @template T Type of the input value
  * @param generator Random data generator

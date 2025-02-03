@@ -828,7 +828,7 @@ export namespace ProtobufEncodeProgrammer {
           props.input,
           key,
         );
-        const pred: ts.Expression = spec.neighbour
+        const pred: ts.Expression = spec.neighbor
           ? IsProgrammer.decode({
               context: props.context,
               functor: props.functor,
