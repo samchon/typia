@@ -92,7 +92,7 @@ By using type tags, you can use special numeric types that are not supported in 
 
 Just import `Type` (or `typia.tags.Type`) type, and combine it with `number` or `bigint` type through intersection symbol `number & typia.tagsType<"float">` case. If you want to declare an union numeric type, combine `|` and bracket (`()`) symbols properly like below.
 
-When you take a mistake that choosing different target type, TypeScript compiler would block it with compliation error message. Therefore, have a confidence when using the `Type` tag. For such type safety reason, I recommend to use `Type` tag instead of using [comment tags](#comment-tags) as much as possible.
+When you take a mistake that choosing different target type, TypeScript compiler would block it with compilation error message. Therefore, have a confidence when using the `Type` tag. For such type safety reason, I recommend to use `Type` tag instead of using [comment tags](#comment-tags) as much as possible.
 
   - `number & (Type<"uint32"> | Type<"double">)`
     - `number` type can be both `uint32` and `double`
@@ -817,7 +817,7 @@ By using `@type {target}` comment tag, you also can use special numeric types.
 
 However, this way is not recommended, because it can't perform union numeric types, and cannot be used in `Array` and `Map` types. When you declare `@type int32` statement, target `number` type be fixed as `int32` type, and never can have another numeric type by declaring union statements.
 
-Also, those comment tags are not type safe. If you take a mistake when writing a comment tag, it will not be detected by the compiler, and will cause an error at runtime. For example, if you write a mis-spelled keyword like `@type unit32`, the target `number` type would be `double` type, and you can identify it just by running the program (or visiting playground website).
+Also, those comment tags are not type safe. If you take a mistake when writing a comment tag, it will not be detected by the compiler, and will cause an error at runtime. For example, if you write a miss-spelled keyword like `@type unit32`, the target `number` type would be `double` type, and you can identify it just by running the program (or visiting playground website).
 
 <br/>
 <Alert severity="warning">
@@ -1039,7 +1039,7 @@ import typia from "typia";
 ## Restrictions
 You know what? Expression power of Protocol Buffer is extremely narrower than type system of TypeScript. For example, Protocol Buffer can't express complicate union type containing array. Also, Protocol Buffer can't express multi dimensional array type, either.
 
-In such reason, when converting TypeScript type to Protocol buffer message schema, lots of restrictions are exist. Let's study which types of TyeScript are not supported in Protocol Buffer. For reference, if you try to call `typia.protobuf.message<T>()` function with unsupported type, `typia` will generate compile errors like below example cases.
+In such reason, when converting TypeScript type to Protocol buffer message schema, lots of restrictions are exist. Let's study which types of TypeScript are not supported in Protocol Buffer. For reference, if you try to call `typia.protobuf.message<T>()` function with unsupported type, `typia` will generate compile errors like below example cases.
 
 ---------------
 
@@ -1145,7 +1145,7 @@ typia.protobuf.message<IPointer<Map<number | string, Dog>>>();
 main.ts:17:1 - error TS(typia.protobuf.message): unsupported type detected
 
 - IPointer<Array<Array<number>>>[key]: Array<Array<number>>
-  - does not support over two dimenstional array type
+  - does not support over two dimensional array type
 
 main.ts:18:1 - error TS(typia.protobuf.typia.protobuf.createEncode): unsupported type detected
 

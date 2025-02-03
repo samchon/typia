@@ -28,6 +28,6 @@ message ArrayHierarchicalPointer {
     required string name = 2;
     required double age = 3;
     required double grade = 4;
-    required ArrayHierarchicalPointer.ITimestamp employeed_at = 5;
+    required ArrayHierarchicalPointer.ITimestamp employed_at = 5;
   }
 }

@@ -16,7 +16,7 @@ export const iterate_metadata_intersection = (
   if (props.intersected === true) return false;
   else if (props.type.isIntersection() === false) return false;
 
-  // COSTRUCT FAKE METADATA LIST
+  // CONSTRUCT FAKE METADATA LIST
   const commit: MetadataCollection = props.collection.clone();
   props.collection["options"] = undefined;
 

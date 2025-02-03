@@ -29,7 +29,7 @@ Besides, `typia` only needs pure TypeScript type. You don't need to define any e
 ## Demonstration
 If you're confusing how `typia` is different with others, just see example codes below.
 
-At first, look at the first (*`class-validator`*) tab, and find the `BbsArticle.files` property, enhanced by blue coloured blocks. Looking at the `files` property, how do you feel? Just defining an array object type, you've to call 7 decorator functions. If you take any mistake when using the decorator like omitting `isArray` property, it would be a critical runtime erorr.
+At first, look at the first (*`class-validator`*) tab, and find the `BbsArticle.files` property, enhanced by blue colored blocks. Looking at the `files` property, how do you feel? Just defining an array object type, you've to call 7 decorator functions. If you take any mistake when using the decorator like omitting `isArray` property, it would be a critical runtime error.
 
 Besides, `typia` needs only one line. Click the third (*`typia`*) tab, and find the `IAttachmentFile.files` property. Only one line being used, and they are even not class, but just interface types. Comparing it to the first and second tabs, how do you feel? Isn't it more simple and readable?
 
@@ -301,7 +301,7 @@ Someone may be suspicious of the phrase "Pure TypeScript Type".
 
 My answer is: "Yes, it is possible due to `typia` analyzes your server code, and performs AOT compilation".
 
-Such compile time optimization is called AOT (Ahead of Time) compilation. And this is the secret why `typia` can do everything with only pure TypeScript type. Read below example codes, and just look how JavaScript file being compiled. Then you may understand why `typia` is much easier, and futhermore much faster.
+Such compile time optimization is called AOT (Ahead of Time) compilation. And this is the secret why `typia` can do everything with only pure TypeScript type. Read below example codes, and just look how JavaScript file being compiled. Then you may understand why `typia` is much easier, and furthermore much faster.
 
   - Runtime validator is **20,000x** faster than `class-validator`
   - JSON serialization is **200x faster** than `class-transformer`

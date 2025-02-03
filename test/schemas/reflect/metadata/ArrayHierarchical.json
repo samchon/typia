@@ -988,7 +988,7 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "employeed_at",
+                      "value": "employed_at",
                       "tags": []
                     }
                   ]

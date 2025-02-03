@@ -7,7 +7,7 @@ export namespace JsonValidateParseTransformer {
   export const transform = (props: ITransformProps) =>
     GenericTransformer.scalar({
       ...props,
-      method: "json.validatParse",
+      method: "json.validateParse",
       write: JsonValidateParseProgrammer.write,
     });
 }

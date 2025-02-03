@@ -10,7 +10,7 @@ export namespace UnionPredicator {
     index: number;
     object: MetadataObjectType;
     property: MetadataProperty;
-    neighbour: boolean;
+    neighbor: boolean;
   }
 
   export const object = (
@@ -55,7 +55,7 @@ export namespace UnionPredicator {
         if (unique === true)
           children.push({
             property: prop,
-            neighbour: neighbors.length !== 0,
+            neighbor: neighbors.length !== 0,
           });
       });
       if (children.length === 0) return;
@@ -75,5 +75,5 @@ export namespace UnionPredicator {
 
 interface ISpecializedProperty {
   property: MetadataProperty;
-  neighbour: boolean;
+  neighbor: boolean;
 }

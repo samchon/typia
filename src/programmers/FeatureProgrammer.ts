@@ -150,7 +150,7 @@ export namespace FeatureProgrammer {
        * Transformer of non-undefined type checking by discrimination.
        *
        * When specifying an union type of objects, `typia` tries to find
-       * descrimination way just by checking only one property type.
+       * discrimination way just by checking only one property type.
        * If succeeded to find the discrimination way, `typia` will check the target
        * property type and in the checking, non-undefined type checking would be
        * done.
@@ -164,10 +164,10 @@ export namespace FeatureProgrammer {
       required?: undefined | ((exp: ts.Expression) => ts.Expression);
 
       /**
-       * Conditon wrapper when unable to specify any object type.
+       * Condition wrapper when unable to specify any object type.
        *
        * When failed to specify an object type through discrimination, full
-       * iteration type checking would be happend. In such circumstance, you
+       * iteration type checking would be happened. In such circumstance, you
        * can wrap the condition with additional function.
        *
        * @param props Properties of condition
