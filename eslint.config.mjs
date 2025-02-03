@@ -15,37 +15,40 @@ const compat = new FlatCompat({
 });
 
 export default [
-      gitignore(),
-    ...compat.extends("plugin:@typescript-eslint/recommended"), {
-    plugins: {
-        "@typescript-eslint": typescriptEslint,
-    },
+    gitignore(),
+    ...compat.extends("plugin:@typescript-eslint/recommended"),
+    {
+        plugins: {
+            "@typescript-eslint": typescriptEslint,
+        },
 
-    languageOptions: {
-        parser: tsParser,
-        ecmaVersion: 5,
-        sourceType: "script",
+        languageOptions: {
+            parser: tsParser,
+            ecmaVersion: 5,
+            sourceType: "script",
 
-        parserOptions: {
-            project: ["tsconfig.json"],
+            parserOptions: {
+                project: ["tsconfig.json"],
+            },
         },
     },
-}, {
-    rules: {
-        "@typescript-eslint/consistent-type-definitions": "off",
-        "@typescript-eslint/no-empty-function": "off",
-        "@typescript-eslint/no-empty-interface": "off",
-        "@typescript-eslint/no-explicit-any": "off",
-        "@typescript-eslint/no-inferrable-types": "off",
-        "@typescript-eslint/no-namespace": "off",
-        "@typescript-eslint/no-non-null-assertion": "off",
-        "@typescript-eslint/no-unused-vars": "off",
-        "@typescript-eslint/no-var-requires": "off",
-        "@typescript-eslint/no-floating-promises": "error",
-        "@typescript-eslint/no-require-imports": "off",
-        "@typescript-eslint/no-empty-object-type": "off",
-        "@typescript-eslint/no-unsafe-function-type": "off",
-        "@typescript-eslint/no-wrapper-object-types": "off",
-        "@typescript-eslint/no-deprecated": "error"
-    },
-}];
+    {
+        rules: {
+            "@typescript-eslint/consistent-type-definitions": "off",
+            "@typescript-eslint/no-empty-function": "off",
+            "@typescript-eslint/no-empty-interface": "off",
+            "@typescript-eslint/no-explicit-any": "off",
+            "@typescript-eslint/no-inferrable-types": "off",
+            "@typescript-eslint/no-namespace": "off",
+            "@typescript-eslint/no-non-null-assertion": "off",
+            "@typescript-eslint/no-unused-vars": "off",
+            "@typescript-eslint/no-var-requires": "off",
+            "@typescript-eslint/no-floating-promises": "error",
+            "@typescript-eslint/no-require-imports": "off",
+            "@typescript-eslint/no-empty-object-type": "off",
+            "@typescript-eslint/no-unsafe-function-type": "off",
+            "@typescript-eslint/no-wrapper-object-types": "off",
+            "@typescript-eslint/no-deprecated": "error"
+        },
+    }
+];
