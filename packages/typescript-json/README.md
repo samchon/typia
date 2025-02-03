@@ -134,6 +134,8 @@ Check out the document in the [website](https://typia.io/docs/):
     - [`application()` function](https://typia.io/docs/llm/application/)
     - [`parameters()` function](https://typia.io/docs/llm/parameters/)
     - [`schema()` function](https://typia.io/docs/llm/schema/)
+    - [A.I. Chatbot](https://typia.io/docs/llm/chat/)
+    - [Documentation Strategy](https://typia.io/docs/llm/strategy/)
   - Protocol Buffer
     - [Message Schema](https://typia.io/docs/protobuf/message)
     - [`decode()` functions](https://typia.io/docs/protobuf/decode/)
