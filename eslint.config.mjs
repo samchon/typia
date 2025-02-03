@@ -50,6 +50,7 @@ export default [
             "@typescript-eslint/no-wrapper-object-types": "off",
             "@typescript-eslint/no-deprecated": "error",
             "prefer-const": ["error"],
+            "semi": ["error", "always"],
         },
     }
 ];
