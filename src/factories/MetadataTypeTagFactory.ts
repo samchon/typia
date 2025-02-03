@@ -152,7 +152,7 @@ export namespace MetadataTypeTagFactory {
       if (tag.target !== props.type) {
         success &&= props.report({
           property: null,
-          message: `target must constrains ${props.type} type`,
+          message: `target must contain ${props.type} type`,
         });
       }
 

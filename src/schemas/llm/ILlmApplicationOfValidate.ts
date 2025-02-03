@@ -23,7 +23,7 @@ import { ILlmFunctionOfValidate } from "./ILlmFunctionOfValidate";
  *
  * By the way, there can be some parameters (or their nested properties) which must be
  * composed by Human, not by LLM. File uploading feature or some sensitive information
- * like security keys (password) are the examples. In that case, you can separate the
+ * like secret keys (password) are the examples. In that case, you can separate the
  * function parameters to both LLM and human sides by configuring the
  * {@link ILlmApplication.IOptions.separate} property. The separated parameters are
  * assigned to the {@link ILlmFunction.separated} property.
