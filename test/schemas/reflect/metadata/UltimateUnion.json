@@ -3845,7 +3845,7 @@
               "sets": [],
               "maps": []
             },
-            "description": "Minimum items restriction.\n\nRestriction of minimum number of items in the array.",
+            "description": "Minimum items restriction.\n\nRestriction of minumum number of items in the array.",
             "jsDocTags": [
               {
                 "name": "type",
@@ -4581,7 +4581,7 @@
               "sets": [],
               "maps": []
             },
-            "description": "Minimum items restriction.\n\nRestriction of minimum number of items in the tuple.",
+            "description": "Minimum items restriction.\n\nRestriction of minumum number of items in the tuple.",
             "jsDocTags": [
               {
                 "name": "type",
