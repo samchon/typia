@@ -11,4 +11,4 @@ Nam = "Nam"
 typia = "typia"
 
 [files]
-extend-exclude = ["examples"]
+extend-exclude = ["test/schemas"]
