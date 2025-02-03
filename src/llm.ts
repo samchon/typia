@@ -24,7 +24,7 @@ import { ILlmApplicationOfValidate } from "./module";
  *
  * By the way, there can be some parameters (or their nested properties) which must be
  * composed by human, not by LLM. File uploading feature or some sensitive information
- * like secretly key (password) are the examples. In that case, you can separate the
+ * like security keys (password) are the examples. In that case, you can separate the
  * function parameters to both LLM and human sides by configuring the
  * {@link ILlmApplicationOfValidate.IOptions.separate} property. The separated parameters
  * are assigned to the {@link ILlmFunctionOfValidate.separated} property.
@@ -85,7 +85,7 @@ export function applicationOfValidate(
  *
  * By the way, there can be some parameters (or their nested properties) which must be
  * composed by human, not by LLM. File uploading feature or some sensitive information
- * like secretly key (password) are the examples. In that case, you can separate the
+ * like security keys (password) are the examples. In that case, you can separate the
  * function parameters to both LLM and human sides by configuring the
  * {@link ILlmApplicationOfValidate.IOptions.separate} property. The separated parameters
  * are assigned to the {@link ILlmFunctionOfValidate.separated} property.
@@ -155,7 +155,7 @@ export function applicationOfValidate(): never {
  *
  * By the way, there can be some parameters (or their nested properties) which must be
  * composed by human, not by LLM. File uploading feature or some sensitive information
- * like secretly key (password) are the examples. In that case, you can separate the
+ * like security keys (password) are the examples. In that case, you can separate the
  * function parameters to both LLM and human sides by configuring the
  * {@link ILlmApplication.IOptions.separate} property. The separated parameters are
  * assigned to the {@link ILlmFunction.separated} property.
@@ -210,7 +210,7 @@ export function application(
  *
  * By the way, there can be some parameters (or their nested properties) which must be
  * composed by human, not by LLM. File uploading feature or some sensitive information
- * like secretly key (password) are the examples. In that case, you can separate the
+ * like security keys (password) are the examples. In that case, you can separate the
  * function parameters to both LLM and human sides by configuring the
  * {@link ILlmApplication.IOptions.separate} property. The separated parameters are
  * assigned to the {@link ILlmFunction.separated} property.
