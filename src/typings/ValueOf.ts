@@ -1,9 +1,9 @@
 export type ValueOf<Instance> =
-  IsValueOf<Instance, boolean> extends true
+  IsValueOf<Instance, Boolean> extends true
     ? boolean
-    : IsValueOf<Instance, number> extends true
+    : IsValueOf<Instance, Number> extends true
       ? number
-      : IsValueOf<Instance, string> extends true
+      : IsValueOf<Instance, String> extends true
         ? string
         : Instance;
 

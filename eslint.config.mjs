@@ -42,6 +42,7 @@ export default [...compat.extends("plugin:@typescript-eslint/recommended"), {
         "@typescript-eslint/no-require-imports": "off",
         "@typescript-eslint/no-empty-object-type": "off",
         "@typescript-eslint/no-unsafe-function-type": "off",
+        "@typescript-eslint/no-wrapper-object-types": "off",
         "@typescript-eslint/no-deprecated": "error"
     },
 }];
