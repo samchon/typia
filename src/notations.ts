@@ -56,7 +56,7 @@ export function camel(): never {
  */
 export function assertCamel<T>(
   input: T,
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): CamelCase<T>;
 
 /**
@@ -74,7 +74,7 @@ export function assertCamel<T>(
  */
 export function assertCamel<T>(
   input: unknown,
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): CamelCase<T>;
 
 /**
@@ -204,7 +204,7 @@ export function pascal(): never {
  */
 export function assertPascal<T>(
   input: T,
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): PascalCase<T>;
 
 /**
@@ -222,7 +222,7 @@ export function assertPascal<T>(
  */
 export function assertPascal<T>(
   input: unknown,
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): PascalCase<T>;
 
 /**
@@ -352,7 +352,7 @@ export function snake(): never {
  */
 export function assertSnake<T>(
   input: T,
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): SnakeCase<T>;
 
 /**
@@ -370,7 +370,7 @@ export function assertSnake<T>(
  */
 export function assertSnake<T>(
   input: unknown,
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): SnakeCase<T>;
 
 /**
@@ -496,7 +496,7 @@ export function createCamel(): never {
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createAssertCamel(
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): never;
 
 /**
@@ -509,7 +509,7 @@ export function createAssertCamel(
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createAssertCamel<T>(
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): (input: T) => CamelCase<T>;
 
 /**
@@ -616,7 +616,7 @@ export function createPascal(): never {
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createAssertPascal(
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): never;
 
 /**
@@ -629,7 +629,7 @@ export function createAssertPascal(
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createAssertPascal<T>(
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): (input: T) => PascalCase<T>;
 
 /**
@@ -736,7 +736,7 @@ export function createSnake(): never {
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createAssertSnake(
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): never;
 
 /**
@@ -749,7 +749,7 @@ export function createAssertSnake(
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createAssertSnake<T>(
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): (input: T) => SnakeCase<T>;
 
 /**

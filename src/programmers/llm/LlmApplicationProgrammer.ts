@@ -226,9 +226,7 @@ export namespace LlmApplicationProgrammer {
     return {
       name: props.function.name,
       parameters,
-      output: (output ?? undefined) as
-        | ILlmSchema.ModelSchema[Model]
-        | undefined,
+      output: (output ?? undefined),
       description: (() => {
         if (
           !props.function.summary?.length ||

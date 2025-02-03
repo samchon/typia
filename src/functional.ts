@@ -43,7 +43,7 @@ import { TypeGuardError } from "./TypeGuardError";
  */
 export function assertFunction<T extends (...args: any[]) => any>(
   func: T,
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): T;
 
 /**
@@ -83,7 +83,7 @@ export function assertFunction(): never {
  */
 export function assertParameters<T extends (...args: any[]) => any>(
   func: T,
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): T;
 
 /**
@@ -123,7 +123,7 @@ export function assertParameters(): never {
  */
 export function assertReturn<T extends (...args: any[]) => any>(
   func: T,
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): T;
 
 /**
@@ -168,7 +168,7 @@ export function assertReturn(): never {
  */
 export function assertEqualsFunction<T extends (...args: any[]) => any>(
   func: T,
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): T;
 
 /**
@@ -209,7 +209,7 @@ export function assertEqualsFunction(): never {
  */
 export function assertEqualsParameters<T extends (...args: any[]) => any>(
   func: T,
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): T;
 
 /**
@@ -249,7 +249,7 @@ export function assertEqualsParameters(): never {
  */
 export function assertEqualsReturn<T extends (...args: any[]) => any>(
   func: T,
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): T;
 
 /**

@@ -258,7 +258,7 @@ export namespace MetadataTypeTagFactory {
       const target: string[] | undefined =
         props.value.objects[0]?.type.properties
           .map((p) => p.key.getSoleLiteral()!)
-          .filter((str) => str !== null) as string[] | undefined;
+          .filter((str) => str !== null);
       if (target === undefined)
         return props.report({
           property: "target",

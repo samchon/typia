@@ -75,8 +75,8 @@ export namespace FeatureProgrammer {
   }
   export namespace IConfig {
     export interface ITypes {
-      input: (type: ts.Type, name?: undefined | string) => ts.TypeNode;
-      output: (type: ts.Type, name?: undefined | string) => ts.TypeNode;
+      input: (type: ts.Type, name?:   string) => ts.TypeNode;
+      output: (type: ts.Type, name?:   string) => ts.TypeNode;
     }
 
     export interface IObjector<Output extends ts.ConciseBody = ts.ConciseBody> {

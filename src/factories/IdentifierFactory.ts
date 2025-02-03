@@ -55,11 +55,11 @@ export namespace IdentifierFactory {
 
   export const parameter = (
     name: string | ts.BindingName,
-    type?: ts.TypeNode | undefined,
+    type?: ts.TypeNode  ,
     init?:
       | ts.Expression
       | ts.PunctuationToken<ts.SyntaxKind.QuestionToken>
-      | undefined,
+       ,
   ): ts.ParameterDeclaration => {
     // instead of ts.version >= "4.8"
     if (ts.getDecorators !== undefined)

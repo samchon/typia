@@ -190,7 +190,7 @@ export function application(): never {
  */
 export function assertParse(
   input: string,
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): never;
 
 /**
@@ -214,7 +214,7 @@ export function assertParse(
  */
 export function assertParse<T>(
   input: string,
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): Primitive<T>;
 
 /**
@@ -378,7 +378,7 @@ export function stringify(): never {
  */
 export function assertStringify<T>(
   input: T,
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): string;
 
 /**
@@ -405,7 +405,7 @@ export function assertStringify<T>(
  */
 export function assertStringify<T>(
   input: T,
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): unknown;
 
 /**
@@ -565,7 +565,7 @@ export function createIsParse<T>(): (input: string) => Primitive<T> | null {
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createAssertParse(
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): never;
 
 /**
@@ -578,7 +578,7 @@ export function createAssertParse(
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createAssertParse<T>(
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): (input: string) => Primitive<T>;
 
 /**
@@ -659,7 +659,7 @@ export function createStringify<T>(): (input: T) => string {
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createAssertStringify(
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): never;
 
 /**
@@ -672,7 +672,7 @@ export function createAssertStringify(
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createAssertStringify<T>(
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): (input: unknown) => string;
 
 /**

@@ -4,7 +4,7 @@ export namespace TemplateFactory {
   export const generate = (expressions: ts.Expression[]): ts.Expression => {
     if (expressions.every((exp) => ts.isStringLiteral(exp)))
       return ts.factory.createStringLiteral(
-        (expressions as ts.StringLiteral[]).map((str) => str.text).join(""),
+        (expressions).map((str) => str.text).join(""),
       );
 
     const iterator: IIterator = {

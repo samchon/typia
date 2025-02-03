@@ -123,7 +123,7 @@ export const check_dynamic_key = (props: {
       );
 
   // TEMPLATES
-  if (!!props.metadata.templates.length)
+  if (props.metadata.templates.length)
     conditions.push(
       atomist(
         check_template({

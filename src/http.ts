@@ -82,7 +82,7 @@ export function formData(): never {
  */
 export function assertFormData<T extends object>(
   input: FormData,
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): Resolved<T>;
 
 /**
@@ -246,7 +246,7 @@ export function query(): never {
  */
 export function assertQuery<T extends object>(
   input: string | IReadableURLSearchParams,
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): Resolved<T>;
 
 /**
@@ -452,7 +452,7 @@ export function headers(): never {
  */
 export function assertHeaders<T extends object>(
   input: Record<string, string | string[] | undefined>,
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): Resolved<T>;
 
 /**
@@ -656,7 +656,7 @@ export function createFormData<T>(): (input: FormData) => T {
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createAssertFormData(
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): never;
 
 /**
@@ -669,7 +669,7 @@ export function createAssertFormData(
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createAssertFormData<T extends object>(
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): (input: FormData) => T;
 
 /**
@@ -784,7 +784,7 @@ export function createQuery<T>(): (
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createAssertQuery(
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): never;
 
 /**
@@ -797,7 +797,7 @@ export function createAssertQuery(
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createAssertQuery<T extends object>(
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): (input: string | IReadableURLSearchParams) => T;
 
 /**
@@ -916,7 +916,7 @@ export function createHeaders<T>(): (
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createAssertHeaders(
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): never;
 
 /**
@@ -929,7 +929,7 @@ export function createAssertHeaders(
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createAssertHeaders<T extends object>(
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): (input: Record<string, string | string[] | undefined>) => T;
 
 /**
