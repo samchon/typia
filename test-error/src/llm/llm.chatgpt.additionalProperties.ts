@@ -22,7 +22,7 @@ typia.llm.parameters<
 >();
 typia.llm.application<
   {
-    inser(props: {
+    insert(props: {
       input: {
         dictionary: Record<string, string>;
       };

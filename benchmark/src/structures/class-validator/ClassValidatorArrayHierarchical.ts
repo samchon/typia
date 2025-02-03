@@ -21,7 +21,7 @@ class Employee {
   @cv.ValidateNested()
   @cv.IsObject()
   @tr.Type(() => ClassValidatorTimestamp)
-  employeed_at!: ClassValidatorTimestamp;
+  employed_at!: ClassValidatorTimestamp;
 }
 
 class Department {

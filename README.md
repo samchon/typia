@@ -95,7 +95,7 @@ Also, `typia` is re-distributing half of donations to core contributors of `typi
   - [`nonara/ts-patch`](https://github.com/nonara/ts-patch)
   - [`ryoppippi/unplugin-typia`](https://github.com/ryoppippi/unplugin-typia)
 
-[![Sponsers](https://opencollective.com/typia/badge.svg?avatarHeight=75&width=600)](https://opencollective.com/typia)
+[![Sponsors](https://opencollective.com/typia/badge.svg?avatarHeight=75&width=600)](https://opencollective.com/typia)
 
 
 
@@ -131,6 +131,7 @@ Check out the document in the [website](https://typia.io/docs/):
     - [`application()` function](https://typia.io/docs/llm/application/)
     - [`parameters()` function](https://typia.io/docs/llm/parameters/)
     - [`schema()` function](https://typia.io/docs/llm/schema/)
+    - [Super AI Chatbot](https://typia.io/docs/llm/chat/)
     - [Documentation Strategy](https://typia.io/docs/llm/strategy/)
   - Protocol Buffer
     - [Message Schema](https://typia.io/docs/protobuf/message)

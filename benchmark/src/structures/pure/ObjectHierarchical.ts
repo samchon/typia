@@ -51,10 +51,10 @@ export namespace ObjectHierarchical {
 
   export function generate(
     authorized: boolean = true,
-    employeed: boolean = true,
+    employed: boolean = true,
   ): ObjectHierarchical {
     const account = authorized ? () => generate_account() : () => null;
-    const enterprise: IEnterprise | null = employeed
+    const enterprise: IEnterprise | null = employed
       ? {
           id: TestRandomGenerator.integer(),
           account: generate_account(),

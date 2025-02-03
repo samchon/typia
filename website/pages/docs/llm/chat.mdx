@@ -36,7 +36,7 @@ npm create vite@latest bbs -- --template react-ts
 cd bbs
 
 npm install @nestia/agent @nestia/chat @samchon/openapi openai
-npx typia setup
+npx typia setup --project tsconfig.json
 npm install -D @ryoppippi/unplugin-typia
 ```
   </Tabs.Tab>
@@ -46,7 +46,7 @@ pnpm create vite@latest bbs -- --template react-ts
 cd bbs
 
 pnpm install @nestia/agent @nestia/chat @samchon/openapi openai
-pnpm typia setup
+pnpm typia setup --project tsconfig.json
 pnpm install -D @ryoppippi/unplugin-typia
 ```
   </Tabs.Tab>
@@ -56,13 +56,13 @@ yarn create vite@latest bbs --template react-ts
 cd bbs
 
 yarn add @nestia/agent @nestia/chat @samchon/openapi openai
-yarn typia setup
+yarn typia setup --project tsconfig.json
 yarn add -D @ryoppippi/unplugin-typia
 ```
   </Tabs.Tab>
 </Tabs>
 
-I'll decribe how to setup the A.I. chatbot application within framework of the `vite`.
+I'll describe how to setup the A.I. chatbot application within framework of the `vite`.
 
 At first, create a `vite` + `react` + `typescript` project by executing the `npm create vite@latest bbs -- --template react-ts` command. Then, move to the created project directory `bbs`. And then, install `@nestia/chat` and its dependency packages. After that, run the `npx typia setup` command and `npm i -D @ryoppippi/unplugin-typia` to setup the `typia` library with the transformer configuration.
 

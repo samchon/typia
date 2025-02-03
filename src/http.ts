@@ -592,7 +592,7 @@ export function validateHeaders(): never {
  * URL path parameter decoder.
  *
  * `typia.http.parameter()` is a function decoding a path parameter, with automatic
- * type casting to the expected type. When type `T` has beeen defined as `boolean` or
+ * type casting to the expected type. When type `T` has been defined as `boolean` or
  * `number` type, `typia.http.parameter()` will cast the value to the expected type.
  *
  * Also, `typia.http.parameter()` performs type assertion to the decoded value by

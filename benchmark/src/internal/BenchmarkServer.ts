@@ -34,7 +34,7 @@ export namespace BenchmarkServer {
     console.log("---------------------------------------------------");
 
     const location: string = `${__dirname}/../programs/${category}`;
-    const libraries: string[] = await findLibaries(location);
+    const libraries: string[] = await findLibraries(location);
     const types: string[] = await findTypes(
       libraries.map((str) => `${location}/${str}`),
     );
@@ -130,14 +130,14 @@ export namespace BenchmarkServer {
       return (await tolerable()) ? controller.failure(data) : null;
     };
 
-  async function findLibaries(path: string): Promise<string[]> {
+  async function findLibraries(path: string): Promise<string[]> {
     const directory: string[] = [];
     for (const file of await fs.promises.readdir(path)) {
       if (file === "internal") continue;
       const stats: fs.Stats = await fs.promises.stat(`${path}/${file}`);
       if (stats.isDirectory()) directory.push(file);
     }
-    const index = (str: string) => LIBARIES.findIndex((s) => s === str);
+    const index = (str: string) => LIBRARIES.findIndex((s) => s === str);
     return directory.sort((x, y) => index(x) - index(y));
   }
 
@@ -174,7 +174,7 @@ export namespace BenchmarkServer {
     ArrayRecursiveUnionImplicit: ArrayRecursiveUnionImplicit,
     UltimateUnion: UltimateUnion,
   };
-  const LIBARIES: string[] = [
+  const LIBRARIES: string[] = [
     "typia",
     "typebox",
     "ajv",
