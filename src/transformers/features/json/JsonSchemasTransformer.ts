@@ -56,42 +56,44 @@ export namespace JsonSchemasTransformer {
     // GENERATORS
     //----
     // METADATA
-    const collection: MetadataCollection = new MetadataCollection({
-      replace: MetadataCollection.replace,
-    });
-    const results: ValidationPipe<Metadata, MetadataFactory.IError>[] =
-      types.map((type) =>
-        MetadataFactory.analyze({
-          checker: props.context.checker,
-          transformer: props.context.transformer,
-          options: {
-            escape: true,
-            constant: true,
-            absorb: false,
-            validate: JsonSchemasProgrammer.validate,
-          },
-          collection,
-          type,
-        }),
-      );
-
-    // REPORT BUG IF REQUIRED
-    const metadatas: Metadata[] = [];
-    const errors: MetadataFactory.IError[] = [];
-    for (const r of results) {
-      if (r.success === false) errors.push(...r.errors);
-      else metadatas.push(r.data);
-    }
-    if (errors.length)
-      throw TransformerError.from({
-        code: "typia.json.application",
-        errors,
-      });
+    const analyze = (validate: boolean): Metadata[] => {
+      const results: ValidationPipe<Metadata, MetadataFactory.IError>[] =
+        types.map((type) =>
+          MetadataFactory.analyze({
+            checker: props.context.checker,
+            transformer: props.context.transformer,
+            options: {
+              absorb: validate,
+              constant: true,
+              escape: true,
+              validate:
+                validate === true ? JsonSchemasProgrammer.validate : undefined,
+            },
+            collection: new MetadataCollection({
+              replace: MetadataCollection.replace,
+            }),
+            type,
+          }),
+        );
+      const metadatas: Metadata[] = [];
+      const errors: MetadataFactory.IError[] = [];
+      for (const r of results) {
+        if (r.success === false) errors.push(...r.errors);
+        else metadatas.push(r.data);
+      }
+      if (errors.length)
+        throw TransformerError.from({
+          code: "typia.json.application",
+          errors,
+        });
+      return metadatas;
+    };
+    analyze(true);
 
     // APPLICATION
     const app: IJsonSchemaCollection<any> = JsonSchemasProgrammer.write({
       version,
-      metadatas,
+      metadatas: analyze(false),
     });
     return ts.factory.createAsExpression(
       LiteralFactory.write(app),

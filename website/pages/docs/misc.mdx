@@ -2291,8 +2291,6 @@ Also, `typia.http.headers<t>()` function does not perform validation about the d
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
 
-<!-- spellchecker:off -->
-
 ```typescript filename="examples/src/headers.ts" showLineNumbers {}
 import typia from "typia";
 
@@ -2300,7 +2298,7 @@ interface IHeaders {
   "x-Category": "x" | "y" | "z";
   "x-MEMO"?: string;
   "x-nAmE"?: string;
-  "x-ValUes": number[];
+  "x-Values": number[];
   "x-FlAgS": boolean[];
   "X-Descriptions": string[];
 }
@@ -2318,7 +2316,7 @@ import typia from "typia";
       "x-Category": input["x-category"],
       "x-MEMO": input["x-memo"],
       "x-nAmE": input["x-name"],
-      "x-ValUes": Array.isArray(input["x-values"])
+      "x-Values": Array.isArray(input["x-values"])
         ? input["x-values"].map(
             __typia_transform__httpHeaderReadNumber._httpHeaderReadNumber,
           )
@@ -2345,9 +2343,6 @@ import typia from "typia";
   };
 })();
 ```
-
-<!-- spellchecker:on -->
-
   </Tabs.Tab>
 </Tabs>
 

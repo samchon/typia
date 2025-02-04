@@ -44,35 +44,43 @@ export namespace LlmParametersTransformer {
     }) as Partial<ILlmSchema.IConfig>;
 
     const type: ts.Type = props.context.checker.getTypeFromTypeNode(top);
-    const collection: MetadataCollection = new MetadataCollection({
-      replace: MetadataCollection.replace,
-    });
-    const result: ValidationPipe<Metadata, MetadataFactory.IError> =
-      MetadataFactory.analyze({
-        checker: props.context.checker,
-        transformer: props.context.transformer,
-        options: {
-          escape: true,
-          constant: true,
-          absorb: false,
-          validate: LlmParametersProgrammer.validate({
-            model,
-            config,
+
+    // VALIDATE TYPE
+    const analyze = (validate: boolean): Metadata => {
+      const result: ValidationPipe<Metadata, MetadataFactory.IError> =
+        MetadataFactory.analyze({
+          checker: props.context.checker,
+          transformer: props.context.transformer,
+          options: {
+            absorb: validate,
+            escape: true,
+            constant: true,
+            validate:
+              validate === true
+                ? LlmParametersProgrammer.validate({
+                    model,
+                    config,
+                  })
+                : undefined,
+          },
+          collection: new MetadataCollection({
+            replace: MetadataCollection.replace,
           }),
-        },
-        collection,
-        type,
-      });
-    if (result.success === false)
-      throw TransformerError.from({
-        code: "typia.llm.parameters",
-        errors: result.errors,
-      });
+          type,
+        });
+      if (result.success === false)
+        throw TransformerError.from({
+          code: "typia.llm.parameters",
+          errors: result.errors,
+        });
+      return result.data;
+    };
+    analyze(true);
 
     // GENERATE LLM SCHEMA
     const out: ILlmFunction<any>["parameters"] = LlmParametersProgrammer.write({
       model,
-      metadata: result.data,
+      metadata: analyze(false),
       config,
     });
     return ts.factory.createAsExpression(
