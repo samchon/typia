@@ -111,6 +111,15 @@ export function random<T>(g?: Partial<IRandomGenerator>): T;
 
 
 ## Transformation
+<br/>
+<iframe src="https://www.youtube.com/embed/WM6LGy2UU6s?si=lZrqbILxHI22QwEE" 
+        title="Typia Tutorial Video" 
+        width="100%" 
+        height="500"
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" 
+        allowfullscreen></iframe>
+
 If you call `typia` function, it would be compiled like below.
 
 This is the key concept of `typia`, transforming TypeScript type to a runtime function. The `typia.is<T>()` function is transformed to a dedicated type checker by analyzing the target type `T` in the compilation level.
