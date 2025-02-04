@@ -37,10 +37,10 @@
                 "$ref": "#/components/schemas/ObjectUnionCompositePointer.IPolyline"
               },
               {
-                "$ref": "#/components/schemas/ObjectUnionCompositePointer.IPolygon"
+                "$ref": "#/components/schemas/ObjectUnionCompositePointer.IPointedShape"
               },
               {
-                "$ref": "#/components/schemas/ObjectUnionCompositePointer.IPointedShape"
+                "$ref": "#/components/schemas/ObjectUnionCompositePointer.IPolygon"
               },
               {
                 "$ref": "#/components/schemas/ObjectUnionCompositePointer.ICircle"
@@ -138,24 +138,6 @@
           "points"
         ]
       },
-      "ObjectUnionCompositePointer.IPolygon": {
-        "type": "object",
-        "properties": {
-          "outer": {
-            "$ref": "#/components/schemas/ObjectUnionCompositePointer.IPolyline"
-          },
-          "inner": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/ObjectUnionCompositePointer.IPolyline"
-            }
-          }
-        },
-        "required": [
-          "outer",
-          "inner"
-        ]
-      },
       "ObjectUnionCompositePointer.IPointedShape": {
         "type": "object",
         "properties": {
@@ -167,6 +149,24 @@
           },
           "inner": {
             "$ref": "#/components/schemas/ObjectUnionCompositePointer.IPoint"
+          }
+        },
+        "required": [
+          "outer",
+          "inner"
+        ]
+      },
+      "ObjectUnionCompositePointer.IPolygon": {
+        "type": "object",
+        "properties": {
+          "outer": {
+            "$ref": "#/components/schemas/ObjectUnionCompositePointer.IPolyline"
+          },
+          "inner": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ObjectUnionCompositePointer.IPolyline"
+            }
           }
         },
         "required": [

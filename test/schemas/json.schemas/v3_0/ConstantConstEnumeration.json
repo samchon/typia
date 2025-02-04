@@ -5,24 +5,27 @@
       "ConstantConstEnumeration": {
         "type": "array",
         "items": {
-          "oneOf": [
-            {
-              "type": "number",
-              "enum": [
-                0,
-                1,
-                2
-              ]
-            },
-            {
-              "type": "string",
-              "enum": [
-                "Three",
-                "Four"
-              ]
-            }
-          ]
+          "$ref": "#/components/schemas/ConstantConstEnumeration.Enumeration"
         }
+      },
+      "ConstantConstEnumeration.Enumeration": {
+        "oneOf": [
+          {
+            "type": "number",
+            "enum": [
+              0,
+              1,
+              2
+            ]
+          },
+          {
+            "type": "string",
+            "enum": [
+              "Three",
+              "Four"
+            ]
+          }
+        ]
       }
     }
   },

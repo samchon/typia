@@ -20,33 +20,36 @@
         "type": "object",
         "properties": {
           "value": {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/ObjectUnionExplicitPointer.DiscriminatorpointObjectUnionExplicitPointer.IPoint"
-              },
-              {
-                "$ref": "#/components/schemas/ObjectUnionExplicitPointer.DiscriminatorlineObjectUnionExplicitPointer.ILine"
-              },
-              {
-                "$ref": "#/components/schemas/ObjectUnionExplicitPointer.DiscriminatortriangleObjectUnionExplicitPointer.ITriangle"
-              },
-              {
-                "$ref": "#/components/schemas/ObjectUnionExplicitPointer.DiscriminatorrectangleObjectUnionExplicitPointer.IRectangle"
-              },
-              {
-                "$ref": "#/components/schemas/ObjectUnionExplicitPointer.DiscriminatorpolylineObjectUnionExplicitPointer.IPolyline"
-              },
-              {
-                "$ref": "#/components/schemas/ObjectUnionExplicitPointer.DiscriminatorpolygonObjectUnionExplicitPointer.IPolygon"
-              },
-              {
-                "$ref": "#/components/schemas/ObjectUnionExplicitPointer.DiscriminatorcircleObjectUnionExplicitPointer.ICircle"
-              }
-            ]
+            "$ref": "#/components/schemas/ObjectUnionExplicitPointer.Shape"
           }
         },
         "required": [
           "value"
+        ]
+      },
+      "ObjectUnionExplicitPointer.Shape": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/ObjectUnionExplicitPointer.DiscriminatorpointObjectUnionExplicitPointer.IPoint"
+          },
+          {
+            "$ref": "#/components/schemas/ObjectUnionExplicitPointer.DiscriminatorlineObjectUnionExplicitPointer.ILine"
+          },
+          {
+            "$ref": "#/components/schemas/ObjectUnionExplicitPointer.DiscriminatortriangleObjectUnionExplicitPointer.ITriangle"
+          },
+          {
+            "$ref": "#/components/schemas/ObjectUnionExplicitPointer.DiscriminatorrectangleObjectUnionExplicitPointer.IRectangle"
+          },
+          {
+            "$ref": "#/components/schemas/ObjectUnionExplicitPointer.DiscriminatorpolylineObjectUnionExplicitPointer.IPolyline"
+          },
+          {
+            "$ref": "#/components/schemas/ObjectUnionExplicitPointer.DiscriminatorpolygonObjectUnionExplicitPointer.IPolygon"
+          },
+          {
+            "$ref": "#/components/schemas/ObjectUnionExplicitPointer.DiscriminatorcircleObjectUnionExplicitPointer.ICircle"
+          }
         ]
       },
       "ObjectUnionExplicitPointer.DiscriminatorpointObjectUnionExplicitPointer.IPoint": {

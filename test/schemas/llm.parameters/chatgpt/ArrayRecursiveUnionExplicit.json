@@ -4,145 +4,7 @@
     "regular": {
       "type": "array",
       "items": {
-        "anyOf": [
-          {
-            "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IDirectory"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "number"
-              },
-              "name": {
-                "type": "string"
-              },
-              "path": {
-                "type": "string"
-              },
-              "width": {
-                "type": "number"
-              },
-              "height": {
-                "type": "number"
-              },
-              "url": {
-                "type": "string"
-              },
-              "size": {
-                "type": "number"
-              },
-              "type": {
-                "type": "string",
-                "enum": [
-                  "file"
-                ]
-              },
-              "extension": {
-                "type": "string",
-                "enum": [
-                  "jpg"
-                ]
-              }
-            },
-            "required": [
-              "id",
-              "name",
-              "path",
-              "width",
-              "height",
-              "url",
-              "size",
-              "type",
-              "extension"
-            ]
-          },
-          {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "number"
-              },
-              "name": {
-                "type": "string"
-              },
-              "path": {
-                "type": "string"
-              },
-              "size": {
-                "type": "number"
-              },
-              "content": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string",
-                "enum": [
-                  "file"
-                ]
-              },
-              "extension": {
-                "type": "string",
-                "enum": [
-                  "txt"
-                ]
-              }
-            },
-            "required": [
-              "id",
-              "name",
-              "path",
-              "size",
-              "content",
-              "type",
-              "extension"
-            ]
-          },
-          {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "number"
-              },
-              "name": {
-                "type": "string"
-              },
-              "path": {
-                "type": "string"
-              },
-              "size": {
-                "type": "number"
-              },
-              "count": {
-                "type": "number"
-              },
-              "type": {
-                "type": "string",
-                "enum": [
-                  "file"
-                ]
-              },
-              "extension": {
-                "type": "string",
-                "enum": [
-                  "zip"
-                ]
-              }
-            },
-            "required": [
-              "id",
-              "name",
-              "path",
-              "size",
-              "count",
-              "type",
-              "extension"
-            ]
-          },
-          {
-            "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IShortcut"
-          }
-        ]
+        "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IBucket"
       }
     },
     "nullable": {
@@ -153,145 +15,7 @@
         {
           "type": "array",
           "items": {
-            "anyOf": [
-              {
-                "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IDirectory"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "path": {
-                    "type": "string"
-                  },
-                  "width": {
-                    "type": "number"
-                  },
-                  "height": {
-                    "type": "number"
-                  },
-                  "url": {
-                    "type": "string"
-                  },
-                  "size": {
-                    "type": "number"
-                  },
-                  "type": {
-                    "type": "string",
-                    "enum": [
-                      "file"
-                    ]
-                  },
-                  "extension": {
-                    "type": "string",
-                    "enum": [
-                      "jpg"
-                    ]
-                  }
-                },
-                "required": [
-                  "id",
-                  "name",
-                  "path",
-                  "width",
-                  "height",
-                  "url",
-                  "size",
-                  "type",
-                  "extension"
-                ]
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "path": {
-                    "type": "string"
-                  },
-                  "size": {
-                    "type": "number"
-                  },
-                  "content": {
-                    "type": "string"
-                  },
-                  "type": {
-                    "type": "string",
-                    "enum": [
-                      "file"
-                    ]
-                  },
-                  "extension": {
-                    "type": "string",
-                    "enum": [
-                      "txt"
-                    ]
-                  }
-                },
-                "required": [
-                  "id",
-                  "name",
-                  "path",
-                  "size",
-                  "content",
-                  "type",
-                  "extension"
-                ]
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "path": {
-                    "type": "string"
-                  },
-                  "size": {
-                    "type": "number"
-                  },
-                  "count": {
-                    "type": "number"
-                  },
-                  "type": {
-                    "type": "string",
-                    "enum": [
-                      "file"
-                    ]
-                  },
-                  "extension": {
-                    "type": "string",
-                    "enum": [
-                      "zip"
-                    ]
-                  }
-                },
-                "required": [
-                  "id",
-                  "name",
-                  "path",
-                  "size",
-                  "count",
-                  "type",
-                  "extension"
-                ]
-              },
-              {
-                "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IShortcut"
-              }
-            ]
+            "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IBucket"
           }
         }
       ]
@@ -299,145 +23,7 @@
     "optional": {
       "type": "array",
       "items": {
-        "anyOf": [
-          {
-            "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IDirectory"
-          },
-          {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "number"
-              },
-              "name": {
-                "type": "string"
-              },
-              "path": {
-                "type": "string"
-              },
-              "width": {
-                "type": "number"
-              },
-              "height": {
-                "type": "number"
-              },
-              "url": {
-                "type": "string"
-              },
-              "size": {
-                "type": "number"
-              },
-              "type": {
-                "type": "string",
-                "enum": [
-                  "file"
-                ]
-              },
-              "extension": {
-                "type": "string",
-                "enum": [
-                  "jpg"
-                ]
-              }
-            },
-            "required": [
-              "id",
-              "name",
-              "path",
-              "width",
-              "height",
-              "url",
-              "size",
-              "type",
-              "extension"
-            ]
-          },
-          {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "number"
-              },
-              "name": {
-                "type": "string"
-              },
-              "path": {
-                "type": "string"
-              },
-              "size": {
-                "type": "number"
-              },
-              "content": {
-                "type": "string"
-              },
-              "type": {
-                "type": "string",
-                "enum": [
-                  "file"
-                ]
-              },
-              "extension": {
-                "type": "string",
-                "enum": [
-                  "txt"
-                ]
-              }
-            },
-            "required": [
-              "id",
-              "name",
-              "path",
-              "size",
-              "content",
-              "type",
-              "extension"
-            ]
-          },
-          {
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "number"
-              },
-              "name": {
-                "type": "string"
-              },
-              "path": {
-                "type": "string"
-              },
-              "size": {
-                "type": "number"
-              },
-              "count": {
-                "type": "number"
-              },
-              "type": {
-                "type": "string",
-                "enum": [
-                  "file"
-                ]
-              },
-              "extension": {
-                "type": "string",
-                "enum": [
-                  "zip"
-                ]
-              }
-            },
-            "required": [
-              "id",
-              "name",
-              "path",
-              "size",
-              "count",
-              "type",
-              "extension"
-            ]
-          },
-          {
-            "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IShortcut"
-          }
-        ]
+        "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IBucket"
       }
     },
     "faint": {
@@ -448,145 +34,7 @@
         {
           "type": "array",
           "items": {
-            "anyOf": [
-              {
-                "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IDirectory"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "path": {
-                    "type": "string"
-                  },
-                  "width": {
-                    "type": "number"
-                  },
-                  "height": {
-                    "type": "number"
-                  },
-                  "url": {
-                    "type": "string"
-                  },
-                  "size": {
-                    "type": "number"
-                  },
-                  "type": {
-                    "type": "string",
-                    "enum": [
-                      "file"
-                    ]
-                  },
-                  "extension": {
-                    "type": "string",
-                    "enum": [
-                      "jpg"
-                    ]
-                  }
-                },
-                "required": [
-                  "id",
-                  "name",
-                  "path",
-                  "width",
-                  "height",
-                  "url",
-                  "size",
-                  "type",
-                  "extension"
-                ]
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "path": {
-                    "type": "string"
-                  },
-                  "size": {
-                    "type": "number"
-                  },
-                  "content": {
-                    "type": "string"
-                  },
-                  "type": {
-                    "type": "string",
-                    "enum": [
-                      "file"
-                    ]
-                  },
-                  "extension": {
-                    "type": "string",
-                    "enum": [
-                      "txt"
-                    ]
-                  }
-                },
-                "required": [
-                  "id",
-                  "name",
-                  "path",
-                  "size",
-                  "content",
-                  "type",
-                  "extension"
-                ]
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "path": {
-                    "type": "string"
-                  },
-                  "size": {
-                    "type": "number"
-                  },
-                  "count": {
-                    "type": "number"
-                  },
-                  "type": {
-                    "type": "string",
-                    "enum": [
-                      "file"
-                    ]
-                  },
-                  "extension": {
-                    "type": "string",
-                    "enum": [
-                      "zip"
-                    ]
-                  }
-                },
-                "required": [
-                  "id",
-                  "name",
-                  "path",
-                  "size",
-                  "count",
-                  "type",
-                  "extension"
-                ]
-              },
-              {
-                "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IShortcut"
-              }
-            ]
+            "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IBucket"
           }
         }
       ]
@@ -596,145 +44,7 @@
       "items": {
         "type": "array",
         "items": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IDirectory"
-            },
-            {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "number"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "path": {
-                  "type": "string"
-                },
-                "width": {
-                  "type": "number"
-                },
-                "height": {
-                  "type": "number"
-                },
-                "url": {
-                  "type": "string"
-                },
-                "size": {
-                  "type": "number"
-                },
-                "type": {
-                  "type": "string",
-                  "enum": [
-                    "file"
-                  ]
-                },
-                "extension": {
-                  "type": "string",
-                  "enum": [
-                    "jpg"
-                  ]
-                }
-              },
-              "required": [
-                "id",
-                "name",
-                "path",
-                "width",
-                "height",
-                "url",
-                "size",
-                "type",
-                "extension"
-              ]
-            },
-            {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "number"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "path": {
-                  "type": "string"
-                },
-                "size": {
-                  "type": "number"
-                },
-                "content": {
-                  "type": "string"
-                },
-                "type": {
-                  "type": "string",
-                  "enum": [
-                    "file"
-                  ]
-                },
-                "extension": {
-                  "type": "string",
-                  "enum": [
-                    "txt"
-                  ]
-                }
-              },
-              "required": [
-                "id",
-                "name",
-                "path",
-                "size",
-                "content",
-                "type",
-                "extension"
-              ]
-            },
-            {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "number"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "path": {
-                  "type": "string"
-                },
-                "size": {
-                  "type": "number"
-                },
-                "count": {
-                  "type": "number"
-                },
-                "type": {
-                  "type": "string",
-                  "enum": [
-                    "file"
-                  ]
-                },
-                "extension": {
-                  "type": "string",
-                  "enum": [
-                    "zip"
-                  ]
-                }
-              },
-              "required": [
-                "id",
-                "name",
-                "path",
-                "size",
-                "count",
-                "type",
-                "extension"
-              ]
-            },
-            {
-              "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IShortcut"
-            }
-          ]
+          "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IBucket"
         }
       }
     }
@@ -746,6 +56,147 @@
   ],
   "additionalProperties": false,
   "$defs": {
+    "ArrayRecursiveUnionExplicit.IBucket": {
+      "anyOf": [
+        {
+          "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IDirectory"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number"
+            },
+            "name": {
+              "type": "string"
+            },
+            "path": {
+              "type": "string"
+            },
+            "width": {
+              "type": "number"
+            },
+            "height": {
+              "type": "number"
+            },
+            "url": {
+              "type": "string"
+            },
+            "size": {
+              "type": "number"
+            },
+            "type": {
+              "type": "string",
+              "enum": [
+                "file"
+              ]
+            },
+            "extension": {
+              "type": "string",
+              "enum": [
+                "jpg"
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "path",
+            "width",
+            "height",
+            "url",
+            "size",
+            "type",
+            "extension"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number"
+            },
+            "name": {
+              "type": "string"
+            },
+            "path": {
+              "type": "string"
+            },
+            "size": {
+              "type": "number"
+            },
+            "content": {
+              "type": "string"
+            },
+            "type": {
+              "type": "string",
+              "enum": [
+                "file"
+              ]
+            },
+            "extension": {
+              "type": "string",
+              "enum": [
+                "txt"
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "path",
+            "size",
+            "content",
+            "type",
+            "extension"
+          ]
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number"
+            },
+            "name": {
+              "type": "string"
+            },
+            "path": {
+              "type": "string"
+            },
+            "size": {
+              "type": "number"
+            },
+            "count": {
+              "type": "number"
+            },
+            "type": {
+              "type": "string",
+              "enum": [
+                "file"
+              ]
+            },
+            "extension": {
+              "type": "string",
+              "enum": [
+                "zip"
+              ]
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "path",
+            "size",
+            "count",
+            "type",
+            "extension"
+          ]
+        },
+        {
+          "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IShortcut"
+        }
+      ]
+    },
     "ArrayRecursiveUnionExplicit.IDirectory": {
       "type": "object",
       "properties": {
@@ -761,145 +212,7 @@
         "children": {
           "type": "array",
           "items": {
-            "anyOf": [
-              {
-                "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IDirectory"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "path": {
-                    "type": "string"
-                  },
-                  "width": {
-                    "type": "number"
-                  },
-                  "height": {
-                    "type": "number"
-                  },
-                  "url": {
-                    "type": "string"
-                  },
-                  "size": {
-                    "type": "number"
-                  },
-                  "type": {
-                    "type": "string",
-                    "enum": [
-                      "file"
-                    ]
-                  },
-                  "extension": {
-                    "type": "string",
-                    "enum": [
-                      "jpg"
-                    ]
-                  }
-                },
-                "required": [
-                  "id",
-                  "name",
-                  "path",
-                  "width",
-                  "height",
-                  "url",
-                  "size",
-                  "type",
-                  "extension"
-                ]
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "path": {
-                    "type": "string"
-                  },
-                  "size": {
-                    "type": "number"
-                  },
-                  "content": {
-                    "type": "string"
-                  },
-                  "type": {
-                    "type": "string",
-                    "enum": [
-                      "file"
-                    ]
-                  },
-                  "extension": {
-                    "type": "string",
-                    "enum": [
-                      "txt"
-                    ]
-                  }
-                },
-                "required": [
-                  "id",
-                  "name",
-                  "path",
-                  "size",
-                  "content",
-                  "type",
-                  "extension"
-                ]
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "path": {
-                    "type": "string"
-                  },
-                  "size": {
-                    "type": "number"
-                  },
-                  "count": {
-                    "type": "number"
-                  },
-                  "type": {
-                    "type": "string",
-                    "enum": [
-                      "file"
-                    ]
-                  },
-                  "extension": {
-                    "type": "string",
-                    "enum": [
-                      "zip"
-                    ]
-                  }
-                },
-                "required": [
-                  "id",
-                  "name",
-                  "path",
-                  "size",
-                  "count",
-                  "type",
-                  "extension"
-                ]
-              },
-              {
-                "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IShortcut"
-              }
-            ]
+            "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IBucket"
           }
         },
         "type": {
@@ -930,145 +243,7 @@
           "type": "string"
         },
         "target": {
-          "anyOf": [
-            {
-              "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IDirectory"
-            },
-            {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "number"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "path": {
-                  "type": "string"
-                },
-                "width": {
-                  "type": "number"
-                },
-                "height": {
-                  "type": "number"
-                },
-                "url": {
-                  "type": "string"
-                },
-                "size": {
-                  "type": "number"
-                },
-                "type": {
-                  "type": "string",
-                  "enum": [
-                    "file"
-                  ]
-                },
-                "extension": {
-                  "type": "string",
-                  "enum": [
-                    "jpg"
-                  ]
-                }
-              },
-              "required": [
-                "id",
-                "name",
-                "path",
-                "width",
-                "height",
-                "url",
-                "size",
-                "type",
-                "extension"
-              ]
-            },
-            {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "number"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "path": {
-                  "type": "string"
-                },
-                "size": {
-                  "type": "number"
-                },
-                "content": {
-                  "type": "string"
-                },
-                "type": {
-                  "type": "string",
-                  "enum": [
-                    "file"
-                  ]
-                },
-                "extension": {
-                  "type": "string",
-                  "enum": [
-                    "txt"
-                  ]
-                }
-              },
-              "required": [
-                "id",
-                "name",
-                "path",
-                "size",
-                "content",
-                "type",
-                "extension"
-              ]
-            },
-            {
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "number"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "path": {
-                  "type": "string"
-                },
-                "size": {
-                  "type": "number"
-                },
-                "count": {
-                  "type": "number"
-                },
-                "type": {
-                  "type": "string",
-                  "enum": [
-                    "file"
-                  ]
-                },
-                "extension": {
-                  "type": "string",
-                  "enum": [
-                    "zip"
-                  ]
-                }
-              },
-              "required": [
-                "id",
-                "name",
-                "path",
-                "size",
-                "count",
-                "type",
-                "extension"
-              ]
-            },
-            {
-              "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IShortcut"
-            }
-          ]
+          "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IBucket"
         },
         "type": {
           "type": "string",

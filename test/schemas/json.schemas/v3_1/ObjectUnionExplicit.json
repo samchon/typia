@@ -27,19 +27,7 @@
             {
               "$ref": "#/components/schemas/ObjectUnionExplicit.DiscriminatorcircleObjectUnionExplicit.ICircle"
             }
-          ],
-          "discriminator": {
-            "propertyName": "type",
-            "mapping": {
-              "point": "#/components/schemas/ObjectUnionExplicit.DiscriminatorpointObjectUnionExplicit.IPoint",
-              "line": "#/components/schemas/ObjectUnionExplicit.DiscriminatorlineObjectUnionExplicit.ILine",
-              "triangle": "#/components/schemas/ObjectUnionExplicit.DiscriminatortriangleObjectUnionExplicit.ITriangle",
-              "rectangle": "#/components/schemas/ObjectUnionExplicit.DiscriminatorrectangleObjectUnionExplicit.IRectangle",
-              "polyline": "#/components/schemas/ObjectUnionExplicit.DiscriminatorpolylineObjectUnionExplicit.IPolyline",
-              "polygon": "#/components/schemas/ObjectUnionExplicit.DiscriminatorpolygonObjectUnionExplicit.IPolygon",
-              "circle": "#/components/schemas/ObjectUnionExplicit.DiscriminatorcircleObjectUnionExplicit.ICircle"
-            }
-          }
+          ]
         }
       },
       "ObjectUnionExplicit.DiscriminatorpointObjectUnionExplicit.IPoint": {

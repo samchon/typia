@@ -16,12 +16,15 @@
               "type": "boolean"
             },
             {
-              "$ref": "#/components/schemas/ToJsonTuple.IHobby"
+              "$ref": "#/components/schemas/ToJsonTuple.IObject"
             }
           ]
         },
         "minItems": 4,
         "maxItems": 4
+      },
+      "ToJsonTuple.IObject": {
+        "$ref": "#/components/schemas/ToJsonTuple.IHobby"
       },
       "ToJsonTuple.IHobby": {
         "type": "object",

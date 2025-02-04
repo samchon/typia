@@ -63,62 +63,7 @@
       "ArrayArrayRepeatedUnionWithTuple": {
         "type": "array",
         "items": {
-          "oneOf": [
-            {
-              "type": "number"
-            },
-            {
-              "type": "boolean"
-            },
-            {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            {
-              "$ref": "#/components/schemas/ArrayArrayRepeatedUnionWithTuple"
-            },
-            {
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple.IBox3D"
-              }
-            },
-            {
-              "type": "array",
-              "items": {
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "number"
-                  },
-                  {
-                    "type": "boolean"
-                  }
-                ]
-              },
-              "minItems": 3,
-              "maxItems": 3
-            },
-            {
-              "type": "array",
-              "items": {
-                "oneOf": [
-                  {
-                    "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple.IBox3D"
-                  },
-                  {
-                    "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple.IPoint3D"
-                  }
-                ]
-              },
-              "minItems": 2,
-              "maxItems": 2
-            }
-          ]
+          "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple"
         }
       },
       "ArrayRepeatedUnionWithTuple.IBox3D": {

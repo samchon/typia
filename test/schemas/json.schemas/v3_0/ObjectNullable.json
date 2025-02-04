@@ -69,10 +69,10 @@
           "similar": {
             "oneOf": [
               {
-                "$ref": "#/components/schemas/ObjectNullable.IManufacturer.Nullable"
+                "$ref": "#/components/schemas/ObjectNullable.IBrand.Nullable"
               },
               {
-                "$ref": "#/components/schemas/ObjectNullable.IBrand.Nullable"
+                "$ref": "#/components/schemas/ObjectNullable.IManufacturer.Nullable"
               }
             ]
           }

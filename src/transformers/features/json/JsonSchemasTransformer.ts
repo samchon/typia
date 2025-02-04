@@ -56,9 +56,6 @@ export namespace JsonSchemasTransformer {
     // GENERATORS
     //----
     // METADATA
-    const collection: MetadataCollection = new MetadataCollection({
-      replace: MetadataCollection.replace,
-    });
     const analyze = (validate: boolean): Metadata[] => {
       const results: ValidationPipe<Metadata, MetadataFactory.IError>[] =
         types.map((type) =>
@@ -72,7 +69,9 @@ export namespace JsonSchemasTransformer {
               validate:
                 validate === true ? JsonSchemasProgrammer.validate : undefined,
             },
-            collection,
+            collection: new MetadataCollection({
+              replace: MetadataCollection.replace,
+            }),
             type,
           }),
         );

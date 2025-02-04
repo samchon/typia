@@ -21,20 +21,7 @@
       "ArrayArrayRepeatedNullable": {
         "type": "array",
         "items": {
-          "oneOf": [
-            {
-              "type": "null"
-            },
-            {
-              "type": "string"
-            },
-            {
-              "type": "number"
-            },
-            {
-              "$ref": "#/components/schemas/ArrayArrayRepeatedNullable"
-            }
-          ]
+          "$ref": "#/components/schemas/ArrayRepeatedNullable"
         }
       }
     }

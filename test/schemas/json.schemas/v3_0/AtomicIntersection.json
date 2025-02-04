@@ -7,18 +7,27 @@
         "items": {
           "oneOf": [
             {
-              "type": "boolean"
+              "$ref": "#/components/schemas/AtomicIntersection.Wrapperboolean"
             },
             {
-              "type": "number"
+              "$ref": "#/components/schemas/AtomicIntersection.Wrappernumber"
             },
             {
-              "type": "string"
+              "$ref": "#/components/schemas/AtomicIntersection.Wrapperstring"
             }
           ]
         },
         "minItems": 3,
         "maxItems": 3
+      },
+      "AtomicIntersection.Wrapperboolean": {
+        "type": "boolean"
+      },
+      "AtomicIntersection.Wrappernumber": {
+        "type": "number"
+      },
+      "AtomicIntersection.Wrapperstring": {
+        "type": "string"
       }
     }
   },

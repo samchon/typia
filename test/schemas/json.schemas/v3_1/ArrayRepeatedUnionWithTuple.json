@@ -57,56 +57,7 @@
       "ArrayArrayRepeatedUnionWithTuple": {
         "type": "array",
         "items": {
-          "oneOf": [
-            {
-              "type": "number"
-            },
-            {
-              "type": "boolean"
-            },
-            {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            {
-              "$ref": "#/components/schemas/ArrayArrayRepeatedUnionWithTuple"
-            },
-            {
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple.IBox3D"
-              }
-            },
-            {
-              "type": "array",
-              "prefixItems": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "number"
-                },
-                {
-                  "type": "boolean"
-                }
-              ],
-              "additionalItems": false
-            },
-            {
-              "type": "array",
-              "prefixItems": [
-                {
-                  "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple.IBox3D"
-                },
-                {
-                  "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple.IPoint3D"
-                }
-              ],
-              "additionalItems": false
-            }
-          ]
+          "$ref": "#/components/schemas/ArrayRepeatedUnionWithTuple"
         }
       },
       "ArrayRepeatedUnionWithTuple.IBox3D": {

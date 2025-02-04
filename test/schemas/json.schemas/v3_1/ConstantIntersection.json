@@ -6,16 +6,25 @@
         "type": "array",
         "prefixItems": [
           {
-            "const": false
+            "$ref": "#/components/schemas/ConstantIntersection.Wrapperfalse"
           },
           {
-            "const": 1
+            "$ref": "#/components/schemas/ConstantIntersection.Wrapper1"
           },
           {
-            "const": "two"
+            "$ref": "#/components/schemas/ConstantIntersection.Wrappertwo"
           }
         ],
         "additionalItems": false
+      },
+      "ConstantIntersection.Wrapperfalse": {
+        "const": false
+      },
+      "ConstantIntersection.Wrapper1": {
+        "const": 1
+      },
+      "ConstantIntersection.Wrappertwo": {
+        "const": "two"
       }
     }
   },

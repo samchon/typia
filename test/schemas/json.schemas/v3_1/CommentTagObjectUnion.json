@@ -5,15 +5,18 @@
       "CommentTagObjectUnion": {
         "type": "array",
         "items": {
-          "oneOf": [
-            {
-              "$ref": "#/components/schemas/CommentTagObjectUnion.Numeric"
-            },
-            {
-              "$ref": "#/components/schemas/CommentTagObjectUnion.Literal"
-            }
-          ]
+          "$ref": "#/components/schemas/CommentTagObjectUnion.Type"
         }
+      },
+      "CommentTagObjectUnion.Type": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/CommentTagObjectUnion.Numeric"
+          },
+          {
+            "$ref": "#/components/schemas/CommentTagObjectUnion.Literal"
+          }
+        ]
       },
       "CommentTagObjectUnion.Numeric": {
         "type": "object",

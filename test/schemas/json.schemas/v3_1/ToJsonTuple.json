@@ -15,10 +15,13 @@
             "type": "boolean"
           },
           {
-            "$ref": "#/components/schemas/ToJsonTuple.IHobby"
+            "$ref": "#/components/schemas/ToJsonTuple.IObject"
           }
         ],
         "additionalItems": false
+      },
+      "ToJsonTuple.IObject": {
+        "$ref": "#/components/schemas/ToJsonTuple.IHobby"
       },
       "ToJsonTuple.IHobby": {
         "type": "object",

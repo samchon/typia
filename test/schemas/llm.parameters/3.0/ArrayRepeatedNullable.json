@@ -49,18 +49,8 @@
                           },
                           {
                             "type": "array",
-                            "items": {
-                              "oneOf": [
-                                {
-                                  "type": "string",
-                                  "nullable": true
-                                },
-                                {
-                                  "type": "number",
-                                  "nullable": true
-                                }
-                              ]
-                            },
+                            "items": {},
+                            "maxItems": 0,
                             "nullable": true
                           }
                         ]
@@ -125,18 +115,8 @@
                           },
                           {
                             "type": "array",
-                            "items": {
-                              "oneOf": [
-                                {
-                                  "type": "string",
-                                  "nullable": true
-                                },
-                                {
-                                  "type": "number",
-                                  "nullable": true
-                                }
-                              ]
-                            },
+                            "items": {},
+                            "maxItems": 0,
                             "nullable": true
                           }
                         ]
@@ -355,18 +335,8 @@
                             },
                             {
                               "type": "array",
-                              "items": {
-                                "oneOf": [
-                                  {
-                                    "type": "string",
-                                    "nullable": true
-                                  },
-                                  {
-                                    "type": "number",
-                                    "nullable": true
-                                  }
-                                ]
-                              },
+                              "items": {},
+                              "maxItems": 0,
                               "nullable": true
                             }
                           ]

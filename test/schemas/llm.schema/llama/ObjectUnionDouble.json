@@ -25,7 +25,7 @@
                     "type": "object",
                     "properties": {
                       "y": {
-                        "type": "boolean"
+                        "type": "number"
                       }
                     },
                     "required": [
@@ -44,7 +44,7 @@
                     "type": "object",
                     "properties": {
                       "y": {
-                        "type": "number"
+                        "type": "boolean"
                       }
                     },
                     "required": [
@@ -87,7 +87,10 @@
                     "type": "object",
                     "properties": {
                       "y": {
-                        "type": "string"
+                        "type": "array",
+                        "items": {
+                          "type": "number"
+                        }
                       }
                     },
                     "required": [
@@ -106,10 +109,7 @@
                     "type": "object",
                     "properties": {
                       "y": {
-                        "type": "array",
-                        "items": {
-                          "type": "number"
-                        }
+                        "type": "string"
                       }
                     },
                     "required": [

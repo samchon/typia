@@ -47,17 +47,17 @@
                 "type": "null"
               },
               {
-                "$ref": "#/components/schemas/ObjectNullable.IManufacturer"
+                "$ref": "#/components/schemas/ObjectNullable.IBrand"
               },
               {
-                "$ref": "#/components/schemas/ObjectNullable.IBrand"
+                "$ref": "#/components/schemas/ObjectNullable.IManufacturer"
               }
             ],
             "discriminator": {
               "propertyName": "type",
               "mapping": {
-                "manufacturer": "#/components/schemas/ObjectNullable.IManufacturer",
-                "brand": "#/components/schemas/ObjectNullable.IBrand"
+                "brand": "#/components/schemas/ObjectNullable.IBrand",
+                "manufacturer": "#/components/schemas/ObjectNullable.IManufacturer"
               }
             }
           }

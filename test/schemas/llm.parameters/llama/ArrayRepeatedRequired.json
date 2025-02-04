@@ -2,17 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "oneOf": [
-        {
-          "type": "string"
-        },
-        {
-          "type": "number"
-        },
-        {
-          "$ref": "#/$defs/ArrayArrayRepeatedRequired"
-        }
-      ]
+      "$ref": "#/$defs/ArrayRepeatedRequired"
     },
     "nullable": {
       "oneOf": [
@@ -62,17 +52,7 @@
     "array": {
       "type": "array",
       "items": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "number"
-          },
-          {
-            "$ref": "#/$defs/ArrayArrayRepeatedRequired"
-          }
-        ]
+        "$ref": "#/$defs/ArrayRepeatedRequired"
       }
     }
   },
@@ -83,20 +63,23 @@
   ],
   "additionalProperties": false,
   "$defs": {
+    "ArrayRepeatedRequired": {
+      "oneOf": [
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "$ref": "#/$defs/ArrayArrayRepeatedRequired"
+        }
+      ]
+    },
     "ArrayArrayRepeatedRequired": {
       "type": "array",
       "items": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "number"
-          },
-          {
-            "$ref": "#/$defs/ArrayArrayRepeatedRequired"
-          }
-        ]
+        "$ref": "#/$defs/ArrayRepeatedRequired"
       }
     }
   }

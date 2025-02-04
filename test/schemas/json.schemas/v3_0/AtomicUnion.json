@@ -5,21 +5,24 @@
       "AtomicUnion": {
         "type": "array",
         "items": {
-          "oneOf": [
-            {
-              "type": "string",
-              "nullable": true
-            },
-            {
-              "type": "number",
-              "nullable": true
-            },
-            {
-              "type": "boolean",
-              "nullable": true
-            }
-          ]
+          "$ref": "#/components/schemas/AtomicUnion.Union"
         }
+      },
+      "AtomicUnion.Union": {
+        "oneOf": [
+          {
+            "type": "string",
+            "nullable": true
+          },
+          {
+            "type": "number",
+            "nullable": true
+          },
+          {
+            "type": "boolean",
+            "nullable": true
+          }
+        ]
       }
     }
   },

@@ -5,24 +5,27 @@
       "ArrayRecursiveUnionExplicit": {
         "type": "array",
         "items": {
-          "oneOf": [
-            {
-              "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.IDirectory"
-            },
-            {
-              "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.IImageFile"
-            },
-            {
-              "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.ITextFile"
-            },
-            {
-              "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.IZipFile"
-            },
-            {
-              "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.IShortcut"
-            }
-          ]
+          "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.IBucket"
         }
+      },
+      "ArrayRecursiveUnionExplicit.IBucket": {
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.IDirectory"
+          },
+          {
+            "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.IImageFile"
+          },
+          {
+            "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.ITextFile"
+          },
+          {
+            "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.IZipFile"
+          },
+          {
+            "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.IShortcut"
+          }
+        ]
       },
       "ArrayRecursiveUnionExplicit.IDirectory": {
         "type": "object",
@@ -39,23 +42,7 @@
           "children": {
             "type": "array",
             "items": {
-              "oneOf": [
-                {
-                  "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.IDirectory"
-                },
-                {
-                  "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.IImageFile"
-                },
-                {
-                  "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.ITextFile"
-                },
-                {
-                  "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.IZipFile"
-                },
-                {
-                  "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.IShortcut"
-                }
-              ]
+              "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.IBucket"
             }
           },
           "type": {
@@ -217,23 +204,7 @@
             "type": "string"
           },
           "target": {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.IDirectory"
-              },
-              {
-                "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.IImageFile"
-              },
-              {
-                "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.ITextFile"
-              },
-              {
-                "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.IZipFile"
-              },
-              {
-                "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.IShortcut"
-              }
-            ]
+            "$ref": "#/components/schemas/ArrayRecursiveUnionExplicit.IBucket"
           },
           "type": {
             "type": "string",

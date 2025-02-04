@@ -30,29 +30,7 @@
       "ArrayArrayRepeatedUnion": {
         "type": "array",
         "items": {
-          "oneOf": [
-            {
-              "type": "number"
-            },
-            {
-              "type": "boolean"
-            },
-            {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            {
-              "$ref": "#/components/schemas/ArrayArrayRepeatedUnion"
-            },
-            {
-              "type": "array",
-              "items": {
-                "$ref": "#/components/schemas/ArrayRepeatedUnion.IBox3D"
-              }
-            }
-          ]
+          "$ref": "#/components/schemas/ArrayRepeatedUnion"
         }
       },
       "ArrayRepeatedUnion.IBox3D": {

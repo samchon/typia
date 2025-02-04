@@ -38,16 +38,8 @@
                       },
                       {
                         "type": "array",
-                        "items": {
-                          "oneOf": [
-                            {
-                              "type": "string"
-                            },
-                            {
-                              "type": "number"
-                            }
-                          ]
-                        }
+                        "items": {},
+                        "maxItems": 0
                       }
                     ]
                   }

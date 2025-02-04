@@ -221,6 +221,48 @@
                     "type": "object",
                     "properties": {
                       "outer": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ]
+                        }
+                      },
+                      "inner": {
+                        "type": "object",
+                        "properties": {
+                          "x": {
+                            "type": "number"
+                          },
+                          "y": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "x",
+                          "y"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "outer",
+                      "inner"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "outer": {
                         "type": "object",
                         "properties": {
                           "points": {
@@ -274,48 +316,6 @@
                             "points"
                           ]
                         }
-                      }
-                    },
-                    "required": [
-                      "outer",
-                      "inner"
-                    ]
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "outer": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y"
-                          ]
-                        }
-                      },
-                      "inner": {
-                        "type": "object",
-                        "properties": {
-                          "x": {
-                            "type": "number"
-                          },
-                          "y": {
-                            "type": "number"
-                          }
-                        },
-                        "required": [
-                          "x",
-                          "y"
-                        ]
                       }
                     },
                     "required": [
@@ -588,6 +588,48 @@
                         "type": "object",
                         "properties": {
                           "outer": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            }
+                          },
+                          "inner": {
+                            "type": "object",
+                            "properties": {
+                              "x": {
+                                "type": "number"
+                              },
+                              "y": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "x",
+                              "y"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "outer",
+                          "inner"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "outer": {
                             "type": "object",
                             "properties": {
                               "points": {
@@ -641,48 +683,6 @@
                                 "points"
                               ]
                             }
-                          }
-                        },
-                        "required": [
-                          "outer",
-                          "inner"
-                        ]
-                      },
-                      {
-                        "type": "object",
-                        "properties": {
-                          "outer": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "x": {
-                                  "type": "number"
-                                },
-                                "y": {
-                                  "type": "number"
-                                }
-                              },
-                              "required": [
-                                "x",
-                                "y"
-                              ]
-                            }
-                          },
-                          "inner": {
-                            "type": "object",
-                            "properties": {
-                              "x": {
-                                "type": "number"
-                              },
-                              "y": {
-                                "type": "number"
-                              }
-                            },
-                            "required": [
-                              "x",
-                              "y"
-                            ]
                           }
                         },
                         "required": [
@@ -952,6 +952,48 @@
                     "type": "object",
                     "properties": {
                       "outer": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ]
+                        }
+                      },
+                      "inner": {
+                        "type": "object",
+                        "properties": {
+                          "x": {
+                            "type": "number"
+                          },
+                          "y": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "x",
+                          "y"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "outer",
+                      "inner"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "outer": {
                         "type": "object",
                         "properties": {
                           "points": {
@@ -1005,48 +1047,6 @@
                             "points"
                           ]
                         }
-                      }
-                    },
-                    "required": [
-                      "outer",
-                      "inner"
-                    ]
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "outer": {
-                        "type": "array",
-                        "items": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y"
-                          ]
-                        }
-                      },
-                      "inner": {
-                        "type": "object",
-                        "properties": {
-                          "x": {
-                            "type": "number"
-                          },
-                          "y": {
-                            "type": "number"
-                          }
-                        },
-                        "required": [
-                          "x",
-                          "y"
-                        ]
                       }
                     },
                     "required": [
@@ -1319,6 +1319,48 @@
                         "type": "object",
                         "properties": {
                           "outer": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            }
+                          },
+                          "inner": {
+                            "type": "object",
+                            "properties": {
+                              "x": {
+                                "type": "number"
+                              },
+                              "y": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "x",
+                              "y"
+                            ]
+                          }
+                        },
+                        "required": [
+                          "outer",
+                          "inner"
+                        ]
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "outer": {
                             "type": "object",
                             "properties": {
                               "points": {
@@ -1372,48 +1414,6 @@
                                 "points"
                               ]
                             }
-                          }
-                        },
-                        "required": [
-                          "outer",
-                          "inner"
-                        ]
-                      },
-                      {
-                        "type": "object",
-                        "properties": {
-                          "outer": {
-                            "type": "array",
-                            "items": {
-                              "type": "object",
-                              "properties": {
-                                "x": {
-                                  "type": "number"
-                                },
-                                "y": {
-                                  "type": "number"
-                                }
-                              },
-                              "required": [
-                                "x",
-                                "y"
-                              ]
-                            }
-                          },
-                          "inner": {
-                            "type": "object",
-                            "properties": {
-                              "x": {
-                                "type": "number"
-                              },
-                              "y": {
-                                "type": "number"
-                              }
-                            },
-                            "required": [
-                              "x",
-                              "y"
-                            ]
                           }
                         },
                         "required": [
@@ -1685,6 +1685,48 @@
                       "type": "object",
                       "properties": {
                         "outer": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "x": {
+                                "type": "number"
+                              },
+                              "y": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "x",
+                              "y"
+                            ]
+                          }
+                        },
+                        "inner": {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "outer",
+                        "inner"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "outer": {
                           "type": "object",
                           "properties": {
                             "points": {
@@ -1738,48 +1780,6 @@
                               "points"
                             ]
                           }
-                        }
-                      },
-                      "required": [
-                        "outer",
-                        "inner"
-                      ]
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "outer": {
-                          "type": "array",
-                          "items": {
-                            "type": "object",
-                            "properties": {
-                              "x": {
-                                "type": "number"
-                              },
-                              "y": {
-                                "type": "number"
-                              }
-                            },
-                            "required": [
-                              "x",
-                              "y"
-                            ]
-                          }
-                        },
-                        "inner": {
-                          "type": "object",
-                          "properties": {
-                            "x": {
-                              "type": "number"
-                            },
-                            "y": {
-                              "type": "number"
-                            }
-                          },
-                          "required": [
-                            "x",
-                            "y"
-                          ]
                         }
                       },
                       "required": [

@@ -43,9 +43,6 @@ export namespace LlmApplicationOfValidateTransformer {
     }) as Partial<ILlmSchema.IConfig>;
 
     const type: ts.Type = props.context.checker.getTypeFromTypeNode(top);
-    const collection: MetadataCollection = new MetadataCollection({
-      replace: MetadataCollection.replace,
-    });
 
     // VALIDATE TYPE
     const analyze = (validate: boolean): Metadata => {
@@ -66,7 +63,9 @@ export namespace LlmApplicationOfValidateTransformer {
                   })
                 : undefined,
           },
-          collection,
+          collection: new MetadataCollection({
+            replace: MetadataCollection.replace,
+          }),
           type,
         });
       if (result.success === false)
