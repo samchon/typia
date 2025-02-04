@@ -28,9 +28,9 @@ export namespace LlmModelPredicator {
         checker: props.context.checker,
         transformer: props.context.transformer,
         options: {
+          absorb: true,
           escape: false,
           constant: true,
-          absorb: false,
           functional: false,
         },
         collection,

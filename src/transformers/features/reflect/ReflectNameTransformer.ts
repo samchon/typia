@@ -66,9 +66,9 @@ const getMetadata = (props: {
       checker: props.context.checker,
       transformer: props.context.transformer,
       options: {
-        escape: false,
-        constant: true,
         absorb: false,
+        constant: true,
+        escape: false,
       },
       collection,
       type,

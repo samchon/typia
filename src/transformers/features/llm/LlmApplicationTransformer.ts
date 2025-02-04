@@ -43,37 +43,44 @@ export namespace LlmApplicationTransformer {
     }) as Partial<ILlmSchema.IConfig>;
 
     const type: ts.Type = props.context.checker.getTypeFromTypeNode(top);
-    const collection: MetadataCollection = new MetadataCollection({
-      replace: MetadataCollection.replace,
-    });
-    const result: ValidationPipe<Metadata, MetadataFactory.IError> =
-      MetadataFactory.analyze({
-        checker: props.context.checker,
-        transformer: props.context.transformer,
-        options: {
-          escape: true,
-          constant: true,
-          absorb: false,
-          functional: true,
-          validate: LlmApplicationProgrammer.validate({
-            model,
-            config,
+    // VALIDATE TYPE
+    const analyze = (validate: boolean): Metadata => {
+      const result: ValidationPipe<Metadata, MetadataFactory.IError> =
+        MetadataFactory.analyze({
+          checker: props.context.checker,
+          transformer: props.context.transformer,
+          options: {
+            absorb: validate,
+            escape: true,
+            constant: true,
+            functional: true,
+            validate:
+              validate === true
+                ? LlmApplicationProgrammer.validate({
+                    model,
+                    config,
+                  })
+                : undefined,
+          },
+          collection: new MetadataCollection({
+            replace: MetadataCollection.replace,
           }),
-        },
-        collection,
-        type,
-      });
-    if (result.success === false)
-      throw TransformerError.from({
-        code: "typia.llm.applicationOfValidate",
-        errors: result.errors,
-      });
+          type,
+        });
+      if (result.success === false)
+        throw TransformerError.from({
+          code: "typia.llm.applicationOfValidate",
+          errors: result.errors,
+        });
+      return result.data;
+    };
+    analyze(true);
 
     // GENERATE LLM APPLICATION
     const schema: ILlmApplication<ILlmSchema.Model> =
       LlmApplicationProgrammer.write({
         model,
-        metadata: result.data,
+        metadata: analyze(false),
         config,
       });
     const literal: ts.Expression = ts.factory.createAsExpression(

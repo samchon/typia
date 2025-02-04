@@ -136,6 +136,27 @@
               "functions": [],
               "atomics": [
                 {
+                  "type": "number",
+                  "tags": [
+                    [
+                      {
+                        "target": "number",
+                        "name": "Minimum<3>",
+                        "kind": "minimum",
+                        "value": 3,
+                        "validate": "3 <= $input",
+                        "exclusive": [
+                          "minimum",
+                          "exclusiveMinimum"
+                        ],
+                        "schema": {
+                          "minimum": 3
+                        }
+                      }
+                    ]
+                  ]
+                },
+                {
                   "type": "string",
                   "tags": [
                     [
@@ -159,27 +180,6 @@
                         "exclusive": true,
                         "schema": {
                           "maxLength": 7
-                        }
-                      }
-                    ]
-                  ]
-                },
-                {
-                  "type": "number",
-                  "tags": [
-                    [
-                      {
-                        "target": "number",
-                        "name": "Minimum<3>",
-                        "kind": "minimum",
-                        "value": 3,
-                        "validate": "3 <= $input",
-                        "exclusive": [
-                          "minimum",
-                          "exclusiveMinimum"
-                        ],
-                        "schema": {
-                          "minimum": 3
                         }
                       }
                     ]
