@@ -15,8 +15,8 @@ export default {
     href: "https://gurubase.io/g/typia",
     newWindow: true,
   },
-  // playground: {
-  //   title: "💻 Playground",
-  //   type: "page",
-  // },
+  playground: {
+    title: "💻 Playground",
+    type: "page",
+  },
 };
