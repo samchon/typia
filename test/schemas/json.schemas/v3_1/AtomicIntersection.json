@@ -6,25 +6,16 @@
         "type": "array",
         "prefixItems": [
           {
-            "$ref": "#/components/schemas/AtomicIntersection.Wrapperboolean"
+            "type": "boolean"
           },
           {
-            "$ref": "#/components/schemas/AtomicIntersection.Wrappernumber"
+            "type": "number"
           },
           {
-            "$ref": "#/components/schemas/AtomicIntersection.Wrapperstring"
+            "type": "string"
           }
         ],
         "additionalItems": false
-      },
-      "AtomicIntersection.Wrapperboolean": {
-        "type": "boolean"
-      },
-      "AtomicIntersection.Wrappernumber": {
-        "type": "number"
-      },
-      "AtomicIntersection.Wrapperstring": {
-        "type": "string"
       }
     }
   },

@@ -7,36 +7,27 @@
         "items": {
           "oneOf": [
             {
-              "$ref": "#/components/schemas/ArrayAtomicAlias.Aliasboolean"
+              "type": "array",
+              "items": {
+                "type": "boolean"
+              }
             },
             {
-              "$ref": "#/components/schemas/ArrayAtomicAlias.Aliasnumber"
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
             },
             {
-              "$ref": "#/components/schemas/ArrayAtomicAlias.Aliasstring"
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
             }
           ]
         },
         "minItems": 3,
         "maxItems": 3
-      },
-      "ArrayAtomicAlias.Aliasboolean": {
-        "type": "array",
-        "items": {
-          "type": "boolean"
-        }
-      },
-      "ArrayAtomicAlias.Aliasnumber": {
-        "type": "array",
-        "items": {
-          "type": "number"
-        }
-      },
-      "ArrayAtomicAlias.Aliasstring": {
-        "type": "array",
-        "items": {
-          "type": "string"
-        }
       }
     }
   },

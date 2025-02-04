@@ -5,18 +5,15 @@
       "TypeTagObjectUnion": {
         "type": "array",
         "items": {
-          "$ref": "#/components/schemas/TypeTagObjectUnion.Type"
+          "oneOf": [
+            {
+              "$ref": "#/components/schemas/TypeTagObjectUnion.Numeric"
+            },
+            {
+              "$ref": "#/components/schemas/TypeTagObjectUnion.Literal"
+            }
+          ]
         }
-      },
-      "TypeTagObjectUnion.Type": {
-        "oneOf": [
-          {
-            "$ref": "#/components/schemas/TypeTagObjectUnion.Numeric"
-          },
-          {
-            "$ref": "#/components/schemas/TypeTagObjectUnion.Literal"
-          }
-        ]
       },
       "TypeTagObjectUnion.Numeric": {
         "type": "object",

@@ -11,15 +11,6 @@
         "type": "object",
         "properties": {
           "first": {
-            "$ref": "#/$defs/ArrayRepeatedNullable"
-          }
-        },
-        "required": [
-          "first"
-        ],
-        "additionalProperties": false,
-        "$defs": {
-          "ArrayRepeatedNullable": {
             "oneOf": [
               {
                 "type": "null"
@@ -34,11 +25,30 @@
                 "$ref": "#/$defs/ArrayArrayRepeatedNullable"
               }
             ]
-          },
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
           "ArrayArrayRepeatedNullable": {
             "type": "array",
             "items": {
-              "$ref": "#/$defs/ArrayRepeatedNullable"
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "$ref": "#/$defs/ArrayArrayRepeatedNullable"
+                }
+              ]
             }
           }
         }
@@ -50,19 +60,6 @@
         "type": "object",
         "properties": {
           "first": {
-            "$ref": "#/$defs/ArrayRepeatedNullable"
-          },
-          "second": {
-            "$ref": "#/$defs/ArrayRepeatedNullable"
-          }
-        },
-        "required": [
-          "first",
-          "second"
-        ],
-        "additionalProperties": false,
-        "$defs": {
-          "ArrayRepeatedNullable": {
             "oneOf": [
               {
                 "type": "null"
@@ -78,16 +75,65 @@
               }
             ]
           },
+          "second": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "$ref": "#/$defs/ArrayArrayRepeatedNullable"
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false,
+        "$defs": {
           "ArrayArrayRepeatedNullable": {
             "type": "array",
             "items": {
-              "$ref": "#/$defs/ArrayRepeatedNullable"
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "$ref": "#/$defs/ArrayArrayRepeatedNullable"
+                }
+              ]
             }
           }
         }
       },
       "output": {
-        "$ref": "#/$defs/ArrayRepeatedNullable"
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "$ref": "#/$defs/ArrayArrayRepeatedNullable"
+          }
+        ]
       }
     },
     {
@@ -96,22 +142,6 @@
         "type": "object",
         "properties": {
           "first": {
-            "$ref": "#/$defs/ArrayRepeatedNullable"
-          },
-          "second": {
-            "$ref": "#/$defs/ArrayRepeatedNullable"
-          },
-          "third": {
-            "$ref": "#/$defs/ArrayRepeatedNullable"
-          }
-        },
-        "required": [
-          "first",
-          "second"
-        ],
-        "additionalProperties": false,
-        "$defs": {
-          "ArrayRepeatedNullable": {
             "oneOf": [
               {
                 "type": "null"
@@ -127,16 +157,81 @@
               }
             ]
           },
+          "second": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "$ref": "#/$defs/ArrayArrayRepeatedNullable"
+              }
+            ]
+          },
+          "third": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "$ref": "#/$defs/ArrayArrayRepeatedNullable"
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false,
+        "$defs": {
           "ArrayArrayRepeatedNullable": {
             "type": "array",
             "items": {
-              "$ref": "#/$defs/ArrayRepeatedNullable"
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "$ref": "#/$defs/ArrayArrayRepeatedNullable"
+                }
+              ]
             }
           }
         }
       },
       "output": {
-        "$ref": "#/$defs/ArrayRepeatedNullable"
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "$ref": "#/$defs/ArrayArrayRepeatedNullable"
+          }
+        ]
       }
     }
   ]

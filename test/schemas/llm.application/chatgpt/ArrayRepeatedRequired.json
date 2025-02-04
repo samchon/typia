@@ -12,15 +12,6 @@
         "type": "object",
         "properties": {
           "first": {
-            "$ref": "#/$defs/ArrayRepeatedRequired"
-          }
-        },
-        "required": [
-          "first"
-        ],
-        "additionalProperties": false,
-        "$defs": {
-          "ArrayRepeatedRequired": {
             "anyOf": [
               {
                 "type": "string"
@@ -32,11 +23,27 @@
                 "$ref": "#/$defs/ArrayArrayRepeatedRequired"
               }
             ]
-          },
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
           "ArrayArrayRepeatedRequired": {
             "type": "array",
             "items": {
-              "$ref": "#/$defs/ArrayRepeatedRequired"
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "$ref": "#/$defs/ArrayArrayRepeatedRequired"
+                }
+              ]
             }
           }
         }
@@ -48,7 +55,17 @@
         "type": "object",
         "properties": {
           "first": {
-            "$ref": "#/$defs/ArrayRepeatedRequired"
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "$ref": "#/$defs/ArrayArrayRepeatedRequired"
+              }
+            ]
           },
           "second": {
             "anyOf": [
@@ -73,29 +90,36 @@
         ],
         "additionalProperties": false,
         "$defs": {
-          "ArrayRepeatedRequired": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              },
-              {
-                "$ref": "#/$defs/ArrayArrayRepeatedRequired"
-              }
-            ]
-          },
           "ArrayArrayRepeatedRequired": {
             "type": "array",
             "items": {
-              "$ref": "#/$defs/ArrayRepeatedRequired"
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "$ref": "#/$defs/ArrayArrayRepeatedRequired"
+                }
+              ]
             }
           }
         }
       },
       "output": {
-        "$ref": "#/$defs/ArrayRepeatedRequired"
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "$ref": "#/$defs/ArrayArrayRepeatedRequired"
+          }
+        ]
       }
     },
     {
@@ -161,21 +185,18 @@
           "ArrayArrayRepeatedRequired": {
             "type": "array",
             "items": {
-              "$ref": "#/$defs/ArrayRepeatedRequired"
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "$ref": "#/$defs/ArrayArrayRepeatedRequired"
+                }
+              ]
             }
-          },
-          "ArrayRepeatedRequired": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              },
-              {
-                "$ref": "#/$defs/ArrayArrayRepeatedRequired"
-              }
-            ]
           }
         }
       },

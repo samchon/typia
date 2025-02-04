@@ -59,8 +59,18 @@
                                 },
                                 {
                                   "type": "array",
-                                  "items": {},
-                                  "maxItems": 0,
+                                  "items": {
+                                    "oneOf": [
+                                      {
+                                        "type": "string",
+                                        "nullable": true
+                                      },
+                                      {
+                                        "type": "number",
+                                        "nullable": true
+                                      }
+                                    ]
+                                  },
                                   "nullable": true
                                 }
                               ]
@@ -137,8 +147,18 @@
                                 },
                                 {
                                   "type": "array",
-                                  "items": {},
-                                  "maxItems": 0,
+                                  "items": {
+                                    "oneOf": [
+                                      {
+                                        "type": "string",
+                                        "nullable": true
+                                      },
+                                      {
+                                        "type": "number",
+                                        "nullable": true
+                                      }
+                                    ]
+                                  },
                                   "nullable": true
                                 }
                               ]
@@ -203,8 +223,18 @@
                                 },
                                 {
                                   "type": "array",
-                                  "items": {},
-                                  "maxItems": 0,
+                                  "items": {
+                                    "oneOf": [
+                                      {
+                                        "type": "string",
+                                        "nullable": true
+                                      },
+                                      {
+                                        "type": "number",
+                                        "nullable": true
+                                      }
+                                    ]
+                                  },
                                   "nullable": true
                                 }
                               ]
@@ -276,8 +306,18 @@
                             },
                             {
                               "type": "array",
-                              "items": {},
-                              "maxItems": 0,
+                              "items": {
+                                "oneOf": [
+                                  {
+                                    "type": "string",
+                                    "nullable": true
+                                  },
+                                  {
+                                    "type": "number",
+                                    "nullable": true
+                                  }
+                                ]
+                              },
                               "nullable": true
                             }
                           ]
@@ -348,8 +388,18 @@
                                 },
                                 {
                                   "type": "array",
-                                  "items": {},
-                                  "maxItems": 0,
+                                  "items": {
+                                    "oneOf": [
+                                      {
+                                        "type": "string",
+                                        "nullable": true
+                                      },
+                                      {
+                                        "type": "number",
+                                        "nullable": true
+                                      }
+                                    ]
+                                  },
                                   "nullable": true
                                 }
                               ]
@@ -414,8 +464,18 @@
                                 },
                                 {
                                   "type": "array",
-                                  "items": {},
-                                  "maxItems": 0,
+                                  "items": {
+                                    "oneOf": [
+                                      {
+                                        "type": "string",
+                                        "nullable": true
+                                      },
+                                      {
+                                        "type": "number",
+                                        "nullable": true
+                                      }
+                                    ]
+                                  },
                                   "nullable": true
                                 }
                               ]
@@ -480,8 +540,18 @@
                                 },
                                 {
                                   "type": "array",
-                                  "items": {},
-                                  "maxItems": 0,
+                                  "items": {
+                                    "oneOf": [
+                                      {
+                                        "type": "string",
+                                        "nullable": true
+                                      },
+                                      {
+                                        "type": "number",
+                                        "nullable": true
+                                      }
+                                    ]
+                                  },
                                   "nullable": true
                                 }
                               ]
@@ -553,8 +623,18 @@
                             },
                             {
                               "type": "array",
-                              "items": {},
-                              "maxItems": 0,
+                              "items": {
+                                "oneOf": [
+                                  {
+                                    "type": "string",
+                                    "nullable": true
+                                  },
+                                  {
+                                    "type": "number",
+                                    "nullable": true
+                                  }
+                                ]
+                              },
                               "nullable": true
                             }
                           ]

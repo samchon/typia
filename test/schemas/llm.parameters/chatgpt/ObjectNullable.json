@@ -66,7 +66,7 @@
                       "type": {
                         "type": "string",
                         "enum": [
-                          "brand"
+                          "manufacturer"
                         ]
                       },
                       "name": {
@@ -84,7 +84,7 @@
                       "type": {
                         "type": "string",
                         "enum": [
-                          "manufacturer"
+                          "brand"
                         ]
                       },
                       "name": {
@@ -182,7 +182,7 @@
                           "type": {
                             "type": "string",
                             "enum": [
-                              "brand"
+                              "manufacturer"
                             ]
                           },
                           "name": {
@@ -200,7 +200,7 @@
                           "type": {
                             "type": "string",
                             "enum": [
-                              "manufacturer"
+                              "brand"
                             ]
                           },
                           "name": {
@@ -295,7 +295,7 @@
                       "type": {
                         "type": "string",
                         "enum": [
-                          "brand"
+                          "manufacturer"
                         ]
                       },
                       "name": {
@@ -313,7 +313,7 @@
                       "type": {
                         "type": "string",
                         "enum": [
-                          "manufacturer"
+                          "brand"
                         ]
                       },
                       "name": {
@@ -411,7 +411,7 @@
                           "type": {
                             "type": "string",
                             "enum": [
-                              "brand"
+                              "manufacturer"
                             ]
                           },
                           "name": {
@@ -429,7 +429,7 @@
                           "type": {
                             "type": "string",
                             "enum": [
-                              "manufacturer"
+                              "brand"
                             ]
                           },
                           "name": {
@@ -526,7 +526,7 @@
                         "type": {
                           "type": "string",
                           "enum": [
-                            "brand"
+                            "manufacturer"
                           ]
                         },
                         "name": {
@@ -544,7 +544,7 @@
                         "type": {
                           "type": "string",
                           "enum": [
-                            "manufacturer"
+                            "brand"
                           ]
                         },
                         "name": {

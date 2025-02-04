@@ -7,36 +7,27 @@
         "items": {
           "oneOf": [
             {
-              "$ref": "#/components/schemas/ConstantIntersection.Wrapperfalse"
+              "type": "boolean",
+              "enum": [
+                false
+              ]
             },
             {
-              "$ref": "#/components/schemas/ConstantIntersection.Wrapper1"
+              "type": "number",
+              "enum": [
+                1
+              ]
             },
             {
-              "$ref": "#/components/schemas/ConstantIntersection.Wrappertwo"
+              "type": "string",
+              "enum": [
+                "two"
+              ]
             }
           ]
         },
         "minItems": 3,
         "maxItems": 3
-      },
-      "ConstantIntersection.Wrapperfalse": {
-        "type": "boolean",
-        "enum": [
-          false
-        ]
-      },
-      "ConstantIntersection.Wrapper1": {
-        "type": "number",
-        "enum": [
-          1
-        ]
-      },
-      "ConstantIntersection.Wrappertwo": {
-        "type": "string",
-        "enum": [
-          "two"
-        ]
       }
     }
   },

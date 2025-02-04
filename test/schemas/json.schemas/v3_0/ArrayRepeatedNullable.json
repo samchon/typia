@@ -5,7 +5,19 @@
       "ArrayArrayRepeatedNullable.Nullable": {
         "type": "array",
         "items": {
-          "$ref": "#/components/schemas/ArrayRepeatedNullable"
+          "oneOf": [
+            {
+              "type": "string",
+              "nullable": true
+            },
+            {
+              "type": "number",
+              "nullable": true
+            },
+            {
+              "$ref": "#/components/schemas/ArrayArrayRepeatedNullable.Nullable"
+            }
+          ]
         },
         "nullable": true
       },
@@ -27,7 +39,19 @@
       "ArrayArrayRepeatedNullable": {
         "type": "array",
         "items": {
-          "$ref": "#/components/schemas/ArrayRepeatedNullable"
+          "oneOf": [
+            {
+              "type": "string",
+              "nullable": true
+            },
+            {
+              "type": "number",
+              "nullable": true
+            },
+            {
+              "$ref": "#/components/schemas/ArrayArrayRepeatedNullable.Nullable"
+            }
+          ]
         }
       }
     }

@@ -14,7 +14,106 @@
           "first": {
             "type": "array",
             "items": {
-              "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IBucket"
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IDirectory"
+                },
+                {
+                  "$ref": "#/$defs/ArrayRecursiveUnionImplicit.ISharedDirectory"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "path": {
+                      "type": "string"
+                    },
+                    "width": {
+                      "type": "number"
+                    },
+                    "height": {
+                      "type": "number"
+                    },
+                    "url": {
+                      "type": "string"
+                    },
+                    "size": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name",
+                    "path",
+                    "width",
+                    "height",
+                    "url",
+                    "size"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "path": {
+                      "type": "string"
+                    },
+                    "size": {
+                      "type": "number"
+                    },
+                    "content": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name",
+                    "path",
+                    "size",
+                    "content"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "path": {
+                      "type": "string"
+                    },
+                    "size": {
+                      "type": "number"
+                    },
+                    "count": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name",
+                    "path",
+                    "size",
+                    "count"
+                  ]
+                },
+                {
+                  "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IShortcut"
+                }
+              ]
             }
           }
         },
@@ -23,108 +122,6 @@
         ],
         "additionalProperties": false,
         "$defs": {
-          "ArrayRecursiveUnionImplicit.IBucket": {
-            "oneOf": [
-              {
-                "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IDirectory"
-              },
-              {
-                "$ref": "#/$defs/ArrayRecursiveUnionImplicit.ISharedDirectory"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "path": {
-                    "type": "string"
-                  },
-                  "width": {
-                    "type": "number"
-                  },
-                  "height": {
-                    "type": "number"
-                  },
-                  "url": {
-                    "type": "string"
-                  },
-                  "size": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "id",
-                  "name",
-                  "path",
-                  "width",
-                  "height",
-                  "url",
-                  "size"
-                ]
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "path": {
-                    "type": "string"
-                  },
-                  "size": {
-                    "type": "number"
-                  },
-                  "content": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "id",
-                  "name",
-                  "path",
-                  "size",
-                  "content"
-                ]
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "path": {
-                    "type": "string"
-                  },
-                  "size": {
-                    "type": "number"
-                  },
-                  "count": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "id",
-                  "name",
-                  "path",
-                  "size",
-                  "count"
-                ]
-              },
-              {
-                "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IShortcut"
-              }
-            ]
-          },
           "ArrayRecursiveUnionImplicit.IDirectory": {
             "type": "object",
             "properties": {
@@ -140,7 +137,106 @@
               "children": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IBucket"
+                  "oneOf": [
+                    {
+                      "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IDirectory"
+                    },
+                    {
+                      "$ref": "#/$defs/ArrayRecursiveUnionImplicit.ISharedDirectory"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "path": {
+                          "type": "string"
+                        },
+                        "width": {
+                          "type": "number"
+                        },
+                        "height": {
+                          "type": "number"
+                        },
+                        "url": {
+                          "type": "string"
+                        },
+                        "size": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "path",
+                        "width",
+                        "height",
+                        "url",
+                        "size"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "path": {
+                          "type": "string"
+                        },
+                        "size": {
+                          "type": "number"
+                        },
+                        "content": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "path",
+                        "size",
+                        "content"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "path": {
+                          "type": "string"
+                        },
+                        "size": {
+                          "type": "number"
+                        },
+                        "count": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "path",
+                        "size",
+                        "count"
+                      ]
+                    },
+                    {
+                      "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IShortcut"
+                    }
+                  ]
                 }
               }
             },
@@ -176,7 +272,106 @@
               "children": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IBucket"
+                  "oneOf": [
+                    {
+                      "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IDirectory"
+                    },
+                    {
+                      "$ref": "#/$defs/ArrayRecursiveUnionImplicit.ISharedDirectory"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "path": {
+                          "type": "string"
+                        },
+                        "width": {
+                          "type": "number"
+                        },
+                        "height": {
+                          "type": "number"
+                        },
+                        "url": {
+                          "type": "string"
+                        },
+                        "size": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "path",
+                        "width",
+                        "height",
+                        "url",
+                        "size"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "path": {
+                          "type": "string"
+                        },
+                        "size": {
+                          "type": "number"
+                        },
+                        "content": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "path",
+                        "size",
+                        "content"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "path": {
+                          "type": "string"
+                        },
+                        "size": {
+                          "type": "number"
+                        },
+                        "count": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "path",
+                        "size",
+                        "count"
+                      ]
+                    },
+                    {
+                      "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IShortcut"
+                    }
+                  ]
                 }
               }
             },
@@ -201,7 +396,106 @@
                 "type": "string"
               },
               "target": {
-                "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IBucket"
+                "oneOf": [
+                  {
+                    "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IDirectory"
+                  },
+                  {
+                    "$ref": "#/$defs/ArrayRecursiveUnionImplicit.ISharedDirectory"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "path": {
+                        "type": "string"
+                      },
+                      "width": {
+                        "type": "number"
+                      },
+                      "height": {
+                        "type": "number"
+                      },
+                      "url": {
+                        "type": "string"
+                      },
+                      "size": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "name",
+                      "path",
+                      "width",
+                      "height",
+                      "url",
+                      "size"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "path": {
+                        "type": "string"
+                      },
+                      "size": {
+                        "type": "number"
+                      },
+                      "content": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "name",
+                      "path",
+                      "size",
+                      "content"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "path": {
+                        "type": "string"
+                      },
+                      "size": {
+                        "type": "number"
+                      },
+                      "count": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "name",
+                      "path",
+                      "size",
+                      "count"
+                    ]
+                  },
+                  {
+                    "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IShortcut"
+                  }
+                ]
               }
             },
             "required": [
@@ -222,7 +516,106 @@
           "first": {
             "type": "array",
             "items": {
-              "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IBucket"
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IDirectory"
+                },
+                {
+                  "$ref": "#/$defs/ArrayRecursiveUnionImplicit.ISharedDirectory"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "path": {
+                      "type": "string"
+                    },
+                    "width": {
+                      "type": "number"
+                    },
+                    "height": {
+                      "type": "number"
+                    },
+                    "url": {
+                      "type": "string"
+                    },
+                    "size": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name",
+                    "path",
+                    "width",
+                    "height",
+                    "url",
+                    "size"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "path": {
+                      "type": "string"
+                    },
+                    "size": {
+                      "type": "number"
+                    },
+                    "content": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name",
+                    "path",
+                    "size",
+                    "content"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "path": {
+                      "type": "string"
+                    },
+                    "size": {
+                      "type": "number"
+                    },
+                    "count": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name",
+                    "path",
+                    "size",
+                    "count"
+                  ]
+                },
+                {
+                  "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IShortcut"
+                }
+              ]
             }
           },
           "second": {
@@ -233,7 +626,106 @@
               {
                 "type": "array",
                 "items": {
-                  "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IBucket"
+                  "oneOf": [
+                    {
+                      "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IDirectory"
+                    },
+                    {
+                      "$ref": "#/$defs/ArrayRecursiveUnionImplicit.ISharedDirectory"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "path": {
+                          "type": "string"
+                        },
+                        "width": {
+                          "type": "number"
+                        },
+                        "height": {
+                          "type": "number"
+                        },
+                        "url": {
+                          "type": "string"
+                        },
+                        "size": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "path",
+                        "width",
+                        "height",
+                        "url",
+                        "size"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "path": {
+                          "type": "string"
+                        },
+                        "size": {
+                          "type": "number"
+                        },
+                        "content": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "path",
+                        "size",
+                        "content"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "path": {
+                          "type": "string"
+                        },
+                        "size": {
+                          "type": "number"
+                        },
+                        "count": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "path",
+                        "size",
+                        "count"
+                      ]
+                    },
+                    {
+                      "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IShortcut"
+                    }
+                  ]
                 }
               }
             ]
@@ -245,108 +737,6 @@
         ],
         "additionalProperties": false,
         "$defs": {
-          "ArrayRecursiveUnionImplicit.IBucket": {
-            "oneOf": [
-              {
-                "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IDirectory"
-              },
-              {
-                "$ref": "#/$defs/ArrayRecursiveUnionImplicit.ISharedDirectory"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "path": {
-                    "type": "string"
-                  },
-                  "width": {
-                    "type": "number"
-                  },
-                  "height": {
-                    "type": "number"
-                  },
-                  "url": {
-                    "type": "string"
-                  },
-                  "size": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "id",
-                  "name",
-                  "path",
-                  "width",
-                  "height",
-                  "url",
-                  "size"
-                ]
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "path": {
-                    "type": "string"
-                  },
-                  "size": {
-                    "type": "number"
-                  },
-                  "content": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "id",
-                  "name",
-                  "path",
-                  "size",
-                  "content"
-                ]
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "path": {
-                    "type": "string"
-                  },
-                  "size": {
-                    "type": "number"
-                  },
-                  "count": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "id",
-                  "name",
-                  "path",
-                  "size",
-                  "count"
-                ]
-              },
-              {
-                "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IShortcut"
-              }
-            ]
-          },
           "ArrayRecursiveUnionImplicit.IDirectory": {
             "type": "object",
             "properties": {
@@ -362,7 +752,106 @@
               "children": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IBucket"
+                  "oneOf": [
+                    {
+                      "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IDirectory"
+                    },
+                    {
+                      "$ref": "#/$defs/ArrayRecursiveUnionImplicit.ISharedDirectory"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "path": {
+                          "type": "string"
+                        },
+                        "width": {
+                          "type": "number"
+                        },
+                        "height": {
+                          "type": "number"
+                        },
+                        "url": {
+                          "type": "string"
+                        },
+                        "size": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "path",
+                        "width",
+                        "height",
+                        "url",
+                        "size"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "path": {
+                          "type": "string"
+                        },
+                        "size": {
+                          "type": "number"
+                        },
+                        "content": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "path",
+                        "size",
+                        "content"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "path": {
+                          "type": "string"
+                        },
+                        "size": {
+                          "type": "number"
+                        },
+                        "count": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "path",
+                        "size",
+                        "count"
+                      ]
+                    },
+                    {
+                      "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IShortcut"
+                    }
+                  ]
                 }
               }
             },
@@ -398,7 +887,106 @@
               "children": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IBucket"
+                  "oneOf": [
+                    {
+                      "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IDirectory"
+                    },
+                    {
+                      "$ref": "#/$defs/ArrayRecursiveUnionImplicit.ISharedDirectory"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "path": {
+                          "type": "string"
+                        },
+                        "width": {
+                          "type": "number"
+                        },
+                        "height": {
+                          "type": "number"
+                        },
+                        "url": {
+                          "type": "string"
+                        },
+                        "size": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "path",
+                        "width",
+                        "height",
+                        "url",
+                        "size"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "path": {
+                          "type": "string"
+                        },
+                        "size": {
+                          "type": "number"
+                        },
+                        "content": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "path",
+                        "size",
+                        "content"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "path": {
+                          "type": "string"
+                        },
+                        "size": {
+                          "type": "number"
+                        },
+                        "count": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "path",
+                        "size",
+                        "count"
+                      ]
+                    },
+                    {
+                      "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IShortcut"
+                    }
+                  ]
                 }
               }
             },
@@ -423,7 +1011,106 @@
                 "type": "string"
               },
               "target": {
-                "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IBucket"
+                "oneOf": [
+                  {
+                    "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IDirectory"
+                  },
+                  {
+                    "$ref": "#/$defs/ArrayRecursiveUnionImplicit.ISharedDirectory"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "path": {
+                        "type": "string"
+                      },
+                      "width": {
+                        "type": "number"
+                      },
+                      "height": {
+                        "type": "number"
+                      },
+                      "url": {
+                        "type": "string"
+                      },
+                      "size": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "name",
+                      "path",
+                      "width",
+                      "height",
+                      "url",
+                      "size"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "path": {
+                        "type": "string"
+                      },
+                      "size": {
+                        "type": "number"
+                      },
+                      "content": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "name",
+                      "path",
+                      "size",
+                      "content"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "path": {
+                        "type": "string"
+                      },
+                      "size": {
+                        "type": "number"
+                      },
+                      "count": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "name",
+                      "path",
+                      "size",
+                      "count"
+                    ]
+                  },
+                  {
+                    "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IShortcut"
+                  }
+                ]
               }
             },
             "required": [
@@ -438,7 +1125,106 @@
       "output": {
         "type": "array",
         "items": {
-          "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IBucket"
+          "oneOf": [
+            {
+              "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IDirectory"
+            },
+            {
+              "$ref": "#/$defs/ArrayRecursiveUnionImplicit.ISharedDirectory"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "path": {
+                  "type": "string"
+                },
+                "width": {
+                  "type": "number"
+                },
+                "height": {
+                  "type": "number"
+                },
+                "url": {
+                  "type": "string"
+                },
+                "size": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "id",
+                "name",
+                "path",
+                "width",
+                "height",
+                "url",
+                "size"
+              ]
+            },
+            {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "path": {
+                  "type": "string"
+                },
+                "size": {
+                  "type": "number"
+                },
+                "content": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "name",
+                "path",
+                "size",
+                "content"
+              ]
+            },
+            {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "path": {
+                  "type": "string"
+                },
+                "size": {
+                  "type": "number"
+                },
+                "count": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "id",
+                "name",
+                "path",
+                "size",
+                "count"
+              ]
+            },
+            {
+              "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IShortcut"
+            }
+          ]
         }
       }
     },
@@ -455,7 +1241,106 @@
               {
                 "type": "array",
                 "items": {
-                  "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IBucket"
+                  "oneOf": [
+                    {
+                      "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IDirectory"
+                    },
+                    {
+                      "$ref": "#/$defs/ArrayRecursiveUnionImplicit.ISharedDirectory"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "path": {
+                          "type": "string"
+                        },
+                        "width": {
+                          "type": "number"
+                        },
+                        "height": {
+                          "type": "number"
+                        },
+                        "url": {
+                          "type": "string"
+                        },
+                        "size": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "path",
+                        "width",
+                        "height",
+                        "url",
+                        "size"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "path": {
+                          "type": "string"
+                        },
+                        "size": {
+                          "type": "number"
+                        },
+                        "content": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "path",
+                        "size",
+                        "content"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "path": {
+                          "type": "string"
+                        },
+                        "size": {
+                          "type": "number"
+                        },
+                        "count": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "path",
+                        "size",
+                        "count"
+                      ]
+                    },
+                    {
+                      "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IShortcut"
+                    }
+                  ]
                 }
               }
             ]
@@ -468,7 +1353,106 @@
               {
                 "type": "array",
                 "items": {
-                  "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IBucket"
+                  "oneOf": [
+                    {
+                      "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IDirectory"
+                    },
+                    {
+                      "$ref": "#/$defs/ArrayRecursiveUnionImplicit.ISharedDirectory"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "path": {
+                          "type": "string"
+                        },
+                        "width": {
+                          "type": "number"
+                        },
+                        "height": {
+                          "type": "number"
+                        },
+                        "url": {
+                          "type": "string"
+                        },
+                        "size": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "path",
+                        "width",
+                        "height",
+                        "url",
+                        "size"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "path": {
+                          "type": "string"
+                        },
+                        "size": {
+                          "type": "number"
+                        },
+                        "content": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "path",
+                        "size",
+                        "content"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "path": {
+                          "type": "string"
+                        },
+                        "size": {
+                          "type": "number"
+                        },
+                        "count": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "path",
+                        "size",
+                        "count"
+                      ]
+                    },
+                    {
+                      "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IShortcut"
+                    }
+                  ]
                 }
               }
             ]
@@ -481,7 +1465,106 @@
               {
                 "type": "array",
                 "items": {
-                  "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IBucket"
+                  "oneOf": [
+                    {
+                      "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IDirectory"
+                    },
+                    {
+                      "$ref": "#/$defs/ArrayRecursiveUnionImplicit.ISharedDirectory"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "path": {
+                          "type": "string"
+                        },
+                        "width": {
+                          "type": "number"
+                        },
+                        "height": {
+                          "type": "number"
+                        },
+                        "url": {
+                          "type": "string"
+                        },
+                        "size": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "path",
+                        "width",
+                        "height",
+                        "url",
+                        "size"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "path": {
+                          "type": "string"
+                        },
+                        "size": {
+                          "type": "number"
+                        },
+                        "content": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "path",
+                        "size",
+                        "content"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "path": {
+                          "type": "string"
+                        },
+                        "size": {
+                          "type": "number"
+                        },
+                        "count": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "path",
+                        "size",
+                        "count"
+                      ]
+                    },
+                    {
+                      "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IShortcut"
+                    }
+                  ]
                 }
               }
             ]
@@ -493,108 +1576,6 @@
         ],
         "additionalProperties": false,
         "$defs": {
-          "ArrayRecursiveUnionImplicit.IBucket": {
-            "oneOf": [
-              {
-                "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IDirectory"
-              },
-              {
-                "$ref": "#/$defs/ArrayRecursiveUnionImplicit.ISharedDirectory"
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "path": {
-                    "type": "string"
-                  },
-                  "width": {
-                    "type": "number"
-                  },
-                  "height": {
-                    "type": "number"
-                  },
-                  "url": {
-                    "type": "string"
-                  },
-                  "size": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "id",
-                  "name",
-                  "path",
-                  "width",
-                  "height",
-                  "url",
-                  "size"
-                ]
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "path": {
-                    "type": "string"
-                  },
-                  "size": {
-                    "type": "number"
-                  },
-                  "content": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "id",
-                  "name",
-                  "path",
-                  "size",
-                  "content"
-                ]
-              },
-              {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "number"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "path": {
-                    "type": "string"
-                  },
-                  "size": {
-                    "type": "number"
-                  },
-                  "count": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "id",
-                  "name",
-                  "path",
-                  "size",
-                  "count"
-                ]
-              },
-              {
-                "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IShortcut"
-              }
-            ]
-          },
           "ArrayRecursiveUnionImplicit.IDirectory": {
             "type": "object",
             "properties": {
@@ -610,7 +1591,106 @@
               "children": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IBucket"
+                  "oneOf": [
+                    {
+                      "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IDirectory"
+                    },
+                    {
+                      "$ref": "#/$defs/ArrayRecursiveUnionImplicit.ISharedDirectory"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "path": {
+                          "type": "string"
+                        },
+                        "width": {
+                          "type": "number"
+                        },
+                        "height": {
+                          "type": "number"
+                        },
+                        "url": {
+                          "type": "string"
+                        },
+                        "size": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "path",
+                        "width",
+                        "height",
+                        "url",
+                        "size"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "path": {
+                          "type": "string"
+                        },
+                        "size": {
+                          "type": "number"
+                        },
+                        "content": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "path",
+                        "size",
+                        "content"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "path": {
+                          "type": "string"
+                        },
+                        "size": {
+                          "type": "number"
+                        },
+                        "count": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "path",
+                        "size",
+                        "count"
+                      ]
+                    },
+                    {
+                      "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IShortcut"
+                    }
+                  ]
                 }
               }
             },
@@ -646,7 +1726,106 @@
               "children": {
                 "type": "array",
                 "items": {
-                  "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IBucket"
+                  "oneOf": [
+                    {
+                      "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IDirectory"
+                    },
+                    {
+                      "$ref": "#/$defs/ArrayRecursiveUnionImplicit.ISharedDirectory"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "path": {
+                          "type": "string"
+                        },
+                        "width": {
+                          "type": "number"
+                        },
+                        "height": {
+                          "type": "number"
+                        },
+                        "url": {
+                          "type": "string"
+                        },
+                        "size": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "path",
+                        "width",
+                        "height",
+                        "url",
+                        "size"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "path": {
+                          "type": "string"
+                        },
+                        "size": {
+                          "type": "number"
+                        },
+                        "content": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "path",
+                        "size",
+                        "content"
+                      ]
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "name": {
+                          "type": "string"
+                        },
+                        "path": {
+                          "type": "string"
+                        },
+                        "size": {
+                          "type": "number"
+                        },
+                        "count": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "name",
+                        "path",
+                        "size",
+                        "count"
+                      ]
+                    },
+                    {
+                      "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IShortcut"
+                    }
+                  ]
                 }
               }
             },
@@ -671,7 +1850,106 @@
                 "type": "string"
               },
               "target": {
-                "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IBucket"
+                "oneOf": [
+                  {
+                    "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IDirectory"
+                  },
+                  {
+                    "$ref": "#/$defs/ArrayRecursiveUnionImplicit.ISharedDirectory"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "path": {
+                        "type": "string"
+                      },
+                      "width": {
+                        "type": "number"
+                      },
+                      "height": {
+                        "type": "number"
+                      },
+                      "url": {
+                        "type": "string"
+                      },
+                      "size": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "name",
+                      "path",
+                      "width",
+                      "height",
+                      "url",
+                      "size"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "path": {
+                        "type": "string"
+                      },
+                      "size": {
+                        "type": "number"
+                      },
+                      "content": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "name",
+                      "path",
+                      "size",
+                      "content"
+                    ]
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "path": {
+                        "type": "string"
+                      },
+                      "size": {
+                        "type": "number"
+                      },
+                      "count": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "name",
+                      "path",
+                      "size",
+                      "count"
+                    ]
+                  },
+                  {
+                    "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IShortcut"
+                  }
+                ]
               }
             },
             "required": [
@@ -691,7 +1969,106 @@
           {
             "type": "array",
             "items": {
-              "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IBucket"
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IDirectory"
+                },
+                {
+                  "$ref": "#/$defs/ArrayRecursiveUnionImplicit.ISharedDirectory"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "path": {
+                      "type": "string"
+                    },
+                    "width": {
+                      "type": "number"
+                    },
+                    "height": {
+                      "type": "number"
+                    },
+                    "url": {
+                      "type": "string"
+                    },
+                    "size": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name",
+                    "path",
+                    "width",
+                    "height",
+                    "url",
+                    "size"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "path": {
+                      "type": "string"
+                    },
+                    "size": {
+                      "type": "number"
+                    },
+                    "content": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name",
+                    "path",
+                    "size",
+                    "content"
+                  ]
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "name": {
+                      "type": "string"
+                    },
+                    "path": {
+                      "type": "string"
+                    },
+                    "size": {
+                      "type": "number"
+                    },
+                    "count": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "name",
+                    "path",
+                    "size",
+                    "count"
+                  ]
+                },
+                {
+                  "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IShortcut"
+                }
+              ]
             }
           }
         ]

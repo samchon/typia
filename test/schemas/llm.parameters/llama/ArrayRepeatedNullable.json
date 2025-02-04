@@ -2,10 +2,36 @@
   "type": "object",
   "properties": {
     "regular": {
-      "$ref": "#/$defs/ArrayRepeatedNullable"
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "$ref": "#/$defs/ArrayArrayRepeatedNullable"
+        }
+      ]
     },
     "nullable": {
-      "$ref": "#/$defs/ArrayRepeatedNullable"
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "$ref": "#/$defs/ArrayArrayRepeatedNullable"
+        }
+      ]
     },
     "optional": {
       "oneOf": [
@@ -42,7 +68,20 @@
     "array": {
       "type": "array",
       "items": {
-        "$ref": "#/$defs/ArrayRepeatedNullable"
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "$ref": "#/$defs/ArrayArrayRepeatedNullable"
+          }
+        ]
       }
     }
   },
@@ -53,26 +92,23 @@
   ],
   "additionalProperties": false,
   "$defs": {
-    "ArrayRepeatedNullable": {
-      "oneOf": [
-        {
-          "type": "null"
-        },
-        {
-          "type": "string"
-        },
-        {
-          "type": "number"
-        },
-        {
-          "$ref": "#/$defs/ArrayArrayRepeatedNullable"
-        }
-      ]
-    },
     "ArrayArrayRepeatedNullable": {
       "type": "array",
       "items": {
-        "$ref": "#/$defs/ArrayRepeatedNullable"
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "$ref": "#/$defs/ArrayArrayRepeatedNullable"
+          }
+        ]
       }
     }
   }

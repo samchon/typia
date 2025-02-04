@@ -12,15 +12,6 @@
         "type": "object",
         "properties": {
           "first": {
-            "$ref": "#/$defs/ArrayRepeatedUnion"
-          }
-        },
-        "required": [
-          "first"
-        ],
-        "additionalProperties": false,
-        "$defs": {
-          "ArrayRepeatedUnion": {
             "oneOf": [
               {
                 "type": "number"
@@ -128,11 +119,123 @@
                 }
               }
             ]
-          },
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
           "ArrayArrayRepeatedUnion": {
             "type": "array",
             "items": {
-              "$ref": "#/$defs/ArrayRepeatedUnion"
+              "oneOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "$ref": "#/$defs/ArrayArrayRepeatedUnion"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "scale": {
+                        "type": "object",
+                        "properties": {
+                          "x": {
+                            "type": "number"
+                          },
+                          "y": {
+                            "type": "number"
+                          },
+                          "z": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "x",
+                          "y",
+                          "z"
+                        ]
+                      },
+                      "position": {
+                        "type": "object",
+                        "properties": {
+                          "x": {
+                            "type": "number"
+                          },
+                          "y": {
+                            "type": "number"
+                          },
+                          "z": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "x",
+                          "y",
+                          "z"
+                        ]
+                      },
+                      "rotate": {
+                        "type": "object",
+                        "properties": {
+                          "x": {
+                            "type": "number"
+                          },
+                          "y": {
+                            "type": "number"
+                          },
+                          "z": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "x",
+                          "y",
+                          "z"
+                        ]
+                      },
+                      "pivot": {
+                        "type": "object",
+                        "properties": {
+                          "x": {
+                            "type": "number"
+                          },
+                          "y": {
+                            "type": "number"
+                          },
+                          "z": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "x",
+                          "y",
+                          "z"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "scale",
+                      "position",
+                      "rotate",
+                      "pivot"
+                    ]
+                  }
+                }
+              ]
             }
           }
         }
@@ -144,7 +247,113 @@
         "type": "object",
         "properties": {
           "first": {
-            "$ref": "#/$defs/ArrayRepeatedUnion"
+            "oneOf": [
+              {
+                "type": "number"
+              },
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              {
+                "$ref": "#/$defs/ArrayArrayRepeatedUnion"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "scale": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        },
+                        "z": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "position": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        },
+                        "z": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "rotate": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        },
+                        "z": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    },
+                    "pivot": {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        },
+                        "z": {
+                          "type": "number"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y",
+                        "z"
+                      ]
+                    }
+                  },
+                  "required": [
+                    "scale",
+                    "position",
+                    "rotate",
+                    "pivot"
+                  ]
+                }
+              }
+            ]
           },
           "second": {
             "oneOf": [
@@ -265,125 +474,228 @@
         ],
         "additionalProperties": false,
         "$defs": {
-          "ArrayRepeatedUnion": {
-            "oneOf": [
-              {
-                "type": "number"
-              },
-              {
-                "type": "boolean"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              {
-                "$ref": "#/$defs/ArrayArrayRepeatedUnion"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "scale": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "z": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "z"
-                      ]
-                    },
-                    "position": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "z": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "z"
-                      ]
-                    },
-                    "rotate": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "z": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "z"
-                      ]
-                    },
-                    "pivot": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "z": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "z"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "scale",
-                    "position",
-                    "rotate",
-                    "pivot"
-                  ]
-                }
-              }
-            ]
-          },
           "ArrayArrayRepeatedUnion": {
             "type": "array",
             "items": {
-              "$ref": "#/$defs/ArrayRepeatedUnion"
+              "oneOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "$ref": "#/$defs/ArrayArrayRepeatedUnion"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "scale": {
+                        "type": "object",
+                        "properties": {
+                          "x": {
+                            "type": "number"
+                          },
+                          "y": {
+                            "type": "number"
+                          },
+                          "z": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "x",
+                          "y",
+                          "z"
+                        ]
+                      },
+                      "position": {
+                        "type": "object",
+                        "properties": {
+                          "x": {
+                            "type": "number"
+                          },
+                          "y": {
+                            "type": "number"
+                          },
+                          "z": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "x",
+                          "y",
+                          "z"
+                        ]
+                      },
+                      "rotate": {
+                        "type": "object",
+                        "properties": {
+                          "x": {
+                            "type": "number"
+                          },
+                          "y": {
+                            "type": "number"
+                          },
+                          "z": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "x",
+                          "y",
+                          "z"
+                        ]
+                      },
+                      "pivot": {
+                        "type": "object",
+                        "properties": {
+                          "x": {
+                            "type": "number"
+                          },
+                          "y": {
+                            "type": "number"
+                          },
+                          "z": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "x",
+                          "y",
+                          "z"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "scale",
+                      "position",
+                      "rotate",
+                      "pivot"
+                    ]
+                  }
+                }
+              ]
             }
           }
         }
       },
       "output": {
-        "$ref": "#/$defs/ArrayRepeatedUnion"
+        "oneOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          {
+            "$ref": "#/$defs/ArrayArrayRepeatedUnion"
+          },
+          {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "scale": {
+                  "type": "object",
+                  "properties": {
+                    "x": {
+                      "type": "number"
+                    },
+                    "y": {
+                      "type": "number"
+                    },
+                    "z": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "x",
+                    "y",
+                    "z"
+                  ]
+                },
+                "position": {
+                  "type": "object",
+                  "properties": {
+                    "x": {
+                      "type": "number"
+                    },
+                    "y": {
+                      "type": "number"
+                    },
+                    "z": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "x",
+                    "y",
+                    "z"
+                  ]
+                },
+                "rotate": {
+                  "type": "object",
+                  "properties": {
+                    "x": {
+                      "type": "number"
+                    },
+                    "y": {
+                      "type": "number"
+                    },
+                    "z": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "x",
+                    "y",
+                    "z"
+                  ]
+                },
+                "pivot": {
+                  "type": "object",
+                  "properties": {
+                    "x": {
+                      "type": "number"
+                    },
+                    "y": {
+                      "type": "number"
+                    },
+                    "z": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "x",
+                    "y",
+                    "z"
+                  ]
+                }
+              },
+              "required": [
+                "scale",
+                "position",
+                "rotate",
+                "pivot"
+              ]
+            }
+          }
+        ]
       }
     },
     {
@@ -737,117 +1049,114 @@
           "ArrayArrayRepeatedUnion": {
             "type": "array",
             "items": {
-              "$ref": "#/$defs/ArrayRepeatedUnion"
+              "oneOf": [
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                },
+                {
+                  "$ref": "#/$defs/ArrayArrayRepeatedUnion"
+                },
+                {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "scale": {
+                        "type": "object",
+                        "properties": {
+                          "x": {
+                            "type": "number"
+                          },
+                          "y": {
+                            "type": "number"
+                          },
+                          "z": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "x",
+                          "y",
+                          "z"
+                        ]
+                      },
+                      "position": {
+                        "type": "object",
+                        "properties": {
+                          "x": {
+                            "type": "number"
+                          },
+                          "y": {
+                            "type": "number"
+                          },
+                          "z": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "x",
+                          "y",
+                          "z"
+                        ]
+                      },
+                      "rotate": {
+                        "type": "object",
+                        "properties": {
+                          "x": {
+                            "type": "number"
+                          },
+                          "y": {
+                            "type": "number"
+                          },
+                          "z": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "x",
+                          "y",
+                          "z"
+                        ]
+                      },
+                      "pivot": {
+                        "type": "object",
+                        "properties": {
+                          "x": {
+                            "type": "number"
+                          },
+                          "y": {
+                            "type": "number"
+                          },
+                          "z": {
+                            "type": "number"
+                          }
+                        },
+                        "required": [
+                          "x",
+                          "y",
+                          "z"
+                        ]
+                      }
+                    },
+                    "required": [
+                      "scale",
+                      "position",
+                      "rotate",
+                      "pivot"
+                    ]
+                  }
+                }
+              ]
             }
-          },
-          "ArrayRepeatedUnion": {
-            "oneOf": [
-              {
-                "type": "number"
-              },
-              {
-                "type": "boolean"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              {
-                "$ref": "#/$defs/ArrayArrayRepeatedUnion"
-              },
-              {
-                "type": "array",
-                "items": {
-                  "type": "object",
-                  "properties": {
-                    "scale": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "z": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "z"
-                      ]
-                    },
-                    "position": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "z": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "z"
-                      ]
-                    },
-                    "rotate": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "z": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "z"
-                      ]
-                    },
-                    "pivot": {
-                      "type": "object",
-                      "properties": {
-                        "x": {
-                          "type": "number"
-                        },
-                        "y": {
-                          "type": "number"
-                        },
-                        "z": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "x",
-                        "y",
-                        "z"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "scale",
-                    "position",
-                    "rotate",
-                    "pivot"
-                  ]
-                }
-              }
-            ]
           }
         }
       },

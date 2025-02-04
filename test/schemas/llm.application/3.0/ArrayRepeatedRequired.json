@@ -51,8 +51,16 @@
                                 },
                                 {
                                   "type": "array",
-                                  "items": {},
-                                  "maxItems": 0
+                                  "items": {
+                                    "oneOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "number"
+                                      }
+                                    ]
+                                  }
                                 }
                               ]
                             }
@@ -117,8 +125,16 @@
                                 },
                                 {
                                   "type": "array",
-                                  "items": {},
-                                  "maxItems": 0
+                                  "items": {
+                                    "oneOf": [
+                                      {
+                                        "type": "string"
+                                      },
+                                      {
+                                        "type": "number"
+                                      }
+                                    ]
+                                  }
                                 }
                               ]
                             }
@@ -243,8 +259,16 @@
                             },
                             {
                               "type": "array",
-                              "items": {},
-                              "maxItems": 0
+                              "items": {
+                                "oneOf": [
+                                  {
+                                    "type": "string"
+                                  },
+                                  {
+                                    "type": "number"
+                                  }
+                                ]
+                              }
                             }
                           ]
                         }

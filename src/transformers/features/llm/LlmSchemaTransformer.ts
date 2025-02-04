@@ -47,32 +47,41 @@ export namespace LlmSchemaTransformer {
     const collection: MetadataCollection = new MetadataCollection({
       replace: MetadataCollection.replace,
     });
-    const result: ValidationPipe<Metadata, MetadataFactory.IError> =
-      MetadataFactory.analyze({
-        checker: props.context.checker,
-        transformer: props.context.transformer,
-        options: {
-          escape: true,
-          constant: true,
-          absorb: false,
-          validate: LlmSchemaProgrammer.validate({
-            model,
-            config,
-          }),
-        },
-        collection,
-        type,
-      });
-    if (result.success === false)
-      throw TransformerError.from({
-        code: "typia.llm.schema",
-        errors: result.errors,
-      });
+
+    // VALIDATE TYPE
+    const analyze = (validate: boolean): Metadata => {
+      const result: ValidationPipe<Metadata, MetadataFactory.IError> =
+        MetadataFactory.analyze({
+          checker: props.context.checker,
+          transformer: props.context.transformer,
+          options: {
+            absorb: validate,
+            constant: true,
+            escape: true,
+            validate:
+              validate === true
+                ? LlmSchemaProgrammer.validate({
+                    model,
+                    config,
+                  })
+                : undefined,
+          },
+          collection,
+          type,
+        });
+      if (result.success === false)
+        throw TransformerError.from({
+          code: "typia.llm.schema",
+          errors: result.errors,
+        });
+      return result.data;
+    };
+    analyze(true);
 
     // GENERATE LLM SCHEMA
     const out: LlmSchemaProgrammer.IOutput<any> = LlmSchemaProgrammer.write({
       model,
-      metadata: result.data,
+      metadata: analyze(false),
       config,
     });
     const schemaTypeNode = props.context.importer.type({

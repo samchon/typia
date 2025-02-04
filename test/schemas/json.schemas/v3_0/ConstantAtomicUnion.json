@@ -5,46 +5,43 @@
       "ConstantAtomicUnion": {
         "type": "array",
         "items": {
-          "$ref": "#/components/schemas/ConstantAtomicUnion.Union"
-        }
-      },
-      "ConstantAtomicUnion.Union": {
-        "oneOf": [
-          {
-            "type": "object",
-            "properties": {
-              "key": {
-                "type": "string",
-                "enum": [
-                  "key"
-                ]
-              }
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "enum": [
+                    "key"
+                  ]
+                }
+              },
+              "required": [
+                "key"
+              ]
             },
-            "required": [
-              "key"
-            ]
-          },
-          {
-            "type": "boolean",
-            "enum": [
-              false
-            ]
-          },
-          {
-            "type": "number",
-            "enum": [
-              1,
-              2
-            ]
-          },
-          {
-            "type": "string",
-            "enum": [
-              "three",
-              "four"
-            ]
-          }
-        ]
+            {
+              "type": "boolean",
+              "enum": [
+                false
+              ]
+            },
+            {
+              "type": "number",
+              "enum": [
+                1,
+                2
+              ]
+            },
+            {
+              "type": "string",
+              "enum": [
+                "three",
+                "four"
+              ]
+            }
+          ]
+        }
       }
     }
   },

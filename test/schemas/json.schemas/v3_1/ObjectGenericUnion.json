@@ -6,21 +6,18 @@
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "#/components/schemas/ObjectGenericUnion.ISaleEntireArticle"
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ObjectGenericUnion.ISaleQuestion"
+              },
+              {
+                "$ref": "#/components/schemas/ObjectGenericUnion.ISaleReview"
+              }
+            ]
           }
         },
         "required": [
           "value"
-        ]
-      },
-      "ObjectGenericUnion.ISaleEntireArticle": {
-        "oneOf": [
-          {
-            "$ref": "#/components/schemas/ObjectGenericUnion.ISaleQuestion"
-          },
-          {
-            "$ref": "#/components/schemas/ObjectGenericUnion.ISaleReview"
-          }
         ]
       },
       "ObjectGenericUnion.ISaleQuestion": {

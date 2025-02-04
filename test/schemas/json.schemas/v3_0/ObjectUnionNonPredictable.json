@@ -31,24 +31,21 @@
         "type": "object",
         "properties": {
           "value": {
-            "$ref": "#/components/schemas/ObjectUnionNonPredictable.IUnion"
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/ObjectUnionNonPredictable.IWrapperboolean"
+              },
+              {
+                "$ref": "#/components/schemas/ObjectUnionNonPredictable.IWrappernumber"
+              },
+              {
+                "$ref": "#/components/schemas/ObjectUnionNonPredictable.IWrapperstring"
+              }
+            ]
           }
         },
         "required": [
           "value"
-        ]
-      },
-      "ObjectUnionNonPredictable.IUnion": {
-        "oneOf": [
-          {
-            "$ref": "#/components/schemas/ObjectUnionNonPredictable.IWrapperboolean"
-          },
-          {
-            "$ref": "#/components/schemas/ObjectUnionNonPredictable.IWrappernumber"
-          },
-          {
-            "$ref": "#/components/schemas/ObjectUnionNonPredictable.IWrapperstring"
-          }
         ]
       },
       "ObjectUnionNonPredictable.IWrapperboolean": {

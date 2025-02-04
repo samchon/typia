@@ -18,7 +18,17 @@
       "ArrayArrayRepeatedRequired": {
         "type": "array",
         "items": {
-          "$ref": "#/components/schemas/ArrayRepeatedRequired"
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "$ref": "#/components/schemas/ArrayArrayRepeatedRequired"
+            }
+          ]
         }
       }
     }

@@ -58,7 +58,7 @@
                     "type": "object",
                     "properties": {
                       "type": {
-                        "const": "brand"
+                        "const": "manufacturer"
                       },
                       "name": {
                         "type": "string"
@@ -73,7 +73,7 @@
                     "type": "object",
                     "properties": {
                       "type": {
-                        "const": "manufacturer"
+                        "const": "brand"
                       },
                       "name": {
                         "type": "string"
@@ -162,7 +162,7 @@
                         "type": "object",
                         "properties": {
                           "type": {
-                            "const": "brand"
+                            "const": "manufacturer"
                           },
                           "name": {
                             "type": "string"
@@ -177,7 +177,7 @@
                         "type": "object",
                         "properties": {
                           "type": {
-                            "const": "manufacturer"
+                            "const": "brand"
                           },
                           "name": {
                             "type": "string"
@@ -263,7 +263,7 @@
                     "type": "object",
                     "properties": {
                       "type": {
-                        "const": "brand"
+                        "const": "manufacturer"
                       },
                       "name": {
                         "type": "string"
@@ -278,7 +278,7 @@
                     "type": "object",
                     "properties": {
                       "type": {
-                        "const": "manufacturer"
+                        "const": "brand"
                       },
                       "name": {
                         "type": "string"
@@ -367,7 +367,7 @@
                         "type": "object",
                         "properties": {
                           "type": {
-                            "const": "brand"
+                            "const": "manufacturer"
                           },
                           "name": {
                             "type": "string"
@@ -382,7 +382,7 @@
                         "type": "object",
                         "properties": {
                           "type": {
-                            "const": "manufacturer"
+                            "const": "brand"
                           },
                           "name": {
                             "type": "string"
@@ -470,7 +470,7 @@
                       "type": "object",
                       "properties": {
                         "type": {
-                          "const": "brand"
+                          "const": "manufacturer"
                         },
                         "name": {
                           "type": "string"
@@ -485,7 +485,7 @@
                       "type": "object",
                       "properties": {
                         "type": {
-                          "const": "manufacturer"
+                          "const": "brand"
                         },
                         "name": {
                           "type": "string"
