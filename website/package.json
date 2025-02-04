@@ -39,7 +39,7 @@
     "tgrid": "^1.0.3",
     "tstl": "^3.0.0",
     "typescript": "~5.7.3",
-    "typia": "latest"
+    "typia": "../"
   },
   "devDependencies": {
     "@rspack/cli": "^1.0.0",
