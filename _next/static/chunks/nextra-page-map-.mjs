@@ -58,7 +58,7 @@ export const pageMap = [{
       name: "chat",
       route: "/docs/llm/chat",
       frontMatter: {
-        "title": "Guide Documents > Large Language Model > A.I. Chatbot"
+        "title": "Guide Documents > Large Language Model > AI Chatbot Development"
       }
     }, {
       name: "parameters",
