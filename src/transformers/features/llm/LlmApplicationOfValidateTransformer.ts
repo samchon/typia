@@ -70,7 +70,7 @@ export namespace LlmApplicationOfValidateTransformer {
         });
       if (result.success === false)
         throw TransformerError.from({
-          code: "typia.llm.application",
+          code: "typia.llm.applicationOfValidate",
           errors: result.errors,
         });
       return result.data;

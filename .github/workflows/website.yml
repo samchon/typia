@@ -14,8 +14,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: 20.x
-      - name: Root Install
-        run: npm install
+      - name: Root
+        run: npm install && npm run build
       - name: Build
         working-directory: website
         run: npm install && npm run build
