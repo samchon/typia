@@ -15,9 +15,11 @@
     }
   },
   "scripts": {
-    "test": "ts-node deploy --tag test",
+    "deploy": "node --no-warnings=ExperimentalWarning --loader ts-node/esm ./deploy/index.ts",
+    "--------------------------------------------------": "",
+    "test": "npm run deploy -- --tag test",
     "test:bun": "bun run deploy/bun.ts",
-    "test:template": "npm run --tag test --template",
+    "test:template": "npm run deploy --tag test --template",
     "-------------------------------------------------": "",
     "build": "rimraf lib lib-cjs lib-esm && npm run build:esm && npm run build:cjs",
     "build:esm": "tsc -p ./tsconfig.json",
@@ -29,9 +31,9 @@
     "prettier": "prettier src --check",
     "prettier:fix": "prettier src --write",
     "------------------------------------------------": "",
-    "package:latest": "ts-node deploy --tag latest",
-    "package:next": "ts-node deploy --tag next",
-    "package:patch": "ts-node deploy --tag patch",
+    "package:latest": "npm run deploy -- --tag latest",
+    "package:next": "npm run deploy -- --tag next",
+    "package:patch": "npm run deploy -- --tag patch",
     "package:deprecate": "npm deprecate typescript-json \"Renamed to typia\""
   },
   "repository": {
