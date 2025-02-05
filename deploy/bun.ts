@@ -1,7 +1,7 @@
 import cp from "child_process";
 import { parseArgs } from "node:util";
 
-import { DeployRunner } from "./internal/DeployRunner.js";
+import * as DeployRunner from "./internal/DeployRunner.js";
 
 const has_bun = (): boolean => {
   try {

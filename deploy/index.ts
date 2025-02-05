@@ -1,5 +1,5 @@
 import { parseArgs } from "node:util";
-import { DeployRunner } from "./internal/DeployRunner.js";
+import * as DeployRunner from "./internal/DeployRunner.js";
 
 const args = process.argv.slice(2);
 const {
