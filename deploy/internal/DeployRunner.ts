@@ -2,7 +2,7 @@ import chalk from "chalk";
 import cp from "child_process";
 import fs from "fs";
 
-import { ReplicaPublisher } from "./ReplicaPublisher";
+import { ReplicaPublisher } from "./ReplicaPublisher.js";
 
 export namespace DeployRunner {
   export const main = async (props: {

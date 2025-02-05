@@ -1,7 +1,7 @@
 import cp from "child_process";
 import { parseArgs } from "node:util";
 
-import { DeployRunner } from "./internal/DeployRunner";
+import { DeployRunner } from "./internal/DeployRunner.js";
 
 const has_bun = (): boolean => {
   try {
@@ -12,36 +12,37 @@ const has_bun = (): boolean => {
   }
 };
 
-const main = async (): Promise<void> => {
-  if (has_bun() === false) return;
+if (has_bun() === false) {
+  console.log("bun is not installed");
+  process.exit(-1);
+}
 
-  const args = process.argv.slice(2);
-  const {
-    values: { skipSetup },
-  } = parseArgs({
-    args,
-    options: {
-      skipSetup: { type: "boolean", shor: "s", default: false },
+const args = process.argv.slice(2);
+const {
+  values: { skipSetup },
+} = parseArgs({
+  args,
+  options: {
+    skipSetup: { type: "boolean", shor: "s", default: false },
+  },
+});
+
+if (skipSetup === undefined) {
+  throw new Error("skipSetup is undefined");
+}
+
+await DeployRunner.main({
+  tag: "test",
+  publish: false,
+  setup: !skipSetup,
+  testExecutors: [
+    {
+      name: "test",
+      commands: ["bun --bun run build_run", "bun --bun run start"],
     },
-  });
-  if (skipSetup === undefined) throw new Error("skipSetup is undefined");
-  await DeployRunner.main({
-    tag: "test",
-    publish: false,
-    setup: !skipSetup,
-    testExecutors: [
-      {
-        name: "test",
-        commands: ["bun --bun run build_run", "bun --bun run start"],
-      },
-      {
-        name: "test-esm",
-        commands: ["bun --bun run build", "bun --bun run start"],
-      },
-    ],
-  });
-};
-main().catch((exp) => {
-  console.error(exp);
-  process.exit(-11);
+    {
+      name: "test-esm",
+      commands: ["bun --bun run build", "bun --bun run start"],
+    },
+  ],
 });
