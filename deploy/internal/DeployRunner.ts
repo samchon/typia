@@ -16,7 +16,7 @@ export namespace DeployRunner {
   }): Promise<void> => {
     if (props.setup) {
       title("BUILD THE MAIN PROGRAM");
-      process.chdir(__dirname + "/../..");
+      process.chdir(import.meta.dirname + "/../..");
       execLoudly({
         label: "typia",
         command: "npm run build",
@@ -25,7 +25,7 @@ export namespace DeployRunner {
     const version: string = props.setup
       ? await publish("test")
       : JSON.parse(
-          await fs.promises.readFile(`${__dirname}/../../package.json`, "utf8"),
+          await fs.promises.readFile(`${import.meta.dirname}/../../package.json`, "utf8"),
         ).version;
 
     title("TEST AUTOMATION PROGRAM");
@@ -52,7 +52,7 @@ export namespace DeployRunner {
   const publish = async (tag: string): Promise<string> => {
     // LOAD PACKAGE.JSON CONTENT
     const pack: any = JSON.parse(
-      fs.readFileSync(`${__dirname}/../../package.json`, "utf8"),
+      fs.readFileSync(`${import.meta.dirname}/../../package.json`, "utf8"),
     );
     const version: string = pack.version;
     const dev: boolean = version.includes("-dev.");
@@ -64,7 +64,7 @@ export namespace DeployRunner {
     // REMOVE PRIVATE FOR PUBLISHING
     delete pack.private;
     await fs.promises.writeFile(
-      `${__dirname}/../../package.json`,
+      `${import.meta.dirname}/../../package.json`,
       JSON.stringify(pack, null, 2),
       "utf8",
     );
@@ -77,7 +77,7 @@ export namespace DeployRunner {
     // RESTORE PRIVATE PROPERTY
     pack.private = true;
     fs.writeFileSync(
-      `${__dirname}/../../package.json`,
+      `${import.meta.dirname}/../../package.json`,
       JSON.stringify(pack, null, 2),
       "utf8",
     );
@@ -90,7 +90,7 @@ export namespace DeployRunner {
     setup: boolean;
     commands: string[];
   }): Promise<void> => {
-    process.chdir(`${__dirname}/../../${props.name}`);
+    process.chdir(`${import.meta.dirname}/../../${props.name}`);
     if (props.setup) {
       if (fs.existsSync("node_modules/typia"))
         cp.execSync("npm uninstall typia --force", { stdio: "ignore" });
@@ -116,7 +116,7 @@ export namespace DeployRunner {
         execLoudly({ label: `@typia/${props.name}`, command }),
       );
     }
-    process.chdir(__dirname + "/../..");
+    process.chdir(import.meta.dirname + "/../..");
   };
 
   const title = (label: string): void => {

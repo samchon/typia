@@ -102,6 +102,6 @@ export namespace ReplicaPublisher {
   }
 }
 
-const ROOT: string = __dirname + "/../..";
+const ROOT: string = import.meta.dirname + "/../..";
 const LEGACY: string = ROOT + "/packages/typescript-json";
-const LIB = `${__dirname}/../../lib`;
+const LIB = `${import.meta.dirname}/../../lib`;
