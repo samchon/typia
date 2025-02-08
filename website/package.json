@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "build": "rimraf .next && rimraf out && npm run build:typedoc && next build && node build/sitemap",
-    "build:typedoc": "typedoc --plugin typedoc-github-theme --theme typedoc-github-theme",
+    "build:typedoc": "node build/typedoc",
     "deploy": "node build/deploy",
     "dev": "next dev",
     "prepare": "node build/raw && rspack && npm run build:typedoc"
