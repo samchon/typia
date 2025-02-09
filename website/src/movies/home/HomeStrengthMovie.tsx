@@ -88,7 +88,7 @@ const sections: HomeStrengthSectionMovie.Props[] = [
       </React.Fragment>
     ),
     image: "/images/home/openai.svg",
-    href: "/docs/llm/application",
+    href: "/docs/llm/chat",
   },
   {
     title: "Easy Protocol Buffer",
