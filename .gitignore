@@ -1,7 +1,6 @@
 bin/
 !/bin
 lib/
-lib-cjs/
 node_modules/
 
 packages/typescript-json/src/
