@@ -21,7 +21,7 @@
     "test:bun": "bun run deploy/bun.ts",
     "test:template": "npm run deploy --tag test --template",
     "-------------------------------------------------": "",
-    "build": "rimraf lib lib-cjs lib-esm && npm run build:esm && npm run build:cjs",
+    "build": "rimraf lib lib-cjs && npm run build:esm && npm run build:cjs",
     "build:esm": "tsc -p ./tsconfig.json",
     "build:cjs": "tsc -p ./tsconfig.cjs.json",
     "dev": "rimraf lib && tsc --watch",
@@ -34,7 +34,8 @@
     "package:latest": "npm run deploy -- --tag latest",
     "package:next": "npm run deploy -- --tag next",
     "package:patch": "npm run deploy -- --tag patch",
-    "package:deprecate": "npm deprecate typescript-json \"Renamed to typia\""
+    "package:deprecate": "npm deprecate typescript-json \"Renamed to typia\"",
+    "prepare": "ts-patch install -s"
   },
   "repository": {
     "type": "git",
@@ -75,7 +76,9 @@
     "rollup": "^4.18.0",
     "suppress-warnings": "^1.0.2",
     "ts-node": "^10.9.2",
-    "typescript": "~5.7.3"
+    "ts-patch": "^3.3.0",
+    "typescript": "~5.7.3",
+    "typescript-transform-paths": "^3.5.3"
   },
   "stackblitz": {
     "startCommand": "npm install && npm run test"
