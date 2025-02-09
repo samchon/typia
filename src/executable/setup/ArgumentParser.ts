@@ -1,4 +1,4 @@
-import commander from "commander";
+import * as commander from "commander";
 import inquirer from "inquirer";
 
 import { PackageManager } from "./PackageManager";
