@@ -1,12 +1,13 @@
 {
   "name": "typia",
   "version": "7.6.3",
+  "type": "module",
   "description": "Superfast runtime validators with only one line",
-  "main": "lib/index.js",
+  "main": "lib-cjs/index.js",
   "typings": "lib/index.d.ts",
-  "module": "lib/index.mjs",
+  "module": "lib/index.js",
   "bin": {
-    "typia": "./lib/executable/typia.js"
+    "typia": "./lib-cjs/executable/typia.js"
   },
   "tsp": {
     "tscOptions": {
@@ -14,11 +15,15 @@
     }
   },
   "scripts": {
-    "test": "ts-node deploy --tag test",
+    "deploy": "node --no-warnings=ExperimentalWarning --loader ts-node/esm ./deploy/index.ts",
+    "--------------------------------------------------": "",
+    "test": "npm run deploy -- --tag test",
     "test:bun": "bun run deploy/bun.ts",
-    "test:template": "npm run --tag test --template",
+    "test:template": "npm run deploy --tag test --template",
     "-------------------------------------------------": "",
-    "build": "rimraf lib && tsc && rollup -c",
+    "build": "rimraf lib lib-cjs && npm run build:esm && npm run build:cjs",
+    "build:esm": "tsc -p ./tsconfig.json",
+    "build:cjs": "tsc -p ./tsconfig.cjs.json",
     "dev": "rimraf lib && tsc --watch",
     "dev:errors": "tsc --project tsconfig.errors.json --watch",
     "eslint": "eslint",
@@ -26,10 +31,11 @@
     "prettier": "prettier src --check",
     "prettier:fix": "prettier src --write",
     "------------------------------------------------": "",
-    "package:latest": "ts-node deploy --tag latest",
-    "package:next": "ts-node deploy --tag next",
-    "package:patch": "ts-node deploy --tag patch",
-    "package:deprecate": "npm deprecate typescript-json \"Renamed to typia\""
+    "package:latest": "npm run deploy -- --tag latest",
+    "package:next": "npm run deploy -- --tag next",
+    "package:patch": "npm run deploy -- --tag patch",
+    "package:deprecate": "npm deprecate typescript-json \"Renamed to typia\"",
+    "prepare": "ts-patch install -s"
   },
   "repository": {
     "type": "git",
@@ -59,7 +65,7 @@
     "@rollup/plugin-typescript": "^11.1.6",
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/inquirer": "^8.2.5",
-    "@types/node": "^18.15.12",
+    "@types/node": "^20.17.17",
     "@types/ts-expose-internals": "npm:ts-expose-internals@5.5.4",
     "@typescript-eslint/eslint-plugin": "^8.1.0",
     "@typescript-eslint/parser": "^8.1.0",
@@ -70,7 +76,9 @@
     "rollup": "^4.18.0",
     "suppress-warnings": "^1.0.2",
     "ts-node": "^10.9.2",
-    "typescript": "~5.7.3"
+    "ts-patch": "^3.3.0",
+    "typescript": "~5.7.3",
+    "typescript-transform-paths": "^3.5.3"
   },
   "stackblitz": {
     "startCommand": "npm install && npm run test"
