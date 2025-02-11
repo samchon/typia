@@ -75,10 +75,10 @@ export namespace MetadataTypeTagFactory {
 
       // CHECK LIST OF PROPERTIES
       const tag: MetadataObjectType = top.value.objects[0]!.type;
-      const statics: string[] = tag.properties
+      const statistics: string[] = tag.properties
         .map((p) => p.key.getSoleLiteral()!)
         .filter((str) => str !== null);
-      if (ESSENTIAL_FIELDS.some((f) => !statics.includes(f)))
+      if (ESSENTIAL_FIELDS.some((f) => !statistics.includes(f)))
         return report({
           property: null,
           message: `must have at least three properties - ${ESSENTIAL_FIELDS.map(
@@ -223,14 +223,16 @@ export namespace MetadataTypeTagFactory {
     else if (
       // VALUE
       props.key === "value" &&
-      (props.value.size() > 1 ||
-        (props.value.size() !== 0 &&
-          (props.value.constants.length !== 1 ||
-            props.value.constants[0]!.values.length !== 1)))
+      !(
+        (props.value.size() === 0 && props.value.isRequired() === false) ||
+        (props.value.size() === 1 &&
+          (props.value.objects.length === 1 ||
+            props.value.constants.length === 1))
+      )
     )
       return props.report({
         property: props.key,
-        message: "must be a constant literal type or undefined value",
+        message: "must be a literal type or undefined value",
       });
     else if (props.key === "exclusive") return get_exclusive(props) !== null;
     else if (props.key === "validate") {

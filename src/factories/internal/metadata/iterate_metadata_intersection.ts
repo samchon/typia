@@ -192,7 +192,6 @@ export const iterate_metadata_intersection = (
     objects: tagObjects,
     explore: props.explore,
   });
-
   Object.assign(props.collection, commit);
   iterate_metadata({
     ...props,
