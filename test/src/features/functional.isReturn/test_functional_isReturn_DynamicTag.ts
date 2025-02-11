@@ -4,7 +4,7 @@ import { _test_functional_isReturn } from "../../internal/_test_functional_isRet
 import { DynamicTag } from "../../structures/DynamicTag";
 
 export const test_functional_isReturn_DynamicTag = _test_functional_isReturn(
-  "DynamicTag",
-)(DynamicTag)((p: (input: DynamicTag) => DynamicTag) =>
-  typia.functional.isReturn(p),
-);
+  "DynamicTag"
+)(DynamicTag)(
+  (p: (input: DynamicTag) => DynamicTag) => typia.functional.isReturn(p),
+)

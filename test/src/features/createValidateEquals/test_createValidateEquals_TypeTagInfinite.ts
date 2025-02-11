@@ -4,7 +4,7 @@ import { _test_validateEquals } from "../../internal/_test_validateEquals";
 import { TypeTagInfinite } from "../../structures/TypeTagInfinite";
 
 export const test_createValidateEquals_TypeTagInfinite = _test_validateEquals(
-  "TypeTagInfinite",
-)<TypeTagInfinite>(TypeTagInfinite)(
-  typia.createValidateEquals<TypeTagInfinite>(),
-);
+    "TypeTagInfinite",
+)<TypeTagInfinite>(
+    TypeTagInfinite
+)(typia.createValidateEquals<TypeTagInfinite>());

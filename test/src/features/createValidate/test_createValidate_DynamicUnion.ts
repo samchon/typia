@@ -4,5 +4,7 @@ import { _test_validate } from "../../internal/_test_validate";
 import { DynamicUnion } from "../../structures/DynamicUnion";
 
 export const test_createValidate_DynamicUnion = _test_validate(
-  "DynamicUnion",
-)<DynamicUnion>(DynamicUnion)(typia.createValidate<DynamicUnion>());
+    "DynamicUnion",
+)<DynamicUnion>(
+    DynamicUnion
+)(typia.createValidate<DynamicUnion>());

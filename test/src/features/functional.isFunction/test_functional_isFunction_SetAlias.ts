@@ -4,7 +4,7 @@ import { _test_functional_isFunction } from "../../internal/_test_functional_isF
 import { SetAlias } from "../../structures/SetAlias";
 
 export const test_functional_isFunction_SetAlias = _test_functional_isFunction(
-  "SetAlias",
-)(SetAlias)((p: (input: SetAlias) => SetAlias) =>
-  typia.functional.isFunction(p),
-);
+  "SetAlias"
+)(SetAlias)(
+  (p: (input: SetAlias) => SetAlias) => typia.functional.isFunction(p),
+)

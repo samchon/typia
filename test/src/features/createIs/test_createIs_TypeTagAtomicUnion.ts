@@ -4,5 +4,7 @@ import { _test_is } from "../../internal/_test_is";
 import { TypeTagAtomicUnion } from "../../structures/TypeTagAtomicUnion";
 
 export const test_createIs_TypeTagAtomicUnion = _test_is(
-  "TypeTagAtomicUnion",
-)<TypeTagAtomicUnion>(TypeTagAtomicUnion)(typia.createIs<TypeTagAtomicUnion>());
+    "TypeTagAtomicUnion",
+)<TypeTagAtomicUnion>(
+    TypeTagAtomicUnion
+)(typia.createIs<TypeTagAtomicUnion>());

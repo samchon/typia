@@ -4,5 +4,7 @@ import { _test_functional_isReturn } from "../../internal/_test_functional_isRet
 import { MapUnion } from "../../structures/MapUnion";
 
 export const test_functional_isReturn_MapUnion = _test_functional_isReturn(
-  "MapUnion",
-)(MapUnion)((p: (input: MapUnion) => MapUnion) => typia.functional.isReturn(p));
+  "MapUnion"
+)(MapUnion)(
+  (p: (input: MapUnion) => MapUnion) => typia.functional.isReturn(p),
+)

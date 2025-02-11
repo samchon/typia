@@ -1,16 +1,16 @@
 import { TagBase } from "./TagBase";
 
 export type Examples<
-  Dict extends Record<
+  Value extends Record<
     string,
     boolean | bigint | number | string | object | Array<unknown> | null
   >,
 > = TagBase<{
   target: "boolean" | "bigint" | "number" | "string" | "array" | "object";
   kind: "examples";
-  value: Dict;
+  value: Value;
   exclusive: true;
   schema: {
-    examples: Dict;
+    examples: Value;
   };
 }>;

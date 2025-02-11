@@ -4,7 +4,7 @@ import { _test_functional_isReturn } from "../../internal/_test_functional_isRet
 import { ObjectJsonTag } from "../../structures/ObjectJsonTag";
 
 export const test_functional_isReturn_ObjectJsonTag = _test_functional_isReturn(
-  "ObjectJsonTag",
-)(ObjectJsonTag)((p: (input: ObjectJsonTag) => ObjectJsonTag) =>
-  typia.functional.isReturn(p),
-);
+  "ObjectJsonTag"
+)(ObjectJsonTag)(
+  (p: (input: ObjectJsonTag) => ObjectJsonTag) => typia.functional.isReturn(p),
+)

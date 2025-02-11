@@ -1,14 +1,12 @@
 import typia from "typia";
 
-import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_assertGuardEquals } from "../../internal/_test_assertGuardEquals";
 import { CommentTagLength } from "../../structures/CommentTagLength";
 
-export const test_createAssertGuardEqualsCustom_CommentTagLength =
-  _test_assertGuardEquals(CustomGuardError)(
+import { CustomGuardError } from "../../internal/CustomGuardError";
+
+export const test_createAssertGuardEqualsCustom_CommentTagLength = _test_assertGuardEquals(CustomGuardError)(
     "CommentTagLength",
-  )<CommentTagLength>(CommentTagLength)(
-    typia.createAssertGuardEquals<CommentTagLength>(
-      (p) => new CustomGuardError(p),
-    ),
-  );
+)<CommentTagLength>(
+    CommentTagLength
+)(typia.createAssertGuardEquals<CommentTagLength>((p) => new CustomGuardError(p)));

@@ -4,7 +4,7 @@ import { _test_functional_isReturn } from "../../internal/_test_functional_isRet
 import { ClassClosure } from "../../structures/ClassClosure";
 
 export const test_functional_isReturn_ClassClosure = _test_functional_isReturn(
-  "ClassClosure",
-)(ClassClosure)((p: (input: ClassClosure) => ClassClosure) =>
-  typia.functional.isReturn(p),
-);
+  "ClassClosure"
+)(ClassClosure)(
+  (p: (input: ClassClosure) => ClassClosure) => typia.functional.isReturn(p),
+)
