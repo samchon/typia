@@ -3,8 +3,8 @@ import typia from "typia";
 import { _test_functional_isReturn } from "../../internal/_test_functional_isReturn";
 import { CommentTagRangeBigInt } from "../../structures/CommentTagRangeBigInt";
 
-export const test_functional_isReturn_CommentTagRangeBigInt = _test_functional_isReturn(
-  "CommentTagRangeBigInt"
-)(CommentTagRangeBigInt)(
-  (p: (input: CommentTagRangeBigInt) => CommentTagRangeBigInt) => typia.functional.isReturn(p),
-)
+export const test_functional_isReturn_CommentTagRangeBigInt =
+  _test_functional_isReturn("CommentTagRangeBigInt")(CommentTagRangeBigInt)(
+    (p: (input: CommentTagRangeBigInt) => CommentTagRangeBigInt) =>
+      typia.functional.isReturn(p),
+  );

@@ -4,7 +4,5 @@ import { _test_functional_isReturn } from "../../internal/_test_functional_isRet
 import { ArrayAny } from "../../structures/ArrayAny";
 
 export const test_functional_isReturn_ArrayAny = _test_functional_isReturn(
-  "ArrayAny"
-)(ArrayAny)(
-  (p: (input: ArrayAny) => ArrayAny) => typia.functional.isReturn(p),
-)
+  "ArrayAny",
+)(ArrayAny)((p: (input: ArrayAny) => ArrayAny) => typia.functional.isReturn(p));

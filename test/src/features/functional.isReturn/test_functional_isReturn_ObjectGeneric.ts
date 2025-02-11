@@ -4,7 +4,7 @@ import { _test_functional_isReturn } from "../../internal/_test_functional_isRet
 import { ObjectGeneric } from "../../structures/ObjectGeneric";
 
 export const test_functional_isReturn_ObjectGeneric = _test_functional_isReturn(
-  "ObjectGeneric"
-)(ObjectGeneric)(
-  (p: (input: ObjectGeneric) => ObjectGeneric) => typia.functional.isReturn(p),
-)
+  "ObjectGeneric",
+)(ObjectGeneric)((p: (input: ObjectGeneric) => ObjectGeneric) =>
+  typia.functional.isReturn(p),
+);

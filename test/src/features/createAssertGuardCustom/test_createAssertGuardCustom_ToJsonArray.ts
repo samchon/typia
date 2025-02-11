@@ -1,12 +1,11 @@
 import typia from "typia";
 
+import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_assertGuard } from "../../internal/_test_assertGuard";
 import { ToJsonArray } from "../../structures/ToJsonArray";
 
-import { CustomGuardError } from "../../internal/CustomGuardError";
-
-export const test_createAssertGuardCustom_ToJsonArray = _test_assertGuard(CustomGuardError)(
-    "ToJsonArray",
-)<ToJsonArray>(
-    ToJsonArray
-)(typia.createAssertGuard<ToJsonArray>((p) => new CustomGuardError(p)));
+export const test_createAssertGuardCustom_ToJsonArray = _test_assertGuard(
+  CustomGuardError,
+)("ToJsonArray")<ToJsonArray>(ToJsonArray)(
+  typia.createAssertGuard<ToJsonArray>((p) => new CustomGuardError(p)),
+);

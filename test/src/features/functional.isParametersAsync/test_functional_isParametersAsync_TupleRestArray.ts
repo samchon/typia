@@ -3,9 +3,8 @@ import typia from "typia";
 import { _test_functional_isParametersAsync } from "../../internal/_test_functional_isParametersAsync";
 import { TupleRestArray } from "../../structures/TupleRestArray";
 
-export const test_functional_isParametersAsync_TupleRestArray = _test_functional_isParametersAsync(
-  "TupleRestArray"
-)(TupleRestArray)(
-  (p: (input: TupleRestArray) => Promise<TupleRestArray>) =>
-    typia.functional.isParameters(p),
-)
+export const test_functional_isParametersAsync_TupleRestArray =
+  _test_functional_isParametersAsync("TupleRestArray")(TupleRestArray)(
+    (p: (input: TupleRestArray) => Promise<TupleRestArray>) =>
+      typia.functional.isParameters(p),
+  );

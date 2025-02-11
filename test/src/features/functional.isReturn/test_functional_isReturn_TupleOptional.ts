@@ -4,7 +4,7 @@ import { _test_functional_isReturn } from "../../internal/_test_functional_isRet
 import { TupleOptional } from "../../structures/TupleOptional";
 
 export const test_functional_isReturn_TupleOptional = _test_functional_isReturn(
-  "TupleOptional"
-)(TupleOptional)(
-  (p: (input: TupleOptional) => TupleOptional) => typia.functional.isReturn(p),
-)
+  "TupleOptional",
+)(TupleOptional)((p: (input: TupleOptional) => TupleOptional) =>
+  typia.functional.isReturn(p),
+);

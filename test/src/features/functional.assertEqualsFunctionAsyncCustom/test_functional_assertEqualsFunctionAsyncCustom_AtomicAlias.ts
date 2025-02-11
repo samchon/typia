@@ -1,13 +1,12 @@
 import typia from "typia";
 
+import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_functional_assertEqualsFunctionAsync } from "../../internal/_test_functional_assertEqualsFunctionAsync";
 import { AtomicAlias } from "../../structures/AtomicAlias";
 
-import { CustomGuardError } from "../../internal/CustomGuardError";
-
-export const test_functional_assertEqualsFunctionAsyncCustom_AtomicAlias = _test_functional_assertEqualsFunctionAsync(CustomGuardError)(
-  "AtomicAlias"
-)(AtomicAlias)(
-  (p: (input: AtomicAlias) => Promise<AtomicAlias>) =>
+export const test_functional_assertEqualsFunctionAsyncCustom_AtomicAlias =
+  _test_functional_assertEqualsFunctionAsync(CustomGuardError)("AtomicAlias")(
+    AtomicAlias,
+  )((p: (input: AtomicAlias) => Promise<AtomicAlias>) =>
     typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
-)
+  );

@@ -1,12 +1,15 @@
 import typia from "typia";
 
+import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_assertGuardEquals } from "../../internal/_test_assertGuardEquals";
 import { TemplateConstant } from "../../structures/TemplateConstant";
 
-import { CustomGuardError } from "../../internal/CustomGuardError";
-
-export const test_assertGuardEqualsCustom_TemplateConstant = _test_assertGuardEquals(CustomGuardError)(
+export const test_assertGuardEqualsCustom_TemplateConstant =
+  _test_assertGuardEquals(CustomGuardError)(
     "TemplateConstant",
-)<TemplateConstant>(
-    TemplateConstant
-)((input) => typia.assertGuardEquals<TemplateConstant>(input, (p) => new CustomGuardError(p)));
+  )<TemplateConstant>(TemplateConstant)((input) =>
+    typia.assertGuardEquals<TemplateConstant>(
+      input,
+      (p) => new CustomGuardError(p),
+    ),
+  );

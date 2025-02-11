@@ -4,7 +4,7 @@ import { _test_functional_isReturn } from "../../internal/_test_functional_isRet
 import { TypeTagFormat } from "../../structures/TypeTagFormat";
 
 export const test_functional_isReturn_TypeTagFormat = _test_functional_isReturn(
-  "TypeTagFormat"
-)(TypeTagFormat)(
-  (p: (input: TypeTagFormat) => TypeTagFormat) => typia.functional.isReturn(p),
-)
+  "TypeTagFormat",
+)(TypeTagFormat)((p: (input: TypeTagFormat) => TypeTagFormat) =>
+  typia.functional.isReturn(p),
+);

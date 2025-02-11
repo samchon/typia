@@ -4,7 +4,7 @@ import { _test_functional_isReturn } from "../../internal/_test_functional_isRet
 import { UltimateUnion } from "../../structures/UltimateUnion";
 
 export const test_functional_isReturn_UltimateUnion = _test_functional_isReturn(
-  "UltimateUnion"
-)(UltimateUnion)(
-  (p: (input: UltimateUnion) => UltimateUnion) => typia.functional.isReturn(p),
-)
+  "UltimateUnion",
+)(UltimateUnion)((p: (input: UltimateUnion) => UltimateUnion) =>
+  typia.functional.isReturn(p),
+);

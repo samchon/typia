@@ -4,7 +4,7 @@ import { _test_functional_isReturn } from "../../internal/_test_functional_isRet
 import { TypeTagBigInt } from "../../structures/TypeTagBigInt";
 
 export const test_functional_isReturn_TypeTagBigInt = _test_functional_isReturn(
-  "TypeTagBigInt"
-)(TypeTagBigInt)(
-  (p: (input: TypeTagBigInt) => TypeTagBigInt) => typia.functional.isReturn(p),
-)
+  "TypeTagBigInt",
+)(TypeTagBigInt)((p: (input: TypeTagBigInt) => TypeTagBigInt) =>
+  typia.functional.isReturn(p),
+);

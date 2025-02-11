@@ -1,12 +1,12 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuardEquals } from "../../internal/_test_assertGuardEquals";
 import { ConstantAtomicAbsorbed } from "../../structures/ConstantAtomicAbsorbed";
 
-import { TypeGuardError } from "typia";
-
-export const test_createAssertGuardEquals_ConstantAtomicAbsorbed = _test_assertGuardEquals(TypeGuardError)(
+export const test_createAssertGuardEquals_ConstantAtomicAbsorbed =
+  _test_assertGuardEquals(TypeGuardError)(
     "ConstantAtomicAbsorbed",
-)<ConstantAtomicAbsorbed>(
-    ConstantAtomicAbsorbed
-)(typia.createAssertGuardEquals<ConstantAtomicAbsorbed>());
+  )<ConstantAtomicAbsorbed>(ConstantAtomicAbsorbed)(
+    typia.createAssertGuardEquals<ConstantAtomicAbsorbed>(),
+  );

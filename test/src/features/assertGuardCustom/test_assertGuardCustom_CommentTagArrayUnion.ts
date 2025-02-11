@@ -1,12 +1,14 @@
 import typia from "typia";
 
+import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_assertGuard } from "../../internal/_test_assertGuard";
 import { CommentTagArrayUnion } from "../../structures/CommentTagArrayUnion";
 
-import { CustomGuardError } from "../../internal/CustomGuardError";
-
-export const test_assertGuardCustom_CommentTagArrayUnion = _test_assertGuard(CustomGuardError)(
-    "CommentTagArrayUnion",
-)<CommentTagArrayUnion>(
-    CommentTagArrayUnion
-)((input) => typia.assertGuard<CommentTagArrayUnion>(input, (p) => new CustomGuardError(p)));
+export const test_assertGuardCustom_CommentTagArrayUnion = _test_assertGuard(
+  CustomGuardError,
+)("CommentTagArrayUnion")<CommentTagArrayUnion>(CommentTagArrayUnion)((input) =>
+  typia.assertGuard<CommentTagArrayUnion>(
+    input,
+    (p) => new CustomGuardError(p),
+  ),
+);

@@ -4,7 +4,7 @@ import { _test_functional_isReturn } from "../../internal/_test_functional_isRet
 import { SetSimple } from "../../structures/SetSimple";
 
 export const test_functional_isReturn_SetSimple = _test_functional_isReturn(
-  "SetSimple"
-)(SetSimple)(
-  (p: (input: SetSimple) => SetSimple) => typia.functional.isReturn(p),
-)
+  "SetSimple",
+)(SetSimple)((p: (input: SetSimple) => SetSimple) =>
+  typia.functional.isReturn(p),
+);

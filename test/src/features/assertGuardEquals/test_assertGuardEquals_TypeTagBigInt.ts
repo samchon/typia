@@ -1,12 +1,11 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertGuardEquals } from "../../internal/_test_assertGuardEquals";
 import { TypeTagBigInt } from "../../structures/TypeTagBigInt";
 
-import { TypeGuardError } from "typia";
-
-export const test_assertGuardEquals_TypeTagBigInt = _test_assertGuardEquals(TypeGuardError)(
-    "TypeTagBigInt",
-)<TypeTagBigInt>(
-    TypeTagBigInt
-)((input) => typia.assertGuardEquals<TypeTagBigInt>(input));
+export const test_assertGuardEquals_TypeTagBigInt = _test_assertGuardEquals(
+  TypeGuardError,
+)("TypeTagBigInt")<TypeTagBigInt>(TypeTagBigInt)((input) =>
+  typia.assertGuardEquals<TypeTagBigInt>(input),
+);

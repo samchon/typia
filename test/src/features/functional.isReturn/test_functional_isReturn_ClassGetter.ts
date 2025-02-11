@@ -4,7 +4,7 @@ import { _test_functional_isReturn } from "../../internal/_test_functional_isRet
 import { ClassGetter } from "../../structures/ClassGetter";
 
 export const test_functional_isReturn_ClassGetter = _test_functional_isReturn(
-  "ClassGetter"
-)(ClassGetter)(
-  (p: (input: ClassGetter) => ClassGetter) => typia.functional.isReturn(p),
-)
+  "ClassGetter",
+)(ClassGetter)((p: (input: ClassGetter) => ClassGetter) =>
+  typia.functional.isReturn(p),
+);

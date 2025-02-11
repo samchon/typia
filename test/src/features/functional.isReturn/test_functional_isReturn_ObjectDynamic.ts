@@ -4,7 +4,7 @@ import { _test_functional_isReturn } from "../../internal/_test_functional_isRet
 import { ObjectDynamic } from "../../structures/ObjectDynamic";
 
 export const test_functional_isReturn_ObjectDynamic = _test_functional_isReturn(
-  "ObjectDynamic"
-)(ObjectDynamic)(
-  (p: (input: ObjectDynamic) => ObjectDynamic) => typia.functional.isReturn(p),
-)
+  "ObjectDynamic",
+)(ObjectDynamic)((p: (input: ObjectDynamic) => ObjectDynamic) =>
+  typia.functional.isReturn(p),
+);

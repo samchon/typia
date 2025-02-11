@@ -1,12 +1,11 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_assertEquals } from "../../internal/_test_assertEquals";
 import { TupleRestObject } from "../../structures/TupleRestObject";
 
-import { TypeGuardError } from "typia";
-
-export const test_createAssertEquals_TupleRestObject = _test_assertEquals(TypeGuardError)(
-    "TupleRestObject",
-)<TupleRestObject>(
-    TupleRestObject
-)(typia.createAssertEquals<TupleRestObject>());
+export const test_createAssertEquals_TupleRestObject = _test_assertEquals(
+  TypeGuardError,
+)("TupleRestObject")<TupleRestObject>(TupleRestObject)(
+  typia.createAssertEquals<TupleRestObject>(),
+);

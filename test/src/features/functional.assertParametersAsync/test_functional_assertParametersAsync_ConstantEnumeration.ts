@@ -1,13 +1,12 @@
 import typia from "typia";
+import { TypeGuardError } from "typia";
 
 import { _test_functional_assertParametersAsync } from "../../internal/_test_functional_assertParametersAsync";
 import { ConstantEnumeration } from "../../structures/ConstantEnumeration";
 
-import { TypeGuardError } from "typia";
-
-export const test_functional_assertParametersAsync_ConstantEnumeration = _test_functional_assertParametersAsync(TypeGuardError)(
-  "ConstantEnumeration"
-)(ConstantEnumeration)(
-  (p: (input: ConstantEnumeration) => Promise<ConstantEnumeration>) =>
+export const test_functional_assertParametersAsync_ConstantEnumeration =
+  _test_functional_assertParametersAsync(TypeGuardError)("ConstantEnumeration")(
+    ConstantEnumeration,
+  )((p: (input: ConstantEnumeration) => Promise<ConstantEnumeration>) =>
     typia.functional.assertParameters(p),
-)
+  );

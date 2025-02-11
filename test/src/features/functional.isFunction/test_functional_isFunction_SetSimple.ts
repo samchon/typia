@@ -4,7 +4,7 @@ import { _test_functional_isFunction } from "../../internal/_test_functional_isF
 import { SetSimple } from "../../structures/SetSimple";
 
 export const test_functional_isFunction_SetSimple = _test_functional_isFunction(
-  "SetSimple"
-)(SetSimple)(
-  (p: (input: SetSimple) => SetSimple) => typia.functional.isFunction(p),
-)
+  "SetSimple",
+)(SetSimple)((p: (input: SetSimple) => SetSimple) =>
+  typia.functional.isFunction(p),
+);
