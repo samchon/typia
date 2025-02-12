@@ -24,6 +24,7 @@ import { CreateValidateTransformer } from "./features/CreateValidateTransformer"
 import { IsTransformer } from "./features/IsTransformer";
 import { RandomTransformer } from "./features/RandomTransformer";
 import { ValidateTransformer } from "./features/ValidateTransformer";
+import { CompareEqualsTransformer } from "./features/compare/CompareEqualsTransformer";
 import { CreateHttpAssertFormDataTransformer } from "./features/http/CreateHttpAssertFormDataTransformer";
 import { CreateHttpAssertHeadersTransformer } from "./features/http/CreateHttpAssertHeadersTransformer";
 import { CreateHttpAssertQueryTransformer } from "./features/http/CreateHttpAssertQueryTransformer";
@@ -426,6 +427,9 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
     createIsStringify: () => JsonCreateIsStringifyTransformer.transform,
     createValidateStringify: () =>
       JsonCreateValidateStringifyTransformer.transform,
+  },
+  compare: {
+    equals: () => CompareEqualsTransformer.transform,
   },
   protobuf: {
     // SCHEMA
