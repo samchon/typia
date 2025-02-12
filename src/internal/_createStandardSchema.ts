@@ -50,7 +50,7 @@ const typiaPathToStandardSchemaPath = (
   const segments: StandardSchemaV1.PathSegment[] = [];
   let currentSegment = "";
   let state: PathParserState = PathParserState.Start;
-  let index = "$input".length;
+  let index = "$input".length - 1;
   while (index < path.length - 1) {
     index++;
     const char = path[index];
