@@ -30,10 +30,7 @@ export const _createStandardSchema = <T>(
 enum PathParserState {
   // Start of a new segment
   // When the parser is in this state,
-  // the pointer must:
-  // - point the first character,
-  // - point `.` or `[`,
-  // - or point the end of string.
+  // the pointer must point `.` or `[` or equal to length of the path
   Start,
   // Parsing a property key (`.hoge`)
   Property,
@@ -46,10 +43,14 @@ enum PathParserState {
 const typiaPathToStandardSchemaPath = (
   path: string,
 ): ReadonlyArray<StandardSchemaV1.PathSegment> => {
+  if (!path.startsWith("$input")) {
+    throw new Error(`Invalid path: ${JSON.stringify(path)}`);
+  }
+
   const segments: StandardSchemaV1.PathSegment[] = [];
   let currentSegment = "";
   let state: PathParserState = PathParserState.Start;
-  let index = -1;
+  let index = "$input".length;
   while (index < path.length - 1) {
     index++;
     const char = path[index];
@@ -119,10 +120,6 @@ const typiaPathToStandardSchemaPath = (
       } else if (newChar === ".") {
         // Start of property
         state = PathParserState.Property;
-      } else if (index === 0) {
-        // Start of property, but at the first path
-        state = PathParserState.Property;
-        currentSegment = newChar;
       } else {
         throw new Error("Unreachable: pointer points invalid character");
       }
