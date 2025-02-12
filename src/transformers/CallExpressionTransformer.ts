@@ -172,7 +172,7 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
     assertType: () =>
       AssertTransformer.transform({ equals: false, guard: false }),
     is: () => IsTransformer.transform({ equals: false }),
-    validate: () => ValidateTransformer.transform({ equals: false, standardSchema: true }),
+    validate: () => ValidateTransformer.transform({ equals: false }),
 
     // STRICT
     assertEquals: () =>
@@ -180,7 +180,7 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
     assertGuardEquals: () =>
       AssertTransformer.transform({ equals: true, guard: true }),
     equals: () => IsTransformer.transform({ equals: true }),
-    validateEquals: () => ValidateTransformer.transform({ equals: true, standardSchema: true }),
+    validateEquals: () => ValidateTransformer.transform({ equals: true }),
 
     // RANDOM + INTERNAL
     random: () => RandomTransformer.transform,
@@ -195,14 +195,20 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
       CreateAssertTransformer.transform({ equals: false, guard: false }),
     createIs: () => CreateIsTransformer.transform({ equals: false }),
     createValidate: () =>
-      CreateValidateTransformer.transform({ equals: false }),
+      CreateValidateTransformer.transform({
+        equals: false,
+        standardSchema: true,
+      }),
     createAssertEquals: () =>
       CreateAssertTransformer.transform({ equals: true, guard: false }),
     createAssertGuardEquals: () =>
       CreateAssertTransformer.transform({ equals: true, guard: true }),
     createEquals: () => CreateIsTransformer.transform({ equals: true }),
     createValidateEquals: () =>
-      CreateValidateTransformer.transform({ equals: true }),
+      CreateValidateTransformer.transform({
+        equals: true,
+        standardSchema: true,
+      }),
     createRandom: () => CreateRandomTransformer.transform,
   },
   functional: {
