@@ -1,6 +1,5 @@
 import { LlmTypeCheckerV3_1 } from "@samchon/openapi";
 import typia, { tags } from "typia";
-import * as __typia_transform__createStandardSchema from "typia/lib/internal/_createStandardSchema.js";
 import * as __typia_transform__isFormatDateTime from "typia/lib/internal/_isFormatDateTime.js";
 import * as __typia_transform__isFormatUuid from "typia/lib/internal/_isFormatUuid.js";
 import * as __typia_transform__llmApplicationFinalize from "typia/lib/internal/_llmApplicationFinalize.js";
@@ -1194,48 +1193,46 @@ export const applicationOfValidate = {
           "object" === typeof input && null !== input && _io0(input);
         let errors: any;
         let _report: any;
-        return __typia_transform__createStandardSchema._createStandardSchema(
-          (
-            input: any,
-          ): import("typia").IValidation<
-            Parameters<IApplication["establishCompany"]>[0]
-          > => {
-            if (false === __is(input)) {
-              errors = [];
-              _report = (
-                __typia_transform__validateReport._validateReport as any
-              )(errors);
-              ((input: any, _path: string, _exceptionable: boolean = true) =>
-                ((("object" === typeof input && null !== input) ||
-                  _report(true, {
-                    path: _path + "",
-                    expected: "__type",
-                    value: input,
-                  })) &&
-                  _vo0(input, _path + "", true)) ||
+        return (
+          input: any,
+        ): import("typia").IValidation<
+          Parameters<IApplication["establishCompany"]>[0]
+        > => {
+          if (false === __is(input)) {
+            errors = [];
+            _report = (
+              __typia_transform__validateReport._validateReport as any
+            )(errors);
+            ((input: any, _path: string, _exceptionable: boolean = true) =>
+              ((("object" === typeof input && null !== input) ||
                 _report(true, {
                   path: _path + "",
                   expected: "__type",
                   value: input,
-                }))(input, "$input", true);
-              const success = 0 === errors.length;
-              return success
-                ? {
-                    success,
-                    data: input,
-                  }
-                : ({
-                    success,
-                    errors,
-                    data: input,
-                  } as any);
-            }
-            return {
-              success: true,
-              data: input,
-            } as any;
-          },
-        );
+                })) &&
+                _vo0(input, _path + "", true)) ||
+              _report(true, {
+                path: _path + "",
+                expected: "__type",
+                value: input,
+              }))(input, "$input", true);
+            const success = 0 === errors.length;
+            return success
+              ? {
+                  success,
+                  data: input,
+                }
+              : ({
+                  success,
+                  errors,
+                  data: input,
+                } as any);
+          }
+          return {
+            success: true,
+            data: input,
+          } as any;
+        };
       })(),
     },
     {
@@ -1679,48 +1676,46 @@ export const applicationOfValidate = {
           "object" === typeof input && null !== input && _io0(input);
         let errors: any;
         let _report: any;
-        return __typia_transform__createStandardSchema._createStandardSchema(
-          (
-            input: any,
-          ): import("typia").IValidation<
-            Parameters<IApplication["createDepartment"]>[0]
-          > => {
-            if (false === __is(input)) {
-              errors = [];
-              _report = (
-                __typia_transform__validateReport._validateReport as any
-              )(errors);
-              ((input: any, _path: string, _exceptionable: boolean = true) =>
-                ((("object" === typeof input && null !== input) ||
-                  _report(true, {
-                    path: _path + "",
-                    expected: "__type",
-                    value: input,
-                  })) &&
-                  _vo0(input, _path + "", true)) ||
+        return (
+          input: any,
+        ): import("typia").IValidation<
+          Parameters<IApplication["createDepartment"]>[0]
+        > => {
+          if (false === __is(input)) {
+            errors = [];
+            _report = (
+              __typia_transform__validateReport._validateReport as any
+            )(errors);
+            ((input: any, _path: string, _exceptionable: boolean = true) =>
+              ((("object" === typeof input && null !== input) ||
                 _report(true, {
                   path: _path + "",
                   expected: "__type",
                   value: input,
-                }))(input, "$input", true);
-              const success = 0 === errors.length;
-              return success
-                ? {
-                    success,
-                    data: input,
-                  }
-                : ({
-                    success,
-                    errors,
-                    data: input,
-                  } as any);
-            }
-            return {
-              success: true,
-              data: input,
-            } as any;
-          },
-        );
+                })) &&
+                _vo0(input, _path + "", true)) ||
+              _report(true, {
+                path: _path + "",
+                expected: "__type",
+                value: input,
+              }))(input, "$input", true);
+            const success = 0 === errors.length;
+            return success
+              ? {
+                  success,
+                  data: input,
+                }
+              : ({
+                  success,
+                  errors,
+                  data: input,
+                } as any);
+          }
+          return {
+            success: true,
+            data: input,
+          } as any;
+        };
       })(),
     },
     {
@@ -2226,48 +2221,44 @@ export const applicationOfValidate = {
           "object" === typeof input && null !== input && _io0(input);
         let errors: any;
         let _report: any;
-        return __typia_transform__createStandardSchema._createStandardSchema(
-          (
-            input: any,
-          ): import("typia").IValidation<
-            Parameters<IApplication["hire"]>[0]
-          > => {
-            if (false === __is(input)) {
-              errors = [];
-              _report = (
-                __typia_transform__validateReport._validateReport as any
-              )(errors);
-              ((input: any, _path: string, _exceptionable: boolean = true) =>
-                ((("object" === typeof input && null !== input) ||
-                  _report(true, {
-                    path: _path + "",
-                    expected: "__type",
-                    value: input,
-                  })) &&
-                  _vo0(input, _path + "", true)) ||
+        return (
+          input: any,
+        ): import("typia").IValidation<Parameters<IApplication["hire"]>[0]> => {
+          if (false === __is(input)) {
+            errors = [];
+            _report = (
+              __typia_transform__validateReport._validateReport as any
+            )(errors);
+            ((input: any, _path: string, _exceptionable: boolean = true) =>
+              ((("object" === typeof input && null !== input) ||
                 _report(true, {
                   path: _path + "",
                   expected: "__type",
                   value: input,
-                }))(input, "$input", true);
-              const success = 0 === errors.length;
-              return success
-                ? {
-                    success,
-                    data: input,
-                  }
-                : ({
-                    success,
-                    errors,
-                    data: input,
-                  } as any);
-            }
-            return {
-              success: true,
-              data: input,
-            } as any;
-          },
-        );
+                })) &&
+                _vo0(input, _path + "", true)) ||
+              _report(true, {
+                path: _path + "",
+                expected: "__type",
+                value: input,
+              }))(input, "$input", true);
+            const success = 0 === errors.length;
+            return success
+              ? {
+                  success,
+                  data: input,
+                }
+              : ({
+                  success,
+                  errors,
+                  data: input,
+                } as any);
+          }
+          return {
+            success: true,
+            data: input,
+          } as any;
+        };
       })(),
     },
     {
@@ -2747,48 +2738,46 @@ export const applicationOfValidate = {
           "object" === typeof input && null !== input && _io0(input);
         let errors: any;
         let _report: any;
-        return __typia_transform__createStandardSchema._createStandardSchema(
-          (
-            input: any,
-          ): import("typia").IValidation<
-            Parameters<IApplication["erase"]>[0]
-          > => {
-            if (false === __is(input)) {
-              errors = [];
-              _report = (
-                __typia_transform__validateReport._validateReport as any
-              )(errors);
-              ((input: any, _path: string, _exceptionable: boolean = true) =>
-                ((("object" === typeof input && null !== input) ||
-                  _report(true, {
-                    path: _path + "",
-                    expected: "__type",
-                    value: input,
-                  })) &&
-                  _vo0(input, _path + "", true)) ||
+        return (
+          input: any,
+        ): import("typia").IValidation<
+          Parameters<IApplication["erase"]>[0]
+        > => {
+          if (false === __is(input)) {
+            errors = [];
+            _report = (
+              __typia_transform__validateReport._validateReport as any
+            )(errors);
+            ((input: any, _path: string, _exceptionable: boolean = true) =>
+              ((("object" === typeof input && null !== input) ||
                 _report(true, {
                   path: _path + "",
                   expected: "__type",
                   value: input,
-                }))(input, "$input", true);
-              const success = 0 === errors.length;
-              return success
-                ? {
-                    success,
-                    data: input,
-                  }
-                : ({
-                    success,
-                    errors,
-                    data: input,
-                  } as any);
-            }
-            return {
-              success: true,
-              data: input,
-            } as any;
-          },
-        );
+                })) &&
+                _vo0(input, _path + "", true)) ||
+              _report(true, {
+                path: _path + "",
+                expected: "__type",
+                value: input,
+              }))(input, "$input", true);
+            const success = 0 === errors.length;
+            return success
+              ? {
+                  success,
+                  data: input,
+                }
+              : ({
+                  success,
+                  errors,
+                  data: input,
+                } as any);
+          }
+          return {
+            success: true,
+            data: input,
+          } as any;
+        };
       })(),
     },
   ],

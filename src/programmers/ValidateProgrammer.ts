@@ -20,6 +20,7 @@ import { check_object } from "./internal/check_object";
 export namespace ValidateProgrammer {
   export interface IConfig {
     equals: boolean;
+    standardSchema?: boolean;
   }
   export interface IProps extends IProgrammerProps {
     config: IConfig;
@@ -241,12 +242,14 @@ export namespace ValidateProgrammer {
       modulo: props.modulo,
       functor,
       result,
-      returnWrapper: (arrow) =>
-        ts.factory.createCallExpression(
-          props.context.importer.internal("createStandardSchema"),
-          undefined,
-          [arrow],
-        ),
+      returnWrapper: props.config.standardSchema
+        ? (arrow) =>
+            ts.factory.createCallExpression(
+              props.context.importer.internal("createStandardSchema"),
+              undefined,
+              [arrow],
+            )
+        : undefined,
     });
   };
 }
