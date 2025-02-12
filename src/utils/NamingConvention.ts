@@ -7,7 +7,7 @@ export namespace NamingConvention {
       snake: (str: string, index: number) => string;
     }) =>
     (str: string): string => {
-      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+       
       let prefix: string = "";
       for (let i: number = 0; i < str.length; i++) {
         if (str[i] === "_") prefix += "_";
@@ -30,7 +30,7 @@ export namespace NamingConvention {
     if (str.length === 0) return str;
 
     // PREFIX
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+     
     let prefix: string = "";
     for (let i: number = 0; i < str.length; i++) {
       if (str[i] === "_") prefix += "_";

@@ -12,7 +12,7 @@ export namespace MetadataTypeTagSchemaFactory {
     }
     const output: any = {};
     for (const p of props.object.properties) {
-      const key: string | null = p.key.getSoleLiteral()!;
+      const key: string | null = p.key.getSoleLiteral();
       if (key === null) {
         props.report(
           `${props.object.name} has non-literal key type: ${p.key.getName()}`,

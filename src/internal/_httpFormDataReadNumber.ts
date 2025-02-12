@@ -3,7 +3,7 @@ export const _httpFormDataReadNumber = (
 ): number | null | undefined =>
   input instanceof File
     ? (input as any)
-    : !!input?.length
+    : input?.length
       ? input === "null"
         ? null
         : (toNumber(input) as any)

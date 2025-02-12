@@ -486,7 +486,7 @@ export namespace RandomProgrammer {
           const string: OpenApi.IJsonSchema.IString =
             schema as OpenApi.IJsonSchema.IString;
           if (string.format !== undefined) {
-            const format: string = string.format!;
+            const format: string = string.format;
             if (format === "date-time")
               return {
                 method: "datetime",

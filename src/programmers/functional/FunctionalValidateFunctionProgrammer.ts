@@ -98,13 +98,13 @@ export namespace FunctionalValidateFunctionProgrammer {
   }): ts.TypeNode | undefined =>
     props.declaration.type
       ? props.async
-        ? !!(props.declaration.type! as ts.TypeReferenceNode).typeArguments?.[0]
+        ? (props.declaration.type as ts.TypeReferenceNode).typeArguments?.[0]
           ? ts.factory.createTypeReferenceNode("Promise", [
               props.context.importer.type({
                 file: "typia",
                 name: "IValidation",
                 arguments: [
-                  (props.declaration.type! as ts.TypeReferenceNode)
+                  (props.declaration.type as ts.TypeReferenceNode)
                     .typeArguments![0]!,
                 ],
               }),

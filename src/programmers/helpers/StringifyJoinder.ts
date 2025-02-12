@@ -96,7 +96,7 @@ export namespace StringifyJoiner {
       return ts.factory.createStringLiteral(
         "[" +
           props.elements
-            .map((child) => (child as ts.StringLiteral).text)
+            .map((child) => (child).text)
             .join(",") +
           "]",
       );

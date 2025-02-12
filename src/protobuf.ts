@@ -164,7 +164,7 @@ export function decode(): never {
  */
 export function assertDecode(
   input: Uint8Array,
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): never;
 
 /**
@@ -197,7 +197,7 @@ export function assertDecode(
  */
 export function assertDecode<T>(
   input: Uint8Array,
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): Resolved<T>;
 
 /**
@@ -416,7 +416,7 @@ export function encode(): never {
  */
 export function assertEncode<T>(
   input: T,
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): Uint8Array;
 
 /**
@@ -453,7 +453,7 @@ export function assertEncode<T>(
  */
 export function assertEncode<T>(
   input: unknown,
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): Uint8Array;
 
 /**
@@ -681,7 +681,7 @@ export function createIsDecode<T>(): (input: Uint8Array) => Resolved<T> | null {
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createAssertDecode(
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): never;
 
 /**
@@ -694,7 +694,7 @@ export function createAssertDecode(
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createAssertDecode<T>(
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): (input: Uint8Array) => Resolved<T>;
 
 /**
@@ -803,7 +803,7 @@ export function createIsEncode<T>(): (input: T) => Uint8Array | null {
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createAssertEncode(
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): never;
 
 /**
@@ -816,7 +816,7 @@ export function createAssertEncode(
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createAssertEncode<T>(
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): (input: T) => Uint8Array;
 
 /**

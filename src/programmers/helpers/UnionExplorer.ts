@@ -89,10 +89,12 @@ export namespace UnionExplorer {
                 postfix: IdentifierFactory.postfix(key),
               },
             })
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
           : (props.config.objector.required || ((exp) => exp))(
               ExpressionFactory.isRequired(accessor),
             );
         return ts.factory.createIfStatement(
+          // eslint-disable-next-line @typescript-eslint/no-deprecated
           (props.config.objector.is || ((exp) => exp))(pred),
           ts.factory.createReturnStatement(
             props.config.objector.decoder({

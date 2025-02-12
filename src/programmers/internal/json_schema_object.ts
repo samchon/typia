@@ -133,7 +133,7 @@ const join = (props: {
 
   // SHORT RETURN
   if (elements.length === 0) return undefined;
-  else if (elements.length === 1) return elements[0]![1]!;
+  else if (elements.length === 1) return elements[0]![1];
 
   // MERGE METADATA AND GENERATE VULNERABLE SCHEMA
   const metadata: Metadata = elements

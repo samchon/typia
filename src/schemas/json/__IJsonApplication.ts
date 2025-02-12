@@ -2,6 +2,7 @@ import { OpenApi, OpenApiV3 } from "@samchon/openapi";
 
 export interface __IJsonApplication<
   Version extends "3.0" | "3.1" = "3.1",
+  // eslint-disable-next-line @typescript-eslint/no-unnecessary-type-constraint
   App extends any = object,
 > {
   version: Version;

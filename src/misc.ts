@@ -104,7 +104,7 @@ export function clone(): never {
  */
 export function assertClone<T>(
   input: T,
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): Resolved<T>;
 
 /**
@@ -127,7 +127,7 @@ export function assertClone<T>(
  */
 export function assertClone<T>(
   input: unknown,
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): Resolved<T>;
 
 /**
@@ -278,7 +278,7 @@ export function prune(): never {
  */
 export function assertPrune<T>(
   input: T,
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): T;
 
 /**
@@ -301,7 +301,7 @@ export function assertPrune<T>(
  */
 export function assertPrune<T>(
   input: unknown,
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): T;
 
 /**
@@ -445,7 +445,7 @@ export function createClone(): never {
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createAssertClone(
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): never;
 
 /**
@@ -458,7 +458,7 @@ export function createAssertClone(
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createAssertClone<T>(
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): (input: unknown) => Resolved<T>;
 
 /**
@@ -565,7 +565,7 @@ export function createPrune<T extends object>(): (input: T) => void {
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createAssertPrune(
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): never;
 
 /**
@@ -578,7 +578,7 @@ export function createAssertPrune(
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createAssertPrune<T extends object>(
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): (input: T) => T;
 
 /**

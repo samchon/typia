@@ -16,7 +16,7 @@ export const json_schema_constant = (
           const:
             typeof value.value === "bigint"
               ? Number(value.value)
-              : (value.value as boolean | number | string),
+              : (value.value),
           title: json_schema_title(value),
           description: json_schema_description(value),
         } satisfies OpenApi.IJsonSchema.IConstant,

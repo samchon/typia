@@ -23,7 +23,7 @@ export namespace ReflectNameTransformer {
     const top: ts.Node = props.expression.typeArguments[0]!;
     const regular: boolean = (() => {
       // CHECK SECOND ARGUMENT EXISTENCE
-      const second: ts.Node | undefined = props.expression.typeArguments[1]!;
+      const second: ts.Node | undefined = props.expression.typeArguments[1];
       if (second === undefined) return false;
 
       // GET BOOLEAN VALUE

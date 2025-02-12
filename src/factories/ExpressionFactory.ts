@@ -161,7 +161,7 @@ export namespace ExpressionFactory {
             node.arguments.length === 1 &&
             ts.isStringLiteralLike(node.arguments[0]!)
           ) {
-            const name: string = node.arguments[0]!.text;
+            const name: string = node.arguments[0].text;
             return props.importer.internal(name);
           } else if (
             node.expression.getText() === "$importInstance" &&
@@ -169,8 +169,8 @@ export namespace ExpressionFactory {
             ts.isStringLiteralLike(node.arguments[0]!) &&
             ts.isStringLiteralLike(node.arguments[1]!)
           ) {
-            const name: string = node.arguments[0]!.text;
-            const file: string = node.arguments[1]!.text;
+            const name: string = node.arguments[0].text;
+            const file: string = node.arguments[1].text;
             return props.importer.instance({
               file,
               name,
@@ -182,8 +182,8 @@ export namespace ExpressionFactory {
             ts.isStringLiteralLike(node.arguments[0]!) &&
             ts.isStringLiteralLike(node.arguments[1]!)
           ) {
-            const name: string = node.arguments[0]!.text;
-            const file: string = node.arguments[1]!.text;
+            const name: string = node.arguments[0].text;
+            const file: string = node.arguments[1].text;
             return props.importer.namespace({
               file,
               name,
@@ -194,8 +194,8 @@ export namespace ExpressionFactory {
             ts.isStringLiteralLike(node.arguments[0]!) &&
             ts.isStringLiteralLike(node.arguments[1]!)
           ) {
-            const name: string = node.arguments[0]!.text;
-            const file: string = node.arguments[1]!.text;
+            const name: string = node.arguments[0].text;
+            const file: string = node.arguments[1].text;
             return props.importer.default({
               file,
               name,

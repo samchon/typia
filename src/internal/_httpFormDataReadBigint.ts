@@ -3,7 +3,7 @@ export const _httpFormDataReadBigint = (
 ): bigint | null | undefined =>
   input instanceof File
     ? (input as any)
-    : !!input?.length
+    : input?.length
       ? input === "null"
         ? null
         : (toBigint(input) as any)

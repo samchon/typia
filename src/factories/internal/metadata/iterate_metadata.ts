@@ -40,6 +40,7 @@ export const iterate_metadata = (props: IMetadataIteratorProps): void => {
     return;
 
   // ITERATE CASES
+  // eslint-disable-next-line @typescript-eslint/no-unused-expressions
   iterate_metadata_coalesce(props) ||
     iterate_metadata_function(props) ||
     iterate_metadata_constant(props) ||

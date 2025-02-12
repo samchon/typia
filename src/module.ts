@@ -60,7 +60,7 @@ export * from "./IReadableURLSearchParams";
  */
 export function assert<T>(
   input: T,
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): T;
 
 /**
@@ -87,7 +87,7 @@ export function assert<T>(
  */
 export function assert<T>(
   input: unknown,
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): T;
 
 /**
@@ -124,7 +124,7 @@ export function assert(): never {
  */
 export function assertGuard<T>(
   input: T,
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): asserts input is T;
 
 /**
@@ -154,7 +154,7 @@ export function assertGuard<T>(
  */
 export function assertGuard<T>(
   input: unknown,
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): asserts input is T;
 
 /**
@@ -306,7 +306,7 @@ export function validate(): never {
  */
 export function assertEquals<T>(
   input: T,
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): T;
 
 /**
@@ -335,7 +335,7 @@ export function assertEquals<T>(
  */
 export function assertEquals<T>(
   input: unknown,
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): T;
 
 /**
@@ -375,7 +375,7 @@ export function assertEquals(): never {
  */
 export function assertGuardEquals<T>(
   input: T,
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): asserts input is T;
 
 /**
@@ -408,7 +408,7 @@ export function assertGuardEquals<T>(
  */
 export function assertGuardEquals<T>(
   input: unknown,
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): asserts input is T;
 
 /**
@@ -596,7 +596,7 @@ export function random(): never {
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createAssert(
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): never;
 
 /**
@@ -609,7 +609,7 @@ export function createAssert(
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createAssert<T>(
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): (input: unknown) => T;
 
 /**
@@ -645,7 +645,7 @@ export function createAssert<T>(): (input: unknown) => T {
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createAssertGuard(
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): never;
 
 /**
@@ -673,7 +673,7 @@ export function createAssertGuard(
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createAssertGuard<T>(
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): (input: unknown) => AssertionGuard<T>;
 
 /**
@@ -750,7 +750,7 @@ export function createValidate(): (input: unknown) => IValidation {
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createAssertEquals(
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): never;
 
 /**
@@ -763,7 +763,7 @@ export function createAssertEquals(
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createAssertEquals<T>(
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): (input: unknown) => T;
 
 /**
@@ -799,7 +799,7 @@ export function createAssertEquals<T>(): (input: unknown) => T {
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createAssertGuardEquals(
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): never;
 
 /**
@@ -827,7 +827,7 @@ export function createAssertGuardEquals(
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function createAssertGuardEquals<T>(
-  errorFactory?: undefined | ((props: TypeGuardError.IProps) => Error),
+  errorFactory?:   ((props: TypeGuardError.IProps) => Error),
 ): (input: unknown) => AssertionGuard<T>;
 
 /**
