@@ -1,6 +1,7 @@
 import { StandardSchemaV1 } from "@standard-schema/spec";
 import typia from "typia";
 
+import { IdentifierFactory } from "../../../src/factories/IdentifierFactory";
 import { TestStructure } from "../helpers/TestStructure";
 
 export const _test_standardSchema_validate =
@@ -30,17 +31,16 @@ export const _test_standardSchema_validate =
 
       if (!("issues" in valid) || !valid.issues)
         throw new Error(
-          `Bug on typia.validate(): failed to detect error on the ${name} type.`,
+          `Bug on typia.createValidate["~standard"].validate(): failed to detect error on the ${name} type.`,
         );
 
       typia.assertEquals(valid);
       expected.sort();
       const issues = [...valid.issues];
-      issues.sort((x, y) => (joinPath(x.path) < joinPath(y.path) ? -1 : 1));
 
       if (
         issues.length !== expected.length ||
-        issues.every((e, i) => e.path === expected[i]) === false
+        issues.every((e, i) => joinPath(e.path) === expected[i]) === false
       )
         wrong.push({
           expected,
@@ -50,17 +50,18 @@ export const _test_standardSchema_validate =
     if (wrong.length !== 0) {
       console.log(wrong);
       throw new Error(
-        `Bug on typia.validate(): failed to detect error on the ${name} type.`,
+        `Bug on typia.createValidate["~standard"].validate(): failed to detect error on the ${name} type.`,
       );
     }
   };
 
 const joinPath = (path: StandardSchemaV1.FailureResult["issues"][0]["path"]) =>
   path
-    ? path
+    ? ["$input", ...path]
         .map((segment) => {
-          if (typeof segment === "string") return `.${segment}`;
-          else return `[${JSON.stringify(segment)}]`;
+          const key = typeof segment === "object" ? segment.key : segment;
+          if (typeof key !== "string") return `[${String(key)}]`;
+          return IdentifierFactory.postfix(key);
         })
         .join("")
     : "";
