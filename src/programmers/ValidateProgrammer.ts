@@ -241,6 +241,12 @@ export namespace ValidateProgrammer {
       modulo: props.modulo,
       functor,
       result,
+      returnWrapper: (arrow) =>
+        ts.factory.createCallExpression(
+          props.context.importer.internal("createStandardSchema"),
+          undefined,
+          [arrow],
+        ),
     });
   };
 }
