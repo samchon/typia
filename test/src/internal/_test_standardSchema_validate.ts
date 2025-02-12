@@ -6,24 +6,19 @@ import { TestStructure } from "../helpers/TestStructure";
 export const _test_standardSchema_validate =
   (name: string) =>
   <T>(factory: TestStructure<T>) =>
-  (
-    validate: ((input: T) => typia.IValidation<T>) &
-      StandardSchemaV1<unknown, T>,
-  ) =>
+  (validate: StandardSchemaV1<unknown, T>) =>
   () => {
     const input: T = factory.generate();
     const valid = validate["~standard"].validate(input);
     if (!("value" in valid))
       throw new Error(
-        `Bug on typia.validate(): failed to understand the ${name} type.`,
+        `Bug on typia.createValidate["~standard"].validate(): failed to understand the ${name} type.`,
       );
     else if (valid.value !== input)
       throw new Error(
-        "Bug on typia.validate(): failed to archive the input value.",
+        `Bug on typia.createValidate["~standard"].validate(): failed to archive the input value.`,
       );
-    // This line doesn't compile.
-    // TODO: Fix this.
-    // typia.assertEquals<StandardSchemaV1.SuccessResult<T>>(valid);
+    typia.assertEquals<StandardSchemaV1.SuccessResult<T>>(valid);
 
     const wrong: ISpoiled[] = [];
     for (const spoil of factory.SPOILERS ?? []) {
