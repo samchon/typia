@@ -738,7 +738,8 @@ export function createValidate<T>(): ((input: unknown) => IValidation<T>) &
 /**
  * @internal
  */
-export function createValidate(): (input: unknown) => IValidation {
+export function createValidate(): ((input: unknown) => IValidation) &
+  StandardSchemaV1<unknown, unknown> {
   halt("createValidate");
 }
 
@@ -897,7 +898,8 @@ export function createValidateEquals<T>(): ((
 /**
  * @internal
  */
-export function createValidateEquals(): (input: unknown) => IValidation {
+export function createValidateEquals(): ((input: unknown) => IValidation) &
+  StandardSchemaV1<unknown, unknown> {
   halt("createValidateEquals");
 }
 
