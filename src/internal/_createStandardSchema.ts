@@ -67,7 +67,7 @@ const typiaPathToStandardSchemaPath = (
         segments.push({
           key: currentSegment,
         });
-        pointer++;
+        index++;
         state = PathParserState.Start;
       } else {
         currentSegment += char;
@@ -76,7 +76,7 @@ const typiaPathToStandardSchemaPath = (
       if (char === '"') {
         // End of string key
         segments.push({
-          key: JSON.parse(currentSegment),
+          key: JSON.parse(currentSegment + char),
         });
         // Skip `"` and `]`
         index += 2;
@@ -101,9 +101,11 @@ const typiaPathToStandardSchemaPath = (
         currentSegment += char;
       }
     }
+
     if (state === PathParserState.Start && index < path.length - 1) {
+      const newChar = path[index];
       currentSegment = "";
-      if (char === "[") {
+      if (newChar === "[") {
         if (path[index + 1] === '"') {
           // Start of string key
           // NOTE: Typia uses JSON.stringify for this kind of keys, so `'` will not used as a string delimiter
@@ -114,13 +116,13 @@ const typiaPathToStandardSchemaPath = (
           // Start of number key
           state = PathParserState.NumberKey;
         }
-      } else if (char === ".") {
+      } else if (newChar === ".") {
         // Start of property
         state = PathParserState.Property;
       } else if (index === 0) {
         // Start of property, but at the first path
         state = PathParserState.Property;
-        currentSegment = char;
+        currentSegment = newChar;
       } else {
         throw new Error("Unreachable: pointer points invalid character");
       }
