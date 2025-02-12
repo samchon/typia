@@ -29,6 +29,11 @@ export const _createStandardSchema = <T>(
 
 enum PathParserState {
   // Start of a new segment
+  // When the parser is in this state,
+  // the pointer must:
+  // - point the first character,
+  // - point `.` or `[`,
+  // - or point the end of string.
   Start,
   // Parsing a property key (`.hoge`)
   Property,
@@ -62,6 +67,7 @@ const typiaPathToStandardSchemaPath = (
         segments.push({
           key: currentSegment,
         });
+        pointer++;
         state = PathParserState.Start;
       } else {
         currentSegment += char;
@@ -72,9 +78,11 @@ const typiaPathToStandardSchemaPath = (
         segments.push({
           key: JSON.parse(currentSegment),
         });
+        // Skip `"` and `]`
+        index += 2;
         state = PathParserState.Start;
       } else if (char === "\\") {
-        // Skip the next character
+        // Skip the next character from parsing
         currentSegment += path[index];
         index++;
         currentSegment += path[index];
@@ -87,6 +95,7 @@ const typiaPathToStandardSchemaPath = (
         segments.push({
           key: Number.parseInt(currentSegment),
         });
+        index++;
         state = PathParserState.Start;
       } else {
         currentSegment += char;
@@ -97,7 +106,7 @@ const typiaPathToStandardSchemaPath = (
       if (char === "[") {
         if (path[index + 1] === '"') {
           // Start of string key
-          // NOTE: Typia uses JSON.stringify for this kind of keys, so `'` will not used as string delimiter
+          // NOTE: Typia uses JSON.stringify for this kind of keys, so `'` will not used as a string delimiter
           state = PathParserState.StringKey;
           index++;
           currentSegment = '"';
@@ -105,9 +114,15 @@ const typiaPathToStandardSchemaPath = (
           // Start of number key
           state = PathParserState.NumberKey;
         }
-      } else {
+      } else if (char === ".") {
         // Start of property
         state = PathParserState.Property;
+      } else if (index === 0) {
+        // Start of property, but at the first path
+        state = PathParserState.Property;
+        currentSegment = char;
+      } else {
+        throw new Error("Unreachable: pointer points invalid character");
       }
     }
   }
