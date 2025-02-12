@@ -34,7 +34,7 @@ export const _test_standardSchema_validate =
           `Bug on typia.validate(): failed to detect error on the ${name} type.`,
         );
 
-      typia.assertEquals(valid);
+      typia.assertEquals<StandardSchemaV1.FailureResult>(valid);
       expected.sort();
       const issues = [...valid.issues];
       issues.sort((x, y) => (joinPath(x.path) < joinPath(y.path) ? -1 : 1));
