@@ -61,7 +61,7 @@ export namespace CompareEqualsProgrammer {
         ts.factory.createKeywordTypeNode(ts.SyntaxKind.BooleanKeyword),
         undefined,
         ts.factory.createBlock(
-          [ts.factory.createExpressionStatement(expression)],
+          [ts.factory.createReturnStatement(expression)],
           true,
         ),
       ),
@@ -101,7 +101,7 @@ export namespace CompareEqualsProgrammer {
       ts.TypeFlags.BigIntLiteral;
     return (type.flags & primitiveFlags) !== 0;
   }
-  function eqeqeq(a: ts.Identifier, b: ts.Identifier) {
+  function eqeqeq(a: ts.Expression, b: ts.Expression) {
     return ts.factory.createExpressionStatement(
       ts.factory.createBinaryExpression(
         a,
@@ -111,52 +111,171 @@ export namespace CompareEqualsProgrammer {
     );
   }
 
-  function eqeqeqReturn(a: ts.Identifier, b: ts.Identifier) {
-    return ts.factory.createIfStatement(
-      eqeqeq(a, b).expression,
-      ts.factory.createReturnStatement(
-        ts.factory.createToken(ts.SyntaxKind.TrueKeyword),
-      ),
-    );
-  }
+  // function eqeqeqReturn(a: ts.Identifier, b: ts.Identifier) {
+  //   return ts.factory.createIfStatement(
+  //     eqeqeq(a, b).expression,
+  //     ts.factory.createReturnStatement(
+  //       ts.factory.createToken(ts.SyntaxKind.TrueKeyword),
+  //     ),
+  //   );
+  // }
 
-  function mergeWithAmp(expressions: ts.Expression[]) {
+  function mergeWithAmp(
+    expressions: ts.Expression[],
+    withParenthesized = false,
+  ) {
     if (expressions.length === 0) {
       return ts.factory.createTrue();
     }
 
-    return expressions.reduce((acc, current) =>
-      ts.factory.createBinaryExpression(
-        acc,
-        ts.factory.createToken(ts.SyntaxKind.AmpersandAmpersandToken),
-        current,
-      ),
+    const result = expressions.reduce((acc, current) => and(acc, current));
+    if (withParenthesized) {
+      return ts.factory.createParenthesizedExpression(result);
+    }
+    return result;
+  }
+
+  function or(a: ts.Expression, b: ts.Expression) {
+    return ts.factory.createBinaryExpression(
+      a,
+      ts.factory.createToken(ts.SyntaxKind.BarBarToken),
+      b,
     );
   }
 
+  function and(a: ts.Expression, b: ts.Expression) {
+    return ts.factory.createBinaryExpression(
+      a,
+      ts.factory.createToken(ts.SyntaxKind.AmpersandAmpersandToken),
+      b,
+    );
+  }
+
+  const params = {
+    item: IdentifierFactory.parameter("item"),
+    index: IdentifierFactory.parameter("index"),
+  };
+  const ids = {
+    item: ts.factory.createIdentifier("item"),
+    index: ts.factory.createIdentifier("index"),
+    every: ts.factory.createIdentifier("every"),
+    length: ts.factory.createIdentifier("length"),
+  };
+
+  function indexAccess(
+    arr: ts.Expression,
+    id: ts.Expression,
+    nonNullable = false,
+  ) {
+    const elementAccess = ts.factory.createElementAccessExpression(arr, id);
+    if (nonNullable) {
+      return ts.factory.createNonNullExpression(elementAccess);
+    }
+    return elementAccess;
+  }
+
+  function access(
+    target: ts.Expression,
+    prop: string | ts.MemberName,
+    optinal = false,
+  ) {
+    if (optinal) {
+      return ts.factory.createPropertyAccessChain(
+        target,
+        ts.factory.createToken(ts.SyntaxKind.QuestionDotToken),
+        prop,
+      );
+    } else {
+      return ts.factory.createPropertyAccessExpression(target, prop);
+    }
+  }
+
   function transform(
-    a: ts.Identifier,
-    b: ts.Identifier,
+    a: ts.Expression,
+    b: ts.Expression,
     context: ITypiaContext,
     type: ts.Type,
   ): ts.Expression {
     if (isPrimitiveType(type)) {
-      return eqeqeqReturn(a, b).expression;
+      return eqeqeq(a, b).expression;
+    }
+
+    if (context.checker.isTupleType(type)) {
+      const tuple = type as ts.TypeReference;
+      const types = context.checker.getTypeArguments(tuple);
+      const compares = types.map((type, index) =>
+        transform(
+          indexAccess(a, ts.factory.createIdentifier(index.toString())),
+          indexAccess(b, ts.factory.createIdentifier(index.toString())),
+          context,
+          type,
+        ),
+      );
+      return or(eqeqeq(a, b).expression, mergeWithAmp(compares, true));
     }
 
     if (context.checker.isArrayType(type)) {
-      return eqeqeqReturn(a, b).expression;
-    }
-    if (context.checker.isTupleType(type)) {
-      return eqeqeqReturn(a, b).expression;
+      const elementType = context.checker.getElementTypeOfArrayType(type);
+      if (!elementType) {
+        throw new Error(`Unknown type of ${type}`);
+      }
+
+      const checkFn = ts.factory.createArrowFunction(
+        undefined,
+        undefined,
+        [params.item, params.index],
+        undefined,
+        undefined,
+        ts.factory.createBlock([
+          ts.factory.createReturnStatement(
+            transform(
+              ids.item,
+              indexAccess(b, ids.index, true),
+              context,
+              elementType,
+            ),
+          ),
+        ]),
+      );
+
+      return or(
+        eqeqeq(a, b).expression,
+        ts.factory.createParenthesizedExpression(
+          and(
+            eqeqeq(access(a, ids.length), access(b, ids.length)).expression,
+            ts.factory.createCallExpression(access(a, ids.every), undefined, [
+              checkFn,
+            ]),
+          ),
+        ),
+      );
     }
 
     if ((type.flags & ts.TypeFlags.Object) !== 0) {
       const properties = type.getProperties();
       const statements = properties.flatMap((prop) => {
+        const optional =
+          prop.declarations?.some((decl) => {
+            if (
+              ts.isPropertySignature(decl) ||
+              ts.isPropertyDeclaration(decl)
+            ) {
+              return Boolean(decl.questionToken);
+            }
+            return false;
+          }) ?? false;
+
         return transform(
-          ts.factory.createIdentifier(`${a.escapedText}.${prop.escapedName}`),
-          ts.factory.createIdentifier(`${b.escapedText}.${prop.escapedName}`),
+          access(
+            a,
+            ts.factory.createIdentifier(prop.escapedName.toString()),
+            optional,
+          ),
+          access(
+            b,
+            ts.factory.createIdentifier(prop.escapedName.toString()),
+            optional,
+          ),
           context,
           context.checker.getTypeOfSymbolAtLocation(
             prop,
@@ -164,65 +283,9 @@ export namespace CompareEqualsProgrammer {
           ),
         );
       });
-      return ts.factory.createBinaryExpression(
-        eqeqeq(a, b).expression,
-        ts.factory.createToken(ts.SyntaxKind.BarBarToken),
-        mergeWithAmp(statements),
-      );
+      return or(eqeqeq(a, b).expression, mergeWithAmp(statements, true));
     }
 
     throw new Error("Unsupported type");
   }
-
-  // function transform_(
-  //   a: ts.Identifier,
-  //   b: ts.Identifier,
-  //   metadata: Metadata,
-  //   props: {
-  //     context: ITypiaContext;
-  //     type: ts.Type;
-  //   },
-  // ) {
-  //   if (metadata.atomics[0]) {
-  //     // DO:
-  //     return [
-  //       ts.factory.createExpressionStatement(
-  //         ts.factory.createBinaryExpression(
-  //           a,
-  //           ts.factory.createToken(ts.SyntaxKind.EqualsEqualsEqualsToken),
-  //           b,
-  //         ),
-  //       ),
-  //     ];
-  //   }
-  //   // if (props.metadata.tuples[0]) {
-  //   //   const tuple = props.metadata.tuples[0]!.type;
-  //   //   console.log(tuple.elements.at(0));
-  //   //   return [
-  //   //     ts.factory.createExpressionStatement(
-  //   //       ts.factory.createBinaryExpression(
-  //   //         eqeqeq(a, b).expression,
-  //   //         ts.factory.createToken(ts.SyntaxKind.AmpersandAmpersandEqualsToken),
-  //   //         b,
-  //   //       ),
-  //   //     ),
-  //   //   ];
-  //   // }
-  //   if (metadata.objects[0]) {
-  //     // const tuple = props.metadata.tuples[0]!.type;
-  //     // console.log(tuple.elements.at(0));
-  //     // props.type.isTypeParameter
-  //     return [eqeqeqReturn(a, b), ...transform_meta(a, b, metadata.objects)];
-  //   }
-  //
-  //   return [
-  //     ts.factory.createExpressionStatement(
-  //       ts.factory.createBinaryExpression(
-  //         a,
-  //         ts.factory.createToken(ts.SyntaxKind.EqualsEqualsEqualsToken),
-  //         b,
-  //       ),
-  //     ),
-  //   ];
-  // }
 }
