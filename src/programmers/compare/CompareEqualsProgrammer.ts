@@ -9,38 +9,14 @@ import { FeatureProgrammer } from "../FeatureProgrammer";
 import { FunctionProgrammer } from "../helpers/FunctionProgrammer";
 
 export namespace CompareEqualsProgrammer {
-  export const decompose = (props: {
+  export function decompose(props: {
     context: ITypiaContext;
     functor: FunctionProgrammer;
     type: ts.Type;
     name: string | undefined;
-  }): FeatureProgrammer.IDecomposed => {
-    // ANALYZE TYPE
-    // const collection: MetadataCollection = new MetadataCollection();
-    // const result = MetadataFactory.analyze({
-    //   checker: props.context.checker,
-    //   transformer: props.context.transformer,
-    //   options: {
-    //     escape: false,
-    //     constant: true,
-    //     absorb: true,
-    //   },
-    //   collection,
-    //   type: props.type,
-    // });
-    // if (result.success === false) {
-    //   throw TransformerError.from({
-    //     code: props.functor.method,
-    //     errors: result.errors,
-    //   });
-    // }
-
-    // DO TRANSFORM
+  }): FeatureProgrammer.IDecomposed {
     const a = ts.factory.createIdentifier("a");
     const b = ts.factory.createIdentifier("b");
-    // console.log(props.type);
-
-    // const statements = transform(a, b, result.data, props);
     const expression = transform(a, b, props.context, props.type);
     const argType = props.context.checker.typeToTypeNode(
       props.type,
@@ -66,26 +42,22 @@ export namespace CompareEqualsProgrammer {
         ),
       ),
     };
-  };
+  }
 
-  export const write = (props: IProgrammerProps) => {
+  export function write(props: IProgrammerProps) {
     const functor = new FunctionProgrammer(props.modulo.getText());
     const result: FeatureProgrammer.IDecomposed = decompose({
       ...props,
       functor,
     });
 
-    // console.log("-----------------------------------------------------");
-    // console.log(props.context);
-    // console.log("-----------------------------------------------------");
-    // console.log(props.modulo);
-    // console.log("-----------------------------------------------------");
     return FeatureProgrammer.writeDecomposed({
       modulo: props.modulo,
       functor,
       result,
     });
-  };
+  }
+
   function isPrimitiveType(type: ts.Type): boolean {
     const primitiveFlags =
       ts.TypeFlags.String |
@@ -129,6 +101,21 @@ export namespace CompareEqualsProgrammer {
     }
 
     const result = expressions.reduce((acc, current) => and(acc, current));
+    if (withParenthesized) {
+      return ts.factory.createParenthesizedExpression(result);
+    }
+    return result;
+  }
+
+  function mergeWithBar(
+    expressions: ts.Expression[],
+    withParenthesized = false,
+  ) {
+    if (expressions.length === 0) {
+      return ts.factory.createTrue();
+    }
+
+    const result = expressions.reduce((acc, current) => or(acc, current));
     if (withParenthesized) {
       return ts.factory.createParenthesizedExpression(result);
     }
@@ -196,6 +183,22 @@ export namespace CompareEqualsProgrammer {
     context: ITypiaContext,
     type: ts.Type,
   ): ts.Expression {
+    if (type.isUnion()) {
+      const union = type as ts.UnionType;
+      let primitiveHandled = false;
+      const compares: ts.Expression[] = [];
+      for (const type of union.types) {
+        if (isPrimitiveType(type)) {
+          if (primitiveHandled) {
+            continue;
+          }
+          primitiveHandled = true;
+        }
+        compares.push(transform(a, b, context, type));
+      }
+      return or(eqeqeq(a, b).expression, mergeWithBar(compares, true));
+    }
+
     if (isPrimitiveType(type)) {
       return eqeqeq(a, b).expression;
     }
@@ -230,7 +233,14 @@ export namespace CompareEqualsProgrammer {
           ts.factory.createReturnStatement(
             transform(
               ids.item,
-              indexAccess(b, ids.index, true),
+              indexAccess(
+                ts.factory.createAsExpression(
+                  b,
+                  ts.factory.createKeywordTypeNode(ts.SyntaxKind.AnyKeyword),
+                ),
+                ids.index,
+                true,
+              ),
               context,
               elementType,
             ),
