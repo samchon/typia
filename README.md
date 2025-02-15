@@ -28,7 +28,7 @@ export namespace llm {
   // application schema from a class or interface type
   export function application<App, Model>(): ILlmApplication<Model>;
   // structured output
-  export function parameters<P, Moodel>(): ILlmSchema.IParameters<Model>; 
+  export function parameters<P, Model>(): ILlmSchema.IParameters<Model>; 
   export function schema<T, Model>(): ILlmSchema<Model>; // type schema
 }
 
