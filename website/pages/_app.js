@@ -21,7 +21,7 @@ export default function Nextra({ Component, pageProps }) {
         src="https://widget.gurubase.io/widget.latest.min.js"
         data-widget-id="r7Pp2CwVcqx5PZyScerl1hvfvS3ratklAU6KzwyXhO0"
         data-text="Ask AI"
-        data-margins='{"bottom": "1.5rem", "right": "1.5rem"}'
+        data-margins='{"bottom": "1rem", "right": "1rem"}'
         data-light-mode="true"
         id="guru-widget-id"
       />
