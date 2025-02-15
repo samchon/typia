@@ -143,6 +143,10 @@ function script(
 async function main(): Promise<void> {
   process.chdir(__dirname + "/..");
 
+  const featureFilter = process.argv
+    .find((a) => a.startsWith("--features"))
+    ?.split("=")[1];
+
   // NORMAL FEATURES
   const structures: TestStructure<any>[] = await load();
   const featureList: TestFeature[] = [
@@ -154,7 +158,10 @@ async function main(): Promise<void> {
       custom: true as const,
     })),
   ];
-  for (const feature of featureList) {
+  for await (const feature of featureList) {
+    if (featureFilter && feature.module !== featureFilter) {
+      continue;
+    }
     await generate(feature, structures, false);
     if (feature.creatable) await generate(feature, structures, true);
   }
