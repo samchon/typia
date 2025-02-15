@@ -83,15 +83,6 @@ export namespace CompareEqualsProgrammer {
     );
   }
 
-  // function eqeqeqReturn(a: ts.Identifier, b: ts.Identifier) {
-  //   return ts.factory.createIfStatement(
-  //     eqeqeq(a, b).expression,
-  //     ts.factory.createReturnStatement(
-  //       ts.factory.createToken(ts.SyntaxKind.TrueKeyword),
-  //     ),
-  //   );
-  // }
-
   function mergeWithAmp(
     expressions: ts.Expression[],
     withParenthesized = false,
@@ -296,6 +287,6 @@ export namespace CompareEqualsProgrammer {
       return or(eqeqeq(a, b).expression, mergeWithAmp(statements, true));
     }
 
-    throw new Error("Unsupported type");
+    return eqeqeq(a, b).expression;
   }
 }
