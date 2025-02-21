@@ -19,7 +19,6 @@
                 "type": "string"
               },
               "age": {
-                "description": "@default 20",
                 "type": "number"
               }
             },
@@ -49,7 +48,6 @@
                 "type": "string"
               },
               "age": {
-                "description": "@default 20",
                 "type": "number"
               }
             },
@@ -71,7 +69,6 @@
                     "type": "string"
                   },
                   "age": {
-                    "description": "@default 20",
                     "type": "number"
                   }
                 },
@@ -98,7 +95,6 @@
             "type": "string"
           },
           "age": {
-            "description": "@default 20",
             "type": "number"
           }
         },
@@ -126,7 +122,6 @@
                     "type": "string"
                   },
                   "age": {
-                    "description": "@default 20",
                     "type": "number"
                   }
                 },
@@ -150,7 +145,6 @@
                     "type": "string"
                   },
                   "age": {
-                    "description": "@default 20",
                     "type": "number"
                   }
                 },
@@ -174,7 +168,6 @@
                     "type": "string"
                   },
                   "age": {
-                    "description": "@default 20",
                     "type": "number"
                   }
                 },
@@ -206,7 +199,6 @@
                 "type": "string"
               },
               "age": {
-                "description": "@default 20",
                 "type": "number"
               }
             },
