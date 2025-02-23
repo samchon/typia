@@ -51,7 +51,7 @@
   },
   "peerDependencies": {
     "@samchon/openapi": ">=3.0.0 <4.0.0",
-    "typescript": ">=4.8.0 <5.8.0"
+    "typescript": ">=4.8.0 <5.10.0"
   },
   "devDependencies": {
     "@rollup/plugin-commonjs": "^26.0.1",
@@ -70,7 +70,7 @@
     "rollup": "^4.18.0",
     "suppress-warnings": "^1.0.2",
     "ts-node": "^10.9.2",
-    "typescript": "~5.7.3"
+    "typescript": "5.9.0-dev.20250223"
   },
   "stackblitz": {
     "startCommand": "npm install && npm run test"
