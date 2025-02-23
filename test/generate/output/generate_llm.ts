@@ -50,12 +50,12 @@ export const schema = ((
               grade: {
                 type: "number",
               },
-              employeed_at: {
+              employed_at: {
                 description: "@format date-time",
                 type: "string",
               },
             },
-            required: ["id", "name", "age", "grade", "employeed_at"],
+            required: ["id", "name", "age", "grade", "employed_at"],
           },
         },
       },
@@ -137,12 +137,12 @@ export const parameters = {
         grade: {
           type: "number",
         },
-        employeed_at: {
+        employed_at: {
           type: "string",
           format: "date-time",
         },
       },
-      required: ["id", "name", "age", "grade", "employeed_at"],
+      required: ["id", "name", "age", "grade", "employed_at"],
     },
   },
   required: ["company", "department", "employee"],
@@ -189,12 +189,12 @@ export const parameters = {
               grade: {
                 type: "number",
               },
-              employeed_at: {
+              employed_at: {
                 type: "string",
                 format: "date-time",
               },
             },
-            required: ["id", "name", "age", "grade", "employeed_at"],
+            required: ["id", "name", "age", "grade", "employed_at"],
           },
         },
       },
@@ -292,12 +292,12 @@ export const application = (() => {
                       grade: {
                         type: "number",
                       },
-                      employeed_at: {
+                      employed_at: {
                         type: "string",
                         format: "date-time",
                       },
                     },
-                    required: ["id", "name", "age", "grade", "employeed_at"],
+                    required: ["id", "name", "age", "grade", "employed_at"],
                   },
                 },
               },
@@ -424,12 +424,12 @@ export const application = (() => {
                       grade: {
                         type: "number",
                       },
-                      employeed_at: {
+                      employed_at: {
                         type: "string",
                         format: "date-time",
                       },
                     },
-                    required: ["id", "name", "age", "grade", "employeed_at"],
+                    required: ["id", "name", "age", "grade", "employed_at"],
                   },
                 },
               },
@@ -504,12 +504,12 @@ export const application = (() => {
                 grade: {
                   type: "number",
                 },
-                employeed_at: {
+                employed_at: {
                   type: "string",
                   format: "date-time",
                 },
               },
-              required: ["id", "name", "age", "grade", "employeed_at"],
+              required: ["id", "name", "age", "grade", "employed_at"],
             },
           },
           required: ["company", "department", "employee"],
@@ -556,12 +556,12 @@ export const application = (() => {
                       grade: {
                         type: "number",
                       },
-                      employeed_at: {
+                      employed_at: {
                         type: "string",
                         format: "date-time",
                       },
                     },
-                    required: ["id", "name", "age", "grade", "employeed_at"],
+                    required: ["id", "name", "age", "grade", "employed_at"],
                   },
                 },
               },
@@ -592,12 +592,12 @@ export const application = (() => {
             grade: {
               type: "number",
             },
-            employeed_at: {
+            employed_at: {
               type: "string",
               format: "date-time",
             },
           },
-          required: ["id", "name", "age", "grade", "employeed_at"],
+          required: ["id", "name", "age", "grade", "employed_at"],
         },
       },
       {
@@ -658,12 +658,12 @@ export const application = (() => {
                     grade: {
                       type: "number",
                     },
-                    employeed_at: {
+                    employed_at: {
                       type: "string",
                       format: "date-time",
                     },
                   },
-                  required: ["id", "name", "age", "grade", "employeed_at"],
+                  required: ["id", "name", "age", "grade", "employed_at"],
                 },
               ],
             },
@@ -712,12 +712,12 @@ export const application = (() => {
                       grade: {
                         type: "number",
                       },
-                      employeed_at: {
+                      employed_at: {
                         type: "string",
                         format: "date-time",
                       },
                     },
-                    required: ["id", "name", "age", "grade", "employeed_at"],
+                    required: ["id", "name", "age", "grade", "employed_at"],
                   },
                 },
               },
@@ -828,12 +828,12 @@ export const applicationOfValidate = {
                     grade: {
                       type: "number",
                     },
-                    employeed_at: {
+                    employed_at: {
                       type: "string",
                       format: "date-time",
                     },
                   },
-                  required: ["id", "name", "age", "grade", "employeed_at"],
+                  required: ["id", "name", "age", "grade", "employed_at"],
                 },
               },
             },
@@ -922,9 +922,9 @@ export const applicationOfValidate = {
           Number.isFinite(input.age) &&
           "number" === typeof input.grade &&
           Number.isFinite(input.grade) &&
-          "string" === typeof input.employeed_at &&
+          "string" === typeof input.employed_at &&
           __typia_transform__isFormatDateTime._isFormatDateTime(
-            input.employeed_at,
+            input.employed_at,
           );
         const _vo0 = (
           input: any,
@@ -1172,19 +1172,19 @@ export const applicationOfValidate = {
                 expected: "number",
                 value: input.grade,
               }),
-            ("string" === typeof input.employeed_at &&
+            ("string" === typeof input.employed_at &&
               (__typia_transform__isFormatDateTime._isFormatDateTime(
-                input.employeed_at,
+                input.employed_at,
               ) ||
                 _report(_exceptionable, {
-                  path: _path + ".employeed_at",
+                  path: _path + ".employed_at",
                   expected: 'string & Format<"date-time">',
-                  value: input.employeed_at,
+                  value: input.employed_at,
                 }))) ||
               _report(_exceptionable, {
-                path: _path + ".employeed_at",
+                path: _path + ".employed_at",
                 expected: '(string & Format<"date-time">)',
-                value: input.employeed_at,
+                value: input.employed_at,
               }),
           ].every((flag: boolean) => flag);
         const __is = (
@@ -1314,12 +1314,12 @@ export const applicationOfValidate = {
                     grade: {
                       type: "number",
                     },
-                    employeed_at: {
+                    employed_at: {
                       type: "string",
                       format: "date-time",
                     },
                   },
-                  required: ["id", "name", "age", "grade", "employeed_at"],
+                  required: ["id", "name", "age", "grade", "employed_at"],
                 },
               },
             },
@@ -1388,9 +1388,9 @@ export const applicationOfValidate = {
           Number.isFinite(input.age) &&
           "number" === typeof input.grade &&
           Number.isFinite(input.grade) &&
-          "string" === typeof input.employeed_at &&
+          "string" === typeof input.employed_at &&
           __typia_transform__isFormatDateTime._isFormatDateTime(
-            input.employeed_at,
+            input.employed_at,
           );
         const _vo0 = (
           input: any,
@@ -1655,19 +1655,19 @@ export const applicationOfValidate = {
                 expected: "number",
                 value: input.grade,
               }),
-            ("string" === typeof input.employeed_at &&
+            ("string" === typeof input.employed_at &&
               (__typia_transform__isFormatDateTime._isFormatDateTime(
-                input.employeed_at,
+                input.employed_at,
               ) ||
                 _report(_exceptionable, {
-                  path: _path + ".employeed_at",
+                  path: _path + ".employed_at",
                   expected: 'string & Format<"date-time">',
-                  value: input.employeed_at,
+                  value: input.employed_at,
                 }))) ||
               _report(_exceptionable, {
-                path: _path + ".employeed_at",
+                path: _path + ".employed_at",
                 expected: '(string & Format<"date-time">)',
-                value: input.employeed_at,
+                value: input.employed_at,
               }),
           ].every((flag: boolean) => flag);
         const __is = (
@@ -1768,12 +1768,12 @@ export const applicationOfValidate = {
               grade: {
                 type: "number",
               },
-              employeed_at: {
+              employed_at: {
                 type: "string",
                 format: "date-time",
               },
             },
-            required: ["id", "name", "age", "grade", "employeed_at"],
+            required: ["id", "name", "age", "grade", "employed_at"],
           },
         },
         required: ["company", "department", "employee"],
@@ -1820,12 +1820,12 @@ export const applicationOfValidate = {
                     grade: {
                       type: "number",
                     },
-                    employeed_at: {
+                    employed_at: {
                       type: "string",
                       format: "date-time",
                     },
                   },
-                  required: ["id", "name", "age", "grade", "employeed_at"],
+                  required: ["id", "name", "age", "grade", "employed_at"],
                 },
               },
             },
@@ -1856,12 +1856,12 @@ export const applicationOfValidate = {
           grade: {
             type: "number",
           },
-          employeed_at: {
+          employed_at: {
             type: "string",
             format: "date-time",
           },
         },
-        required: ["id", "name", "age", "grade", "employeed_at"],
+        required: ["id", "name", "age", "grade", "employed_at"],
       },
       validate: (() => {
         const _io0 = (input: any): boolean =>
@@ -1917,9 +1917,9 @@ export const applicationOfValidate = {
           Number.isFinite(input.age) &&
           "number" === typeof input.grade &&
           Number.isFinite(input.grade) &&
-          "string" === typeof input.employeed_at &&
+          "string" === typeof input.employed_at &&
           __typia_transform__isFormatDateTime._isFormatDateTime(
-            input.employeed_at,
+            input.employed_at,
           );
         const _vo0 = (
           input: any,
@@ -2200,19 +2200,19 @@ export const applicationOfValidate = {
                 expected: "number",
                 value: input.grade,
               }),
-            ("string" === typeof input.employeed_at &&
+            ("string" === typeof input.employed_at &&
               (__typia_transform__isFormatDateTime._isFormatDateTime(
-                input.employeed_at,
+                input.employed_at,
               ) ||
                 _report(_exceptionable, {
-                  path: _path + ".employeed_at",
+                  path: _path + ".employed_at",
                   expected: 'string & Format<"date-time">',
-                  value: input.employeed_at,
+                  value: input.employed_at,
                 }))) ||
               _report(_exceptionable, {
-                path: _path + ".employeed_at",
+                path: _path + ".employed_at",
                 expected: '(string & Format<"date-time">)',
-                value: input.employeed_at,
+                value: input.employed_at,
               }),
           ].every((flag: boolean) => flag);
         const __is = (
@@ -2319,12 +2319,12 @@ export const applicationOfValidate = {
                   grade: {
                     type: "number",
                   },
-                  employeed_at: {
+                  employed_at: {
                     type: "string",
                     format: "date-time",
                   },
                 },
-                required: ["id", "name", "age", "grade", "employeed_at"],
+                required: ["id", "name", "age", "grade", "employed_at"],
               },
             ],
           },
@@ -2373,12 +2373,12 @@ export const applicationOfValidate = {
                     grade: {
                       type: "number",
                     },
-                    employeed_at: {
+                    employed_at: {
                       type: "string",
                       format: "date-time",
                     },
                   },
-                  required: ["id", "name", "age", "grade", "employeed_at"],
+                  required: ["id", "name", "age", "grade", "employed_at"],
                 },
               },
             },
@@ -2445,9 +2445,9 @@ export const applicationOfValidate = {
           Number.isFinite(input.age) &&
           "number" === typeof input.grade &&
           Number.isFinite(input.grade) &&
-          "string" === typeof input.employeed_at &&
+          "string" === typeof input.employed_at &&
           __typia_transform__isFormatDateTime._isFormatDateTime(
-            input.employeed_at,
+            input.employed_at,
           );
         const _iu0 = (input: any): any =>
           (() => {
@@ -2698,19 +2698,19 @@ export const applicationOfValidate = {
                 expected: "number",
                 value: input.grade,
               }),
-            ("string" === typeof input.employeed_at &&
+            ("string" === typeof input.employed_at &&
               (__typia_transform__isFormatDateTime._isFormatDateTime(
-                input.employeed_at,
+                input.employed_at,
               ) ||
                 _report(_exceptionable, {
-                  path: _path + ".employeed_at",
+                  path: _path + ".employed_at",
                   expected: 'string & Format<"date-time">',
-                  value: input.employeed_at,
+                  value: input.employed_at,
                 }))) ||
               _report(_exceptionable, {
-                path: _path + ".employeed_at",
+                path: _path + ".employed_at",
                 expected: '(string & Format<"date-time">)',
-                value: input.employeed_at,
+                value: input.employed_at,
               }),
           ].every((flag: boolean) => flag);
         const _vu0 = (
@@ -2817,5 +2817,5 @@ export interface IEmployee {
   name: string;
   age: number;
   grade: number;
-  employeed_at: string & tags.Format<"date-time">;
+  employed_at: string & tags.Format<"date-time">;
 }

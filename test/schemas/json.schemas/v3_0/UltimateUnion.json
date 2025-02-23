@@ -66,12 +66,6 @@
       "OpenApi.IJsonSchema": {
         "oneOf": [
           {
-            "$ref": "#/components/schemas/OpenApi.IJsonSchema.IString"
-          },
-          {
-            "$ref": "#/components/schemas/OpenApi.IJsonSchema.INumber"
-          },
-          {
             "$ref": "#/components/schemas/OpenApi.IJsonSchema.IConstant"
           },
           {
@@ -79,6 +73,12 @@
           },
           {
             "$ref": "#/components/schemas/OpenApi.IJsonSchema.IInteger"
+          },
+          {
+            "$ref": "#/components/schemas/OpenApi.IJsonSchema.INumber"
+          },
+          {
+            "$ref": "#/components/schemas/OpenApi.IJsonSchema.IString"
           },
           {
             "$ref": "#/components/schemas/OpenApi.IJsonSchema.IArray"
@@ -103,158 +103,7 @@
           }
         ],
         "title": "Type schema info",
-        "description": "Type schema info.\n\n`OpenApi.IJsonSchema` is a type schema info of the OpenAPI.\n\n`OpenApi.IJsonSchema` basically follows the JSON schema definition of\nOpenAPI v3.1, but a little bit shrinked to remove ambiguous and duplicated\nexpressions of OpenAPI v3.1 for the convenience and clarity.\n\n- Decompose mixed type: {@link OpenApiV3_1.IJsonSchema.IMixed}\n- Resolve nullable property: {@link OpenApiV3_1.IJsonSchema.__ISignificant.nullable}\n- Array type utilizes only single {@link OpenAPI.IJsonSchema.IArray.items}\n- Tuple type utilizes only {@link OpenApi.IJsonSchema.ITuple.prefixItems}\n- Merge {@link OpenApiV3_1.IJsonSchema.IAllOf} to {@link OpenApi.IJsonSchema.IObject}\n- Merge {@link OpenApiV3_1.IJsonSchema.IAnyOf} to {@link OpenApi.IJsonSchema.IOneOf}\n- Merge {@link OpenApiV3_1.IJsonSchema.IRecursiveReference} to {@link OpenApi.IJsonSchema.IReference}"
-      },
-      "OpenApi.IJsonSchema.IString": {
-        "type": "object",
-        "properties": {
-          "default": {
-            "type": "string",
-            "title": "Default value",
-            "description": "Default value."
-          },
-          "format": {
-            "type": "string",
-            "title": "Format restriction",
-            "description": "Format restriction."
-          },
-          "pattern": {
-            "type": "string",
-            "title": "Pattern restriction",
-            "description": "Pattern restriction."
-          },
-          "contentMediaType": {
-            "type": "string",
-            "title": "Content media type restriction",
-            "description": "Content media type restriction."
-          },
-          "minLength": {
-            "type": "integer",
-            "title": "Minimum length restriction",
-            "description": "Minimum length restriction."
-          },
-          "maxLength": {
-            "type": "integer",
-            "title": "Maximum length restriction",
-            "description": "Maximum length restriction."
-          },
-          "type": {
-            "type": "string",
-            "enum": [
-              "string"
-            ],
-            "title": "Discriminator value of the type",
-            "description": "Discriminator value of the type."
-          },
-          "title": {
-            "type": "string",
-            "title": "Title of the schema",
-            "description": "Title of the schema."
-          },
-          "description": {
-            "type": "string",
-            "title": "Detailed description of the schema",
-            "description": "Detailed description of the schema."
-          },
-          "deprecated": {
-            "type": "boolean",
-            "title": "Whether the type is deprecated or not",
-            "description": "Whether the type is deprecated or not."
-          },
-          "example": {
-            "title": "Example value",
-            "description": "Example value."
-          },
-          "examples": {
-            "$ref": "#/components/schemas/Recordstringany",
-            "title": "List of example values as key-value pairs",
-            "description": "List of example values as key-value pairs."
-          }
-        },
-        "required": [
-          "type"
-        ],
-        "description": "String type info."
-      },
-      "Recordstringany": {
-        "type": "object",
-        "properties": {},
-        "required": [],
-        "description": "Construct a type with a set of properties K of type T",
-        "additionalProperties": {}
-      },
-      "OpenApi.IJsonSchema.INumber": {
-        "type": "object",
-        "properties": {
-          "default": {
-            "type": "number",
-            "title": "Default value",
-            "description": "Default value."
-          },
-          "minimum": {
-            "type": "number",
-            "title": "Minimum value restriction",
-            "description": "Minimum value restriction."
-          },
-          "maximum": {
-            "type": "number",
-            "title": "Maximum value restriction",
-            "description": "Maximum value restriction."
-          },
-          "exclusiveMinimum": {
-            "type": "boolean",
-            "title": "Exclusive minimum value restriction",
-            "description": "Exclusive minimum value restriction.\n\nFor reference, even though your Swagger (or OpenAPI) document has\ndefined the `exclusiveMinimum` value as `number`, {@link OpenAiComposer}\nforcibly converts it to `boolean` type, and assign the numeric value to\nthe {@link minimum} property."
-          },
-          "exclusiveMaximum": {
-            "type": "boolean",
-            "title": "Exclusive maximum value restriction",
-            "description": "Exclusive maximum value restriction.\n\nFor reference, even though your Swagger (or OpenAPI) document has\ndefined the `exclusiveMaximum` value as `number`, {@link OpenAiComposer}\nforcibly converts it to `boolean` type, and assign the numeric value to\nthe {@link maximum} property."
-          },
-          "multipleOf": {
-            "type": "number",
-            "exclusiveMinimum": true,
-            "minimum": 0,
-            "title": "Multiple of value restriction",
-            "description": "Multiple of value restriction."
-          },
-          "type": {
-            "type": "string",
-            "enum": [
-              "number"
-            ],
-            "title": "Discriminator value of the type",
-            "description": "Discriminator value of the type."
-          },
-          "title": {
-            "type": "string",
-            "title": "Title of the schema",
-            "description": "Title of the schema."
-          },
-          "description": {
-            "type": "string",
-            "title": "Detailed description of the schema",
-            "description": "Detailed description of the schema."
-          },
-          "deprecated": {
-            "type": "boolean",
-            "title": "Whether the type is deprecated or not",
-            "description": "Whether the type is deprecated or not."
-          },
-          "example": {
-            "title": "Example value",
-            "description": "Example value."
-          },
-          "examples": {
-            "$ref": "#/components/schemas/Recordstringany",
-            "title": "List of example values as key-value pairs",
-            "description": "List of example values as key-value pairs."
-          }
-        },
-        "required": [
-          "type"
-        ],
-        "description": "Number (double) type info."
+        "description": "Type schema info.\n\n`OpenApi.IJsonSchema` is a type schema info of the OpenAPI.\n\n`OpenApi.IJsonSchema` basically follows the JSON schema definition of\nOpenAPI v3.1, but a little bit shrunk to remove ambiguous and duplicated\nexpressions of OpenAPI v3.1 for the convenience and clarity.\n\n- Decompose mixed type: {@link OpenApiV3_1.IJsonSchema.IMixed}\n- Resolve nullable property: {@link OpenApiV3_1.IJsonSchema.__ISignificant.nullable}\n- Array type utilizes only single {@link OpenAPI.IJsonSchema.IArray.items}\n- Tuple type utilizes only {@link OpenApi.IJsonSchema.ITuple.prefixItems}\n- Merge {@link OpenApiV3_1.IJsonSchema.IAllOf} to {@link OpenApi.IJsonSchema.IObject}\n- Merge {@link OpenApiV3_1.IJsonSchema.IAnyOf} to {@link OpenApi.IJsonSchema.IOneOf}\n- Merge {@link OpenApiV3_1.IJsonSchema.IRecursiveReference} to {@link OpenApi.IJsonSchema.IReference}"
       },
       "OpenApi.IJsonSchema.IConstant": {
         "type": "object",
@@ -304,13 +153,20 @@
         ],
         "description": "Constant value type."
       },
+      "Recordstringany": {
+        "type": "object",
+        "properties": {},
+        "required": [],
+        "description": "Construct a type with a set of properties K of type T",
+        "additionalProperties": {}
+      },
       "OpenApi.IJsonSchema.IBoolean": {
         "type": "object",
         "properties": {
           "default": {
             "type": "boolean",
-            "title": "The default value",
-            "description": "The default value."
+            "title": "The default value of the boolean type",
+            "description": "The default value of the boolean type."
           },
           "type": {
             "type": "string",
@@ -355,8 +211,8 @@
         "properties": {
           "default": {
             "type": "integer",
-            "title": "Default value",
-            "description": "Default value."
+            "title": "Default value of the integer type",
+            "description": "Default value of the integer type."
           },
           "minimum": {
             "type": "integer",
@@ -423,6 +279,150 @@
         ],
         "description": "Integer type info."
       },
+      "OpenApi.IJsonSchema.INumber": {
+        "type": "object",
+        "properties": {
+          "default": {
+            "type": "number",
+            "title": "Default value of the number type",
+            "description": "Default value of the number type."
+          },
+          "minimum": {
+            "type": "number",
+            "title": "Minimum value restriction",
+            "description": "Minimum value restriction."
+          },
+          "maximum": {
+            "type": "number",
+            "title": "Maximum value restriction",
+            "description": "Maximum value restriction."
+          },
+          "exclusiveMinimum": {
+            "type": "boolean",
+            "title": "Exclusive minimum value restriction",
+            "description": "Exclusive minimum value restriction.\n\nFor reference, even though your Swagger (or OpenAPI) document has\ndefined the `exclusiveMinimum` value as `number`, {@link OpenAiComposer}\nforcibly converts it to `boolean` type, and assign the numeric value to\nthe {@link minimum} property."
+          },
+          "exclusiveMaximum": {
+            "type": "boolean",
+            "title": "Exclusive maximum value restriction",
+            "description": "Exclusive maximum value restriction.\n\nFor reference, even though your Swagger (or OpenAPI) document has\ndefined the `exclusiveMaximum` value as `number`, {@link OpenAiComposer}\nforcibly converts it to `boolean` type, and assign the numeric value to\nthe {@link maximum} property."
+          },
+          "multipleOf": {
+            "type": "number",
+            "exclusiveMinimum": true,
+            "minimum": 0,
+            "title": "Multiple of value restriction",
+            "description": "Multiple of value restriction."
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "number"
+            ],
+            "title": "Discriminator value of the type",
+            "description": "Discriminator value of the type."
+          },
+          "title": {
+            "type": "string",
+            "title": "Title of the schema",
+            "description": "Title of the schema."
+          },
+          "description": {
+            "type": "string",
+            "title": "Detailed description of the schema",
+            "description": "Detailed description of the schema."
+          },
+          "deprecated": {
+            "type": "boolean",
+            "title": "Whether the type is deprecated or not",
+            "description": "Whether the type is deprecated or not."
+          },
+          "example": {
+            "title": "Example value",
+            "description": "Example value."
+          },
+          "examples": {
+            "$ref": "#/components/schemas/Recordstringany",
+            "title": "List of example values as key-value pairs",
+            "description": "List of example values as key-value pairs."
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "description": "Number (double) type info."
+      },
+      "OpenApi.IJsonSchema.IString": {
+        "type": "object",
+        "properties": {
+          "default": {
+            "type": "string",
+            "title": "Default value of the string type",
+            "description": "Default value of the string type."
+          },
+          "format": {
+            "type": "string",
+            "title": "Format restriction",
+            "description": "Format restriction."
+          },
+          "pattern": {
+            "type": "string",
+            "title": "Pattern restriction",
+            "description": "Pattern restriction."
+          },
+          "contentMediaType": {
+            "type": "string",
+            "title": "Content media type restriction",
+            "description": "Content media type restriction."
+          },
+          "minLength": {
+            "type": "integer",
+            "title": "Minimum length restriction",
+            "description": "Minimum length restriction."
+          },
+          "maxLength": {
+            "type": "integer",
+            "title": "Maximum length restriction",
+            "description": "Maximum length restriction."
+          },
+          "type": {
+            "type": "string",
+            "enum": [
+              "string"
+            ],
+            "title": "Discriminator value of the type",
+            "description": "Discriminator value of the type."
+          },
+          "title": {
+            "type": "string",
+            "title": "Title of the schema",
+            "description": "Title of the schema."
+          },
+          "description": {
+            "type": "string",
+            "title": "Detailed description of the schema",
+            "description": "Detailed description of the schema."
+          },
+          "deprecated": {
+            "type": "boolean",
+            "title": "Whether the type is deprecated or not",
+            "description": "Whether the type is deprecated or not."
+          },
+          "example": {
+            "title": "Example value",
+            "description": "Example value."
+          },
+          "examples": {
+            "$ref": "#/components/schemas/Recordstringany",
+            "title": "List of example values as key-value pairs",
+            "description": "List of example values as key-value pairs."
+          }
+        },
+        "required": [
+          "type"
+        ],
+        "description": "String type info."
+      },
       "OpenApi.IJsonSchema.IArray": {
         "type": "object",
         "properties": {
@@ -439,7 +439,7 @@
           "minItems": {
             "type": "integer",
             "title": "Minimum items restriction",
-            "description": "Minimum items restriction.\n\nRestriction of minumum number of items in the array."
+            "description": "Minimum items restriction.\n\nRestriction of minimum number of items in the array."
           },
           "maxItems": {
             "type": "integer",
@@ -488,6 +488,14 @@
       "OpenApi.IJsonSchema.ITuple": {
         "type": "object",
         "properties": {
+          "type": {
+            "type": "string",
+            "enum": [
+              "array"
+            ],
+            "title": "Discriminator value of the type",
+            "description": "Discriminator value of the type.\n\nNote that, the tuple type cannot be distinguished with\n{@link IArray} type just by this `discriminator` property.\n\nTo check whether the type is tuple or array, you have to check\nthe existence of {@link IArray.items} or {@link ITuple.prefixItems}\nproperties."
+          },
           "prefixItems": {
             "type": "array",
             "items": {
@@ -502,19 +510,19 @@
                 "type": "boolean"
               },
               {
-                "$ref": "#/components/schemas/OpenApi.IJsonSchema.IString"
-              },
-              {
-                "$ref": "#/components/schemas/OpenApi.IJsonSchema.INumber"
-              },
-              {
                 "$ref": "#/components/schemas/OpenApi.IJsonSchema.IConstant"
               },
               {
                 "$ref": "#/components/schemas/OpenApi.IJsonSchema.IBoolean"
               },
               {
+                "$ref": "#/components/schemas/OpenApi.IJsonSchema.INumber"
+              },
+              {
                 "$ref": "#/components/schemas/OpenApi.IJsonSchema.IInteger"
+              },
+              {
+                "$ref": "#/components/schemas/OpenApi.IJsonSchema.IString"
               },
               {
                 "$ref": "#/components/schemas/OpenApi.IJsonSchema.IArray"
@@ -532,10 +540,10 @@
                 "$ref": "#/components/schemas/OpenApi.IJsonSchema.IOneOf"
               },
               {
-                "$ref": "#/components/schemas/OpenApi.IJsonSchema.INull"
+                "$ref": "#/components/schemas/OpenApi.IJsonSchema.IUnknown"
               },
               {
-                "$ref": "#/components/schemas/OpenApi.IJsonSchema.IUnknown"
+                "$ref": "#/components/schemas/OpenApi.IJsonSchema.INull"
               }
             ],
             "title": "Additional items",
@@ -549,20 +557,12 @@
           "minItems": {
             "type": "integer",
             "title": "Minimum items restriction",
-            "description": "Minimum items restriction.\n\nRestriction of minumum number of items in the tuple."
+            "description": "Minimum items restriction.\n\nRestriction of minimum number of items in the tuple."
           },
           "maxItems": {
             "type": "integer",
             "title": "Maximum items restriction",
             "description": "Maximum items restriction.\n\nRestriction of maximum number of items in the tuple."
-          },
-          "type": {
-            "type": "string",
-            "enum": [
-              "array"
-            ],
-            "title": "Discriminator value of the type",
-            "description": "Discriminator value of the type."
           },
           "title": {
             "type": "string",
@@ -590,8 +590,8 @@
           }
         },
         "required": [
-          "prefixItems",
-          "type"
+          "type",
+          "prefixItems"
         ],
         "description": "Tuple type info."
       },
@@ -609,19 +609,19 @@
                 "type": "boolean"
               },
               {
-                "$ref": "#/components/schemas/OpenApi.IJsonSchema.IString"
-              },
-              {
-                "$ref": "#/components/schemas/OpenApi.IJsonSchema.INumber"
-              },
-              {
                 "$ref": "#/components/schemas/OpenApi.IJsonSchema.IConstant"
               },
               {
                 "$ref": "#/components/schemas/OpenApi.IJsonSchema.IBoolean"
               },
               {
+                "$ref": "#/components/schemas/OpenApi.IJsonSchema.INumber"
+              },
+              {
                 "$ref": "#/components/schemas/OpenApi.IJsonSchema.IInteger"
+              },
+              {
+                "$ref": "#/components/schemas/OpenApi.IJsonSchema.IString"
               },
               {
                 "$ref": "#/components/schemas/OpenApi.IJsonSchema.IArray"
@@ -639,10 +639,10 @@
                 "$ref": "#/components/schemas/OpenApi.IJsonSchema.IOneOf"
               },
               {
-                "$ref": "#/components/schemas/OpenApi.IJsonSchema.INull"
+                "$ref": "#/components/schemas/OpenApi.IJsonSchema.IUnknown"
               },
               {
-                "$ref": "#/components/schemas/OpenApi.IJsonSchema.IUnknown"
+                "$ref": "#/components/schemas/OpenApi.IJsonSchema.INull"
               }
             ],
             "title": "Additional properties' info",
@@ -740,19 +740,19 @@
             "items": {
               "oneOf": [
                 {
-                  "$ref": "#/components/schemas/OpenApi.IJsonSchema.IString"
-                },
-                {
-                  "$ref": "#/components/schemas/OpenApi.IJsonSchema.INumber"
-                },
-                {
                   "$ref": "#/components/schemas/OpenApi.IJsonSchema.IConstant"
                 },
                 {
                   "$ref": "#/components/schemas/OpenApi.IJsonSchema.IBoolean"
                 },
                 {
+                  "$ref": "#/components/schemas/OpenApi.IJsonSchema.INumber"
+                },
+                {
                   "$ref": "#/components/schemas/OpenApi.IJsonSchema.IInteger"
+                },
+                {
+                  "$ref": "#/components/schemas/OpenApi.IJsonSchema.IString"
                 },
                 {
                   "$ref": "#/components/schemas/OpenApi.IJsonSchema.IArray"
@@ -767,10 +767,10 @@
                   "$ref": "#/components/schemas/OpenApi.IJsonSchema.IReferencestring"
                 },
                 {
-                  "$ref": "#/components/schemas/OpenApi.IJsonSchema.INull"
+                  "$ref": "#/components/schemas/OpenApi.IJsonSchema.IUnknown"
                 },
                 {
-                  "$ref": "#/components/schemas/OpenApi.IJsonSchema.IUnknown"
+                  "$ref": "#/components/schemas/OpenApi.IJsonSchema.INull"
                 }
               ]
             },
@@ -812,13 +812,48 @@
         ],
         "description": "Union type.\n\nIOneOf` represents an union type of the TypeScript (`A | B | C`).\n\nFor reference, even though your Swagger (or OpenAPI) document has\ndefined `anyOf` instead of the `oneOf`, {@link OpenApi} forcibly\nconverts it to `oneOf` type."
       },
+      "OpenApi.IJsonSchema.IUnknown": {
+        "type": "object",
+        "properties": {
+          "default": {
+            "title": "Default value of the `any` type",
+            "description": "Default value of the `any` type."
+          },
+          "title": {
+            "type": "string",
+            "title": "Title of the schema",
+            "description": "Title of the schema."
+          },
+          "description": {
+            "type": "string",
+            "title": "Detailed description of the schema",
+            "description": "Detailed description of the schema."
+          },
+          "deprecated": {
+            "type": "boolean",
+            "title": "Whether the type is deprecated or not",
+            "description": "Whether the type is deprecated or not."
+          },
+          "example": {
+            "title": "Example value",
+            "description": "Example value."
+          },
+          "examples": {
+            "$ref": "#/components/schemas/Recordstringany",
+            "title": "List of example values as key-value pairs",
+            "description": "List of example values as key-value pairs."
+          }
+        },
+        "required": [],
+        "description": "Unknown, the `any` type."
+      },
       "OpenApi.IJsonSchema.INull": {
         "type": "object",
         "properties": {
           "default": {
             "type": "null",
-            "title": "Default value",
-            "description": "Default value."
+            "title": "Default value of the `null` type",
+            "description": "Default value of the `null` type."
           },
           "type": {
             "type": "string",
@@ -857,37 +892,6 @@
           "type"
         ],
         "description": "Null type."
-      },
-      "OpenApi.IJsonSchema.IUnknown": {
-        "type": "object",
-        "properties": {
-          "title": {
-            "type": "string",
-            "title": "Title of the schema",
-            "description": "Title of the schema."
-          },
-          "description": {
-            "type": "string",
-            "title": "Detailed description of the schema",
-            "description": "Detailed description of the schema."
-          },
-          "deprecated": {
-            "type": "boolean",
-            "title": "Whether the type is deprecated or not",
-            "description": "Whether the type is deprecated or not."
-          },
-          "example": {
-            "title": "Example value",
-            "description": "Example value."
-          },
-          "examples": {
-            "$ref": "#/components/schemas/Recordstringany",
-            "title": "List of example values as key-value pairs",
-            "description": "List of example values as key-value pairs."
-          }
-        },
-        "required": [],
-        "description": "Unknown, the `any` type."
       },
       "OpenApi.IJsonSchema.IOneOf.IDiscriminator": {
         "type": "object",

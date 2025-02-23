@@ -5,7 +5,7 @@
   "private": true,
   "scripts": {
     "build": "rimraf .next && rimraf out && npm run build:typedoc && next build && node build/sitemap",
-    "build:typedoc": "typedoc --plugin typedoc-github-theme --theme typedoc-github-theme",
+    "build:typedoc": "node build/typedoc",
     "deploy": "node build/deploy",
     "dev": "next dev",
     "prepare": "node build/raw && rspack && npm run build:typedoc"
@@ -54,8 +54,8 @@
     "rimraf": "^5.0.0",
     "ts-loader": "^9.5.1",
     "ts-node": "^10.9.1",
-    "typedoc": "^0.27.6",
-    "typedoc-github-theme": "^0.2.0",
+    "typedoc": "^0.27.7",
+    "typedoc-github-theme": "^0.2.1",
     "write-file-webpack-plugin": "^4.5.1"
   }
 }

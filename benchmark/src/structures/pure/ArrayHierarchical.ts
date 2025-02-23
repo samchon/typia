@@ -22,7 +22,7 @@ export namespace ArrayHierarchical {
     name: string;
     age: number;
     grade: number;
-    employeed_at: ITimestamp;
+    employed_at: ITimestamp;
   }
   export interface ITimestamp {
     time: number;
@@ -51,7 +51,7 @@ export namespace ArrayHierarchical {
           name: TestRandomGenerator.string(),
           age: TestRandomGenerator.integer(),
           grade: TestRandomGenerator.integer(),
-          employeed_at: {
+          employed_at: {
             time: TestRandomGenerator.integer(),
             zone: TestRandomGenerator.integer(),
           },
@@ -92,7 +92,7 @@ export namespace ArrayHierarchical {
         "$input[0].departments[0].employees[0].name",
         "$input[0].departments[0].employees[0].age",
         "$input[0].departments[0].employees[0].grade",
-        "$input[0].departments[0].employees[0].employeed_at",
+        "$input[0].departments[0].employees[0].employed_at",
       ];
     },
   ];

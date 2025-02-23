@@ -98,7 +98,7 @@
           "grade": {
             "type": "number"
           },
-          "employeed_at": {
+          "employed_at": {
             "$ref": "#/components/schemas/ArrayHierarchical.ITimestamp"
           }
         },
@@ -107,7 +107,7 @@
           "name",
           "age",
           "grade",
-          "employeed_at"
+          "employed_at"
         ]
       }
     }

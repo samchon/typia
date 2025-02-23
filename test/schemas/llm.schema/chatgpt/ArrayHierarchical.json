@@ -73,7 +73,7 @@
                   "grade": {
                     "type": "number"
                   },
-                  "employeed_at": {
+                  "employed_at": {
                     "type": "object",
                     "properties": {
                       "time": {
@@ -94,7 +94,7 @@
                   "name",
                   "age",
                   "grade",
-                  "employeed_at"
+                  "employed_at"
                 ]
               }
             }

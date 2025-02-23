@@ -58,5 +58,5 @@ export interface IEmployee {
   name: string;
   age: number;
   grade: number;
-  employeed_at: string & tags.Format<"date-time">;
+  employed_at: string & tags.Format<"date-time">;
 }

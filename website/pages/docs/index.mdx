@@ -32,12 +32,12 @@ import Stack from '@mui/material/Stack';
   ],
   [
     "Guide Documents",
-    "https://img.shields.io/badge/guide-documents-forestgreen",
+    "https://img.shields.io/badge/Guide-Documents-forestgreen",
     "https://typia.io/docs/",
   ],
   [
     "Gurubase",
-    "https://img.shields.io/badge/Gurubase-Ask%20Typia%20Guru-006BFF",
+    "https://img.shields.io/badge/Gurubase-Document%20Chatbot-006BFF",
     "https://gurubase.io/g/typia",
   ],
   [
@@ -71,7 +71,7 @@ export namespace llm {
   // application schema from a class or interface type
   export function application<App, Model>(): ILlmApplication<Model>;
   // structured output
-  export function parameters<P, Moodel>(): ILlmSchema.IParameters<Model>; 
+  export function parameters<P, Model>(): ILlmSchema.IParameters<Model>; 
   export function schema<T, Model>(): ILlmSchema<Model>; // type schema
 }
 
@@ -111,6 +111,15 @@ export function random<T>(g?: Partial<IRandomGenerator>): T;
 
 
 ## Transformation
+<br/>
+<iframe src="https://www.youtube.com/embed/WM6LGy2UU6s?si=lZrqbILxHI22QwEE" 
+        title="Typia Tutorial Video" 
+        width="100%" 
+        height="500"
+        frameborder="0" 
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" 
+        allowfullscreen></iframe>
+
 If you call `typia` function, it would be compiled like below.
 
 This is the key concept of `typia`, transforming TypeScript type to a runtime function. The `typia.is<T>()` function is transformed to a dedicated type checker by analyzing the target type `T` in the compilation level.
@@ -146,4 +155,4 @@ Also, `typia` is re-distributing half of donations to core contributors of `typi
   - [`nonara/ts-patch`](https://github.com/nonara/ts-patch)
   - [`ryoppippi/unplugin-typia`](https://github.com/ryoppippi/unplugin-typia)
 
-[![Sponsers](https://opencollective.com/typia/badge.svg?avatarHeight=75&width=600)](https://opencollective.com/typia)
+[![Sponsors](https://opencollective.com/typia/badge.svg?avatarHeight=75&width=600)](https://opencollective.com/typia)

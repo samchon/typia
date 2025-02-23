@@ -1,6 +1,6 @@
 {
   "name": "typia",
-  "version": "7.7.0-dev.20250130",
+  "version": "8.0.0-dev.20250222",
   "description": "Superfast runtime validators with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -23,7 +23,8 @@
     "dev:errors": "tsc --project tsconfig.errors.json --watch",
     "eslint": "eslint",
     "eslint:fix": "eslint --fix",
-    "prettier": "prettier src --write",
+    "prettier": "prettier src --check",
+    "prettier:fix": "prettier src --write",
     "------------------------------------------------": "",
     "package:latest": "ts-node deploy --tag latest",
     "package:next": "ts-node deploy --tag next",
@@ -41,7 +42,7 @@
   },
   "homepage": "https://typia.io",
   "dependencies": {
-    "@samchon/openapi": "^2.4.0",
+    "@samchon/openapi": "^3.0.0-dev.20250222",
     "commander": "^10.0.0",
     "comment-json": "^4.2.3",
     "inquirer": "^8.2.5",
@@ -49,7 +50,7 @@
     "randexp": "^0.5.3"
   },
   "peerDependencies": {
-    "@samchon/openapi": ">=2.4.0 <3.0.0",
+    "@samchon/openapi": ">=3.0.0 <4.0.0",
     "typescript": ">=4.8.0 <5.9.0"
   },
   "devDependencies": {

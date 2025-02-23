@@ -168,7 +168,7 @@
               "sets": [],
               "maps": []
             },
-            "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON scheam.",
+            "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON schema.",
             "jsDocTags": [
               {
                 "name": "deprecated"

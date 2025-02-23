@@ -2,6 +2,6 @@ export default {
   application: "application() functions",
   parameters: "parameters() function",
   schema: "schema() function",
-  chat: "A.I. Chatbot",
+  chat: "AI Chatbot Development",
   strategy: "Documentation Strategy",
 };

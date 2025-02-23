@@ -21,13 +21,13 @@
                     "value": {
                       "oneOf": [
                         {
+                          "type": "number",
+                          "minimum": 3
+                        },
+                        {
                           "type": "string",
                           "minLength": 3,
                           "maxLength": 7
-                        },
-                        {
-                          "type": "number",
-                          "minimum": 3
                         }
                       ]
                     }
@@ -66,13 +66,13 @@
                     "value": {
                       "oneOf": [
                         {
+                          "type": "number",
+                          "minimum": 3
+                        },
+                        {
                           "type": "string",
                           "minLength": 3,
                           "maxLength": 7
-                        },
-                        {
-                          "type": "number",
-                          "minimum": 3
                         }
                       ]
                     }
@@ -103,13 +103,13 @@
                         "value": {
                           "oneOf": [
                             {
+                              "type": "number",
+                              "minimum": 3
+                            },
+                            {
                               "type": "string",
                               "minLength": 3,
                               "maxLength": 7
-                            },
-                            {
-                              "type": "number",
-                              "minimum": 3
                             }
                           ]
                         }
@@ -145,13 +145,13 @@
                 "value": {
                   "oneOf": [
                     {
+                      "type": "number",
+                      "minimum": 3
+                    },
+                    {
                       "type": "string",
                       "minLength": 3,
                       "maxLength": 7
-                    },
-                    {
-                      "type": "number",
-                      "minimum": 3
                     }
                   ]
                 }
@@ -188,13 +188,13 @@
                         "value": {
                           "oneOf": [
                             {
+                              "type": "number",
+                              "minimum": 3
+                            },
+                            {
                               "type": "string",
                               "minLength": 3,
                               "maxLength": 7
-                            },
-                            {
-                              "type": "number",
-                              "minimum": 3
                             }
                           ]
                         }
@@ -227,13 +227,13 @@
                         "value": {
                           "oneOf": [
                             {
+                              "type": "number",
+                              "minimum": 3
+                            },
+                            {
                               "type": "string",
                               "minLength": 3,
                               "maxLength": 7
-                            },
-                            {
-                              "type": "number",
-                              "minimum": 3
                             }
                           ]
                         }
@@ -266,13 +266,13 @@
                         "value": {
                           "oneOf": [
                             {
+                              "type": "number",
+                              "minimum": 3
+                            },
+                            {
                               "type": "string",
                               "minLength": 3,
                               "maxLength": 7
-                            },
-                            {
-                              "type": "number",
-                              "minimum": 3
                             }
                           ]
                         }
@@ -313,13 +313,13 @@
                     "value": {
                       "oneOf": [
                         {
+                          "type": "number",
+                          "minimum": 3
+                        },
+                        {
                           "type": "string",
                           "minLength": 3,
                           "maxLength": 7
-                        },
-                        {
-                          "type": "number",
-                          "minimum": 3
                         }
                       ]
                     }

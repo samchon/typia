@@ -75,7 +75,7 @@ export namespace ImportTransformer {
 }
 
 const get_directory_path = (file: string): string => {
-  const splitted: string[] = path.resolve(file).split(path.sep);
-  splitted.pop();
-  return path.resolve(splitted.join(path.sep));
+  const split: string[] = path.resolve(file).split(path.sep);
+  split.pop();
+  return path.resolve(split.join(path.sep));
 };

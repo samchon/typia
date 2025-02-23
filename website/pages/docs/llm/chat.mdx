@@ -1,5 +1,5 @@
 ---
-title: Guide Documents > Large Language Model > A.I. Chatbot
+title: Guide Documents > Large Language Model > AI Chatbot Development
 ---
 import { Callout, Tabs } from 'nextra/components'
 
@@ -23,7 +23,7 @@ As you can see, in the BBS A.I. chatbot application, the user can do everything 
 
 Just by delivering the TypeScript class type using [`typia.llm.applicationOfValidate<App, Model>()`](./application) function, Super A.I. chatbot performing the LLM (Large Language Model) function calling is automatically composed. The Super A.I. chatbot will select proper functions defined in the TypeScript class type by analyzing conversation texts with the user. And then Super A.I. chatbot requests the user to write arguments for the selected functions by conversation text, and actually calls the function with the arguments. This is the key concept of the Super A.I. chatbot of `typia` and `nestia` A.I. chatbot.
 
-In other words, every TypeScript classes can be conversed to the A.I. chatbot. In the new A.I. era, you don't need to develop GUI (Graphical User Interface) application more. Just prepare TypeScript class with enough documentations, and let the A.I. chatbot to do the rest. The A.I. chatbot can replace your new GUI application, and it can be more efficient and user-friendly than the traditional GUI applications.
+In other words, every TypeScript classes can be conversed to the A.I. chatbot. In the new A.I. era, you no more need to develop GUI (Graphical User Interface) application like before. Just prepare TypeScript class with enough documentations, and let the A.I. chatbot to do the rest. Even though the A.I. chatbot can't conquer every frontend developments, it can replace many things, and more efficient and user-friendly than the traditional GUI applications.
 
 
 
@@ -36,7 +36,7 @@ npm create vite@latest bbs -- --template react-ts
 cd bbs
 
 npm install @nestia/agent @nestia/chat @samchon/openapi openai
-npx typia setup
+npx typia setup --project tsconfig.json
 npm install -D @ryoppippi/unplugin-typia
 ```
   </Tabs.Tab>
@@ -46,7 +46,7 @@ pnpm create vite@latest bbs -- --template react-ts
 cd bbs
 
 pnpm install @nestia/agent @nestia/chat @samchon/openapi openai
-pnpm typia setup
+pnpm typia setup --project tsconfig.json
 pnpm install -D @ryoppippi/unplugin-typia
 ```
   </Tabs.Tab>
@@ -56,13 +56,13 @@ yarn create vite@latest bbs --template react-ts
 cd bbs
 
 yarn add @nestia/agent @nestia/chat @samchon/openapi openai
-yarn typia setup
+yarn typia setup --project tsconfig.json
 yarn add -D @ryoppippi/unplugin-typia
 ```
   </Tabs.Tab>
 </Tabs>
 
-I'll decribe how to setup the A.I. chatbot application within framework of the `vite`.
+I'll describe how to setup the A.I. chatbot application within framework of the `vite`.
 
 At first, create a `vite` + `react` + `typescript` project by executing the `npm create vite@latest bbs -- --template react-ts` command. Then, move to the created project directory `bbs`. And then, install `@nestia/chat` and its dependency packages. After that, run the `npx typia setup` command and `npm i -D @ryoppippi/unplugin-typia` to setup the `typia` library with the transformer configuration.
 
@@ -153,6 +153,17 @@ import { IBbsArticle } from "./IBbsArticle";
 
 export class BbsArticleService {
   private readonly articles: IBbsArticle[] = [];
+
+  /**
+   * Get all articles.
+   *
+   * List up every articles archived in the BBS DB.
+   *
+   * @returns List of every articles
+   */
+  public index(): IBbsArticle[] {
+    return this.articles;
+  }
 
   /**
    * Create a new article.
@@ -322,7 +333,7 @@ Until now, we've leared how to build an A.I. chatbot with the TypeScript class t
 
 Just deliver the Swagger document to the `@nestia/agent` and `@nestia/chat`, then you also can start conversation with the Super A.I. chatbot. The A.I. chatbot will automatically analyze the Swagger document and convert it to the LLM function calling schemas, so that the A.I. chatbot will select the proper functions to call by the conversation contexts with the user.
 
-If you want to learn how to build the A.I. chatbot with the Swagger document, read below document. The most important thing is that, every backend servers providing Swagger documents also can be conversed to the A.I. chatbot too. Therefore, in the new A.I. era, you don't need to develop GUI (Graphical User Interface) application more. Just develop TypeScript class or backend server, and let the A.I. chatbot to do the rest. The A.I. chatbot can replace the GUI application development, and it can be more efficient and user-friendly than the traditional GUI applications.
+If you want to learn how to build the A.I. chatbot with the Swagger document, read below document. The most important thing is that, every backend servers providing Swagger documents also can be conversed to the A.I. chatbot too. Therefore, in the new A.I. era, you no more need to develop GUI (Graphical User Interface) application like before. Just develop TypeScript class or backend server, and let the A.I. chatbot to do the rest. Even though the A.I. chatbot can't conquer every frontend developments, it can replace many things, and more efficient and user-friendly than the traditional GUI applications.
 
   - [**Nestia** > **Guide Documents** > **Swagger Document** > **A.I. Chatbot**](https://nestia.io/docs/swagger/chat)
   - [**Nestia** > **A.I. Chatbot** > **Playground**](https://nestia.io/chat/playground)
@@ -349,7 +360,7 @@ However, `@nestia/agent` support only OpenAI, and has not optimized for specific
 
 The new era of software development.
 
-If you are not familiar with LLM (Large Language Moodel) development or RAG implementation, you can take another option. Prepare your swagger document file, and visit WrtnLabs homepage https://wrtnlabs.io. You can create your own A.I. chatbot with "Wrtn OS", and re-distribute it as you want. The A.I. assistant in the Wrtn OS is much more optimized and cost efficient than the `@nestia/agent`, and it is fully open sourced.
+If you are not familiar with LLM (Large Language Model) development or RAG implementation, you can take another option. Prepare your swagger document file, and visit WrtnLabs homepage https://wrtnlabs.io. You can create your own A.I. chatbot with "Wrtn OS", and re-distribute it as you want. The A.I. assistant in the Wrtn OS is much more optimized and cost efficient than the `@nestia/agent`, and it is fully open sourced.
 
 Also, you can sell your swagger document (backend API functions) in the "Wrtn Store", so that let other users to create their own A.I. chatbot with your backend API functions. Conversely, you can purchase the functions you need to create an A.I. chatbot from the store. If you have create an A.I. chatbot with only the functions purchased in the Wrtn Store, it is the no coding development.
 

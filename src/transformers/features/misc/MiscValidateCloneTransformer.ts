@@ -7,7 +7,7 @@ export namespace MiscValidateCloneTransformer {
   export const transform = (props: ITransformProps) =>
     GenericTransformer.scalar({
       ...props,
-      method: "misc.validatClone",
+      method: "misc.validateClone",
       write: MiscValidateCloneProgrammer.write,
     });
 }

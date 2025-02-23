@@ -56,7 +56,7 @@ export namespace TestRandomGenerator {
   export const length = () => integer(0, 3);
 
   /* -----------------------------------------------------------
-        SECIAL FORMATS
+        SPECIAL FORMATS
     ----------------------------------------------------------- */
   export const uuid = () =>
     "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, (c) => {

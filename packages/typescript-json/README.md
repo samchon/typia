@@ -8,8 +8,8 @@
 [![NPM Version](https://img.shields.io/npm/v/typia.svg)](https://www.npmjs.com/package/typia)
 [![NPM Downloads](https://img.shields.io/npm/dm/typia.svg)](https://www.npmjs.com/package/typia)
 [![Build Status](https://github.com/samchon/typia/workflows/build/badge.svg)](https://github.com/samchon/typia/actions?query=workflow%3Abuild)
-[![Guide Documents](https://img.shields.io/badge/guide-documents-forestgreen)](https://typia.io/docs/)
-[![Gurubase](https://img.shields.io/badge/Gurubase-Ask%20Typia%20Guru-006BFF)](https://gurubase.io/g/typia)
+[![Guide Documents](https://img.shields.io/badge/Guide-Documents-forestgreen)](https://typia.io/docs/)
+[![Gurubase](https://img.shields.io/badge/Gurubase-Document%20Chatbot-006BFF)](https://gurubase.io/g/typia)
 [![Discord Badge](https://img.shields.io/badge/discord-samchon-d91965?style=flat&labelColor=5866f2&logo=discord&logoColor=white&link=https://discord.gg/E94XhzrUCZ)](https://discord.gg/E94XhzrUCZ)
 
 ```typescript
@@ -31,7 +31,7 @@ export namespace llm {
   // application schema from a class or interface type
   export function application<App, Model>(): ILlmApplication<Model>;
   // structured output
-  export function parameters<P, Moodel>(): ILlmSchema.IParameters<Model>; 
+  export function parameters<P, Model>(): ILlmSchema.IParameters<Model>; 
   export function schema<T, Model>(): ILlmSchema<Model>; // type schema
 }
 
@@ -98,7 +98,7 @@ Also, `typia` is re-distributing half of donations to core contributors of `typi
   - [`nonara/ts-patch`](https://github.com/nonara/ts-patch)
   - [`ryoppippi/unplugin-typia`](https://github.com/ryoppippi/unplugin-typia)
 
-[![Sponsers](https://opencollective.com/typia/badge.svg?avatarHeight=75&width=600)](https://opencollective.com/typia)
+[![Sponsors](https://opencollective.com/typia/badge.svg?avatarHeight=75&width=600)](https://opencollective.com/typia)
 
 
 
@@ -134,6 +134,7 @@ Check out the document in the [website](https://typia.io/docs/):
     - [`application()` function](https://typia.io/docs/llm/application/)
     - [`parameters()` function](https://typia.io/docs/llm/parameters/)
     - [`schema()` function](https://typia.io/docs/llm/schema/)
+    - [AI Chatbot Development](https://typia.io/docs/llm/chat/)
     - [Documentation Strategy](https://typia.io/docs/llm/strategy/)
   - Protocol Buffer
     - [Message Schema](https://typia.io/docs/protobuf/message)

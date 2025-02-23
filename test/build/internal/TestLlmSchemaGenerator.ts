@@ -36,7 +36,7 @@ export namespace TestLlmSchemaGenerator {
         `  _test_llm_schema({`,
         `    model: ${JSON.stringify(model)},`,
         `    name: ${JSON.stringify(s.name)},`,
-        `  })(typia.llm.schema<${s.name}, ${JSON.stringify(model)}>(${REFERENCABLE.includes(model) ? "{}" : ""}));`,
+        `  })(typia.llm.schema<${s.name}, ${JSON.stringify(model)}>(${REFERENCEABLE.includes(model) ? "{}" : ""}));`,
       ];
       await fs.promises.writeFile(
         `${__dirname}/../../src/features/llm.schema/${model}/test_llm_schema_${model.replace(".", "_")}_${s.name}.ts`,
@@ -93,4 +93,4 @@ export namespace TestLlmSchemaGenerator {
 }
 
 const MODELS = ["3.0", "3.1", "chatgpt", "claude", "llama", "gemini"];
-const REFERENCABLE = ["3.1", "chatgpt", "claude", "llama"];
+const REFERENCEABLE = ["3.1", "chatgpt", "claude", "llama"];

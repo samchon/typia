@@ -1,5 +1,5 @@
 export const _isUniqueItems = (elements: any[]): boolean => {
-  // EMTPY OR ONLY ONE
+  // EMPTY OR ONLY ONE
   if (elements.length < 2) return true;
 
   // SHALLOW COMPARISON

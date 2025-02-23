@@ -35,7 +35,9 @@
             {
               "type": "boolean"
             }
-          ]
+          ],
+          "title": "Default value on union typed property",
+          "description": "Default value on union typed property."
         },
         "union_but_boolean": {
           "oneOf": [
@@ -48,7 +50,9 @@
             {
               "type": "boolean"
             }
-          ]
+          ],
+          "title": "Default value on union typed property",
+          "description": "Default value on union typed property."
         },
         "union_but_number": {
           "oneOf": [
@@ -61,7 +65,9 @@
             {
               "type": "boolean"
             }
-          ]
+          ],
+          "title": "Default value on union typed property",
+          "description": "Default value on union typed property."
         },
         "union_but_string": {
           "oneOf": [
@@ -74,7 +80,9 @@
             {
               "type": "boolean"
             }
-          ]
+          ],
+          "title": "Default value on union typed property",
+          "description": "Default value on union typed property."
         },
         "vulnerable_range": {
           "type": "number",
@@ -95,7 +103,9 @@
             {
               "type": "boolean"
             }
-          ]
+          ],
+          "title": "Default value on union typed property",
+          "description": "Default value on union typed property."
         }
       },
       "required": [
@@ -146,7 +156,9 @@
             {
               "type": "boolean"
             }
-          ]
+          ],
+          "title": "Default value on union typed property",
+          "description": "Default value on union typed property."
         },
         "union_but_boolean": {
           "oneOf": [
@@ -159,7 +171,9 @@
             {
               "type": "boolean"
             }
-          ]
+          ],
+          "title": "Default value on union typed property",
+          "description": "Default value on union typed property."
         },
         "union_but_number": {
           "oneOf": [
@@ -172,7 +186,9 @@
             {
               "type": "boolean"
             }
-          ]
+          ],
+          "title": "Default value on union typed property",
+          "description": "Default value on union typed property."
         },
         "union_but_string": {
           "oneOf": [
@@ -185,7 +201,9 @@
             {
               "type": "boolean"
             }
-          ]
+          ],
+          "title": "Default value on union typed property",
+          "description": "Default value on union typed property."
         },
         "vulnerable_range": {
           "type": "number",
@@ -206,7 +224,9 @@
             {
               "type": "boolean"
             }
-          ]
+          ],
+          "title": "Default value on union typed property",
+          "description": "Default value on union typed property."
         }
       },
       "required": [
@@ -258,7 +278,9 @@
             {
               "type": "boolean"
             }
-          ]
+          ],
+          "title": "Default value on union typed property",
+          "description": "Default value on union typed property."
         },
         "union_but_boolean": {
           "oneOf": [
@@ -271,7 +293,9 @@
             {
               "type": "boolean"
             }
-          ]
+          ],
+          "title": "Default value on union typed property",
+          "description": "Default value on union typed property."
         },
         "union_but_number": {
           "oneOf": [
@@ -284,7 +308,9 @@
             {
               "type": "boolean"
             }
-          ]
+          ],
+          "title": "Default value on union typed property",
+          "description": "Default value on union typed property."
         },
         "union_but_string": {
           "oneOf": [
@@ -297,7 +323,9 @@
             {
               "type": "boolean"
             }
-          ]
+          ],
+          "title": "Default value on union typed property",
+          "description": "Default value on union typed property."
         },
         "vulnerable_range": {
           "type": "number",
@@ -318,7 +346,9 @@
             {
               "type": "boolean"
             }
-          ]
+          ],
+          "title": "Default value on union typed property",
+          "description": "Default value on union typed property."
         }
       },
       "required": [
@@ -369,7 +399,9 @@
             {
               "type": "boolean"
             }
-          ]
+          ],
+          "title": "Default value on union typed property",
+          "description": "Default value on union typed property."
         },
         "union_but_boolean": {
           "oneOf": [
@@ -382,7 +414,9 @@
             {
               "type": "boolean"
             }
-          ]
+          ],
+          "title": "Default value on union typed property",
+          "description": "Default value on union typed property."
         },
         "union_but_number": {
           "oneOf": [
@@ -395,7 +429,9 @@
             {
               "type": "boolean"
             }
-          ]
+          ],
+          "title": "Default value on union typed property",
+          "description": "Default value on union typed property."
         },
         "union_but_string": {
           "oneOf": [
@@ -408,7 +444,9 @@
             {
               "type": "boolean"
             }
-          ]
+          ],
+          "title": "Default value on union typed property",
+          "description": "Default value on union typed property."
         },
         "vulnerable_range": {
           "type": "number",
@@ -429,7 +467,9 @@
             {
               "type": "boolean"
             }
-          ]
+          ],
+          "title": "Default value on union typed property",
+          "description": "Default value on union typed property."
         }
       },
       "required": [
@@ -483,7 +523,9 @@
               {
                 "type": "boolean"
               }
-            ]
+            ],
+            "title": "Default value on union typed property",
+            "description": "Default value on union typed property."
           },
           "union_but_boolean": {
             "oneOf": [
@@ -496,7 +538,9 @@
               {
                 "type": "boolean"
               }
-            ]
+            ],
+            "title": "Default value on union typed property",
+            "description": "Default value on union typed property."
           },
           "union_but_number": {
             "oneOf": [
@@ -509,7 +553,9 @@
               {
                 "type": "boolean"
               }
-            ]
+            ],
+            "title": "Default value on union typed property",
+            "description": "Default value on union typed property."
           },
           "union_but_string": {
             "oneOf": [
@@ -522,7 +568,9 @@
               {
                 "type": "boolean"
               }
-            ]
+            ],
+            "title": "Default value on union typed property",
+            "description": "Default value on union typed property."
           },
           "vulnerable_range": {
             "type": "number",
@@ -543,7 +591,9 @@
               {
                 "type": "boolean"
               }
-            ]
+            ],
+            "title": "Default value on union typed property",
+            "description": "Default value on union typed property."
           }
         },
         "required": [

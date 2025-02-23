@@ -620,7 +620,7 @@ If you are using a non-standard TypeScript compiler such as the following, you w
     - [esbuild](https://esbuild.github.io/) in Vite -> covered by [`unplugin-typia`](#unplugin-typia)
     - [SWC](https://swc.rs/) -> use [`unplugin-typia`](#unplugin-typia) with your bundlers ( including `next.js`, `vite`, `webpack`, `rollup`, etc )
 
-Instead you should utilise the generation mode. 
+Instead you should utilize the generation mode. 
 
 Install `typia` through `npm install` command, and run `typia generate` command. Then, generator of `typia` reads your TypeScript codes of `--input`, and writes transformed TypeScript files into the `--output` directory, like below.
 
@@ -664,5 +664,5 @@ export const check = (input: any): input is IMember => {
 <Callout type="error">
 **Why not support non-standard compilers?**
 
-Non-standard TypeScript compilers are removing every type informations, and skipping type checkings for rapid compilation. By the way, without those type informations, `typia` can't do anything. This is the reason why `typia` doesn't support non-standard TypeScript compilers.
+Non-standard TypeScript compilers are removing every type information, and skipping type checks for rapid compilation. By the way, without those type information, `typia` can't do anything. This is the reason why `typia` doesn't support non-standard TypeScript compilers.
 </Callout>

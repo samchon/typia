@@ -1,0 +1,14 @@
+name: spell-check
+on:
+  pull_request:
+
+jobs:
+  spell-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Actions Repository
+        uses: actions/checkout@v4
+
+      - uses: crate-ci/typos@master
+        with:
+          config: ./typos.toml
