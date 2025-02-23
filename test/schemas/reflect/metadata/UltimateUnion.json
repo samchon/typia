@@ -480,11 +480,11 @@
                   "tags": []
                 },
                 {
-                  "name": "OpenApi.IJsonSchema.INull",
+                  "name": "OpenApi.IJsonSchema.IUnknown",
                   "tags": []
                 },
                 {
-                  "name": "OpenApi.IJsonSchema.IUnknown",
+                  "name": "OpenApi.IJsonSchema.INull",
                   "tags": []
                 }
               ],
@@ -978,7 +978,7 @@
               "sets": [],
               "maps": []
             },
-            "description": "The default value.",
+            "description": "The default value of the boolean type.",
             "jsDocTags": []
           },
           {
@@ -1403,7 +1403,7 @@
               "sets": [],
               "maps": []
             },
-            "description": "Default value.",
+            "description": "Default value of the integer type.",
             "jsDocTags": [
               {
                 "name": "type",
@@ -2205,7 +2205,7 @@
               "sets": [],
               "maps": []
             },
-            "description": "Default value.",
+            "description": "Default value of the number type.",
             "jsDocTags": []
           },
           {
@@ -2929,7 +2929,7 @@
               "sets": [],
               "maps": []
             },
-            "description": "Default value.",
+            "description": "Default value of the string type.",
             "jsDocTags": []
           },
           {
@@ -3704,11 +3704,11 @@
                   "tags": []
                 },
                 {
-                  "name": "OpenApi.IJsonSchema.INull",
+                  "name": "OpenApi.IJsonSchema.IUnknown",
                   "tags": []
                 },
                 {
-                  "name": "OpenApi.IJsonSchema.IUnknown",
+                  "name": "OpenApi.IJsonSchema.INull",
                   "tags": []
                 }
               ],
@@ -4306,6 +4306,68 @@
                   "type": "string",
                   "values": [
                     {
+                      "value": "type",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "array",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": "Discriminator value of the type.\n\nNote that, the tuple type cannot be distinguished with\n{@link IArray} type just by this `discriminator` property.\n\nTo check whether the type is tuple or array, you have to check\nthe existence of {@link IArray.items} or {@link ITuple.prefixItems}\nproperties.",
+            "jsDocTags": []
+          },
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
                       "value": "prefixItems",
                       "tags": []
                     }
@@ -4440,11 +4502,11 @@
                   "tags": []
                 },
                 {
-                  "name": "OpenApi.IJsonSchema.INull",
+                  "name": "OpenApi.IJsonSchema.IUnknown",
                   "tags": []
                 },
                 {
-                  "name": "OpenApi.IJsonSchema.IUnknown",
+                  "name": "OpenApi.IJsonSchema.INull",
                   "tags": []
                 }
               ],
@@ -4674,68 +4736,6 @@
                 ]
               }
             ]
-          },
-          {
-            "key": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functions": [],
-              "atomics": [],
-              "constants": [
-                {
-                  "type": "string",
-                  "values": [
-                    {
-                      "value": "type",
-                      "tags": []
-                    }
-                  ]
-                }
-              ],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "value": {
-              "any": false,
-              "required": true,
-              "optional": false,
-              "nullable": false,
-              "functions": [],
-              "atomics": [],
-              "constants": [
-                {
-                  "type": "string",
-                  "values": [
-                    {
-                      "value": "array",
-                      "tags": []
-                    }
-                  ]
-                }
-              ],
-              "templates": [],
-              "escaped": null,
-              "rest": null,
-              "arrays": [],
-              "tuples": [],
-              "objects": [],
-              "aliases": [],
-              "natives": [],
-              "sets": [],
-              "maps": []
-            },
-            "description": "Discriminator value of the type.",
-            "jsDocTags": []
           },
           {
             "key": {
@@ -5176,11 +5176,11 @@
                   "tags": []
                 },
                 {
-                  "name": "OpenApi.IJsonSchema.INull",
+                  "name": "OpenApi.IJsonSchema.IUnknown",
                   "tags": []
                 },
                 {
-                  "name": "OpenApi.IJsonSchema.IUnknown",
+                  "name": "OpenApi.IJsonSchema.INull",
                   "tags": []
                 }
               ],
@@ -6407,7 +6407,7 @@
               "sets": [],
               "maps": []
             },
-            "description": "Default value.",
+            "description": "Default value of the `null` type.",
             "jsDocTags": []
           },
           {
@@ -6764,6 +6764,58 @@
       {
         "name": "OpenApi.IJsonSchema.IUnknown",
         "properties": [
+          {
+            "key": {
+              "any": false,
+              "required": true,
+              "optional": false,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [
+                {
+                  "type": "string",
+                  "values": [
+                    {
+                      "value": "default",
+                      "tags": []
+                    }
+                  ]
+                }
+              ],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "value": {
+              "any": true,
+              "required": true,
+              "optional": true,
+              "nullable": false,
+              "functions": [],
+              "atomics": [],
+              "constants": [],
+              "templates": [],
+              "escaped": null,
+              "rest": null,
+              "arrays": [],
+              "tuples": [],
+              "objects": [],
+              "aliases": [],
+              "natives": [],
+              "sets": [],
+              "maps": []
+            },
+            "description": "Default value of the `any` type.",
+            "jsDocTags": []
+          },
           {
             "key": {
               "any": false,
@@ -9387,11 +9439,11 @@
               "tags": []
             },
             {
-              "name": "OpenApi.IJsonSchema.INull",
+              "name": "OpenApi.IJsonSchema.IUnknown",
               "tags": []
             },
             {
-              "name": "OpenApi.IJsonSchema.IUnknown",
+              "name": "OpenApi.IJsonSchema.INull",
               "tags": []
             }
           ],
@@ -9459,11 +9511,11 @@
               "tags": []
             },
             {
-              "name": "OpenApi.IJsonSchema.INull",
+              "name": "OpenApi.IJsonSchema.IUnknown",
               "tags": []
             },
             {
-              "name": "OpenApi.IJsonSchema.IUnknown",
+              "name": "OpenApi.IJsonSchema.INull",
               "tags": []
             }
           ],

@@ -6,7 +6,6 @@
       "type": "string"
     },
     "age": {
-      "description": "@default 20",
       "type": "number"
     }
   },
