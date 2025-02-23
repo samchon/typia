@@ -1,11 +1,11 @@
 /**
  * Comapre in deep A and B
  */
-export function equals<T extends object>(a: T, b: T): boolean;
+export function equals<T>(a: T, b: T): boolean;
 /**
  * @internal
  */
-export function equals<T extends object>(_a: T, _b: T): boolean {
+export function equals<T>(_a: T, _b: T): boolean {
   halt("equals");
 }
 

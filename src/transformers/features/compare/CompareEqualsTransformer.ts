@@ -7,7 +7,7 @@ export namespace CompareEqualsTransformer {
   export const transform = (props: ITransformProps) =>
     GenericTransformer.scalar({
       ...props,
-      method: "json.isStringify",
+      method: "compare.equals",
       write: CompareEqualsProgrammer.write,
     });
 }
