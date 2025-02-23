@@ -1,3 +1,4 @@
+import { assert } from "console";
 import typia from "typia";
 
 interface ISomething {
@@ -9,10 +10,15 @@ export const objects = typia.compare.equals<ISomething>(
   { id: "1", age: 2 },
   { id: "1", age: 2 },
 );
-//
+
 // export const matrix = typia.compare.equals<number[][][]>(
 //   [[[1, 2, 3]]],
 //   [[[1, 2, 3]]],
+// );
+
+// export const matrix = typia.compare.equals<number[][]>(
+//   [[1, 2, 3]],
+//   [[1, 2, 3]],
 // );
 
 // interface ICategory {
@@ -42,6 +48,48 @@ export const objects = typia.compare.equals<ISomething>(
 //   Array<{ foo: string } | { bar: number }>
 // >([{ foo: "1" }], [{ foo: "1" }]);
 
+// export type Union = false | 1 | 2 | "three" | "four" | { key: "key" };
+// export function union(): Union[] {
+//   return [false, 1, 2, "three", "four", { key: "key" }];
+// }
+// export const arrayUnioun = typia.compare.equals(union(), union());
+// console.assert(arrayUnioun, union.name);
+//
+// typia.compare.equals([{ a: 1 }], [{ a: 1 }]);
+
+console.assert(
+  typia.compare.equals(new Set([1]), new Set([1])),
+  "Set compares should be equal",
+);
+
+export type MegaUnion =
+  | number
+  | Uint8Array
+  | Set<boolean>
+  | Map<any, any>
+  | [string, string]
+  | [boolean, number, number]
+  | number[]
+  | boolean[]
+  | [];
+
+export function megaUnion(): MegaUnion[] {
+  return [
+    3,
+    // new Uint8Array(),
+    new Set([false, true]),
+    // new Map(),
+    // ["one", "two"],
+    // [false, 1, 2],
+    // [1, 2, 3],
+    // [true, false],
+    // [],
+  ];
+}
+
+export const arrayMegaUnioun = typia.compare.equals(megaUnion(), megaUnion());
+console.assert(arrayMegaUnioun, megaUnion.name);
+
 // type SpecificKeys = {
 //   "foo-bar-baz": number;
 // };
@@ -62,7 +110,26 @@ export const objects = typia.compare.equals<ISomething>(
 //   { foo: new FooClass() },
 // );
 
-export const sets = typia.compare.equals(
-  new Set([{ foo: 1 }]),
-  new Set([{ foo: 1 }]),
-);
+// export const sets = typia.compare.equals(
+//   new Set([{ foo: 1 }]),
+//   new Set([{ foo: 1 }]),
+// );
+//
+// export enum LanguageCode {
+//   Arabic = "ar",
+//   ChineseSimp = "zh-Hans",
+//   ChineseTrad = "zh-Hant",
+//   English = "en",
+//   French = "fr",
+//   German = "de",
+//   Japanese = "ja",
+//   Korean = "ko", // <-- this line
+//   Portuguese = "pt",
+//   Russian = "ru",
+// }
+//
+// export type DynamicEnumeration = {
+//   [P in LanguageCode]?: string;
+// };
+//
+// export const dyn = typia.compare.equals<DynamicEnumeration>({}, {});

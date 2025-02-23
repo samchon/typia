@@ -1,3 +1,4 @@
+import { assert } from "console";
 import typia from "typia";
 
 interface ISomething {
@@ -9,10 +10,13 @@ export const objects = (() => {
     return a === b || (a.id === b.id && a.age === b.age);
   };
 })()({ id: "1", age: 2 }, { id: "1", age: 2 });
-//
 // export const matrix = typia.compare.equals<number[][][]>(
 //   [[[1, 2, 3]]],
 //   [[[1, 2, 3]]],
+// );
+// export const matrix = typia.compare.equals<number[][]>(
+//   [[1, 2, 3]],
+//   [[1, 2, 3]],
 // );
 // interface ICategory {
 //   children: ICategory[];
@@ -38,34 +42,85 @@ export const objects = (() => {
 // export const unionNested = typia.compare.equals<
 //   Array<{ foo: string } | { bar: number }>
 // >([{ foo: "1" }], [{ foo: "1" }]);
-// type SpecificKeys = {
-//   "foo-bar-baz": number;
-// };
-// export const specificKeys = typia.compare.equals<SpecificKeys>(
-//   { "foo-bar-baz": 1 },
-//   { "foo-bar-baz": 2 },
-// );
-// class FooClass {
-//   foo: string = "";
-//   method() {}
+// export type Union = false | 1 | 2 | "three" | "four" | { key: "key" };
+// export function union(): Union[] {
+//   return [false, 1, 2, "three", "four", { key: "key" }];
 // }
+// export const arrayUnioun = typia.compare.equals(union(), union());
+// console.assert(arrayUnioun, union.name);
 //
-// export const fooClass = typia.compare.equals(new FooClass(), new FooClass());
-//
-// export const fooNestedClass = typia.compare.equals(
-//   { foo: new FooClass() },
-//   { foo: new FooClass() },
-// );
-export const sets = (() => {
-  return (a: Set<{ foo: number }>, b: Set<{ foo: number }>): boolean => {
+// typia.compare.equals([{ a: 1 }], [{ a: 1 }]);
+console.assert(
+  (() => {
+    return (a: Set<number>, b: Set<number>): boolean => {
+      return (
+        a === b ||
+        (a.size === b.size &&
+          Array.from(a.values()).every((item: any, index_1: any) => {
+            return item === (b as any)[index_1]!;
+          }))
+      );
+    };
+  })()(new Set([1]), new Set([1])),
+  "Set compares should be equal",
+);
+export type MegaUnion =
+  | number
+  | Uint8Array
+  | Set<boolean>
+  | Map<any, any>
+  | [string, string]
+  | [boolean, number, number]
+  | number[]
+  | boolean[]
+  | [];
+export function megaUnion(): MegaUnion[] {
+  return [
+    3,
+    // new Uint8Array(),
+    new Set([false, true]),
+    // new Map(),
+    // ["one", "two"],
+    // [false, 1, 2],
+    // [1, 2, 3],
+    // [true, false],
+    // [],
+  ];
+}
+export const arrayMegaUnioun = (() => {
+  return (a: MegaUnion[], b: MegaUnion[]): boolean => {
     return (
       a === b ||
-      (a.size === b.size &&
-        Array.from(a.values()).every((item: any, index: any) => {
+      (a.length === b.length &&
+        a.every((item: any, index_2: any) => {
           return (
-            item === (b as any)[index]! || item.foo === (b as any)[index]!.foo
+            item === (b as any)[index_2]! ||
+            (item instanceof Map &&
+              (item === (b as any)[index_2]! ||
+                (item.size === (b as any)[index_2]!.size &&
+                  Array.from(item.values()).every((item: any, index_3: any) => {
+                    return item === ((b as any)[index_2]! as any)[index_3]!;
+                  })))) ||
+            (item instanceof Map &&
+              (item === (b as any)[index_2]! ||
+                (item.size === (b as any)[index_2]!.size &&
+                  Array.from(item.values()).every((item: any, index_4: any) => {
+                    return item === ((b as any)[index_2]! as any)[index_4]!;
+                  })))) ||
+            (Array.isArray(item) &&
+              (item === (b as any)[index_2]! ||
+                (item.length === (b as any)[index_2]!.length &&
+                  item.every((item: any, index_5: any) => {
+                    return item === ((b as any)[index_2]! as any)[index_5]!;
+                  })) ||
+                item === (b as any)[index_2]! ||
+                (item.length === (b as any)[index_2]!.length &&
+                  item.every((item: any, index_6: any) => {
+                    return item === ((b as any)[index_2]! as any)[index_6]!;
+                  }))))
           );
         }))
     );
   };
-})()(new Set([{ foo: 1 }]), new Set([{ foo: 1 }]));
+})()(megaUnion(), megaUnion());
+console.assert(arrayMegaUnioun, megaUnion.name);
