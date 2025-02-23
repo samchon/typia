@@ -3,6 +3,7 @@ import ts from "typescript";
 import { IdentifierFactory } from "../../factories/IdentifierFactory";
 import { MetadataCollection } from "../../factories/MetadataCollection";
 import { MetadataFactory } from "../../factories/MetadataFactory";
+import { StatementFactory } from "../../factories/StatementFactory";
 
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
@@ -70,8 +71,8 @@ export namespace CompareEqualsProgrammer {
         undefined,
         undefined,
         [
-          IdentifierFactory.parameter("a", argType),
-          IdentifierFactory.parameter("b", argType),
+          IdentifierFactory.parameter(a.text, argType),
+          IdentifierFactory.parameter(b.text, argType),
         ],
         ts.factory.createKeywordTypeNode(ts.SyntaxKind.BooleanKeyword),
         undefined,
@@ -162,6 +163,7 @@ export namespace CompareEqualsProgrammer {
     Set: ts.factory.createIdentifier("Set"),
     Array: ts.factory.createIdentifier("Array"),
 
+    zero: ts.factory.createIdentifier("0"),
     item: ts.factory.createIdentifier("item"),
     size: ts.factory.createIdentifier("size"),
     from: ts.factory.createIdentifier("from"),
@@ -170,6 +172,7 @@ export namespace CompareEqualsProgrammer {
     values: ts.factory.createIdentifier("values"),
     length: ts.factory.createIdentifier("length"),
     isArray: ts.factory.createIdentifier("isArray"),
+    difference: ts.factory.createIdentifier("difference"),
 
     index: () => ts.factory.createUniqueName("index"),
   };
@@ -277,36 +280,95 @@ export namespace CompareEqualsProgrammer {
     );
   }
 
+  function iife(body: ts.Statement[]) {
+    const arrowFunction = ts.factory.createArrowFunction(
+      undefined,
+      undefined,
+      [],
+      undefined,
+      ts.factory.createToken(ts.SyntaxKind.EqualsGreaterThanToken),
+      ts.factory.createBlock(body, true),
+    );
+    return ts.factory.createCallExpression(
+      ts.factory.createParenthesizedExpression(arrowFunction),
+      undefined,
+      [],
+    );
+  }
+
   function transformIterable(
     a: ts.Expression,
     b: ts.Expression,
-    props: Props,
-    metadata: Metadata,
+    _props: Props,
+    _metadata: Metadata,
   ) {
+    const a1 = ts.factory.createUniqueName("a1");
+    const b1 = ts.factory.createUniqueName("b1");
+    const iffeCompare = iife([
+      StatementFactory.constant({
+        name: a1.text,
+        value: ts.factory.createCallExpression(
+          access(ids.Array, ids.from),
+          undefined,
+          [
+            ts.factory.createCallExpression(
+              access(a, ids.values),
+              undefined,
+              undefined,
+            ),
+          ],
+        ),
+      }),
+      StatementFactory.constant({
+        name: b1.text,
+        value: ts.factory.createCallExpression(
+          access(ids.Array, ids.from),
+          undefined,
+          [
+            ts.factory.createCallExpression(
+              access(b, ids.values),
+              undefined,
+              undefined,
+            ),
+          ],
+        ),
+      }),
+
+      ts.factory.createReturnStatement(
+        compareEvery(
+          ts.factory.createIdentifier(a1.text),
+          ts.factory.createIdentifier(b1.text),
+          _props,
+          _metadata,
+        ),
+      ),
+    ]);
+
     return or(
       eqeqeq(a, b).expression,
       ts.factory.createParenthesizedExpression(
         and(
           eqeqeq(access(a, ids.size), access(b, ids.size)).expression,
 
-          ts.factory.createCallExpression(
-            access(
-              ts.factory.createCallExpression(
-                access(ids.Array, ids.from),
-                undefined,
-                [
-                  ts.factory.createCallExpression(
-                    access(a, ids.values),
-                    undefined,
-                    undefined,
-                  ),
-                ],
-              ),
-              ids.every,
-            ),
-            undefined,
-            [compareItem(b, props, metadata)],
-          ),
+          iffeCompare,
+          // ts.factory.createCallExpression(
+          //   access(
+          //     ts.factory.createCallExpression(
+          //       access(ids.Array, ids.from),
+          //       undefined,
+          //       [
+          //         ts.factory.createCallExpression(
+          //           access(a, ids.values),
+          //           undefined,
+          //           undefined,
+          //         ),
+          //       ],
+          //     ),
+          //     ids.every,
+          //   ),
+          //   undefined,
+          //   [compareItem(b, props, metadata)],
+          // ),
         ),
       ),
     );
@@ -330,11 +392,29 @@ export namespace CompareEqualsProgrammer {
     return or(eqeqeq(a, b).expression, mergeWithAmp(compares, true));
   }
 
+  function compareEvery(
+    a: ts.Expression,
+    b: ts.Expression,
+    props: Props,
+    metadata: Metadata,
+  ) {
+    return or(
+      eqeqeq(a, b).expression,
+      ts.factory.createParenthesizedExpression(
+        and(
+          eqeqeq(access(a, ids.length), access(b, ids.length)).expression,
+          ts.factory.createCallExpression(access(a, ids.every), undefined, [
+            compareItem(b, props, metadata),
+          ]),
+        ),
+      ),
+    );
+  }
+
   function transformArray(
     a: ts.Expression,
     b: ts.Expression,
     props: Props,
-    _metadata: Metadata,
     array: MetadataArray,
   ) {
     if (array.type.recursive) {
@@ -343,17 +423,7 @@ export namespace CompareEqualsProgrammer {
         message: `Detected recusion type ${props.type.getSymbol()?.getName()} -> ${array.type.name}.`,
       });
     }
-    return or(
-      eqeqeq(a, b).expression,
-      ts.factory.createParenthesizedExpression(
-        and(
-          eqeqeq(access(a, ids.length), access(b, ids.length)).expression,
-          ts.factory.createCallExpression(access(a, ids.every), undefined, [
-            compareItem(b, props, array.type.value),
-          ]),
-        ),
-      ),
-    );
+    return compareEvery(a, b, props, array.type.value);
   }
 
   function instaceof(a: ts.Expression, b: ts.Expression) {
@@ -382,6 +452,12 @@ export namespace CompareEqualsProgrammer {
     props: Props,
     metadata: Metadata,
   ): ts.Expression {
+    if (metadata.any) {
+      throw new TransformerError({
+        code: `typia.compare.equals()`,
+        message: `Detected any type ${props.type.getSymbol()?.getName()}. It can't be supported for static equals.`,
+      });
+    }
     if (metadata.isUnionBucket()) {
       const compares: ts.Expression[] = [];
 
@@ -403,7 +479,7 @@ export namespace CompareEqualsProgrammer {
       if (metadata.sets.length > 0) {
         compares.push(
           and(
-            instaceof(a, ids.Map),
+            instaceof(a, ids.Set),
             mergeWithBar(
               metadata.sets.map((element) =>
                 transformIterable(a, b, props, element.value),
@@ -430,7 +506,7 @@ export namespace CompareEqualsProgrammer {
             isArray(a),
             mergeWithBar(
               metadata.arrays.map((element) =>
-                transformArray(a, b, props, metadata, element),
+                transformArray(a, b, props, element),
               ),
             ),
           ),
@@ -453,7 +529,7 @@ export namespace CompareEqualsProgrammer {
     }
 
     if (metadata.arrays[0]) {
-      return transformArray(a, b, props, metadata, metadata.arrays[0]);
+      return transformArray(a, b, props, metadata.arrays[0]);
     } else if (metadata.sets[0]) {
       return transformIterable(a, b, props, metadata.sets[0].value);
     } else if (metadata.maps[0]) {

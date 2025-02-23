@@ -1,4 +1,3 @@
-import { assert } from "console";
 import typia from "typia";
 
 interface ISomething {
@@ -9,6 +8,15 @@ interface ISomething {
 export const objects = typia.compare.equals<ISomething>(
   { id: "1", age: 2 },
   { id: "1", age: 2 },
+);
+
+console.assert(
+  typia.compare.equals(new Map([["foo", 1]]), new Map([["foo", 1]])),
+  "Map compares should be equal",
+);
+console.assert(
+  typia.compare.equals(new Set([["foo", 1]]), new Set([["foo", 1]])),
+  "Set compares should be equal",
 );
 
 // export const matrix = typia.compare.equals<number[][][]>(
@@ -57,38 +65,31 @@ export const objects = typia.compare.equals<ISomething>(
 //
 // typia.compare.equals([{ a: 1 }], [{ a: 1 }]);
 
-console.assert(
-  typia.compare.equals(new Set([1]), new Set([1])),
-  "Set compares should be equal",
-);
-
-export type MegaUnion =
-  | number
-  | Uint8Array
-  | Set<boolean>
-  | Map<any, any>
-  | [string, string]
-  | [boolean, number, number]
-  | number[]
-  | boolean[]
-  | [];
-
-export function megaUnion(): MegaUnion[] {
-  return [
-    3,
-    // new Uint8Array(),
-    new Set([false, true]),
-    // new Map(),
-    // ["one", "two"],
-    // [false, 1, 2],
-    // [1, 2, 3],
-    // [true, false],
-    // [],
-  ];
-}
-
-export const arrayMegaUnioun = typia.compare.equals(megaUnion(), megaUnion());
-console.assert(arrayMegaUnioun, megaUnion.name);
+// export type MegaUnion =
+//   | number
+//   | Uint8Array
+//   | Map<string, number>
+//   | [string, string]
+//   | [boolean, number, number]
+//   | number[]
+//   | boolean[]
+//   | [];
+//
+// export function megaUnion(): MegaUnion[] {
+//   return [
+//     3,
+//     // new Uint8Array(),
+//     new Map([["foo", 1]]),
+//     // ["one", "two"],
+//     // [false, 1, 2],
+//     // [1, 2, 3],
+//     // [true, false],
+//     // [],
+//   ];
+// }
+//
+// export const arrayMegaUnioun = typia.compare.equals(megaUnion(), megaUnion());
+// console.assert(arrayMegaUnioun, megaUnion.name);
 
 // type SpecificKeys = {
 //   "foo-bar-baz": number;
