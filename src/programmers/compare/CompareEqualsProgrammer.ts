@@ -7,6 +7,7 @@ import { StatementFactory } from "../../factories/StatementFactory";
 
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataArray } from "../../schemas/metadata/MetadataArray";
+import { MetadataNative } from "../../schemas/metadata/MetadataNative";
 import { MetadataObject } from "../../schemas/metadata/MetadataObject";
 import { MetadataTuple } from "../../schemas/metadata/MetadataTuple";
 
@@ -21,6 +22,7 @@ export namespace CompareEqualsProgrammer {
   type Props = {
     context: ITypiaContext;
     functor: FunctionProgrammer;
+    metaCollection: MetadataCollection;
     type: ts.Type;
     name: string | undefined;
   };
@@ -30,7 +32,7 @@ export namespace CompareEqualsProgrammer {
       type: props.type,
       checker: props.context.checker,
       transformer: props.context.transformer,
-      collection: new MetadataCollection(),
+      collection: props.metaCollection,
       options: {
         escape: false,
         constant: true,
@@ -88,6 +90,7 @@ export namespace CompareEqualsProgrammer {
     const functor = new FunctionProgrammer(props.modulo.getText());
     const result: FeatureProgrammer.IDecomposed = decompose({
       ...props,
+      metaCollection: new MetadataCollection(),
       functor,
     });
 
@@ -168,10 +171,11 @@ export namespace CompareEqualsProgrammer {
     size: ts.factory.createIdentifier("size"),
     from: ts.factory.createIdentifier("from"),
     every: ts.factory.createIdentifier("every"),
-    object: ts.factory.createIdentifier("object"),
+    object: ts.factory.createIdentifier('"object"'),
     values: ts.factory.createIdentifier("values"),
     length: ts.factory.createIdentifier("length"),
     isArray: ts.factory.createIdentifier("isArray"),
+    toString: ts.factory.createIdentifier("toString"),
     difference: ts.factory.createIdentifier("difference"),
 
     index: () => ts.factory.createUniqueName("index"),
@@ -249,11 +253,45 @@ export namespace CompareEqualsProgrammer {
         prop.value,
       );
     });
+
+    const type = props.metaCollection.findObjectType(object.type);
+    if (type) {
+      for (const symbol of type.getApparentProperties()) {
+        const node = symbol.getDeclarations()?.[0] as
+          | ts.PropertyDeclaration
+          | undefined;
+        if (!node) {
+          continue;
+        }
+        if (isFunctionProperty(node)) {
+          statements.push(
+            eqeqeq(access(a, symbol.getName()), access(b, symbol.getName()))
+              .expression,
+          );
+        }
+      }
+    }
+
     return or(eqeqeq(a, b).expression, mergeWithAmp(statements, true));
   }
 
-  function compareItem(b: ts.Expression, props: Props, metadata: Metadata) {
+  function compareItem(b: ts.Expression, props: Props, metadata?: Metadata) {
     const index = ids.index();
+    const compareExpression = metadata
+      ? transform(
+          ids.item,
+          indexAccess(
+            ts.factory.createAsExpression(
+              b,
+              ts.factory.createKeywordTypeNode(ts.SyntaxKind.AnyKeyword),
+            ),
+            index,
+            true,
+          ),
+          props,
+          metadata,
+        )
+      : eqeqeq(index, b).expression;
     return ts.factory.createArrowFunction(
       undefined,
       undefined,
@@ -261,21 +299,7 @@ export namespace CompareEqualsProgrammer {
       undefined,
       undefined,
       ts.factory.createBlock([
-        ts.factory.createReturnStatement(
-          transform(
-            ids.item,
-            indexAccess(
-              ts.factory.createAsExpression(
-                b,
-                ts.factory.createKeywordTypeNode(ts.SyntaxKind.AnyKeyword),
-              ),
-              index,
-              true,
-            ),
-            props,
-            metadata,
-          ),
-        ),
+        ts.factory.createReturnStatement(compareExpression),
       ]),
     );
   }
@@ -296,6 +320,14 @@ export namespace CompareEqualsProgrammer {
     );
   }
 
+  function spreadClone(exp: ts.Expression) {
+    const spreadElement = ts.factory.createSpreadElement(exp);
+    return ts.factory.createArrayLiteralExpression(
+      [spreadElement],
+      /* multiLine */ false,
+    );
+  }
+
   function transformIterable(
     a: ts.Expression,
     b: ts.Expression,
@@ -307,30 +339,22 @@ export namespace CompareEqualsProgrammer {
     const iffeCompare = iife([
       StatementFactory.constant({
         name: a1.text,
-        value: ts.factory.createCallExpression(
-          access(ids.Array, ids.from),
-          undefined,
-          [
-            ts.factory.createCallExpression(
-              access(a, ids.values),
-              undefined,
-              undefined,
-            ),
-          ],
+        value: spreadClone(
+          ts.factory.createCallExpression(
+            access(a, ids.values),
+            undefined,
+            undefined,
+          ),
         ),
       }),
       StatementFactory.constant({
         name: b1.text,
-        value: ts.factory.createCallExpression(
-          access(ids.Array, ids.from),
-          undefined,
-          [
-            ts.factory.createCallExpression(
-              access(b, ids.values),
-              undefined,
-              undefined,
-            ),
-          ],
+        value: spreadClone(
+          ts.factory.createCallExpression(
+            access(b, ids.values),
+            undefined,
+            undefined,
+          ),
         ),
       }),
 
@@ -349,26 +373,7 @@ export namespace CompareEqualsProgrammer {
       ts.factory.createParenthesizedExpression(
         and(
           eqeqeq(access(a, ids.size), access(b, ids.size)).expression,
-
           iffeCompare,
-          // ts.factory.createCallExpression(
-          //   access(
-          //     ts.factory.createCallExpression(
-          //       access(ids.Array, ids.from),
-          //       undefined,
-          //       [
-          //         ts.factory.createCallExpression(
-          //           access(a, ids.values),
-          //           undefined,
-          //           undefined,
-          //         ),
-          //       ],
-          //     ),
-          //     ids.every,
-          //   ),
-          //   undefined,
-          //   [compareItem(b, props, metadata)],
-          // ),
         ),
       ),
     );
@@ -396,7 +401,7 @@ export namespace CompareEqualsProgrammer {
     a: ts.Expression,
     b: ts.Expression,
     props: Props,
-    metadata: Metadata,
+    metadata?: Metadata,
   ) {
     return or(
       eqeqeq(a, b).expression,
@@ -411,6 +416,38 @@ export namespace CompareEqualsProgrammer {
     );
   }
 
+  const natviesEququq = ["String", "Boolean", "Number", "Symbol", "BigInt"];
+  function transformNatives(
+    a: ts.Expression,
+    b: ts.Expression,
+    props: Props,
+    native: MetadataNative,
+  ) {
+    if (natviesEququq.includes(native.name)) {
+      return eqeqeq(a, b).expression;
+    }
+    if (native.name === "Date") {
+      return eqeqeq(
+        ts.factory.createCallExpression(access(a, ids.toString), undefined, []),
+        ts.factory.createCallExpression(access(b, ids.toString), undefined, []),
+      ).expression;
+    }
+
+    if (native.name === "ArrayBuffer" || native.name === "SharedArrayBuffer") {
+      throw new TransformerError({
+        code: `typia.compare.equals()`,
+        message: `SharedArrayBuffer and ArrayBuffer types are unsupported to compare ${props.type.getSymbol()?.getName()}.`,
+      });
+    }
+    if (native.name.includes("Array")) {
+      return compareEvery(a, b, props);
+    }
+
+    throw new TransformerError({
+      code: `typia.compare.equals()`,
+      message: `${native.name} type is unsupported to compare ${props.type.getSymbol()?.getName()}.`,
+    });
+  }
   function transformArray(
     a: ts.Expression,
     b: ts.Expression,
@@ -426,13 +463,13 @@ export namespace CompareEqualsProgrammer {
     return compareEvery(a, b, props, array.type.value);
   }
 
-  function instaceof(a: ts.Expression, b: ts.Expression) {
-    return ts.factory.createBinaryExpression(
-      a,
-      ts.factory.createToken(ts.SyntaxKind.InstanceOfKeyword),
-      b,
-    );
-  }
+  // function instaceof(a: ts.Expression, b: ts.Expression) {
+  //   return ts.factory.createBinaryExpression(
+  //     a,
+  //     ts.factory.createToken(ts.SyntaxKind.InstanceOfKeyword),
+  //     b,
+  //   );
+  // }
 
   function typeOf(a: ts.Expression, b: ts.Expression) {
     return eqeqeq(ts.factory.createTypeOfExpression(a), b).expression;
@@ -444,6 +481,27 @@ export namespace CompareEqualsProgrammer {
       undefined,
       [a],
     );
+  }
+
+  function isFunctionProperty(node: ts.PropertyDeclaration): boolean {
+    if (ts.isMethodSignature(node)) {
+      return true;
+    }
+    if (node.initializer) {
+      if (
+        ts.isArrowFunction(node.initializer) ||
+        ts.isFunctionExpression(node.initializer)
+      ) {
+        return true;
+      }
+    }
+
+    if (node.type) {
+      if (ts.isFunctionTypeNode(node.type)) {
+        return true;
+      }
+    }
+    return false;
   }
 
   function transform(
@@ -458,35 +516,44 @@ export namespace CompareEqualsProgrammer {
         message: `Detected any type ${props.type.getSymbol()?.getName()}. It can't be supported for static equals.`,
       });
     }
-    if (metadata.isUnionBucket()) {
+    if (metadata.size() > 1) {
       const compares: ts.Expression[] = [];
 
       if (metadata.constants.length > 0 || metadata.atomics.length > 0) {
         compares.push(eqeqeq(a, b).expression);
       }
       if (metadata.maps.length > 0) {
-        compares.push(
-          and(
-            instaceof(a, ids.Map),
-            mergeWithBar(
-              metadata.maps.map((element) =>
-                transformIterable(a, b, props, element.value),
-              ),
-            ),
-          ),
-        );
+        throw new TransformerError({
+          code: `typia.compare.equals()`,
+          message: `Union type for Set are unsupported to compare ${props.type.getSymbol()?.getName()}.`,
+        });
+        // compares.push(
+        //   and(
+        //     instaceof(a, ids.Map),
+        //     mergeWithBar(
+        //       metadata.maps.map((element) =>
+        //         transformIterable(a, b, props, element.value),
+        //       ),
+        //     ),
+        //   ),
+        // );
       }
+
       if (metadata.sets.length > 0) {
-        compares.push(
-          and(
-            instaceof(a, ids.Set),
-            mergeWithBar(
-              metadata.sets.map((element) =>
-                transformIterable(a, b, props, element.value),
-              ),
-            ),
-          ),
-        );
+        throw new TransformerError({
+          code: `typia.compare.equals()`,
+          message: `Union type for Set are unsupported to compare ${props.type.getSymbol()?.getName()}.`,
+        });
+        // compares.push(
+        //   and(
+        //     instaceof(a, ids.Set),
+        //     mergeWithBar(
+        //       metadata.sets.map((element) =>
+        //         transformIterable(a, b, props, element.value),
+        //       ),
+        //     ),
+        //   ),
+        // );
       }
       if (metadata.objects.length > 0) {
         compares.push(
@@ -534,6 +601,10 @@ export namespace CompareEqualsProgrammer {
       return transformIterable(a, b, props, metadata.sets[0].value);
     } else if (metadata.maps[0]) {
       return transformIterable(a, b, props, metadata.maps[0].value);
+    }
+
+    if (metadata.natives[0]) {
+      return transformNatives(a, b, props, metadata.natives[0]);
     }
 
     return eqeqeq(a, b).expression;
