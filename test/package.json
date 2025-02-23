@@ -44,7 +44,7 @@
     "rimraf": "^5.0.5",
     "ts-node": "^10.9.2",
     "ts-patch": "^3.3.0",
-    "typescript": "~5.7.3"
+    "typescript": "5.9.0-dev.20250223"
   },
   "dependencies": {
     "cli": "^1.0.1",
