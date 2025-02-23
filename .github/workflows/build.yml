@@ -25,7 +25,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - run: npm install
+      - run: npm install --force
       - run: npm run build
       - name: remove `private=true` from package.json
         run: |
@@ -49,7 +49,7 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: lts/*
-      - run: npm install
+      - run: npm install --force
       - run: npm run eslint
       - run: npm run prettier
 
@@ -70,7 +70,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - run: npm install
+      - run: npm install --force
       - run: npm run build
       - run: npm run test
 
@@ -91,7 +91,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-node-
 
-      - run: npm install
+      - run: npm install --force
       - run: npm run build
       - run: npm run test:bun
 
