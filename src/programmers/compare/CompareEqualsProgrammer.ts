@@ -60,11 +60,7 @@ export namespace CompareEqualsProgrammer {
     const a = ts.factory.createIdentifier("a");
     const b = ts.factory.createIdentifier("b");
     const expression = transform(a, b, props, result.data);
-    const argType = props.context.checker.typeToTypeNode(
-      props.type,
-      undefined,
-      ts.NodeBuilderFlags.NoTruncation,
-    );
+    const argType = ts.factory.createKeywordTypeNode(ts.SyntaxKind.AnyKeyword);
 
     return {
       functions: {},
@@ -165,16 +161,18 @@ export namespace CompareEqualsProgrammer {
     Map: ts.factory.createIdentifier("Map"),
     Set: ts.factory.createIdentifier("Set"),
     Array: ts.factory.createIdentifier("Array"),
+    String: ts.factory.createIdentifier("String"),
 
     zero: ts.factory.createIdentifier("0"),
     item: ts.factory.createIdentifier("item"),
     size: ts.factory.createIdentifier("size"),
     from: ts.factory.createIdentifier("from"),
     every: ts.factory.createIdentifier("every"),
-    object: ts.factory.createIdentifier('"object"'),
     values: ts.factory.createIdentifier("values"),
     length: ts.factory.createIdentifier("length"),
+    object: ts.factory.createIdentifier('"object"'),
     isArray: ts.factory.createIdentifier("isArray"),
+    funtion: ts.factory.createIdentifier('"funtion"'),
     toString: ts.factory.createIdentifier("toString"),
     difference: ts.factory.createIdentifier("difference"),
 
@@ -263,7 +261,7 @@ export namespace CompareEqualsProgrammer {
         if (!node) {
           continue;
         }
-        if (isFunctionProperty(node)) {
+        if (ts.isMethodSignature(node)) {
           statements.push(
             eqeqeq(access(a, symbol.getName()), access(b, symbol.getName()))
               .expression,
@@ -428,8 +426,8 @@ export namespace CompareEqualsProgrammer {
     }
     if (native.name === "Date") {
       return eqeqeq(
-        ts.factory.createCallExpression(access(a, ids.toString), undefined, []),
-        ts.factory.createCallExpression(access(b, ids.toString), undefined, []),
+        ts.factory.createCallExpression(ids.String, undefined, [a]),
+        ts.factory.createCallExpression(ids.String, undefined, [b]),
       ).expression;
     }
 
@@ -471,9 +469,9 @@ export namespace CompareEqualsProgrammer {
   //   );
   // }
 
-  function typeOf(a: ts.Expression, b: ts.Expression) {
-    return eqeqeq(ts.factory.createTypeOfExpression(a), b).expression;
-  }
+  // function typeOf(a: ts.Expression, b: ts.Expression) {
+  //   return eqeqeq(ts.factory.createTypeOfExpression(a), b).expression;
+  // }
 
   function isArray(a: ts.Expression) {
     return ts.factory.createCallExpression(
@@ -483,26 +481,26 @@ export namespace CompareEqualsProgrammer {
     );
   }
 
-  function isFunctionProperty(node: ts.PropertyDeclaration): boolean {
-    if (ts.isMethodSignature(node)) {
-      return true;
-    }
-    if (node.initializer) {
-      if (
-        ts.isArrowFunction(node.initializer) ||
-        ts.isFunctionExpression(node.initializer)
-      ) {
-        return true;
-      }
-    }
-
-    if (node.type) {
-      if (ts.isFunctionTypeNode(node.type)) {
-        return true;
-      }
-    }
-    return false;
-  }
+  // function isFunctionProperty(node: ts.PropertyDeclaration): boolean {
+  //   if (ts.isMethodSignature(node)) {
+  //     return true;
+  //   }
+  //   if (node.initializer) {
+  //     if (
+  //       ts.isArrowFunction(node.initializer) ||
+  //       ts.isFunctionExpression(node.initializer)
+  //     ) {
+  //       return true;
+  //     }
+  //   }
+  //
+  //   if (node.type) {
+  //     if (ts.isFunctionTypeNode(node.type)) {
+  //       return true;
+  //     }
+  //   }
+  //   return false;
+  // }
 
   function transform(
     a: ts.Expression,
@@ -519,7 +517,11 @@ export namespace CompareEqualsProgrammer {
     if (metadata.size() > 1) {
       const compares: ts.Expression[] = [];
 
-      if (metadata.constants.length > 0 || metadata.atomics.length > 0) {
+      if (
+        metadata.constants.length > 0 ||
+        metadata.atomics.length > 0 ||
+        metadata.functions.length > 0
+      ) {
         compares.push(eqeqeq(a, b).expression);
       }
       if (metadata.maps.length > 0) {
@@ -556,16 +558,20 @@ export namespace CompareEqualsProgrammer {
         // );
       }
       if (metadata.objects.length > 0) {
-        compares.push(
-          and(
-            typeOf(a, ids.object),
-            mergeWithBar(
-              metadata.objects.map((element) =>
-                transformObject(a, b, props, metadata, element),
-              ),
-            ),
-          ),
-        );
+        throw new TransformerError({
+          code: `typia.compare.equals()`,
+          message: `Union type for Objects are unsupported to compare ${props.type.getSymbol()?.getName()}.`,
+        });
+        // compares.push(
+        //   and(
+        //     typeOf(a, ids.object),
+        //     mergeWithBar(
+        //       metadata.objects.map((element) =>
+        //         transformObject(a, b, props, metadata, element),
+        //       ),
+        //     ),
+        //   ),
+        // );
       }
       if (metadata.arrays.length > 0) {
         compares.push(
@@ -580,10 +586,23 @@ export namespace CompareEqualsProgrammer {
         );
       }
 
+      // if (metadata.functions.length > 0) {
+      //   compares.push(
+      //     and(
+      //       typeOf(a, ids.funtion),
+      //       mergeWithBar(
+      //         metadata.functions.map((element) =>
+      //           eqeqeq(a, a).expression
+      //         ),
+      //       ),
+      //     ),
+      //   );
+      // }
+
       return mergeWithBar(compares);
     }
 
-    if (metadata.atomics[0] || metadata.constants[0]) {
+    if (metadata.atomics[0] || metadata.constants[0] || metadata.functions[0]) {
       return eqeqeq(a, b).expression;
     }
 
