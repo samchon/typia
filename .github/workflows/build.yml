@@ -65,9 +65,9 @@ jobs:
       - uses: pnpm/action-setup@v2
         with:
           version: 8
-      - run: npm install --force
-      - run: npm run build
-      - run: npm run test
+      - run: pnpm install --force
+      - run: pnpm run build
+      - run: pnpm run test
 
   Bun:
     runs-on: ubuntu-latest
