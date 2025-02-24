@@ -83,8 +83,8 @@ jobs:
         with:
           version: 8
       - run: pnpm install --force
-      - run: pnpm run build
-      - run: pnpm run test:bun
+      - run: npm run build
+      - run: npm run test:bun
 
   action-timeline:
     needs:
