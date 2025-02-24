@@ -37,6 +37,6 @@
     "typescript": "5.9.0-dev.20250223"
   },
   "dependencies": {
-    "typia": "../"
+    "typia": "workspace:^"
   }
 }
