@@ -33,6 +33,7 @@
     "@typegoose/typegoose": "^10.1.1",
     "@types/autocannon": "^7.9.0",
     "@types/benchmark": "^2.1.2",
+    "@types/body-parser": "^1.19.5",
     "@types/d3": "^7.4.0",
     "@types/express": "^4.17.14",
     "@types/node": "^18.15.12",
@@ -41,7 +42,7 @@
     "ajv": "^8.12.0",
     "autocannon": "^7.10.0",
     "benchmark": "^2.1.4",
-    "body-parser": "^1.20.2",
+    "body-parser": "^1.20.3",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
     "d3": "^5.16.0",
@@ -65,11 +66,12 @@
     "zod": "^3.19.1"
   },
   "dependencies": {
+    "fp-ts": "^2.16.9",
     "randexp": "^0.5.3",
     "source-map-support": "^0.5.21",
     "suppress-warnings": "^1.0.2",
     "tstl": "^3.0.0",
-    "uuid": "^9.0.1",
-    "typia": "../"
+    "typia": "workspace:^",
+    "uuid": "^9.0.1"
   }
 }

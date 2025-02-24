@@ -2,8 +2,6 @@ import chalk from "chalk";
 import cp from "child_process";
 import fs from "fs";
 
-import { ReplicaPublisher } from "./ReplicaPublisher";
-
 export namespace DeployRunner {
   export const main = async (props: {
     tag: string;
@@ -19,7 +17,7 @@ export namespace DeployRunner {
       process.chdir(__dirname + "/../..");
       execLoudly({
         label: "typia",
-        command: "npm run build",
+        command: "pnpm run build",
       });
     }
     const version: string = props.setup
@@ -40,7 +38,6 @@ export namespace DeployRunner {
     if (props.publish) {
       title("DEPLOY TO NPM");
       await publish(props.tag);
-      await ReplicaPublisher.replica(props.tag);
     }
   };
 
@@ -51,9 +48,13 @@ export namespace DeployRunner {
 
   const publish = async (tag: string): Promise<string> => {
     // LOAD PACKAGE.JSON CONTENT
-    const pack: any = JSON.parse(
-      fs.readFileSync(`${__dirname}/../../package.json`, "utf8"),
-    );
+    const load = () =>
+      JSON.parse(fs.readFileSync(`${__dirname}/../../package.json`, "utf8"));
+    const original: any = load();
+    const pack: any = load();
+    delete pack.private;
+
+    // CHECK VERSION AND TAG
     const version: string = pack.version;
     const dev: boolean = version.includes("-dev.");
     if ((tag === "next" || tag === "patch") && !dev)
@@ -61,27 +62,28 @@ export namespace DeployRunner {
     else if (tag === "latest" && dev)
       throw new Error("latest tag can only be used for non-dev versions.");
 
-    // REMOVE PRIVATE FOR PUBLISHING
-    delete pack.private;
-    await fs.promises.writeFile(
-      `${__dirname}/../../package.json`,
-      JSON.stringify(pack, null, 2),
-      "utf8",
-    );
-    if (tag !== "test")
-      cp.execSync(
-        `npm publish --tag ${tag}${tag === "latest" ? " --provenance" : ""}`,
-        { stdio: "inherit" },
+    try {
+      await fs.promises.writeFile(
+        `${__dirname}/../../package.json`,
+        JSON.stringify(pack, null, 2),
+        "utf8",
       );
-
-    // RESTORE PRIVATE PROPERTY
-    pack.private = true;
-    fs.writeFileSync(
-      `${__dirname}/../../package.json`,
-      JSON.stringify(pack, null, 2),
-      "utf8",
-    );
-    return version;
+      if (tag !== "test")
+        cp.execSync(
+          `npm publish --tag ${tag}${tag === "latest" ? " --provenance" : ""}`,
+          { stdio: "inherit" },
+        );
+      return version;
+    } catch (error) {
+      throw error;
+    } finally {
+      // RESTORE PRIVATE PROPERTY
+      await fs.promises.writeFile(
+        `${__dirname}/../../package.json`,
+        JSON.stringify(original, null, 2),
+        "utf8",
+      );
+    }
   };
 
   const test = async (props: {
@@ -91,31 +93,15 @@ export namespace DeployRunner {
     commands: string[];
   }): Promise<void> => {
     process.chdir(`${__dirname}/../../${props.name}`);
-    if (props.setup) {
-      if (fs.existsSync("node_modules/typia"))
-        cp.execSync("npm uninstall typia --force", { stdio: "ignore" });
-
-      const pack: any = JSON.parse(
-        await fs.promises.readFile("package.json", "utf8"),
-      );
-      pack.dependencies ??= {};
-      pack.dependencies.typia = `../`;
-      await fs.promises.writeFile(
-        "package.json",
-        JSON.stringify(pack, null, 2),
-        "utf8",
-      );
-    }
-    if (props.commands.length) {
-      if (props.setup)
-        execLoudly({
-          label: `@typia/${props.name}`,
-          command: "npm install --force",
-        });
+    if (props.setup)
+      execLoudly({
+        label: `@typia/${props.name}`,
+        command: "pnpm install --force",
+      });
+    if (props.commands.length)
       props.commands.forEach((command) =>
         execLoudly({ label: `@typia/${props.name}`, command }),
       );
-    }
     process.chdir(__dirname + "/../..");
   };
 

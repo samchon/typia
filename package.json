@@ -1,6 +1,7 @@
 {
+  "private": true,
   "name": "typia",
-  "version": "8.0.0-dev.20250224",
+  "version": "8.0.0-dev.20250225",
   "description": "Superfast runtime validators with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -28,8 +29,7 @@
     "------------------------------------------------": "",
     "package:latest": "ts-node deploy --tag latest",
     "package:next": "ts-node deploy --tag next",
-    "package:patch": "ts-node deploy --tag patch",
-    "package:deprecate": "npm deprecate typescript-json \"Renamed to typia\""
+    "package:patch": "ts-node deploy --tag patch"
   },
   "repository": {
     "type": "git",
@@ -118,6 +118,5 @@
     "claude",
     "gemini",
     "llama"
-  ],
-  "private": true
+  ]
 }
