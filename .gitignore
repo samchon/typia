@@ -11,3 +11,5 @@ bun.lock
 
 *.log
 *.tgz
+
+.eslintcache

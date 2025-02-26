@@ -263,6 +263,7 @@ export namespace JsonStringifyProgrammer {
     if (props.metadata.templates.length)
       if (AtomicPredicator.template(props.metadata)) {
         const partial = Metadata.initialize();
+        // eslint-disable-next-line @typescript-eslint/no-unused-expressions
         partial.atomics.push(
           MetadataAtomic.create({ type: "string", tags: [] }),
         ),

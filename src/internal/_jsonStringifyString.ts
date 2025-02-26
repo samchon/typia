@@ -30,6 +30,7 @@ export const _jsonStringifyString = (str: string): string => {
       point === 0x22 || // '"'
       point === 0x5c // '\'
     ) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-expressions
       last === -1 && (last = 0);
       result += str.slice(last, i) + "\\";
       last = i;

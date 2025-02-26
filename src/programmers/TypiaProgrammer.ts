@@ -108,7 +108,7 @@ export namespace TypiaProgrammer {
       const [line, pos] = diag.file
         ? (() => {
             const lines: string[] = diag
-              .file!.text.substring(0, diag.start)
+              .file.text.substring(0, diag.start)
               .split("\n");
             if (lines.length === 0) return [0, 0];
             return [lines.length, lines.at(-1)!.length + 1];

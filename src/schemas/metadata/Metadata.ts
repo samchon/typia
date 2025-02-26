@@ -178,6 +178,7 @@ export class Metadata {
         const found = dict.objects.get(obj.name);
         if (found === undefined)
           throw new RangeError(
+            // eslint-disable-next-line @typescript-eslint/no-deprecated
             `Error on Metadata.from(): failed to find object "${name}".`,
           );
         return MetadataObject.create({

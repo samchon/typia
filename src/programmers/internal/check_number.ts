@@ -98,7 +98,7 @@ const check_numeric_type_tags = (props: {
           : [
               {
                 expected: "number",
-                expression: props.addition!,
+                expression: props.addition,
               },
             ]),
       ...row.map((tag) => ({

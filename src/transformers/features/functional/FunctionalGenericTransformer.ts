@@ -50,7 +50,7 @@ export namespace FunctionalGenericTransformer {
         ...props,
         config: spec.config,
         expression: props.expression.arguments[0] as ts.Expression,
-        declaration: type.symbol!.declarations![0] as ts.FunctionDeclaration,
+        declaration: type.symbol.declarations![0] as ts.FunctionDeclaration,
         init: props.expression.arguments[1],
       });
     };

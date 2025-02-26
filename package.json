@@ -21,9 +21,9 @@
     "build": "rimraf lib && tsc && rollup -c",
     "dev": "rimraf lib && tsc --watch",
     "dev:errors": "tsc --project tsconfig.errors.json --watch",
-    "eslint": "eslint",
-    "eslint:fix": "eslint --fix",
-    "prettier": "prettier src --check",
+    "eslint": "eslint --cache src",
+    "eslint:fix": "eslint --cache --fix src",
+    "prettier": "prettier src --write",
     "prettier:fix": "prettier src --write",
     "------------------------------------------------": "",
     "package:latest": "ts-node deploy --tag latest",
@@ -54,6 +54,8 @@
     "typescript": ">=4.8.0 <5.8.0"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.2.0",
+    "@eslint/js": "^9.19.0",
     "@rollup/plugin-commonjs": "^26.0.1",
     "@rollup/plugin-node-resolve": "^15.2.3",
     "@rollup/plugin-typescript": "^11.1.6",
@@ -61,16 +63,16 @@
     "@types/inquirer": "^8.2.5",
     "@types/node": "^18.15.12",
     "@types/ts-expose-internals": "npm:ts-expose-internals@5.5.4",
-    "@typescript-eslint/eslint-plugin": "^8.1.0",
-    "@typescript-eslint/parser": "^8.1.0",
     "chalk": "^4.0.0",
-    "eslint-plugin-deprecation": "^3.0.0",
+    "eslint": "^9.19.0",
+    "eslint-config-flat-gitignore": "^2.0.0",
     "prettier": "^3.2.5",
     "rimraf": "^5.0.5",
     "rollup": "^4.18.0",
     "suppress-warnings": "^1.0.2",
     "ts-node": "^10.9.2",
-    "typescript": "~5.7.3"
+    "typescript": "~5.7.3",
+    "typescript-eslint": "^8.23.0"
   },
   "stackblitz": {
     "startCommand": "npm install && npm run test"

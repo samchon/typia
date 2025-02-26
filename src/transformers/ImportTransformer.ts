@@ -69,6 +69,7 @@ export namespace ImportTransformer {
       undefined,
       props.node.importClause,
       ts.factory.createStringLiteral(replaced),
+      // eslint-disable-next-line @typescript-eslint/no-deprecated
       props.node.assertClause,
     );
   };
