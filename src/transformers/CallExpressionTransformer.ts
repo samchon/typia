@@ -195,14 +195,20 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
       CreateAssertTransformer.transform({ equals: false, guard: false }),
     createIs: () => CreateIsTransformer.transform({ equals: false }),
     createValidate: () =>
-      CreateValidateTransformer.transform({ equals: false }),
+      CreateValidateTransformer.transform({
+        equals: false,
+        standardSchema: true,
+      }),
     createAssertEquals: () =>
       CreateAssertTransformer.transform({ equals: true, guard: false }),
     createAssertGuardEquals: () =>
       CreateAssertTransformer.transform({ equals: true, guard: true }),
     createEquals: () => CreateIsTransformer.transform({ equals: true }),
     createValidateEquals: () =>
-      CreateValidateTransformer.transform({ equals: true }),
+      CreateValidateTransformer.transform({
+        equals: true,
+        standardSchema: true,
+      }),
     createRandom: () => CreateRandomTransformer.transform,
   },
   functional: {
