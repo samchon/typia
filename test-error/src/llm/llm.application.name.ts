@@ -19,23 +19,3 @@ typia.llm.application<
   },
   "chatgpt"
 >();
-
-// APPLICATION-OF-VALIDATE
-typia.llm.applicationOfValidate<
-  {
-    "0create"(p: {}): void;
-  },
-  "chatgpt"
->();
-typia.llm.applicationOfValidate<
-  {
-    "a.b.c"(p: {}): void;
-  },
-  "chatgpt"
->();
-typia.llm.applicationOfValidate<
-  {
-    "&x"(p: {}): void;
-  },
-  "chatgpt"
->();

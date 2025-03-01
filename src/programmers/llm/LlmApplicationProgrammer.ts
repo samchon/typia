@@ -7,14 +7,21 @@ import {
 } from "@samchon/openapi";
 import { LlmSchemaComposer } from "@samchon/openapi/lib/composers/LlmSchemaComposer";
 import { ILlmFunction } from "@samchon/openapi/lib/structures/ILlmFunction";
+import ts from "typescript";
 
 import { MetadataFactory } from "../../factories/MetadataFactory";
+import { TypeFactory } from "../../factories/TypeFactory";
 
 import { __IJsonApplication } from "../../schemas/json/__IJsonApplication";
 import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataFunction } from "../../schemas/metadata/MetadataFunction";
 import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
+import { MetadataParameter } from "../../schemas/metadata/MetadataParameter";
 
+import { ITypiaContext } from "../../transformers/ITypiaContext";
+
+import { IValidation } from "../../IValidation";
+import { ValidateProgrammer } from "../ValidateProgrammer";
 import { JsonApplicationProgrammer } from "../json/JsonApplicationProgrammer";
 import { LlmSchemaProgrammer } from "./LlmSchemaProgrammer";
 
@@ -146,8 +153,11 @@ export namespace LlmApplicationProgrammer {
 
   export const write = <Model extends ILlmSchema.Model>(props: {
     model: Model;
+    context: ITypiaContext;
+    modulo: ts.LeftHandSideExpression;
     metadata: Metadata;
     config?: Partial<ILlmSchema.ModelConfig[Model]>;
+    name?: string;
   }): ILlmApplication<Model> => {
     const errors: string[] = validate(props)(props.metadata, {
       top: true,
@@ -162,6 +172,28 @@ export namespace LlmApplicationProgrammer {
     if (errors.length)
       throw new Error("Failed to write LLM application: " + errors.join("\n"));
 
+    const functionParameters: Record<string, MetadataParameter> =
+      Object.fromEntries(
+        props.metadata.objects[0]!.type.properties.filter(
+          (p) =>
+            p.key.isSoleLiteral() &&
+            p.value.size() === 1 &&
+            p.value.nullable === false &&
+            p.value.isRequired() === true &&
+            p.value.functions.length === 1,
+        )
+          .filter(
+            (p) =>
+              p.jsDocTags.find(
+                (tag) => tag.name === "hidden" || tag.name === "internal",
+              ) === undefined,
+          )
+          .map((p) => [
+            p.key.getSoleLiteral()!,
+            p.value.functions[0]!.parameters[0]!,
+          ]),
+      );
+
     const errorMessages: string[] = [];
     const application: __IJsonApplication<"3.1"> =
       JsonApplicationProgrammer.write({
@@ -174,9 +206,13 @@ export namespace LlmApplicationProgrammer {
       application.functions.map((func) =>
         writeFunction({
           model: props.model,
+          context: props.context,
+          modulo: props.modulo,
+          className: props.name,
           components: application.components,
           function: func,
           errors: errorMessages,
+          parameter: functionParameters[func.name] ?? null,
         }),
       );
     if (functions.some((func) => func === null))
@@ -197,9 +233,13 @@ export namespace LlmApplicationProgrammer {
 
   const writeFunction = <Model extends ILlmSchema.Model>(props: {
     model: Model;
+    context: ITypiaContext;
+    modulo: ts.LeftHandSideExpression;
     components: OpenApi.IComponents;
     function: __IJsonApplication.IFunction<OpenApi.IJsonSchema>;
+    parameter: MetadataParameter | null;
     errors: string[];
+    className?: string;
   }): ILlmFunction<Model> | null => {
     const parameters: ILlmSchema.ModelParameters[Model] | null =
       writeParameters({
@@ -244,6 +284,13 @@ export namespace LlmApplicationProgrammer {
       })(),
       deprecated: props.function.deprecated,
       tags: props.function.tags,
+      validate: writeValidadtor({
+        context: props.context,
+        modulo: props.modulo,
+        parameter: props.parameter,
+        name: props.function.name,
+        className: props.className,
+      }),
     };
   };
 
@@ -311,17 +358,56 @@ export namespace LlmApplicationProgrammer {
     return result.value;
   };
 
-  const concatDescription = (p: {
-    summary?: string | undefined;
-    description?: string | undefined;
-  }): string | undefined => {
-    if (!p.summary?.length || !p.description?.length)
-      return p.summary ?? p.description;
-    const summary: string = p.summary.endsWith(".")
-      ? p.summary.slice(0, -1)
-      : p.summary;
-    return p.description.startsWith(summary)
-      ? p.description
-      : summary + ".\n\n" + p.description;
+  const writeValidadtor = (props: {
+    context: ITypiaContext;
+    modulo: ts.LeftHandSideExpression;
+    parameter: MetadataParameter | null;
+    name: string;
+    className?: string;
+  }): ((props: unknown) => IValidation<unknown>) => {
+    if (props.parameter === null)
+      return ValidateProgrammer.write({
+        ...props,
+        type: props.context.checker.getTypeFromTypeNode(
+          TypeFactory.keyword("any"),
+        ),
+        config: {
+          equals: false,
+        },
+        name: undefined,
+      }) as any;
+
+    const type: ts.Type | undefined = props.parameter.tsType;
+    if (type === undefined)
+      // unreachable
+      throw new Error(
+        "Failed to write LLM application's function validator. You don't have to call `LlmApplicationOfValidator.write()` function by yourself, but only by the `typia.llm.applicationOfValidate()` function.",
+      );
+    return ValidateProgrammer.write({
+      ...props,
+      type: props.parameter.tsType!,
+      config: {
+        equals: false,
+      },
+      name: props.className
+        ? `Parameters<${props.className}[${JSON.stringify(props.name)}]>[0]`
+        : undefined,
+    }) satisfies ts.CallExpression as any as (
+      props: unknown,
+    ) => IValidation<unknown>;
   };
 }
+
+const concatDescription = (p: {
+  summary?: string | undefined;
+  description?: string | undefined;
+}): string | undefined => {
+  if (!p.summary?.length || !p.description?.length)
+    return p.summary ?? p.description;
+  const summary: string = p.summary.endsWith(".")
+    ? p.summary.slice(0, -1)
+    : p.summary;
+  return p.description.startsWith(summary)
+    ? p.description
+    : summary + ".\n\n" + p.description;
+};

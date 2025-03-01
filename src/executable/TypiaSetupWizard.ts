@@ -40,22 +40,18 @@ export namespace TypiaSetupWizard {
       data.scripts ??= {};
       if (
         typeof data.scripts.prepare === "string" &&
-        data.scripts.prepare.trim().length
+        data.scripts.prepare.trim().length !== 0
       ) {
-        if (
-          data.scripts.prepare.indexOf("ts-patch install") === -1 &&
-          data.scripts.prepare.indexOf("typia patch") === -1
-        )
-          data.scripts.prepare =
-            "ts-patch install && typia patch && " + data.scripts.prepare;
-        else if (data.scripts.prepare.indexOf("ts-patch install") === -1)
+        if (data.scripts.prepare.includes("ts-patch install") === false)
           data.scripts.prepare = "ts-patch install && " + data.scripts.prepare;
-        else if (data.scripts.prepare.indexOf("typia patch") === -1)
-          data.scripts.prepare = data.scripts.prepare.replace(
-            "ts-patch install",
-            "ts-patch install && typia patch",
-          );
-      } else data.scripts.prepare = "ts-patch install && typia patch";
+      } else data.scripts.prepare = "ts-patch install";
+
+      // NO MORE "typia patch" REQUIRED
+      data.scripts.prepare = data.scripts.prepare
+        .split("&&")
+        .map((str) => str.trim())
+        .filter((str) => str !== "typia patch")
+        .join(" && ");
 
       // FOR OLDER VERSIONS
       if (typeof data.scripts.postinstall === "string") {
@@ -100,11 +96,7 @@ export namespace TypiaSetupWizard {
             name: name,
             message: message,
             choices: choices,
-            ...(filter
-              ? {
-                  filter,
-                }
-              : {}),
+            ...(filter ? { filter } : {}),
           })
         )[name];
       };
