@@ -68,7 +68,10 @@
     "prettier": "^3.2.5",
     "rimraf": "^5.0.5",
     "rollup": "^4.18.0",
+    "rollup-plugin-auto-external": "^2.0.0",
+    "rollup-plugin-node-externals": "^8.0.0",
     "suppress-warnings": "^1.0.2",
+    "tinyglobby": "^0.2.12",
     "ts-node": "^10.9.2",
     "typescript": "5.9.0-dev.20250223"
   },

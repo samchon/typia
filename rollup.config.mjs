@@ -1,10 +1,12 @@
-const path = require("path");
-const typescript = require("@rollup/plugin-typescript");
-const nodeResolve = require("@rollup/plugin-node-resolve");
-const commomnjs = require("@rollup/plugin-commonjs");
+import typescript from "@rollup/plugin-typescript";
+import nodeResolve from "@rollup/plugin-node-resolve";
+import commomnjs from "@rollup/plugin-commonjs";
+import autoExternal from "rollup-plugin-auto-external";
+import nodeExternals from 'rollup-plugin-node-externals'
+import { globSync } from "tinyglobby";
 
-module.exports = {
-  input: "./src/index.ts",
+export default {
+  input: globSync("./src/**/*.ts"),
   output: {
     dir: "./lib",
     format: "esm",
@@ -35,6 +37,8 @@ module.exports = {
   },
   plugins: [
     nodeResolve(),
+    autoExternal(),
+    nodeExternals(),
     commomnjs(),
     typescript({
       tsconfig: "tsconfig.json",
