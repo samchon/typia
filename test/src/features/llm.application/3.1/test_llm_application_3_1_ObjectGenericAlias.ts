@@ -7,6 +7,7 @@ export const test_llm_application_3_1_ObjectGenericAlias =
   _test_llm_application({
     model: "3.1",
     name: "ObjectGenericAlias",
+    factory: ObjectGenericAlias,
   })(typia.llm.application<ObjectGenericAliasApplication, "3.1">());
 
 interface ObjectGenericAliasApplication {

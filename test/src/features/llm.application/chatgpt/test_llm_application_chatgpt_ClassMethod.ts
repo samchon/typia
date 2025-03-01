@@ -6,6 +6,7 @@ import { ClassMethod } from "../../../structures/ClassMethod";
 export const test_llm_application_chatgpt_ClassMethod = _test_llm_application({
   model: "chatgpt",
   name: "ClassMethod",
+  factory: ClassMethod,
 })(typia.llm.application<ClassMethodApplication, "chatgpt">());
 
 interface ClassMethodApplication {

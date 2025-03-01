@@ -6,6 +6,7 @@ import { ObjectNullable } from "../../../structures/ObjectNullable";
 export const test_llm_application_3_1_ObjectNullable = _test_llm_application({
   model: "3.1",
   name: "ObjectNullable",
+  factory: ObjectNullable,
 })(typia.llm.application<ObjectNullableApplication, "3.1">());
 
 interface ObjectNullableApplication {

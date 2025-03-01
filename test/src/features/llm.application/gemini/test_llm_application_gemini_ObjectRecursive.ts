@@ -7,6 +7,7 @@ export const test_llm_application_gemini_ObjectRecursive =
   _test_llm_application({
     model: "gemini",
     name: "ObjectRecursive",
+    factory: ObjectRecursive,
   })(typia.llm.application<ObjectRecursiveApplication, "gemini">());
 
 interface ObjectRecursiveApplication {

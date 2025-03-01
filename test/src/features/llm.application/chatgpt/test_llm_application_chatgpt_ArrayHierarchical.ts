@@ -7,6 +7,7 @@ export const test_llm_application_chatgpt_ArrayHierarchical =
   _test_llm_application({
     model: "chatgpt",
     name: "ArrayHierarchical",
+    factory: ArrayHierarchical,
   })(typia.llm.application<ArrayHierarchicalApplication, "chatgpt">());
 
 interface ArrayHierarchicalApplication {

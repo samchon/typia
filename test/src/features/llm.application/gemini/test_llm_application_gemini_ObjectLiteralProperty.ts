@@ -7,6 +7,7 @@ export const test_llm_application_gemini_ObjectLiteralProperty =
   _test_llm_application({
     model: "gemini",
     name: "ObjectLiteralProperty",
+    factory: ObjectLiteralProperty,
   })(typia.llm.application<ObjectLiteralPropertyApplication, "gemini">());
 
 interface ObjectLiteralPropertyApplication {

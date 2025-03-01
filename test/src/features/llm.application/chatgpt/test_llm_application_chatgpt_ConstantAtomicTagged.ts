@@ -7,6 +7,7 @@ export const test_llm_application_chatgpt_ConstantAtomicTagged =
   _test_llm_application({
     model: "chatgpt",
     name: "ConstantAtomicTagged",
+    factory: ConstantAtomicTagged,
   })(typia.llm.application<ConstantAtomicTaggedApplication, "chatgpt">());
 
 interface ConstantAtomicTaggedApplication {

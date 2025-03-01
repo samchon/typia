@@ -7,6 +7,7 @@ export const test_llm_application_llama_CommentTagArray = _test_llm_application(
   {
     model: "llama",
     name: "CommentTagArray",
+    factory: CommentTagArray,
   },
 )(typia.llm.application<CommentTagArrayApplication, "llama">());
 

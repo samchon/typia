@@ -6,6 +6,7 @@ import { DynamicTree } from "../../../structures/DynamicTree";
 export const test_llm_application_chatgpt_DynamicTree = _test_llm_application({
   model: "chatgpt",
   name: "DynamicTree",
+  factory: DynamicTree,
 })(typia.llm.application<DynamicTreeApplication, "chatgpt">());
 
 interface DynamicTreeApplication {

@@ -6,6 +6,7 @@ import { TypeTagDefault } from "../../../structures/TypeTagDefault";
 export const test_llm_application_3_1_TypeTagDefault = _test_llm_application({
   model: "3.1",
   name: "TypeTagDefault",
+  factory: TypeTagDefault,
 })(typia.llm.application<TypeTagDefaultApplication, "3.1">());
 
 interface TypeTagDefaultApplication {

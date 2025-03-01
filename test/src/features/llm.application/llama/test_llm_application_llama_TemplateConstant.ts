@@ -7,6 +7,7 @@ export const test_llm_application_llama_TemplateConstant =
   _test_llm_application({
     model: "llama",
     name: "TemplateConstant",
+    factory: TemplateConstant,
   })(typia.llm.application<TemplateConstantApplication, "llama">());
 
 interface TemplateConstantApplication {

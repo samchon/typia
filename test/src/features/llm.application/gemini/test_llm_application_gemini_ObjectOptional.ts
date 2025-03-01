@@ -7,6 +7,7 @@ export const test_llm_application_gemini_ObjectOptional = _test_llm_application(
   {
     model: "gemini",
     name: "ObjectOptional",
+    factory: ObjectOptional,
   },
 )(typia.llm.application<ObjectOptionalApplication, "gemini">());
 

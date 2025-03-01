@@ -7,6 +7,7 @@ export const test_llm_application_chatgpt_ObjectOptional =
   _test_llm_application({
     model: "chatgpt",
     name: "ObjectOptional",
+    factory: ObjectOptional,
   })(typia.llm.application<ObjectOptionalApplication, "chatgpt">());
 
 interface ObjectOptionalApplication {

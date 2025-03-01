@@ -6,6 +6,7 @@ import { TypeTagMatrix } from "../../../structures/TypeTagMatrix";
 export const test_llm_application_claude_TypeTagMatrix = _test_llm_application({
   model: "claude",
   name: "TypeTagMatrix",
+  factory: TypeTagMatrix,
 })(typia.llm.application<TypeTagMatrixApplication, "claude">());
 
 interface TypeTagMatrixApplication {

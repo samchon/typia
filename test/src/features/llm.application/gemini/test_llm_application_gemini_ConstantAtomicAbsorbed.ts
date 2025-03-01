@@ -7,6 +7,7 @@ export const test_llm_application_gemini_ConstantAtomicAbsorbed =
   _test_llm_application({
     model: "gemini",
     name: "ConstantAtomicAbsorbed",
+    factory: ConstantAtomicAbsorbed,
   })(typia.llm.application<ConstantAtomicAbsorbedApplication, "gemini">());
 
 interface ConstantAtomicAbsorbedApplication {

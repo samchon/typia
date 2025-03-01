@@ -6,6 +6,7 @@ import { TypeTagPattern } from "../../../structures/TypeTagPattern";
 export const test_llm_application_3_1_TypeTagPattern = _test_llm_application({
   model: "3.1",
   name: "TypeTagPattern",
+  factory: TypeTagPattern,
 })(typia.llm.application<TypeTagPatternApplication, "3.1">());
 
 interface TypeTagPatternApplication {

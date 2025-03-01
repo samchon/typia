@@ -7,6 +7,7 @@ export const test_llm_application_llama_ClassPropertyAssignment =
   _test_llm_application({
     model: "llama",
     name: "ClassPropertyAssignment",
+    factory: ClassPropertyAssignment,
   })(typia.llm.application<ClassPropertyAssignmentApplication, "llama">());
 
 interface ClassPropertyAssignmentApplication {

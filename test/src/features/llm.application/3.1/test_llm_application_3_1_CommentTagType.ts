@@ -6,6 +6,7 @@ import { CommentTagType } from "../../../structures/CommentTagType";
 export const test_llm_application_3_1_CommentTagType = _test_llm_application({
   model: "3.1",
   name: "CommentTagType",
+  factory: CommentTagType,
 })(typia.llm.application<CommentTagTypeApplication, "3.1">());
 
 interface CommentTagTypeApplication {

@@ -6,6 +6,7 @@ import { DynamicArray } from "../../../structures/DynamicArray";
 export const test_llm_application_llama_DynamicArray = _test_llm_application({
   model: "llama",
   name: "DynamicArray",
+  factory: DynamicArray,
 })(typia.llm.application<DynamicArrayApplication, "llama">());
 
 interface DynamicArrayApplication {

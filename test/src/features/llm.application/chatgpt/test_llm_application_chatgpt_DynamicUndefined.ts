@@ -7,6 +7,7 @@ export const test_llm_application_chatgpt_DynamicUndefined =
   _test_llm_application({
     model: "chatgpt",
     name: "DynamicUndefined",
+    factory: DynamicUndefined,
   })(typia.llm.application<DynamicUndefinedApplication, "chatgpt">());
 
 interface DynamicUndefinedApplication {

@@ -7,6 +7,7 @@ export const test_llm_application_chatgpt_ObjectGenericAlias =
   _test_llm_application({
     model: "chatgpt",
     name: "ObjectGenericAlias",
+    factory: ObjectGenericAlias,
   })(typia.llm.application<ObjectGenericAliasApplication, "chatgpt">());
 
 interface ObjectGenericAliasApplication {

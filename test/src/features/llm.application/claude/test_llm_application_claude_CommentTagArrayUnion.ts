@@ -7,6 +7,7 @@ export const test_llm_application_claude_CommentTagArrayUnion =
   _test_llm_application({
     model: "claude",
     name: "CommentTagArrayUnion",
+    factory: CommentTagArrayUnion,
   })(typia.llm.application<CommentTagArrayUnionApplication, "claude">());
 
 interface CommentTagArrayUnionApplication {

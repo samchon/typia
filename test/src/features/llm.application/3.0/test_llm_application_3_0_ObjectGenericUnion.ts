@@ -7,6 +7,7 @@ export const test_llm_application_3_0_ObjectGenericUnion =
   _test_llm_application({
     model: "3.0",
     name: "ObjectGenericUnion",
+    factory: ObjectGenericUnion,
   })(typia.llm.application<ObjectGenericUnionApplication, "3.0">());
 
 interface ObjectGenericUnionApplication {

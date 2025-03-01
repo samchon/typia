@@ -7,6 +7,7 @@ export const test_llm_application_3_1_CommentTagDefault = _test_llm_application(
   {
     model: "3.1",
     name: "CommentTagDefault",
+    factory: CommentTagDefault,
   },
 )(typia.llm.application<CommentTagDefaultApplication, "3.1">());
 

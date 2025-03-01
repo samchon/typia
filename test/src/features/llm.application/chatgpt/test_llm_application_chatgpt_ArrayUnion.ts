@@ -6,6 +6,7 @@ import { ArrayUnion } from "../../../structures/ArrayUnion";
 export const test_llm_application_chatgpt_ArrayUnion = _test_llm_application({
   model: "chatgpt",
   name: "ArrayUnion",
+  factory: ArrayUnion,
 })(typia.llm.application<ArrayUnionApplication, "chatgpt">());
 
 interface ArrayUnionApplication {

@@ -6,6 +6,7 @@ import { AtomicUnion } from "../../../structures/AtomicUnion";
 export const test_llm_application_3_1_AtomicUnion = _test_llm_application({
   model: "3.1",
   name: "AtomicUnion",
+  factory: AtomicUnion,
 })(typia.llm.application<AtomicUnionApplication, "3.1">());
 
 interface AtomicUnionApplication {

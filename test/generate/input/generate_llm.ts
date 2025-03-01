@@ -17,11 +17,6 @@ export const application = typia.llm.application<IApplication, "llama">({
     LlmTypeCheckerV3_1.isString(schema) && schema.format === "date-time",
 });
 
-export const applicationOfValidate = typia.llm.applicationOfValidate<
-  IApplication,
-  "llama"
->();
-
 export interface IApplication {
   establishCompany(props: { company: ICompany }): ICompany;
   createDepartment(props: {

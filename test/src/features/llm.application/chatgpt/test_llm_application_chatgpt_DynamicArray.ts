@@ -6,6 +6,7 @@ import { DynamicArray } from "../../../structures/DynamicArray";
 export const test_llm_application_chatgpt_DynamicArray = _test_llm_application({
   model: "chatgpt",
   name: "DynamicArray",
+  factory: DynamicArray,
 })(typia.llm.application<DynamicArrayApplication, "chatgpt">());
 
 interface DynamicArrayApplication {

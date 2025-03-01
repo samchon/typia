@@ -6,6 +6,7 @@ import { ClassGetter } from "../../../structures/ClassGetter";
 export const test_llm_application_chatgpt_ClassGetter = _test_llm_application({
   model: "chatgpt",
   name: "ClassGetter",
+  factory: ClassGetter,
 })(typia.llm.application<ClassGetterApplication, "chatgpt">());
 
 interface ClassGetterApplication {

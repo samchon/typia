@@ -6,6 +6,7 @@ import { TypeTagType } from "../../../structures/TypeTagType";
 export const test_llm_application_chatgpt_TypeTagType = _test_llm_application({
   model: "chatgpt",
   name: "TypeTagType",
+  factory: TypeTagType,
 })(typia.llm.application<TypeTagTypeApplication, "chatgpt">());
 
 interface TypeTagTypeApplication {

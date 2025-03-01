@@ -6,6 +6,7 @@ import { TypeTagFormat } from "../../../structures/TypeTagFormat";
 export const test_llm_application_llama_TypeTagFormat = _test_llm_application({
   model: "llama",
   name: "TypeTagFormat",
+  factory: TypeTagFormat,
 })(typia.llm.application<TypeTagFormatApplication, "llama">());
 
 interface TypeTagFormatApplication {

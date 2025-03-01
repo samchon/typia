@@ -7,6 +7,7 @@ export const test_llm_application_claude_CommentTagType = _test_llm_application(
   {
     model: "claude",
     name: "CommentTagType",
+    factory: CommentTagType,
   },
 )(typia.llm.application<CommentTagTypeApplication, "claude">());
 

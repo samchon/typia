@@ -6,6 +6,7 @@ import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
 export const test_llm_application_3_1_ObjectPrimitive = _test_llm_application({
   model: "3.1",
   name: "ObjectPrimitive",
+  factory: ObjectPrimitive,
 })(typia.llm.application<ObjectPrimitiveApplication, "3.1">());
 
 interface ObjectPrimitiveApplication {

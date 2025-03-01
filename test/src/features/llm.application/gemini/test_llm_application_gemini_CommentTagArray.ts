@@ -7,6 +7,7 @@ export const test_llm_application_gemini_CommentTagArray =
   _test_llm_application({
     model: "gemini",
     name: "CommentTagArray",
+    factory: CommentTagArray,
   })(typia.llm.application<CommentTagArrayApplication, "gemini">());
 
 interface CommentTagArrayApplication {

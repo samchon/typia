@@ -7,6 +7,7 @@ export const test_llm_application_chatgpt_TypeTagFormat = _test_llm_application(
   {
     model: "chatgpt",
     name: "TypeTagFormat",
+    factory: TypeTagFormat,
   },
 )(typia.llm.application<TypeTagFormatApplication, "chatgpt">());
 

@@ -7,6 +7,7 @@ export const test_llm_application_llama_ArrayRepeatedUnion =
   _test_llm_application({
     model: "llama",
     name: "ArrayRepeatedUnion",
+    factory: ArrayRepeatedUnion,
   })(typia.llm.application<ArrayRepeatedUnionApplication, "llama">());
 
 interface ArrayRepeatedUnionApplication {

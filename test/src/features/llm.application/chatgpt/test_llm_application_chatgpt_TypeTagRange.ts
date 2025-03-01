@@ -6,6 +6,7 @@ import { TypeTagRange } from "../../../structures/TypeTagRange";
 export const test_llm_application_chatgpt_TypeTagRange = _test_llm_application({
   model: "chatgpt",
   name: "TypeTagRange",
+  factory: TypeTagRange,
 })(typia.llm.application<TypeTagRangeApplication, "chatgpt">());
 
 interface TypeTagRangeApplication {

@@ -7,6 +7,7 @@ export const test_llm_application_3_0_TypeTagObjectUnion =
   _test_llm_application({
     model: "3.0",
     name: "TypeTagObjectUnion",
+    factory: TypeTagObjectUnion,
   })(typia.llm.application<TypeTagObjectUnionApplication, "3.0">());
 
 interface TypeTagObjectUnionApplication {

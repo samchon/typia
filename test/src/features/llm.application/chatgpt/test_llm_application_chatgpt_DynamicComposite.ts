@@ -7,6 +7,7 @@ export const test_llm_application_chatgpt_DynamicComposite =
   _test_llm_application({
     model: "chatgpt",
     name: "DynamicComposite",
+    factory: DynamicComposite,
   })(typia.llm.application<DynamicCompositeApplication, "chatgpt">());
 
 interface DynamicCompositeApplication {

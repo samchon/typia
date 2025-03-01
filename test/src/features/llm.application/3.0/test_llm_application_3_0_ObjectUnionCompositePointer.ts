@@ -7,6 +7,7 @@ export const test_llm_application_3_0_ObjectUnionCompositePointer =
   _test_llm_application({
     model: "3.0",
     name: "ObjectUnionCompositePointer",
+    factory: ObjectUnionCompositePointer,
   })(typia.llm.application<ObjectUnionCompositePointerApplication, "3.0">());
 
 interface ObjectUnionCompositePointerApplication {

@@ -6,6 +6,7 @@ import { CommentTagFormat } from "../../../structures/CommentTagFormat";
 export const test_llm_application_3_0_CommentTagFormat = _test_llm_application({
   model: "3.0",
   name: "CommentTagFormat",
+  factory: CommentTagFormat,
 })(typia.llm.application<CommentTagFormatApplication, "3.0">());
 
 interface CommentTagFormatApplication {

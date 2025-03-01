@@ -6,6 +6,7 @@ import { ArrayAny } from "../../../structures/ArrayAny";
 export const test_llm_application_chatgpt_ArrayAny = _test_llm_application({
   model: "chatgpt",
   name: "ArrayAny",
+  factory: ArrayAny,
 })(typia.llm.application<ArrayAnyApplication, "chatgpt">());
 
 interface ArrayAnyApplication {

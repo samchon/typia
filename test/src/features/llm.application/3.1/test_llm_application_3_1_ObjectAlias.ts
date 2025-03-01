@@ -6,6 +6,7 @@ import { ObjectAlias } from "../../../structures/ObjectAlias";
 export const test_llm_application_3_1_ObjectAlias = _test_llm_application({
   model: "3.1",
   name: "ObjectAlias",
+  factory: ObjectAlias,
 })(typia.llm.application<ObjectAliasApplication, "3.1">());
 
 interface ObjectAliasApplication {

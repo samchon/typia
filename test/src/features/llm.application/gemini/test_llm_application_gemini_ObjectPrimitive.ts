@@ -7,6 +7,7 @@ export const test_llm_application_gemini_ObjectPrimitive =
   _test_llm_application({
     model: "gemini",
     name: "ObjectPrimitive",
+    factory: ObjectPrimitive,
   })(typia.llm.application<ObjectPrimitiveApplication, "gemini">());
 
 interface ObjectPrimitiveApplication {

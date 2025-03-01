@@ -7,6 +7,7 @@ export const test_llm_application_gemini_ObjectDescription =
   _test_llm_application({
     model: "gemini",
     name: "ObjectDescription",
+    factory: ObjectDescription,
   })(typia.llm.application<ObjectDescriptionApplication, "gemini">());
 
 interface ObjectDescriptionApplication {

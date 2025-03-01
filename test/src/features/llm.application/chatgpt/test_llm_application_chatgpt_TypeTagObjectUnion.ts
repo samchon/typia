@@ -7,6 +7,7 @@ export const test_llm_application_chatgpt_TypeTagObjectUnion =
   _test_llm_application({
     model: "chatgpt",
     name: "TypeTagObjectUnion",
+    factory: TypeTagObjectUnion,
   })(typia.llm.application<TypeTagObjectUnionApplication, "chatgpt">());
 
 interface TypeTagObjectUnionApplication {
