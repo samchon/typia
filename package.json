@@ -16,7 +16,6 @@
   },
   "scripts": {
     "test": "ts-node deploy --tag test",
-    "test:bun": "bun run deploy/bun.ts",
     "test:template": "npm run --tag test --template",
     "-------------------------------------------------": "",
     "build": "rimraf lib && tsc && rollup -c",
