@@ -69,23 +69,6 @@ jobs:
       - run: pnpm run build
       - run: pnpm run test
 
-  # Bun:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #     - uses: actions/checkout@v4
-  #     - uses: actions/setup-node@v4
-  #       with:
-  #         node-version: lts/*
-  #     - uses: oven-sh/setup-bun@v1
-  #       with:
-  #         bun-version: latest
-  #     - uses: pnpm/action-setup@v2
-  #       with:
-  #         version: 8
-  #     - run: pnpm install --force
-  #     - run: npm run build
-  #     - run: npm run test:bun
-
   action-timeline:
     needs:
       - Build-and-Upload-to-pkg-pr-new-and-artifactory
