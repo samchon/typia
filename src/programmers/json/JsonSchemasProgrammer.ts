@@ -1,5 +1,5 @@
 import { OpenApi } from "@samchon/openapi";
-import { OpenApiV3Downgrader } from "@samchon/openapi/lib/converters/OpenApiV3Downgrader.js";
+import { OpenApiV3Downgrader } from "@samchon/openapi/lib/converters/OpenApiV3Downgrader";
 
 import { IJsonSchemaCollection } from "../../schemas/json/IJsonSchemaCollection";
 import { Metadata } from "../../schemas/metadata/Metadata";

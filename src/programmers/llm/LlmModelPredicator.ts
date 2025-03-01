@@ -1,5 +1,5 @@
 import { ILlmSchema } from "@samchon/openapi";
-import { LlmSchemaComposer } from "@samchon/openapi/lib/composers/LlmSchemaComposer.js";
+import { LlmSchemaComposer } from "@samchon/openapi/lib/composers/LlmSchemaComposer";
 import ts from "typescript";
 
 import { MetadataCollection } from "../../factories/MetadataCollection";

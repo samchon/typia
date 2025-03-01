@@ -1,5 +1,5 @@
 import { ILlmSchema } from "@samchon/openapi";
-import { ILlmFunction } from "@samchon/openapi/lib/structures/ILlmFunction.js";
+import { ILlmFunction } from "@samchon/openapi/lib/structures/ILlmFunction";
 import ts from "typescript";
 
 import { LiteralFactory } from "../../../factories/LiteralFactory";
