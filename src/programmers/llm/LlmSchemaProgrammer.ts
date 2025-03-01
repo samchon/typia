@@ -6,7 +6,7 @@ import {
   IOpenApiSchemaError,
   IResult,
 } from "@samchon/openapi";
-import { LlmSchemaComposer } from "@samchon/openapi/lib/composers/LlmSchemaComposer";
+import { LlmSchemaComposer } from "@samchon/openapi/lib/composers/LlmSchemaComposer.js";
 
 import { IJsonSchemaCollection } from "../../schemas/json/IJsonSchemaCollection";
 import { Metadata } from "../../schemas/metadata/Metadata";

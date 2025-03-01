@@ -5,7 +5,7 @@ import {
   OpenApi,
   OpenApiTypeChecker,
 } from "@samchon/openapi";
-import { LlmSchemaComposer } from "@samchon/openapi/lib/composers/LlmSchemaComposer";
+import { LlmSchemaComposer } from "@samchon/openapi/lib/composers/LlmSchemaComposer.js";
 
 import { MetadataFactory } from "../../factories/MetadataFactory";
 
