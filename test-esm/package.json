@@ -34,7 +34,7 @@
     "@types/cli": "^0.11.25",
     "@types/node": "^22.10.1",
     "ts-patch": "^3.3.0",
-    "typescript": "^5.8.2"
+    "typescript": "~5.8.2"
   },
   "dependencies": {
     "typia": "workspace:^"
