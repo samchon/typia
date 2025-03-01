@@ -80,8 +80,11 @@ export namespace LlmApplicationTransformer {
     const schema: ILlmApplication<ILlmSchema.Model> =
       LlmApplicationProgrammer.write({
         model,
+        context: props.context,
+        modulo: props.modulo,
         metadata: analyze(false),
         config,
+        name: top.getFullText().trim(),
       });
     const literal: ts.Expression = ts.factory.createAsExpression(
       LiteralFactory.write(schema),
