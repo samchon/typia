@@ -18,8 +18,7 @@
                 "description": "@default something"
               },
               "age": {
-                "type": "number",
-                "description": "@default 20"
+                "type": "number"
               }
             },
             "required": [
@@ -46,8 +45,7 @@
                 "description": "@default something"
               },
               "age": {
-                "type": "number",
-                "description": "@default 20"
+                "type": "number"
               }
             },
             "required": [
@@ -63,8 +61,7 @@
                 "description": "@default something"
               },
               "age": {
-                "type": "number",
-                "description": "@default 20"
+                "type": "number"
               }
             },
             "required": [
@@ -87,8 +84,7 @@
             "description": "@default something"
           },
           "age": {
-            "type": "number",
-            "description": "@default 20"
+            "type": "number"
           }
         },
         "required": [
@@ -110,8 +106,7 @@
                 "description": "@default something"
               },
               "age": {
-                "type": "number",
-                "description": "@default 20"
+                "type": "number"
               }
             },
             "required": [
@@ -128,8 +123,7 @@
                 "description": "@default something"
               },
               "age": {
-                "type": "number",
-                "description": "@default 20"
+                "type": "number"
               }
             },
             "required": [
@@ -146,8 +140,7 @@
                 "description": "@default something"
               },
               "age": {
-                "type": "number",
-                "description": "@default 20"
+                "type": "number"
               }
             },
             "required": [
@@ -170,8 +163,7 @@
             "description": "@default something"
           },
           "age": {
-            "type": "number",
-            "description": "@default 20"
+            "type": "number"
           }
         },
         "required": [

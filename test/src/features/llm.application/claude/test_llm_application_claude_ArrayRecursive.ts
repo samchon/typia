@@ -7,6 +7,7 @@ export const test_llm_application_claude_ArrayRecursive = _test_llm_application(
   {
     model: "claude",
     name: "ArrayRecursive",
+    factory: ArrayRecursive,
   },
 )(typia.llm.application<ArrayRecursiveApplication, "claude">());
 

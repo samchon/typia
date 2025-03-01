@@ -7,6 +7,7 @@ export const test_llm_application_llama_ObjectPrimitive = _test_llm_application(
   {
     model: "llama",
     name: "ObjectPrimitive",
+    factory: ObjectPrimitive,
   },
 )(typia.llm.application<ObjectPrimitiveApplication, "llama">());
 

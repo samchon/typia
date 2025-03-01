@@ -7,6 +7,7 @@ export const test_llm_application_claude_CommentTagLength =
   _test_llm_application({
     model: "claude",
     name: "CommentTagLength",
+    factory: CommentTagLength,
   })(typia.llm.application<CommentTagLengthApplication, "claude">());
 
 interface CommentTagLengthApplication {

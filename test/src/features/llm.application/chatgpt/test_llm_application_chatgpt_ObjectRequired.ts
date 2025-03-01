@@ -7,6 +7,7 @@ export const test_llm_application_chatgpt_ObjectRequired =
   _test_llm_application({
     model: "chatgpt",
     name: "ObjectRequired",
+    factory: ObjectRequired,
   })(typia.llm.application<ObjectRequiredApplication, "chatgpt">());
 
 interface ObjectRequiredApplication {

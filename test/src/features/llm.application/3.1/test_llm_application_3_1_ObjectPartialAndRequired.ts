@@ -7,6 +7,7 @@ export const test_llm_application_3_1_ObjectPartialAndRequired =
   _test_llm_application({
     model: "3.1",
     name: "ObjectPartialAndRequired",
+    factory: ObjectPartialAndRequired,
   })(typia.llm.application<ObjectPartialAndRequiredApplication, "3.1">());
 
 interface ObjectPartialAndRequiredApplication {

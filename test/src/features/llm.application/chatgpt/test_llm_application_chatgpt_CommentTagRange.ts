@@ -7,6 +7,7 @@ export const test_llm_application_chatgpt_CommentTagRange =
   _test_llm_application({
     model: "chatgpt",
     name: "CommentTagRange",
+    factory: CommentTagRange,
   })(typia.llm.application<CommentTagRangeApplication, "chatgpt">());
 
 interface CommentTagRangeApplication {

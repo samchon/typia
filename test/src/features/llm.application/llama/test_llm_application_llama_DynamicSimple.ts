@@ -6,6 +6,7 @@ import { DynamicSimple } from "../../../structures/DynamicSimple";
 export const test_llm_application_llama_DynamicSimple = _test_llm_application({
   model: "llama",
   name: "DynamicSimple",
+  factory: DynamicSimple,
 })(typia.llm.application<DynamicSimpleApplication, "llama">());
 
 interface DynamicSimpleApplication {

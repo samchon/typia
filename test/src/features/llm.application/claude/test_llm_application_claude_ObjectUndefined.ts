@@ -7,6 +7,7 @@ export const test_llm_application_claude_ObjectUndefined =
   _test_llm_application({
     model: "claude",
     name: "ObjectUndefined",
+    factory: ObjectUndefined,
   })(typia.llm.application<ObjectUndefinedApplication, "claude">());
 
 interface ObjectUndefinedApplication {

@@ -7,6 +7,7 @@ export const test_llm_application_chatgpt_ObjectUndefined =
   _test_llm_application({
     model: "chatgpt",
     name: "ObjectUndefined",
+    factory: ObjectUndefined,
   })(typia.llm.application<ObjectUndefinedApplication, "chatgpt">());
 
 interface ObjectUndefinedApplication {

@@ -7,6 +7,7 @@ export const test_llm_application_chatgpt_ConstantAtomicAbsorbed =
   _test_llm_application({
     model: "chatgpt",
     name: "ConstantAtomicAbsorbed",
+    factory: ConstantAtomicAbsorbed,
   })(typia.llm.application<ConstantAtomicAbsorbedApplication, "chatgpt">());
 
 interface ConstantAtomicAbsorbedApplication {

@@ -7,6 +7,7 @@ export const test_llm_application_chatgpt_DynamicEnumeration =
   _test_llm_application({
     model: "chatgpt",
     name: "DynamicEnumeration",
+    factory: DynamicEnumeration,
   })(typia.llm.application<DynamicEnumerationApplication, "chatgpt">());
 
 interface DynamicEnumerationApplication {

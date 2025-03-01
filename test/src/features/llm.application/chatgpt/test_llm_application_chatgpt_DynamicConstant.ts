@@ -7,6 +7,7 @@ export const test_llm_application_chatgpt_DynamicConstant =
   _test_llm_application({
     model: "chatgpt",
     name: "DynamicConstant",
+    factory: DynamicConstant,
   })(typia.llm.application<DynamicConstantApplication, "chatgpt">());
 
 interface DynamicConstantApplication {

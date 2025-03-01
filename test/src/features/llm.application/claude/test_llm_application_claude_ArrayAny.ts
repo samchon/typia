@@ -6,6 +6,7 @@ import { ArrayAny } from "../../../structures/ArrayAny";
 export const test_llm_application_claude_ArrayAny = _test_llm_application({
   model: "claude",
   name: "ArrayAny",
+  factory: ArrayAny,
 })(typia.llm.application<ArrayAnyApplication, "claude">());
 
 interface ArrayAnyApplication {

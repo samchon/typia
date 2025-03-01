@@ -27,24 +27,24 @@ const main = async (): Promise<void> => {
         commands:
           tag === "test" && template === true
             ? [
-                "npm run template",
-                "npm run build",
-                "npm start",
-                "npm run generate",
+                "pnpm run template",
+                "pnpm run build",
+                "pnpm start",
+                "pnpm run generate",
               ]
-            : ["npm run build", "npm start", "npm run generate"],
+            : ["pnpm run build", "pnpm start", "pnpm run generate"],
       },
       {
         name: "test-esm",
-        commands: ["npm run build", "npm start"],
+        commands: ["pnpm run build", "pnpm start"],
       },
       {
         name: "test-error",
-        commands: ["npm start"],
+        commands: ["pnpm start"],
       },
       {
         name: "benchmark",
-        commands: ["npm run build"],
+        commands: ["pnpm run build"],
       },
     ],
   });

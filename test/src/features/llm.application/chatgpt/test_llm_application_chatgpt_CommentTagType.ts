@@ -7,6 +7,7 @@ export const test_llm_application_chatgpt_CommentTagType =
   _test_llm_application({
     model: "chatgpt",
     name: "CommentTagType",
+    factory: CommentTagType,
   })(typia.llm.application<CommentTagTypeApplication, "chatgpt">());
 
 interface CommentTagTypeApplication {

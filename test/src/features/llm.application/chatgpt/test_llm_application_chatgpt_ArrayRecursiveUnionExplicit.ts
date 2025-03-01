@@ -7,6 +7,7 @@ export const test_llm_application_chatgpt_ArrayRecursiveUnionExplicit =
   _test_llm_application({
     model: "chatgpt",
     name: "ArrayRecursiveUnionExplicit",
+    factory: ArrayRecursiveUnionExplicit,
   })(
     typia.llm.application<ArrayRecursiveUnionExplicitApplication, "chatgpt">(),
   );

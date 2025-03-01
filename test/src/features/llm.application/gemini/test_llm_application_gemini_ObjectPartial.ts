@@ -6,6 +6,7 @@ import { ObjectPartial } from "../../../structures/ObjectPartial";
 export const test_llm_application_gemini_ObjectPartial = _test_llm_application({
   model: "gemini",
   name: "ObjectPartial",
+  factory: ObjectPartial,
 })(typia.llm.application<ObjectPartialApplication, "gemini">());
 
 interface ObjectPartialApplication {

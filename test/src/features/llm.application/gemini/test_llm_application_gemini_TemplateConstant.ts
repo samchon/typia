@@ -7,6 +7,7 @@ export const test_llm_application_gemini_TemplateConstant =
   _test_llm_application({
     model: "gemini",
     name: "TemplateConstant",
+    factory: TemplateConstant,
   })(typia.llm.application<TemplateConstantApplication, "gemini">());
 
 interface TemplateConstantApplication {

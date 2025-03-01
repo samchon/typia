@@ -7,6 +7,7 @@ export const test_llm_application_gemini_ObjectInternal = _test_llm_application(
   {
     model: "gemini",
     name: "ObjectInternal",
+    factory: ObjectInternal,
   },
 )(typia.llm.application<ObjectInternalApplication, "gemini">());
 

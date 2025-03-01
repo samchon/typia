@@ -7,6 +7,7 @@ export const test_llm_application_claude_ObjectNullable = _test_llm_application(
   {
     model: "claude",
     name: "ObjectNullable",
+    factory: ObjectNullable,
   },
 )(typia.llm.application<ObjectNullableApplication, "claude">());
 

@@ -7,6 +7,7 @@ export const test_llm_application_3_1_ArrayRecursiveUnionImplicit =
   _test_llm_application({
     model: "3.1",
     name: "ArrayRecursiveUnionImplicit",
+    factory: ArrayRecursiveUnionImplicit,
   })(typia.llm.application<ArrayRecursiveUnionImplicitApplication, "3.1">());
 
 interface ArrayRecursiveUnionImplicitApplication {

@@ -6,6 +6,7 @@ import { ToJsonUnion } from "../../../structures/ToJsonUnion";
 export const test_llm_application_3_0_ToJsonUnion = _test_llm_application({
   model: "3.0",
   name: "ToJsonUnion",
+  factory: ToJsonUnion,
 })(typia.llm.application<ToJsonUnionApplication, "3.0">());
 
 interface ToJsonUnionApplication {

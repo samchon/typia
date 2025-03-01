@@ -7,6 +7,7 @@ export const test_llm_application_claude_ObjectRecursive =
   _test_llm_application({
     model: "claude",
     name: "ObjectRecursive",
+    factory: ObjectRecursive,
   })(typia.llm.application<ObjectRecursiveApplication, "claude">());
 
 interface ObjectRecursiveApplication {

@@ -7,6 +7,7 @@ export const test_llm_application_chatgpt_TypeTagMatrix = _test_llm_application(
   {
     model: "chatgpt",
     name: "TypeTagMatrix",
+    factory: TypeTagMatrix,
   },
 )(typia.llm.application<TypeTagMatrixApplication, "chatgpt">());
 

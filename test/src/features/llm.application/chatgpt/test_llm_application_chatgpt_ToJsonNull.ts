@@ -6,6 +6,7 @@ import { ToJsonNull } from "../../../structures/ToJsonNull";
 export const test_llm_application_chatgpt_ToJsonNull = _test_llm_application({
   model: "chatgpt",
   name: "ToJsonNull",
+  factory: ToJsonNull,
 })(typia.llm.application<ToJsonNullApplication, "chatgpt">());
 
 interface ToJsonNullApplication {

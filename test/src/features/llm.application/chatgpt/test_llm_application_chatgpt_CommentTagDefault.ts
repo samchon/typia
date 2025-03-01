@@ -7,6 +7,7 @@ export const test_llm_application_chatgpt_CommentTagDefault =
   _test_llm_application({
     model: "chatgpt",
     name: "CommentTagDefault",
+    factory: CommentTagDefault,
   })(typia.llm.application<CommentTagDefaultApplication, "chatgpt">());
 
 interface CommentTagDefaultApplication {

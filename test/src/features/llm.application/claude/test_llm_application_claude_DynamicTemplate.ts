@@ -7,6 +7,7 @@ export const test_llm_application_claude_DynamicTemplate =
   _test_llm_application({
     model: "claude",
     name: "DynamicTemplate",
+    factory: DynamicTemplate,
   })(typia.llm.application<DynamicTemplateApplication, "claude">());
 
 interface DynamicTemplateApplication {

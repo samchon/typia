@@ -7,6 +7,7 @@ export const test_llm_application_llama_ObjectUnionDouble =
   _test_llm_application({
     model: "llama",
     name: "ObjectUnionDouble",
+    factory: ObjectUnionDouble,
   })(typia.llm.application<ObjectUnionDoubleApplication, "llama">());
 
 interface ObjectUnionDoubleApplication {

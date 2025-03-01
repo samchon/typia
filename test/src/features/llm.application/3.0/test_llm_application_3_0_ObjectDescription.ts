@@ -7,6 +7,7 @@ export const test_llm_application_3_0_ObjectDescription = _test_llm_application(
   {
     model: "3.0",
     name: "ObjectDescription",
+    factory: ObjectDescription,
   },
 )(typia.llm.application<ObjectDescriptionApplication, "3.0">());
 

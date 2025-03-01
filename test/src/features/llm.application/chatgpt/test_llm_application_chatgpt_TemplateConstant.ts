@@ -7,6 +7,7 @@ export const test_llm_application_chatgpt_TemplateConstant =
   _test_llm_application({
     model: "chatgpt",
     name: "TemplateConstant",
+    factory: TemplateConstant,
   })(typia.llm.application<TemplateConstantApplication, "chatgpt">());
 
 interface TemplateConstantApplication {

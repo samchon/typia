@@ -7,6 +7,7 @@ export const test_llm_application_chatgpt_ObjectPartial = _test_llm_application(
   {
     model: "chatgpt",
     name: "ObjectPartial",
+    factory: ObjectPartial,
   },
 )(typia.llm.application<ObjectPartialApplication, "chatgpt">());
 

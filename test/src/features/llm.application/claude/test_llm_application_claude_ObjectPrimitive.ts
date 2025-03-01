@@ -7,6 +7,7 @@ export const test_llm_application_claude_ObjectPrimitive =
   _test_llm_application({
     model: "claude",
     name: "ObjectPrimitive",
+    factory: ObjectPrimitive,
   })(typia.llm.application<ObjectPrimitiveApplication, "claude">());
 
 interface ObjectPrimitiveApplication {

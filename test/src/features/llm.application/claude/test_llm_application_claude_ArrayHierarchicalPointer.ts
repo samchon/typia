@@ -7,6 +7,7 @@ export const test_llm_application_claude_ArrayHierarchicalPointer =
   _test_llm_application({
     model: "claude",
     name: "ArrayHierarchicalPointer",
+    factory: ArrayHierarchicalPointer,
   })(typia.llm.application<ArrayHierarchicalPointerApplication, "claude">());
 
 interface ArrayHierarchicalPointerApplication {

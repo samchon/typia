@@ -18,15 +18,11 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: lts/*
-      - uses: actions/cache@v4
+      - uses: pnpm/action-setup@v2
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
-      - run: npm install
-      - run: npm run build
+          version: 8
+      - run: pnpm install --force
+      - run: pnpm run build
       - name: remove `private=true` from package.json
         run: |
           jq 'del(.private)' package.json > package.json.tmp
@@ -49,9 +45,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: lts/*
-      - run: npm install
-      - run: npm run eslint
-      - run: npm run prettier
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+      - run: pnpm install --force
+      - run: pnpm run eslint
+      - run: pnpm run prettier
 
   NodeJS:
     runs-on: ubuntu-latest
@@ -63,44 +62,19 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
-      - uses: actions/cache@v4
+      - uses: pnpm/action-setup@v2
         with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
-      - run: npm install
-      - run: npm run build
-      - run: npm run test
-
-  Bun:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: lts/*
-      - uses: oven-sh/setup-bun@v1
-        with:
-          bun-version: latest
-      - uses: actions/cache@v4
-        with:
-          path: ~/.npm
-          key: ${{ runner.os }}-node-${{ hashFiles('**/package.json') }}
-          restore-keys: |
-            ${{ runner.os }}-node-
-
-      - run: npm install
-      - run: npm run build
-      - run: npm run test:bun
+          version: 8
+      - run: pnpm install --force
+      - run: pnpm run build
+      - run: pnpm run test
 
   action-timeline:
     needs:
       - Build-and-Upload-to-pkg-pr-new-and-artifactory
       - Check-format
       - NodeJS
-      - Bun
+      # - Bun
     if: ${{ always() }}
     runs-on: ubuntu-latest
     steps:

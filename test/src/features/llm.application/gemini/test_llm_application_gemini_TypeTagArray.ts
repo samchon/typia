@@ -6,6 +6,7 @@ import { TypeTagArray } from "../../../structures/TypeTagArray";
 export const test_llm_application_gemini_TypeTagArray = _test_llm_application({
   model: "gemini",
   name: "TypeTagArray",
+  factory: TypeTagArray,
 })(typia.llm.application<TypeTagArrayApplication, "gemini">());
 
 interface TypeTagArrayApplication {

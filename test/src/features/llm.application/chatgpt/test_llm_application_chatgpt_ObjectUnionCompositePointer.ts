@@ -7,6 +7,7 @@ export const test_llm_application_chatgpt_ObjectUnionCompositePointer =
   _test_llm_application({
     model: "chatgpt",
     name: "ObjectUnionCompositePointer",
+    factory: ObjectUnionCompositePointer,
   })(
     typia.llm.application<ObjectUnionCompositePointerApplication, "chatgpt">(),
   );

@@ -7,6 +7,7 @@ export const test_llm_application_chatgpt_ObjectUnionNonPredictable =
   _test_llm_application({
     model: "chatgpt",
     name: "ObjectUnionNonPredictable",
+    factory: ObjectUnionNonPredictable,
   })(typia.llm.application<ObjectUnionNonPredictableApplication, "chatgpt">());
 
 interface ObjectUnionNonPredictableApplication {

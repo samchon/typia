@@ -7,6 +7,7 @@ export const test_llm_application_chatgpt_TypeTagLength = _test_llm_application(
   {
     model: "chatgpt",
     name: "TypeTagLength",
+    factory: TypeTagLength,
   },
 )(typia.llm.application<TypeTagLengthApplication, "chatgpt">());
 

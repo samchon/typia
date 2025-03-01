@@ -7,6 +7,7 @@ export const test_llm_application_3_1_ObjectGenericArray =
   _test_llm_application({
     model: "3.1",
     name: "ObjectGenericArray",
+    factory: ObjectGenericArray,
   })(typia.llm.application<ObjectGenericArrayApplication, "3.1">());
 
 interface ObjectGenericArrayApplication {

@@ -6,6 +6,7 @@ import { CommentTagLength } from "../../../structures/CommentTagLength";
 export const test_llm_application_3_1_CommentTagLength = _test_llm_application({
   model: "3.1",
   name: "CommentTagLength",
+  factory: CommentTagLength,
 })(typia.llm.application<CommentTagLengthApplication, "3.1">());
 
 interface CommentTagLengthApplication {

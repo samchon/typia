@@ -7,6 +7,7 @@ export const test_llm_application_chatgpt_ObjectDynamic = _test_llm_application(
   {
     model: "chatgpt",
     name: "ObjectDynamic",
+    factory: ObjectDynamic,
   },
 )(typia.llm.application<ObjectDynamicApplication, "chatgpt">());
 

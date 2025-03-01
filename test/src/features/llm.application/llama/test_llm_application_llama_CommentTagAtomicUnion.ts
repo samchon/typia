@@ -7,6 +7,7 @@ export const test_llm_application_llama_CommentTagAtomicUnion =
   _test_llm_application({
     model: "llama",
     name: "CommentTagAtomicUnion",
+    factory: CommentTagAtomicUnion,
   })(typia.llm.application<CommentTagAtomicUnionApplication, "llama">());
 
 interface CommentTagAtomicUnionApplication {

@@ -6,6 +6,7 @@ import { ObjectOptional } from "../../../structures/ObjectOptional";
 export const test_llm_application_llama_ObjectOptional = _test_llm_application({
   model: "llama",
   name: "ObjectOptional",
+  factory: ObjectOptional,
 })(typia.llm.application<ObjectOptionalApplication, "llama">());
 
 interface ObjectOptionalApplication {

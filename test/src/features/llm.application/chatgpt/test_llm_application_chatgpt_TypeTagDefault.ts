@@ -7,6 +7,7 @@ export const test_llm_application_chatgpt_TypeTagDefault =
   _test_llm_application({
     model: "chatgpt",
     name: "TypeTagDefault",
+    factory: TypeTagDefault,
   })(typia.llm.application<TypeTagDefaultApplication, "chatgpt">());
 
 interface TypeTagDefaultApplication {
