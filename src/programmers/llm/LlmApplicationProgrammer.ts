@@ -5,8 +5,8 @@ import {
   IResult,
   OpenApi,
 } from "@samchon/openapi";
-import { LlmSchemaComposer } from "@samchon/openapi/lib/composers/LlmSchemaComposer";
-import { ILlmFunction } from "@samchon/openapi/lib/structures/ILlmFunction";
+import { LlmSchemaComposer } from "@samchon/openapi/lib/composers/LlmSchemaComposer.js";
+import { ILlmFunction } from "@samchon/openapi/lib/structures/ILlmFunction.js";
 
 import { MetadataFactory } from "../../factories/MetadataFactory";
 
