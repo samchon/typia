@@ -7,6 +7,7 @@ export const test_llm_application_3_0_TypeTagArrayUnion = _test_llm_application(
   {
     model: "3.0",
     name: "TypeTagArrayUnion",
+    factory: TypeTagArrayUnion,
   },
 )(typia.llm.application<TypeTagArrayUnionApplication, "3.0">());
 

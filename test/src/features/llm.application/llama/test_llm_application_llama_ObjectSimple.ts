@@ -6,6 +6,7 @@ import { ObjectSimple } from "../../../structures/ObjectSimple";
 export const test_llm_application_llama_ObjectSimple = _test_llm_application({
   model: "llama",
   name: "ObjectSimple",
+  factory: ObjectSimple,
 })(typia.llm.application<ObjectSimpleApplication, "llama">());
 
 interface ObjectSimpleApplication {

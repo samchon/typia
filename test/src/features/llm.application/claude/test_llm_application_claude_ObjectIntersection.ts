@@ -7,6 +7,7 @@ export const test_llm_application_claude_ObjectIntersection =
   _test_llm_application({
     model: "claude",
     name: "ObjectIntersection",
+    factory: ObjectIntersection,
   })(typia.llm.application<ObjectIntersectionApplication, "claude">());
 
 interface ObjectIntersectionApplication {

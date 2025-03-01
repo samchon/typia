@@ -7,6 +7,7 @@ export const test_llm_application_claude_CommentTagRange =
   _test_llm_application({
     model: "claude",
     name: "CommentTagRange",
+    factory: CommentTagRange,
   })(typia.llm.application<CommentTagRangeApplication, "claude">());
 
 interface CommentTagRangeApplication {

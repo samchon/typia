@@ -7,6 +7,7 @@ export const test_llm_application_chatgpt_ObjectDescription =
   _test_llm_application({
     model: "chatgpt",
     name: "ObjectDescription",
+    factory: ObjectDescription,
   })(typia.llm.application<ObjectDescriptionApplication, "chatgpt">());
 
 interface ObjectDescriptionApplication {

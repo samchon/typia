@@ -6,6 +6,7 @@ import { ArraySimple } from "../../../structures/ArraySimple";
 export const test_llm_application_3_1_ArraySimple = _test_llm_application({
   model: "3.1",
   name: "ArraySimple",
+  factory: ArraySimple,
 })(typia.llm.application<ArraySimpleApplication, "3.1">());
 
 interface ArraySimpleApplication {

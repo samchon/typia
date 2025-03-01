@@ -7,6 +7,7 @@ export const test_llm_application_chatgpt_ObjectJsonTag = _test_llm_application(
   {
     model: "chatgpt",
     name: "ObjectJsonTag",
+    factory: ObjectJsonTag,
   },
 )(typia.llm.application<ObjectJsonTagApplication, "chatgpt">());
 

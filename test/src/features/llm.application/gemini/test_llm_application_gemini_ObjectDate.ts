@@ -6,6 +6,7 @@ import { ObjectDate } from "../../../structures/ObjectDate";
 export const test_llm_application_gemini_ObjectDate = _test_llm_application({
   model: "gemini",
   name: "ObjectDate",
+  factory: ObjectDate,
 })(typia.llm.application<ObjectDateApplication, "gemini">());
 
 interface ObjectDateApplication {

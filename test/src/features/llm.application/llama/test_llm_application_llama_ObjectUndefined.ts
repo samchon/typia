@@ -7,6 +7,7 @@ export const test_llm_application_llama_ObjectUndefined = _test_llm_application(
   {
     model: "llama",
     name: "ObjectUndefined",
+    factory: ObjectUndefined,
   },
 )(typia.llm.application<ObjectUndefinedApplication, "llama">());
 

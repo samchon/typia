@@ -6,6 +6,7 @@ import { DynamicUnion } from "../../../structures/DynamicUnion";
 export const test_llm_application_llama_DynamicUnion = _test_llm_application({
   model: "llama",
   name: "DynamicUnion",
+  factory: DynamicUnion,
 })(typia.llm.application<DynamicUnionApplication, "llama">());
 
 interface DynamicUnionApplication {

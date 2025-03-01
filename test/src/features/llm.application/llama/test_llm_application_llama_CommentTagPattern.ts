@@ -7,6 +7,7 @@ export const test_llm_application_llama_CommentTagPattern =
   _test_llm_application({
     model: "llama",
     name: "CommentTagPattern",
+    factory: CommentTagPattern,
   })(typia.llm.application<CommentTagPatternApplication, "llama">());
 
 interface CommentTagPatternApplication {

@@ -7,6 +7,7 @@ export const test_llm_application_chatgpt_ConstantAtomicUnion =
   _test_llm_application({
     model: "chatgpt",
     name: "ConstantAtomicUnion",
+    factory: ConstantAtomicUnion,
   })(typia.llm.application<ConstantAtomicUnionApplication, "chatgpt">());
 
 interface ConstantAtomicUnionApplication {

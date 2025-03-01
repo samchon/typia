@@ -7,6 +7,7 @@ export const test_llm_application_gemini_DynamicConstant =
   _test_llm_application({
     model: "gemini",
     name: "DynamicConstant",
+    factory: DynamicConstant,
   })(typia.llm.application<DynamicConstantApplication, "gemini">());
 
 interface DynamicConstantApplication {

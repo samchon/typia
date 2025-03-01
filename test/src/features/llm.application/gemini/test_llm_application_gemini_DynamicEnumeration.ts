@@ -7,6 +7,7 @@ export const test_llm_application_gemini_DynamicEnumeration =
   _test_llm_application({
     model: "gemini",
     name: "DynamicEnumeration",
+    factory: DynamicEnumeration,
   })(typia.llm.application<DynamicEnumerationApplication, "gemini">());
 
 interface DynamicEnumerationApplication {

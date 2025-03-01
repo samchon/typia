@@ -7,6 +7,7 @@ export const test_llm_application_chatgpt_ConstantEnumeration =
   _test_llm_application({
     model: "chatgpt",
     name: "ConstantEnumeration",
+    factory: ConstantEnumeration,
   })(typia.llm.application<ConstantEnumerationApplication, "chatgpt">());
 
 interface ConstantEnumerationApplication {

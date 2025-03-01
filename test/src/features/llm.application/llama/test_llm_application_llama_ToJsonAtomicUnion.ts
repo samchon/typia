@@ -7,6 +7,7 @@ export const test_llm_application_llama_ToJsonAtomicUnion =
   _test_llm_application({
     model: "llama",
     name: "ToJsonAtomicUnion",
+    factory: ToJsonAtomicUnion,
   })(typia.llm.application<ToJsonAtomicUnionApplication, "llama">());
 
 interface ToJsonAtomicUnionApplication {

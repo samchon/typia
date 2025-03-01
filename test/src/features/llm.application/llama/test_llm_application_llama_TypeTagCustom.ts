@@ -6,6 +6,7 @@ import { TypeTagCustom } from "../../../structures/TypeTagCustom";
 export const test_llm_application_llama_TypeTagCustom = _test_llm_application({
   model: "llama",
   name: "TypeTagCustom",
+  factory: TypeTagCustom,
 })(typia.llm.application<TypeTagCustomApplication, "llama">());
 
 interface TypeTagCustomApplication {

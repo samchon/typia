@@ -7,6 +7,7 @@ export const test_llm_application_chatgpt_ArrayHierarchicalPointer =
   _test_llm_application({
     model: "chatgpt",
     name: "ArrayHierarchicalPointer",
+    factory: ArrayHierarchicalPointer,
   })(typia.llm.application<ArrayHierarchicalPointerApplication, "chatgpt">());
 
 interface ArrayHierarchicalPointerApplication {

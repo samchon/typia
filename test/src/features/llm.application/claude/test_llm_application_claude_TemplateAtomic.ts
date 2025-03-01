@@ -7,6 +7,7 @@ export const test_llm_application_claude_TemplateAtomic = _test_llm_application(
   {
     model: "claude",
     name: "TemplateAtomic",
+    factory: TemplateAtomic,
   },
 )(typia.llm.application<TemplateAtomicApplication, "claude">());
 

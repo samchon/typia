@@ -7,6 +7,7 @@ export const test_llm_application_chatgpt_ObjectIntersection =
   _test_llm_application({
     model: "chatgpt",
     name: "ObjectIntersection",
+    factory: ObjectIntersection,
   })(typia.llm.application<ObjectIntersectionApplication, "chatgpt">());
 
 interface ObjectIntersectionApplication {

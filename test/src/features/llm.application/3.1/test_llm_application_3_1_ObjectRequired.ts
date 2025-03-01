@@ -6,6 +6,7 @@ import { ObjectRequired } from "../../../structures/ObjectRequired";
 export const test_llm_application_3_1_ObjectRequired = _test_llm_application({
   model: "3.1",
   name: "ObjectRequired",
+  factory: ObjectRequired,
 })(typia.llm.application<ObjectRequiredApplication, "3.1">());
 
 interface ObjectRequiredApplication {

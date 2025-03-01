@@ -7,6 +7,7 @@ export const test_llm_application_llama_ArrayRepeatedRequired =
   _test_llm_application({
     model: "llama",
     name: "ArrayRepeatedRequired",
+    factory: ArrayRepeatedRequired,
   })(typia.llm.application<ArrayRepeatedRequiredApplication, "llama">());
 
 interface ArrayRepeatedRequiredApplication {

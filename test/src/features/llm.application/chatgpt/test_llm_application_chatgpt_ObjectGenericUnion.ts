@@ -7,6 +7,7 @@ export const test_llm_application_chatgpt_ObjectGenericUnion =
   _test_llm_application({
     model: "chatgpt",
     name: "ObjectGenericUnion",
+    factory: ObjectGenericUnion,
   })(typia.llm.application<ObjectGenericUnionApplication, "chatgpt">());
 
 interface ObjectGenericUnionApplication {

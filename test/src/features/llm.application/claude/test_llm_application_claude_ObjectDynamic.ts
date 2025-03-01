@@ -6,6 +6,7 @@ import { ObjectDynamic } from "../../../structures/ObjectDynamic";
 export const test_llm_application_claude_ObjectDynamic = _test_llm_application({
   model: "claude",
   name: "ObjectDynamic",
+  factory: ObjectDynamic,
 })(typia.llm.application<ObjectDynamicApplication, "claude">());
 
 interface ObjectDynamicApplication {

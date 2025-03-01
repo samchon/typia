@@ -6,6 +6,7 @@ import { TemplateUnion } from "../../../structures/TemplateUnion";
 export const test_llm_application_llama_TemplateUnion = _test_llm_application({
   model: "llama",
   name: "TemplateUnion",
+  factory: TemplateUnion,
 })(typia.llm.application<TemplateUnionApplication, "llama">());
 
 interface TemplateUnionApplication {

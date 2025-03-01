@@ -7,6 +7,7 @@ export const test_llm_application_3_1_ConstantAtomicUnion =
   _test_llm_application({
     model: "3.1",
     name: "ConstantAtomicUnion",
+    factory: ConstantAtomicUnion,
   })(typia.llm.application<ConstantAtomicUnionApplication, "3.1">());
 
 interface ConstantAtomicUnionApplication {

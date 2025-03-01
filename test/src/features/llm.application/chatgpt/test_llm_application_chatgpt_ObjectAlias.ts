@@ -6,6 +6,7 @@ import { ObjectAlias } from "../../../structures/ObjectAlias";
 export const test_llm_application_chatgpt_ObjectAlias = _test_llm_application({
   model: "chatgpt",
   name: "ObjectAlias",
+  factory: ObjectAlias,
 })(typia.llm.application<ObjectAliasApplication, "chatgpt">());
 
 interface ObjectAliasApplication {

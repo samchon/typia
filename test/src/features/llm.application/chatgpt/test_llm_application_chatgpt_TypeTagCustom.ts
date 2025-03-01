@@ -7,6 +7,7 @@ export const test_llm_application_chatgpt_TypeTagCustom = _test_llm_application(
   {
     model: "chatgpt",
     name: "TypeTagCustom",
+    factory: TypeTagCustom,
   },
 )(typia.llm.application<TypeTagCustomApplication, "chatgpt">());
 

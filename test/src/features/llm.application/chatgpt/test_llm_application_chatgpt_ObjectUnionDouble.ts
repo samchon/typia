@@ -7,6 +7,7 @@ export const test_llm_application_chatgpt_ObjectUnionDouble =
   _test_llm_application({
     model: "chatgpt",
     name: "ObjectUnionDouble",
+    factory: ObjectUnionDouble,
   })(typia.llm.application<ObjectUnionDoubleApplication, "chatgpt">());
 
 interface ObjectUnionDoubleApplication {

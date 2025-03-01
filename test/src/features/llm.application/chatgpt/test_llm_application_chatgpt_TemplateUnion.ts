@@ -7,6 +7,7 @@ export const test_llm_application_chatgpt_TemplateUnion = _test_llm_application(
   {
     model: "chatgpt",
     name: "TemplateUnion",
+    factory: TemplateUnion,
   },
 )(typia.llm.application<TemplateUnionApplication, "chatgpt">());
 

@@ -6,6 +6,7 @@ import { ObjectDate } from "../../../structures/ObjectDate";
 export const test_llm_application_chatgpt_ObjectDate = _test_llm_application({
   model: "chatgpt",
   name: "ObjectDate",
+  factory: ObjectDate,
 })(typia.llm.application<ObjectDateApplication, "chatgpt">());
 
 interface ObjectDateApplication {

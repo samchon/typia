@@ -7,6 +7,7 @@ export const test_llm_application_chatgpt_ClassPropertyAssignment =
   _test_llm_application({
     model: "chatgpt",
     name: "ClassPropertyAssignment",
+    factory: ClassPropertyAssignment,
   })(typia.llm.application<ClassPropertyAssignmentApplication, "chatgpt">());
 
 interface ClassPropertyAssignmentApplication {

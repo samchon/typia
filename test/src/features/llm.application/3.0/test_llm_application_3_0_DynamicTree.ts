@@ -6,6 +6,7 @@ import { DynamicTree } from "../../../structures/DynamicTree";
 export const test_llm_application_3_0_DynamicTree = _test_llm_application({
   model: "3.0",
   name: "DynamicTree",
+  factory: DynamicTree,
 })(typia.llm.application<DynamicTreeApplication, "3.0">());
 
 interface DynamicTreeApplication {

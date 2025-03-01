@@ -7,6 +7,7 @@ export const test_llm_application_claude_ConstantAtomicTagged =
   _test_llm_application({
     model: "claude",
     name: "ConstantAtomicTagged",
+    factory: ConstantAtomicTagged,
   })(typia.llm.application<ConstantAtomicTaggedApplication, "claude">());
 
 interface ConstantAtomicTaggedApplication {

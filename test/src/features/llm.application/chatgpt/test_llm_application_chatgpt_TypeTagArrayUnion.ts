@@ -7,6 +7,7 @@ export const test_llm_application_chatgpt_TypeTagArrayUnion =
   _test_llm_application({
     model: "chatgpt",
     name: "TypeTagArrayUnion",
+    factory: TypeTagArrayUnion,
   })(typia.llm.application<TypeTagArrayUnionApplication, "chatgpt">());
 
 interface TypeTagArrayUnionApplication {

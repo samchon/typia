@@ -6,6 +6,7 @@ import { ToJsonDouble } from "../../../structures/ToJsonDouble";
 export const test_llm_application_claude_ToJsonDouble = _test_llm_application({
   model: "claude",
   name: "ToJsonDouble",
+  factory: ToJsonDouble,
 })(typia.llm.application<ToJsonDoubleApplication, "claude">());
 
 interface ToJsonDoubleApplication {

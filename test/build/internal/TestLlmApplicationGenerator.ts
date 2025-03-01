@@ -63,6 +63,7 @@ export namespace TestLlmApplicationGenerator {
         `  _test_llm_application({`,
         `    model: ${JSON.stringify(model)},`,
         `    name: ${JSON.stringify(s.name)},`,
+        `    factory: ${s.name}`,
         `  })(`,
         `    typia.llm.application<${s.name}Application, ${JSON.stringify(model)}>(),`,
         `  );`,

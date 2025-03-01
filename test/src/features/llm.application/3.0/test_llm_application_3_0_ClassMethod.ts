@@ -6,6 +6,7 @@ import { ClassMethod } from "../../../structures/ClassMethod";
 export const test_llm_application_3_0_ClassMethod = _test_llm_application({
   model: "3.0",
   name: "ClassMethod",
+  factory: ClassMethod,
 })(typia.llm.application<ClassMethodApplication, "3.0">());
 
 interface ClassMethodApplication {

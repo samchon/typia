@@ -7,6 +7,7 @@ export const test_llm_application_llama_ObjectLiteralProperty =
   _test_llm_application({
     model: "llama",
     name: "ObjectLiteralProperty",
+    factory: ObjectLiteralProperty,
   })(typia.llm.application<ObjectLiteralPropertyApplication, "llama">());
 
 interface ObjectLiteralPropertyApplication {

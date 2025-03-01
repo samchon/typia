@@ -6,6 +6,7 @@ import { ClassGetter } from "../../../structures/ClassGetter";
 export const test_llm_application_llama_ClassGetter = _test_llm_application({
   model: "llama",
   name: "ClassGetter",
+  factory: ClassGetter,
 })(typia.llm.application<ClassGetterApplication, "llama">());
 
 interface ClassGetterApplication {

@@ -6,6 +6,7 @@ import { DynamicUnion } from "../../../structures/DynamicUnion";
 export const test_llm_application_chatgpt_DynamicUnion = _test_llm_application({
   model: "chatgpt",
   name: "DynamicUnion",
+  factory: DynamicUnion,
 })(typia.llm.application<DynamicUnionApplication, "chatgpt">());
 
 interface DynamicUnionApplication {

@@ -7,6 +7,7 @@ export const test_llm_application_llama_ArrayHierarchical =
   _test_llm_application({
     model: "llama",
     name: "ArrayHierarchical",
+    factory: ArrayHierarchical,
   })(typia.llm.application<ArrayHierarchicalApplication, "llama">());
 
 interface ArrayHierarchicalApplication {

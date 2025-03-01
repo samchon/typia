@@ -6,6 +6,7 @@ import { ToJsonNull } from "../../../structures/ToJsonNull";
 export const test_llm_application_3_0_ToJsonNull = _test_llm_application({
   model: "3.0",
   name: "ToJsonNull",
+  factory: ToJsonNull,
 })(typia.llm.application<ToJsonNullApplication, "3.0">());
 
 interface ToJsonNullApplication {

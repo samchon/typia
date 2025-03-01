@@ -6,6 +6,7 @@ import { TypeTagRange } from "../../../structures/TypeTagRange";
 export const test_llm_application_3_0_TypeTagRange = _test_llm_application({
   model: "3.0",
   name: "TypeTagRange",
+  factory: TypeTagRange,
 })(typia.llm.application<TypeTagRangeApplication, "3.0">());
 
 interface TypeTagRangeApplication {

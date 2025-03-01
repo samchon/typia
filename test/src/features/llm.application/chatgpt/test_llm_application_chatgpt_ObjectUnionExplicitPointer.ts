@@ -7,6 +7,7 @@ export const test_llm_application_chatgpt_ObjectUnionExplicitPointer =
   _test_llm_application({
     model: "chatgpt",
     name: "ObjectUnionExplicitPointer",
+    factory: ObjectUnionExplicitPointer,
   })(typia.llm.application<ObjectUnionExplicitPointerApplication, "chatgpt">());
 
 interface ObjectUnionExplicitPointerApplication {

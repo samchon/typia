@@ -6,6 +6,7 @@ import { AtomicUnion } from "../../../structures/AtomicUnion";
 export const test_llm_application_chatgpt_AtomicUnion = _test_llm_application({
   model: "chatgpt",
   name: "AtomicUnion",
+  factory: AtomicUnion,
 })(typia.llm.application<AtomicUnionApplication, "chatgpt">());
 
 interface AtomicUnionApplication {

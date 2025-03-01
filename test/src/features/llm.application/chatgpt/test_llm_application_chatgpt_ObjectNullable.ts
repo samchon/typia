@@ -7,6 +7,7 @@ export const test_llm_application_chatgpt_ObjectNullable =
   _test_llm_application({
     model: "chatgpt",
     name: "ObjectNullable",
+    factory: ObjectNullable,
   })(typia.llm.application<ObjectNullableApplication, "chatgpt">());
 
 interface ObjectNullableApplication {

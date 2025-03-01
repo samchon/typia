@@ -7,6 +7,7 @@ export const test_llm_application_gemini_ClassPropertyAssignment =
   _test_llm_application({
     model: "gemini",
     name: "ClassPropertyAssignment",
+    factory: ClassPropertyAssignment,
   })(typia.llm.application<ClassPropertyAssignmentApplication, "gemini">());
 
 interface ClassPropertyAssignmentApplication {

@@ -6,6 +6,7 @@ import { ArrayRecursive } from "../../../structures/ArrayRecursive";
 export const test_llm_application_3_0_ArrayRecursive = _test_llm_application({
   model: "3.0",
   name: "ArrayRecursive",
+  factory: ArrayRecursive,
 })(typia.llm.application<ArrayRecursiveApplication, "3.0">());
 
 interface ArrayRecursiveApplication {

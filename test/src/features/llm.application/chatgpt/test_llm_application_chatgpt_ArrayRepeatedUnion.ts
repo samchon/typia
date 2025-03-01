@@ -7,6 +7,7 @@ export const test_llm_application_chatgpt_ArrayRepeatedUnion =
   _test_llm_application({
     model: "chatgpt",
     name: "ArrayRepeatedUnion",
+    factory: ArrayRepeatedUnion,
   })(typia.llm.application<ArrayRepeatedUnionApplication, "chatgpt">());
 
 interface ArrayRepeatedUnionApplication {

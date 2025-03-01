@@ -7,6 +7,7 @@ export const test_llm_application_llama_ObjectRecursive = _test_llm_application(
   {
     model: "llama",
     name: "ObjectRecursive",
+    factory: ObjectRecursive,
   },
 )(typia.llm.application<ObjectRecursiveApplication, "llama">());
 

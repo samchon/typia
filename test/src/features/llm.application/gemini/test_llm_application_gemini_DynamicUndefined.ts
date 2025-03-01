@@ -7,6 +7,7 @@ export const test_llm_application_gemini_DynamicUndefined =
   _test_llm_application({
     model: "gemini",
     name: "DynamicUndefined",
+    factory: DynamicUndefined,
   })(typia.llm.application<DynamicUndefinedApplication, "gemini">());
 
 interface DynamicUndefinedApplication {

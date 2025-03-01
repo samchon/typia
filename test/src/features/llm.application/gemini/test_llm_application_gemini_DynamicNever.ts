@@ -6,6 +6,7 @@ import { DynamicNever } from "../../../structures/DynamicNever";
 export const test_llm_application_gemini_DynamicNever = _test_llm_application({
   model: "gemini",
   name: "DynamicNever",
+  factory: DynamicNever,
 })(typia.llm.application<DynamicNeverApplication, "gemini">());
 
 interface DynamicNeverApplication {
