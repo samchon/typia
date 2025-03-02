@@ -76,6 +76,16 @@ export class MetadataCollection {
     return [...this.tuples_.values()];
   }
 
+  public findObjectType(target: MetadataObjectType) {
+    // Add weakmap to index it and avoid finding O(n)
+    for (const [key, object] of this.objects_.entries()) {
+      if (object === target) {
+        return key;
+      }
+    }
+    return undefined;
+  }
+
   private getName(checker: ts.TypeChecker, type: ts.Type): string {
     const name: string = (() => {
       const str: string = TypeFactory.getFullName({
