@@ -3,145 +3,66 @@ title: Guide Documents > Large Language Model > AI Chatbot Development
 ---
 import { Callout, Tabs } from 'nextra/components'
 
-## Super A.I. Chatbot
-<br/>
-<iframe 
-  src="https://www.youtube.com/embed/pdsplQyok8k?si=geL7DH5CWcC8qlz_" 
-  title="Shopping A.I. Chatbot built with Typia" 
-  width="100%" 
-  height="600" 
-  frameborder="0" 
-  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" 
-  allowfullscreen 
-/>
+## Agentica
+![agentica-conceptual-diagram](https://github.com/user-attachments/assets/d7ebbd1f-04d3-4b0d-9e2a-234e29dd6c57)
 
-  - BBS A.I. Chatbot Application: https://nestia.io/chat/bbs
+https://github.com/wrtnlabs/agentica
 
-The above demonstration video shows BBS chatbot built with [`typia.llm.applicationOfValidate`](./application) function.
+The simplest **Agentic AI** framework, specialized in **LLM Function Calling**.
 
-As you can see, in the BBS A.I. chatbot application, the user can do everything defined in the TypeScript class just by conversation texts. Writing and reading articles, user can do these things just by chatting texts.
+Wkith `@agentica`, you can build Agentic AI chatbot only with TypeScript class types. Complex agent workflows and graphs required in conventional AI agent develoopment are not necessary in `@agentica`. Only with TypeScript class types, `@agentica` will do everything with the function calling.
 
-Just by delivering the TypeScript class type using [`typia.llm.applicationOfValidate<App, Model>()`](./application) function, Super A.I. chatbot performing the LLM (Large Language Model) function calling is automatically composed. The Super A.I. chatbot will select proper functions defined in the TypeScript class type by analyzing conversation texts with the user. And then Super A.I. chatbot requests the user to write arguments for the selected functions by conversation text, and actually calls the function with the arguments. This is the key concept of the Super A.I. chatbot of `typia` and `nestia` A.I. chatbot.
+Look at below demonstration, and and feel how `@agentica` is powerful. Now, you can let users to read and write articles only with conversation texts. The TypeScript class functions would be adequately called in the AI chatbot with LLM function calling.
 
-In other words, every TypeScript classes can be conversed to the A.I. chatbot. In the new A.I. era, you no more need to develop GUI (Graphical User Interface) application like before. Just prepare TypeScript class with enough documentations, and let the A.I. chatbot to do the rest. Even though the A.I. chatbot can't conquer every frontend developments, it can replace many things, and more efficient and user-friendly than the traditional GUI applications.
-
-
-
-
-## Application Setup
-<Tabs items={['npm', 'pnpm', 'yarn']}>
-  <Tabs.Tab>
-```bash filename="Terminal"
-npm create vite@latest bbs -- --template react-ts
-cd bbs
-
-npm install @nestia/agent @nestia/chat @samchon/openapi openai
-npx typia setup --project tsconfig.json
-npm install -D @ryoppippi/unplugin-typia
-```
-  </Tabs.Tab>
-  <Tabs.Tab>
-```bash filename="Terminal"
-pnpm create vite@latest bbs -- --template react-ts
-cd bbs
-
-pnpm install @nestia/agent @nestia/chat @samchon/openapi openai
-pnpm typia setup --project tsconfig.json
-pnpm install -D @ryoppippi/unplugin-typia
-```
-  </Tabs.Tab>
-  <Tabs.Tab>
-```bash filename="Terminal"
-yarn create vite@latest bbs --template react-ts
-cd bbs
-
-yarn add @nestia/agent @nestia/chat @samchon/openapi openai
-yarn typia setup --project tsconfig.json
-yarn add -D @ryoppippi/unplugin-typia
-```
-  </Tabs.Tab>
-</Tabs>
-
-I'll describe how to setup the A.I. chatbot application within framework of the `vite`.
-
-At first, create a `vite` + `react` + `typescript` project by executing the `npm create vite@latest bbs -- --template react-ts` command. Then, move to the created project directory `bbs`. And then, install `@nestia/chat` and its dependency packages. After that, run the `npx typia setup` command and `npm i -D @ryoppippi/unplugin-typia` to setup the `typia` library with the transformer configuration.
-
-At last, configure `vite.config.ts` file with `@ryoppippi/unplugin-typia` configuration like below. Import `@ryoppippi/unplugin-typia/vite` file and add it to the `plugins` array. Then you can use `typia` in the `vite` frontend development environment.
-
-```typescript filename="vite.config.ts" showLineNumbers {1, 9}
-import typia from "@ryoppippi/unplugin-typia/vite";
-import react from "@vitejs/plugin-react";
-import { defineConfig } from "vite";
-
-export default defineConfig({
-  base: "./",
-  plugins: [
-    react(), 
-    typia(),
-  ],
-});
-```
-
-From now on, let's start the A.I. chatbot development.
-
-Create a `NestiaAgent` instance with the OpenAI API key, its model name, and LLM function calling schema composed by the `typia.llm.applicationOfValidate<BbsArticleService, "chatgpt">()` function. And then, render the `NestiaChatApplication` component with the `NestiaAgent` instance.
-
-For reference, when developing the TypeScript controller class, description comments written on each controller method and DTO schema types are very important. They are used for the A.I. chatbot to understand the purpose of the controller method and the characteristics of the DTO schema types.
+<Callout type="info">
+`@nestia/agent` had been migrated to `@agentica/*` for enhancements and separation to multiple packages extending the functionalities.
+</Callout>
 
 <Tabs 
   items={[
-    <code>BbsChatApplication.tsx</code>,
+    "Pseudo Code",
+    "Real Code",
     <code>BbsArticleService.ts</code>, 
     <code>IBbsArticle.ts</code>, 
   ]}>
   <Tabs.Tab>
-```typescript filename="src/BbsChatApplication.tsx" showLineNumbers {23-26, 37}
-import { NestiaAgent } from "@nestia/agent";
-import { NestiaChatApplication } from "@nestia/chat";
-import OpenAI from "openai";
+```typescript showLineNumbers
+import { Agentica } from "@agentica/core";
 import typia from "typia";
 
 import { BbsArticleService } from "./BbsArticleService";
 
-export const BbsChatApplication = (props: BbsChatApplication.IProps) => {
-  const service: BbsArticleService = new BbsArticleService();
-  const agent: NestiaAgent = new NestiaAgent({
-    provider: {
-      type: "chatgpt",
-      api: new OpenAI({
-        apiKey: props.apiKey,
-        dangerouslyAllowBrowser: true,
-      }),
-      model: props.model ?? "gpt-4o-mini",
+const agent = new Agentica({
+  controllers: [
+    typia.llm.application<BbsArticleService>(),
+  ]
+});
+await agent.conversate("Hello, I want to create an article.");
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```typescript filename="src/index.tsx" showLineNumbers {23-26, 37}
+import { Agentica } from "@agentica/core";
+import typia from "typia";
+
+import { BbsArticleService } from "./BbsArticleService";
+
+const agent = new Agentica({
+  model: "chatgpt",
+  service: {
+    api: new OpenAI({ apiKey: "*****" }),
+    model: "gpt-4o-mini",
+  },
+  controllers: [
+    {
+      protocol: "class",
+      name: "bbs",
+      application: typia.llm.application<BbsArticleService>(),
+      execute: new BbsArticleService(),
     },
-    controllers: [
-      {
-        protocol: "class",
-        name: "bbs",
-        application: typia.llm.applicationOfValidate<
-          BbsArticleService,
-          "chatgpt"
-        >(),
-        execute: async (props) => {
-          return (service as any)[props.function.name](props.arguments);
-        },
-      },
-    ],
-    config: {
-      locale: props.locale,
-      timezone: props.timezone,
-    },
-  });
-  return <NestiaChatApplication agent={agent} />;
-};
-export namespace BbsChatApplication {
-  export interface IProps {
-    apiKey: string;
-    model?: OpenAI.ChatModel;
-    locale?: string;
-    timezone?: string;
-  }
-}
+  ],
+});
+await agent.conversate("Hello, I want to create an article.");
 ```
   </Tabs.Tab>
   <Tabs.Tab>
@@ -305,15 +226,114 @@ export namespace IBbsArticle {
    */
   export type IUpdate = Partial<ICreate>;
 }
-
 ```
   </Tabs.Tab>
 </Tabs>
 
+<br/>
+<iframe 
+  src="https://www.youtube.com/embed/pdsplQyok8k?si=geL7DH5CWcC8qlz_" 
+  title="Shopping A.I. Chatbot built with Typia" 
+  width="100%" 
+  height="600" 
+  frameborder="0" 
+  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" 
+  allowfullscreen 
+/>
+
+  - BBS A.I. Chatbot Application: https://nestia.io/chat/bbs
 
 
 
-## Backend Development
+
+## Swagger Chatbot
+You also can make the super A.I. chatbot by Swagger document too.
+
+With `@agentica`, you can build Agentic AI chatbot only with Swagger document built by [`@nestia/sdk`](/docs/swagger). Complex agent workflows and graphs required in conventional AI agent development are not necessary in `@agentica`. Only with the Swagger document, `@agentica` will do everything with the function calling.
+
+Look at below demonstration, and feel how `@agentica` is powerful. Now, you can let users to search and purchase products only with conversation texts. The backend API functions would be adequately called in the AI chatbot with LLM function calling.
+
+<Tabs items={["Pseudo Code", "Real Code"]}>
+  <Tabs.Tab>
+```typescript showLineNumbers {6-8}
+import { Agentica } from "@agentica/core";
+import typia from "typia";
+
+const agent = new Agentica({
+  controllers: [
+    await fetch(
+      "https://shopping-be.wrtn.ai/editor/swagger.json",
+    ).then(r => r.json()),
+    typia.llm.application<ShoppingCounselor>(),
+    typia.llm.application<ShoppingPolicy>(),
+    typia.llm.application<ShoppingSearchRag>(),
+  ],
+});
+await agent.conversate("I wanna buy MacBook Pro");
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```typescript showLineNumbers {16-23}
+import { Agentica } from "@agentica/core";
+import { OpenApi, HttpLlm } from "@samchon/openapi";
+import typia from "typia";
+
+const main = async (): Promise<void> => {
+  const agent = new Agentica({
+    model: "chatgpt",
+    vendor: {
+      api: new OpenAI({ apiKey: "*****" }),
+      model: "gpt-4o-mini",
+    },
+    controllers: [
+      {
+        protocol: "http",
+        name: "shopping",
+        application: HttpLlm.application({
+          model: "chatgpt",
+          document: OpenApi.convert(
+            await fetch(
+              "https://shopping-be.wrtn.ai/editor/swagger.json",
+            ).then(r => r.json()),
+          ),
+        }),
+        connection: {
+          host: "https://shopping-be.wrtn.ai",
+          headers: {
+            Authorization: "Bearer *****",
+          },
+        },
+      },
+      {
+        protocol: "class",
+        name: "counselor",
+        application: 
+          typia.llm.application<ShoppingCounselor, "chatgpt">(),
+        execute: new ShoppingCounselor(),
+      },
+      {
+        protocol: "class",
+        name: "policy",
+        application: 
+          typia.llm.application<ShoppingPolicy, "chatgpt">(),
+        execute: new ShoppingPolicy(),
+      },
+      {
+        protocol: "class",
+        name: "rag",
+        application: 
+          typia.llm.application<ShoppingSearchRag, "chatgpt">(),
+        execute: new ShoppingSearchRag(),
+      },
+    ],
+  });
+  await agent.conversate("I wanna buy MacBook Pro");
+};
+main().catch(console.error);
+```
+  </Tabs.Tab>
+</Tabs>
+
 <br/>
 <iframe src="https://www.youtube.com/embed/m47p4iJ90Ms?si=cvgfckN25GJhjLTB" 
         title="Shopping A.I. Chatbot built with Nestia" 
@@ -327,41 +347,162 @@ export namespace IBbsArticle {
 - Shopping Backend Repository: https://github.com/samchon/shopping-backend
 - Shopping Swagger Document (`@nestia/editor`): [https://nestia.io/editor/?url=...](https://nestia.io/editor/?simulate=true&e2e=true&url=https%3A%2F%2Fraw.githubusercontent.com%2Fsamchon%2Fshopping-backend%2Frefs%2Fheads%2Fmaster%2Fpackages%2Fapi%2Fswagger.json)
 
-You can make the super A.I. chatbot by Swagger document too.
-
-Until now, we've leared how to build an A.I. chatbot with the TypeScript class type. By the way, `@nestia/agent` and `@nestia/chat` supports another way to building the A.I. chatbot. It is the Swagger document. If you have a backend server and the backend server has a Swagger document, you also can create the super A.I. chatbot.
-
-Just deliver the Swagger document to the `@nestia/agent` and `@nestia/chat`, then you also can start conversation with the Super A.I. chatbot. The A.I. chatbot will automatically analyze the Swagger document and convert it to the LLM function calling schemas, so that the A.I. chatbot will select the proper functions to call by the conversation contexts with the user.
-
-If you want to learn how to build the A.I. chatbot with the Swagger document, read below document. The most important thing is that, every backend servers providing Swagger documents also can be conversed to the A.I. chatbot too. Therefore, in the new A.I. era, you no more need to develop GUI (Graphical User Interface) application like before. Just develop TypeScript class or backend server, and let the A.I. chatbot to do the rest. Even though the A.I. chatbot can't conquer every frontend developments, it can replace many things, and more efficient and user-friendly than the traditional GUI applications.
-
-  - [**Nestia** > **Guide Documents** > **Swagger Document** > **A.I. Chatbot**](https://nestia.io/docs/swagger/chat)
-  - [**Nestia** > **A.I. Chatbot** > **Playground**](https://nestia.io/chat/playground)
 
 
 
+## Principles
+### Agent Strategy
+```mermaid
+sequenceDiagram
+actor User
+actor Agent
+participant Selector
+participant Caller
+participant Describer
+activate User
+User-->>Agent: Conversate:<br/>user says
+activate Agent
+Agent->>Selector: Deliver conversation text
+activate Selector
+deactivate User
+Note over Selector: Select or remove candidate functions
+alt No candidate
+  Selector->>Agent: Talk like plain ChatGPT
+  deactivate Selector
+  Agent->>User: Conversate:<br/>agent says
+  activate User
+  deactivate User
+end
+deactivate Agent
+loop Candidate functions exist
+  activate Agent
+  Agent->>Caller: Deliver conversation text
+  activate Caller
+  alt Contexts are enough
+    Note over Caller: Call fulfilled functions
+    Caller->>Describer: Function call histories
+    deactivate Caller
+    activate Describer
+    Describer->>Agent: Describe function calls
+    deactivate Describer
+    Agent->>User: Conversate:<br/>agent describes
+    activate User
+    deactivate User
+  else Contexts are not enough
+    break
+      Caller->>Agent: Request more information
+    end
+    Agent->>User: Conversate:<br/>agent requests
+    activate User
+    deactivate User
+  end
+  deactivate Agent
+end
+```
 
-## Make your A.I. Chatbot
-Above `@nestia/agent` and `@nestia/chat` libraries are just for testing and demonstration. I’ve made them to prove a conncept that every TypeScript classes can be conversed with the A.I. chatbot, and `typia` / `nestia` are especially efficient for the A.I. chatbot development purpose.
+When user says, `@agentica/core` delivers the conversation text to the `selector` agent, and let the `selector` agent to find (or cancel) candidate functions from the context. If the `selector` agent could not find any candidate function to call and there is not any candidate function previously selected either, the `selector` agent will work just like a plain ChatGPT.
 
-However, `@nestia/agent` support only OpenAI, and has not optimized for specific purpose. As it has not been optimized without any RAG (Retrieval Augmented Generation) models, it may consume a lot of LLM cost than what you may expected. Therefore, use the `@nestia/agent` for studying the A.I. chatbot development, or just demonstrating your TypeScript class before the production development.
+And `@agentica/core` enters to a loop statement until the candidate functions to be empty. In the loop statement, `caller` agent tries to LLM function calling by analyzing the user's conversation text. If context is enough to compose arguments of candidate functions, the `caller` agent actually calls the target functions, and let `decriber` agent to explain the function calling results. Otherwise the context is not enough to compose arguments, `caller` agent requests more information to user.
 
-  - Source Codes:
-    - `@nestia/agent`: https://github.com/samchon/nestia/tree/master/packages/agent
-    - `@nestia/chat`: https://github.com/samchon/nestia/tree/master/packages/chat
+Such LLM (Large Language Model) function calling strategy separating `selector`, `caller`, and `describer` is the key logic of `@agentica/core`.
 
+### Validation Feedback
+```typescript
+import { FunctionCall } from "pseudo";
+import { ILlmFunction, IValidation } from "typia";
 
+export const correctFunctionCall = (p: {
+  call: FunctionCall;
+  functions: Array<ILlmFunction<"chatgpt">>;
+  retry: (reason: string, errors?: IValidation.IError[]) => Promise<unknown>;
+}): Promise<unknown> => {
+  // FIND FUNCTION
+  const func: ILlmFunction<"chatgpt"> | undefined =
+    p.functions.find((f) => f.name === p.call.name);
+  if (func === undefined) {
+    // never happened in my experience
+    return p.retry(
+      "Unable to find the matched function name. Try it again.",
+    );
+  }
 
+  // VALIDATE
+  const result: IValidation<unknown> = func.validate(p.call.arguments);
+  if (result.success === false) {
+    // 1st trial: 50% (gpt-4o-mini in shopping mall chatbot)
+    // 2nd trial with validation feedback: 99%
+    // 3nd trial with validation feedback again: never have failed
+    return p.retry(
+      "Type errors are detected. Correct it through validation errors",
+      {
+        errors: result.errors,
+      },
+    );
+  }
+  return result.data;
+}
+```
 
-## Wrtn OS
-[![Wrtn Logo](/images/sponsors/wrtn-logo.png)](https://wrtnlabs.io)
+Is LLM function calling perfect? 
 
-> https://wrtnlabs.io
+The answer is not, and LLM (Large Language Model) vendors like OpenAI take a lot of type level mistakes when composing the arguments of the target function to call. Even though an LLM function calling schema has defined an `Array<string>` type, LLM often fills it just by a `string` typed value.
 
-The new era of software development.
+Therefore, when developing an LLM function calling agent, the validation feedback process is essentially required. If LLM takes a type level mistake on arguments composition, the agent must feedback the most detailed validation errors, and let the LLM to retry the function calling referencing the validation errors.
 
-If you are not familiar with LLM (Large Language Model) development or RAG implementation, you can take another option. Prepare your swagger document file, and visit WrtnLabs homepage https://wrtnlabs.io. You can create your own A.I. chatbot with "Wrtn OS", and re-distribute it as you want. The A.I. assistant in the Wrtn OS is much more optimized and cost efficient than the `@nestia/agent`, and it is fully open sourced.
+About the validation feedback, `@agentica/core` is utilizing [`typia.validate<T>()`](https://typia.io/docs/validators/validate) and [`typia.llm.application<Class, Model>()`](https://typia.io/docs/llm/application/#application) functions. They construct validation logic by analyzing TypeScript source codes and types in the compilation level, so that detailed and accurate than any other validators like below.
 
-Also, you can sell your swagger document (backend API functions) in the "Wrtn Store", so that let other users to create their own A.I. chatbot with your backend API functions. Conversely, you can purchase the functions you need to create an A.I. chatbot from the store. If you have create an A.I. chatbot with only the functions purchased in the Wrtn Store, it is the no coding development.
+Such validation feedback strategy and combination with `typia` runtime validator, `@agentica/core` has achieved the most ideal LLM function calling. In my experience, when using OpenAI's `gpt-4o-mini` model, it tends to construct invalid function calling arguments at the first trial about 50% of the time. By the way, if correct it through validation feedback with `typia`, success rate soars to 99%. And I've never had a failure when trying validation feedback twice.
 
-I think this is a new way of software development, and a new way of software distribution. It is a new era of software development, and I hope you to be a part of it.
+Components               | `typia` | `TypeBox` | `ajv` | `io-ts` | `zod` | `C.V.`
+-------------------------|--------|-----------|-------|---------|-------|------------------
+**Easy to use**          | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ 
+[Object (simple)](https://github.com/samchon/typia/blob/master/test/src/structures/ObjectSimple.ts)          | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
+[Object (hierarchical)](https://github.com/samchon/typia/blob/master/test/src/structures/ObjectHierarchical.ts)    | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
+[Object (recursive)](https://github.com/samchon/typia/blob/master/test/src/structures/ObjectRecursive.ts)       | ✔ | ❌ | ✔ | ✔ | ✔ | ✔ | ✔
+[Object (union, implicit)](https://github.com/samchon/typia/blob/master/test/src/structures/ObjectUnionImplicit.ts) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
+[Object (union, explicit)](https://github.com/samchon/typia/blob/master/test/src/structures/ObjectUnionExplicit.ts) | ✔ | ✔ | ✔ | ✔ | ✔ | ❌
+[Object (additional tags)](https://github.com/samchon/typia/#comment-tags)        | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
+[Object (template literal types)](https://github.com/samchon/typia/blob/master/test/src/structures/TemplateUnion.ts) | ✔ | ✔ | ✔ | ❌ | ❌ | ❌
+[Object (dynamic properties)](https://github.com/samchon/typia/blob/master/test/src/structures/DynamicTemplate.ts) | ✔ | ✔ | ✔ | ❌ | ❌ | ❌
+[Array (rest tuple)](https://github.com/samchon/typia/blob/master/test/src/structures/TupleRestAtomic.ts) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
+[Array (hierarchical)](https://github.com/samchon/typia/blob/master/test/src/structures/ArrayHierarchical.ts)     | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
+[Array (recursive)](https://github.com/samchon/typia/blob/master/test/src/structures/ArrayRecursive.ts)        | ✔ | ✔ | ✔ | ✔ | ✔ | ❌
+[Array (recursive, union)](https://github.com/samchon/typia/blob/master/test/src/structures/ArrayRecursiveUnionExplicit.ts) | ✔ | ✔ | ❌ | ✔ | ✔ | ❌
+[Array (R+U, implicit)](https://github.com/samchon/typia/blob/master/test/src/structures/ArrayRecursiveUnionImplicit.ts)    | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
+[Array (repeated)](https://github.com/samchon/typia/blob/master/test/src/structures/ArrayRepeatedNullable.ts)    | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
+[Array (repeated, union)](https://github.com/samchon/typia/blob/master/test/src/structures/ArrayRepeatedUnionWithTuple.ts)    | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
+[**Ultimate Union Type**](https://github.com/samchon/typia/blob/master/test/src/structures/UltimateUnion.ts)  | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
+
+> `C.V.` means `class-validator`
+
+### OpenAPI Specification
+```mermaid
+flowchart
+  subgraph "OpenAPI Specification"
+    v20("Swagger v2.0") --upgrades--> emended[["OpenAPI v3.1 (emended)"]]
+    v30("OpenAPI v3.0") --upgrades--> emended
+    v31("OpenAPI v3.1") --emends--> emended
+  end
+  subgraph "OpenAPI Generator"
+    emended --normalizes--> migration[["Migration Schema"]]
+    migration --"Artificial Intelligence"--> lfc{{"LLM Function Calling"}}
+    lfc --"OpenAI"--> chatgpt("ChatGPT")
+    lfc --"Anthropic"--> claude("Claude")
+    lfc --"Google"--> gemini("Gemini")
+    lfc --"Meta"--> llama("Llama")
+  end
+```
+
+`@agentica/core` obtains LLM function calling schemas from both Swagger/OpenAPI documents and TypeScript class types. The TypeScript class type can be converted to LLM function calling schema by [`typia.llm.application<Class, Model>()`](https://typia.io/docs/llm/application#application) function. Then how about OpenAPI document? How Swagger document can be LLM function calling schema.
+
+The secret is in the above diagram. 
+
+In the OpenAPI specification, there are three versions with different definitions. And even in the same version, there are too much ambiguous and duplicated expressions. To resolve these problems, [`@samchon/openapi`](https://github.com/samchon/openapi) is transforming every OpenAPI documents to v3.1 emended specification. The `@samchon/openapi`'s emended v3.1 specification has removed every ambiguous and duplicated expressions for clarity.
+
+With the v3.1 emended OpenAPI document, `@samchon/openapi` converts it to a migration schema that is near to the function structure. And as the last step, the migration schema will be transformed to a specific LLM vendor's function calling schema. LLM function calling schemas are composed like this way.
+
+> **Why do not directly convert, but intermediate?**
+>
+> If directly convert from each version of OpenAPI specification to specific LLM's function calling schema, I have to make much more converters increased by cartesian product. In current models, number of converters would be 12 = 3 x 4.
+>
+> However, if define intermediate schema, number of converters are shrunk to plus operation. In current models, I just need to develop only (7 = 3 + 4) converters, and this is the reason why I've defined intermediate specification. This way is economic.
