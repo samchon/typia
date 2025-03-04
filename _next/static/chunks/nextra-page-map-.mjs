@@ -145,12 +145,6 @@ export const pageMap = [{
         "title": "Guide Documents > Utilization Cases > NestJS"
       }
     }, {
-      name: "prisma",
-      route: "/docs/utilization/prisma",
-      frontMatter: {
-        "title": "Guide Documents > Utilization Cases > Prisma"
-      }
-    }, {
       name: "trpc",
       route: "/docs/utilization/trpc",
       frontMatter: {
