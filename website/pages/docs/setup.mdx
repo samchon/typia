@@ -222,17 +222,17 @@ For reference, [`ts-patch`](https://github.com/nonara/ts-patch) is an helper lib
 
 ## Bundlers
 ### `unplugin-typia`
-[`unplugin-typia`](https://jsr.io/@ryoppippi/unplugin-typia) is a plugin to integrate `typia` into your bundlers seamlessly.
+[`unplugin-typia`](https://github.com/ryoppippi/unplugin-typia/) is a plugin to integrate `typia` into your bundlers seamlessly.
 
 Currently, `unplugin-typia` supports the following bundlers:
-  - [Bun](https://jsr.io/@ryoppippi/unplugin-typia/doc/bun/~/default)
-  - [Esbuild](https://jsr.io/@ryoppippi/unplugin-typia/doc/esbuild/~/default)
-  - [Farm](https://jsr.io/@ryoppippi/unplugin-typia/doc/farm/~/default)
-  - [Next.js](https://nextjs.org/)
-  - [Rolldown](https://jsr.io/@ryoppippi/unplugin-typia/doc/rolldown/~/default)
-  - [Rollup](https://jsr.io/@ryoppippi/unplugin-typia/doc/rollup/~/default)
-  - [Rspack](https://jsr.io/@ryoppippi/unplugin-typia/doc/rspack/~/default)
-  - [Vite](https://jsr.io/@ryoppippi/unplugin-typia/doc/vite/~/default)
+  - [Bun](https://github.com/ryoppippi/unplugin-typia/blob/main/packages/unplugin-typia/src/bun.ts)
+  - [Esbuild](https://github.com/ryoppippi/unplugin-typia/blob/main/packages/unplugin-typia/src/esbuild.ts)
+  - [Farm](https://github.com/ryoppippi/unplugin-typia/blob/main/packages/unplugin-typia/src/farm.ts)
+  - [Next.js](https://github.com/ryoppippi/unplugin-typia/blob/main/packages/unplugin-typia/src/next.ts)
+  - [Rolldown](https://github.com/ryoppippi/unplugin-typia/blob/main/packages/unplugin-typia/src/rolldown.ts)
+  - [Rollup](https://github.com/ryoppippi/unplugin-typia/blob/main/packages/unplugin-typia/src/rollup.ts)
+  - [Rspack](https://github.com/ryoppippi/unplugin-typia/blob/main/packages/unplugin-typia/src/rspack.ts)
+  - [Vite](https://github.com/ryoppippi/unplugin-typia/blob/main/packages/unplugin-typia/src/vite.ts)
   - [Webpack](https://webpack.js.org/)
 
 <Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
@@ -273,7 +273,7 @@ At first, install both `unplugin-typia` and `typia`, with `npx typia setup` comm
 
 After that, follow the next section steps to integrate `unplugin-typia` into your bundlers.
 
-For reference, there are a couple of ways to integrate `unplugin-typia` into your bundlers. For the full integration guide, please refer to the [`unplugin-typia` documentation](https://jsr.io/@ryoppippi/unplugin-typia/doc). Also, you can see the examples projects in [`unplugin-typia` repository](https://github.com/ryoppippi/unplugin-typia/tree/main/examples).
+For reference, there are a couple of ways to integrate `unplugin-typia` into your bundlers. For the full integration guide, please refer to the [`unplugin-typia` documentation](https://github.com/ryoppippi/unplugin-typia).  
 
 <Tabs items={['Vite', 'Next.js', 'esbuild', 'Bun.runtime', 'Bun.build']}>
   <Tabs.Tab>
@@ -340,7 +340,7 @@ And, run the `bun run` command.
 ```bash filename="Terminal" showLineNumbers copy
 bun run index.ts
 ```
-For more details, please refer to the [`unplugin-typia` documentation](https://jsr.io/@ryoppippi/unplugin-typia).
+For more details, please refer to the [`unplugin-typia` documentation](https://github.com/ryoppippi/unplugin-typia).
   </Tabs.Tab>
   <Tabs.Tab>
 
@@ -354,7 +354,7 @@ await Bun.build({
 });
 ```
 
-For more details, please refer to the [`unplugin-typia` documentation](https://jsr.io/@ryoppippi/unplugin-typia).
+For more details, please refer to the [`unplugin-typia` documentation](https://github.com/ryoppippi/unplugin-typia).
   </Tabs.Tab>
 </Tabs>
 
