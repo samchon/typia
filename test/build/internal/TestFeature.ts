@@ -7,8 +7,10 @@ import { write_random } from "../writers/write_random";
 
 export interface TestFeature {
   module: string | null;
+  prefix?: string;
   method: string;
   creatable: boolean;
+  createOnly?: boolean;
   spoilable: boolean;
   formData?: boolean;
   custom?: true;
@@ -51,6 +53,14 @@ export namespace TestFeature {
       module: null,
       method: "validate",
       creatable: true,
+      spoilable: true,
+    },
+    {
+      module: null,
+      prefix: "standardSchema",
+      method: "validate",
+      creatable: false,
+      createOnly: true,
       spoilable: true,
     },
 

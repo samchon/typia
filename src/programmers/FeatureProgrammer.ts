@@ -297,6 +297,7 @@ export namespace FeatureProgrammer {
     modulo: ts.LeftHandSideExpression;
     functor: FunctionProgrammer;
     result: IDecomposed;
+    returnWrapper?: (arrow: ts.ArrowFunction) => ts.Expression;
   }): ts.CallExpression =>
     ts.factory.createCallExpression(
       ts.factory.createArrowFunction(
@@ -311,7 +312,11 @@ export namespace FeatureProgrammer {
             .filter(([k]) => props.functor.hasLocal(k))
             .map(([_k, v]) => v),
           ...props.result.statements,
-          ts.factory.createReturnStatement(props.result.arrow),
+          ts.factory.createReturnStatement(
+            props.returnWrapper
+              ? props.returnWrapper(props.result.arrow)
+              : props.result.arrow,
+          ),
         ]),
       ),
       undefined,
