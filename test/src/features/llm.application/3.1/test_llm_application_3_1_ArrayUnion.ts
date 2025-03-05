@@ -6,6 +6,7 @@ import { ArrayUnion } from "../../../structures/ArrayUnion";
 export const test_llm_application_3_1_ArrayUnion = _test_llm_application({
   model: "3.1",
   name: "ArrayUnion",
+  factory: ArrayUnion,
 })(typia.llm.application<ArrayUnionApplication, "3.1">());
 
 interface ArrayUnionApplication {

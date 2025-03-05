@@ -7,6 +7,7 @@ export const test_llm_application_claude_DynamicConstant =
   _test_llm_application({
     model: "claude",
     name: "DynamicConstant",
+    factory: DynamicConstant,
   })(typia.llm.application<DynamicConstantApplication, "claude">());
 
 interface DynamicConstantApplication {

@@ -7,6 +7,7 @@ export const test_llm_application_claude_ArrayRecursiveUnionExplicitPointer =
   _test_llm_application({
     model: "claude",
     name: "ArrayRecursiveUnionExplicitPointer",
+    factory: ArrayRecursiveUnionExplicitPointer,
   })(
     typia.llm.application<
       ArrayRecursiveUnionExplicitPointerApplication,

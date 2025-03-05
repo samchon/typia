@@ -7,6 +7,7 @@ export const test_llm_application_claude_ObjectUnionNonPredictable =
   _test_llm_application({
     model: "claude",
     name: "ObjectUnionNonPredictable",
+    factory: ObjectUnionNonPredictable,
   })(typia.llm.application<ObjectUnionNonPredictableApplication, "claude">());
 
 interface ObjectUnionNonPredictableApplication {

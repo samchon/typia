@@ -7,6 +7,7 @@ export const test_llm_application_chatgpt_ArrayRepeatedRequired =
   _test_llm_application({
     model: "chatgpt",
     name: "ArrayRepeatedRequired",
+    factory: ArrayRepeatedRequired,
   })(typia.llm.application<ArrayRepeatedRequiredApplication, "chatgpt">());
 
 interface ArrayRepeatedRequiredApplication {

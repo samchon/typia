@@ -7,6 +7,7 @@ export const test_llm_application_claude_ObjectRequired = _test_llm_application(
   {
     model: "claude",
     name: "ObjectRequired",
+    factory: ObjectRequired,
   },
 )(typia.llm.application<ObjectRequiredApplication, "claude">());
 

@@ -6,6 +6,7 @@ import { DynamicComposite } from "../../../structures/DynamicComposite";
 export const test_llm_application_3_0_DynamicComposite = _test_llm_application({
   model: "3.0",
   name: "DynamicComposite",
+  factory: DynamicComposite,
 })(typia.llm.application<DynamicCompositeApplication, "3.0">());
 
 interface DynamicCompositeApplication {

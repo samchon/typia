@@ -7,6 +7,7 @@ export const test_llm_application_llama_ObjectUnionCompositePointer =
   _test_llm_application({
     model: "llama",
     name: "ObjectUnionCompositePointer",
+    factory: ObjectUnionCompositePointer,
   })(typia.llm.application<ObjectUnionCompositePointerApplication, "llama">());
 
 interface ObjectUnionCompositePointerApplication {

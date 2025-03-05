@@ -7,6 +7,7 @@ export const test_llm_application_3_1_DynamicEnumeration =
   _test_llm_application({
     model: "3.1",
     name: "DynamicEnumeration",
+    factory: DynamicEnumeration,
   })(typia.llm.application<DynamicEnumerationApplication, "3.1">());
 
 interface DynamicEnumerationApplication {

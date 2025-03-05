@@ -7,6 +7,7 @@ export const test_llm_application_claude_ObjectOptional = _test_llm_application(
   {
     model: "claude",
     name: "ObjectOptional",
+    factory: ObjectOptional,
   },
 )(typia.llm.application<ObjectOptionalApplication, "claude">());
 

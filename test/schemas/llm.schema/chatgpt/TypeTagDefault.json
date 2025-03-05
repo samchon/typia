@@ -5,7 +5,6 @@
       "type": "boolean"
     },
     "number": {
-      "description": "@default 1",
       "type": "number"
     },
     "string": {
@@ -19,8 +18,7 @@
     "boolean_and_number_and_string": {
       "anyOf": [
         {
-          "type": "number",
-          "description": "@default 1"
+          "type": "number"
         },
         {
           "type": "string",
@@ -50,8 +48,7 @@
           "type": "string"
         },
         {
-          "type": "number",
-          "description": "@default 1"
+          "type": "number"
         },
         {
           "type": "boolean"
@@ -79,8 +76,7 @@
           "description": "@pattern ^(prefix_(.*))"
         },
         {
-          "type": "number",
-          "description": "@default 2"
+          "type": "number"
         },
         {
           "type": "boolean"

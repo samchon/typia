@@ -7,6 +7,7 @@ export const test_llm_application_llama_DynamicConstant = _test_llm_application(
   {
     model: "llama",
     name: "DynamicConstant",
+    factory: DynamicConstant,
   },
 )(typia.llm.application<DynamicConstantApplication, "llama">());
 

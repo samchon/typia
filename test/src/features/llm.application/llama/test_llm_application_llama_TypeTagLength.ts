@@ -6,6 +6,7 @@ import { TypeTagLength } from "../../../structures/TypeTagLength";
 export const test_llm_application_llama_TypeTagLength = _test_llm_application({
   model: "llama",
   name: "TypeTagLength",
+  factory: TypeTagLength,
 })(typia.llm.application<TypeTagLengthApplication, "llama">());
 
 interface TypeTagLengthApplication {

@@ -7,6 +7,7 @@ export const test_llm_application_llama_DynamicComposite =
   _test_llm_application({
     model: "llama",
     name: "DynamicComposite",
+    factory: DynamicComposite,
   })(typia.llm.application<DynamicCompositeApplication, "llama">());
 
 interface DynamicCompositeApplication {

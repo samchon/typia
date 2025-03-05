@@ -7,6 +7,7 @@ export const test_llm_application_llama_ConstantConstEnumeration =
   _test_llm_application({
     model: "llama",
     name: "ConstantConstEnumeration",
+    factory: ConstantConstEnumeration,
   })(typia.llm.application<ConstantConstEnumerationApplication, "llama">());
 
 interface ConstantConstEnumerationApplication {

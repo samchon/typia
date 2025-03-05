@@ -7,6 +7,7 @@ export const test_llm_application_claude_ObjectLiteralProperty =
   _test_llm_application({
     model: "claude",
     name: "ObjectLiteralProperty",
+    factory: ObjectLiteralProperty,
   })(typia.llm.application<ObjectLiteralPropertyApplication, "claude">());
 
 interface ObjectLiteralPropertyApplication {

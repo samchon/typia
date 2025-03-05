@@ -7,6 +7,7 @@ export const test_llm_application_chatgpt_ObjectPrimitive =
   _test_llm_application({
     model: "chatgpt",
     name: "ObjectPrimitive",
+    factory: ObjectPrimitive,
   })(typia.llm.application<ObjectPrimitiveApplication, "chatgpt">());
 
 interface ObjectPrimitiveApplication {

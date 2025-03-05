@@ -7,6 +7,7 @@ export const test_llm_application_gemini_TypeTagPattern = _test_llm_application(
   {
     model: "gemini",
     name: "TypeTagPattern",
+    factory: TypeTagPattern,
   },
 )(typia.llm.application<TypeTagPatternApplication, "gemini">());
 

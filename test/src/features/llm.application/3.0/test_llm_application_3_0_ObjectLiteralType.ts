@@ -7,6 +7,7 @@ export const test_llm_application_3_0_ObjectLiteralType = _test_llm_application(
   {
     model: "3.0",
     name: "ObjectLiteralType",
+    factory: ObjectLiteralType,
   },
 )(typia.llm.application<ObjectLiteralTypeApplication, "3.0">());
 

@@ -6,6 +6,7 @@ import { ObjectJsonTag } from "../../../structures/ObjectJsonTag";
 export const test_llm_application_claude_ObjectJsonTag = _test_llm_application({
   model: "claude",
   name: "ObjectJsonTag",
+  factory: ObjectJsonTag,
 })(typia.llm.application<ObjectJsonTagApplication, "claude">());
 
 interface ObjectJsonTagApplication {

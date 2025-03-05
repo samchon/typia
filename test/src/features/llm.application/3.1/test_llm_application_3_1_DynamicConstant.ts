@@ -6,6 +6,7 @@ import { DynamicConstant } from "../../../structures/DynamicConstant";
 export const test_llm_application_3_1_DynamicConstant = _test_llm_application({
   model: "3.1",
   name: "DynamicConstant",
+  factory: DynamicConstant,
 })(typia.llm.application<DynamicConstantApplication, "3.1">());
 
 interface DynamicConstantApplication {

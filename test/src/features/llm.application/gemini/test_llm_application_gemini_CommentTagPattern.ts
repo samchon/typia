@@ -7,6 +7,7 @@ export const test_llm_application_gemini_CommentTagPattern =
   _test_llm_application({
     model: "gemini",
     name: "CommentTagPattern",
+    factory: CommentTagPattern,
   })(typia.llm.application<CommentTagPatternApplication, "gemini">());
 
 interface CommentTagPatternApplication {

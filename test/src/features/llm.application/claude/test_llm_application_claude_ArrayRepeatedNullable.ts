@@ -7,6 +7,7 @@ export const test_llm_application_claude_ArrayRepeatedNullable =
   _test_llm_application({
     model: "claude",
     name: "ArrayRepeatedNullable",
+    factory: ArrayRepeatedNullable,
   })(typia.llm.application<ArrayRepeatedNullableApplication, "claude">());
 
 interface ArrayRepeatedNullableApplication {

@@ -9,12 +9,6 @@ export default {
     title: "📖 Guide Documents",
     type: "page",
   },
-  gurubase: {
-    type: "page",
-    title: "💬 Document Chatbot",
-    href: "https://gurubase.io/g/typia",
-    newWindow: true,
-  },
   playground: {
     title: "💻 Playground",
     type: "page",

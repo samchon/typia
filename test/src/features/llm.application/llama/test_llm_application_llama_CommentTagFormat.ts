@@ -7,6 +7,7 @@ export const test_llm_application_llama_CommentTagFormat =
   _test_llm_application({
     model: "llama",
     name: "CommentTagFormat",
+    factory: CommentTagFormat,
   })(typia.llm.application<CommentTagFormatApplication, "llama">());
 
 interface CommentTagFormatApplication {

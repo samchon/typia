@@ -6,6 +6,7 @@ import { ArrayMatrix } from "../../../structures/ArrayMatrix";
 export const test_llm_application_3_1_ArrayMatrix = _test_llm_application({
   model: "3.1",
   name: "ArrayMatrix",
+  factory: ArrayMatrix,
 })(typia.llm.application<ArrayMatrixApplication, "3.1">());
 
 interface ArrayMatrixApplication {

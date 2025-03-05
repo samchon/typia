@@ -6,6 +6,7 @@ import { TypeTagRange } from "../../../structures/TypeTagRange";
 export const test_llm_application_gemini_TypeTagRange = _test_llm_application({
   model: "gemini",
   name: "TypeTagRange",
+  factory: TypeTagRange,
 })(typia.llm.application<TypeTagRangeApplication, "gemini">());
 
 interface TypeTagRangeApplication {

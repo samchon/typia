@@ -6,6 +6,7 @@ import { TypeTagType } from "../../../structures/TypeTagType";
 export const test_llm_application_3_1_TypeTagType = _test_llm_application({
   model: "3.1",
   name: "TypeTagType",
+  factory: TypeTagType,
 })(typia.llm.application<TypeTagTypeApplication, "3.1">());
 
 interface TypeTagTypeApplication {

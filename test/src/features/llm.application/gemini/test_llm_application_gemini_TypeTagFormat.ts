@@ -6,6 +6,7 @@ import { TypeTagFormat } from "../../../structures/TypeTagFormat";
 export const test_llm_application_gemini_TypeTagFormat = _test_llm_application({
   model: "gemini",
   name: "TypeTagFormat",
+  factory: TypeTagFormat,
 })(typia.llm.application<TypeTagFormatApplication, "gemini">());
 
 interface TypeTagFormatApplication {

@@ -7,6 +7,7 @@ export const test_llm_application_chatgpt_ObjectLiteralProperty =
   _test_llm_application({
     model: "chatgpt",
     name: "ObjectLiteralProperty",
+    factory: ObjectLiteralProperty,
   })(typia.llm.application<ObjectLiteralPropertyApplication, "chatgpt">());
 
 interface ObjectLiteralPropertyApplication {

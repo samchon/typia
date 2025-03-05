@@ -7,6 +7,7 @@ export const test_llm_application_chatgpt_CommentTagLength =
   _test_llm_application({
     model: "chatgpt",
     name: "CommentTagLength",
+    factory: CommentTagLength,
   })(typia.llm.application<CommentTagLengthApplication, "chatgpt">());
 
 interface CommentTagLengthApplication {

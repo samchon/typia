@@ -7,6 +7,7 @@ export const test_llm_application_3_0_ObjectUnionExplicit =
   _test_llm_application({
     model: "3.0",
     name: "ObjectUnionExplicit",
+    factory: ObjectUnionExplicit,
   })(typia.llm.application<ObjectUnionExplicitApplication, "3.0">());
 
 interface ObjectUnionExplicitApplication {

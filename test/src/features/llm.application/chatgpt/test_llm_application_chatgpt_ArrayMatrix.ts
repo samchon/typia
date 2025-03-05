@@ -6,6 +6,7 @@ import { ArrayMatrix } from "../../../structures/ArrayMatrix";
 export const test_llm_application_chatgpt_ArrayMatrix = _test_llm_application({
   model: "chatgpt",
   name: "ArrayMatrix",
+  factory: ArrayMatrix,
 })(typia.llm.application<ArrayMatrixApplication, "chatgpt">());
 
 interface ArrayMatrixApplication {

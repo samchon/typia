@@ -6,6 +6,7 @@ import { ObjectUndefined } from "../../../structures/ObjectUndefined";
 export const test_llm_application_3_0_ObjectUndefined = _test_llm_application({
   model: "3.0",
   name: "ObjectUndefined",
+  factory: ObjectUndefined,
 })(typia.llm.application<ObjectUndefinedApplication, "3.0">());
 
 interface ObjectUndefinedApplication {

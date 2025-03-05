@@ -6,6 +6,7 @@ import { TypeTagArray } from "../../../structures/TypeTagArray";
 export const test_llm_application_chatgpt_TypeTagArray = _test_llm_application({
   model: "chatgpt",
   name: "TypeTagArray",
+  factory: TypeTagArray,
 })(typia.llm.application<TypeTagArrayApplication, "chatgpt">());
 
 interface TypeTagArrayApplication {

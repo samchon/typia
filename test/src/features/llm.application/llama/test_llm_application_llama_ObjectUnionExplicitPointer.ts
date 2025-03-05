@@ -7,6 +7,7 @@ export const test_llm_application_llama_ObjectUnionExplicitPointer =
   _test_llm_application({
     model: "llama",
     name: "ObjectUnionExplicitPointer",
+    factory: ObjectUnionExplicitPointer,
   })(typia.llm.application<ObjectUnionExplicitPointerApplication, "llama">());
 
 interface ObjectUnionExplicitPointerApplication {

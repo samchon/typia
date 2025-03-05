@@ -7,6 +7,7 @@ export const test_llm_application_llama_DynamicUndefined =
   _test_llm_application({
     model: "llama",
     name: "DynamicUndefined",
+    factory: DynamicUndefined,
   })(typia.llm.application<DynamicUndefinedApplication, "llama">());
 
 interface DynamicUndefinedApplication {

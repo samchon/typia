@@ -6,6 +6,7 @@ import { CommentTagArray } from "../../../structures/CommentTagArray";
 export const test_llm_application_3_0_CommentTagArray = _test_llm_application({
   model: "3.0",
   name: "CommentTagArray",
+  factory: CommentTagArray,
 })(typia.llm.application<CommentTagArrayApplication, "3.0">());
 
 interface CommentTagArrayApplication {

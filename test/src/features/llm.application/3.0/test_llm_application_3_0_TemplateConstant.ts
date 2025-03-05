@@ -6,6 +6,7 @@ import { TemplateConstant } from "../../../structures/TemplateConstant";
 export const test_llm_application_3_0_TemplateConstant = _test_llm_application({
   model: "3.0",
   name: "TemplateConstant",
+  factory: TemplateConstant,
 })(typia.llm.application<TemplateConstantApplication, "3.0">());
 
 interface TemplateConstantApplication {

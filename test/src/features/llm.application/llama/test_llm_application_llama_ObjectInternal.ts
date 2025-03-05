@@ -6,6 +6,7 @@ import { ObjectInternal } from "../../../structures/ObjectInternal";
 export const test_llm_application_llama_ObjectInternal = _test_llm_application({
   model: "llama",
   name: "ObjectInternal",
+  factory: ObjectInternal,
 })(typia.llm.application<ObjectInternalApplication, "llama">());
 
 interface ObjectInternalApplication {

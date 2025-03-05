@@ -7,6 +7,7 @@ export const test_llm_application_llama_CommentTagRange = _test_llm_application(
   {
     model: "llama",
     name: "CommentTagRange",
+    factory: CommentTagRange,
   },
 )(typia.llm.application<CommentTagRangeApplication, "llama">());
 

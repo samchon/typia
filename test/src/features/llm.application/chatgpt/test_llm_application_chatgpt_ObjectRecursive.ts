@@ -7,6 +7,7 @@ export const test_llm_application_chatgpt_ObjectRecursive =
   _test_llm_application({
     model: "chatgpt",
     name: "ObjectRecursive",
+    factory: ObjectRecursive,
   })(typia.llm.application<ObjectRecursiveApplication, "chatgpt">());
 
 interface ObjectRecursiveApplication {

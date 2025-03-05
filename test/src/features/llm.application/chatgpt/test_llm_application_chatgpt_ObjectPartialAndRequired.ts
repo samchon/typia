@@ -7,6 +7,7 @@ export const test_llm_application_chatgpt_ObjectPartialAndRequired =
   _test_llm_application({
     model: "chatgpt",
     name: "ObjectPartialAndRequired",
+    factory: ObjectPartialAndRequired,
   })(typia.llm.application<ObjectPartialAndRequiredApplication, "chatgpt">());
 
 interface ObjectPartialAndRequiredApplication {

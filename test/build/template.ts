@@ -2,10 +2,8 @@ import cp from "child_process";
 import fs from "fs";
 
 import { TestFeature } from "./internal/TestFeature";
-// import { TestJsonApplicationGenerator } from "./internal/TestJsonApplicationGenerator";
 import { TestJsonSchemasGenerator } from "./internal/TestJsonSchemasGenerator";
 import { TestLlmApplicationGenerator } from "./internal/TestLlmApplicationGenerator";
-import { TestLlmApplicationOfValidateGenerator } from "./internal/TestLlmApplicationOfValidateGenerator";
 import { TestLlmParametersGenerator } from "./internal/TestLlmParametersGenerator";
 import { TestLlmSchemaGenerator } from "./internal/TestLlmSchemaGenerator";
 import { TestProtobufMessageGenerator } from "./internal/TestProtobufMessageGenerator";
@@ -181,13 +179,11 @@ async function main(): Promise<void> {
   // FILL SCHEMA CONTENTS
   cp.execSync("npm run build", { stdio: "inherit" });
 
-  // await TestJsonApplicationGenerator.schemas();
   await TestJsonSchemasGenerator.schemas();
   await TestProtobufMessageGenerator.schemas();
   await TestReflectMetadataGenerator.schemas();
 
   // LLM SCHEMAS AGAIN
-  await TestLlmApplicationOfValidateGenerator.generate(structures);
   await TestLlmApplicationGenerator.generate(structures);
   await TestLlmParametersGenerator.generate(structures);
   await TestLlmSchemaGenerator.generate(structures);

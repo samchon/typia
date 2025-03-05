@@ -6,6 +6,7 @@ import { ObjectRecursive } from "../../../structures/ObjectRecursive";
 export const test_llm_application_3_0_ObjectRecursive = _test_llm_application({
   model: "3.0",
   name: "ObjectRecursive",
+  factory: ObjectRecursive,
 })(typia.llm.application<ObjectRecursiveApplication, "3.0">());
 
 interface ObjectRecursiveApplication {

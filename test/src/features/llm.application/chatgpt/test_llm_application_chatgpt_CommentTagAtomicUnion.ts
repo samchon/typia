@@ -7,6 +7,7 @@ export const test_llm_application_chatgpt_CommentTagAtomicUnion =
   _test_llm_application({
     model: "chatgpt",
     name: "CommentTagAtomicUnion",
+    factory: CommentTagAtomicUnion,
   })(typia.llm.application<CommentTagAtomicUnionApplication, "chatgpt">());
 
 interface CommentTagAtomicUnionApplication {

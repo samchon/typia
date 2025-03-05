@@ -6,6 +6,7 @@ import { TemplateAtomic } from "../../../structures/TemplateAtomic";
 export const test_llm_application_3_0_TemplateAtomic = _test_llm_application({
   model: "3.0",
   name: "TemplateAtomic",
+  factory: TemplateAtomic,
 })(typia.llm.application<TemplateAtomicApplication, "3.0">());
 
 interface TemplateAtomicApplication {
