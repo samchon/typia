@@ -47,8 +47,10 @@ async function generate(
     "src",
     "features",
     [
-      feat.module ? `${feat.module}.${method}` : method,
-      ...(feat.custom === true ? ["Custom"] : ""),
+      feat.prefix ? `${feat.prefix}.` : "",
+      feat.module ? `${feat.module}.` : "",
+      method,
+      feat.custom === true ? "Custom" : "",
     ].join(""),
   ].join("/");
 
@@ -71,6 +73,8 @@ async function generate(
     else if (feat.dynamic === false && s.name.startsWith("Dynamic")) continue;
 
     const location: string = `${path}/test_${
+      feat.prefix ? `${feat.prefix}_` : ""
+    }${
       feat.module ? `${feat.module}_` : ""
     }${method}${feat.custom === true ? "Custom" : ""}_${s.name}.ts`;
     await fs.promises.writeFile(
@@ -91,6 +95,7 @@ function script(
     ? feat.programmer(create)(struct.name)
     : write_common({
         module: feat.module,
+        prefix: feat.prefix,
         method,
       })(create)(struct.name);
   if (false === method.toLowerCase().includes("assert")) return content;
@@ -153,8 +158,12 @@ async function main(): Promise<void> {
     })),
   ];
   for (const feature of featureList) {
-    await generate(feature, structures, false);
-    if (feature.creatable) await generate(feature, structures, true);
+    if (feature.createOnly) {
+      await generate(feature, structures, true);
+    } else {
+      await generate(feature, structures, false);
+      if (feature.creatable) await generate(feature, structures, true);
+    }
   }
 
   // SCHEMAS
