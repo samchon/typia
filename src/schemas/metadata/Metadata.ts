@@ -24,6 +24,7 @@ export class Metadata {
   public required: boolean;
   public optional: boolean;
   public nullable: boolean;
+  public class: boolean;
 
   public escaped: MetadataEscaped | null;
   public atomics: MetadataAtomic[];
@@ -60,6 +61,7 @@ export class Metadata {
     this.optional = props.optional;
     this.nullable = props.nullable;
     this.functions = props.functions;
+    this.class = props.class;
 
     this.escaped = props.escaped;
     this.atomics = props.atomics;
@@ -93,6 +95,7 @@ export class Metadata {
       nullable: false,
       required: true,
       optional: false,
+      class: false,
 
       escaped: null,
       constants: [],
@@ -119,6 +122,7 @@ export class Metadata {
       required: this.required,
       optional: this.optional,
       nullable: this.nullable,
+      class: this.class,
       functions: this.functions.map((f) => f.toJSON()),
 
       atomics: this.atomics.map((a) => a.toJSON()),
@@ -144,6 +148,7 @@ export class Metadata {
       required: meta.required,
       optional: meta.optional,
       nullable: meta.nullable,
+      class: meta.class,
       functions: meta.functions.map((f) => MetadataFunction.from(f, dict)),
 
       constants: meta.constants.map(MetadataConstant.from),
@@ -522,6 +527,7 @@ export namespace Metadata {
       nullable: x.nullable || y.nullable,
       required: x.required && y.required,
       optional: x.optional || y.optional,
+      class: x.class || y.class,
       functions: x.functions.length ? x.functions : y.functions, // @todo
       escaped:
         x.escaped !== null && y.escaped !== null
