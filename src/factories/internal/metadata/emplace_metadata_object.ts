@@ -34,12 +34,14 @@ export const emplace_metadata_object = (
     ? (node) => {
         const capsuled: boolean = node
           .getChildren()
-          .some(
-            (c) => c.getChildren().some(
-              (n) =>
-                n.kind === ts.SyntaxKind.PrivateKeyword ||
-                n.kind === ts.SyntaxKind.ProtectedKeyword,
-            ),
+          .some((c) =>
+            c
+              .getChildren()
+              .some(
+                (n) =>
+                  n.kind === ts.SyntaxKind.PrivateKeyword ||
+                  n.kind === ts.SyntaxKind.ProtectedKeyword,
+              ),
           );
         return capsuled === false && isProperty(node);
       }
