@@ -32,14 +32,18 @@ export const emplace_metadata_object = (
   const isProperty = significant(!!props.options.functional);
   const pred: (node: ts.Declaration) => boolean = isClass
     ? (node) => {
-        const kind: ts.SyntaxKind | undefined = node
-          .getChildren()[0]
-          ?.getChildren()[0]?.kind;
-        return (
-          kind !== ts.SyntaxKind.PrivateKeyword &&
-          kind !== ts.SyntaxKind.ProtectedKeyword &&
-          isProperty(node)
-        );
+        const capsuled: boolean = node
+          .getChildren()
+          .some((c) =>
+            c
+              .getChildren()
+              .some(
+                (n) =>
+                  n.kind === ts.SyntaxKind.PrivateKeyword ||
+                  n.kind === ts.SyntaxKind.ProtectedKeyword,
+              ),
+          );
+        return capsuled === false && isProperty(node);
       }
     : (node) => isProperty(node);
 
