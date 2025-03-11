@@ -25,8 +25,7 @@ jobs:
       - run: pnpm run build
       - name: remove `private=true` from package.json
         run: |
-          jq 'del(.private)' package.json > package.json.tmp
-          mv package.json.tmp package.json
+          npm pkg delete private
       - name: upload to pkg.pr.now
         run: npx pkg-pr-new publish --compact
       - name: Upload tgz for Artifactory
