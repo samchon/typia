@@ -63,19 +63,6 @@ export namespace JsonApplicationProgrammer {
     metadata: Metadata;
     filter?: (prop: MetadataProperty) => boolean;
   }): __IJsonApplication<Version> => {
-    const errors: string[] = validate(props.metadata, {
-      top: true,
-      object: null,
-      property: null,
-      parameter: null,
-      nested: null,
-      aliased: false,
-      escaped: false,
-      output: false,
-    });
-    if (errors.length)
-      throw new Error("Failed to write LLM application: " + errors.join("\n"));
-
     const object: MetadataObjectType = props.metadata.objects[0]!.type;
     const definitions: Metadata[] = [];
     const setters: Array<(schema: __IJsonApplication.Schema<Version>) => void> =
@@ -97,7 +84,7 @@ export namespace JsonApplicationProgrammer {
           p.value.size() === 1 &&
           p.value.nullable === false &&
           p.value.isRequired() === true &&
-          p.value.functions.length === 1,
+          Metadata.unalias(p.value).functions.length === 1,
       )
       .filter(
         (p) =>
@@ -110,7 +97,7 @@ export namespace JsonApplicationProgrammer {
         collectFunction({
           version: props.version,
           name: r.key.getSoleLiteral()!,
-          function: r.value.functions[0]!,
+          function: Metadata.unalias(r.value).functions[0]!,
           description: r.description,
           jsDocTags: r.jsDocTags,
           collect,
