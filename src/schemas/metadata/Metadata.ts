@@ -594,6 +594,24 @@ export namespace Metadata {
     }
     return output;
   };
+
+  /**
+   * @internal
+   */
+  export const unalias = (w: Metadata) => {
+    const visited: Set<Metadata> = new Set();
+    while (
+      w.size() === 1 &&
+      w.nullable === false &&
+      w.isRequired() === true &&
+      w.aliases.length === 1
+    ) {
+      if (visited.has(w)) break;
+      w = w.aliases[0]!.type.value;
+      visited.add(w);
+    }
+    return w;
+  };
 }
 
 const getName = (metadata: Metadata): string => {

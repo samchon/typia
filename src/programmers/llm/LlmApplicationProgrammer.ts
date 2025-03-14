@@ -159,28 +159,16 @@ export namespace LlmApplicationProgrammer {
     config?: Partial<ILlmSchema.ModelConfig[Model]>;
     name?: string;
   }): ILlmApplication<Model> => {
-    const errors: string[] = validate(props)(props.metadata, {
-      top: true,
-      object: null,
-      property: null,
-      parameter: null,
-      nested: null,
-      aliased: false,
-      escaped: false,
-      output: false,
-    });
-    if (errors.length)
-      throw new Error("Failed to write LLM application: " + errors.join("\n"));
-
+    const metadata: Metadata = Metadata.unalias(props.metadata);
     const functionParameters: Record<string, MetadataParameter> =
       Object.fromEntries(
-        props.metadata.objects[0]!.type.properties.filter(
+        metadata.objects[0]!.type.properties.filter(
           (p) =>
             p.key.isSoleLiteral() &&
             p.value.size() === 1 &&
             p.value.nullable === false &&
             p.value.isRequired() === true &&
-            p.value.functions.length === 1,
+            Metadata.unalias(p.value).functions.length === 1,
         )
           .filter(
             (p) =>
@@ -190,7 +178,7 @@ export namespace LlmApplicationProgrammer {
           )
           .map((p) => [
             p.key.getSoleLiteral()!,
-            p.value.functions[0]!.parameters[0]!,
+            Metadata.unalias(p.value).functions[0]!.parameters[0]!,
           ]),
       );
 
@@ -198,7 +186,7 @@ export namespace LlmApplicationProgrammer {
     const application: __IJsonApplication<"3.1"> =
       JsonApplicationProgrammer.write({
         version: "3.1",
-        metadata: props.metadata,
+        metadata,
         filter: (p) =>
           p.jsDocTags.some((tag) => tag.name === "human") === false,
       });
