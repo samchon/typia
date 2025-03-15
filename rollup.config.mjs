@@ -21,7 +21,6 @@ export default {
     },
     preserveModules: true,
     preserveModulesRoot: "src",
-    external: ["randexp"],
   },
   plugins: [
     {
