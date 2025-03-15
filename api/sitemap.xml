@@ -2,1850 +2,1850 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 	<url>
 		<loc>https://typia.io/api/modules.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/index.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/hierarchy.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.ChatGptTypeChecker.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.ChatGptTypeChecker.covers.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.ChatGptTypeChecker.isAnyOf.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.ChatGptTypeChecker.isArray.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.ChatGptTypeChecker.isBoolean.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.ChatGptTypeChecker.isInteger.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.ChatGptTypeChecker.isNull.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.ChatGptTypeChecker.isNumber.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.ChatGptTypeChecker.isObject.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.ChatGptTypeChecker.isReference.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.ChatGptTypeChecker.isString.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.ChatGptTypeChecker.isUnknown.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.ChatGptTypeChecker.visit.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.ClaudeTypeChecker.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.ClaudeTypeChecker.covers.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.ClaudeTypeChecker.isArray.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.ClaudeTypeChecker.isBoolean.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.ClaudeTypeChecker.isConstant.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.ClaudeTypeChecker.isInteger.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.ClaudeTypeChecker.isNull.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.ClaudeTypeChecker.isNumber.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.ClaudeTypeChecker.isObject.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.ClaudeTypeChecker.isOneOf.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.ClaudeTypeChecker.isRecursiveReference.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.ClaudeTypeChecker.isReference.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.ClaudeTypeChecker.isString.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.ClaudeTypeChecker.isUnknown.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.ClaudeTypeChecker.visit.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.GeminiTypeChecker.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.GeminiTypeChecker.covers.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.GeminiTypeChecker.isArray.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.GeminiTypeChecker.isBoolean.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.GeminiTypeChecker.isInteger.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.GeminiTypeChecker.isNullable.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.GeminiTypeChecker.isNullOnly.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.GeminiTypeChecker.isNumber.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.GeminiTypeChecker.isObject.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.GeminiTypeChecker.isString.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.GeminiTypeChecker.isUnknown.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.GeminiTypeChecker.visit.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.HttpError.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.HttpError.IProps.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.HttpLlm.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.HttpLlm.IApplicationProps.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.HttpLlm.IFetchProps.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.HttpLlm.IMergeProps.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.HttpLlm.application.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.HttpLlm.execute.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.HttpLlm.mergeParameters.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.HttpLlm.mergeValue.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.HttpLlm.propagate.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.HttpMigration.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.HttpMigration.IFetchProps.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.HttpMigration.application.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.HttpMigration.execute.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.HttpMigration.propagate.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.IChatGptSchema.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IChatGptSchema.IAnyOf.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IChatGptSchema.IArray.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IChatGptSchema.IBoolean.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IChatGptSchema.IConfig.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IChatGptSchema.IInteger.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IChatGptSchema.INull.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IChatGptSchema.INumber.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IChatGptSchema.IObject.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IChatGptSchema.IParameters.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IChatGptSchema.IReference.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IChatGptSchema.IString.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IChatGptSchema.IUnknown.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.IClaudeSchema.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.IClaudeSchema.IOneOf.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IClaudeSchema.IOneOf.IDiscriminator.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IClaudeSchema.IArray.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IClaudeSchema.IBoolean.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IClaudeSchema.IConfig.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IClaudeSchema.IConstant.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IClaudeSchema.IInteger.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IClaudeSchema.INull.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IClaudeSchema.INumber.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IClaudeSchema.IObject.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IClaudeSchema.IOneOf-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IClaudeSchema.IParameters.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IClaudeSchema.IReference.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IClaudeSchema.IString.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IClaudeSchema.IUnknown.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.IGeminiSchema.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IGeminiSchema.IArray.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IGeminiSchema.IBoolean.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IGeminiSchema.IConfig.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IGeminiSchema.IInteger.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IGeminiSchema.INullOnly.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IGeminiSchema.INumber.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IGeminiSchema.IObject.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IGeminiSchema.IString.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IGeminiSchema.IUnknown.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_samchon_openapi.IGeminiSchema.IParameters.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.IHttpConnection.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IHttpConnection.IOptions.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_samchon_openapi.IHttpConnection.HeaderValue.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.IHttpLlmApplication.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IHttpLlmApplication.IError.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_samchon_openapi.IHttpLlmApplication.IOptions.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.IHttpLlmFunction.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IHttpLlmFunction.ISeparated.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.IHttpMigrateApplication.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IHttpMigrateApplication.IError.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.IHttpMigrateRoute.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IHttpMigrateRoute.IBody.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IHttpMigrateRoute.IException.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IHttpMigrateRoute.IHeaders.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IHttpMigrateRoute.IParameter.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IHttpMigrateRoute.IQuery.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IHttpMigrateRoute.ISuccess.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.IJsonSchemaAttribute.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IJsonSchemaAttribute.IArray.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IJsonSchemaAttribute.IBoolean.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IJsonSchemaAttribute.IInteger.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IJsonSchemaAttribute.INull.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IJsonSchemaAttribute.INumber.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IJsonSchemaAttribute.IObject.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IJsonSchemaAttribute.IString.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IJsonSchemaAttribute.IUnknown.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.ILlamaSchema.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.ILlamaSchema.IConfig.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.ILlmApplication.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_samchon_openapi.ILlmApplication.IOptions.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.ILlmFunction.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.ILlmFunction.ISeparated.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.ILlmSchema.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.ILlmSchema.ModelConfig.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.ILlmSchema.ModelParameters.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.ILlmSchema.ModelSchema.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_samchon_openapi.ILlmSchema.IConfig.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_samchon_openapi.ILlmSchema.IParameters.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_samchon_openapi.ILlmSchema.Model.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.ILlmSchemaV3.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.ILlmSchemaV3.IArray.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.ILlmSchemaV3.IBoolean.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.ILlmSchemaV3.IConfig.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.ILlmSchemaV3.IInteger.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.ILlmSchemaV3.INullOnly.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.ILlmSchemaV3.INumber.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.ILlmSchemaV3.IObject.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.ILlmSchemaV3.IOneOf.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.ILlmSchemaV3.IParameters.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.ILlmSchemaV3.IString.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.ILlmSchemaV3.IUnknown.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.ILlmSchemaV3_1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.ILlmSchemaV3_1.IConfig.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.IOpenApiSchemaError.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IOpenApiSchemaError.IReason.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.IResult.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IResult.IFailure.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IResult.ISuccess.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.IValidation.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IValidation.IError.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IValidation.IFailure.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IValidation.ISuccess.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.LlmTypeCheckerV3.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.LlmTypeCheckerV3.covers.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.LlmTypeCheckerV3.isArray.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.LlmTypeCheckerV3.isBoolean.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.LlmTypeCheckerV3.isInteger.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.LlmTypeCheckerV3.isNullable.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.LlmTypeCheckerV3.isNullOnly.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.LlmTypeCheckerV3.isNumber.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.LlmTypeCheckerV3.isObject.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.LlmTypeCheckerV3.isOneOf.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.LlmTypeCheckerV3.isString.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.LlmTypeCheckerV3.isUnknown.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.LlmTypeCheckerV3.visit.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.OpenApi.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.OpenApi.IDocument.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApi.IDocument.IContact.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApi.IDocument.IInfo.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApi.IDocument.ILicense.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApi.IDocument.ITag.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.OpenApi.IJsonSchema.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.OpenApi.IJsonSchema.IOneOf.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApi.IJsonSchema.IOneOf.IDiscriminator.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApi.IJsonSchema.IArray.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApi.IJsonSchema.IBoolean.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApi.IJsonSchema.IConstant.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApi.IJsonSchema.IInteger.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApi.IJsonSchema.INull.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApi.IJsonSchema.INumber.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApi.IJsonSchema.IObject.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApi.IJsonSchema.IOneOf-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApi.IJsonSchema.IReference.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApi.IJsonSchema.IString.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApi.IJsonSchema.ITuple.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApi.IJsonSchema.IUnknown.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.OpenApi.IOperation.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApi.IOperation.IContent.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApi.IOperation.IMediaType.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApi.IOperation.IParameter.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApi.IOperation.IRequestBody.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApi.IOperation.IResponse.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_samchon_openapi.OpenApi.IOperation.ContentType.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.OpenApi.ISecurityScheme.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.OpenApi.ISecurityScheme.IOAuth2.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApi.ISecurityScheme.IOAuth2.IFlow.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApi.ISecurityScheme.IOAuth2.IFlowSet.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApi.ISecurityScheme.IApiKey.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApi.ISecurityScheme.IHttpBasic.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApi.ISecurityScheme.IHttpBearer.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApi.ISecurityScheme.IOAuth2-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApi.ISecurityScheme.IOpenId.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.OpenApi.IServer.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApi.IServer.IVariable.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApi.IComponents.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApi.IDocument-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApi.IExample.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApi.IOperation-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApi.IPath.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApi.IServer-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_samchon_openapi.OpenApi.IJsonSchema-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_samchon_openapi.OpenApi.ISecurityScheme-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_samchon_openapi.OpenApi.Method.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.OpenApi.convert.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.OpenApiTypeChecker.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.OpenApiTypeChecker.covers.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.OpenApiTypeChecker.escape.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.OpenApiTypeChecker.isArray.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.OpenApiTypeChecker.isBoolean.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.OpenApiTypeChecker.isConstant.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.OpenApiTypeChecker.isInteger.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.OpenApiTypeChecker.isNull.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.OpenApiTypeChecker.isNumber.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.OpenApiTypeChecker.isObject.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.OpenApiTypeChecker.isOneOf.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.OpenApiTypeChecker.isRecursiveReference.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.OpenApiTypeChecker.isReference.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.OpenApiTypeChecker.isString.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.OpenApiTypeChecker.isTuple.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.OpenApiTypeChecker.isUnknown.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.OpenApiTypeChecker.unreference.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/_samchon_openapi.OpenApiTypeChecker.visit.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.OpenApiV3.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.OpenApiV3.IDocument.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3.IDocument.IContact.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3.IDocument.IInfo.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3.IDocument.ILicense.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3.IDocument.ITag.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.OpenApiV3.IJsonSchema.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.OpenApiV3.IJsonSchema.IOneOf.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3.IJsonSchema.IOneOf.IDiscriminator.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3.IJsonSchema.IAllOf.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3.IJsonSchema.IAnyOf.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3.IJsonSchema.IArray.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3.IJsonSchema.IBoolean.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3.IJsonSchema.IInteger.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3.IJsonSchema.INullOnly.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3.IJsonSchema.INumber.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3.IJsonSchema.IObject.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3.IJsonSchema.IOneOf-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3.IJsonSchema.IReference.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3.IJsonSchema.IString.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3.IJsonSchema.IUnknown.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.OpenApiV3.IOperation.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3.IOperation.IMediaType.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3.IOperation.IParameter.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3.IOperation.IRequestBody.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3.IOperation.IResponse.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.OpenApiV3.ISecurityScheme.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.OpenApiV3.ISecurityScheme.IOAuth2.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3.ISecurityScheme.IOAuth2.IFlow.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3.ISecurityScheme.IOAuth2.IFlowSet.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3.ISecurityScheme.IApiKey.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3.ISecurityScheme.IHttpBasic.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3.ISecurityScheme.IHttpBearer.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3.ISecurityScheme.IOAuth2-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3.ISecurityScheme.IOpenId.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.OpenApiV3.IServer.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3.IServer.IVariable.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3.IComponents.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3.IDocument-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3.IExample.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3.IOperation-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3.IPath.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3.IServer-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_samchon_openapi.OpenApiV3.IJsonSchema-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_samchon_openapi.OpenApiV3.ISecurityScheme-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_samchon_openapi.OpenApiV3.Method.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.OpenApiV3_1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.OpenApiV3_1.IDocument.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3_1.IDocument.IContact.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3_1.IDocument.IInfo.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3_1.IDocument.ILicense.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3_1.IDocument.ITag.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.OpenApiV3_1.IJsonSchema.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.OpenApiV3_1.IJsonSchema.IOneOf.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3_1.IJsonSchema.IOneOf.IDiscriminator.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3_1.IJsonSchema.IAllOf.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3_1.IJsonSchema.IAnyOf.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3_1.IJsonSchema.IArray.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3_1.IJsonSchema.IBoolean.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3_1.IJsonSchema.IConstant.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3_1.IJsonSchema.IInteger.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3_1.IJsonSchema.IMixed.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3_1.IJsonSchema.INull.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3_1.IJsonSchema.INumber.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3_1.IJsonSchema.IObject.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3_1.IJsonSchema.IOneOf-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3_1.IJsonSchema.IRecursiveReference.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3_1.IJsonSchema.IReference.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3_1.IJsonSchema.IString.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3_1.IJsonSchema.IUnknown.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.OpenApiV3_1.IOperation.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3_1.IOperation.IMediaType.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3_1.IOperation.IParameter.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3_1.IOperation.IRequestBody.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3_1.IOperation.IResponse.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.OpenApiV3_1.ISecurityScheme.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.OpenApiV3_1.ISecurityScheme.IOAuth2.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3_1.ISecurityScheme.IOAuth2.IFlow.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3_1.ISecurityScheme.IOAuth2.IFlowSet.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3_1.ISecurityScheme.IApiKey.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3_1.ISecurityScheme.IHttpBasic.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3_1.ISecurityScheme.IHttpBearer.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3_1.ISecurityScheme.IOAuth2-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3_1.ISecurityScheme.IOpenId.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.OpenApiV3_1.IServer.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3_1.IServer.IVariable.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3_1.IComponents.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3_1.IDocument-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3_1.IExample.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3_1.IOperation-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3_1.IPath.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.OpenApiV3_1.IServer-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_samchon_openapi.OpenApiV3_1.IJsonSchema-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_samchon_openapi.OpenApiV3_1.ISecurityScheme-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_samchon_openapi.OpenApiV3_1.Method.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.SwaggerV2.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.SwaggerV2.IDocument.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.SwaggerV2.IDocument.IContact.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.SwaggerV2.IDocument.IInfo.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.SwaggerV2.IDocument.ILicense.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.SwaggerV2.IDocument.ITag.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.SwaggerV2.IJsonSchema.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.SwaggerV2.IJsonSchema.__IAttribute.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.SwaggerV2.IJsonSchema.__ISignificant.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.SwaggerV2.IJsonSchema.IAllOf.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.SwaggerV2.IJsonSchema.IAnyOf.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.SwaggerV2.IJsonSchema.IArray.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.SwaggerV2.IJsonSchema.IBoolean.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.SwaggerV2.IJsonSchema.IInteger.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.SwaggerV2.IJsonSchema.INullOnly.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.SwaggerV2.IJsonSchema.INumber.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.SwaggerV2.IJsonSchema.IObject.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.SwaggerV2.IJsonSchema.IOneOf.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.SwaggerV2.IJsonSchema.IReference.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.SwaggerV2.IJsonSchema.IString.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.SwaggerV2.IJsonSchema.IUnknown.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.SwaggerV2.IOperation.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.SwaggerV2.IOperation.IBodyParameter.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.SwaggerV2.IOperation.IResponse.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_samchon_openapi.SwaggerV2.IOperation.IGeneralParameter.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_samchon_openapi.SwaggerV2.IOperation.IParameter.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/_samchon_openapi.SwaggerV2.ISecurityDefinition.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.SwaggerV2.ISecurityDefinition.IApiKey.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.SwaggerV2.ISecurityDefinition.IBasic.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.SwaggerV2.ISecurityDefinition.IOauth2AccessCode.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.SwaggerV2.ISecurityDefinition.IOauth2Application.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.SwaggerV2.ISecurityDefinition.IOauth2Implicit.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.SwaggerV2.ISecurityDefinition.IOauth2Password.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.SwaggerV2.IDocument-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.SwaggerV2.IOperation-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.SwaggerV2.IPath.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_samchon_openapi.SwaggerV2.IJsonSchema-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_samchon_openapi.SwaggerV2.ISecurityDefinition-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_samchon_openapi.SwaggerV2.Method.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/classes/_samchon_openapi.HttpError-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IHttpConnection-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IHttpLlmApplication-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IHttpLlmFunction-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IHttpMigrateApplication-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IHttpMigrateRoute-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IHttpResponse.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IJsonSchemaAttribute-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.ILlmApplication-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.ILlmFunction-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/_samchon_openapi.IOpenApiSchemaError-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_samchon_openapi.IChatGptSchema-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_samchon_openapi.IClaudeSchema-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_samchon_openapi.IGeminiSchema-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_samchon_openapi.ILlamaSchema-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_samchon_openapi.ILlmSchema-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_samchon_openapi.ILlmSchemaV3-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_samchon_openapi.ILlmSchemaV3_1-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_samchon_openapi.IResult-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/_samchon_openapi.IValidation-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.default.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.functional.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.http.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.IJsDocTagInfo.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.IJsDocTagInfo.IText.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.IJsonApplication.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.IJsonApplication.IV3_0.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.IJsonApplication.IV3_1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.ILlmApplicationOfValidate.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.ILlmApplicationOfValidate.IOptions.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.ILlmFunctionOfValidate.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.ILlmFunctionOfValidate.ISeparated.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.IValidation.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.IValidation.IError.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.IValidation.IFailure.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.IValidation.ISuccess.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.json.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.llm.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.misc.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.notations.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.protobuf.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.reflect.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/functions/typia.reflect.name.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.tags.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.tags.Format.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.tags.Format.Value.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.tags.TagBase.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.tags.TagBase.IProps.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.tags.Constant.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.tags.ContentMediaType.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.tags.Default.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.tags.Example.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.tags.Examples.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.tags.ExclusiveMaximum.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.tags.ExclusiveMinimum.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.tags.Format-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.tags.JsonSchemaPlugin.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.tags.Maximum.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.tags.MaxItems.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.tags.MaxLength.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.tags.Minimum.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.tags.MinItems.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.tags.MinLength.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.tags.MultipleOf.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.tags.Pattern.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.tags.Sequence.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.tags.TagBase-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.tags.Type.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.tags.UniqueItems.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/modules/typia.TypeGuardError.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.TypeGuardError.IProps.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/classes/typia.TypeGuardError-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.IJsDocTagInfo-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.ILlmApplicationOfValidate-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.ILlmFunctionOfValidate-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/interfaces/typia.IRandomGenerator.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.AssertionGuard.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.CamelCase.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.IJsonApplication-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.IReadableURLSearchParams.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.IValidation-1.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.PascalCase.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.Primitive.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.Resolved.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 	<url>
 		<loc>https://typia.io/api/types/typia.SnakeCase.html</loc>
-		<lastmod>2025-03-14T16:46:41.208Z</lastmod>
+		<lastmod>2025-03-15T01:50:48.835Z</lastmod>
 	</url>
 </urlset>
