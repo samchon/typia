@@ -1,3 +1,5 @@
+import { StandardSchemaV1 } from "@standard-schema/spec";
+
 import { AssertionGuard } from "./AssertionGuard";
 import { IRandomGenerator } from "./IRandomGenerator";
 import { IValidation } from "./IValidation";
@@ -730,12 +732,14 @@ export function createValidate(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createValidate<T>(): (input: unknown) => IValidation<T>;
+export function createValidate<T>(): ((input: unknown) => IValidation<T>) &
+  StandardSchemaV1<unknown, T>;
 
 /**
  * @internal
  */
-export function createValidate(): (input: unknown) => IValidation {
+export function createValidate(): ((input: unknown) => IValidation) &
+  StandardSchemaV1<unknown, unknown> {
   halt("createValidate");
 }
 
@@ -886,12 +890,16 @@ export function createValidateEquals(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
-export function createValidateEquals<T>(): (input: unknown) => IValidation<T>;
+export function createValidateEquals<T>(): ((
+  input: unknown,
+) => IValidation<T>) &
+  StandardSchemaV1<unknown, T>;
 
 /**
  * @internal
  */
-export function createValidateEquals(): (input: unknown) => IValidation {
+export function createValidateEquals(): ((input: unknown) => IValidation) &
+  StandardSchemaV1<unknown, unknown> {
   halt("createValidateEquals");
 }
 
