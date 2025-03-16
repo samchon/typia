@@ -7,12 +7,16 @@ import { ArrayRecursive } from "../../structures/ArrayRecursive";
 export const test_issue_1390_llm_config_argument = (): void => {
   TestValidator.equals("reference false")(
     keys(($defs) =>
-      typia.llm.schema<ArrayRecursive, "chatgpt", { reference: false }>($defs),
+      typia.llm.schema<ArrayRecursive, "chatgpt", { reference: false }>({
+        $defs,
+      }),
     ),
   )(["ArrayRecursive.ICategory"]);
   TestValidator.equals("reference true")(
     keys(($defs) =>
-      typia.llm.schema<ArrayRecursive, "chatgpt", { reference: true }>($defs),
+      typia.llm.schema<ArrayRecursive, "chatgpt", { reference: true }>({
+        $defs,
+      }),
     ),
   )(["ArrayRecursive.ICategory", "ArrayRecursive.ITimestamp"]);
 };
