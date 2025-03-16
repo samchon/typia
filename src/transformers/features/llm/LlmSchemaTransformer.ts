@@ -101,10 +101,24 @@ export namespace LlmSchemaTransformer {
         undefined,
         [
           IdentifierFactory.parameter(
-            "$defs",
-            ts.factory.createTypeReferenceNode("Record", [
-              ts.factory.createKeywordTypeNode(ts.SyntaxKind.StringKeyword),
-              schemaTypeNode,
+            "props",
+            ts.factory.createTypeLiteralNode([
+              ts.factory.createPropertySignature(
+                undefined,
+                ts.factory.createIdentifier("$defs"),
+                ts.factory.createToken(ts.SyntaxKind.QuestionToken),
+                ts.factory.createUnionTypeNode([
+                  ts.factory.createTypeReferenceNode("Record", [
+                    ts.factory.createKeywordTypeNode(
+                      ts.SyntaxKind.StringKeyword,
+                    ),
+                    schemaTypeNode,
+                  ]),
+                  ts.factory.createKeywordTypeNode(
+                    ts.SyntaxKind.UndefinedKeyword,
+                  ),
+                ]),
+              ),
             ]),
             undefined,
           ),
@@ -113,22 +127,35 @@ export namespace LlmSchemaTransformer {
         undefined,
         ts.factory.createBlock(
           [
-            ts.factory.createExpressionStatement(
-              ts.factory.createCallExpression(
-                ts.factory.createIdentifier("Object.assign"),
-                undefined,
-                [
-                  ts.factory.createIdentifier("$defs"),
-                  ts.factory.createAsExpression(
-                    LiteralFactory.write(out.$defs),
-                    ts.factory.createTypeReferenceNode("Record", [
-                      ts.factory.createKeywordTypeNode(
-                        ts.SyntaxKind.StringKeyword,
-                      ),
-                      schemaTypeNode,
-                    ]),
-                  ),
-                ],
+            ts.factory.createIfStatement(
+              ts.factory.createStrictInequality(
+                ts.factory.createIdentifier("undefined"),
+                IdentifierFactory.access(
+                  ts.factory.createIdentifier("props"),
+                  "$defs",
+                  true,
+                ),
+              ),
+              ts.factory.createExpressionStatement(
+                ts.factory.createCallExpression(
+                  ts.factory.createIdentifier("Object.assign"),
+                  undefined,
+                  [
+                    IdentifierFactory.access(
+                      ts.factory.createIdentifier("props"),
+                      "$defs",
+                    ),
+                    ts.factory.createAsExpression(
+                      LiteralFactory.write(out.$defs),
+                      ts.factory.createTypeReferenceNode("Record", [
+                        ts.factory.createKeywordTypeNode(
+                          ts.SyntaxKind.StringKeyword,
+                        ),
+                        schemaTypeNode,
+                      ]),
+                    ),
+                  ],
+                ),
               ),
             ),
             ts.factory.createReturnStatement(literal),
