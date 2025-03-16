@@ -80,9 +80,9 @@ export function schemas(): never {
  * @template Version Version of OpenAPI specification. Default is 3.1
  * @return JSON schema list
  *
- * @deprcated Use {@link schemas} function instead please.
- *            This function would be changed to return {@linkk ILlmApplication} like
- *            structure in the future version (maybe next v8 major update).
+ * @deprecated Use {@link schemas} function instead please.
+ *             This function would be changed to return {@linkk ILlmApplication} like
+ *             structure in the future version (maybe next v8 major update).
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function application(): never;
@@ -102,9 +102,9 @@ export function application(): never;
  * @template Version Version of OpenAPI specification. Default is 3.1
  * @return JSON schema list
  *
- * @deprcated Use {@link schemas} function instead please.
- *            This function would be changed to return {@linkk ILlmApplication} like
- *            structure in the future version (maybe next v8 major update).
+ * @deprecated Use {@link schemas} function instead please.
+ *             This function would be changed to return {@linkk ILlmApplication} like
+ *             structure in the future version (maybe next v8 major update).
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function application<
