@@ -3,12 +3,13 @@ import { ILlmApplication, ILlmFunction, IValidation } from "@samchon/openapi";
 import { FunctionCall } from "pseudo";
 
 export const correctFunctionCall = (
-  app: ILlmApplication<"chatgpt">;
-  retry: (reason: string, errors?: IValidation.IError[]) => Promise<unknown>;
+  call: FunctionCall,
+  app: ILlmApplication<"chatgpt">,
+  retry: (reason: string, errors?: IValidation.IError[]) => Promise<unknown>,
 ): Promise<unknown> => {
   // FIND FUNCTION
   const func: ILlmFunction<"chatgpt"> | undefined = app.functions.find(
-    (f) => f.name === p.call.name,
+    (f) => f.name === call.name,
   );
   if (func === undefined) {
     // never happened in my experience
