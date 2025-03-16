@@ -1,7 +1,11 @@
 import { LlmTypeCheckerV3_1 } from "@samchon/openapi";
 import typia, { tags } from "typia";
 
-export const schema = typia.llm.schema<ICompany, "chatgpt">({});
+export const schema = typia.llm.schema<
+  ICompany,
+  "chatgpt",
+  { reference: true }
+>({});
 
 export const parameters = typia.llm.parameters<
   {
