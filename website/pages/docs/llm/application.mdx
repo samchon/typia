@@ -1,7 +1,20 @@
 ---
 title: Guide Documents > Large Language Model > application() function
 ---
-import { Callout, Tabs } from 'nextra/components'
+import { Callout, Tabs } from "nextra/components";
+
+import ILlmApplicationSnippet from "../../../src/snippets/ILlmApplicationSnippet.mdx";
+import ILlmFunctionSnippet from "../../../src/snippets/ILlmFunctionSnippet.mdx";
+import ILlmSchemaSnippet from "../../../src/snippets/ILlmSchemaSnippet.mdx";
+
+import BbsArticleServiceSnippet from "../../../src/snippets/BbsArticleServiceSnippet.mdx";
+import IBbsArticleSnippet from "../../../src/snippets/IBbsArticleSnippet.mdx";
+import LlmApplicationExampleSnippet from "../../../src/snippets/LlmApplicationExampleSnippet.mdx";
+import LlmApplicationJavaScriptSnippet from "../../../src/snippets/LlmApplicationJavaScriptSnippet.mdx";
+import LlmApplicationSeparateExampleSnippet from "../../../src/snippets/LlmApplicationSeparateExampleSnippet.mdx";
+import LlmApplicationSeparateJsonSnippet from "../../../src/snippets/LlmApplicationSeparateJsonSnippet.mdx";
+import ValidationFeedbackExampleSnippet from "../../../src/snippets/ValidationFeedbackExampleSnippet.mdx";
+import ValidatorSupportMatrixSnippet from "../../../src/snippets/ValidatorSupportMatrixSnippet.mdx";
 
 ## `application()` function
 <Tabs items={[
@@ -46,291 +59,13 @@ export namespace llm {
 ```
   </Tabs.Tab>
   <Tabs.Tab>
-```typescript filename="@samchon/openapi" showLineNumbers
-import { IGeminiSchema } from "./IGeminiSchema";
-import { ILlmFunction } from "./ILlmFunction";
-import { ILlmSchema } from "./ILlmSchema";
-
-/**
- * Application of LLM function calling.
- *
- * `ILlmApplication` is a data structure representing a collection of
- * {@link ILlmFunction LLM function calling schemas}, composed from a native
- * TypeScript class (or interface) type by the `typia.llm.application<App, Model>()`
- * function.
- *
- * Also, there can be some parameters (or their nested properties) which must be
- * composed by Human, not by LLM. File uploading feature or some sensitive information
- * like security keys (password) are the examples. In that case, you can separate the
- * function parameters to both LLM and human sides by configuring the
- * {@link ILlmApplication.IOptions.separate} property. The separated parameters are
- * assigned to the {@link ILlmFunction.separated} property.
- *
- * For reference, when both LLM and Human filled parameter values to call, you can
- * merge them by calling the {@link HttpLlm.mergeParameters} function. In other words,
- * if you've configured the {@link ILlmApplication.IOptions.separate} property, you
- * have to merge the separated parameters before the function call execution.
- *
- * @reference https://platform.openai.com/docs/guides/function-calling
- * @author Jeongho Nam - https://github.com/samchon
- */
-export interface ILlmApplication<Model extends ILlmSchema.Model> {
-  /**
-   * Model of the LLM.
-   */
-  model: Model;
-
-  /**
-   * List of function metadata.
-   *
-   * List of function metadata that can be used for the LLM function call.
-   */
-  functions: ILlmFunction<Model>[];
-
-  /**
-   * Configuration for the application.
-   */
-  options: ILlmApplication.IOptions<Model>;
-}
-export namespace ILlmApplication {
-  /**
-   * Options for application composition.
-   */
-  export type IOptions<Model extends ILlmSchema.Model> = {
-    /**
-     * Separator function for the parameters.
-     *
-     * When composing parameter arguments through LLM function call,
-     * there can be a case that some parameters must be composed by human,
-     * or LLM cannot understand the parameter.
-     *
-     * For example, if the parameter type has configured
-     * {@link IGeminiSchema.IString.contentMediaType} which indicates file
-     * uploading, it must be composed by human, not by LLM
-     * (Large Language Model).
-     *
-     * In that case, if you configure this property with a function that
-     * predicating whether the schema value must be composed by human or
-     * not, the parameters would be separated into two parts.
-     *
-     * - {@link ILlmFunction.separated.llm}
-     * - {@link ILlmFunction.separated.human}
-     *
-     * When writing the function, note that returning value `true` means
-     * to be a human composing the value, and `false` means to LLM
-     * composing the value. Also, when predicating the schema, it would
-     * better to utilize the {@link GeminiTypeChecker} like features.
-     *
-     * @param schema Schema to be separated.
-     * @returns Whether the schema value must be composed by human or not.
-     * @default null
-     */
-    separate: null | ((schema: ILlmSchema.ModelSchema[Model]) => boolean);
-  } & ILlmSchema.ModelConfig[Model];
-}
-```
+    <ILlmApplicationSnippet />
   </Tabs.Tab>
   <Tabs.Tab>
-```typescript filename="@samchon/openapi" showLineNumbers
-import { ILlmSchema } from "./ILlmSchema";
-
-/**
- * LLM function metadata.
- *
- * `ILlmFunction` is an interface representing a function metadata,
- * which has been used for the LLM (Language Large Model) function
- * calling. Also, it's a function structure containing the function
- * {@link name}, {@link parameters} and {@link output return type}.
- *
- * If you provide this `ILlmFunction` data to the LLM provider like "OpenAI",
- * the "OpenAI" will compose a function arguments by analyzing conversations
- * with the user. With the LLM composed arguments, you can execute the function
- * and get the result.
- *
- * By the way, do not ensure that LLM will always provide the correct
- * arguments. The LLM of present age is not perfect, so that you would
- * better to validate the arguments before executing the function.
- * I recommend you to validate the arguments before execution by using
- * [`typia`](https://github.com/samchon/typia) library.
- *
- * @reference https://platform.openai.com/docs/guides/function-calling
- * @author Jeongho Nam - https://github.com/samchon
- */
-export interface ILlmFunction<Model extends ILlmSchema.Model> {
-  /**
-   * Representative name of the function.
-   */
-  name: string;
-
-  /**
-   * List of parameter types.
-   */
-  parameters: ILlmSchema.ModelParameters[Model];
-
-  /**
-   * Collection of separated parameters.
-   */
-  separated?: ILlmFunction.ISeparated<Model>;
-
-  /**
-   * Expected return type.
-   *
-   * If the function returns nothing (`void`), the `output` value would
-   * be `undefined`.
-   */
-  output?: ILlmSchema.ModelSchema[Model];
-
-  /**
-   * Whether the function schema types are strict or not.
-   *
-   * Newly added specification to "OpenAI" at 2024-08-07.
-   *
-   * @reference https://openai.com/index/introducing-structured-outputs-in-the-api/
-   */
-  strict: true;
-
-  /**
-   * Description of the function.
-   *
-   * For reference, the `description` is very important property to teach
-   * the purpose of the function to the LLM (Language Large Model), and
-   * LLM actually determines which function to call by the description.
-   *
-   * Also, when the LLM conversates with the user, the `description` is
-   * used to explain the function to the user. Therefore, the `description`
-   * property has the highest priority, and you have to consider it.
-   */
-  description?: string | undefined;
-
-  /**
-   * Whether the function is deprecated or not.
-   *
-   * If the `deprecated` is `true`, the function is not recommended to use.
-   *
-   * LLM (Large Language Model) may not use the deprecated function.
-   */
-  deprecated?: boolean | undefined;
-
-  /**
-   * Category tags for the function.
-   *
-   * You can fill this property by the `@tag ${name}` comment tag.
-   */
-  tags?: string[];
-
-  /**
-   * Validate function of the arguments.
-   *
-   * You know what? LLM (Large Language Model) like OpenAI takes a lot of
-   * mistakes when composing arguments in function calling. Even though
-   * `number` like simple type is defined in the {@link parameters} schema,
-   * LLM often fills it just by a `string` typed value.
-   *
-   * In that case, you have to give a validation feedback to the LLM by
-   * using this `validate` function. The `validate` function will return
-   * detailed information about every type errors about the arguments.
-   *
-   * And in my experience, OpenAI's `gpt-4o-mini` model tends to construct
-   * an invalid function calling arguments at the first trial about 50% of
-   * the time. However, if correct it through this `validate` function,
-   * the success rate soars to 99% at the second trial, and I've never failed
-   * at the third trial.
-   *
-   * @param args Arguments to validate.
-   * @returns Validation result
-   */
-  validate: (args: unknown) => IValidation<unknown>;
-}
-export namespace ILlmFunction {
-  /**
-   * Collection of separated parameters.
-   */
-  export interface ISeparated<Model extends ILlmSchema.Model> {
-    /**
-     * Parameters that would be composed by the LLM.
-     */
-    llm: ILlmSchema.ModelParameters[Model] | null;
-
-    /**
-     * Parameters that would be composed by the human.
-     */
-    human: ILlmSchema.ModelParameters[Model] | null;
-  }
-}
-```
+    <ILlmFunctionSnippet />
   </Tabs.Tab>
   <Tabs.Tab>
-```typescript filename="@samchon/openapi" showLineNumbers
-import { IChatGptSchema } from "./IChatGptSchema";
-import { IClaudeSchema } from "./IClaudeSchema";
-import { IGeminiSchema } from "./IGeminiSchema";
-import { ILlamaSchema } from "./ILlamaSchema";
-import { ILlmSchemaV3 } from "./ILlmSchemaV3";
-import { ILlmSchemaV3_1 } from "./ILlmSchemaV3_1";
-
-/**
- * The schemas for the LLM function calling.
- *
- * `ILlmSchema` is an union type collecting every the schemas for the
- * LLM function calling.
- *
- * Select a proper schema type according to the LLM provider you're using.
- *
- * @template Model Name of the target LLM model
- * @reference https://platform.openai.com/docs/guides/function-calling
- * @reference https://platform.openai.com/docs/guides/structured-outputs
- * @author Jeongho Nam - https://github.com/samchon
- */
-export type ILlmSchema<Model extends ILlmSchema.Model = ILlmSchema.Model> =
-  ILlmSchema.ModelSchema[Model];
-
-export namespace ILlmSchema {
-  export type Model = "chatgpt" | "claude" | "gemini" | "llama" | "3.0" | "3.1";
-  export interface ModelConfig {
-    chatgpt: IChatGptSchema.IConfig;
-    claude: IClaudeSchema.IConfig;
-    gemini: IGeminiSchema.IConfig;
-    llama: ILlamaSchema.IConfig;
-    "3.0": ILlmSchemaV3.IConfig;
-    "3.1": ILlmSchemaV3_1.IConfig;
-  }
-  export interface ModelParameters {
-    chatgpt: IChatGptSchema.IParameters;
-    claude: IClaudeSchema.IParameters;
-    gemini: IGeminiSchema.IParameters;
-    llama: ILlamaSchema.IParameters;
-    "3.0": ILlmSchemaV3.IParameters;
-    "3.1": ILlmSchemaV3_1.IParameters;
-  }
-  export interface ModelSchema {
-    chatgpt: IChatGptSchema;
-    claude: IClaudeSchema;
-    gemini: IGeminiSchema;
-    llama: ILlamaSchema;
-    "3.0": ILlmSchemaV3;
-    "3.1": ILlmSchemaV3_1;
-  }
-
-  /**
-   * Type of function parameters.
-   *
-   * `ILlmSchema.IParameters` is a type defining a function's pamameters
-   * as a keyworded object type.
-   *
-   * It also can be utilized for the structured output metadata.
-   *
-   * @reference https://platform.openai.com/docs/guides/structured-outputs
-   */
-  export type IParameters<Model extends ILlmSchema.Model = ILlmSchema.Model> =
-    ILlmSchema.ModelParameters[Model];
-
-  /**
-   * Configuration for the LLM schema composition.
-   */
-  export type IConfig<Model extends ILlmSchema.Model = ILlmSchema.Model> =
-    ILlmSchema.ModelConfig[Model];
-}
-```
+    <ILlmSchemaSnippet />
   </Tabs.Tab>
 </Tabs>
 
@@ -366,6 +101,57 @@ Structured output is another feature of LLM. The "structured output" means that 
 - https://platform.openai.com/docs/guides/structured-outputs
 </Callout>
 
+<Tabs items={[
+    "TypeScript Source Code",
+    "Compiled JavaScript",
+    <code>BbsArticleService</code>,
+    <code>IBbsArticle</code>,
+  ]}>
+  <Tabs.Tab>
+    <LlmApplicationExampleSnippet />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <LlmApplicationJavaScriptSnippet />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <BbsArticleServiceSnippet />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <IBbsArticleSnippet />
+  </Tabs.Tab>
+</Tabs>
+
+> [💻 Playground Link](https://typia.io/playground/?script=JYWwDg9gTgLgBAbzgSQDIBsQEExncAYwEMZgIA7OAXzgDMoIQ4AiAAQGciQCALCgeghgApuSJhgzANwAoUJFhwYATwlEANIiVEA5u2p0GTZirXSZMghXbxxYAFwoM2XPmKkKAHma8SOsDDMAHxwALxKqsBEAHTomNF2biRk5J4ycHAAQgBG7FiwhOjCAMrCUABuhMLq6Sy+MP6BMkEAFACUslbk7BBFsRA6LXYdFsDkMGW0RATCWbn5pARFpRVViLX8AFSbtXCbcADiwrZxcEQFS8Ls0bs7GXtwqMA2cACuYHDC5WXKZxdF+nOvGA3wAJnAxkoeLNMplinAACKZG73O4ZfasKDHV5QbqPZ7wCC0T7fKC-c6LAG3fi1Mag4QAD3ajmQOTy-2EAG0ALqyOAbba3OAAYSxJFmRDg5GEAHc-pThCj0UKAOpQYATQFS2XywoS8jgoE8EFXCHwMYwCBQ2ZIpV7IWsMDnLhwMAMMD6AAK7rKpFNRLgBDFEzor3IBA85AdWJgOLxADlZehfkHhOLDRzqbVU+KWm6hOxHAhdnAtmjUShyLRoCBkhQ4AGYNDdZclFacxMS3safcIeQwK8YCy2Qs9dFkKK0xM+dQ2sP5hy+QLy-sAKpgUHis6UClj25C9ebzXbltFOAyjU8bVyroTcZ2ldwR3Opj5j1wb1CX3Af3E95H2ZaDDCMUgdJ0oBdMYB3gRMbwoO94EtN4N3FLMMn-XM30LdZezLLt9gAFXOHRjlPYQAHJ9AQVh8HIABrFARw5aJgFBKg7XRHt7lYxwbHVcgdDgAAybQ9GiAAxGsSG8V5XlY4Il1wwVeweWDA3g0REKtDCJg47sSygwd53ZBVx0PcUZyoOc4HKCBWMU0tlPROAAFEIPYfUyIfIU3KIDzAR3DlDEYa1EWRfcK2fCDX3dL0fQKX9PncwDgMjNCkr84Q81iosSzwlTCOI0jd0uSjEBosYGNZBdTNY9j8K4jIeLgPixkEkSYF0a5JKgWsYBkuTQQU2orMcWz7JkKgLHy-ZR1bTSNWUFE7n2AADaqTL1VaIQCz5xkWuAsTdK4FoEk8SrPSEmxhOE4BaTJXjiY5IUyCBznBYplBsYQQDaZaaQtSZplmDa5rPRk71BfRQeYidg1mYsMny5zvVAc5fgAaWEJb0ua1qzo6rqJKk-rmFk+Sggc5GHknOtKFIEBZkbZsLsVdKO2EUEAH0SF4mB+Pa0TupJ7wAIAWgZ4Rhv5JGnIeVA-PgHTOaUUAmeJa6vPS5Xud5lr+ba4SheJ3rpOYcXJeGqaxEZ9gnRmRiar1HDHMfZAqxJlIGw1lmgqQjmHy4xkFHNcYgYduGpwRvK5ecgiNTPZmJWY-D8LgAAlYRjo88Zkm+VWYETn3k9MhqS1IQvhD5gWHNl8tnOFDTxjgbIIFBHGCrTxuw+b1v2+90LWfPdUYBgSgrubWsoDo0EIBlShq1NmA9M2RqW7b5Rq7a2vXbTgieFeEBsjEYB0AhWsSLgVd0+QFe94Po+T7PtHL+v5Bz2NXhAyISgjqxHPEK+1Lp3AqKBiRdFoMAHQOIVZ+TgKtcgj10CrU0BqOAjMf76CbCQKUVomyH2PkQU+59dCzAniXPcBU174MfkQ9A9guxwAAD5SiQYwlhLR8aC06mJHqfUZLqmCEbHh1xu4IQALKcyiARVQwhvAv2EFsYIIwMhTRlrvCs7tF59S9knMibZkIAW8hWAA8uQZMoVIFPXBG+b8poLynGyLMHWgdajB2gIhWRKBzIhnCJ6XcRB0CeEjuKSmk0gA)
+
+
+
+
+## Validation Feedback
+<ValidationFeedbackExampleSnippet />
+
+Is LLM Function Calling perfect? No, absolutely not.
+
+LLM (Large Language Model) service vendor like OpenAI takes a lot of type level mistakes when composing the arguments of function calling or structured output. Even though target schema is super simple like `Array<string>` type, LLM often fills it just by a `string` typed value.
+
+In my experience, OpenAI `gpt-4o-mini` (`8b` parameters) is taking about 70% of type level mistakes when filling the arguments of function calling to Shopping Mall service. To overcome the imperfection of such LLM function calling, `typia.llm.application<App, Model>()` function embeds [`typia.validate<T>()`](/docs/validators/validate) function for the validation feedback strategy.
+
+The key concept of validation feedback strategy is, let LLM function calling to construct invalid typed arguments first, and informing detailed type errors to the LLM, so that induce LLM to emend the wrong typed arguments at the next turn. In this way, I could uprise the success rate of function calling from 30% to 99% just by one step validation feedback. Even though the LLM is still occurs type error, it always has been caught at the next turn.
+
+For reference, embedded [`typia.validate<T>()`](/docs/validators/validate) is the best runtime type checker which can validate every TypeScript (JSON schema) types exactly and detaily than any other libraries. With this validation feedback strategy and the best runtime type checker, let's accomplish the [Agentic AI](https://wrtnlabs.io/agentica) with function calling.
+
+<ValidatorSupportMatrixSnippet />
+
+Also, this validation feedback strategy is useful for some LLM providers do not supporting restriction properties of JSON schema like OpenAI ([`IChatGptSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IChatGptSchema.ts)) and Gemini ([`IGeminiSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IGeminiSchema.ts)). And some LLM providers which do not specified the JSON schema version like Claude ([`IClaudeSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IClaudeSchema.ts)) and Llama ([`ILlamaSchema`](https://github.com/samchon/openapi/blob/master/src/structures/ILlamaSchema.ts)), they tend to fail a lot of function calling in the restriction properties,
+
+For example, OpenAI and Gemini does not support `format` property of JSON schema, so that cannot let LLM to understand the `UUID` like type. Even though `typia.llm.application<App, Model>()` function is writing the restriction information to the `description` property of JSON schema, but LLM provider does not reflect it perfectly.
+
+In that case, if you give validation feedback from `ILlmFunction.validate()` function, the LLM will be able to understand the restriction information exactly and fill the arguments properly.
+
+  - Restriction properties of JSON schema
+    - `string`: `minLength`, `maxLength`, `pattern`, `format`, `contentMediaType`
+    - `number`: `minimum`, `maximum`, `exclusiveMinimum`, `exclusiveMaximum`, `multipleOf`
+    - `array`: `minItems`, `maxItems`, `uniqueItems`, `items`
+
 
 
 
@@ -380,391 +166,25 @@ Here is the example separating the parameter schemas.
 
 <Tabs items={[
     "TypeScript Source Code",
-    "LLM Function Calling Application Schema",
+    "Generated Schema",
+    <code>BbsArticleService</code>,
+    <code>IBbsArticle</code>,
   ]}>
   <Tabs.Tab>
-```typescript filename="example/src/llm.application.separate.ts" showLineNumbers {4-7}
-import { ILlmApplication } from "@samchon/openapi";
-import typia, { tags } from "typia";
-
-const app: ILlmApplication<"claude"> = typia.llm.application<
-  BbsArticleController,
-  "claude"
->({
-  separate: (schema: ILlmSchema<"claude">) =>
-    ClaudeTypeChecker.isString(schema) && schema.contentMediaType !== undefined,
-});
-
-console.log(app);
-
-interface BbsArticleController {
-  /**
-   * Create a new article.
-   *
-   * Writes a new article and archives it into the DB.
-   *
-   * @param props Properties of create function
-   * @returns Newly created article
-   */
-  create(props: {
-    /**
-     * Information of the article to create
-     */
-    input: IBbsArticle.ICreate;
-  }): Promise<IBbsArticle>;
-
-  /**
-   * Update an article.
-   *
-   * Updates an article with new content.
-   *
-   * @param props Properties of update function
-   * @param input New content to update
-   */
-  update(props: {
-    /**
-     * Target article's {@link IBbsArticle.id}.
-     */
-    id: string & tags.Format<"uuid">;
-
-    /**
-     * New content to update.
-     */
-    input: IBbsArticle.IUpdate;
-  }): Promise<void>;
-
-  /**
-   * Erase an article.
-   *
-   * Erases an article from the DB.
-   *
-   * @param props Properties of erase function
-   */
-  erase(props: {
-    /**
-     * Target article's {@link IBbsArticle.id}.
-     */
-    id: string & tags.Format<"uuid">;
-  }): Promise<void>;
-}
-```
+    <LlmApplicationSeparateExampleSnippet />
   </Tabs.Tab>
   <Tabs.Tab>
-```json filename="example/schemas/llm.application.separate.json" showLineNumbers {41-91}
-{
-  "model": "claude",
-  "options": {
-    "reference": false
-  },
-  "functions": [
-    {
-      "name": "create",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "input": {
-            "description": "Information of the article to create.\n\n------------------------------\n\nDescription of the current {@link IBbsArticle.ICreate} type:\n\n> Information of the article to create.\n\n------------------------------\n\nDescription of the parent {@link IBbsArticle} type:\n\n> Article entity.\n> \n> `IBbsArticle` is an entity representing an article in the BBS (Bulletin Board System).",
-            "type": "object",
-            "properties": {
-              "title": {
-                "title": "Title of the article",
-                "description": "Title of the article.\n\nRepresentative title of the article.",
-                "type": "string"
-              },
-              "body": {
-                "title": "Content body",
-                "description": "Content body.\n\nContent body of the article writtn in the markdown format.",
-                "type": "string"
-              },
-              "thumbnail": {
-                "title": "Thumbnail image URI",
-                "description": "Thumbnail image URI.\n\nThumbnail image URI which can represent the article.\n\nIf configured as `null`, it means that no thumbnail image in the article.",
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string",
-                    "format": "uri",
-                    "contentMediaType": "image/*"
-                  }
-                ]
-              }
-            },
-            "required": [
-              "title",
-              "body",
-              "thumbnail"
-            ]
-          }
-        },
-        "required": [
-          "input"
-        ],
-        "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "description": "Article entity.\n\n`IBbsArticle` is an entity representing an article in the BBS (Bulletin Board System).",
-        "type": "object",
-        "properties": {
-          "id": {
-            "title": "Primary Key",
-            "description": "Primary Key.",
-            "type": "string",
-            "format": "uuid"
-          },
-          "created_at": {
-            "title": "Creation time of the article",
-            "description": "Creation time of the article.",
-            "type": "string",
-            "format": "date-time"
-          },
-          "updated_at": {
-            "title": "Last updated time of the article",
-            "description": "Last updated time of the article.",
-            "type": "string",
-            "format": "date-time"
-          },
-          "title": {
-            "title": "Title of the article",
-            "description": "Title of the article.\n\nRepresentative title of the article.",
-            "type": "string"
-          },
-          "body": {
-            "title": "Content body",
-            "description": "Content body.\n\nContent body of the article writtn in the markdown format.",
-            "type": "string"
-          },
-          "thumbnail": {
-            "title": "Thumbnail image URI",
-            "description": "Thumbnail image URI.\n\nThumbnail image URI which can represent the article.\n\nIf configured as `null`, it means that no thumbnail image in the article.",
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string",
-                "format": "uri",
-                "contentMediaType": "image/*"
-              }
-            ]
-          }
-        },
-        "required": [
-          "id",
-          "created_at",
-          "updated_at",
-          "title",
-          "body",
-          "thumbnail"
-        ]
-      },
-      "description": "Create a new article.\n\nWrites a new article and archives it into the DB.",
-      "separated": {
-        "llm": {
-          "type": "object",
-          "properties": {
-            "input": {
-              "description": "Information of the article to create.\n\n------------------------------\n\nDescription of the current {@link IBbsArticle.ICreate} type:\n\n> Information of the article to create.\n\n------------------------------\n\nDescription of the parent {@link IBbsArticle} type:\n\n> Article entity.\n> \n> `IBbsArticle` is an entity representing an article in the BBS (Bulletin Board System).",
-              "type": "object",
-              "properties": {
-                "title": {
-                  "title": "Title of the article",
-                  "description": "Title of the article.\n\nRepresentative title of the article.",
-                  "type": "string"
-                },
-                "body": {
-                  "title": "Content body",
-                  "description": "Content body.\n\nContent body of the article writtn in the markdown format.",
-                  "type": "string"
-                },
-                "thumbnail": {
-                  "title": "Thumbnail image URI",
-                  "description": "Thumbnail image URI.\n\nThumbnail image URI which can represent the article.\n\nIf configured as `null`, it means that no thumbnail image in the article.",
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "string",
-                      "format": "uri",
-                      "contentMediaType": "image/*"
-                    }
-                  ]
-                }
-              },
-              "required": [
-                "title",
-                "body",
-                "thumbnail"
-              ]
-            }
-          },
-          "required": [
-            "input"
-          ],
-          "additionalProperties": false,
-          "$defs": {}
-        },
-        "human": null
-      }
-    },
-    {
-      "name": "update",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "title": "Target article's {@link IBbsArticle.id}",
-            "description": "Target article's {@link IBbsArticle.id}.",
-            "type": "string",
-            "format": "uuid"
-          },
-          "input": {
-            "description": "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialIBbsArticle.ICreate} type:\n\n> Make all properties in T optional",
-            "type": "object",
-            "properties": {
-              "title": {
-                "title": "Title of the article",
-                "description": "Title of the article.\n\nRepresentative title of the article.",
-                "type": "string"
-              },
-              "body": {
-                "title": "Content body",
-                "description": "Content body.\n\nContent body of the article writtn in the markdown format.",
-                "type": "string"
-              },
-              "thumbnail": {
-                "title": "Thumbnail image URI",
-                "description": "Thumbnail image URI.\n\nThumbnail image URI which can represent the article.\n\nIf configured as `null`, it means that no thumbnail image in the article.",
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string",
-                    "format": "uri",
-                    "contentMediaType": "image/*"
-                  }
-                ]
-              }
-            },
-            "required": [
-              "title",
-              "body",
-              "thumbnail"
-            ]
-          }
-        },
-        "required": [
-          "id",
-          "input"
-        ],
-        "additionalProperties": false,
-        "$defs": {}
-      },
-      "description": "Update an article.\n\nUpdates an article with new content.",
-      "separated": {
-        "llm": {
-          "type": "object",
-          "properties": {
-            "id": {
-              "title": "Target article's {@link IBbsArticle.id}",
-              "description": "Target article's {@link IBbsArticle.id}.",
-              "type": "string",
-              "format": "uuid"
-            },
-            "input": {
-              "description": "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialIBbsArticle.ICreate} type:\n\n> Make all properties in T optional",
-              "type": "object",
-              "properties": {
-                "title": {
-                  "title": "Title of the article",
-                  "description": "Title of the article.\n\nRepresentative title of the article.",
-                  "type": "string"
-                },
-                "body": {
-                  "title": "Content body",
-                  "description": "Content body.\n\nContent body of the article writtn in the markdown format.",
-                  "type": "string"
-                },
-                "thumbnail": {
-                  "title": "Thumbnail image URI",
-                  "description": "Thumbnail image URI.\n\nThumbnail image URI which can represent the article.\n\nIf configured as `null`, it means that no thumbnail image in the article.",
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "string",
-                      "format": "uri",
-                      "contentMediaType": "image/*"
-                    }
-                  ]
-                }
-              },
-              "required": [
-                "title",
-                "body",
-                "thumbnail"
-              ]
-            }
-          },
-          "required": [
-            "id",
-            "input"
-          ],
-          "additionalProperties": false,
-          "$defs": {}
-        },
-        "human": null
-      }
-    },
-    {
-      "name": "erase",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "title": "Target article's {@link IBbsArticle.id}",
-            "description": "Target article's {@link IBbsArticle.id}.",
-            "type": "string",
-            "format": "uuid"
-          }
-        },
-        "required": [
-          "id"
-        ],
-        "additionalProperties": false,
-        "$defs": {}
-      },
-      "description": "Erase an article.\n\nErases an article from the DB.",
-      "separated": {
-        "llm": {
-          "type": "object",
-          "properties": {
-            "id": {
-              "title": "Target article's {@link IBbsArticle.id}",
-              "description": "Target article's {@link IBbsArticle.id}.",
-              "type": "string",
-              "format": "uuid"
-            }
-          },
-          "required": [
-            "id"
-          ],
-          "additionalProperties": false,
-          "$defs": {}
-        },
-        "human": null
-      }
-    }
-  ]
-}
-```
+    <LlmApplicationSeparateJsonSnippet />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <BbsArticleServiceSnippet />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <IBbsArticleSnippet />
   </Tabs.Tab>
 </Tabs>
+
+> [💻 Playground Link](https://typia.io/playground/?script=JYWwDg9gTgLgBAbzgYQDYEMCuATApgFQE8xdkALXAYwGtcoAaOASTSzwGVKKR1GmAZVCACCYMKmCV0MYBAB2cAL5wAZlAgg4AIgACAZ3Qgu8gPQQSc9GGBaA3AChQkWHBjFgvRK-QBzPUtV1TS03a3Q7e3tKeT14KzAALmZBETEJKRl5AB4tSgwcXC0APjgAXld3dAA6VCEq+PTpWTks+zg4ACEAIz1hWElUXHY6ADdJXHo27Ty2QvsigAoEKb1cMHQoaVwkhb0uXB4klnyOfZ4ASjKiqfbWAqIScipaKCrgPXYYKGA5H12z9CXABkQLge241WichguGhAFlcNgPA9cHAAISlcqYOR4FQ-RGTRTnBxQvQQQY1CB-eLEyI-GFQFToSio7q9fp5IajcaIKYmABU-Ju-LgAHFcHFanANjJOXoqsLhXB+O94JgwHBcCM6IRpRzBv4NlxgNrsHAfq4KJ0Ouw4AARDoK9pwIXOkU6KASzBQOT+FWxOAQFSa7VQXUyga4PTCkxTH54AAeC3ORzZfVlgwA2gBdBxwPmCpXIT1baVwOS4ADueozuCd7VdDbgAHVvjDDeWqzXI9KcXrjdr-MB4PSIJbUQ76y6lTp1ptNGB1GB-AAFJd0GRRwPByglmGqbGUTJyGeemDe31wAByVdQut3uC2ZojnJjUwfWwWi-MeiSy2dcACo2brMHIKjQDwx7buO3acq4Y4fjCNwNrGAE-GAmAwKmPTppGVQsHuuB5koKbMGm+pEW0BbASKACqYDYKW6AKC+FKKiB9GMe2vawYMcCVsOZCdtWUIwtCU40XAs4bIYcDfsucBruYG7AFuQZwOqXGoioh7HjOc6yehmHXl2omwvAMBjppWxvu01kwl+S6-ryAFAchLpwPgGw+BKvG4AA5P4CA6BIcjUGROEUW82CKFOKHIcA2BJLE3y-HAoIwL48oAGIQdIOSYJgiXFHmyFuQBHk3iJ8hiRZVkMVscUuqhzpGVhEXsrW+GcVsxFEkkIwQIlpXtOVTYAKKbKsPGsXW7ETVNW7MX5gQaDBk7zR50nznJTmKeu-RqcGdDoNNOlyEezS2Zqi2OT+f5lYWFUil5UA+XEFGBYgIU-OFTDkV1iWxe5-Ite0iXJV8Pw+Ol3h+FUuVQJBBVFdgJVTP1cCDcN9iKJE5UirhcHmcOhBOq6IoAAb-ZFtaU+ahoKCTbhwJ6i5RiTaXLbN5oKDAVodDacALB0mC1BKFodBAGxmuwhCxAc5zk7G9J0EyLIdUTfG4AmYnYP4NOdXhBGPvu-6AU9TZrqAGy6gA0rgZPXRDYJQ2lGVZQjeUwCjxVFCNFuScWpvNK4oCoup-OorNEktYhiIAPrSJDqUwx78OI8jWhaQAtDIICFP7VGjZbHn8KdaoNTCZr5xHwZR35sdTPZifJ67qew5lGfezkue1+jeOWAXejrBrhta6i5tjR5TBgd7oeR1aPOWXA8dN+0OvOCO0Jq8yqIm6W5sl8BTb4MOfGL9HUUgyDcAAEprJ6qzQk02phzAF-10v1-PWD7+DCnaGAdj632QDVcycAugQGwE7Z6oDwHQkgdA3Ul8VqVjbDABQFoG48CgNQbAEBKwKHAkjaQTVQbISgTAwBvxgGB1vvgMgmAQBdEsMAVA5oeA+TgLRO+TByEMKYSwthHCbbcN4UwfiZBJBCSkAoNmT8IENxjjfZ6zAdzyDxD4b0iJpT+EpnIMWqBKaMGHHAAuzF-D82kOWMc-NmGsPQOwzhvhUTYO-l1EGf97HCKcagBI7k4AAB9yxGMCSE3Ybs05wxyj3LQ3obAlHTvKMBO94SImRMQXAOQxG4AFMUWk7Q8b5hASBWeJDIILy-lfWs8ENJVzmm6JUAB5OQd4YJ4nFmaeSKktwCSlF0VELdsDr01AmLeFQSDMB6vucoK4IzoFQFkA+MIi6KCAA)
 
 
 
@@ -781,7 +201,7 @@ About the return value type, it follows the restriction of [`typia.llm.schema<T,
 
 <Tabs items={["TypeScript Source Code", "Console Output"]}>
   <Tabs.Tab>
-```typescript filename="src/examples/llm.application.violation.ts" showLineNumbers
+```typescript filename="example/src/llm.application.violation.ts" showLineNumbers
 import { ILlmApplication } from "@samchon/openapi";
 import typia, { tags } from "typia";
 

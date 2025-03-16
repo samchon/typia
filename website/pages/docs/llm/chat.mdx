@@ -1,7 +1,11 @@
 ---
 title: Guide Documents > Large Language Model > AI Chatbot Development
 ---
-import { Callout, Tabs } from 'nextra/components'
+import { Callout, Tabs } from "nextra/components";
+
+import BbsArticleServiceSnippet from "../../../src/snippets/BbsArticleServiceSnippet.mdx";
+import IBbsArticleSnippet from "../../../src/snippets/IBbsArticleSnippet.mdx";
+import ValidatorSupportMatrixSnippet from "../../../src/snippets/ValidatorSupportMatrixSnippet.mdx";
 
 ## Agentica
 ![agentica-conceptual-diagram](https://github.com/user-attachments/assets/d7ebbd1f-04d3-4b0d-9e2a-234e29dd6c57)
@@ -66,167 +70,10 @@ await agent.conversate("Hello, I want to create an article.");
 ```
   </Tabs.Tab>
   <Tabs.Tab>
-```typescript filename="src/BbsArticleService.ts" showLineNumbers
-import { tags } from "typia";
-import { v4 } from "uuid";
-
-import { IBbsArticle } from "./IBbsArticle";
-
-export class BbsArticleService {
-  private readonly articles: IBbsArticle[] = [];
-
-  /**
-   * Get all articles.
-   *
-   * List up every articles archived in the BBS DB.
-   *
-   * @returns List of every articles
-   */
-  public index(): IBbsArticle[] {
-    return this.articles;
-  }
-
-  /**
-   * Create a new article.
-   *
-   * Writes a new article and archives it into the DB.
-   *
-   * @param props Properties of create function
-   * @returns Newly created article
-   */
-  public create(props: {
-    /**
-     * Information of the article to create
-     */
-    input: IBbsArticle.ICreate;
-  }): IBbsArticle {
-    const article: IBbsArticle = {
-      id: v4(),
-      title: props.input.title,
-      body: props.input.body,
-      thumbnail: props.input.thumbnail,
-      created_at: new Date().toISOString(),
-      updated_at: new Date().toISOString(),
-    };
-    this.articles.push(article);
-    return article;
-  }
-
-  /**
-   * Update an article.
-   *
-   * Updates an article with new content.
-   *
-   * @param props Properties of update function
-   * @param input New content to update
-   */
-  public update(props: {
-    /**
-     * Target article's {@link IBbsArticle.id}.
-     */
-    id: string & tags.Format<"uuid">;
-
-    /**
-     * New content to update.
-     */
-    input: IBbsArticle.IUpdate;
-  }): void {
-    const article: IBbsArticle | undefined = this.articles.find(
-      (a) => a.id === props.id,
-    );
-    if (article === undefined)
-      throw new Error("Unable to find the matched article.");
-    if (props.input.title !== undefined) article.title = props.input.title;
-    if (props.input.body !== undefined) article.body = props.input.body;
-    if (props.input.thumbnail !== undefined)
-      article.thumbnail = props.input.thumbnail;
-    article.updated_at = new Date().toISOString();
-  }
-
-  /**
-   * Erase an article.
-   *
-   * Erases an article from the DB.
-   *
-   * @param props Properties of erase function
-   */
-  public erase(props: {
-    /**
-     * Target article's {@link IBbsArticle.id}.
-     */
-    id: string & tags.Format<"uuid">;
-  }): void {
-    const index: number = this.articles.findIndex((a) => a.id === props.id);
-    if (index === -1) throw new Error("Unable to find the matched article.");
-    this.articles.splice(index, 1);
-  }
-}
-```
+    <BbsArticleServiceSnippet />
   </Tabs.Tab>
   <Tabs.Tab>
-```typescript filename="src/IBbsArticle.ts" showLineNumbers
-import { tags } from "typia";
-
-/**
- * Article entity.
- *
- * `IBbsArticle` is an entity representing an article in the BBS (Bulletin Board System).
- */
-export interface IBbsArticle extends IBbsArticle.ICreate {
-  /**
-   * Primary Key.
-   */
-  id: string & tags.Format<"uuid">;
-
-  /**
-   * Creation time of the article.
-   */
-  created_at: string & tags.Format<"date-time">;
-
-  /**
-   * Last updated time of the article.
-   */
-  updated_at: string & tags.Format<"date-time">;
-}
-export namespace IBbsArticle {
-  /**
-   * Information of the article to create.
-   */
-  export interface ICreate {
-    /**
-     * Title of the article.
-     *
-     * Representative title of the article.
-     */
-    title: string;
-
-    /**
-     * Content body.
-     *
-     * Content body of the article writtn in the markdown format.
-     */
-    body: string;
-
-    /**
-     * Thumbnail image URI.
-     *
-     * Thumbnail image URI which can represent the article.
-     *
-     * If configured as `null`, it means that no thumbnail image in the article.
-     */
-    thumbnail:
-      | null
-      | (string & tags.Format<"uri"> & tags.ContentMediaType<"image/*">);
-  }
-
-  /**
-   * Information of the article to update.
-   *
-   * Only the filled properties will be updated.
-   */
-  export type IUpdate = Partial<ICreate>;
-}
-```
+    <IBbsArticleSnippet />
   </Tabs.Tab>
 </Tabs>
 
@@ -453,27 +300,20 @@ About the validation feedback, `@agentica/core` is utilizing [`typia.validate<T>
 
 Such validation feedback strategy and combination with `typia` runtime validator, `@agentica/core` has achieved the most ideal LLM function calling. In my experience, when using OpenAI's `gpt-4o-mini` model, it tends to construct invalid function calling arguments at the first trial about 50% of the time. By the way, if correct it through validation feedback with `typia`, success rate soars to 99%. And I've never had a failure when trying validation feedback twice.
 
-Components               | `typia` | `TypeBox` | `ajv` | `io-ts` | `zod` | `C.V.`
--------------------------|--------|-----------|-------|---------|-------|------------------
-**Easy to use**          | ✅ | ❌ | ❌ | ❌ | ❌ | ❌ 
-[Object (simple)](https://github.com/samchon/typia/blob/master/test/src/structures/ObjectSimple.ts)          | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
-[Object (hierarchical)](https://github.com/samchon/typia/blob/master/test/src/structures/ObjectHierarchical.ts)    | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
-[Object (recursive)](https://github.com/samchon/typia/blob/master/test/src/structures/ObjectRecursive.ts)       | ✔ | ❌ | ✔ | ✔ | ✔ | ✔ | ✔
-[Object (union, implicit)](https://github.com/samchon/typia/blob/master/test/src/structures/ObjectUnionImplicit.ts) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
-[Object (union, explicit)](https://github.com/samchon/typia/blob/master/test/src/structures/ObjectUnionExplicit.ts) | ✔ | ✔ | ✔ | ✔ | ✔ | ❌
-[Object (additional tags)](https://github.com/samchon/typia/#comment-tags)        | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
-[Object (template literal types)](https://github.com/samchon/typia/blob/master/test/src/structures/TemplateUnion.ts) | ✔ | ✔ | ✔ | ❌ | ❌ | ❌
-[Object (dynamic properties)](https://github.com/samchon/typia/blob/master/test/src/structures/DynamicTemplate.ts) | ✔ | ✔ | ✔ | ❌ | ❌ | ❌
-[Array (rest tuple)](https://github.com/samchon/typia/blob/master/test/src/structures/TupleRestAtomic.ts) | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
-[Array (hierarchical)](https://github.com/samchon/typia/blob/master/test/src/structures/ArrayHierarchical.ts)     | ✔ | ✔ | ✔ | ✔ | ✔ | ✔
-[Array (recursive)](https://github.com/samchon/typia/blob/master/test/src/structures/ArrayRecursive.ts)        | ✔ | ✔ | ✔ | ✔ | ✔ | ❌
-[Array (recursive, union)](https://github.com/samchon/typia/blob/master/test/src/structures/ArrayRecursiveUnionExplicit.ts) | ✔ | ✔ | ❌ | ✔ | ✔ | ❌
-[Array (R+U, implicit)](https://github.com/samchon/typia/blob/master/test/src/structures/ArrayRecursiveUnionImplicit.ts)    | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
-[Array (repeated)](https://github.com/samchon/typia/blob/master/test/src/structures/ArrayRepeatedNullable.ts)    | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
-[Array (repeated, union)](https://github.com/samchon/typia/blob/master/test/src/structures/ArrayRepeatedUnionWithTuple.ts)    | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
-[**Ultimate Union Type**](https://github.com/samchon/typia/blob/master/test/src/structures/UltimateUnion.ts)  | ✅ | ❌ | ❌ | ❌ | ❌ | ❌
+For reference, embedded [`typia.validate<T>()`](/docs/validators/validate) is the best runtime type checker which can validate every TypeScript (JSON schema) types exactly and detaily than any other libraries. With this validation feedback strategy and the best runtime type checker, let's accomplish the [Agentic AI](https://wrtnlabs.io/agentica) with function calling.
 
-> `C.V.` means `class-validator`
+<ValidatorSupportMatrixSnippet />
+
+Also, this validation feedback strategy is useful for some LLM providers do not supporting restriction properties of JSON schema like OpenAI ([`IChatGptSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IChatGptSchema.ts)) and Gemini ([`IGeminiSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IGeminiSchema.ts)). And some LLM providers which do not specified the JSON schema version like Claude ([`IClaudeSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IClaudeSchema.ts)) and Llama ([`ILlamaSchema`](https://github.com/samchon/openapi/blob/master/src/structures/ILlamaSchema.ts)), they tend to fail a lot of function calling in the restriction properties,
+
+For example, OpenAI and Gemini does not support `format` property of JSON schema, so that cannot let LLM to understand the `UUID` like type. Even though `typia.llm.application<App, Model>()` function is writing the restriction information to the `description` property of JSON schema, but LLM provider does not reflect it perfectly.
+
+In that case, validation feedback from `ILlmFunction.validate()` function will inform understand the restriction exactly to the LLM, so that corrects the arguments properly.
+
+  - Restriction properties of JSON schema
+    - `string`: `minLength`, `maxLength`, `pattern`, `format`, `contentMediaType`
+    - `number`: `minimum`, `maximum`, `exclusiveMinimum`, `exclusiveMaximum`, `multipleOf`
+    - `array`: `minItems`, `maxItems`, `uniqueItems`, `items`
 
 ### OpenAPI Specification
 ```mermaid

@@ -1,0 +1,14 @@
+```typescript filename="example/src/llm.parameters.ts" showLineNumbers
+import { IChatGptSchema } from "@samchon/openapi";
+import typia, { tags } from "typia";
+ 
+interface IMember {
+  email: string & tags.Format<"email">;
+  name: string;
+  age: number;
+  hobbies: string[];
+  joined_at: string & tags.Format<"date">;
+}
+const p: IChatGptSchema.IParameters = typia.llm.parameters<IMember, "chatgpt">();
+console.log(p);
+```
