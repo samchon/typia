@@ -27,6 +27,9 @@ importers:
         specifier: ^0.5.3
         version: 0.5.3
     devDependencies:
+      '@rsbuild/core':
+        specifier: ^1.2.19
+        version: 1.2.19
       '@rslib/core':
         specifier: ^0.5.4
         version: 0.5.4(typescript@5.8.2)
