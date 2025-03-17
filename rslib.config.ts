@@ -34,15 +34,15 @@ export const AddJsToSamchonOpenAPI = (extension: 'mjs' | 'js'): RsbuildPlugin =>
 
 
 export default defineConfig({
-  source: {
-    entry: {
-      index: [
-        "./src/**",
-      ],
-    }
-  },
   lib: [
     {
+      source: {
+        entry: {
+          index: [
+            "./src/**",
+          ],
+        }
+      },
       format: "cjs",
       bundle: false,
       output: {
@@ -56,6 +56,14 @@ export default defineConfig({
       },
     },
     {
+      source: {
+        entry: {
+          index: [
+            "./src/**",
+            "!./src/executable/**" // not build executable in esm
+          ],
+        }
+      },
       format: "esm",
       bundle: false,
       dts: true,

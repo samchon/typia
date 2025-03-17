@@ -23,29 +23,29 @@ const halt = (desc: string): never => {
 
 const main = async (): Promise<void> => {
   try {
-    await import("comment-json");
-    await import("inquirer");
-    await import("commander");
+    require.resolve("comment-json");
+    require.resolve("inquirer");
+    require.resolve("commander");
   } catch {
     halt(`typia has not been installed. Run "npm i typia" before.`);
   }
 
   const type: string | undefined = process.argv[2];
   if (type === "setup") {
-    const { TypiaSetupWizard } = await import("./TypiaSetupWizard");
+    const { TypiaSetupWizard } = require("./TypiaSetupWizard");
     await TypiaSetupWizard.setup();
   } else if (type === "patch") {
-    const { TypiaPatchWizard } = await import("./TypiaPatchWizard");
+    const { TypiaPatchWizard } = require("./TypiaPatchWizard");
     await TypiaPatchWizard.main();
   } else if (type === "generate") {
     try {
-      await import("typescript");
+      require.resolve("typescript");
     } catch {
       halt(
         `typescript has not been installed. Run "npm i -D typescript" before.`,
       );
     }
-    const { TypiaGenerateWizard } = await import("./TypiaGenerateWizard");
+    const { TypiaGenerateWizard } = require("./TypiaGenerateWizard");
     await TypiaGenerateWizard.generate();
   } else halt(USAGE);
 };
