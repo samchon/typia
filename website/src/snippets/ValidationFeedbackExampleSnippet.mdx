@@ -2,29 +2,30 @@
 import { ILlmApplication, ILlmFunction, IValidation } from "@samchon/openapi";
 import { FunctionCall } from "pseudo";
 
-export const correctFunctionCall = (
-  call: FunctionCall,
-  app: ILlmApplication<"chatgpt">,
-  retry: (reason: string, errors?: IValidation.IError[]) => Promise<unknown>,
-): Promise<unknown> => {
+export const correctFunctionCall = (props: {
+  functionCall: FunctionCall;
+  application: ILlmApplication<"chatgpt">;
+  retry: (reason: string, errors?: IValidation.IError[]) => Promise<unknown>;
+}): Promise<unknown> => {
   // FIND FUNCTION
-  const func: ILlmFunction<"chatgpt"> | undefined = app.functions.find(
-    (f) => f.name === call.name,
-  );
+  const func: ILlmFunction<"chatgpt"> | undefined =
+    props.application.functions.find((f) => f.name === call.name);
   if (func === undefined) {
     // never happened in my experience
-    return retry(
+    return props.retry(
       "Unable to find the matched function name. Try it again.",
     );
   }
 
   // VALIDATE
-  const result: IValidation<unknown> = func.validate(p.call.arguments);
+  const result: IValidation<unknown> = func.validate(
+    props.functionCall.arguments,
+  );
   if (result.success === false) {
     // 1st trial: 30% (gpt-4o-mini in shopping mall chatbot)
     // 2nd trial with validation feedback: 99%
     // 3nd trial with validation feedback again: never have failed
-    return retry(
+    return props.retry(
       "Type errors are detected. Correct it through validation errors",
       {
         errors: result.errors,
@@ -32,5 +33,5 @@ export const correctFunctionCall = (
     );
   }
   return result.data;
-}
+};
 ```
