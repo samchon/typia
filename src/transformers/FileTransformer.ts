@@ -17,6 +17,7 @@ export namespace FileTransformer {
 
       const importer: ImportProgrammer = new ImportProgrammer({
         internalPrefix: "typia_transform_",
+        isCjs: environments.compilerOptions.module === ts.ModuleKind.CommonJS,
       });
       const context: ITypiaContext = {
         ...environments,

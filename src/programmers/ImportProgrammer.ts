@@ -9,6 +9,7 @@ export class ImportProgrammer {
   public constructor(options?: Partial<ImportProgrammer.IOptions>) {
     this.options_ = {
       internalPrefix: options?.internalPrefix ?? "",
+      isCjs: options?.isCjs ?? false,
     };
   }
 
@@ -59,7 +60,7 @@ export class ImportProgrammer {
     if (name.startsWith("_") === false) name = `_${name}`;
     return ts.factory.createPropertyAccessExpression(
       this.namespace({
-        file: `typia/lib/internal/${name}.js`,
+        file: `typia/lib/internal/${name}${this.getInternalImportExtension()}`,
         name: this.alias(name),
       }),
       name,
@@ -72,7 +73,7 @@ export class ImportProgrammer {
   public getInternalText(name: string): string {
     if (name.startsWith("_") === false) name = `_${name}`;
     const asset: IAsset | undefined = this.take(
-      `typia/lib/internal/${name}.js`,
+      `typia/lib/internal/${name}${this.getInternalImportExtension()}`,
     );
     if (!asset?.namespace) throw new Error(`Internal asset not found: ${name}`);
     return `${asset.namespace.name}.${name}`;
@@ -92,6 +93,15 @@ export class ImportProgrammer {
 
   private alias(name: string): string {
     return `__${this.options_.internalPrefix}${name}`;
+  }
+
+  /**
+   * @internal
+   * return extension for internal imports
+   * for cjs it is ".js", for esm it is ".mjs"
+   */
+  private getInternalImportExtension(): string {
+    return this.options_.isCjs ? ".js" : ".mjs";
   }
 
   /* -----------------------------------------------------------
@@ -159,6 +169,7 @@ export class ImportProgrammer {
 export namespace ImportProgrammer {
   export interface IOptions {
     internalPrefix: string;
+    isCjs: boolean;
   }
 
   export interface IDefault {
