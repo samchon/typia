@@ -16,6 +16,7 @@ export interface IMetadata {
   required: boolean;
   optional: boolean;
   nullable: boolean;
+  class: boolean;
   functions: IMetadataFunction[];
 
   atomics: IMetadataAtomic[];
