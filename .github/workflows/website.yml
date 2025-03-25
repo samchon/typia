@@ -4,6 +4,7 @@ on:
     branches:
       - master
     paths:
+      - .github/workflows/website.yml
       - 'website/**'
       - 'website/package.json'
 jobs:
@@ -22,7 +23,7 @@ jobs:
       - name: Build
         working-directory: website
         run: |
-          npm install
+          npm install --force
           npm run build
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.3
