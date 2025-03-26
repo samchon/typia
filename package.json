@@ -28,8 +28,7 @@
     "------------------------------------------------": "",
     "package:latest": "ts-node deploy --tag latest",
     "package:next": "ts-node deploy --tag next",
-    "package:patch": "ts-node deploy --tag patch",
-    "preinstall": "npx only-allow pnpm"
+    "package:patch": "ts-node deploy --tag patch"
   },
   "repository": {
     "type": "git",
@@ -123,3 +122,4 @@
     "llama"
   ]
 }
+
