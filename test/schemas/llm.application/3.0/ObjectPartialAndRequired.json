@@ -115,6 +115,7 @@
               "object",
               "array"
             ],
+            "description": "Current Type: {@link ObjectPartialAndRequired}",
             "additionalProperties": false
           }
         },
@@ -233,6 +234,7 @@
               "object",
               "array"
             ],
+            "description": "Current Type: {@link ObjectPartialAndRequired}",
             "additionalProperties": false
           },
           "second": {
@@ -453,6 +455,7 @@
           "object",
           "array"
         ],
+        "description": "Current Type: {@link ObjectPartialAndRequired}",
         "additionalProperties": false
       }
     },

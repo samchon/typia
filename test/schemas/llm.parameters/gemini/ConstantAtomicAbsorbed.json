@@ -15,7 +15,8 @@
       "required": [
         "id",
         "age"
-      ]
+      ],
+      "description": "Current Type: {@link ConstantAtomicAbsorbed}"
     },
     "nullable": {
       "type": "object",
@@ -48,7 +49,8 @@
       "required": [
         "id",
         "age"
-      ]
+      ],
+      "description": "Current Type: {@link ConstantAtomicAbsorbed}"
     },
     "faint": {
       "type": "object",
@@ -83,7 +85,8 @@
         "required": [
           "id",
           "age"
-        ]
+        ],
+        "description": "Current Type: {@link ConstantAtomicAbsorbed}"
       }
     }
   },

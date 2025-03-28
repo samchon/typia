@@ -9,9 +9,11 @@
     {
       "name": "insert",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link DynamicTemplate}",
             "type": "object",
             "properties": {},
             "required": [],
@@ -40,9 +42,11 @@
     {
       "name": "reduce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link DynamicTemplate}",
             "type": "object",
             "properties": {},
             "required": [],
@@ -69,6 +73,7 @@
                 "type": "object",
                 "properties": {},
                 "required": [],
+                "description": "Current Type: {@link DynamicTemplate}",
                 "additionalProperties": {
                   "anyOf": [
                     {
@@ -94,6 +99,7 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link DynamicTemplate}",
         "type": "object",
         "properties": {},
         "required": [],
@@ -115,6 +121,7 @@
     {
       "name": "coalesce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
@@ -126,6 +133,7 @@
                 "type": "object",
                 "properties": {},
                 "required": [],
+                "description": "Current Type: {@link DynamicTemplate}",
                 "additionalProperties": {
                   "anyOf": [
                     {
@@ -151,6 +159,7 @@
                 "type": "object",
                 "properties": {},
                 "required": [],
+                "description": "Current Type: {@link DynamicTemplate}",
                 "additionalProperties": {
                   "anyOf": [
                     {
@@ -176,6 +185,7 @@
                 "type": "object",
                 "properties": {},
                 "required": [],
+                "description": "Current Type: {@link DynamicTemplate}",
                 "additionalProperties": {
                   "anyOf": [
                     {
@@ -209,6 +219,7 @@
             "type": "object",
             "properties": {},
             "required": [],
+            "description": "Current Type: {@link DynamicTemplate}",
             "additionalProperties": {
               "anyOf": [
                 {

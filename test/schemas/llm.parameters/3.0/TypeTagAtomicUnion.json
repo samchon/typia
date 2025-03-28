@@ -26,6 +26,7 @@
             "required": [
               "value"
             ],
+            "description": "Current Type: {@link TypeTagAtomicUnion.Type}",
             "additionalProperties": false
           }
         }
@@ -33,6 +34,7 @@
       "required": [
         "value"
       ],
+      "description": "Current Type: {@link TypeTagAtomicUnion}",
       "additionalProperties": false
     },
     "nullable": {
@@ -60,6 +62,7 @@
             "required": [
               "value"
             ],
+            "description": "Current Type: {@link TypeTagAtomicUnion.Type}",
             "additionalProperties": false
           }
         }
@@ -95,6 +98,7 @@
             "required": [
               "value"
             ],
+            "description": "Current Type: {@link TypeTagAtomicUnion.Type}",
             "additionalProperties": false
           }
         }
@@ -102,6 +106,7 @@
       "required": [
         "value"
       ],
+      "description": "Current Type: {@link TypeTagAtomicUnion}",
       "additionalProperties": false
     },
     "faint": {
@@ -129,6 +134,7 @@
             "required": [
               "value"
             ],
+            "description": "Current Type: {@link TypeTagAtomicUnion.Type}",
             "additionalProperties": false
           }
         }
@@ -166,6 +172,7 @@
               "required": [
                 "value"
               ],
+              "description": "Current Type: {@link TypeTagAtomicUnion.Type}",
               "additionalProperties": false
             }
           }
@@ -173,6 +180,7 @@
         "required": [
           "value"
         ],
+        "description": "Current Type: {@link TypeTagAtomicUnion}",
         "additionalProperties": false
       }
     }

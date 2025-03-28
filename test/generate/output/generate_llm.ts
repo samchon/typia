@@ -13,6 +13,7 @@ export const schema = ((props: {
   if (undefined !== props?.$defs)
     Object.assign(props.$defs, {
       ICompany: {
+        description: "",
         type: "object",
         properties: {
           id: {
@@ -39,6 +40,7 @@ export const schema = ((props: {
         required: ["id", "serial", "name", "established_at", "departments"],
       },
       IDepartment: {
+        description: "",
         type: "object",
         properties: {
           id: {
@@ -78,6 +80,7 @@ export const schema = ((props: {
         ],
       },
       IEmployee: {
+        description: "",
         type: "object",
         properties: {
           id: {
@@ -109,6 +112,7 @@ export const parameters = {
   type: "object",
   properties: {
     company: {
+      description: "Current Type: {@link ICompany}",
       type: "object",
       properties: {
         id: {
@@ -138,6 +142,7 @@ export const parameters = {
       $ref: "#/$defs/IDepartment",
     },
     employee: {
+      description: "Current Type: {@link IEmployee}",
       type: "object",
       properties: {
         id: {
@@ -190,6 +195,7 @@ export const parameters = {
         employees: {
           type: "array",
           items: {
+            description: "Current Type: {@link IEmployee}",
             type: "object",
             properties: {
               id: {
@@ -232,6 +238,7 @@ export const application = (() => {
           type: "object",
           properties: {
             company: {
+              description: "Current Type: {@link ICompany}",
               type: "object",
               properties: {
                 id: {
@@ -293,6 +300,7 @@ export const application = (() => {
                 employees: {
                   type: "array",
                   items: {
+                    description: "Current Type: {@link IEmployee}",
                     type: "object",
                     properties: {
                       id: {
@@ -329,6 +337,7 @@ export const application = (() => {
           },
         },
         output: {
+          description: "Current Type: {@link ICompany}",
           type: "object",
           properties: {
             id: {
@@ -723,6 +732,7 @@ export const application = (() => {
           type: "object",
           properties: {
             company: {
+              description: "Current Type: {@link ICompany}",
               type: "object",
               properties: {
                 id: {
@@ -787,6 +797,7 @@ export const application = (() => {
                 employees: {
                   type: "array",
                   items: {
+                    description: "Current Type: {@link IEmployee}",
                     type: "object",
                     properties: {
                       id: {
@@ -1214,6 +1225,7 @@ export const application = (() => {
           type: "object",
           properties: {
             company: {
+              description: "Current Type: {@link ICompany}",
               type: "object",
               properties: {
                 id: {
@@ -1249,6 +1261,7 @@ export const application = (() => {
               $ref: "#/$defs/IDepartment",
             },
             employee: {
+              description: "Current Type: {@link IEmployee}",
               type: "object",
               properties: {
                 id: {
@@ -1301,6 +1314,7 @@ export const application = (() => {
                 employees: {
                   type: "array",
                   items: {
+                    description: "Current Type: {@link IEmployee}",
                     type: "object",
                     properties: {
                       id: {
@@ -1337,6 +1351,7 @@ export const application = (() => {
           },
         },
         output: {
+          description: "Current Type: {@link IEmployee}",
           type: "object",
           properties: {
             id: {
@@ -1800,6 +1815,7 @@ export const application = (() => {
                     "established_at",
                     "departments",
                   ],
+                  description: "Current Type: {@link ICompany}",
                 },
                 {
                   $ref: "#/$defs/IDepartment",
@@ -1826,6 +1842,7 @@ export const application = (() => {
                     },
                   },
                   required: ["id", "name", "age", "grade", "employed_at"],
+                  description: "Current Type: {@link IEmployee}",
                 },
               ],
             },
@@ -1859,6 +1876,7 @@ export const application = (() => {
                 employees: {
                   type: "array",
                   items: {
+                    description: "Current Type: {@link IEmployee}",
                     type: "object",
                     properties: {
                       id: {

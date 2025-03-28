@@ -9,9 +9,11 @@
     {
       "name": "insert",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link DynamicNever}",
             "type": "object",
             "properties": {},
             "required": []
@@ -27,9 +29,11 @@
     {
       "name": "reduce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link DynamicNever}",
             "type": "object",
             "properties": {},
             "required": []
@@ -42,7 +46,8 @@
               {
                 "type": "object",
                 "properties": {},
-                "required": []
+                "required": [],
+                "description": "Current Type: {@link DynamicNever}"
               }
             ]
           }
@@ -55,6 +60,7 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link DynamicNever}",
         "type": "object",
         "properties": {},
         "required": []
@@ -63,6 +69,7 @@
     {
       "name": "coalesce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
@@ -73,7 +80,8 @@
               {
                 "type": "object",
                 "properties": {},
-                "required": []
+                "required": [],
+                "description": "Current Type: {@link DynamicNever}"
               }
             ]
           },
@@ -85,7 +93,8 @@
               {
                 "type": "object",
                 "properties": {},
-                "required": []
+                "required": [],
+                "description": "Current Type: {@link DynamicNever}"
               }
             ]
           },
@@ -97,7 +106,8 @@
               {
                 "type": "object",
                 "properties": {},
-                "required": []
+                "required": [],
+                "description": "Current Type: {@link DynamicNever}"
               }
             ]
           }
@@ -117,7 +127,8 @@
           {
             "type": "object",
             "properties": {},
-            "required": []
+            "required": [],
+            "description": "Current Type: {@link DynamicNever}"
           }
         ]
       }

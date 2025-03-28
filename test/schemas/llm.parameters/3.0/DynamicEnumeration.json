@@ -45,6 +45,7 @@
       "required": [
         "value"
       ],
+      "description": "Current Type: {@link DynamicEnumeration}",
       "additionalProperties": false
     },
     "nullable": {
@@ -138,6 +139,7 @@
       "required": [
         "value"
       ],
+      "description": "Current Type: {@link DynamicEnumeration}",
       "additionalProperties": false
     },
     "faint": {
@@ -233,6 +235,7 @@
         "required": [
           "value"
         ],
+        "description": "Current Type: {@link DynamicEnumeration}",
         "additionalProperties": false
       }
     }

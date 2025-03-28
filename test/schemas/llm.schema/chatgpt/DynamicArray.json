@@ -1,7 +1,9 @@
 {
+  "description": "Current Type: {@link DynamicArray}",
   "type": "object",
   "properties": {
     "value": {
+      "description": "",
       "type": "object",
       "properties": {},
       "required": [],

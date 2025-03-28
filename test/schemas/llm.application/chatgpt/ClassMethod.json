@@ -9,9 +9,11 @@
     {
       "name": "insert",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ClassMethod.Animal}",
             "type": "object",
             "properties": {
               "name": {
@@ -37,9 +39,11 @@
     {
       "name": "reduce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ClassMethod.Animal}",
             "type": "object",
             "properties": {
               "name": {
@@ -72,7 +76,8 @@
                 "required": [
                   "name",
                   "age"
-                ]
+                ],
+                "description": "Current Type: {@link ClassMethod.Animal}"
               }
             ]
           }
@@ -85,6 +90,7 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link ClassMethod.Animal}",
         "type": "object",
         "properties": {
           "name": {
@@ -103,6 +109,7 @@
     {
       "name": "coalesce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
@@ -123,7 +130,8 @@
                 "required": [
                   "name",
                   "age"
-                ]
+                ],
+                "description": "Current Type: {@link ClassMethod.Animal}"
               }
             ]
           },
@@ -145,7 +153,8 @@
                 "required": [
                   "name",
                   "age"
-                ]
+                ],
+                "description": "Current Type: {@link ClassMethod.Animal}"
               }
             ]
           },
@@ -167,7 +176,8 @@
                 "required": [
                   "name",
                   "age"
-                ]
+                ],
+                "description": "Current Type: {@link ClassMethod.Animal}"
               }
             ]
           }
@@ -197,7 +207,8 @@
             "required": [
               "name",
               "age"
-            ]
+            ],
+            "description": "Current Type: {@link ClassMethod.Animal}"
           }
         ]
       }

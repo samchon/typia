@@ -1,7 +1,9 @@
 {
+  "description": "",
   "type": "object",
   "properties": {
     "regular": {
+      "description": "Current Type: {@link ObjectJsonTag}",
       "type": "object",
       "properties": {
         "vulnerable": {
@@ -64,11 +66,13 @@
             "description",
             "title",
             "complicate_title"
-          ]
+          ],
+          "description": "Current Type: {@link ObjectJsonTag}"
         }
       ]
     },
     "optional": {
+      "description": "Current Type: {@link ObjectJsonTag}",
       "type": "object",
       "properties": {
         "vulnerable": {
@@ -131,13 +135,15 @@
             "description",
             "title",
             "complicate_title"
-          ]
+          ],
+          "description": "Current Type: {@link ObjectJsonTag}"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link ObjectJsonTag}",
         "type": "object",
         "properties": {
           "vulnerable": {

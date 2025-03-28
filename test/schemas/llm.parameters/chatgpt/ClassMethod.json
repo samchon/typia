@@ -1,7 +1,9 @@
 {
+  "description": "",
   "type": "object",
   "properties": {
     "regular": {
+      "description": "Current Type: {@link ClassMethod.Animal}",
       "type": "object",
       "properties": {
         "name": {
@@ -34,11 +36,13 @@
           "required": [
             "name",
             "age"
-          ]
+          ],
+          "description": "Current Type: {@link ClassMethod.Animal}"
         }
       ]
     },
     "optional": {
+      "description": "Current Type: {@link ClassMethod.Animal}",
       "type": "object",
       "properties": {
         "name": {
@@ -71,13 +75,15 @@
           "required": [
             "name",
             "age"
-          ]
+          ],
+          "description": "Current Type: {@link ClassMethod.Animal}"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link ClassMethod.Animal}",
         "type": "object",
         "properties": {
           "name": {

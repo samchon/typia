@@ -2,6 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
+      "description": "Current Type: {@link ObjectDate}",
       "type": "object",
       "properties": {
         "classDate": {
@@ -136,11 +137,13 @@
             "datetime",
             "time",
             "duration"
-          ]
+          ],
+          "description": "Current Type: {@link ObjectDate}"
         }
       ]
     },
     "optional": {
+      "description": "Current Type: {@link ObjectDate}",
       "type": "object",
       "properties": {
         "classDate": {
@@ -275,13 +278,15 @@
             "datetime",
             "time",
             "duration"
-          ]
+          ],
+          "description": "Current Type: {@link ObjectDate}"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link ObjectDate}",
         "type": "object",
         "properties": {
           "classDate": {

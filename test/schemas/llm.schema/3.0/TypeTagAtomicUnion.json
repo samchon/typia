@@ -23,6 +23,7 @@
         "required": [
           "value"
         ],
+        "description": "Current Type: {@link TypeTagAtomicUnion.Type}",
         "additionalProperties": false
       }
     }
@@ -30,5 +31,6 @@
   "required": [
     "value"
   ],
+  "description": "Current Type: {@link TypeTagAtomicUnion}",
   "additionalProperties": false
 }

@@ -102,5 +102,6 @@
     "object",
     "array"
   ],
+  "description": "Current Type: {@link ObjectPartialAndRequired}",
   "additionalProperties": false
 }

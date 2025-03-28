@@ -46,6 +46,7 @@
               "time",
               "duration"
             ],
+            "description": "Current Type: {@link ObjectDate}",
             "additionalProperties": false
           }
         },
@@ -95,6 +96,7 @@
               "time",
               "duration"
             ],
+            "description": "Current Type: {@link ObjectDate}",
             "additionalProperties": false
           },
           "second": {
@@ -177,6 +179,7 @@
           "time",
           "duration"
         ],
+        "description": "Current Type: {@link ObjectDate}",
         "additionalProperties": false
       }
     },

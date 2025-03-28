@@ -23,8 +23,10 @@
               "type": "boolean"
             }
           }
-        ]
-      }
+        ],
+        "description": "Current Type: {@link ArrayUnion.IUnion}"
+      },
+      "description": "Current Type: {@link ArrayUnion}"
     },
     "nullable": {
       "type": "array",
@@ -48,7 +50,8 @@
               "type": "boolean"
             }
           }
-        ]
+        ],
+        "description": "Current Type: {@link ArrayUnion.IUnion}"
       },
       "nullable": true
     },
@@ -74,8 +77,10 @@
               "type": "boolean"
             }
           }
-        ]
-      }
+        ],
+        "description": "Current Type: {@link ArrayUnion.IUnion}"
+      },
+      "description": "Current Type: {@link ArrayUnion}"
     },
     "faint": {
       "type": "array",
@@ -99,7 +104,8 @@
               "type": "boolean"
             }
           }
-        ]
+        ],
+        "description": "Current Type: {@link ArrayUnion.IUnion}"
       },
       "nullable": true
     },
@@ -127,8 +133,10 @@
                 "type": "boolean"
               }
             }
-          ]
-        }
+          ],
+          "description": "Current Type: {@link ArrayUnion.IUnion}"
+        },
+        "description": "Current Type: {@link ArrayUnion}"
       }
     }
   },

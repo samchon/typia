@@ -11,7 +11,8 @@
             "type": "number"
           }
         }
-      }
+      },
+      "description": "Current Type: {@link ArrayMatrix}"
     },
     "nullable": {
       "type": "array",
@@ -36,7 +37,8 @@
             "type": "number"
           }
         }
-      }
+      },
+      "description": "Current Type: {@link ArrayMatrix}"
     },
     "faint": {
       "type": "array",
@@ -63,7 +65,8 @@
               "type": "number"
             }
           }
-        }
+        },
+        "description": "Current Type: {@link ArrayMatrix}"
       }
     }
   },

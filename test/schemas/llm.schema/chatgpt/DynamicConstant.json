@@ -1,7 +1,9 @@
 {
+  "description": "Current Type: {@link DynamicConstant}",
   "type": "object",
   "properties": {
     "value": {
+      "description": "",
       "type": "object",
       "properties": {
         "a": {

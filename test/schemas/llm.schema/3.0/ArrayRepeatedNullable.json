@@ -48,19 +48,27 @@
                         "type": "array",
                         "items": {},
                         "maxItems": 0,
+                        "description": "Current Type: {@link ArrayArrayRepeatedNullable}",
                         "nullable": true
                       }
-                    ]
+                    ],
+                    "description": "Current Type: {@link ArrayRepeatedNullable}"
                   },
+                  "description": "Current Type: {@link ArrayArrayRepeatedNullable}",
                   "nullable": true
                 }
-              ]
+              ],
+              "description": "Current Type: {@link ArrayRepeatedNullable}"
             },
+            "description": "Current Type: {@link ArrayArrayRepeatedNullable}",
             "nullable": true
           }
-        ]
+        ],
+        "description": "Current Type: {@link ArrayRepeatedNullable}"
       },
+      "description": "Current Type: {@link ArrayArrayRepeatedNullable}",
       "nullable": true
     }
-  ]
+  ],
+  "description": "Current Type: {@link ArrayRepeatedNullable}"
 }

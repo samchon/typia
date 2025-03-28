@@ -13,7 +13,7 @@
         "properties": {
           "first": {
             "title": "This is the title of object type",
-            "description": "An interface designed to test JSON schema's object description.",
+            "description": "Description of the current {@link ObjectDescription} type:\n\n> An interface designed to test JSON schema's object description.",
             "type": "object",
             "properties": {
               "id": {
@@ -69,7 +69,7 @@
         "properties": {
           "first": {
             "title": "This is the title of object type",
-            "description": "An interface designed to test JSON schema's object description.",
+            "description": "Description of the current {@link ObjectDescription} type:\n\n> An interface designed to test JSON schema's object description.",
             "type": "object",
             "properties": {
               "id": {
@@ -156,7 +156,7 @@
                   "newLine"
                 ],
                 "title": "This is the title of object type",
-                "description": "An interface designed to test JSON schema's object description."
+                "description": "Description of the current {@link ObjectDescription} type:\n\n> An interface designed to test JSON schema's object description."
               }
             ]
           }
@@ -170,7 +170,7 @@
       },
       "output": {
         "title": "This is the title of object type",
-        "description": "An interface designed to test JSON schema's object description.",
+        "description": "Description of the current {@link ObjectDescription} type:\n\n> An interface designed to test JSON schema's object description.",
         "type": "object",
         "properties": {
           "id": {
@@ -263,7 +263,7 @@
                   "newLine"
                 ],
                 "title": "This is the title of object type",
-                "description": "An interface designed to test JSON schema's object description."
+                "description": "Description of the current {@link ObjectDescription} type:\n\n> An interface designed to test JSON schema's object description."
               }
             ]
           },
@@ -313,7 +313,7 @@
                   "newLine"
                 ],
                 "title": "This is the title of object type",
-                "description": "An interface designed to test JSON schema's object description."
+                "description": "Description of the current {@link ObjectDescription} type:\n\n> An interface designed to test JSON schema's object description."
               }
             ]
           },
@@ -363,7 +363,7 @@
                   "newLine"
                 ],
                 "title": "This is the title of object type",
-                "description": "An interface designed to test JSON schema's object description."
+                "description": "Description of the current {@link ObjectDescription} type:\n\n> An interface designed to test JSON schema's object description."
               }
             ]
           }
@@ -421,7 +421,7 @@
               "newLine"
             ],
             "title": "This is the title of object type",
-            "description": "An interface designed to test JSON schema's object description."
+            "description": "Description of the current {@link ObjectDescription} type:\n\n> An interface designed to test JSON schema's object description."
           }
         ]
       }

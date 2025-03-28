@@ -11,6 +11,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ToJsonDouble.Child}",
             "type": "object",
             "properties": {
               "id": {
@@ -39,6 +40,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ToJsonDouble.Child}",
             "type": "object",
             "properties": {
               "id": {
@@ -71,7 +73,8 @@
                 "required": [
                   "id",
                   "flag"
-                ]
+                ],
+                "description": "Current Type: {@link ToJsonDouble.Child}"
               }
             ]
           }
@@ -84,6 +87,7 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link ToJsonDouble.Child}",
         "type": "object",
         "properties": {
           "id": {
@@ -122,7 +126,8 @@
                 "required": [
                   "id",
                   "flag"
-                ]
+                ],
+                "description": "Current Type: {@link ToJsonDouble.Child}"
               }
             ]
           },
@@ -144,7 +149,8 @@
                 "required": [
                   "id",
                   "flag"
-                ]
+                ],
+                "description": "Current Type: {@link ToJsonDouble.Child}"
               }
             ]
           },
@@ -166,7 +172,8 @@
                 "required": [
                   "id",
                   "flag"
-                ]
+                ],
+                "description": "Current Type: {@link ToJsonDouble.Child}"
               }
             ]
           }
@@ -196,7 +203,8 @@
             "required": [
               "id",
               "flag"
-            ]
+            ],
+            "description": "Current Type: {@link ToJsonDouble.Child}"
           }
         ]
       }

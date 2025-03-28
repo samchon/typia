@@ -1,4 +1,5 @@
 {
+  "description": "Current Type: {@link ClassGetter.Person}",
   "type": "object",
   "properties": {
     "id": {

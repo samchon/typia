@@ -2,8 +2,10 @@
   "type": "object",
   "properties": {
     "regular": {
+      "description": "Current Type: {@link TypeTagObjectUnion}",
       "type": "array",
       "items": {
+        "description": "Current Type: {@link TypeTagObjectUnion.Type}",
         "oneOf": [
           {
             "type": "object",
@@ -15,7 +17,8 @@
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link TypeTagObjectUnion.Numeric}"
           },
           {
             "type": "object",
@@ -28,7 +31,8 @@
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link TypeTagObjectUnion.Literal}"
           }
         ]
       }
@@ -41,6 +45,7 @@
         {
           "type": "array",
           "items": {
+            "description": "Current Type: {@link TypeTagObjectUnion.Type}",
             "oneOf": [
               {
                 "type": "object",
@@ -52,7 +57,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link TypeTagObjectUnion.Numeric}"
               },
               {
                 "type": "object",
@@ -65,16 +71,20 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link TypeTagObjectUnion.Literal}"
               }
             ]
-          }
+          },
+          "description": "Current Type: {@link TypeTagObjectUnion}"
         }
       ]
     },
     "optional": {
+      "description": "Current Type: {@link TypeTagObjectUnion}",
       "type": "array",
       "items": {
+        "description": "Current Type: {@link TypeTagObjectUnion.Type}",
         "oneOf": [
           {
             "type": "object",
@@ -86,7 +96,8 @@
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link TypeTagObjectUnion.Numeric}"
           },
           {
             "type": "object",
@@ -99,7 +110,8 @@
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link TypeTagObjectUnion.Literal}"
           }
         ]
       }
@@ -112,6 +124,7 @@
         {
           "type": "array",
           "items": {
+            "description": "Current Type: {@link TypeTagObjectUnion.Type}",
             "oneOf": [
               {
                 "type": "object",
@@ -123,7 +136,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link TypeTagObjectUnion.Numeric}"
               },
               {
                 "type": "object",
@@ -136,18 +150,22 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link TypeTagObjectUnion.Literal}"
               }
             ]
-          }
+          },
+          "description": "Current Type: {@link TypeTagObjectUnion}"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link TypeTagObjectUnion}",
         "type": "array",
         "items": {
+          "description": "Current Type: {@link TypeTagObjectUnion.Type}",
           "oneOf": [
             {
               "type": "object",
@@ -159,7 +177,8 @@
               },
               "required": [
                 "value"
-              ]
+              ],
+              "description": "Current Type: {@link TypeTagObjectUnion.Numeric}"
             },
             {
               "type": "object",
@@ -172,7 +191,8 @@
               },
               "required": [
                 "value"
-              ]
+              ],
+              "description": "Current Type: {@link TypeTagObjectUnion.Literal}"
             }
           ]
         }

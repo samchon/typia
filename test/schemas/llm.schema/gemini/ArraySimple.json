@@ -28,7 +28,8 @@
             "name",
             "body",
             "rank"
-          ]
+          ],
+          "description": "Current Type: {@link ArraySimple.IHobby}"
         }
       }
     },
@@ -36,6 +37,8 @@
       "name",
       "email",
       "hobbies"
-    ]
-  }
+    ],
+    "description": "Current Type: {@link ArraySimple.IPerson}"
+  },
+  "description": "Current Type: {@link ArraySimple}"
 }

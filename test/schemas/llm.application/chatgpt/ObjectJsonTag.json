@@ -9,9 +9,11 @@
     {
       "name": "insert",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ObjectJsonTag}",
             "type": "object",
             "properties": {
               "vulnerable": {
@@ -52,9 +54,11 @@
     {
       "name": "reduce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ObjectJsonTag}",
             "type": "object",
             "properties": {
               "vulnerable": {
@@ -117,7 +121,8 @@
                   "description",
                   "title",
                   "complicate_title"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectJsonTag}"
               }
             ]
           }
@@ -130,6 +135,7 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link ObjectJsonTag}",
         "type": "object",
         "properties": {
           "vulnerable": {
@@ -163,6 +169,7 @@
     {
       "name": "coalesce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
@@ -198,7 +205,8 @@
                   "description",
                   "title",
                   "complicate_title"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectJsonTag}"
               }
             ]
           },
@@ -235,7 +243,8 @@
                   "description",
                   "title",
                   "complicate_title"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectJsonTag}"
               }
             ]
           },
@@ -272,7 +281,8 @@
                   "description",
                   "title",
                   "complicate_title"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectJsonTag}"
               }
             ]
           }
@@ -317,7 +327,8 @@
               "description",
               "title",
               "complicate_title"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectJsonTag}"
           }
         ]
       }

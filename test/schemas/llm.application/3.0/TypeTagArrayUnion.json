@@ -65,8 +65,10 @@
                 "maxItems",
                 "both"
               ],
+              "description": "Current Type: {@link TypeTagArrayUnion.Type}",
               "additionalProperties": false
-            }
+            },
+            "description": "Current Type: {@link TypeTagArrayUnion}"
           }
         },
         "required": [
@@ -134,8 +136,10 @@
                 "maxItems",
                 "both"
               ],
+              "description": "Current Type: {@link TypeTagArrayUnion.Type}",
               "additionalProperties": false
-            }
+            },
+            "description": "Current Type: {@link TypeTagArrayUnion}"
           },
           "second": {
             "type": "array",
@@ -191,6 +195,7 @@
                 "maxItems",
                 "both"
               ],
+              "description": "Current Type: {@link TypeTagArrayUnion.Type}",
               "additionalProperties": false
             },
             "nullable": true
@@ -256,8 +261,10 @@
             "maxItems",
             "both"
           ],
+          "description": "Current Type: {@link TypeTagArrayUnion.Type}",
           "additionalProperties": false
-        }
+        },
+        "description": "Current Type: {@link TypeTagArrayUnion}"
       }
     },
     {
@@ -319,6 +326,7 @@
                 "maxItems",
                 "both"
               ],
+              "description": "Current Type: {@link TypeTagArrayUnion.Type}",
               "additionalProperties": false
             },
             "nullable": true
@@ -377,6 +385,7 @@
                 "maxItems",
                 "both"
               ],
+              "description": "Current Type: {@link TypeTagArrayUnion.Type}",
               "additionalProperties": false
             },
             "nullable": true
@@ -435,6 +444,7 @@
                 "maxItems",
                 "both"
               ],
+              "description": "Current Type: {@link TypeTagArrayUnion.Type}",
               "additionalProperties": false
             },
             "nullable": true
@@ -500,6 +510,7 @@
             "maxItems",
             "both"
           ],
+          "description": "Current Type: {@link TypeTagArrayUnion.Type}",
           "additionalProperties": false
         },
         "nullable": true

@@ -1,12 +1,15 @@
 {
+  "description": "",
   "type": "object",
   "properties": {
     "regular": {
+      "description": "Current Type: {@link TypeTagLength}",
       "type": "object",
       "properties": {
         "value": {
           "type": "array",
           "items": {
+            "description": "Current Type: {@link TypeTagLength.Type}",
             "type": "object",
             "properties": {
               "fixed": {
@@ -55,6 +58,7 @@
             "value": {
               "type": "array",
               "items": {
+                "description": "Current Type: {@link TypeTagLength.Type}",
                 "type": "object",
                 "properties": {
                   "fixed": {
@@ -90,16 +94,19 @@
           },
           "required": [
             "value"
-          ]
+          ],
+          "description": "Current Type: {@link TypeTagLength}"
         }
       ]
     },
     "optional": {
+      "description": "Current Type: {@link TypeTagLength}",
       "type": "object",
       "properties": {
         "value": {
           "type": "array",
           "items": {
+            "description": "Current Type: {@link TypeTagLength.Type}",
             "type": "object",
             "properties": {
               "fixed": {
@@ -148,6 +155,7 @@
             "value": {
               "type": "array",
               "items": {
+                "description": "Current Type: {@link TypeTagLength.Type}",
                 "type": "object",
                 "properties": {
                   "fixed": {
@@ -183,18 +191,21 @@
           },
           "required": [
             "value"
-          ]
+          ],
+          "description": "Current Type: {@link TypeTagLength}"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link TypeTagLength}",
         "type": "object",
         "properties": {
           "value": {
             "type": "array",
             "items": {
+              "description": "Current Type: {@link TypeTagLength.Type}",
               "type": "object",
               "properties": {
                 "fixed": {

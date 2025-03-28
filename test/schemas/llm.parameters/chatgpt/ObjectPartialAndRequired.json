@@ -1,4 +1,5 @@
 {
+  "description": "",
   "type": "object",
   "properties": {
     "regular": {
@@ -42,6 +43,7 @@
   "additionalProperties": false,
   "$defs": {
     "ObjectPartialAndRequired": {
+      "description": "",
       "type": "object",
       "properties": {
         "string": {

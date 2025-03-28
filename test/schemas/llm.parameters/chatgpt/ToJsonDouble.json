@@ -1,7 +1,9 @@
 {
+  "description": "",
   "type": "object",
   "properties": {
     "regular": {
+      "description": "Current Type: {@link ToJsonDouble.Child}",
       "type": "object",
       "properties": {
         "id": {
@@ -34,11 +36,13 @@
           "required": [
             "id",
             "flag"
-          ]
+          ],
+          "description": "Current Type: {@link ToJsonDouble.Child}"
         }
       ]
     },
     "optional": {
+      "description": "Current Type: {@link ToJsonDouble.Child}",
       "type": "object",
       "properties": {
         "id": {
@@ -71,13 +75,15 @@
           "required": [
             "id",
             "flag"
-          ]
+          ],
+          "description": "Current Type: {@link ToJsonDouble.Child}"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link ToJsonDouble.Child}",
         "type": "object",
         "properties": {
           "id": {

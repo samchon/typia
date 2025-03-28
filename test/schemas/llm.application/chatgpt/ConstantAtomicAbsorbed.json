@@ -9,9 +9,11 @@
     {
       "name": "insert",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ConstantAtomicAbsorbed}",
             "type": "object",
             "properties": {
               "id": {
@@ -38,9 +40,11 @@
     {
       "name": "reduce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ConstantAtomicAbsorbed}",
             "type": "object",
             "properties": {
               "id": {
@@ -75,7 +79,8 @@
                 "required": [
                   "id",
                   "age"
-                ]
+                ],
+                "description": "Current Type: {@link ConstantAtomicAbsorbed}"
               }
             ]
           }
@@ -88,6 +93,7 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link ConstantAtomicAbsorbed}",
         "type": "object",
         "properties": {
           "id": {
@@ -107,6 +113,7 @@
     {
       "name": "coalesce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
@@ -128,7 +135,8 @@
                 "required": [
                   "id",
                   "age"
-                ]
+                ],
+                "description": "Current Type: {@link ConstantAtomicAbsorbed}"
               }
             ]
           },
@@ -151,7 +159,8 @@
                 "required": [
                   "id",
                   "age"
-                ]
+                ],
+                "description": "Current Type: {@link ConstantAtomicAbsorbed}"
               }
             ]
           },
@@ -174,7 +183,8 @@
                 "required": [
                   "id",
                   "age"
-                ]
+                ],
+                "description": "Current Type: {@link ConstantAtomicAbsorbed}"
               }
             ]
           }
@@ -205,7 +215,8 @@
             "required": [
               "id",
               "age"
-            ]
+            ],
+            "description": "Current Type: {@link ConstantAtomicAbsorbed}"
           }
         ]
       }

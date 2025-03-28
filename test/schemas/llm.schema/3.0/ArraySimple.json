@@ -29,6 +29,7 @@
             "body",
             "rank"
           ],
+          "description": "Current Type: {@link ArraySimple.IHobby}",
           "additionalProperties": false
         }
       }
@@ -38,6 +39,8 @@
       "email",
       "hobbies"
     ],
+    "description": "Current Type: {@link ArraySimple.IPerson}",
     "additionalProperties": false
-  }
+  },
+  "description": "Current Type: {@link ArraySimple}"
 }

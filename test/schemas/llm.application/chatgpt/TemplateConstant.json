@@ -9,14 +9,17 @@
     {
       "name": "insert",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link TemplateConstant}",
             "type": "object",
             "properties": {
               "value": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link TemplateConstant.Type}",
                   "type": "object",
                   "properties": {
                     "prefix": {
@@ -73,14 +76,17 @@
     {
       "name": "reduce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link TemplateConstant}",
             "type": "object",
             "properties": {
               "value": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link TemplateConstant.Type}",
                   "type": "object",
                   "properties": {
                     "prefix": {
@@ -137,6 +143,7 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link TemplateConstant.Type}",
                       "type": "object",
                       "properties": {
                         "prefix": {
@@ -180,7 +187,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link TemplateConstant}"
               }
             ]
           }
@@ -193,11 +201,13 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link TemplateConstant}",
         "type": "object",
         "properties": {
           "value": {
             "type": "array",
             "items": {
+              "description": "Current Type: {@link TemplateConstant.Type}",
               "type": "object",
               "properties": {
                 "prefix": {
@@ -247,6 +257,7 @@
     {
       "name": "coalesce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
@@ -260,6 +271,7 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link TemplateConstant.Type}",
                       "type": "object",
                       "properties": {
                         "prefix": {
@@ -303,7 +315,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link TemplateConstant}"
               }
             ]
           },
@@ -318,6 +331,7 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link TemplateConstant.Type}",
                       "type": "object",
                       "properties": {
                         "prefix": {
@@ -361,7 +375,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link TemplateConstant}"
               }
             ]
           },
@@ -376,6 +391,7 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link TemplateConstant.Type}",
                       "type": "object",
                       "properties": {
                         "prefix": {
@@ -419,7 +435,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link TemplateConstant}"
               }
             ]
           }
@@ -442,6 +459,7 @@
               "value": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link TemplateConstant.Type}",
                   "type": "object",
                   "properties": {
                     "prefix": {
@@ -485,7 +503,8 @@
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link TemplateConstant}"
           }
         ]
       }

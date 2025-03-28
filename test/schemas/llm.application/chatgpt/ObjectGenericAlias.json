@@ -9,9 +9,11 @@
     {
       "name": "insert",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ObjectGenericAlias.Alias}",
             "type": "object",
             "properties": {
               "value": {
@@ -33,9 +35,11 @@
     {
       "name": "reduce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ObjectGenericAlias.Alias}",
             "type": "object",
             "properties": {
               "value": {
@@ -60,7 +64,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectGenericAlias.Alias}"
               }
             ]
           }
@@ -73,6 +78,7 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link ObjectGenericAlias.Alias}",
         "type": "object",
         "properties": {
           "value": {
@@ -87,6 +93,7 @@
     {
       "name": "coalesce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
@@ -103,7 +110,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectGenericAlias.Alias}"
               }
             ]
           },
@@ -121,7 +129,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectGenericAlias.Alias}"
               }
             ]
           },
@@ -139,7 +148,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectGenericAlias.Alias}"
               }
             ]
           }
@@ -165,7 +175,8 @@
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectGenericAlias.Alias}"
           }
         ]
       }

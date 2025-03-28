@@ -9,9 +9,11 @@
     {
       "name": "insert",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ObjectInternal}",
             "type": "object",
             "properties": {
               "id": {
@@ -37,9 +39,11 @@
     {
       "name": "reduce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ObjectInternal}",
             "type": "object",
             "properties": {
               "id": {
@@ -72,7 +76,8 @@
                 "required": [
                   "id",
                   "name"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectInternal}"
               }
             ]
           }
@@ -85,6 +90,7 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link ObjectInternal}",
         "type": "object",
         "properties": {
           "id": {
@@ -103,6 +109,7 @@
     {
       "name": "coalesce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
@@ -123,7 +130,8 @@
                 "required": [
                   "id",
                   "name"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectInternal}"
               }
             ]
           },
@@ -145,7 +153,8 @@
                 "required": [
                   "id",
                   "name"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectInternal}"
               }
             ]
           },
@@ -167,7 +176,8 @@
                 "required": [
                   "id",
                   "name"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectInternal}"
               }
             ]
           }
@@ -197,7 +207,8 @@
             "required": [
               "id",
               "name"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectInternal}"
           }
         ]
       }

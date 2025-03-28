@@ -12,11 +12,13 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link TypeTagType}",
             "type": "object",
             "properties": {
               "value": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link TypeTagType.Type}",
                   "type": "object",
                   "properties": {
                     "int": {
@@ -71,11 +73,13 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link TypeTagType}",
             "type": "object",
             "properties": {
               "value": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link TypeTagType.Type}",
                   "type": "object",
                   "properties": {
                     "int": {
@@ -127,6 +131,7 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link TypeTagType.Type}",
                       "type": "object",
                       "properties": {
                         "int": {
@@ -165,7 +170,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link TypeTagType}"
               }
             ]
           }
@@ -178,11 +184,13 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link TypeTagType}",
         "type": "object",
         "properties": {
           "value": {
             "type": "array",
             "items": {
+              "description": "Current Type: {@link TypeTagType.Type}",
               "type": "object",
               "properties": {
                 "int": {
@@ -240,6 +248,7 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link TypeTagType.Type}",
                       "type": "object",
                       "properties": {
                         "int": {
@@ -278,7 +287,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link TypeTagType}"
               }
             ]
           },
@@ -293,6 +303,7 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link TypeTagType.Type}",
                       "type": "object",
                       "properties": {
                         "int": {
@@ -331,7 +342,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link TypeTagType}"
               }
             ]
           },
@@ -346,6 +358,7 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link TypeTagType.Type}",
                       "type": "object",
                       "properties": {
                         "int": {
@@ -384,7 +397,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link TypeTagType}"
               }
             ]
           }
@@ -407,6 +421,7 @@
               "value": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link TypeTagType.Type}",
                   "type": "object",
                   "properties": {
                     "int": {
@@ -445,7 +460,8 @@
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link TypeTagType}"
           }
         ]
       }

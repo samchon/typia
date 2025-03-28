@@ -12,6 +12,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ConstantAtomicAbsorbed}",
             "type": "object",
             "properties": {
               "id": {
@@ -42,6 +43,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ConstantAtomicAbsorbed}",
             "type": "object",
             "properties": {
               "id": {
@@ -78,7 +80,8 @@
                 "required": [
                   "id",
                   "age"
-                ]
+                ],
+                "description": "Current Type: {@link ConstantAtomicAbsorbed}"
               }
             ]
           }
@@ -91,6 +94,7 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link ConstantAtomicAbsorbed}",
         "type": "object",
         "properties": {
           "id": {
@@ -133,7 +137,8 @@
                 "required": [
                   "id",
                   "age"
-                ]
+                ],
+                "description": "Current Type: {@link ConstantAtomicAbsorbed}"
               }
             ]
           },
@@ -157,7 +162,8 @@
                 "required": [
                   "id",
                   "age"
-                ]
+                ],
+                "description": "Current Type: {@link ConstantAtomicAbsorbed}"
               }
             ]
           },
@@ -181,7 +187,8 @@
                 "required": [
                   "id",
                   "age"
-                ]
+                ],
+                "description": "Current Type: {@link ConstantAtomicAbsorbed}"
               }
             ]
           }
@@ -213,7 +220,8 @@
             "required": [
               "id",
               "age"
-            ]
+            ],
+            "description": "Current Type: {@link ConstantAtomicAbsorbed}"
           }
         ]
       }

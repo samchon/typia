@@ -50,6 +50,8 @@
       "age",
       "dead"
     ],
+    "description": "Current Type: {@link ObjectAlias.IMember}",
     "additionalProperties": false
-  }
+  },
+  "description": "Current Type: {@link ObjectAlias}"
 }

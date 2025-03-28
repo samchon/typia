@@ -1,12 +1,15 @@
 {
+  "description": "",
   "type": "object",
   "properties": {
     "regular": {
+      "description": "Current Type: {@link TemplateConstant}",
       "type": "object",
       "properties": {
         "value": {
           "type": "array",
           "items": {
+            "description": "Current Type: {@link TemplateConstant.Type}",
             "type": "object",
             "properties": {
               "prefix": {
@@ -63,6 +66,7 @@
             "value": {
               "type": "array",
               "items": {
+                "description": "Current Type: {@link TemplateConstant.Type}",
                 "type": "object",
                 "properties": {
                   "prefix": {
@@ -106,16 +110,19 @@
           },
           "required": [
             "value"
-          ]
+          ],
+          "description": "Current Type: {@link TemplateConstant}"
         }
       ]
     },
     "optional": {
+      "description": "Current Type: {@link TemplateConstant}",
       "type": "object",
       "properties": {
         "value": {
           "type": "array",
           "items": {
+            "description": "Current Type: {@link TemplateConstant.Type}",
             "type": "object",
             "properties": {
               "prefix": {
@@ -172,6 +179,7 @@
             "value": {
               "type": "array",
               "items": {
+                "description": "Current Type: {@link TemplateConstant.Type}",
                 "type": "object",
                 "properties": {
                   "prefix": {
@@ -215,18 +223,21 @@
           },
           "required": [
             "value"
-          ]
+          ],
+          "description": "Current Type: {@link TemplateConstant}"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link TemplateConstant}",
         "type": "object",
         "properties": {
           "value": {
             "type": "array",
             "items": {
+              "description": "Current Type: {@link TemplateConstant.Type}",
               "type": "object",
               "properties": {
                 "prefix": {

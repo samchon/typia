@@ -9,9 +9,11 @@
     {
       "name": "insert",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ObjectLiteralProperty.ISomething}",
             "type": "object",
             "properties": {
               "something-interesting-do-you-want?": {
@@ -37,9 +39,11 @@
     {
       "name": "reduce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ObjectLiteralProperty.ISomething}",
             "type": "object",
             "properties": {
               "something-interesting-do-you-want?": {
@@ -72,7 +76,8 @@
                 "required": [
                   "something-interesting-do-you-want?",
                   "or-something-crazy-do-you-want?"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectLiteralProperty.ISomething}"
               }
             ]
           }
@@ -85,6 +90,7 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link ObjectLiteralProperty.ISomething}",
         "type": "object",
         "properties": {
           "something-interesting-do-you-want?": {
@@ -103,6 +109,7 @@
     {
       "name": "coalesce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
@@ -123,7 +130,8 @@
                 "required": [
                   "something-interesting-do-you-want?",
                   "or-something-crazy-do-you-want?"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectLiteralProperty.ISomething}"
               }
             ]
           },
@@ -145,7 +153,8 @@
                 "required": [
                   "something-interesting-do-you-want?",
                   "or-something-crazy-do-you-want?"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectLiteralProperty.ISomething}"
               }
             ]
           },
@@ -167,7 +176,8 @@
                 "required": [
                   "something-interesting-do-you-want?",
                   "or-something-crazy-do-you-want?"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectLiteralProperty.ISomething}"
               }
             ]
           }
@@ -197,7 +207,8 @@
             "required": [
               "something-interesting-do-you-want?",
               "or-something-crazy-do-you-want?"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectLiteralProperty.ISomething}"
           }
         ]
       }

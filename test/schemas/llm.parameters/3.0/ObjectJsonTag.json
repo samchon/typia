@@ -30,6 +30,7 @@
         "title",
         "complicate_title"
       ],
+      "description": "Current Type: {@link ObjectJsonTag}",
       "additionalProperties": false
     },
     "nullable": {
@@ -93,6 +94,7 @@
         "title",
         "complicate_title"
       ],
+      "description": "Current Type: {@link ObjectJsonTag}",
       "additionalProperties": false
     },
     "faint": {
@@ -158,6 +160,7 @@
           "title",
           "complicate_title"
         ],
+        "description": "Current Type: {@link ObjectJsonTag}",
         "additionalProperties": false
       }
     }

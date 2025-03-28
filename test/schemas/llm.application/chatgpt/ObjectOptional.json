@@ -9,9 +9,11 @@
     {
       "name": "insert",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ObjectOptional}",
             "type": "object",
             "properties": {
               "id": {
@@ -40,9 +42,11 @@
     {
       "name": "reduce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ObjectOptional}",
             "type": "object",
             "properties": {
               "id": {
@@ -81,7 +85,8 @@
                     "type": "number"
                   }
                 },
-                "required": []
+                "required": [],
+                "description": "Current Type: {@link ObjectOptional}"
               }
             ]
           }
@@ -94,6 +99,7 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link ObjectOptional}",
         "type": "object",
         "properties": {
           "id": {
@@ -115,6 +121,7 @@
     {
       "name": "coalesce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
@@ -138,7 +145,8 @@
                     "type": "number"
                   }
                 },
-                "required": []
+                "required": [],
+                "description": "Current Type: {@link ObjectOptional}"
               }
             ]
           },
@@ -163,7 +171,8 @@
                     "type": "number"
                   }
                 },
-                "required": []
+                "required": [],
+                "description": "Current Type: {@link ObjectOptional}"
               }
             ]
           },
@@ -188,7 +197,8 @@
                     "type": "number"
                   }
                 },
-                "required": []
+                "required": [],
+                "description": "Current Type: {@link ObjectOptional}"
               }
             ]
           }
@@ -221,7 +231,8 @@
                 "type": "number"
               }
             },
-            "required": []
+            "required": [],
+            "description": "Current Type: {@link ObjectOptional}"
           }
         ]
       }

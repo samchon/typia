@@ -1,12 +1,15 @@
 {
+  "description": "",
   "type": "object",
   "properties": {
     "regular": {
+      "description": "Current Type: {@link TypeTagRange}",
       "type": "object",
       "properties": {
         "value": {
           "type": "array",
           "items": {
+            "description": "Current Type: {@link TypeTagRange.Type}",
             "type": "object",
             "properties": {
               "greater": {
@@ -75,6 +78,7 @@
             "value": {
               "type": "array",
               "items": {
+                "description": "Current Type: {@link TypeTagRange.Type}",
                 "type": "object",
                 "properties": {
                   "greater": {
@@ -130,16 +134,19 @@
           },
           "required": [
             "value"
-          ]
+          ],
+          "description": "Current Type: {@link TypeTagRange}"
         }
       ]
     },
     "optional": {
+      "description": "Current Type: {@link TypeTagRange}",
       "type": "object",
       "properties": {
         "value": {
           "type": "array",
           "items": {
+            "description": "Current Type: {@link TypeTagRange.Type}",
             "type": "object",
             "properties": {
               "greater": {
@@ -208,6 +215,7 @@
             "value": {
               "type": "array",
               "items": {
+                "description": "Current Type: {@link TypeTagRange.Type}",
                 "type": "object",
                 "properties": {
                   "greater": {
@@ -263,18 +271,21 @@
           },
           "required": [
             "value"
-          ]
+          ],
+          "description": "Current Type: {@link TypeTagRange}"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link TypeTagRange}",
         "type": "object",
         "properties": {
           "value": {
             "type": "array",
             "items": {
+              "description": "Current Type: {@link TypeTagRange.Type}",
               "type": "object",
               "properties": {
                 "greater": {

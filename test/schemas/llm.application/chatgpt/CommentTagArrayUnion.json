@@ -9,11 +9,14 @@
     {
       "name": "insert",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link CommentTagArrayUnion}",
             "type": "array",
             "items": {
+              "description": "Current Type: {@link CommentTagArrayUnion.Type}",
               "type": "object",
               "properties": {
                 "items": {
@@ -71,11 +74,14 @@
     {
       "name": "reduce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link CommentTagArrayUnion}",
             "type": "array",
             "items": {
+              "description": "Current Type: {@link CommentTagArrayUnion.Type}",
               "type": "object",
               "properties": {
                 "items": {
@@ -130,6 +136,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link CommentTagArrayUnion.Type}",
                   "type": "object",
                   "properties": {
                     "items": {
@@ -174,7 +181,8 @@
                     "maxItems",
                     "both"
                   ]
-                }
+                },
+                "description": "Current Type: {@link CommentTagArrayUnion}"
               }
             ]
           }
@@ -187,8 +195,10 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link CommentTagArrayUnion}",
         "type": "array",
         "items": {
+          "description": "Current Type: {@link CommentTagArrayUnion.Type}",
           "type": "object",
           "properties": {
             "items": {
@@ -239,6 +249,7 @@
     {
       "name": "coalesce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
@@ -249,6 +260,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link CommentTagArrayUnion.Type}",
                   "type": "object",
                   "properties": {
                     "items": {
@@ -293,7 +305,8 @@
                     "maxItems",
                     "both"
                   ]
-                }
+                },
+                "description": "Current Type: {@link CommentTagArrayUnion}"
               }
             ]
           },
@@ -305,6 +318,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link CommentTagArrayUnion.Type}",
                   "type": "object",
                   "properties": {
                     "items": {
@@ -349,7 +363,8 @@
                     "maxItems",
                     "both"
                   ]
-                }
+                },
+                "description": "Current Type: {@link CommentTagArrayUnion}"
               }
             ]
           },
@@ -361,6 +376,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link CommentTagArrayUnion.Type}",
                   "type": "object",
                   "properties": {
                     "items": {
@@ -405,7 +421,8 @@
                     "maxItems",
                     "both"
                   ]
-                }
+                },
+                "description": "Current Type: {@link CommentTagArrayUnion}"
               }
             ]
           }
@@ -425,6 +442,7 @@
           {
             "type": "array",
             "items": {
+              "description": "Current Type: {@link CommentTagArrayUnion.Type}",
               "type": "object",
               "properties": {
                 "items": {
@@ -469,7 +487,8 @@
                 "maxItems",
                 "both"
               ]
-            }
+            },
+            "description": "Current Type: {@link CommentTagArrayUnion}"
           }
         ]
       }

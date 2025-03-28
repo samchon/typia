@@ -2,6 +2,7 @@
   "type": "object",
   "properties": {},
   "required": [],
+  "description": "Current Type: {@link DynamicTemplate}",
   "additionalProperties": {
     "oneOf": [
       {

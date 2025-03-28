@@ -44,13 +44,15 @@
               "prefix",
               "postfix",
               "combined"
-            ]
+            ],
+            "description": "Current Type: {@link TemplateConstant.Type}"
           }
         }
       },
       "required": [
         "value"
-      ]
+      ],
+      "description": "Current Type: {@link TemplateConstant}"
     },
     "nullable": {
       "type": "object",
@@ -95,7 +97,8 @@
               "prefix",
               "postfix",
               "combined"
-            ]
+            ],
+            "description": "Current Type: {@link TemplateConstant.Type}"
           }
         }
       },
@@ -147,13 +150,15 @@
               "prefix",
               "postfix",
               "combined"
-            ]
+            ],
+            "description": "Current Type: {@link TemplateConstant.Type}"
           }
         }
       },
       "required": [
         "value"
-      ]
+      ],
+      "description": "Current Type: {@link TemplateConstant}"
     },
     "faint": {
       "type": "object",
@@ -198,7 +203,8 @@
               "prefix",
               "postfix",
               "combined"
-            ]
+            ],
+            "description": "Current Type: {@link TemplateConstant.Type}"
           }
         }
       },
@@ -252,13 +258,15 @@
                 "prefix",
                 "postfix",
                 "combined"
-              ]
+              ],
+              "description": "Current Type: {@link TemplateConstant.Type}"
             }
           }
         },
         "required": [
           "value"
-        ]
+        ],
+        "description": "Current Type: {@link TemplateConstant}"
       }
     }
   },

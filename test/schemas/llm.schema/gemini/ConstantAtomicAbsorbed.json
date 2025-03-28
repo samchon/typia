@@ -12,5 +12,6 @@
   "required": [
     "id",
     "age"
-  ]
+  ],
+  "description": "Current Type: {@link ConstantAtomicAbsorbed}"
 }

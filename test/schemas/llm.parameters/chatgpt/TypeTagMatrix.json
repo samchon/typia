@@ -1,7 +1,9 @@
 {
+  "description": "",
   "type": "object",
   "properties": {
     "regular": {
+      "description": "Current Type: {@link TypeTagMatrix}",
       "type": "object",
       "properties": {
         "matrix": {
@@ -44,11 +46,13 @@
           },
           "required": [
             "matrix"
-          ]
+          ],
+          "description": "Current Type: {@link TypeTagMatrix}"
         }
       ]
     },
     "optional": {
+      "description": "Current Type: {@link TypeTagMatrix}",
       "type": "object",
       "properties": {
         "matrix": {
@@ -91,13 +95,15 @@
           },
           "required": [
             "matrix"
-          ]
+          ],
+          "description": "Current Type: {@link TypeTagMatrix}"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link TypeTagMatrix}",
         "type": "object",
         "properties": {
           "matrix": {

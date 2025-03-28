@@ -42,6 +42,7 @@
             "required": [
               "value"
             ],
+            "description": "Current Type: {@link DynamicConstant}",
             "additionalProperties": false
           }
         },
@@ -87,6 +88,7 @@
             "required": [
               "value"
             ],
+            "description": "Current Type: {@link DynamicConstant}",
             "additionalProperties": false
           },
           "second": {
@@ -161,6 +163,7 @@
         "required": [
           "value"
         ],
+        "description": "Current Type: {@link DynamicConstant}",
         "additionalProperties": false
       }
     },

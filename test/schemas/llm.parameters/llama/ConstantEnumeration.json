@@ -2,8 +2,10 @@
   "type": "object",
   "properties": {
     "regular": {
+      "description": "Current Type: {@link ConstantEnumeration}",
       "type": "array",
       "items": {
+        "description": "Current Type: {@link ConstantEnumeration.Enumeration}",
         "oneOf": [
           {
             "const": 0
@@ -31,6 +33,7 @@
         {
           "type": "array",
           "items": {
+            "description": "Current Type: {@link ConstantEnumeration.Enumeration}",
             "oneOf": [
               {
                 "const": 0
@@ -48,13 +51,16 @@
                 "const": "Four"
               }
             ]
-          }
+          },
+          "description": "Current Type: {@link ConstantEnumeration}"
         }
       ]
     },
     "optional": {
+      "description": "Current Type: {@link ConstantEnumeration}",
       "type": "array",
       "items": {
+        "description": "Current Type: {@link ConstantEnumeration.Enumeration}",
         "oneOf": [
           {
             "const": 0
@@ -82,6 +88,7 @@
         {
           "type": "array",
           "items": {
+            "description": "Current Type: {@link ConstantEnumeration.Enumeration}",
             "oneOf": [
               {
                 "const": 0
@@ -99,15 +106,18 @@
                 "const": "Four"
               }
             ]
-          }
+          },
+          "description": "Current Type: {@link ConstantEnumeration}"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link ConstantEnumeration}",
         "type": "array",
         "items": {
+          "description": "Current Type: {@link ConstantEnumeration.Enumeration}",
           "oneOf": [
             {
               "const": 0

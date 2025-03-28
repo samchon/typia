@@ -9,11 +9,14 @@
     {
       "name": "insert",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link TypeTagArrayUnion}",
             "type": "array",
             "items": {
+              "description": "Current Type: {@link TypeTagArrayUnion.Type}",
               "type": "object",
               "properties": {
                 "items": {
@@ -76,11 +79,14 @@
     {
       "name": "reduce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link TypeTagArrayUnion}",
             "type": "array",
             "items": {
+              "description": "Current Type: {@link TypeTagArrayUnion.Type}",
               "type": "object",
               "properties": {
                 "items": {
@@ -140,6 +146,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link TypeTagArrayUnion.Type}",
                   "type": "object",
                   "properties": {
                     "items": {
@@ -189,7 +196,8 @@
                     "maxItems",
                     "both"
                   ]
-                }
+                },
+                "description": "Current Type: {@link TypeTagArrayUnion}"
               }
             ]
           }
@@ -202,8 +210,10 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link TypeTagArrayUnion}",
         "type": "array",
         "items": {
+          "description": "Current Type: {@link TypeTagArrayUnion.Type}",
           "type": "object",
           "properties": {
             "items": {
@@ -259,6 +269,7 @@
     {
       "name": "coalesce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
@@ -269,6 +280,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link TypeTagArrayUnion.Type}",
                   "type": "object",
                   "properties": {
                     "items": {
@@ -318,7 +330,8 @@
                     "maxItems",
                     "both"
                   ]
-                }
+                },
+                "description": "Current Type: {@link TypeTagArrayUnion}"
               }
             ]
           },
@@ -330,6 +343,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link TypeTagArrayUnion.Type}",
                   "type": "object",
                   "properties": {
                     "items": {
@@ -379,7 +393,8 @@
                     "maxItems",
                     "both"
                   ]
-                }
+                },
+                "description": "Current Type: {@link TypeTagArrayUnion}"
               }
             ]
           },
@@ -391,6 +406,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link TypeTagArrayUnion.Type}",
                   "type": "object",
                   "properties": {
                     "items": {
@@ -440,7 +456,8 @@
                     "maxItems",
                     "both"
                   ]
-                }
+                },
+                "description": "Current Type: {@link TypeTagArrayUnion}"
               }
             ]
           }
@@ -460,6 +477,7 @@
           {
             "type": "array",
             "items": {
+              "description": "Current Type: {@link TypeTagArrayUnion.Type}",
               "type": "object",
               "properties": {
                 "items": {
@@ -509,7 +527,8 @@
                 "maxItems",
                 "both"
               ]
-            }
+            },
+            "description": "Current Type: {@link TypeTagArrayUnion}"
           }
         ]
       }

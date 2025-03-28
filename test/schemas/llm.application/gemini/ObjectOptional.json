@@ -26,7 +26,8 @@
                 "type": "number"
               }
             },
-            "required": []
+            "required": [],
+            "description": "Current Type: {@link ObjectOptional}"
           }
         },
         "required": [
@@ -55,7 +56,8 @@
                 "type": "number"
               }
             },
-            "required": []
+            "required": [],
+            "description": "Current Type: {@link ObjectOptional}"
           },
           "second": {
             "type": "object",
@@ -98,7 +100,8 @@
             "type": "number"
           }
         },
-        "required": []
+        "required": [],
+        "description": "Current Type: {@link ObjectOptional}"
       }
     },
     {

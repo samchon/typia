@@ -12,11 +12,13 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link CommentTagLength}",
             "type": "object",
             "properties": {
               "value": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link CommentTagLength.Type}",
                   "type": "object",
                   "properties": {
                     "fixed": {
@@ -71,11 +73,13 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link CommentTagLength}",
             "type": "object",
             "properties": {
               "value": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link CommentTagLength.Type}",
                   "type": "object",
                   "properties": {
                     "fixed": {
@@ -127,6 +131,7 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link CommentTagLength.Type}",
                       "type": "object",
                       "properties": {
                         "fixed": {
@@ -165,7 +170,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link CommentTagLength}"
               }
             ]
           }
@@ -178,11 +184,13 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link CommentTagLength}",
         "type": "object",
         "properties": {
           "value": {
             "type": "array",
             "items": {
+              "description": "Current Type: {@link CommentTagLength.Type}",
               "type": "object",
               "properties": {
                 "fixed": {
@@ -240,6 +248,7 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link CommentTagLength.Type}",
                       "type": "object",
                       "properties": {
                         "fixed": {
@@ -278,7 +287,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link CommentTagLength}"
               }
             ]
           },
@@ -293,6 +303,7 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link CommentTagLength.Type}",
                       "type": "object",
                       "properties": {
                         "fixed": {
@@ -331,7 +342,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link CommentTagLength}"
               }
             ]
           },
@@ -346,6 +358,7 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link CommentTagLength.Type}",
                       "type": "object",
                       "properties": {
                         "fixed": {
@@ -384,7 +397,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link CommentTagLength}"
               }
             ]
           }
@@ -407,6 +421,7 @@
               "value": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link CommentTagLength.Type}",
                   "type": "object",
                   "properties": {
                     "fixed": {
@@ -445,7 +460,8 @@
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link CommentTagLength}"
           }
         ]
       }

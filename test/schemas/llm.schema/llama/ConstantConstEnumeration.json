@@ -1,6 +1,8 @@
 {
+  "description": "Current Type: {@link ConstantConstEnumeration}",
   "type": "array",
   "items": {
+    "description": "Current Type: {@link ConstantConstEnumeration.Enumeration}",
     "oneOf": [
       {
         "const": 0

@@ -1,4 +1,5 @@
 {
+  "description": "Current Type: {@link TypeTagCustom}",
   "type": "object",
   "properties": {
     "id": {

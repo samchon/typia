@@ -2,6 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
+      "description": "Current Type: {@link ObjectPrimitive.IArticle}",
       "type": "object",
       "properties": {
         "id": {
@@ -29,6 +30,7 @@
         "files": {
           "type": "array",
           "items": {
+            "description": "Current Type: {@link ObjectPrimitive.IFile}",
             "type": "object",
             "properties": {
               "id": {
@@ -106,6 +108,7 @@
             "files": {
               "type": "array",
               "items": {
+                "description": "Current Type: {@link ObjectPrimitive.IFile}",
                 "type": "object",
                 "properties": {
                   "id": {
@@ -148,11 +151,13 @@
             "files",
             "secret",
             "created_at"
-          ]
+          ],
+          "description": "Current Type: {@link ObjectPrimitive.IArticle}"
         }
       ]
     },
     "optional": {
+      "description": "Current Type: {@link ObjectPrimitive.IArticle}",
       "type": "object",
       "properties": {
         "id": {
@@ -180,6 +185,7 @@
         "files": {
           "type": "array",
           "items": {
+            "description": "Current Type: {@link ObjectPrimitive.IFile}",
             "type": "object",
             "properties": {
               "id": {
@@ -257,6 +263,7 @@
             "files": {
               "type": "array",
               "items": {
+                "description": "Current Type: {@link ObjectPrimitive.IFile}",
                 "type": "object",
                 "properties": {
                   "id": {
@@ -299,13 +306,15 @@
             "files",
             "secret",
             "created_at"
-          ]
+          ],
+          "description": "Current Type: {@link ObjectPrimitive.IArticle}"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link ObjectPrimitive.IArticle}",
         "type": "object",
         "properties": {
           "id": {
@@ -333,6 +342,7 @@
           "files": {
             "type": "array",
             "items": {
+              "description": "Current Type: {@link ObjectPrimitive.IFile}",
               "type": "object",
               "properties": {
                 "id": {

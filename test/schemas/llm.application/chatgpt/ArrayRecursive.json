@@ -9,6 +9,7 @@
     {
       "name": "insert",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
@@ -21,6 +22,7 @@
         "additionalProperties": false,
         "$defs": {
           "ArrayRecursive.ICategory": {
+            "description": "",
             "type": "object",
             "properties": {
               "children": {
@@ -39,6 +41,7 @@
                 "type": "number"
               },
               "created_at": {
+                "description": "Current Type: {@link ArrayRecursive.ITimestamp}",
                 "type": "object",
                 "properties": {
                   "time": {
@@ -68,6 +71,7 @@
     {
       "name": "reduce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
@@ -91,6 +95,7 @@
         "additionalProperties": false,
         "$defs": {
           "ArrayRecursive.ICategory": {
+            "description": "",
             "type": "object",
             "properties": {
               "children": {
@@ -109,6 +114,7 @@
                 "type": "number"
               },
               "created_at": {
+                "description": "Current Type: {@link ArrayRecursive.ITimestamp}",
                 "type": "object",
                 "properties": {
                   "time": {
@@ -141,6 +147,7 @@
     {
       "name": "coalesce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
@@ -181,6 +188,7 @@
         "additionalProperties": false,
         "$defs": {
           "ArrayRecursive.ICategory": {
+            "description": "",
             "type": "object",
             "properties": {
               "children": {
@@ -199,6 +207,7 @@
                 "type": "number"
               },
               "created_at": {
+                "description": "Current Type: {@link ArrayRecursive.ITimestamp}",
                 "type": "object",
                 "properties": {
                   "time": {

@@ -35,7 +35,7 @@
         "descriptions",
         "newLine"
       ],
-      "description": "This is the title of object type.\n\nAn interface designed to test JSON schema's object description."
+      "description": "This is the title of object type.\n\nDescription of the current {@link ObjectDescription} type:\n\n> An interface designed to test JSON schema's object description."
     },
     "nullable": {
       "type": "object",
@@ -107,7 +107,7 @@
         "descriptions",
         "newLine"
       ],
-      "description": "This is the title of object type.\n\nAn interface designed to test JSON schema's object description."
+      "description": "This is the title of object type.\n\nDescription of the current {@link ObjectDescription} type:\n\n> An interface designed to test JSON schema's object description."
     },
     "faint": {
       "type": "object",
@@ -181,7 +181,7 @@
           "descriptions",
           "newLine"
         ],
-        "description": "This is the title of object type.\n\nAn interface designed to test JSON schema's object description."
+        "description": "This is the title of object type.\n\nDescription of the current {@link ObjectDescription} type:\n\n> An interface designed to test JSON schema's object description."
       }
     }
   },

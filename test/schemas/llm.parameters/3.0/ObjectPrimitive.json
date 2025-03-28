@@ -49,6 +49,7 @@
               "url",
               "created_at"
             ],
+            "description": "Current Type: {@link ObjectPrimitive.IFile}",
             "additionalProperties": false
           }
         },
@@ -68,6 +69,7 @@
         "secret",
         "created_at"
       ],
+      "description": "Current Type: {@link ObjectPrimitive.IArticle}",
       "additionalProperties": false
     },
     "nullable": {
@@ -118,6 +120,7 @@
               "url",
               "created_at"
             ],
+            "description": "Current Type: {@link ObjectPrimitive.IFile}",
             "additionalProperties": false
           }
         },
@@ -188,6 +191,7 @@
               "url",
               "created_at"
             ],
+            "description": "Current Type: {@link ObjectPrimitive.IFile}",
             "additionalProperties": false
           }
         },
@@ -207,6 +211,7 @@
         "secret",
         "created_at"
       ],
+      "description": "Current Type: {@link ObjectPrimitive.IArticle}",
       "additionalProperties": false
     },
     "faint": {
@@ -257,6 +262,7 @@
               "url",
               "created_at"
             ],
+            "description": "Current Type: {@link ObjectPrimitive.IFile}",
             "additionalProperties": false
           }
         },
@@ -329,6 +335,7 @@
                 "url",
                 "created_at"
               ],
+              "description": "Current Type: {@link ObjectPrimitive.IFile}",
               "additionalProperties": false
             }
           },
@@ -348,6 +355,7 @@
           "secret",
           "created_at"
         ],
+        "description": "Current Type: {@link ObjectPrimitive.IArticle}",
         "additionalProperties": false
       }
     }

@@ -1,6 +1,8 @@
 {
+  "description": "Current Type: {@link ObjectAlias}",
   "type": "array",
   "items": {
+    "description": "Current Type: {@link ObjectAlias.IMember}",
     "type": "object",
     "properties": {
       "id": {

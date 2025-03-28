@@ -48,13 +48,15 @@
                     "int64",
                     "uint64",
                     "float"
-                  ]
+                  ],
+                  "description": "Current Type: {@link TypeTagType.Type}"
                 }
               }
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link TypeTagType}"
           }
         },
         "required": [
@@ -105,13 +107,15 @@
                     "int64",
                     "uint64",
                     "float"
-                  ]
+                  ],
+                  "description": "Current Type: {@link TypeTagType.Type}"
                 }
               }
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link TypeTagType}"
           },
           "second": {
             "type": "object",
@@ -151,7 +155,8 @@
                     "int64",
                     "uint64",
                     "float"
-                  ]
+                  ],
+                  "description": "Current Type: {@link TypeTagType.Type}"
                 }
               }
             },
@@ -204,13 +209,15 @@
                 "int64",
                 "uint64",
                 "float"
-              ]
+              ],
+              "description": "Current Type: {@link TypeTagType.Type}"
             }
           }
         },
         "required": [
           "value"
-        ]
+        ],
+        "description": "Current Type: {@link TypeTagType}"
       }
     },
     {
@@ -256,7 +263,8 @@
                     "int64",
                     "uint64",
                     "float"
-                  ]
+                  ],
+                  "description": "Current Type: {@link TypeTagType.Type}"
                 }
               }
             },
@@ -303,7 +311,8 @@
                     "int64",
                     "uint64",
                     "float"
-                  ]
+                  ],
+                  "description": "Current Type: {@link TypeTagType.Type}"
                 }
               }
             },
@@ -350,7 +359,8 @@
                     "int64",
                     "uint64",
                     "float"
-                  ]
+                  ],
+                  "description": "Current Type: {@link TypeTagType.Type}"
                 }
               }
             },
@@ -403,7 +413,8 @@
                 "int64",
                 "uint64",
                 "float"
-              ]
+              ],
+              "description": "Current Type: {@link TypeTagType.Type}"
             }
           }
         },

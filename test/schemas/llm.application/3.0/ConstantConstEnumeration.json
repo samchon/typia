@@ -30,8 +30,10 @@
                     "Four"
                   ]
                 }
-              ]
-            }
+              ],
+              "description": "Current Type: {@link ConstantConstEnumeration.Enumeration}"
+            },
+            "description": "Current Type: {@link ConstantConstEnumeration}"
           }
         },
         "required": [
@@ -64,8 +66,10 @@
                     "Four"
                   ]
                 }
-              ]
-            }
+              ],
+              "description": "Current Type: {@link ConstantConstEnumeration.Enumeration}"
+            },
+            "description": "Current Type: {@link ConstantConstEnumeration}"
           },
           "second": {
             "type": "array",
@@ -86,7 +90,8 @@
                     "Four"
                   ]
                 }
-              ]
+              ],
+              "description": "Current Type: {@link ConstantConstEnumeration.Enumeration}"
             },
             "nullable": true
           }
@@ -116,8 +121,10 @@
                 "Four"
               ]
             }
-          ]
-        }
+          ],
+          "description": "Current Type: {@link ConstantConstEnumeration.Enumeration}"
+        },
+        "description": "Current Type: {@link ConstantConstEnumeration}"
       }
     },
     {
@@ -144,7 +151,8 @@
                     "Four"
                   ]
                 }
-              ]
+              ],
+              "description": "Current Type: {@link ConstantConstEnumeration.Enumeration}"
             },
             "nullable": true
           },
@@ -167,7 +175,8 @@
                     "Four"
                   ]
                 }
-              ]
+              ],
+              "description": "Current Type: {@link ConstantConstEnumeration.Enumeration}"
             },
             "nullable": true
           },
@@ -190,7 +199,8 @@
                     "Four"
                   ]
                 }
-              ]
+              ],
+              "description": "Current Type: {@link ConstantConstEnumeration.Enumeration}"
             },
             "nullable": true
           }
@@ -220,7 +230,8 @@
                 "Four"
               ]
             }
-          ]
+          ],
+          "description": "Current Type: {@link ConstantConstEnumeration.Enumeration}"
         },
         "nullable": true
       }

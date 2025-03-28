@@ -1,7 +1,9 @@
 {
+  "description": "",
   "type": "object",
   "properties": {
     "regular": {
+      "description": "Current Type: {@link DynamicTemplate}",
       "type": "object",
       "properties": {},
       "required": [],
@@ -28,6 +30,7 @@
           "type": "object",
           "properties": {},
           "required": [],
+          "description": "Current Type: {@link DynamicTemplate}",
           "additionalProperties": {
             "anyOf": [
               {
@@ -45,6 +48,7 @@
       ]
     },
     "optional": {
+      "description": "Current Type: {@link DynamicTemplate}",
       "type": "object",
       "properties": {},
       "required": [],
@@ -71,6 +75,7 @@
           "type": "object",
           "properties": {},
           "required": [],
+          "description": "Current Type: {@link DynamicTemplate}",
           "additionalProperties": {
             "anyOf": [
               {
@@ -90,6 +95,7 @@
     "array": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link DynamicTemplate}",
         "type": "object",
         "properties": {},
         "required": [],

@@ -1,7 +1,9 @@
 {
+  "description": "",
   "type": "object",
   "properties": {
     "regular": {
+      "description": "Current Type: {@link TypeTagDefault}",
       "type": "object",
       "properties": {
         "boolean": {
@@ -200,11 +202,13 @@
             "union_but_number",
             "union_but_string",
             "boolean_and_number_and_template"
-          ]
+          ],
+          "description": "Current Type: {@link TypeTagDefault}"
         }
       ]
     },
     "optional": {
+      "description": "Current Type: {@link TypeTagDefault}",
       "type": "object",
       "properties": {
         "boolean": {
@@ -403,13 +407,15 @@
             "union_but_number",
             "union_but_string",
             "boolean_and_number_and_template"
-          ]
+          ],
+          "description": "Current Type: {@link TypeTagDefault}"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link TypeTagDefault}",
         "type": "object",
         "properties": {
           "boolean": {

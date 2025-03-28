@@ -65,13 +65,15 @@
                     "greater_less_equal",
                     "greater_equal_less_equal",
                     "equal"
-                  ]
+                  ],
+                  "description": "Current Type: {@link CommentTagRange.Type}"
                 }
               }
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link CommentTagRange}"
           }
         },
         "required": [
@@ -139,13 +141,15 @@
                     "greater_less_equal",
                     "greater_equal_less_equal",
                     "equal"
-                  ]
+                  ],
+                  "description": "Current Type: {@link CommentTagRange.Type}"
                 }
               }
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link CommentTagRange}"
           },
           "second": {
             "type": "object",
@@ -202,7 +206,8 @@
                     "greater_less_equal",
                     "greater_equal_less_equal",
                     "equal"
-                  ]
+                  ],
+                  "description": "Current Type: {@link CommentTagRange.Type}"
                 }
               }
             },
@@ -272,13 +277,15 @@
                 "greater_less_equal",
                 "greater_equal_less_equal",
                 "equal"
-              ]
+              ],
+              "description": "Current Type: {@link CommentTagRange.Type}"
             }
           }
         },
         "required": [
           "value"
-        ]
+        ],
+        "description": "Current Type: {@link CommentTagRange}"
       }
     },
     {
@@ -341,7 +348,8 @@
                     "greater_less_equal",
                     "greater_equal_less_equal",
                     "equal"
-                  ]
+                  ],
+                  "description": "Current Type: {@link CommentTagRange.Type}"
                 }
               }
             },
@@ -405,7 +413,8 @@
                     "greater_less_equal",
                     "greater_equal_less_equal",
                     "equal"
-                  ]
+                  ],
+                  "description": "Current Type: {@link CommentTagRange.Type}"
                 }
               }
             },
@@ -469,7 +478,8 @@
                     "greater_less_equal",
                     "greater_equal_less_equal",
                     "equal"
-                  ]
+                  ],
+                  "description": "Current Type: {@link CommentTagRange.Type}"
                 }
               }
             },
@@ -539,7 +549,8 @@
                 "greater_less_equal",
                 "greater_equal_less_equal",
                 "equal"
-              ]
+              ],
+              "description": "Current Type: {@link CommentTagRange.Type}"
             }
           }
         },

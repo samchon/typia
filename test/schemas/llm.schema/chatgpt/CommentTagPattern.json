@@ -1,4 +1,5 @@
 {
+  "description": "Current Type: {@link CommentTagPattern}",
   "type": "object",
   "properties": {
     "uuid": {

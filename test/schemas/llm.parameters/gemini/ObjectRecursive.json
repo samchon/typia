@@ -41,7 +41,8 @@
                       "required": [
                         "time",
                         "zone"
-                      ]
+                      ],
+                      "description": "Current Type: {@link ObjectRecursive.ITimestamp}"
                     }
                   },
                   "required": [
@@ -79,7 +80,8 @@
                   "required": [
                     "time",
                     "zone"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ObjectRecursive.ITimestamp}"
                 }
               },
               "required": [
@@ -117,7 +119,8 @@
               "required": [
                 "time",
                 "zone"
-              ]
+              ],
+              "description": "Current Type: {@link ObjectRecursive.ITimestamp}"
             }
           },
           "required": [
@@ -155,7 +158,8 @@
           "required": [
             "time",
             "zone"
-          ]
+          ],
+          "description": "Current Type: {@link ObjectRecursive.ITimestamp}"
         }
       },
       "required": [
@@ -165,7 +169,8 @@
         "name",
         "sequence",
         "created_at"
-      ]
+      ],
+      "description": "Current Type: {@link ObjectRecursive.IDepartment}"
     },
     "nullable": {
       "type": "object",
@@ -207,7 +212,8 @@
                       "required": [
                         "time",
                         "zone"
-                      ]
+                      ],
+                      "description": "Current Type: {@link ObjectRecursive.ITimestamp}"
                     }
                   },
                   "required": [
@@ -245,7 +251,8 @@
                   "required": [
                     "time",
                     "zone"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ObjectRecursive.ITimestamp}"
                 }
               },
               "required": [
@@ -283,7 +290,8 @@
               "required": [
                 "time",
                 "zone"
-              ]
+              ],
+              "description": "Current Type: {@link ObjectRecursive.ITimestamp}"
             }
           },
           "required": [
@@ -321,7 +329,8 @@
           "required": [
             "time",
             "zone"
-          ]
+          ],
+          "description": "Current Type: {@link ObjectRecursive.ITimestamp}"
         }
       },
       "required": [
@@ -374,7 +383,8 @@
                       "required": [
                         "time",
                         "zone"
-                      ]
+                      ],
+                      "description": "Current Type: {@link ObjectRecursive.ITimestamp}"
                     }
                   },
                   "required": [
@@ -412,7 +422,8 @@
                   "required": [
                     "time",
                     "zone"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ObjectRecursive.ITimestamp}"
                 }
               },
               "required": [
@@ -450,7 +461,8 @@
               "required": [
                 "time",
                 "zone"
-              ]
+              ],
+              "description": "Current Type: {@link ObjectRecursive.ITimestamp}"
             }
           },
           "required": [
@@ -488,7 +500,8 @@
           "required": [
             "time",
             "zone"
-          ]
+          ],
+          "description": "Current Type: {@link ObjectRecursive.ITimestamp}"
         }
       },
       "required": [
@@ -498,7 +511,8 @@
         "name",
         "sequence",
         "created_at"
-      ]
+      ],
+      "description": "Current Type: {@link ObjectRecursive.IDepartment}"
     },
     "faint": {
       "type": "object",
@@ -540,7 +554,8 @@
                       "required": [
                         "time",
                         "zone"
-                      ]
+                      ],
+                      "description": "Current Type: {@link ObjectRecursive.ITimestamp}"
                     }
                   },
                   "required": [
@@ -578,7 +593,8 @@
                   "required": [
                     "time",
                     "zone"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ObjectRecursive.ITimestamp}"
                 }
               },
               "required": [
@@ -616,7 +632,8 @@
               "required": [
                 "time",
                 "zone"
-              ]
+              ],
+              "description": "Current Type: {@link ObjectRecursive.ITimestamp}"
             }
           },
           "required": [
@@ -654,7 +671,8 @@
           "required": [
             "time",
             "zone"
-          ]
+          ],
+          "description": "Current Type: {@link ObjectRecursive.ITimestamp}"
         }
       },
       "required": [
@@ -709,7 +727,8 @@
                         "required": [
                           "time",
                           "zone"
-                        ]
+                        ],
+                        "description": "Current Type: {@link ObjectRecursive.ITimestamp}"
                       }
                     },
                     "required": [
@@ -747,7 +766,8 @@
                     "required": [
                       "time",
                       "zone"
-                    ]
+                    ],
+                    "description": "Current Type: {@link ObjectRecursive.ITimestamp}"
                   }
                 },
                 "required": [
@@ -785,7 +805,8 @@
                 "required": [
                   "time",
                   "zone"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectRecursive.ITimestamp}"
               }
             },
             "required": [
@@ -823,7 +844,8 @@
             "required": [
               "time",
               "zone"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectRecursive.ITimestamp}"
           }
         },
         "required": [
@@ -833,7 +855,8 @@
           "name",
           "sequence",
           "created_at"
-        ]
+        ],
+        "description": "Current Type: {@link ObjectRecursive.IDepartment}"
       }
     }
   },

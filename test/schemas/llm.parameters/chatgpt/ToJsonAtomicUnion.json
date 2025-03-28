@@ -1,7 +1,9 @@
 {
+  "description": "",
   "type": "object",
   "properties": {
     "regular": {
+      "description": "Current Type: {@link ToJsonAtomicUnion}",
       "type": "array",
       "items": {
         "anyOf": [
@@ -42,11 +44,13 @@
                 "type": "boolean"
               }
             ]
-          }
+          },
+          "description": "Current Type: {@link ToJsonAtomicUnion}"
         }
       ]
     },
     "optional": {
+      "description": "Current Type: {@link ToJsonAtomicUnion}",
       "type": "array",
       "items": {
         "anyOf": [
@@ -87,13 +91,15 @@
                 "type": "boolean"
               }
             ]
-          }
+          },
+          "description": "Current Type: {@link ToJsonAtomicUnion}"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link ToJsonAtomicUnion}",
         "type": "array",
         "items": {
           "anyOf": [

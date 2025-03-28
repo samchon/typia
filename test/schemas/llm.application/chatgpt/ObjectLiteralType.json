@@ -9,9 +9,11 @@
     {
       "name": "insert",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "",
             "type": "object",
             "properties": {
               "id": {
@@ -41,9 +43,11 @@
     {
       "name": "reduce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "",
             "type": "object",
             "properties": {
               "id": {
@@ -84,7 +88,8 @@
                   "id",
                   "name",
                   "age"
-                ]
+                ],
+                "description": ""
               }
             ]
           }
@@ -97,6 +102,7 @@
         "$defs": {}
       },
       "output": {
+        "description": "",
         "type": "object",
         "properties": {
           "id": {
@@ -119,6 +125,7 @@
     {
       "name": "coalesce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
@@ -143,7 +150,8 @@
                   "id",
                   "name",
                   "age"
-                ]
+                ],
+                "description": ""
               }
             ]
           },
@@ -169,7 +177,8 @@
                   "id",
                   "name",
                   "age"
-                ]
+                ],
+                "description": ""
               }
             ]
           },
@@ -195,7 +204,8 @@
                   "id",
                   "name",
                   "age"
-                ]
+                ],
+                "description": ""
               }
             ]
           }
@@ -229,7 +239,8 @@
               "id",
               "name",
               "age"
-            ]
+            ],
+            "description": ""
           }
         ]
       }

@@ -47,6 +47,7 @@
                               "time",
                               "zone"
                             ],
+                            "description": "Current Type: {@link ArrayRecursive.ITimestamp}",
                             "additionalProperties": false
                           }
                         },
@@ -57,6 +58,7 @@
                           "sequence",
                           "created_at"
                         ],
+                        "description": "Current Type: {@link ArrayRecursive.ICategory}",
                         "additionalProperties": false
                       }
                     },
@@ -83,6 +85,7 @@
                         "time",
                         "zone"
                       ],
+                      "description": "Current Type: {@link ArrayRecursive.ITimestamp}",
                       "additionalProperties": false
                     }
                   },
@@ -93,6 +96,7 @@
                     "sequence",
                     "created_at"
                   ],
+                  "description": "Current Type: {@link ArrayRecursive.ICategory}",
                   "additionalProperties": false
                 }
               },
@@ -119,6 +123,7 @@
                   "time",
                   "zone"
                 ],
+                "description": "Current Type: {@link ArrayRecursive.ITimestamp}",
                 "additionalProperties": false
               }
             },
@@ -129,6 +134,7 @@
               "sequence",
               "created_at"
             ],
+            "description": "Current Type: {@link ArrayRecursive.ICategory}",
             "additionalProperties": false
           }
         },
@@ -155,6 +161,7 @@
             "time",
             "zone"
           ],
+          "description": "Current Type: {@link ArrayRecursive.ITimestamp}",
           "additionalProperties": false
         }
       },
@@ -165,6 +172,7 @@
         "sequence",
         "created_at"
       ],
+      "description": "Current Type: {@link ArrayRecursive.ICategory}",
       "additionalProperties": false
     },
     "nullable": {
@@ -213,6 +221,7 @@
                               "time",
                               "zone"
                             ],
+                            "description": "Current Type: {@link ArrayRecursive.ITimestamp}",
                             "additionalProperties": false
                           }
                         },
@@ -223,6 +232,7 @@
                           "sequence",
                           "created_at"
                         ],
+                        "description": "Current Type: {@link ArrayRecursive.ICategory}",
                         "additionalProperties": false
                       }
                     },
@@ -249,6 +259,7 @@
                         "time",
                         "zone"
                       ],
+                      "description": "Current Type: {@link ArrayRecursive.ITimestamp}",
                       "additionalProperties": false
                     }
                   },
@@ -259,6 +270,7 @@
                     "sequence",
                     "created_at"
                   ],
+                  "description": "Current Type: {@link ArrayRecursive.ICategory}",
                   "additionalProperties": false
                 }
               },
@@ -285,6 +297,7 @@
                   "time",
                   "zone"
                 ],
+                "description": "Current Type: {@link ArrayRecursive.ITimestamp}",
                 "additionalProperties": false
               }
             },
@@ -295,6 +308,7 @@
               "sequence",
               "created_at"
             ],
+            "description": "Current Type: {@link ArrayRecursive.ICategory}",
             "additionalProperties": false
           }
         },
@@ -321,6 +335,7 @@
             "time",
             "zone"
           ],
+          "description": "Current Type: {@link ArrayRecursive.ITimestamp}",
           "additionalProperties": false
         }
       },
@@ -380,6 +395,7 @@
                               "time",
                               "zone"
                             ],
+                            "description": "Current Type: {@link ArrayRecursive.ITimestamp}",
                             "additionalProperties": false
                           }
                         },
@@ -390,6 +406,7 @@
                           "sequence",
                           "created_at"
                         ],
+                        "description": "Current Type: {@link ArrayRecursive.ICategory}",
                         "additionalProperties": false
                       }
                     },
@@ -416,6 +433,7 @@
                         "time",
                         "zone"
                       ],
+                      "description": "Current Type: {@link ArrayRecursive.ITimestamp}",
                       "additionalProperties": false
                     }
                   },
@@ -426,6 +444,7 @@
                     "sequence",
                     "created_at"
                   ],
+                  "description": "Current Type: {@link ArrayRecursive.ICategory}",
                   "additionalProperties": false
                 }
               },
@@ -452,6 +471,7 @@
                   "time",
                   "zone"
                 ],
+                "description": "Current Type: {@link ArrayRecursive.ITimestamp}",
                 "additionalProperties": false
               }
             },
@@ -462,6 +482,7 @@
               "sequence",
               "created_at"
             ],
+            "description": "Current Type: {@link ArrayRecursive.ICategory}",
             "additionalProperties": false
           }
         },
@@ -488,6 +509,7 @@
             "time",
             "zone"
           ],
+          "description": "Current Type: {@link ArrayRecursive.ITimestamp}",
           "additionalProperties": false
         }
       },
@@ -498,6 +520,7 @@
         "sequence",
         "created_at"
       ],
+      "description": "Current Type: {@link ArrayRecursive.ICategory}",
       "additionalProperties": false
     },
     "faint": {
@@ -546,6 +569,7 @@
                               "time",
                               "zone"
                             ],
+                            "description": "Current Type: {@link ArrayRecursive.ITimestamp}",
                             "additionalProperties": false
                           }
                         },
@@ -556,6 +580,7 @@
                           "sequence",
                           "created_at"
                         ],
+                        "description": "Current Type: {@link ArrayRecursive.ICategory}",
                         "additionalProperties": false
                       }
                     },
@@ -582,6 +607,7 @@
                         "time",
                         "zone"
                       ],
+                      "description": "Current Type: {@link ArrayRecursive.ITimestamp}",
                       "additionalProperties": false
                     }
                   },
@@ -592,6 +618,7 @@
                     "sequence",
                     "created_at"
                   ],
+                  "description": "Current Type: {@link ArrayRecursive.ICategory}",
                   "additionalProperties": false
                 }
               },
@@ -618,6 +645,7 @@
                   "time",
                   "zone"
                 ],
+                "description": "Current Type: {@link ArrayRecursive.ITimestamp}",
                 "additionalProperties": false
               }
             },
@@ -628,6 +656,7 @@
               "sequence",
               "created_at"
             ],
+            "description": "Current Type: {@link ArrayRecursive.ICategory}",
             "additionalProperties": false
           }
         },
@@ -654,6 +683,7 @@
             "time",
             "zone"
           ],
+          "description": "Current Type: {@link ArrayRecursive.ITimestamp}",
           "additionalProperties": false
         }
       },
@@ -715,6 +745,7 @@
                                 "time",
                                 "zone"
                               ],
+                              "description": "Current Type: {@link ArrayRecursive.ITimestamp}",
                               "additionalProperties": false
                             }
                           },
@@ -725,6 +756,7 @@
                             "sequence",
                             "created_at"
                           ],
+                          "description": "Current Type: {@link ArrayRecursive.ICategory}",
                           "additionalProperties": false
                         }
                       },
@@ -751,6 +783,7 @@
                           "time",
                           "zone"
                         ],
+                        "description": "Current Type: {@link ArrayRecursive.ITimestamp}",
                         "additionalProperties": false
                       }
                     },
@@ -761,6 +794,7 @@
                       "sequence",
                       "created_at"
                     ],
+                    "description": "Current Type: {@link ArrayRecursive.ICategory}",
                     "additionalProperties": false
                   }
                 },
@@ -787,6 +821,7 @@
                     "time",
                     "zone"
                   ],
+                  "description": "Current Type: {@link ArrayRecursive.ITimestamp}",
                   "additionalProperties": false
                 }
               },
@@ -797,6 +832,7 @@
                 "sequence",
                 "created_at"
               ],
+              "description": "Current Type: {@link ArrayRecursive.ICategory}",
               "additionalProperties": false
             }
           },
@@ -823,6 +859,7 @@
               "time",
               "zone"
             ],
+            "description": "Current Type: {@link ArrayRecursive.ITimestamp}",
             "additionalProperties": false
           }
         },
@@ -833,6 +870,7 @@
           "sequence",
           "created_at"
         ],
+        "description": "Current Type: {@link ArrayRecursive.ICategory}",
         "additionalProperties": false
       }
     }

@@ -1,6 +1,8 @@
 {
+  "description": "Current Type: {@link ConstantAtomicUnion}",
   "type": "array",
   "items": {
+    "description": "Current Type: {@link ConstantAtomicUnion.Union}",
     "anyOf": [
       {
         "type": "object",
@@ -14,7 +16,8 @@
         },
         "required": [
           "key"
-        ]
+        ],
+        "description": ""
       },
       {
         "type": "boolean",

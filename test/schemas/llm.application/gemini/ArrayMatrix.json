@@ -20,7 +20,8 @@
                   "type": "number"
                 }
               }
-            }
+            },
+            "description": "Current Type: {@link ArrayMatrix}"
           }
         },
         "required": [
@@ -43,7 +44,8 @@
                   "type": "number"
                 }
               }
-            }
+            },
+            "description": "Current Type: {@link ArrayMatrix}"
           },
           "second": {
             "type": "array",
@@ -74,7 +76,8 @@
               "type": "number"
             }
           }
-        }
+        },
+        "description": "Current Type: {@link ArrayMatrix}"
       }
     },
     {

@@ -38,11 +38,13 @@
           "int64",
           "uint64",
           "float"
-        ]
+        ],
+        "description": "Current Type: {@link CommentTagType.Type}"
       }
     }
   },
   "required": [
     "value"
-  ]
+  ],
+  "description": "Current Type: {@link CommentTagType}"
 }

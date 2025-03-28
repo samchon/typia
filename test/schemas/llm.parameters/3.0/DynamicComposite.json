@@ -15,6 +15,7 @@
         "id",
         "name"
       ],
+      "description": "Current Type: {@link DynamicComposite}",
       "additionalProperties": {
         "oneOf": [
           {
@@ -72,6 +73,7 @@
         "id",
         "name"
       ],
+      "description": "Current Type: {@link DynamicComposite}",
       "additionalProperties": {
         "oneOf": [
           {
@@ -131,6 +133,7 @@
           "id",
           "name"
         ],
+        "description": "Current Type: {@link DynamicComposite}",
         "additionalProperties": {
           "oneOf": [
             {

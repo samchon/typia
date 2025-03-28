@@ -14,5 +14,6 @@
       "type": "number"
     }
   },
-  "required": []
+  "required": [],
+  "description": "Current Type: {@link ObjectOptional}"
 }

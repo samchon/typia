@@ -28,7 +28,8 @@
             },
             "required": [
               "matrix"
-            ]
+            ],
+            "description": "Current Type: {@link TypeTagMatrix}"
           }
         },
         "required": [
@@ -59,7 +60,8 @@
             },
             "required": [
               "matrix"
-            ]
+            ],
+            "description": "Current Type: {@link TypeTagMatrix}"
           },
           "second": {
             "type": "object",
@@ -106,7 +108,8 @@
         },
         "required": [
           "matrix"
-        ]
+        ],
+        "description": "Current Type: {@link TypeTagMatrix}"
       }
     },
     {

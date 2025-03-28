@@ -11,6 +11,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ToJsonUnion}",
             "type": "array",
             "items": {
               "oneOf": [
@@ -34,7 +35,8 @@
                     "id",
                     "mobile",
                     "name"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ToJsonUnion.ICitizen}"
                 },
                 {
                   "type": "object",
@@ -53,7 +55,8 @@
                     "manufacturer",
                     "brand",
                     "name"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ToJsonUnion.IProduct}"
                 },
                 {
                   "type": "string"
@@ -78,7 +81,8 @@
                     "id",
                     "mobile",
                     "name"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ToJsonUnion.ICitizen}"
                 }
               ]
             }
@@ -97,6 +101,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ToJsonUnion}",
             "type": "array",
             "items": {
               "oneOf": [
@@ -120,7 +125,8 @@
                     "id",
                     "mobile",
                     "name"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ToJsonUnion.ICitizen}"
                 },
                 {
                   "type": "object",
@@ -139,7 +145,8 @@
                     "manufacturer",
                     "brand",
                     "name"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ToJsonUnion.IProduct}"
                 },
                 {
                   "type": "string"
@@ -164,7 +171,8 @@
                     "id",
                     "mobile",
                     "name"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ToJsonUnion.ICitizen}"
                 }
               ]
             }
@@ -198,7 +206,8 @@
                         "id",
                         "mobile",
                         "name"
-                      ]
+                      ],
+                      "description": "Current Type: {@link ToJsonUnion.ICitizen}"
                     },
                     {
                       "type": "object",
@@ -217,7 +226,8 @@
                         "manufacturer",
                         "brand",
                         "name"
-                      ]
+                      ],
+                      "description": "Current Type: {@link ToJsonUnion.IProduct}"
                     },
                     {
                       "type": "string"
@@ -242,10 +252,12 @@
                         "id",
                         "mobile",
                         "name"
-                      ]
+                      ],
+                      "description": "Current Type: {@link ToJsonUnion.ICitizen}"
                     }
                   ]
-                }
+                },
+                "description": "Current Type: {@link ToJsonUnion}"
               }
             ]
           }
@@ -258,6 +270,7 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link ToJsonUnion}",
         "type": "array",
         "items": {
           "oneOf": [
@@ -281,7 +294,8 @@
                 "id",
                 "mobile",
                 "name"
-              ]
+              ],
+              "description": "Current Type: {@link ToJsonUnion.ICitizen}"
             },
             {
               "type": "object",
@@ -300,7 +314,8 @@
                 "manufacturer",
                 "brand",
                 "name"
-              ]
+              ],
+              "description": "Current Type: {@link ToJsonUnion.IProduct}"
             },
             {
               "type": "string"
@@ -325,7 +340,8 @@
                 "id",
                 "mobile",
                 "name"
-              ]
+              ],
+              "description": "Current Type: {@link ToJsonUnion.ICitizen}"
             }
           ]
         }
@@ -365,7 +381,8 @@
                         "id",
                         "mobile",
                         "name"
-                      ]
+                      ],
+                      "description": "Current Type: {@link ToJsonUnion.ICitizen}"
                     },
                     {
                       "type": "object",
@@ -384,7 +401,8 @@
                         "manufacturer",
                         "brand",
                         "name"
-                      ]
+                      ],
+                      "description": "Current Type: {@link ToJsonUnion.IProduct}"
                     },
                     {
                       "type": "string"
@@ -409,10 +427,12 @@
                         "id",
                         "mobile",
                         "name"
-                      ]
+                      ],
+                      "description": "Current Type: {@link ToJsonUnion.ICitizen}"
                     }
                   ]
-                }
+                },
+                "description": "Current Type: {@link ToJsonUnion}"
               }
             ]
           },
@@ -445,7 +465,8 @@
                         "id",
                         "mobile",
                         "name"
-                      ]
+                      ],
+                      "description": "Current Type: {@link ToJsonUnion.ICitizen}"
                     },
                     {
                       "type": "object",
@@ -464,7 +485,8 @@
                         "manufacturer",
                         "brand",
                         "name"
-                      ]
+                      ],
+                      "description": "Current Type: {@link ToJsonUnion.IProduct}"
                     },
                     {
                       "type": "string"
@@ -489,10 +511,12 @@
                         "id",
                         "mobile",
                         "name"
-                      ]
+                      ],
+                      "description": "Current Type: {@link ToJsonUnion.ICitizen}"
                     }
                   ]
-                }
+                },
+                "description": "Current Type: {@link ToJsonUnion}"
               }
             ]
           },
@@ -525,7 +549,8 @@
                         "id",
                         "mobile",
                         "name"
-                      ]
+                      ],
+                      "description": "Current Type: {@link ToJsonUnion.ICitizen}"
                     },
                     {
                       "type": "object",
@@ -544,7 +569,8 @@
                         "manufacturer",
                         "brand",
                         "name"
-                      ]
+                      ],
+                      "description": "Current Type: {@link ToJsonUnion.IProduct}"
                     },
                     {
                       "type": "string"
@@ -569,10 +595,12 @@
                         "id",
                         "mobile",
                         "name"
-                      ]
+                      ],
+                      "description": "Current Type: {@link ToJsonUnion.ICitizen}"
                     }
                   ]
-                }
+                },
+                "description": "Current Type: {@link ToJsonUnion}"
               }
             ]
           }
@@ -613,7 +641,8 @@
                     "id",
                     "mobile",
                     "name"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ToJsonUnion.ICitizen}"
                 },
                 {
                   "type": "object",
@@ -632,7 +661,8 @@
                     "manufacturer",
                     "brand",
                     "name"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ToJsonUnion.IProduct}"
                 },
                 {
                   "type": "string"
@@ -657,10 +687,12 @@
                     "id",
                     "mobile",
                     "name"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ToJsonUnion.ICitizen}"
                 }
               ]
-            }
+            },
+            "description": "Current Type: {@link ToJsonUnion}"
           }
         ]
       }

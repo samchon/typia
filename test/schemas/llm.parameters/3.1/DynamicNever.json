@@ -2,6 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
+      "description": "Current Type: {@link DynamicNever}",
       "type": "object",
       "properties": {},
       "required": []
@@ -14,11 +15,13 @@
         {
           "type": "object",
           "properties": {},
-          "required": []
+          "required": [],
+          "description": "Current Type: {@link DynamicNever}"
         }
       ]
     },
     "optional": {
+      "description": "Current Type: {@link DynamicNever}",
       "type": "object",
       "properties": {},
       "required": []
@@ -31,13 +34,15 @@
         {
           "type": "object",
           "properties": {},
-          "required": []
+          "required": [],
+          "description": "Current Type: {@link DynamicNever}"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link DynamicNever}",
         "type": "object",
         "properties": {},
         "required": []

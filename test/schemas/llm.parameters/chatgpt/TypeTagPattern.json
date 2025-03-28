@@ -1,7 +1,9 @@
 {
+  "description": "",
   "type": "object",
   "properties": {
     "regular": {
+      "description": "Current Type: {@link TypeTagPattern}",
       "type": "object",
       "properties": {
         "uuid": {
@@ -58,11 +60,13 @@
             "email",
             "ipv4",
             "ipv6"
-          ]
+          ],
+          "description": "Current Type: {@link TypeTagPattern}"
         }
       ]
     },
     "optional": {
+      "description": "Current Type: {@link TypeTagPattern}",
       "type": "object",
       "properties": {
         "uuid": {
@@ -119,13 +123,15 @@
             "email",
             "ipv4",
             "ipv6"
-          ]
+          ],
+          "description": "Current Type: {@link TypeTagPattern}"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link TypeTagPattern}",
         "type": "object",
         "properties": {
           "uuid": {

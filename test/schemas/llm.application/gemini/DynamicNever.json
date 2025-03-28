@@ -13,7 +13,8 @@
           "first": {
             "type": "object",
             "properties": {},
-            "required": []
+            "required": [],
+            "description": "Current Type: {@link DynamicNever}"
           }
         },
         "required": [
@@ -29,7 +30,8 @@
           "first": {
             "type": "object",
             "properties": {},
-            "required": []
+            "required": [],
+            "description": "Current Type: {@link DynamicNever}"
           },
           "second": {
             "type": "object",
@@ -46,7 +48,8 @@
       "output": {
         "type": "object",
         "properties": {},
-        "required": []
+        "required": [],
+        "description": "Current Type: {@link DynamicNever}"
       }
     },
     {

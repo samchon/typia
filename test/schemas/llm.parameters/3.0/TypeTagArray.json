@@ -60,6 +60,7 @@
               "equal",
               "unique"
             ],
+            "description": "Current Type: {@link TypeTagArray.Type}",
             "additionalProperties": false
           }
         }
@@ -67,6 +68,7 @@
       "required": [
         "value"
       ],
+      "description": "Current Type: {@link TypeTagArray}",
       "additionalProperties": false
     },
     "nullable": {
@@ -128,6 +130,7 @@
               "equal",
               "unique"
             ],
+            "description": "Current Type: {@link TypeTagArray.Type}",
             "additionalProperties": false
           }
         }
@@ -197,6 +200,7 @@
               "equal",
               "unique"
             ],
+            "description": "Current Type: {@link TypeTagArray.Type}",
             "additionalProperties": false
           }
         }
@@ -204,6 +208,7 @@
       "required": [
         "value"
       ],
+      "description": "Current Type: {@link TypeTagArray}",
       "additionalProperties": false
     },
     "faint": {
@@ -265,6 +270,7 @@
               "equal",
               "unique"
             ],
+            "description": "Current Type: {@link TypeTagArray.Type}",
             "additionalProperties": false
           }
         }
@@ -336,6 +342,7 @@
                 "equal",
                 "unique"
               ],
+              "description": "Current Type: {@link TypeTagArray.Type}",
               "additionalProperties": false
             }
           }
@@ -343,6 +350,7 @@
         "required": [
           "value"
         ],
+        "description": "Current Type: {@link TypeTagArray}",
         "additionalProperties": false
       }
     }

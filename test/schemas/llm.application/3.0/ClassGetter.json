@@ -30,6 +30,7 @@
               "name",
               "dead"
             ],
+            "description": "Current Type: {@link ClassGetter.Person}",
             "additionalProperties": false
           }
         },
@@ -63,6 +64,7 @@
               "name",
               "dead"
             ],
+            "description": "Current Type: {@link ClassGetter.Person}",
             "additionalProperties": false
           },
           "second": {
@@ -113,6 +115,7 @@
           "name",
           "dead"
         ],
+        "description": "Current Type: {@link ClassGetter.Person}",
         "additionalProperties": false
       }
     },

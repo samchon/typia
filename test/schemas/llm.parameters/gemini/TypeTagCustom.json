@@ -26,7 +26,8 @@
         "dollar",
         "postfix",
         "powerOf"
-      ]
+      ],
+      "description": "Current Type: {@link TypeTagCustom}"
     },
     "nullable": {
       "type": "object",
@@ -81,7 +82,8 @@
         "dollar",
         "postfix",
         "powerOf"
-      ]
+      ],
+      "description": "Current Type: {@link TypeTagCustom}"
     },
     "faint": {
       "type": "object",
@@ -138,7 +140,8 @@
           "dollar",
           "postfix",
           "powerOf"
-        ]
+        ],
+        "description": "Current Type: {@link TypeTagCustom}"
       }
     }
   },

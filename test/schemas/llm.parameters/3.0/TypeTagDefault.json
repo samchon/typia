@@ -102,6 +102,7 @@
         "union_but_string",
         "boolean_and_number_and_template"
       ],
+      "description": "Current Type: {@link TypeTagDefault}",
       "additionalProperties": false
     },
     "nullable": {
@@ -309,6 +310,7 @@
         "union_but_string",
         "boolean_and_number_and_template"
       ],
+      "description": "Current Type: {@link TypeTagDefault}",
       "additionalProperties": false
     },
     "faint": {
@@ -518,6 +520,7 @@
           "union_but_string",
           "boolean_and_number_and_template"
         ],
+        "description": "Current Type: {@link TypeTagDefault}",
         "additionalProperties": false
       }
     }

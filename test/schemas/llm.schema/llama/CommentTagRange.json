@@ -1,9 +1,11 @@
 {
+  "description": "Current Type: {@link CommentTagRange}",
   "type": "object",
   "properties": {
     "value": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link CommentTagRange.Type}",
         "type": "object",
         "properties": {
           "greater": {

@@ -30,6 +30,7 @@
         "id",
         "age"
       ],
+      "description": "Current Type: {@link ConstantAtomicTagged}",
       "additionalProperties": false
     },
     "nullable": {
@@ -93,6 +94,7 @@
         "id",
         "age"
       ],
+      "description": "Current Type: {@link ConstantAtomicTagged}",
       "additionalProperties": false
     },
     "faint": {
@@ -158,6 +160,7 @@
           "id",
           "age"
         ],
+        "description": "Current Type: {@link ConstantAtomicTagged}",
         "additionalProperties": false
       }
     }

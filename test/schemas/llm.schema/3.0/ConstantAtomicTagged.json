@@ -27,5 +27,6 @@
     "id",
     "age"
   ],
+  "description": "Current Type: {@link ConstantAtomicTagged}",
   "additionalProperties": false
 }

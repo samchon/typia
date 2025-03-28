@@ -1,7 +1,9 @@
 {
+  "description": "",
   "type": "object",
   "properties": {
     "regular": {
+      "description": "Current Type: {@link ConstantAtomicAbsorbed}",
       "type": "object",
       "properties": {
         "id": {
@@ -36,11 +38,13 @@
           "required": [
             "id",
             "age"
-          ]
+          ],
+          "description": "Current Type: {@link ConstantAtomicAbsorbed}"
         }
       ]
     },
     "optional": {
+      "description": "Current Type: {@link ConstantAtomicAbsorbed}",
       "type": "object",
       "properties": {
         "id": {
@@ -75,13 +79,15 @@
           "required": [
             "id",
             "age"
-          ]
+          ],
+          "description": "Current Type: {@link ConstantAtomicAbsorbed}"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link ConstantAtomicAbsorbed}",
         "type": "object",
         "properties": {
           "id": {

@@ -110,7 +110,8 @@
             "required": [
               "object",
               "array"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectPartialAndRequired}"
           }
         },
         "required": [
@@ -223,7 +224,8 @@
             "required": [
               "object",
               "array"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectPartialAndRequired}"
           },
           "second": {
             "type": "object",
@@ -434,7 +436,8 @@
         "required": [
           "object",
           "array"
-        ]
+        ],
+        "description": "Current Type: {@link ObjectPartialAndRequired}"
       }
     },
     {

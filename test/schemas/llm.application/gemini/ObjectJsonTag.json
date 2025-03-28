@@ -35,7 +35,8 @@
               "description",
               "title",
               "complicate_title"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectJsonTag}"
           }
         },
         "required": [
@@ -73,7 +74,8 @@
               "description",
               "title",
               "complicate_title"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectJsonTag}"
           },
           "second": {
             "type": "object",
@@ -134,7 +136,8 @@
           "description",
           "title",
           "complicate_title"
-        ]
+        ],
+        "description": "Current Type: {@link ObjectJsonTag}"
       }
     },
     {

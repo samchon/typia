@@ -11,6 +11,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link CommentTagPattern}",
             "type": "object",
             "properties": {
               "uuid": {
@@ -51,6 +52,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link CommentTagPattern}",
             "type": "object",
             "properties": {
               "uuid": {
@@ -107,7 +109,8 @@
                   "email",
                   "ipv4",
                   "ipv6"
-                ]
+                ],
+                "description": "Current Type: {@link CommentTagPattern}"
               }
             ]
           }
@@ -120,6 +123,7 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link CommentTagPattern}",
         "type": "object",
         "properties": {
           "uuid": {
@@ -182,7 +186,8 @@
                   "email",
                   "ipv4",
                   "ipv6"
-                ]
+                ],
+                "description": "Current Type: {@link CommentTagPattern}"
               }
             ]
           },
@@ -216,7 +221,8 @@
                   "email",
                   "ipv4",
                   "ipv6"
-                ]
+                ],
+                "description": "Current Type: {@link CommentTagPattern}"
               }
             ]
           },
@@ -250,7 +256,8 @@
                   "email",
                   "ipv4",
                   "ipv6"
-                ]
+                ],
+                "description": "Current Type: {@link CommentTagPattern}"
               }
             ]
           }
@@ -292,7 +299,8 @@
               "email",
               "ipv4",
               "ipv6"
-            ]
+            ],
+            "description": "Current Type: {@link CommentTagPattern}"
           }
         ]
       }

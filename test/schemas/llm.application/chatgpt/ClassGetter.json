@@ -9,9 +9,11 @@
     {
       "name": "insert",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ClassGetter.Person}",
             "type": "object",
             "properties": {
               "id": {
@@ -48,9 +50,11 @@
     {
       "name": "reduce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ClassGetter.Person}",
             "type": "object",
             "properties": {
               "id": {
@@ -105,7 +109,8 @@
                   "id",
                   "name",
                   "dead"
-                ]
+                ],
+                "description": "Current Type: {@link ClassGetter.Person}"
               }
             ]
           }
@@ -118,6 +123,7 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link ClassGetter.Person}",
         "type": "object",
         "properties": {
           "id": {
@@ -147,6 +153,7 @@
     {
       "name": "coalesce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
@@ -178,7 +185,8 @@
                   "id",
                   "name",
                   "dead"
-                ]
+                ],
+                "description": "Current Type: {@link ClassGetter.Person}"
               }
             ]
           },
@@ -211,7 +219,8 @@
                   "id",
                   "name",
                   "dead"
-                ]
+                ],
+                "description": "Current Type: {@link ClassGetter.Person}"
               }
             ]
           },
@@ -244,7 +253,8 @@
                   "id",
                   "name",
                   "dead"
-                ]
+                ],
+                "description": "Current Type: {@link ClassGetter.Person}"
               }
             ]
           }
@@ -285,7 +295,8 @@
               "id",
               "name",
               "dead"
-            ]
+            ],
+            "description": "Current Type: {@link ClassGetter.Person}"
           }
         ]
       }

@@ -35,7 +35,8 @@
               "dollar",
               "postfix",
               "powerOf"
-            ]
+            ],
+            "description": "Current Type: {@link TypeTagCustom}"
           }
         },
         "required": [
@@ -73,7 +74,8 @@
               "dollar",
               "postfix",
               "powerOf"
-            ]
+            ],
+            "description": "Current Type: {@link TypeTagCustom}"
           },
           "second": {
             "type": "object",
@@ -134,7 +136,8 @@
           "dollar",
           "postfix",
           "powerOf"
-        ]
+        ],
+        "description": "Current Type: {@link TypeTagCustom}"
       }
     },
     {

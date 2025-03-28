@@ -68,6 +68,7 @@
               "greater_equal_less_equal",
               "equal"
             ],
+            "description": "Current Type: {@link TypeTagRange.Type}",
             "additionalProperties": false
           }
         }
@@ -75,6 +76,7 @@
       "required": [
         "value"
       ],
+      "description": "Current Type: {@link TypeTagRange}",
       "additionalProperties": false
     },
     "nullable": {
@@ -144,6 +146,7 @@
               "greater_equal_less_equal",
               "equal"
             ],
+            "description": "Current Type: {@link TypeTagRange.Type}",
             "additionalProperties": false
           }
         }
@@ -221,6 +224,7 @@
               "greater_equal_less_equal",
               "equal"
             ],
+            "description": "Current Type: {@link TypeTagRange.Type}",
             "additionalProperties": false
           }
         }
@@ -228,6 +232,7 @@
       "required": [
         "value"
       ],
+      "description": "Current Type: {@link TypeTagRange}",
       "additionalProperties": false
     },
     "faint": {
@@ -297,6 +302,7 @@
               "greater_equal_less_equal",
               "equal"
             ],
+            "description": "Current Type: {@link TypeTagRange.Type}",
             "additionalProperties": false
           }
         }
@@ -376,6 +382,7 @@
                 "greater_equal_less_equal",
                 "equal"
               ],
+              "description": "Current Type: {@link TypeTagRange.Type}",
               "additionalProperties": false
             }
           }
@@ -383,6 +390,7 @@
         "required": [
           "value"
         ],
+        "description": "Current Type: {@link TypeTagRange}",
         "additionalProperties": false
       }
     }

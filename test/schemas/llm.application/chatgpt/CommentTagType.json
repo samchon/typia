@@ -9,14 +9,17 @@
     {
       "name": "insert",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link CommentTagType}",
             "type": "object",
             "properties": {
               "value": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link CommentTagType.Type}",
                   "type": "object",
                   "properties": {
                     "int": {
@@ -72,14 +75,17 @@
     {
       "name": "reduce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link CommentTagType}",
             "type": "object",
             "properties": {
               "value": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link CommentTagType.Type}",
                   "type": "object",
                   "properties": {
                     "int": {
@@ -135,6 +141,7 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link CommentTagType.Type}",
                       "type": "object",
                       "properties": {
                         "int": {
@@ -177,7 +184,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link CommentTagType}"
               }
             ]
           }
@@ -190,11 +198,13 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link CommentTagType}",
         "type": "object",
         "properties": {
           "value": {
             "type": "array",
             "items": {
+              "description": "Current Type: {@link CommentTagType.Type}",
               "type": "object",
               "properties": {
                 "int": {
@@ -243,6 +253,7 @@
     {
       "name": "coalesce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
@@ -256,6 +267,7 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link CommentTagType.Type}",
                       "type": "object",
                       "properties": {
                         "int": {
@@ -298,7 +310,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link CommentTagType}"
               }
             ]
           },
@@ -313,6 +326,7 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link CommentTagType.Type}",
                       "type": "object",
                       "properties": {
                         "int": {
@@ -355,7 +369,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link CommentTagType}"
               }
             ]
           },
@@ -370,6 +385,7 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link CommentTagType.Type}",
                       "type": "object",
                       "properties": {
                         "int": {
@@ -412,7 +428,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link CommentTagType}"
               }
             ]
           }
@@ -435,6 +452,7 @@
               "value": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link CommentTagType.Type}",
                   "type": "object",
                   "properties": {
                     "int": {
@@ -477,7 +495,8 @@
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link CommentTagType}"
           }
         ]
       }

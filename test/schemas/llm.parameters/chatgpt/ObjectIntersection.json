@@ -1,7 +1,9 @@
 {
+  "description": "",
   "type": "object",
   "properties": {
     "regular": {
+      "description": "Current Type: {@link ObjectIntersection}",
       "type": "object",
       "properties": {
         "email": {
@@ -42,11 +44,13 @@
             "email",
             "name",
             "vulnerable"
-          ]
+          ],
+          "description": "Current Type: {@link ObjectIntersection}"
         }
       ]
     },
     "optional": {
+      "description": "Current Type: {@link ObjectIntersection}",
       "type": "object",
       "properties": {
         "email": {
@@ -87,13 +91,15 @@
             "email",
             "name",
             "vulnerable"
-          ]
+          ],
+          "description": "Current Type: {@link ObjectIntersection}"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link ObjectIntersection}",
         "type": "object",
         "properties": {
           "email": {

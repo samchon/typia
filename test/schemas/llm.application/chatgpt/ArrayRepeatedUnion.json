@@ -9,6 +9,7 @@
     {
       "name": "insert",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
@@ -40,9 +41,11 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ArrayRepeatedUnion.IBox3D}",
                   "type": "object",
                   "properties": {
                     "scale": {
+                      "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
                       "type": "object",
                       "properties": {
                         "x": {
@@ -62,6 +65,7 @@
                       ]
                     },
                     "position": {
+                      "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
                       "type": "object",
                       "properties": {
                         "x": {
@@ -81,6 +85,7 @@
                       ]
                     },
                     "rotate": {
+                      "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
                       "type": "object",
                       "properties": {
                         "x": {
@@ -100,6 +105,7 @@
                       ]
                     },
                     "pivot": {
+                      "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
                       "type": "object",
                       "properties": {
                         "x": {
@@ -141,6 +147,7 @@
     {
       "name": "reduce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
@@ -169,9 +176,11 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ArrayRepeatedUnion.IBox3D}",
                   "type": "object",
                   "properties": {
                     "scale": {
+                      "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
                       "type": "object",
                       "properties": {
                         "x": {
@@ -191,6 +200,7 @@
                       ]
                     },
                     "position": {
+                      "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
                       "type": "object",
                       "properties": {
                         "x": {
@@ -210,6 +220,7 @@
                       ]
                     },
                     "rotate": {
+                      "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
                       "type": "object",
                       "properties": {
                         "x": {
@@ -229,6 +240,7 @@
                       ]
                     },
                     "pivot": {
+                      "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
                       "type": "object",
                       "properties": {
                         "x": {
@@ -285,9 +297,11 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ArrayRepeatedUnion.IBox3D}",
                   "type": "object",
                   "properties": {
                     "scale": {
+                      "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
                       "type": "object",
                       "properties": {
                         "x": {
@@ -307,6 +321,7 @@
                       ]
                     },
                     "position": {
+                      "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
                       "type": "object",
                       "properties": {
                         "x": {
@@ -326,6 +341,7 @@
                       ]
                     },
                     "rotate": {
+                      "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
                       "type": "object",
                       "properties": {
                         "x": {
@@ -345,6 +361,7 @@
                       ]
                     },
                     "pivot": {
+                      "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
                       "type": "object",
                       "properties": {
                         "x": {
@@ -389,6 +406,7 @@
     {
       "name": "coalesce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
@@ -414,9 +432,11 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ArrayRepeatedUnion.IBox3D}",
                   "type": "object",
                   "properties": {
                     "scale": {
+                      "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
                       "type": "object",
                       "properties": {
                         "x": {
@@ -436,6 +456,7 @@
                       ]
                     },
                     "position": {
+                      "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
                       "type": "object",
                       "properties": {
                         "x": {
@@ -455,6 +476,7 @@
                       ]
                     },
                     "rotate": {
+                      "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
                       "type": "object",
                       "properties": {
                         "x": {
@@ -474,6 +496,7 @@
                       ]
                     },
                     "pivot": {
+                      "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
                       "type": "object",
                       "properties": {
                         "x": {
@@ -526,9 +549,11 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ArrayRepeatedUnion.IBox3D}",
                   "type": "object",
                   "properties": {
                     "scale": {
+                      "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
                       "type": "object",
                       "properties": {
                         "x": {
@@ -548,6 +573,7 @@
                       ]
                     },
                     "position": {
+                      "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
                       "type": "object",
                       "properties": {
                         "x": {
@@ -567,6 +593,7 @@
                       ]
                     },
                     "rotate": {
+                      "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
                       "type": "object",
                       "properties": {
                         "x": {
@@ -586,6 +613,7 @@
                       ]
                     },
                     "pivot": {
+                      "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
                       "type": "object",
                       "properties": {
                         "x": {
@@ -638,9 +666,11 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ArrayRepeatedUnion.IBox3D}",
                   "type": "object",
                   "properties": {
                     "scale": {
+                      "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
                       "type": "object",
                       "properties": {
                         "x": {
@@ -660,6 +690,7 @@
                       ]
                     },
                     "position": {
+                      "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
                       "type": "object",
                       "properties": {
                         "x": {
@@ -679,6 +710,7 @@
                       ]
                     },
                     "rotate": {
+                      "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
                       "type": "object",
                       "properties": {
                         "x": {
@@ -698,6 +730,7 @@
                       ]
                     },
                     "pivot": {
+                      "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
                       "type": "object",
                       "properties": {
                         "x": {
@@ -760,9 +793,11 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ArrayRepeatedUnion.IBox3D}",
                   "type": "object",
                   "properties": {
                     "scale": {
+                      "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
                       "type": "object",
                       "properties": {
                         "x": {
@@ -782,6 +817,7 @@
                       ]
                     },
                     "position": {
+                      "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
                       "type": "object",
                       "properties": {
                         "x": {
@@ -801,6 +837,7 @@
                       ]
                     },
                     "rotate": {
+                      "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
                       "type": "object",
                       "properties": {
                         "x": {
@@ -820,6 +857,7 @@
                       ]
                     },
                     "pivot": {
+                      "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
                       "type": "object",
                       "properties": {
                         "x": {
@@ -874,9 +912,11 @@
           {
             "type": "array",
             "items": {
+              "description": "Current Type: {@link ArrayRepeatedUnion.IBox3D}",
               "type": "object",
               "properties": {
                 "scale": {
+                  "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
                   "type": "object",
                   "properties": {
                     "x": {
@@ -896,6 +936,7 @@
                   ]
                 },
                 "position": {
+                  "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
                   "type": "object",
                   "properties": {
                     "x": {
@@ -915,6 +956,7 @@
                   ]
                 },
                 "rotate": {
+                  "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
                   "type": "object",
                   "properties": {
                     "x": {
@@ -934,6 +976,7 @@
                   ]
                 },
                 "pivot": {
+                  "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
                   "type": "object",
                   "properties": {
                     "x": {

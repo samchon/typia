@@ -1,12 +1,15 @@
 {
+  "description": "",
   "type": "object",
   "properties": {
     "regular": {
+      "description": "Current Type: {@link TypeTagType}",
       "type": "object",
       "properties": {
         "value": {
           "type": "array",
           "items": {
+            "description": "Current Type: {@link TypeTagType.Type}",
             "type": "object",
             "properties": {
               "int": {
@@ -58,6 +61,7 @@
             "value": {
               "type": "array",
               "items": {
+                "description": "Current Type: {@link TypeTagType.Type}",
                 "type": "object",
                 "properties": {
                   "int": {
@@ -96,16 +100,19 @@
           },
           "required": [
             "value"
-          ]
+          ],
+          "description": "Current Type: {@link TypeTagType}"
         }
       ]
     },
     "optional": {
+      "description": "Current Type: {@link TypeTagType}",
       "type": "object",
       "properties": {
         "value": {
           "type": "array",
           "items": {
+            "description": "Current Type: {@link TypeTagType.Type}",
             "type": "object",
             "properties": {
               "int": {
@@ -157,6 +164,7 @@
             "value": {
               "type": "array",
               "items": {
+                "description": "Current Type: {@link TypeTagType.Type}",
                 "type": "object",
                 "properties": {
                   "int": {
@@ -195,18 +203,21 @@
           },
           "required": [
             "value"
-          ]
+          ],
+          "description": "Current Type: {@link TypeTagType}"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link TypeTagType}",
         "type": "object",
         "properties": {
           "value": {
             "type": "array",
             "items": {
+              "description": "Current Type: {@link TypeTagType.Type}",
               "type": "object",
               "properties": {
                 "int": {

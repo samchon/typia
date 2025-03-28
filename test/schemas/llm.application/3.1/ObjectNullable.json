@@ -12,17 +12,20 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ObjectNullable}",
             "type": "object",
             "properties": {
               "value": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ObjectNullable.IProduct}",
                   "type": "object",
                   "properties": {
                     "name": {
                       "type": "string"
                     },
                     "manufacturer": {
+                      "description": "Current Type: {@link ObjectNullable.IManufacturer}",
                       "type": "object",
                       "properties": {
                         "type": {
@@ -55,7 +58,8 @@
                           "required": [
                             "type",
                             "name"
-                          ]
+                          ],
+                          "description": "Current Type: {@link ObjectNullable.IBrand}"
                         }
                       ]
                     },
@@ -77,7 +81,8 @@
                           "required": [
                             "type",
                             "name"
-                          ]
+                          ],
+                          "description": "Current Type: {@link ObjectNullable.IBrand}"
                         },
                         {
                           "type": "object",
@@ -92,7 +97,8 @@
                           "required": [
                             "type",
                             "name"
-                          ]
+                          ],
+                          "description": "Current Type: {@link ObjectNullable.IManufacturer}"
                         }
                       ]
                     }
@@ -124,17 +130,20 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ObjectNullable}",
             "type": "object",
             "properties": {
               "value": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ObjectNullable.IProduct}",
                   "type": "object",
                   "properties": {
                     "name": {
                       "type": "string"
                     },
                     "manufacturer": {
+                      "description": "Current Type: {@link ObjectNullable.IManufacturer}",
                       "type": "object",
                       "properties": {
                         "type": {
@@ -167,7 +176,8 @@
                           "required": [
                             "type",
                             "name"
-                          ]
+                          ],
+                          "description": "Current Type: {@link ObjectNullable.IBrand}"
                         }
                       ]
                     },
@@ -189,7 +199,8 @@
                           "required": [
                             "type",
                             "name"
-                          ]
+                          ],
+                          "description": "Current Type: {@link ObjectNullable.IBrand}"
                         },
                         {
                           "type": "object",
@@ -204,7 +215,8 @@
                           "required": [
                             "type",
                             "name"
-                          ]
+                          ],
+                          "description": "Current Type: {@link ObjectNullable.IManufacturer}"
                         }
                       ]
                     }
@@ -233,12 +245,14 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link ObjectNullable.IProduct}",
                       "type": "object",
                       "properties": {
                         "name": {
                           "type": "string"
                         },
                         "manufacturer": {
+                          "description": "Current Type: {@link ObjectNullable.IManufacturer}",
                           "type": "object",
                           "properties": {
                             "type": {
@@ -271,7 +285,8 @@
                               "required": [
                                 "type",
                                 "name"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectNullable.IBrand}"
                             }
                           ]
                         },
@@ -293,7 +308,8 @@
                               "required": [
                                 "type",
                                 "name"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectNullable.IBrand}"
                             },
                             {
                               "type": "object",
@@ -308,7 +324,8 @@
                               "required": [
                                 "type",
                                 "name"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectNullable.IManufacturer}"
                             }
                           ]
                         }
@@ -324,7 +341,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectNullable}"
               }
             ]
           }
@@ -337,17 +355,20 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link ObjectNullable}",
         "type": "object",
         "properties": {
           "value": {
             "type": "array",
             "items": {
+              "description": "Current Type: {@link ObjectNullable.IProduct}",
               "type": "object",
               "properties": {
                 "name": {
                   "type": "string"
                 },
                 "manufacturer": {
+                  "description": "Current Type: {@link ObjectNullable.IManufacturer}",
                   "type": "object",
                   "properties": {
                     "type": {
@@ -380,7 +401,8 @@
                       "required": [
                         "type",
                         "name"
-                      ]
+                      ],
+                      "description": "Current Type: {@link ObjectNullable.IBrand}"
                     }
                   ]
                 },
@@ -402,7 +424,8 @@
                       "required": [
                         "type",
                         "name"
-                      ]
+                      ],
+                      "description": "Current Type: {@link ObjectNullable.IBrand}"
                     },
                     {
                       "type": "object",
@@ -417,7 +440,8 @@
                       "required": [
                         "type",
                         "name"
-                      ]
+                      ],
+                      "description": "Current Type: {@link ObjectNullable.IManufacturer}"
                     }
                   ]
                 }
@@ -452,12 +476,14 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link ObjectNullable.IProduct}",
                       "type": "object",
                       "properties": {
                         "name": {
                           "type": "string"
                         },
                         "manufacturer": {
+                          "description": "Current Type: {@link ObjectNullable.IManufacturer}",
                           "type": "object",
                           "properties": {
                             "type": {
@@ -490,7 +516,8 @@
                               "required": [
                                 "type",
                                 "name"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectNullable.IBrand}"
                             }
                           ]
                         },
@@ -512,7 +539,8 @@
                               "required": [
                                 "type",
                                 "name"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectNullable.IBrand}"
                             },
                             {
                               "type": "object",
@@ -527,7 +555,8 @@
                               "required": [
                                 "type",
                                 "name"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectNullable.IManufacturer}"
                             }
                           ]
                         }
@@ -543,7 +572,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectNullable}"
               }
             ]
           },
@@ -558,12 +588,14 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link ObjectNullable.IProduct}",
                       "type": "object",
                       "properties": {
                         "name": {
                           "type": "string"
                         },
                         "manufacturer": {
+                          "description": "Current Type: {@link ObjectNullable.IManufacturer}",
                           "type": "object",
                           "properties": {
                             "type": {
@@ -596,7 +628,8 @@
                               "required": [
                                 "type",
                                 "name"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectNullable.IBrand}"
                             }
                           ]
                         },
@@ -618,7 +651,8 @@
                               "required": [
                                 "type",
                                 "name"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectNullable.IBrand}"
                             },
                             {
                               "type": "object",
@@ -633,7 +667,8 @@
                               "required": [
                                 "type",
                                 "name"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectNullable.IManufacturer}"
                             }
                           ]
                         }
@@ -649,7 +684,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectNullable}"
               }
             ]
           },
@@ -664,12 +700,14 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link ObjectNullable.IProduct}",
                       "type": "object",
                       "properties": {
                         "name": {
                           "type": "string"
                         },
                         "manufacturer": {
+                          "description": "Current Type: {@link ObjectNullable.IManufacturer}",
                           "type": "object",
                           "properties": {
                             "type": {
@@ -702,7 +740,8 @@
                               "required": [
                                 "type",
                                 "name"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectNullable.IBrand}"
                             }
                           ]
                         },
@@ -724,7 +763,8 @@
                               "required": [
                                 "type",
                                 "name"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectNullable.IBrand}"
                             },
                             {
                               "type": "object",
@@ -739,7 +779,8 @@
                               "required": [
                                 "type",
                                 "name"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectNullable.IManufacturer}"
                             }
                           ]
                         }
@@ -755,7 +796,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectNullable}"
               }
             ]
           }
@@ -778,12 +820,14 @@
               "value": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ObjectNullable.IProduct}",
                   "type": "object",
                   "properties": {
                     "name": {
                       "type": "string"
                     },
                     "manufacturer": {
+                      "description": "Current Type: {@link ObjectNullable.IManufacturer}",
                       "type": "object",
                       "properties": {
                         "type": {
@@ -816,7 +860,8 @@
                           "required": [
                             "type",
                             "name"
-                          ]
+                          ],
+                          "description": "Current Type: {@link ObjectNullable.IBrand}"
                         }
                       ]
                     },
@@ -838,7 +883,8 @@
                           "required": [
                             "type",
                             "name"
-                          ]
+                          ],
+                          "description": "Current Type: {@link ObjectNullable.IBrand}"
                         },
                         {
                           "type": "object",
@@ -853,7 +899,8 @@
                           "required": [
                             "type",
                             "name"
-                          ]
+                          ],
+                          "description": "Current Type: {@link ObjectNullable.IManufacturer}"
                         }
                       ]
                     }
@@ -869,7 +916,8 @@
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectNullable}"
           }
         ]
       }

@@ -1,8 +1,9 @@
 {
+  "description": "",
   "type": "object",
   "properties": {
     "regular": {
-      "description": "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional",
+      "description": "Description of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional",
       "type": "object",
       "properties": {
         "boolean": {
@@ -68,12 +69,12 @@
             }
           },
           "required": [],
-          "description": "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional"
+          "description": "Description of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional"
         }
       ]
     },
     "optional": {
-      "description": "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional",
+      "description": "Description of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional",
       "type": "object",
       "properties": {
         "boolean": {
@@ -139,14 +140,14 @@
             }
           },
           "required": [],
-          "description": "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional"
+          "description": "Description of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
-        "description": "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional",
+        "description": "Description of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional",
         "type": "object",
         "properties": {
           "boolean": {
@@ -187,6 +188,7 @@
   "additionalProperties": false,
   "$defs": {
     "ObjectPartial.IBase": {
+      "description": "",
       "type": "object",
       "properties": {
         "boolean": {

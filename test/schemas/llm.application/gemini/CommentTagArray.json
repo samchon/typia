@@ -60,13 +60,15 @@
                     "both",
                     "equal",
                     "unique"
-                  ]
+                  ],
+                  "description": "Current Type: {@link CommentTagArray.Type}"
                 }
               }
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link CommentTagArray}"
           }
         },
         "required": [
@@ -129,13 +131,15 @@
                     "both",
                     "equal",
                     "unique"
-                  ]
+                  ],
+                  "description": "Current Type: {@link CommentTagArray.Type}"
                 }
               }
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link CommentTagArray}"
           },
           "second": {
             "type": "object",
@@ -187,7 +191,8 @@
                     "both",
                     "equal",
                     "unique"
-                  ]
+                  ],
+                  "description": "Current Type: {@link CommentTagArray.Type}"
                 }
               }
             },
@@ -252,13 +257,15 @@
                 "both",
                 "equal",
                 "unique"
-              ]
+              ],
+              "description": "Current Type: {@link CommentTagArray.Type}"
             }
           }
         },
         "required": [
           "value"
-        ]
+        ],
+        "description": "Current Type: {@link CommentTagArray}"
       }
     },
     {
@@ -316,7 +323,8 @@
                     "both",
                     "equal",
                     "unique"
-                  ]
+                  ],
+                  "description": "Current Type: {@link CommentTagArray.Type}"
                 }
               }
             },
@@ -375,7 +383,8 @@
                     "both",
                     "equal",
                     "unique"
-                  ]
+                  ],
+                  "description": "Current Type: {@link CommentTagArray.Type}"
                 }
               }
             },
@@ -434,7 +443,8 @@
                     "both",
                     "equal",
                     "unique"
-                  ]
+                  ],
+                  "description": "Current Type: {@link CommentTagArray.Type}"
                 }
               }
             },
@@ -499,7 +509,8 @@
                 "both",
                 "equal",
                 "unique"
-              ]
+              ],
+              "description": "Current Type: {@link CommentTagArray.Type}"
             }
           }
         },

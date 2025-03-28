@@ -33,8 +33,10 @@
                     "type": "boolean"
                   }
                 }
-              ]
-            }
+              ],
+              "description": "Current Type: {@link ArrayUnion.IUnion}"
+            },
+            "description": "Current Type: {@link ArrayUnion}"
           }
         },
         "required": [
@@ -70,8 +72,10 @@
                     "type": "boolean"
                   }
                 }
-              ]
-            }
+              ],
+              "description": "Current Type: {@link ArrayUnion.IUnion}"
+            },
+            "description": "Current Type: {@link ArrayUnion}"
           },
           "second": {
             "type": "array",
@@ -95,7 +99,8 @@
                     "type": "boolean"
                   }
                 }
-              ]
+              ],
+              "description": "Current Type: {@link ArrayUnion.IUnion}"
             },
             "nullable": true
           }
@@ -128,8 +133,10 @@
                 "type": "boolean"
               }
             }
-          ]
-        }
+          ],
+          "description": "Current Type: {@link ArrayUnion.IUnion}"
+        },
+        "description": "Current Type: {@link ArrayUnion}"
       }
     },
     {
@@ -159,7 +166,8 @@
                     "type": "boolean"
                   }
                 }
-              ]
+              ],
+              "description": "Current Type: {@link ArrayUnion.IUnion}"
             },
             "nullable": true
           },
@@ -185,7 +193,8 @@
                     "type": "boolean"
                   }
                 }
-              ]
+              ],
+              "description": "Current Type: {@link ArrayUnion.IUnion}"
             },
             "nullable": true
           },
@@ -211,7 +220,8 @@
                     "type": "boolean"
                   }
                 }
-              ]
+              ],
+              "description": "Current Type: {@link ArrayUnion.IUnion}"
             },
             "nullable": true
           }
@@ -244,7 +254,8 @@
                 "type": "boolean"
               }
             }
-          ]
+          ],
+          "description": "Current Type: {@link ArrayUnion.IUnion}"
         },
         "nullable": true
       }

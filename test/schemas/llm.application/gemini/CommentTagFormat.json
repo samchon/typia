@@ -125,7 +125,8 @@
               "duration",
               "jsonPointer",
               "relativeJsonPointer"
-            ]
+            ],
+            "description": "Current Type: {@link CommentTagFormat}"
           }
         },
         "required": [
@@ -253,7 +254,8 @@
               "duration",
               "jsonPointer",
               "relativeJsonPointer"
-            ]
+            ],
+            "description": "Current Type: {@link CommentTagFormat}"
           },
           "second": {
             "type": "object",
@@ -494,7 +496,8 @@
           "duration",
           "jsonPointer",
           "relativeJsonPointer"
-        ]
+        ],
+        "description": "Current Type: {@link CommentTagFormat}"
       }
     },
     {

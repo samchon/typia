@@ -1,4 +1,5 @@
 {
+  "description": "Current Type: {@link DynamicArray}",
   "type": "object",
   "properties": {
     "value": {

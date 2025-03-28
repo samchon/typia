@@ -26,6 +26,7 @@
                   "required": [
                     "value"
                   ],
+                  "description": "Current Type: {@link CommentTagObjectUnion.Numeric}",
                   "additionalProperties": false
                 },
                 {
@@ -40,10 +41,13 @@
                   "required": [
                     "value"
                   ],
+                  "description": "Current Type: {@link CommentTagObjectUnion.Literal}",
                   "additionalProperties": false
                 }
-              ]
-            }
+              ],
+              "description": "Current Type: {@link CommentTagObjectUnion.Type}"
+            },
+            "description": "Current Type: {@link CommentTagObjectUnion}"
           }
         },
         "required": [
@@ -72,6 +76,7 @@
                   "required": [
                     "value"
                   ],
+                  "description": "Current Type: {@link CommentTagObjectUnion.Numeric}",
                   "additionalProperties": false
                 },
                 {
@@ -86,10 +91,13 @@
                   "required": [
                     "value"
                   ],
+                  "description": "Current Type: {@link CommentTagObjectUnion.Literal}",
                   "additionalProperties": false
                 }
-              ]
-            }
+              ],
+              "description": "Current Type: {@link CommentTagObjectUnion.Type}"
+            },
+            "description": "Current Type: {@link CommentTagObjectUnion}"
           },
           "second": {
             "type": "array",
@@ -106,6 +114,7 @@
                   "required": [
                     "value"
                   ],
+                  "description": "Current Type: {@link CommentTagObjectUnion.Numeric}",
                   "additionalProperties": false
                 },
                 {
@@ -120,9 +129,11 @@
                   "required": [
                     "value"
                   ],
+                  "description": "Current Type: {@link CommentTagObjectUnion.Literal}",
                   "additionalProperties": false
                 }
-              ]
+              ],
+              "description": "Current Type: {@link CommentTagObjectUnion.Type}"
             },
             "nullable": true
           }
@@ -148,6 +159,7 @@
               "required": [
                 "value"
               ],
+              "description": "Current Type: {@link CommentTagObjectUnion.Numeric}",
               "additionalProperties": false
             },
             {
@@ -162,10 +174,13 @@
               "required": [
                 "value"
               ],
+              "description": "Current Type: {@link CommentTagObjectUnion.Literal}",
               "additionalProperties": false
             }
-          ]
-        }
+          ],
+          "description": "Current Type: {@link CommentTagObjectUnion.Type}"
+        },
+        "description": "Current Type: {@link CommentTagObjectUnion}"
       }
     },
     {
@@ -188,6 +203,7 @@
                   "required": [
                     "value"
                   ],
+                  "description": "Current Type: {@link CommentTagObjectUnion.Numeric}",
                   "additionalProperties": false
                 },
                 {
@@ -202,9 +218,11 @@
                   "required": [
                     "value"
                   ],
+                  "description": "Current Type: {@link CommentTagObjectUnion.Literal}",
                   "additionalProperties": false
                 }
-              ]
+              ],
+              "description": "Current Type: {@link CommentTagObjectUnion.Type}"
             },
             "nullable": true
           },
@@ -223,6 +241,7 @@
                   "required": [
                     "value"
                   ],
+                  "description": "Current Type: {@link CommentTagObjectUnion.Numeric}",
                   "additionalProperties": false
                 },
                 {
@@ -237,9 +256,11 @@
                   "required": [
                     "value"
                   ],
+                  "description": "Current Type: {@link CommentTagObjectUnion.Literal}",
                   "additionalProperties": false
                 }
-              ]
+              ],
+              "description": "Current Type: {@link CommentTagObjectUnion.Type}"
             },
             "nullable": true
           },
@@ -258,6 +279,7 @@
                   "required": [
                     "value"
                   ],
+                  "description": "Current Type: {@link CommentTagObjectUnion.Numeric}",
                   "additionalProperties": false
                 },
                 {
@@ -272,9 +294,11 @@
                   "required": [
                     "value"
                   ],
+                  "description": "Current Type: {@link CommentTagObjectUnion.Literal}",
                   "additionalProperties": false
                 }
-              ]
+              ],
+              "description": "Current Type: {@link CommentTagObjectUnion.Type}"
             },
             "nullable": true
           }
@@ -300,6 +324,7 @@
               "required": [
                 "value"
               ],
+              "description": "Current Type: {@link CommentTagObjectUnion.Numeric}",
               "additionalProperties": false
             },
             {
@@ -314,9 +339,11 @@
               "required": [
                 "value"
               ],
+              "description": "Current Type: {@link CommentTagObjectUnion.Literal}",
               "additionalProperties": false
             }
-          ]
+          ],
+          "description": "Current Type: {@link CommentTagObjectUnion.Type}"
         },
         "nullable": true
       }

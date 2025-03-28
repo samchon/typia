@@ -63,7 +63,8 @@
                       {
                         "type": "array",
                         "items": {},
-                        "maxItems": 0
+                        "maxItems": 0,
+                        "description": "Current Type: {@link ArrayArrayRepeatedUnion}"
                       },
                       {
                         "type": "array",
@@ -88,6 +89,7 @@
                                 "y",
                                 "z"
                               ],
+                              "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
                               "additionalProperties": false
                             },
                             "position": {
@@ -108,6 +110,7 @@
                                 "y",
                                 "z"
                               ],
+                              "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
                               "additionalProperties": false
                             },
                             "rotate": {
@@ -128,6 +131,7 @@
                                 "y",
                                 "z"
                               ],
+                              "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
                               "additionalProperties": false
                             },
                             "pivot": {
@@ -148,6 +152,7 @@
                                 "y",
                                 "z"
                               ],
+                              "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
                               "additionalProperties": false
                             }
                           },
@@ -157,11 +162,14 @@
                             "rotate",
                             "pivot"
                           ],
+                          "description": "Current Type: {@link ArrayRepeatedUnion.IBox3D}",
                           "additionalProperties": false
                         }
                       }
-                    ]
-                  }
+                    ],
+                    "description": "Current Type: {@link ArrayRepeatedUnion}"
+                  },
+                  "description": "Current Type: {@link ArrayArrayRepeatedUnion}"
                 },
                 {
                   "type": "array",
@@ -186,6 +194,7 @@
                           "y",
                           "z"
                         ],
+                        "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
                         "additionalProperties": false
                       },
                       "position": {
@@ -206,6 +215,7 @@
                           "y",
                           "z"
                         ],
+                        "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
                         "additionalProperties": false
                       },
                       "rotate": {
@@ -226,6 +236,7 @@
                           "y",
                           "z"
                         ],
+                        "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
                         "additionalProperties": false
                       },
                       "pivot": {
@@ -246,6 +257,7 @@
                           "y",
                           "z"
                         ],
+                        "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
                         "additionalProperties": false
                       }
                     },
@@ -255,11 +267,14 @@
                       "rotate",
                       "pivot"
                     ],
+                    "description": "Current Type: {@link ArrayRepeatedUnion.IBox3D}",
                     "additionalProperties": false
                   }
                 }
-              ]
-            }
+              ],
+              "description": "Current Type: {@link ArrayRepeatedUnion}"
+            },
+            "description": "Current Type: {@link ArrayArrayRepeatedUnion}"
           },
           {
             "type": "array",
@@ -284,6 +299,7 @@
                     "y",
                     "z"
                   ],
+                  "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
                   "additionalProperties": false
                 },
                 "position": {
@@ -304,6 +320,7 @@
                     "y",
                     "z"
                   ],
+                  "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
                   "additionalProperties": false
                 },
                 "rotate": {
@@ -324,6 +341,7 @@
                     "y",
                     "z"
                   ],
+                  "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
                   "additionalProperties": false
                 },
                 "pivot": {
@@ -344,6 +362,7 @@
                     "y",
                     "z"
                   ],
+                  "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
                   "additionalProperties": false
                 }
               },
@@ -353,11 +372,14 @@
                 "rotate",
                 "pivot"
               ],
+              "description": "Current Type: {@link ArrayRepeatedUnion.IBox3D}",
               "additionalProperties": false
             }
           }
-        ]
-      }
+        ],
+        "description": "Current Type: {@link ArrayRepeatedUnion}"
+      },
+      "description": "Current Type: {@link ArrayArrayRepeatedUnion}"
     },
     {
       "type": "array",
@@ -382,6 +404,7 @@
               "y",
               "z"
             ],
+            "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
             "additionalProperties": false
           },
           "position": {
@@ -402,6 +425,7 @@
               "y",
               "z"
             ],
+            "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
             "additionalProperties": false
           },
           "rotate": {
@@ -422,6 +446,7 @@
               "y",
               "z"
             ],
+            "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
             "additionalProperties": false
           },
           "pivot": {
@@ -442,6 +467,7 @@
               "y",
               "z"
             ],
+            "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
             "additionalProperties": false
           }
         },
@@ -451,8 +477,10 @@
           "rotate",
           "pivot"
         ],
+        "description": "Current Type: {@link ArrayRepeatedUnion.IBox3D}",
         "additionalProperties": false
       }
     }
-  ]
+  ],
+  "description": "Current Type: {@link ArrayRepeatedUnion}"
 }

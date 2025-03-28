@@ -2,8 +2,10 @@
   "type": "object",
   "properties": {
     "regular": {
+      "description": "Current Type: {@link AtomicUnion}",
       "type": "array",
       "items": {
+        "description": "Current Type: {@link AtomicUnion.Union}",
         "oneOf": [
           {
             "type": "null"
@@ -28,6 +30,7 @@
         {
           "type": "array",
           "items": {
+            "description": "Current Type: {@link AtomicUnion.Union}",
             "oneOf": [
               {
                 "type": "null"
@@ -42,13 +45,16 @@
                 "type": "boolean"
               }
             ]
-          }
+          },
+          "description": "Current Type: {@link AtomicUnion}"
         }
       ]
     },
     "optional": {
+      "description": "Current Type: {@link AtomicUnion}",
       "type": "array",
       "items": {
+        "description": "Current Type: {@link AtomicUnion.Union}",
         "oneOf": [
           {
             "type": "null"
@@ -73,6 +79,7 @@
         {
           "type": "array",
           "items": {
+            "description": "Current Type: {@link AtomicUnion.Union}",
             "oneOf": [
               {
                 "type": "null"
@@ -87,15 +94,18 @@
                 "type": "boolean"
               }
             ]
-          }
+          },
+          "description": "Current Type: {@link AtomicUnion}"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link AtomicUnion}",
         "type": "array",
         "items": {
+          "description": "Current Type: {@link AtomicUnion.Union}",
           "oneOf": [
             {
               "type": "null"

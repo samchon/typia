@@ -53,13 +53,15 @@
                     "prefix",
                     "postfix",
                     "combined"
-                  ]
+                  ],
+                  "description": "Current Type: {@link TemplateConstant.Type}"
                 }
               }
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link TemplateConstant}"
           }
         },
         "required": [
@@ -115,13 +117,15 @@
                     "prefix",
                     "postfix",
                     "combined"
-                  ]
+                  ],
+                  "description": "Current Type: {@link TemplateConstant.Type}"
                 }
               }
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link TemplateConstant}"
           },
           "second": {
             "type": "object",
@@ -166,7 +170,8 @@
                     "prefix",
                     "postfix",
                     "combined"
-                  ]
+                  ],
+                  "description": "Current Type: {@link TemplateConstant.Type}"
                 }
               }
             },
@@ -224,13 +229,15 @@
                 "prefix",
                 "postfix",
                 "combined"
-              ]
+              ],
+              "description": "Current Type: {@link TemplateConstant.Type}"
             }
           }
         },
         "required": [
           "value"
-        ]
+        ],
+        "description": "Current Type: {@link TemplateConstant}"
       }
     },
     {
@@ -281,7 +288,8 @@
                     "prefix",
                     "postfix",
                     "combined"
-                  ]
+                  ],
+                  "description": "Current Type: {@link TemplateConstant.Type}"
                 }
               }
             },
@@ -333,7 +341,8 @@
                     "prefix",
                     "postfix",
                     "combined"
-                  ]
+                  ],
+                  "description": "Current Type: {@link TemplateConstant.Type}"
                 }
               }
             },
@@ -385,7 +394,8 @@
                     "prefix",
                     "postfix",
                     "combined"
-                  ]
+                  ],
+                  "description": "Current Type: {@link TemplateConstant.Type}"
                 }
               }
             },
@@ -443,7 +453,8 @@
                 "prefix",
                 "postfix",
                 "combined"
-              ]
+              ],
+              "description": "Current Type: {@link TemplateConstant.Type}"
             }
           }
         },

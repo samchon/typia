@@ -15,5 +15,6 @@
         "nullable": true
       }
     ]
-  }
+  },
+  "description": "Current Type: {@link ToJsonAtomicUnion}"
 }

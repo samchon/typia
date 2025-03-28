@@ -114,5 +114,6 @@
     "jsonPointer",
     "relativeJsonPointer"
   ],
+  "description": "Current Type: {@link CommentTagFormat}",
   "additionalProperties": false
 }

@@ -9,12 +9,15 @@
     {
       "name": "insert",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link DynamicArray}",
             "type": "object",
             "properties": {
               "value": {
+                "description": "",
                 "type": "object",
                 "properties": {},
                 "required": [],
@@ -41,12 +44,15 @@
     {
       "name": "reduce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link DynamicArray}",
             "type": "object",
             "properties": {
               "value": {
+                "description": "",
                 "type": "object",
                 "properties": {},
                 "required": [],
@@ -71,6 +77,7 @@
                 "type": "object",
                 "properties": {
                   "value": {
+                    "description": "",
                     "type": "object",
                     "properties": {},
                     "required": [],
@@ -84,7 +91,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link DynamicArray}"
               }
             ]
           }
@@ -97,9 +105,11 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link DynamicArray}",
         "type": "object",
         "properties": {
           "value": {
+            "description": "",
             "type": "object",
             "properties": {},
             "required": [],
@@ -119,6 +129,7 @@
     {
       "name": "coalesce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
@@ -130,6 +141,7 @@
                 "type": "object",
                 "properties": {
                   "value": {
+                    "description": "",
                     "type": "object",
                     "properties": {},
                     "required": [],
@@ -143,7 +155,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link DynamicArray}"
               }
             ]
           },
@@ -156,6 +169,7 @@
                 "type": "object",
                 "properties": {
                   "value": {
+                    "description": "",
                     "type": "object",
                     "properties": {},
                     "required": [],
@@ -169,7 +183,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link DynamicArray}"
               }
             ]
           },
@@ -182,6 +197,7 @@
                 "type": "object",
                 "properties": {
                   "value": {
+                    "description": "",
                     "type": "object",
                     "properties": {},
                     "required": [],
@@ -195,7 +211,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link DynamicArray}"
               }
             ]
           }
@@ -216,6 +233,7 @@
             "type": "object",
             "properties": {
               "value": {
+                "description": "",
                 "type": "object",
                 "properties": {},
                 "required": [],
@@ -229,7 +247,8 @@
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link DynamicArray}"
           }
         ]
       }

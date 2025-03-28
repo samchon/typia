@@ -11,14 +11,17 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ObjectUnionExplicitPointer}",
             "type": "object",
             "properties": {
               "value": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link IPointerObjectUnionExplicitPointer.Shape}",
                   "type": "object",
                   "properties": {
                     "value": {
+                      "description": "Current Type: {@link ObjectUnionExplicitPointer.Shape}",
                       "oneOf": [
                         {
                           "type": "object",
@@ -37,12 +40,14 @@
                             "x",
                             "y",
                             "type"
-                          ]
+                          ],
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorpointObjectUnionExplicitPointer.IPoint}"
                         },
                         {
                           "type": "object",
                           "properties": {
                             "p1": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                               "type": "object",
                               "properties": {
                                 "x": {
@@ -58,6 +63,7 @@
                               ]
                             },
                             "p2": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                               "type": "object",
                               "properties": {
                                 "x": {
@@ -80,12 +86,14 @@
                             "p1",
                             "p2",
                             "type"
-                          ]
+                          ],
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorlineObjectUnionExplicitPointer.ILine}"
                         },
                         {
                           "type": "object",
                           "properties": {
                             "p1": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                               "type": "object",
                               "properties": {
                                 "x": {
@@ -101,6 +109,7 @@
                               ]
                             },
                             "p2": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                               "type": "object",
                               "properties": {
                                 "x": {
@@ -116,6 +125,7 @@
                               ]
                             },
                             "p3": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                               "type": "object",
                               "properties": {
                                 "x": {
@@ -139,12 +149,14 @@
                             "p2",
                             "p3",
                             "type"
-                          ]
+                          ],
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatortriangleObjectUnionExplicitPointer.ITriangle}"
                         },
                         {
                           "type": "object",
                           "properties": {
                             "p1": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                               "type": "object",
                               "properties": {
                                 "x": {
@@ -160,6 +172,7 @@
                               ]
                             },
                             "p2": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                               "type": "object",
                               "properties": {
                                 "x": {
@@ -175,6 +188,7 @@
                               ]
                             },
                             "p3": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                               "type": "object",
                               "properties": {
                                 "x": {
@@ -190,6 +204,7 @@
                               ]
                             },
                             "p4": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                               "type": "object",
                               "properties": {
                                 "x": {
@@ -214,7 +229,8 @@
                             "p3",
                             "p4",
                             "type"
-                          ]
+                          ],
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorrectangleObjectUnionExplicitPointer.IRectangle}"
                         },
                         {
                           "type": "object",
@@ -222,6 +238,7 @@
                             "points": {
                               "type": "array",
                               "items": {
+                                "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                 "type": "object",
                                 "properties": {
                                   "x": {
@@ -244,17 +261,20 @@
                           "required": [
                             "points",
                             "type"
-                          ]
+                          ],
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorpolylineObjectUnionExplicitPointer.IPolyline}"
                         },
                         {
                           "type": "object",
                           "properties": {
                             "outer": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPolyline}",
                               "type": "object",
                               "properties": {
                                 "points": {
                                   "type": "array",
                                   "items": {
+                                    "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                     "type": "object",
                                     "properties": {
                                       "x": {
@@ -278,11 +298,13 @@
                             "inner": {
                               "type": "array",
                               "items": {
+                                "description": "Current Type: {@link ObjectUnionExplicitPointer.IPolyline}",
                                 "type": "object",
                                 "properties": {
                                   "points": {
                                     "type": "array",
                                     "items": {
+                                      "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                       "type": "object",
                                       "properties": {
                                         "x": {
@@ -312,12 +334,14 @@
                             "outer",
                             "inner",
                             "type"
-                          ]
+                          ],
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorpolygonObjectUnionExplicitPointer.IPolygon}"
                         },
                         {
                           "type": "object",
                           "properties": {
                             "centroid": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                               "type": "object",
                               "properties": {
                                 "x": {
@@ -343,7 +367,8 @@
                             "centroid",
                             "radius",
                             "type"
-                          ]
+                          ],
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorcircleObjectUnionExplicitPointer.ICircle}"
                         }
                       ]
                     }
@@ -372,14 +397,17 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ObjectUnionExplicitPointer}",
             "type": "object",
             "properties": {
               "value": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link IPointerObjectUnionExplicitPointer.Shape}",
                   "type": "object",
                   "properties": {
                     "value": {
+                      "description": "Current Type: {@link ObjectUnionExplicitPointer.Shape}",
                       "oneOf": [
                         {
                           "type": "object",
@@ -398,12 +426,14 @@
                             "x",
                             "y",
                             "type"
-                          ]
+                          ],
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorpointObjectUnionExplicitPointer.IPoint}"
                         },
                         {
                           "type": "object",
                           "properties": {
                             "p1": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                               "type": "object",
                               "properties": {
                                 "x": {
@@ -419,6 +449,7 @@
                               ]
                             },
                             "p2": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                               "type": "object",
                               "properties": {
                                 "x": {
@@ -441,12 +472,14 @@
                             "p1",
                             "p2",
                             "type"
-                          ]
+                          ],
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorlineObjectUnionExplicitPointer.ILine}"
                         },
                         {
                           "type": "object",
                           "properties": {
                             "p1": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                               "type": "object",
                               "properties": {
                                 "x": {
@@ -462,6 +495,7 @@
                               ]
                             },
                             "p2": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                               "type": "object",
                               "properties": {
                                 "x": {
@@ -477,6 +511,7 @@
                               ]
                             },
                             "p3": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                               "type": "object",
                               "properties": {
                                 "x": {
@@ -500,12 +535,14 @@
                             "p2",
                             "p3",
                             "type"
-                          ]
+                          ],
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatortriangleObjectUnionExplicitPointer.ITriangle}"
                         },
                         {
                           "type": "object",
                           "properties": {
                             "p1": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                               "type": "object",
                               "properties": {
                                 "x": {
@@ -521,6 +558,7 @@
                               ]
                             },
                             "p2": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                               "type": "object",
                               "properties": {
                                 "x": {
@@ -536,6 +574,7 @@
                               ]
                             },
                             "p3": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                               "type": "object",
                               "properties": {
                                 "x": {
@@ -551,6 +590,7 @@
                               ]
                             },
                             "p4": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                               "type": "object",
                               "properties": {
                                 "x": {
@@ -575,7 +615,8 @@
                             "p3",
                             "p4",
                             "type"
-                          ]
+                          ],
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorrectangleObjectUnionExplicitPointer.IRectangle}"
                         },
                         {
                           "type": "object",
@@ -583,6 +624,7 @@
                             "points": {
                               "type": "array",
                               "items": {
+                                "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                 "type": "object",
                                 "properties": {
                                   "x": {
@@ -605,17 +647,20 @@
                           "required": [
                             "points",
                             "type"
-                          ]
+                          ],
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorpolylineObjectUnionExplicitPointer.IPolyline}"
                         },
                         {
                           "type": "object",
                           "properties": {
                             "outer": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPolyline}",
                               "type": "object",
                               "properties": {
                                 "points": {
                                   "type": "array",
                                   "items": {
+                                    "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                     "type": "object",
                                     "properties": {
                                       "x": {
@@ -639,11 +684,13 @@
                             "inner": {
                               "type": "array",
                               "items": {
+                                "description": "Current Type: {@link ObjectUnionExplicitPointer.IPolyline}",
                                 "type": "object",
                                 "properties": {
                                   "points": {
                                     "type": "array",
                                     "items": {
+                                      "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                       "type": "object",
                                       "properties": {
                                         "x": {
@@ -673,12 +720,14 @@
                             "outer",
                             "inner",
                             "type"
-                          ]
+                          ],
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorpolygonObjectUnionExplicitPointer.IPolygon}"
                         },
                         {
                           "type": "object",
                           "properties": {
                             "centroid": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                               "type": "object",
                               "properties": {
                                 "x": {
@@ -704,7 +753,8 @@
                             "centroid",
                             "radius",
                             "type"
-                          ]
+                          ],
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorcircleObjectUnionExplicitPointer.ICircle}"
                         }
                       ]
                     }
@@ -730,9 +780,11 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link IPointerObjectUnionExplicitPointer.Shape}",
                       "type": "object",
                       "properties": {
                         "value": {
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.Shape}",
                           "oneOf": [
                             {
                               "type": "object",
@@ -751,12 +803,14 @@
                                 "x",
                                 "y",
                                 "type"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorpointObjectUnionExplicitPointer.IPoint}"
                             },
                             {
                               "type": "object",
                               "properties": {
                                 "p1": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                   "type": "object",
                                   "properties": {
                                     "x": {
@@ -772,6 +826,7 @@
                                   ]
                                 },
                                 "p2": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                   "type": "object",
                                   "properties": {
                                     "x": {
@@ -794,12 +849,14 @@
                                 "p1",
                                 "p2",
                                 "type"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorlineObjectUnionExplicitPointer.ILine}"
                             },
                             {
                               "type": "object",
                               "properties": {
                                 "p1": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                   "type": "object",
                                   "properties": {
                                     "x": {
@@ -815,6 +872,7 @@
                                   ]
                                 },
                                 "p2": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                   "type": "object",
                                   "properties": {
                                     "x": {
@@ -830,6 +888,7 @@
                                   ]
                                 },
                                 "p3": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                   "type": "object",
                                   "properties": {
                                     "x": {
@@ -853,12 +912,14 @@
                                 "p2",
                                 "p3",
                                 "type"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatortriangleObjectUnionExplicitPointer.ITriangle}"
                             },
                             {
                               "type": "object",
                               "properties": {
                                 "p1": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                   "type": "object",
                                   "properties": {
                                     "x": {
@@ -874,6 +935,7 @@
                                   ]
                                 },
                                 "p2": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                   "type": "object",
                                   "properties": {
                                     "x": {
@@ -889,6 +951,7 @@
                                   ]
                                 },
                                 "p3": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                   "type": "object",
                                   "properties": {
                                     "x": {
@@ -904,6 +967,7 @@
                                   ]
                                 },
                                 "p4": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                   "type": "object",
                                   "properties": {
                                     "x": {
@@ -928,7 +992,8 @@
                                 "p3",
                                 "p4",
                                 "type"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorrectangleObjectUnionExplicitPointer.IRectangle}"
                             },
                             {
                               "type": "object",
@@ -936,6 +1001,7 @@
                                 "points": {
                                   "type": "array",
                                   "items": {
+                                    "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                     "type": "object",
                                     "properties": {
                                       "x": {
@@ -958,17 +1024,20 @@
                               "required": [
                                 "points",
                                 "type"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorpolylineObjectUnionExplicitPointer.IPolyline}"
                             },
                             {
                               "type": "object",
                               "properties": {
                                 "outer": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPolyline}",
                                   "type": "object",
                                   "properties": {
                                     "points": {
                                       "type": "array",
                                       "items": {
+                                        "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                         "type": "object",
                                         "properties": {
                                           "x": {
@@ -992,11 +1061,13 @@
                                 "inner": {
                                   "type": "array",
                                   "items": {
+                                    "description": "Current Type: {@link ObjectUnionExplicitPointer.IPolyline}",
                                     "type": "object",
                                     "properties": {
                                       "points": {
                                         "type": "array",
                                         "items": {
+                                          "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                           "type": "object",
                                           "properties": {
                                             "x": {
@@ -1026,12 +1097,14 @@
                                 "outer",
                                 "inner",
                                 "type"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorpolygonObjectUnionExplicitPointer.IPolygon}"
                             },
                             {
                               "type": "object",
                               "properties": {
                                 "centroid": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                   "type": "object",
                                   "properties": {
                                     "x": {
@@ -1057,7 +1130,8 @@
                                 "centroid",
                                 "radius",
                                 "type"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorcircleObjectUnionExplicitPointer.ICircle}"
                             }
                           ]
                         }
@@ -1070,7 +1144,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectUnionExplicitPointer}"
               }
             ]
           }
@@ -1083,14 +1158,17 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link ObjectUnionExplicitPointer}",
         "type": "object",
         "properties": {
           "value": {
             "type": "array",
             "items": {
+              "description": "Current Type: {@link IPointerObjectUnionExplicitPointer.Shape}",
               "type": "object",
               "properties": {
                 "value": {
+                  "description": "Current Type: {@link ObjectUnionExplicitPointer.Shape}",
                   "oneOf": [
                     {
                       "type": "object",
@@ -1109,12 +1187,14 @@
                         "x",
                         "y",
                         "type"
-                      ]
+                      ],
+                      "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorpointObjectUnionExplicitPointer.IPoint}"
                     },
                     {
                       "type": "object",
                       "properties": {
                         "p1": {
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                           "type": "object",
                           "properties": {
                             "x": {
@@ -1130,6 +1210,7 @@
                           ]
                         },
                         "p2": {
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                           "type": "object",
                           "properties": {
                             "x": {
@@ -1152,12 +1233,14 @@
                         "p1",
                         "p2",
                         "type"
-                      ]
+                      ],
+                      "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorlineObjectUnionExplicitPointer.ILine}"
                     },
                     {
                       "type": "object",
                       "properties": {
                         "p1": {
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                           "type": "object",
                           "properties": {
                             "x": {
@@ -1173,6 +1256,7 @@
                           ]
                         },
                         "p2": {
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                           "type": "object",
                           "properties": {
                             "x": {
@@ -1188,6 +1272,7 @@
                           ]
                         },
                         "p3": {
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                           "type": "object",
                           "properties": {
                             "x": {
@@ -1211,12 +1296,14 @@
                         "p2",
                         "p3",
                         "type"
-                      ]
+                      ],
+                      "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatortriangleObjectUnionExplicitPointer.ITriangle}"
                     },
                     {
                       "type": "object",
                       "properties": {
                         "p1": {
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                           "type": "object",
                           "properties": {
                             "x": {
@@ -1232,6 +1319,7 @@
                           ]
                         },
                         "p2": {
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                           "type": "object",
                           "properties": {
                             "x": {
@@ -1247,6 +1335,7 @@
                           ]
                         },
                         "p3": {
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                           "type": "object",
                           "properties": {
                             "x": {
@@ -1262,6 +1351,7 @@
                           ]
                         },
                         "p4": {
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                           "type": "object",
                           "properties": {
                             "x": {
@@ -1286,7 +1376,8 @@
                         "p3",
                         "p4",
                         "type"
-                      ]
+                      ],
+                      "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorrectangleObjectUnionExplicitPointer.IRectangle}"
                     },
                     {
                       "type": "object",
@@ -1294,6 +1385,7 @@
                         "points": {
                           "type": "array",
                           "items": {
+                            "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                             "type": "object",
                             "properties": {
                               "x": {
@@ -1316,17 +1408,20 @@
                       "required": [
                         "points",
                         "type"
-                      ]
+                      ],
+                      "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorpolylineObjectUnionExplicitPointer.IPolyline}"
                     },
                     {
                       "type": "object",
                       "properties": {
                         "outer": {
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.IPolyline}",
                           "type": "object",
                           "properties": {
                             "points": {
                               "type": "array",
                               "items": {
+                                "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                 "type": "object",
                                 "properties": {
                                   "x": {
@@ -1350,11 +1445,13 @@
                         "inner": {
                           "type": "array",
                           "items": {
+                            "description": "Current Type: {@link ObjectUnionExplicitPointer.IPolyline}",
                             "type": "object",
                             "properties": {
                               "points": {
                                 "type": "array",
                                 "items": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                   "type": "object",
                                   "properties": {
                                     "x": {
@@ -1384,12 +1481,14 @@
                         "outer",
                         "inner",
                         "type"
-                      ]
+                      ],
+                      "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorpolygonObjectUnionExplicitPointer.IPolygon}"
                     },
                     {
                       "type": "object",
                       "properties": {
                         "centroid": {
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                           "type": "object",
                           "properties": {
                             "x": {
@@ -1415,7 +1514,8 @@
                         "centroid",
                         "radius",
                         "type"
-                      ]
+                      ],
+                      "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorcircleObjectUnionExplicitPointer.ICircle}"
                     }
                   ]
                 }
@@ -1447,9 +1547,11 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link IPointerObjectUnionExplicitPointer.Shape}",
                       "type": "object",
                       "properties": {
                         "value": {
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.Shape}",
                           "oneOf": [
                             {
                               "type": "object",
@@ -1468,12 +1570,14 @@
                                 "x",
                                 "y",
                                 "type"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorpointObjectUnionExplicitPointer.IPoint}"
                             },
                             {
                               "type": "object",
                               "properties": {
                                 "p1": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                   "type": "object",
                                   "properties": {
                                     "x": {
@@ -1489,6 +1593,7 @@
                                   ]
                                 },
                                 "p2": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                   "type": "object",
                                   "properties": {
                                     "x": {
@@ -1511,12 +1616,14 @@
                                 "p1",
                                 "p2",
                                 "type"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorlineObjectUnionExplicitPointer.ILine}"
                             },
                             {
                               "type": "object",
                               "properties": {
                                 "p1": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                   "type": "object",
                                   "properties": {
                                     "x": {
@@ -1532,6 +1639,7 @@
                                   ]
                                 },
                                 "p2": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                   "type": "object",
                                   "properties": {
                                     "x": {
@@ -1547,6 +1655,7 @@
                                   ]
                                 },
                                 "p3": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                   "type": "object",
                                   "properties": {
                                     "x": {
@@ -1570,12 +1679,14 @@
                                 "p2",
                                 "p3",
                                 "type"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatortriangleObjectUnionExplicitPointer.ITriangle}"
                             },
                             {
                               "type": "object",
                               "properties": {
                                 "p1": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                   "type": "object",
                                   "properties": {
                                     "x": {
@@ -1591,6 +1702,7 @@
                                   ]
                                 },
                                 "p2": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                   "type": "object",
                                   "properties": {
                                     "x": {
@@ -1606,6 +1718,7 @@
                                   ]
                                 },
                                 "p3": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                   "type": "object",
                                   "properties": {
                                     "x": {
@@ -1621,6 +1734,7 @@
                                   ]
                                 },
                                 "p4": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                   "type": "object",
                                   "properties": {
                                     "x": {
@@ -1645,7 +1759,8 @@
                                 "p3",
                                 "p4",
                                 "type"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorrectangleObjectUnionExplicitPointer.IRectangle}"
                             },
                             {
                               "type": "object",
@@ -1653,6 +1768,7 @@
                                 "points": {
                                   "type": "array",
                                   "items": {
+                                    "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                     "type": "object",
                                     "properties": {
                                       "x": {
@@ -1675,17 +1791,20 @@
                               "required": [
                                 "points",
                                 "type"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorpolylineObjectUnionExplicitPointer.IPolyline}"
                             },
                             {
                               "type": "object",
                               "properties": {
                                 "outer": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPolyline}",
                                   "type": "object",
                                   "properties": {
                                     "points": {
                                       "type": "array",
                                       "items": {
+                                        "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                         "type": "object",
                                         "properties": {
                                           "x": {
@@ -1709,11 +1828,13 @@
                                 "inner": {
                                   "type": "array",
                                   "items": {
+                                    "description": "Current Type: {@link ObjectUnionExplicitPointer.IPolyline}",
                                     "type": "object",
                                     "properties": {
                                       "points": {
                                         "type": "array",
                                         "items": {
+                                          "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                           "type": "object",
                                           "properties": {
                                             "x": {
@@ -1743,12 +1864,14 @@
                                 "outer",
                                 "inner",
                                 "type"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorpolygonObjectUnionExplicitPointer.IPolygon}"
                             },
                             {
                               "type": "object",
                               "properties": {
                                 "centroid": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                   "type": "object",
                                   "properties": {
                                     "x": {
@@ -1774,7 +1897,8 @@
                                 "centroid",
                                 "radius",
                                 "type"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorcircleObjectUnionExplicitPointer.ICircle}"
                             }
                           ]
                         }
@@ -1787,7 +1911,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectUnionExplicitPointer}"
               }
             ]
           },
@@ -1802,9 +1927,11 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link IPointerObjectUnionExplicitPointer.Shape}",
                       "type": "object",
                       "properties": {
                         "value": {
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.Shape}",
                           "oneOf": [
                             {
                               "type": "object",
@@ -1823,12 +1950,14 @@
                                 "x",
                                 "y",
                                 "type"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorpointObjectUnionExplicitPointer.IPoint}"
                             },
                             {
                               "type": "object",
                               "properties": {
                                 "p1": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                   "type": "object",
                                   "properties": {
                                     "x": {
@@ -1844,6 +1973,7 @@
                                   ]
                                 },
                                 "p2": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                   "type": "object",
                                   "properties": {
                                     "x": {
@@ -1866,12 +1996,14 @@
                                 "p1",
                                 "p2",
                                 "type"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorlineObjectUnionExplicitPointer.ILine}"
                             },
                             {
                               "type": "object",
                               "properties": {
                                 "p1": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                   "type": "object",
                                   "properties": {
                                     "x": {
@@ -1887,6 +2019,7 @@
                                   ]
                                 },
                                 "p2": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                   "type": "object",
                                   "properties": {
                                     "x": {
@@ -1902,6 +2035,7 @@
                                   ]
                                 },
                                 "p3": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                   "type": "object",
                                   "properties": {
                                     "x": {
@@ -1925,12 +2059,14 @@
                                 "p2",
                                 "p3",
                                 "type"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatortriangleObjectUnionExplicitPointer.ITriangle}"
                             },
                             {
                               "type": "object",
                               "properties": {
                                 "p1": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                   "type": "object",
                                   "properties": {
                                     "x": {
@@ -1946,6 +2082,7 @@
                                   ]
                                 },
                                 "p2": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                   "type": "object",
                                   "properties": {
                                     "x": {
@@ -1961,6 +2098,7 @@
                                   ]
                                 },
                                 "p3": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                   "type": "object",
                                   "properties": {
                                     "x": {
@@ -1976,6 +2114,7 @@
                                   ]
                                 },
                                 "p4": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                   "type": "object",
                                   "properties": {
                                     "x": {
@@ -2000,7 +2139,8 @@
                                 "p3",
                                 "p4",
                                 "type"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorrectangleObjectUnionExplicitPointer.IRectangle}"
                             },
                             {
                               "type": "object",
@@ -2008,6 +2148,7 @@
                                 "points": {
                                   "type": "array",
                                   "items": {
+                                    "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                     "type": "object",
                                     "properties": {
                                       "x": {
@@ -2030,17 +2171,20 @@
                               "required": [
                                 "points",
                                 "type"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorpolylineObjectUnionExplicitPointer.IPolyline}"
                             },
                             {
                               "type": "object",
                               "properties": {
                                 "outer": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPolyline}",
                                   "type": "object",
                                   "properties": {
                                     "points": {
                                       "type": "array",
                                       "items": {
+                                        "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                         "type": "object",
                                         "properties": {
                                           "x": {
@@ -2064,11 +2208,13 @@
                                 "inner": {
                                   "type": "array",
                                   "items": {
+                                    "description": "Current Type: {@link ObjectUnionExplicitPointer.IPolyline}",
                                     "type": "object",
                                     "properties": {
                                       "points": {
                                         "type": "array",
                                         "items": {
+                                          "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                           "type": "object",
                                           "properties": {
                                             "x": {
@@ -2098,12 +2244,14 @@
                                 "outer",
                                 "inner",
                                 "type"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorpolygonObjectUnionExplicitPointer.IPolygon}"
                             },
                             {
                               "type": "object",
                               "properties": {
                                 "centroid": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                   "type": "object",
                                   "properties": {
                                     "x": {
@@ -2129,7 +2277,8 @@
                                 "centroid",
                                 "radius",
                                 "type"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorcircleObjectUnionExplicitPointer.ICircle}"
                             }
                           ]
                         }
@@ -2142,7 +2291,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectUnionExplicitPointer}"
               }
             ]
           },
@@ -2157,9 +2307,11 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link IPointerObjectUnionExplicitPointer.Shape}",
                       "type": "object",
                       "properties": {
                         "value": {
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.Shape}",
                           "oneOf": [
                             {
                               "type": "object",
@@ -2178,12 +2330,14 @@
                                 "x",
                                 "y",
                                 "type"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorpointObjectUnionExplicitPointer.IPoint}"
                             },
                             {
                               "type": "object",
                               "properties": {
                                 "p1": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                   "type": "object",
                                   "properties": {
                                     "x": {
@@ -2199,6 +2353,7 @@
                                   ]
                                 },
                                 "p2": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                   "type": "object",
                                   "properties": {
                                     "x": {
@@ -2221,12 +2376,14 @@
                                 "p1",
                                 "p2",
                                 "type"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorlineObjectUnionExplicitPointer.ILine}"
                             },
                             {
                               "type": "object",
                               "properties": {
                                 "p1": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                   "type": "object",
                                   "properties": {
                                     "x": {
@@ -2242,6 +2399,7 @@
                                   ]
                                 },
                                 "p2": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                   "type": "object",
                                   "properties": {
                                     "x": {
@@ -2257,6 +2415,7 @@
                                   ]
                                 },
                                 "p3": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                   "type": "object",
                                   "properties": {
                                     "x": {
@@ -2280,12 +2439,14 @@
                                 "p2",
                                 "p3",
                                 "type"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatortriangleObjectUnionExplicitPointer.ITriangle}"
                             },
                             {
                               "type": "object",
                               "properties": {
                                 "p1": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                   "type": "object",
                                   "properties": {
                                     "x": {
@@ -2301,6 +2462,7 @@
                                   ]
                                 },
                                 "p2": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                   "type": "object",
                                   "properties": {
                                     "x": {
@@ -2316,6 +2478,7 @@
                                   ]
                                 },
                                 "p3": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                   "type": "object",
                                   "properties": {
                                     "x": {
@@ -2331,6 +2494,7 @@
                                   ]
                                 },
                                 "p4": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                   "type": "object",
                                   "properties": {
                                     "x": {
@@ -2355,7 +2519,8 @@
                                 "p3",
                                 "p4",
                                 "type"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorrectangleObjectUnionExplicitPointer.IRectangle}"
                             },
                             {
                               "type": "object",
@@ -2363,6 +2528,7 @@
                                 "points": {
                                   "type": "array",
                                   "items": {
+                                    "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                     "type": "object",
                                     "properties": {
                                       "x": {
@@ -2385,17 +2551,20 @@
                               "required": [
                                 "points",
                                 "type"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorpolylineObjectUnionExplicitPointer.IPolyline}"
                             },
                             {
                               "type": "object",
                               "properties": {
                                 "outer": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPolyline}",
                                   "type": "object",
                                   "properties": {
                                     "points": {
                                       "type": "array",
                                       "items": {
+                                        "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                         "type": "object",
                                         "properties": {
                                           "x": {
@@ -2419,11 +2588,13 @@
                                 "inner": {
                                   "type": "array",
                                   "items": {
+                                    "description": "Current Type: {@link ObjectUnionExplicitPointer.IPolyline}",
                                     "type": "object",
                                     "properties": {
                                       "points": {
                                         "type": "array",
                                         "items": {
+                                          "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                           "type": "object",
                                           "properties": {
                                             "x": {
@@ -2453,12 +2624,14 @@
                                 "outer",
                                 "inner",
                                 "type"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorpolygonObjectUnionExplicitPointer.IPolygon}"
                             },
                             {
                               "type": "object",
                               "properties": {
                                 "centroid": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                   "type": "object",
                                   "properties": {
                                     "x": {
@@ -2484,7 +2657,8 @@
                                 "centroid",
                                 "radius",
                                 "type"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorcircleObjectUnionExplicitPointer.ICircle}"
                             }
                           ]
                         }
@@ -2497,7 +2671,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectUnionExplicitPointer}"
               }
             ]
           }
@@ -2520,9 +2695,11 @@
               "value": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link IPointerObjectUnionExplicitPointer.Shape}",
                   "type": "object",
                   "properties": {
                     "value": {
+                      "description": "Current Type: {@link ObjectUnionExplicitPointer.Shape}",
                       "oneOf": [
                         {
                           "type": "object",
@@ -2541,12 +2718,14 @@
                             "x",
                             "y",
                             "type"
-                          ]
+                          ],
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorpointObjectUnionExplicitPointer.IPoint}"
                         },
                         {
                           "type": "object",
                           "properties": {
                             "p1": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                               "type": "object",
                               "properties": {
                                 "x": {
@@ -2562,6 +2741,7 @@
                               ]
                             },
                             "p2": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                               "type": "object",
                               "properties": {
                                 "x": {
@@ -2584,12 +2764,14 @@
                             "p1",
                             "p2",
                             "type"
-                          ]
+                          ],
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorlineObjectUnionExplicitPointer.ILine}"
                         },
                         {
                           "type": "object",
                           "properties": {
                             "p1": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                               "type": "object",
                               "properties": {
                                 "x": {
@@ -2605,6 +2787,7 @@
                               ]
                             },
                             "p2": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                               "type": "object",
                               "properties": {
                                 "x": {
@@ -2620,6 +2803,7 @@
                               ]
                             },
                             "p3": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                               "type": "object",
                               "properties": {
                                 "x": {
@@ -2643,12 +2827,14 @@
                             "p2",
                             "p3",
                             "type"
-                          ]
+                          ],
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatortriangleObjectUnionExplicitPointer.ITriangle}"
                         },
                         {
                           "type": "object",
                           "properties": {
                             "p1": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                               "type": "object",
                               "properties": {
                                 "x": {
@@ -2664,6 +2850,7 @@
                               ]
                             },
                             "p2": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                               "type": "object",
                               "properties": {
                                 "x": {
@@ -2679,6 +2866,7 @@
                               ]
                             },
                             "p3": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                               "type": "object",
                               "properties": {
                                 "x": {
@@ -2694,6 +2882,7 @@
                               ]
                             },
                             "p4": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                               "type": "object",
                               "properties": {
                                 "x": {
@@ -2718,7 +2907,8 @@
                             "p3",
                             "p4",
                             "type"
-                          ]
+                          ],
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorrectangleObjectUnionExplicitPointer.IRectangle}"
                         },
                         {
                           "type": "object",
@@ -2726,6 +2916,7 @@
                             "points": {
                               "type": "array",
                               "items": {
+                                "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                 "type": "object",
                                 "properties": {
                                   "x": {
@@ -2748,17 +2939,20 @@
                           "required": [
                             "points",
                             "type"
-                          ]
+                          ],
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorpolylineObjectUnionExplicitPointer.IPolyline}"
                         },
                         {
                           "type": "object",
                           "properties": {
                             "outer": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPolyline}",
                               "type": "object",
                               "properties": {
                                 "points": {
                                   "type": "array",
                                   "items": {
+                                    "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                     "type": "object",
                                     "properties": {
                                       "x": {
@@ -2782,11 +2976,13 @@
                             "inner": {
                               "type": "array",
                               "items": {
+                                "description": "Current Type: {@link ObjectUnionExplicitPointer.IPolyline}",
                                 "type": "object",
                                 "properties": {
                                   "points": {
                                     "type": "array",
                                     "items": {
+                                      "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                                       "type": "object",
                                       "properties": {
                                         "x": {
@@ -2816,12 +3012,14 @@
                             "outer",
                             "inner",
                             "type"
-                          ]
+                          ],
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorpolygonObjectUnionExplicitPointer.IPolygon}"
                         },
                         {
                           "type": "object",
                           "properties": {
                             "centroid": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
                               "type": "object",
                               "properties": {
                                 "x": {
@@ -2847,7 +3045,8 @@
                             "centroid",
                             "radius",
                             "type"
-                          ]
+                          ],
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorcircleObjectUnionExplicitPointer.ICircle}"
                         }
                       ]
                     }
@@ -2860,7 +3059,8 @@
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectUnionExplicitPointer}"
           }
         ]
       }

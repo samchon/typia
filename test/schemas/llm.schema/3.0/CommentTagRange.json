@@ -65,6 +65,7 @@
           "greater_equal_less_equal",
           "equal"
         ],
+        "description": "Current Type: {@link CommentTagRange.Type}",
         "additionalProperties": false
       }
     }
@@ -72,5 +73,6 @@
   "required": [
     "value"
   ],
+  "description": "Current Type: {@link CommentTagRange}",
   "additionalProperties": false
 }

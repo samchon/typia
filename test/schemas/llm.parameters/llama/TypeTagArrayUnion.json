@@ -2,8 +2,10 @@
   "type": "object",
   "properties": {
     "regular": {
+      "description": "Current Type: {@link TypeTagArrayUnion}",
       "type": "array",
       "items": {
+        "description": "Current Type: {@link TypeTagArrayUnion.Type}",
         "type": "object",
         "properties": {
           "items": {
@@ -65,6 +67,7 @@
         {
           "type": "array",
           "items": {
+            "description": "Current Type: {@link TypeTagArrayUnion.Type}",
             "type": "object",
             "properties": {
               "items": {
@@ -116,13 +119,16 @@
               "maxItems",
               "both"
             ]
-          }
+          },
+          "description": "Current Type: {@link TypeTagArrayUnion}"
         }
       ]
     },
     "optional": {
+      "description": "Current Type: {@link TypeTagArrayUnion}",
       "type": "array",
       "items": {
+        "description": "Current Type: {@link TypeTagArrayUnion.Type}",
         "type": "object",
         "properties": {
           "items": {
@@ -184,6 +190,7 @@
         {
           "type": "array",
           "items": {
+            "description": "Current Type: {@link TypeTagArrayUnion.Type}",
             "type": "object",
             "properties": {
               "items": {
@@ -235,15 +242,18 @@
               "maxItems",
               "both"
             ]
-          }
+          },
+          "description": "Current Type: {@link TypeTagArrayUnion}"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link TypeTagArrayUnion}",
         "type": "array",
         "items": {
+          "description": "Current Type: {@link TypeTagArrayUnion.Type}",
           "type": "object",
           "properties": {
             "items": {

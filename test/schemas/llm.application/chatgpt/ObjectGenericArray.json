@@ -9,12 +9,15 @@
     {
       "name": "insert",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ObjectGenericArray}",
             "type": "object",
             "properties": {
               "pagination": {
+                "description": "Current Type: {@link ObjectGenericArray.IPagination}",
                 "type": "object",
                 "properties": {
                   "page": {
@@ -40,6 +43,7 @@
               "data": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ObjectGenericArray.IPerson}",
                   "type": "object",
                   "properties": {
                     "name": {
@@ -72,12 +76,15 @@
     {
       "name": "reduce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ObjectGenericArray}",
             "type": "object",
             "properties": {
               "pagination": {
+                "description": "Current Type: {@link ObjectGenericArray.IPagination}",
                 "type": "object",
                 "properties": {
                   "page": {
@@ -103,6 +110,7 @@
               "data": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ObjectGenericArray.IPerson}",
                   "type": "object",
                   "properties": {
                     "name": {
@@ -133,6 +141,7 @@
                 "type": "object",
                 "properties": {
                   "pagination": {
+                    "description": "Current Type: {@link ObjectGenericArray.IPagination}",
                     "type": "object",
                     "properties": {
                       "page": {
@@ -158,6 +167,7 @@
                   "data": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link ObjectGenericArray.IPerson}",
                       "type": "object",
                       "properties": {
                         "name": {
@@ -177,7 +187,8 @@
                 "required": [
                   "pagination",
                   "data"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectGenericArray}"
               }
             ]
           }
@@ -190,9 +201,11 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link ObjectGenericArray}",
         "type": "object",
         "properties": {
           "pagination": {
+            "description": "Current Type: {@link ObjectGenericArray.IPagination}",
             "type": "object",
             "properties": {
               "page": {
@@ -218,6 +231,7 @@
           "data": {
             "type": "array",
             "items": {
+              "description": "Current Type: {@link ObjectGenericArray.IPerson}",
               "type": "object",
               "properties": {
                 "name": {
@@ -243,6 +257,7 @@
     {
       "name": "coalesce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
@@ -254,6 +269,7 @@
                 "type": "object",
                 "properties": {
                   "pagination": {
+                    "description": "Current Type: {@link ObjectGenericArray.IPagination}",
                     "type": "object",
                     "properties": {
                       "page": {
@@ -279,6 +295,7 @@
                   "data": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link ObjectGenericArray.IPerson}",
                       "type": "object",
                       "properties": {
                         "name": {
@@ -298,7 +315,8 @@
                 "required": [
                   "pagination",
                   "data"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectGenericArray}"
               }
             ]
           },
@@ -311,6 +329,7 @@
                 "type": "object",
                 "properties": {
                   "pagination": {
+                    "description": "Current Type: {@link ObjectGenericArray.IPagination}",
                     "type": "object",
                     "properties": {
                       "page": {
@@ -336,6 +355,7 @@
                   "data": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link ObjectGenericArray.IPerson}",
                       "type": "object",
                       "properties": {
                         "name": {
@@ -355,7 +375,8 @@
                 "required": [
                   "pagination",
                   "data"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectGenericArray}"
               }
             ]
           },
@@ -368,6 +389,7 @@
                 "type": "object",
                 "properties": {
                   "pagination": {
+                    "description": "Current Type: {@link ObjectGenericArray.IPagination}",
                     "type": "object",
                     "properties": {
                       "page": {
@@ -393,6 +415,7 @@
                   "data": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link ObjectGenericArray.IPerson}",
                       "type": "object",
                       "properties": {
                         "name": {
@@ -412,7 +435,8 @@
                 "required": [
                   "pagination",
                   "data"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectGenericArray}"
               }
             ]
           }
@@ -433,6 +457,7 @@
             "type": "object",
             "properties": {
               "pagination": {
+                "description": "Current Type: {@link ObjectGenericArray.IPagination}",
                 "type": "object",
                 "properties": {
                   "page": {
@@ -458,6 +483,7 @@
               "data": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ObjectGenericArray.IPerson}",
                   "type": "object",
                   "properties": {
                     "name": {
@@ -477,7 +503,8 @@
             "required": [
               "pagination",
               "data"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectGenericArray}"
           }
         ]
       }

@@ -9,9 +9,11 @@
     {
       "name": "insert",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ClassPropertyAssignment}",
             "type": "object",
             "properties": {
               "id": {
@@ -55,9 +57,11 @@
     {
       "name": "reduce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ClassPropertyAssignment}",
             "type": "object",
             "properties": {
               "id": {
@@ -126,7 +130,8 @@
                   "note",
                   "editable",
                   "incremental"
-                ]
+                ],
+                "description": "Current Type: {@link ClassPropertyAssignment}"
               }
             ]
           }
@@ -139,6 +144,7 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link ClassPropertyAssignment}",
         "type": "object",
         "properties": {
           "id": {
@@ -175,6 +181,7 @@
     {
       "name": "coalesce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
@@ -213,7 +220,8 @@
                   "note",
                   "editable",
                   "incremental"
-                ]
+                ],
+                "description": "Current Type: {@link ClassPropertyAssignment}"
               }
             ]
           },
@@ -253,7 +261,8 @@
                   "note",
                   "editable",
                   "incremental"
-                ]
+                ],
+                "description": "Current Type: {@link ClassPropertyAssignment}"
               }
             ]
           },
@@ -293,7 +302,8 @@
                   "note",
                   "editable",
                   "incremental"
-                ]
+                ],
+                "description": "Current Type: {@link ClassPropertyAssignment}"
               }
             ]
           }
@@ -341,7 +351,8 @@
               "note",
               "editable",
               "incremental"
-            ]
+            ],
+            "description": "Current Type: {@link ClassPropertyAssignment}"
           }
         ]
       }

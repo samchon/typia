@@ -2,6 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
+      "description": "Current Type: {@link DynamicEnumeration}",
       "type": "object",
       "properties": {
         "value": {
@@ -92,11 +93,13 @@
           },
           "required": [
             "value"
-          ]
+          ],
+          "description": "Current Type: {@link DynamicEnumeration}"
         }
       ]
     },
     "optional": {
+      "description": "Current Type: {@link DynamicEnumeration}",
       "type": "object",
       "properties": {
         "value": {
@@ -187,13 +190,15 @@
           },
           "required": [
             "value"
-          ]
+          ],
+          "description": "Current Type: {@link DynamicEnumeration}"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link DynamicEnumeration}",
         "type": "object",
         "properties": {
           "value": {

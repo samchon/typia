@@ -56,13 +56,15 @@
               "greater_less_equal",
               "greater_equal_less_equal",
               "equal"
-            ]
+            ],
+            "description": "Current Type: {@link CommentTagRange.Type}"
           }
         }
       },
       "required": [
         "value"
-      ]
+      ],
+      "description": "Current Type: {@link CommentTagRange}"
     },
     "nullable": {
       "type": "object",
@@ -119,7 +121,8 @@
               "greater_less_equal",
               "greater_equal_less_equal",
               "equal"
-            ]
+            ],
+            "description": "Current Type: {@link CommentTagRange.Type}"
           }
         }
       },
@@ -183,13 +186,15 @@
               "greater_less_equal",
               "greater_equal_less_equal",
               "equal"
-            ]
+            ],
+            "description": "Current Type: {@link CommentTagRange.Type}"
           }
         }
       },
       "required": [
         "value"
-      ]
+      ],
+      "description": "Current Type: {@link CommentTagRange}"
     },
     "faint": {
       "type": "object",
@@ -246,7 +251,8 @@
               "greater_less_equal",
               "greater_equal_less_equal",
               "equal"
-            ]
+            ],
+            "description": "Current Type: {@link CommentTagRange.Type}"
           }
         }
       },
@@ -312,13 +318,15 @@
                 "greater_less_equal",
                 "greater_equal_less_equal",
                 "equal"
-              ]
+              ],
+              "description": "Current Type: {@link CommentTagRange.Type}"
             }
           }
         },
         "required": [
           "value"
-        ]
+        ],
+        "description": "Current Type: {@link CommentTagRange}"
       }
     }
   },

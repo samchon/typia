@@ -54,6 +54,7 @@
                     "uint64",
                     "float"
                   ],
+                  "description": "Current Type: {@link CommentTagType.Type}",
                   "additionalProperties": false
                 }
               }
@@ -61,6 +62,7 @@
             "required": [
               "value"
             ],
+            "description": "Current Type: {@link CommentTagType}",
             "additionalProperties": false
           }
         },
@@ -118,6 +120,7 @@
                     "uint64",
                     "float"
                   ],
+                  "description": "Current Type: {@link CommentTagType.Type}",
                   "additionalProperties": false
                 }
               }
@@ -125,6 +128,7 @@
             "required": [
               "value"
             ],
+            "description": "Current Type: {@link CommentTagType}",
             "additionalProperties": false
           },
           "second": {
@@ -170,6 +174,7 @@
                     "uint64",
                     "float"
                   ],
+                  "description": "Current Type: {@link CommentTagType.Type}",
                   "additionalProperties": false
                 }
               }
@@ -230,6 +235,7 @@
                 "uint64",
                 "float"
               ],
+              "description": "Current Type: {@link CommentTagType.Type}",
               "additionalProperties": false
             }
           }
@@ -237,6 +243,7 @@
         "required": [
           "value"
         ],
+        "description": "Current Type: {@link CommentTagType}",
         "additionalProperties": false
       }
     },
@@ -288,6 +295,7 @@
                     "uint64",
                     "float"
                   ],
+                  "description": "Current Type: {@link CommentTagType.Type}",
                   "additionalProperties": false
                 }
               }
@@ -341,6 +349,7 @@
                     "uint64",
                     "float"
                   ],
+                  "description": "Current Type: {@link CommentTagType.Type}",
                   "additionalProperties": false
                 }
               }
@@ -394,6 +403,7 @@
                     "uint64",
                     "float"
                   ],
+                  "description": "Current Type: {@link CommentTagType.Type}",
                   "additionalProperties": false
                 }
               }
@@ -454,6 +464,7 @@
                 "uint64",
                 "float"
               ],
+              "description": "Current Type: {@link CommentTagType.Type}",
               "additionalProperties": false
             }
           }

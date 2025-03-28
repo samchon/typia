@@ -47,5 +47,6 @@
     "ipv4",
     "email"
   ],
+  "description": "Current Type: {@link TemplateAtomic}",
   "additionalProperties": false
 }

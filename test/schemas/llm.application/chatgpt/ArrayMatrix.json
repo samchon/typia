@@ -9,9 +9,11 @@
     {
       "name": "insert",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ArrayMatrix}",
             "type": "array",
             "items": {
               "type": "array",
@@ -34,9 +36,11 @@
     {
       "name": "reduce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ArrayMatrix}",
             "type": "array",
             "items": {
               "type": "array",
@@ -63,7 +67,8 @@
                       "type": "number"
                     }
                   }
-                }
+                },
+                "description": "Current Type: {@link ArrayMatrix}"
               }
             ]
           }
@@ -76,6 +81,7 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link ArrayMatrix}",
         "type": "array",
         "items": {
           "type": "array",
@@ -91,6 +97,7 @@
     {
       "name": "coalesce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
@@ -108,7 +115,8 @@
                       "type": "number"
                     }
                   }
-                }
+                },
+                "description": "Current Type: {@link ArrayMatrix}"
               }
             ]
           },
@@ -127,7 +135,8 @@
                       "type": "number"
                     }
                   }
-                }
+                },
+                "description": "Current Type: {@link ArrayMatrix}"
               }
             ]
           },
@@ -146,7 +155,8 @@
                       "type": "number"
                     }
                   }
-                }
+                },
+                "description": "Current Type: {@link ArrayMatrix}"
               }
             ]
           }
@@ -173,7 +183,8 @@
                   "type": "number"
                 }
               }
-            }
+            },
+            "description": "Current Type: {@link ArrayMatrix}"
           }
         ]
       }

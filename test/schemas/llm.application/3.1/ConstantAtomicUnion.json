@@ -12,8 +12,10 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ConstantAtomicUnion}",
             "type": "array",
             "items": {
+              "description": "Current Type: {@link ConstantAtomicUnion.Union}",
               "oneOf": [
                 {
                   "const": false
@@ -58,8 +60,10 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ConstantAtomicUnion}",
             "type": "array",
             "items": {
+              "description": "Current Type: {@link ConstantAtomicUnion.Union}",
               "oneOf": [
                 {
                   "const": false
@@ -98,6 +102,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ConstantAtomicUnion.Union}",
                   "oneOf": [
                     {
                       "const": false
@@ -126,7 +131,8 @@
                       ]
                     }
                   ]
-                }
+                },
+                "description": "Current Type: {@link ConstantAtomicUnion}"
               }
             ]
           }
@@ -139,8 +145,10 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link ConstantAtomicUnion}",
         "type": "array",
         "items": {
+          "description": "Current Type: {@link ConstantAtomicUnion.Union}",
           "oneOf": [
             {
               "const": false
@@ -185,6 +193,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ConstantAtomicUnion.Union}",
                   "oneOf": [
                     {
                       "const": false
@@ -213,7 +222,8 @@
                       ]
                     }
                   ]
-                }
+                },
+                "description": "Current Type: {@link ConstantAtomicUnion}"
               }
             ]
           },
@@ -225,6 +235,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ConstantAtomicUnion.Union}",
                   "oneOf": [
                     {
                       "const": false
@@ -253,7 +264,8 @@
                       ]
                     }
                   ]
-                }
+                },
+                "description": "Current Type: {@link ConstantAtomicUnion}"
               }
             ]
           },
@@ -265,6 +277,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ConstantAtomicUnion.Union}",
                   "oneOf": [
                     {
                       "const": false
@@ -293,7 +306,8 @@
                       ]
                     }
                   ]
-                }
+                },
+                "description": "Current Type: {@link ConstantAtomicUnion}"
               }
             ]
           }
@@ -313,6 +327,7 @@
           {
             "type": "array",
             "items": {
+              "description": "Current Type: {@link ConstantAtomicUnion.Union}",
               "oneOf": [
                 {
                   "const": false
@@ -341,7 +356,8 @@
                   ]
                 }
               ]
-            }
+            },
+            "description": "Current Type: {@link ConstantAtomicUnion}"
           }
         ]
       }

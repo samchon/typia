@@ -9,9 +9,11 @@
     {
       "name": "insert",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ObjectDate}",
             "type": "object",
             "properties": {
               "classDate": {
@@ -88,9 +90,11 @@
     {
       "name": "reduce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ObjectDate}",
             "type": "object",
             "properties": {
               "classDate": {
@@ -225,7 +229,8 @@
                   "datetime",
                   "time",
                   "duration"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectDate}"
               }
             ]
           }
@@ -238,6 +243,7 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link ObjectDate}",
         "type": "object",
         "properties": {
           "classDate": {
@@ -307,6 +313,7 @@
     {
       "name": "coalesce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
@@ -378,7 +385,8 @@
                   "datetime",
                   "time",
                   "duration"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectDate}"
               }
             ]
           },
@@ -451,7 +459,8 @@
                   "datetime",
                   "time",
                   "duration"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectDate}"
               }
             ]
           },
@@ -524,7 +533,8 @@
                   "datetime",
                   "time",
                   "duration"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectDate}"
               }
             ]
           }
@@ -605,7 +615,8 @@
               "datetime",
               "time",
               "duration"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectDate}"
           }
         ]
       }

@@ -12,11 +12,13 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link TemplateUnion}",
             "type": "object",
             "properties": {
               "value": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link TemplateUnion.Type}",
                   "type": "object",
                   "properties": {
                     "prefix": {
@@ -100,11 +102,13 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link TemplateUnion}",
             "type": "object",
             "properties": {
               "value": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link TemplateUnion.Type}",
                   "type": "object",
                   "properties": {
                     "prefix": {
@@ -185,6 +189,7 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link TemplateUnion.Type}",
                       "type": "object",
                       "properties": {
                         "prefix": {
@@ -252,7 +257,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link TemplateUnion}"
               }
             ]
           }
@@ -265,11 +271,13 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link TemplateUnion}",
         "type": "object",
         "properties": {
           "value": {
             "type": "array",
             "items": {
+              "description": "Current Type: {@link TemplateUnion.Type}",
               "type": "object",
               "properties": {
                 "prefix": {
@@ -356,6 +364,7 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link TemplateUnion.Type}",
                       "type": "object",
                       "properties": {
                         "prefix": {
@@ -423,7 +432,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link TemplateUnion}"
               }
             ]
           },
@@ -438,6 +448,7 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link TemplateUnion.Type}",
                       "type": "object",
                       "properties": {
                         "prefix": {
@@ -505,7 +516,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link TemplateUnion}"
               }
             ]
           },
@@ -520,6 +532,7 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link TemplateUnion.Type}",
                       "type": "object",
                       "properties": {
                         "prefix": {
@@ -587,7 +600,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link TemplateUnion}"
               }
             ]
           }
@@ -610,6 +624,7 @@
               "value": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link TemplateUnion.Type}",
                   "type": "object",
                   "properties": {
                     "prefix": {
@@ -677,7 +692,8 @@
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link TemplateUnion}"
           }
         ]
       }

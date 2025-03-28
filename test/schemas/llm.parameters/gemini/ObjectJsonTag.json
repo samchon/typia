@@ -26,7 +26,8 @@
         "description",
         "title",
         "complicate_title"
-      ]
+      ],
+      "description": "Current Type: {@link ObjectJsonTag}"
     },
     "nullable": {
       "type": "object",
@@ -81,7 +82,8 @@
         "description",
         "title",
         "complicate_title"
-      ]
+      ],
+      "description": "Current Type: {@link ObjectJsonTag}"
     },
     "faint": {
       "type": "object",
@@ -138,7 +140,8 @@
           "description",
           "title",
           "complicate_title"
-        ]
+        ],
+        "description": "Current Type: {@link ObjectJsonTag}"
       }
     }
   },

@@ -1,9 +1,12 @@
 {
+  "description": "",
   "type": "object",
   "properties": {
     "regular": {
+      "description": "Current Type: {@link ObjectUndefined}",
       "type": "array",
       "items": {
+        "description": "Current Type: {@link ObjectUndefined.ILecture}",
         "type": "object",
         "properties": {
           "name": {
@@ -20,6 +23,7 @@
             ]
           },
           "classroom": {
+            "description": "Current Type: {@link ObjectUndefined.IClassroom}",
             "type": "object",
             "properties": {
               "id": {
@@ -53,6 +57,7 @@
         {
           "type": "array",
           "items": {
+            "description": "Current Type: {@link ObjectUndefined.ILecture}",
             "type": "object",
             "properties": {
               "name": {
@@ -69,6 +74,7 @@
                 ]
               },
               "classroom": {
+                "description": "Current Type: {@link ObjectUndefined.IClassroom}",
                 "type": "object",
                 "properties": {
                   "id": {
@@ -92,13 +98,16 @@
               "name",
               "unknown"
             ]
-          }
+          },
+          "description": "Current Type: {@link ObjectUndefined}"
         }
       ]
     },
     "optional": {
+      "description": "Current Type: {@link ObjectUndefined}",
       "type": "array",
       "items": {
+        "description": "Current Type: {@link ObjectUndefined.ILecture}",
         "type": "object",
         "properties": {
           "name": {
@@ -115,6 +124,7 @@
             ]
           },
           "classroom": {
+            "description": "Current Type: {@link ObjectUndefined.IClassroom}",
             "type": "object",
             "properties": {
               "id": {
@@ -148,6 +158,7 @@
         {
           "type": "array",
           "items": {
+            "description": "Current Type: {@link ObjectUndefined.ILecture}",
             "type": "object",
             "properties": {
               "name": {
@@ -164,6 +175,7 @@
                 ]
               },
               "classroom": {
+                "description": "Current Type: {@link ObjectUndefined.IClassroom}",
                 "type": "object",
                 "properties": {
                   "id": {
@@ -187,15 +199,18 @@
               "name",
               "unknown"
             ]
-          }
+          },
+          "description": "Current Type: {@link ObjectUndefined}"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link ObjectUndefined}",
         "type": "array",
         "items": {
+          "description": "Current Type: {@link ObjectUndefined.ILecture}",
           "type": "object",
           "properties": {
             "name": {
@@ -212,6 +227,7 @@
               ]
             },
             "classroom": {
+              "description": "Current Type: {@link ObjectUndefined.IClassroom}",
               "type": "object",
               "properties": {
                 "id": {

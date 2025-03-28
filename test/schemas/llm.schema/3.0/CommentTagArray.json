@@ -52,6 +52,7 @@
           "equal",
           "unique"
         ],
+        "description": "Current Type: {@link CommentTagArray.Type}",
         "additionalProperties": false
       }
     }
@@ -59,5 +60,6 @@
   "required": [
     "value"
   ],
+  "description": "Current Type: {@link CommentTagArray}",
   "additionalProperties": false
 }

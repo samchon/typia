@@ -9,11 +9,14 @@
     {
       "name": "insert",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link TypeTagObjectUnion}",
             "type": "array",
             "items": {
+              "description": "Current Type: {@link TypeTagObjectUnion.Type}",
               "anyOf": [
                 {
                   "type": "object",
@@ -25,7 +28,8 @@
                   },
                   "required": [
                     "value"
-                  ]
+                  ],
+                  "description": "Current Type: {@link TypeTagObjectUnion.Numeric}"
                 },
                 {
                   "type": "object",
@@ -37,7 +41,8 @@
                   },
                   "required": [
                     "value"
-                  ]
+                  ],
+                  "description": "Current Type: {@link TypeTagObjectUnion.Literal}"
                 }
               ]
             }
@@ -53,11 +58,14 @@
     {
       "name": "reduce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link TypeTagObjectUnion}",
             "type": "array",
             "items": {
+              "description": "Current Type: {@link TypeTagObjectUnion.Type}",
               "anyOf": [
                 {
                   "type": "object",
@@ -69,7 +77,8 @@
                   },
                   "required": [
                     "value"
-                  ]
+                  ],
+                  "description": "Current Type: {@link TypeTagObjectUnion.Numeric}"
                 },
                 {
                   "type": "object",
@@ -81,7 +90,8 @@
                   },
                   "required": [
                     "value"
-                  ]
+                  ],
+                  "description": "Current Type: {@link TypeTagObjectUnion.Literal}"
                 }
               ]
             }
@@ -94,6 +104,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link TypeTagObjectUnion.Type}",
                   "anyOf": [
                     {
                       "type": "object",
@@ -105,7 +116,8 @@
                       },
                       "required": [
                         "value"
-                      ]
+                      ],
+                      "description": "Current Type: {@link TypeTagObjectUnion.Numeric}"
                     },
                     {
                       "type": "object",
@@ -117,10 +129,12 @@
                       },
                       "required": [
                         "value"
-                      ]
+                      ],
+                      "description": "Current Type: {@link TypeTagObjectUnion.Literal}"
                     }
                   ]
-                }
+                },
+                "description": "Current Type: {@link TypeTagObjectUnion}"
               }
             ]
           }
@@ -133,8 +147,10 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link TypeTagObjectUnion}",
         "type": "array",
         "items": {
+          "description": "Current Type: {@link TypeTagObjectUnion.Type}",
           "anyOf": [
             {
               "type": "object",
@@ -146,7 +162,8 @@
               },
               "required": [
                 "value"
-              ]
+              ],
+              "description": "Current Type: {@link TypeTagObjectUnion.Numeric}"
             },
             {
               "type": "object",
@@ -158,7 +175,8 @@
               },
               "required": [
                 "value"
-              ]
+              ],
+              "description": "Current Type: {@link TypeTagObjectUnion.Literal}"
             }
           ]
         }
@@ -167,6 +185,7 @@
     {
       "name": "coalesce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
@@ -177,6 +196,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link TypeTagObjectUnion.Type}",
                   "anyOf": [
                     {
                       "type": "object",
@@ -188,7 +208,8 @@
                       },
                       "required": [
                         "value"
-                      ]
+                      ],
+                      "description": "Current Type: {@link TypeTagObjectUnion.Numeric}"
                     },
                     {
                       "type": "object",
@@ -200,10 +221,12 @@
                       },
                       "required": [
                         "value"
-                      ]
+                      ],
+                      "description": "Current Type: {@link TypeTagObjectUnion.Literal}"
                     }
                   ]
-                }
+                },
+                "description": "Current Type: {@link TypeTagObjectUnion}"
               }
             ]
           },
@@ -215,6 +238,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link TypeTagObjectUnion.Type}",
                   "anyOf": [
                     {
                       "type": "object",
@@ -226,7 +250,8 @@
                       },
                       "required": [
                         "value"
-                      ]
+                      ],
+                      "description": "Current Type: {@link TypeTagObjectUnion.Numeric}"
                     },
                     {
                       "type": "object",
@@ -238,10 +263,12 @@
                       },
                       "required": [
                         "value"
-                      ]
+                      ],
+                      "description": "Current Type: {@link TypeTagObjectUnion.Literal}"
                     }
                   ]
-                }
+                },
+                "description": "Current Type: {@link TypeTagObjectUnion}"
               }
             ]
           },
@@ -253,6 +280,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link TypeTagObjectUnion.Type}",
                   "anyOf": [
                     {
                       "type": "object",
@@ -264,7 +292,8 @@
                       },
                       "required": [
                         "value"
-                      ]
+                      ],
+                      "description": "Current Type: {@link TypeTagObjectUnion.Numeric}"
                     },
                     {
                       "type": "object",
@@ -276,10 +305,12 @@
                       },
                       "required": [
                         "value"
-                      ]
+                      ],
+                      "description": "Current Type: {@link TypeTagObjectUnion.Literal}"
                     }
                   ]
-                }
+                },
+                "description": "Current Type: {@link TypeTagObjectUnion}"
               }
             ]
           }
@@ -299,6 +330,7 @@
           {
             "type": "array",
             "items": {
+              "description": "Current Type: {@link TypeTagObjectUnion.Type}",
               "anyOf": [
                 {
                   "type": "object",
@@ -310,7 +342,8 @@
                   },
                   "required": [
                     "value"
-                  ]
+                  ],
+                  "description": "Current Type: {@link TypeTagObjectUnion.Numeric}"
                 },
                 {
                   "type": "object",
@@ -322,10 +355,12 @@
                   },
                   "required": [
                     "value"
-                  ]
+                  ],
+                  "description": "Current Type: {@link TypeTagObjectUnion.Literal}"
                 }
               ]
-            }
+            },
+            "description": "Current Type: {@link TypeTagObjectUnion}"
           }
         ]
       }

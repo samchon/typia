@@ -48,5 +48,6 @@
     "nullables1",
     "nullables2",
     "union"
-  ]
+  ],
+  "description": "Current Type: {@link ArrayAny}"
 }

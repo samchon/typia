@@ -26,7 +26,8 @@
         "email",
         "ipv4",
         "ipv6"
-      ]
+      ],
+      "description": "Current Type: {@link CommentTagPattern}"
     },
     "nullable": {
       "type": "object",
@@ -81,7 +82,8 @@
         "email",
         "ipv4",
         "ipv6"
-      ]
+      ],
+      "description": "Current Type: {@link CommentTagPattern}"
     },
     "faint": {
       "type": "object",
@@ -138,7 +140,8 @@
           "email",
           "ipv4",
           "ipv6"
-        ]
+        ],
+        "description": "Current Type: {@link CommentTagPattern}"
       }
     }
   },

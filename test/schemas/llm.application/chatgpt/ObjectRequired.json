@@ -9,10 +9,11 @@
     {
       "name": "insert",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
-            "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required",
+            "description": "Description of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required",
             "type": "object",
             "properties": {
               "boolean": {
@@ -56,6 +57,7 @@
         "additionalProperties": false,
         "$defs": {
           "ObjectRequired.IBase": {
+            "description": "",
             "type": "object",
             "properties": {
               "boolean": {
@@ -92,10 +94,11 @@
     {
       "name": "reduce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
-            "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required",
+            "description": "Description of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required",
             "type": "object",
             "properties": {
               "boolean": {
@@ -173,7 +176,7 @@
                   "array",
                   "object"
                 ],
-                "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required"
+                "description": "Description of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required"
               }
             ]
           }
@@ -185,6 +188,7 @@
         "additionalProperties": false,
         "$defs": {
           "ObjectRequired.IBase": {
+            "description": "",
             "type": "object",
             "properties": {
               "boolean": {
@@ -218,7 +222,7 @@
         }
       },
       "output": {
-        "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required",
+        "description": "Description of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required",
         "type": "object",
         "properties": {
           "boolean": {
@@ -259,6 +263,7 @@
     {
       "name": "coalesce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
@@ -302,7 +307,7 @@
                   "array",
                   "object"
                 ],
-                "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required"
+                "description": "Description of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required"
               }
             ]
           },
@@ -347,7 +352,7 @@
                   "array",
                   "object"
                 ],
-                "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required"
+                "description": "Description of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required"
               }
             ]
           },
@@ -392,7 +397,7 @@
                   "array",
                   "object"
                 ],
-                "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required"
+                "description": "Description of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required"
               }
             ]
           }
@@ -404,6 +409,7 @@
         "additionalProperties": false,
         "$defs": {
           "ObjectRequired.IBase": {
+            "description": "",
             "type": "object",
             "properties": {
               "boolean": {
@@ -477,7 +483,7 @@
               "array",
               "object"
             ],
-            "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required"
+            "description": "Description of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required"
           }
         ]
       }

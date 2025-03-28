@@ -1,7 +1,9 @@
 {
+  "description": "",
   "type": "object",
   "properties": {
     "regular": {
+      "description": "Current Type: {@link DynamicUnion}",
       "type": "object",
       "properties": {},
       "required": [],
@@ -25,6 +27,7 @@
           "type": "object",
           "properties": {},
           "required": [],
+          "description": "Current Type: {@link DynamicUnion}",
           "additionalProperties": {
             "anyOf": [
               {
@@ -39,6 +42,7 @@
       ]
     },
     "optional": {
+      "description": "Current Type: {@link DynamicUnion}",
       "type": "object",
       "properties": {},
       "required": [],
@@ -62,6 +66,7 @@
           "type": "object",
           "properties": {},
           "required": [],
+          "description": "Current Type: {@link DynamicUnion}",
           "additionalProperties": {
             "anyOf": [
               {
@@ -78,6 +83,7 @@
     "array": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link DynamicUnion}",
         "type": "object",
         "properties": {},
         "required": [],

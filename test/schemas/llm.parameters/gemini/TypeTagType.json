@@ -39,13 +39,15 @@
               "int64",
               "uint64",
               "float"
-            ]
+            ],
+            "description": "Current Type: {@link TypeTagType.Type}"
           }
         }
       },
       "required": [
         "value"
-      ]
+      ],
+      "description": "Current Type: {@link TypeTagType}"
     },
     "nullable": {
       "type": "object",
@@ -85,7 +87,8 @@
               "int64",
               "uint64",
               "float"
-            ]
+            ],
+            "description": "Current Type: {@link TypeTagType.Type}"
           }
         }
       },
@@ -132,13 +135,15 @@
               "int64",
               "uint64",
               "float"
-            ]
+            ],
+            "description": "Current Type: {@link TypeTagType.Type}"
           }
         }
       },
       "required": [
         "value"
-      ]
+      ],
+      "description": "Current Type: {@link TypeTagType}"
     },
     "faint": {
       "type": "object",
@@ -178,7 +183,8 @@
               "int64",
               "uint64",
               "float"
-            ]
+            ],
+            "description": "Current Type: {@link TypeTagType.Type}"
           }
         }
       },
@@ -227,13 +233,15 @@
                 "int64",
                 "uint64",
                 "float"
-              ]
+              ],
+              "description": "Current Type: {@link TypeTagType.Type}"
             }
           }
         },
         "required": [
           "value"
-        ]
+        ],
+        "description": "Current Type: {@link TypeTagType}"
       }
     }
   },

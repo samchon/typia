@@ -2,11 +2,13 @@
   "type": "object",
   "properties": {
     "regular": {
+      "description": "Current Type: {@link CommentTagRange}",
       "type": "object",
       "properties": {
         "value": {
           "type": "array",
           "items": {
+            "description": "Current Type: {@link CommentTagRange.Type}",
             "type": "object",
             "properties": {
               "greater": {
@@ -86,6 +88,7 @@
             "value": {
               "type": "array",
               "items": {
+                "description": "Current Type: {@link CommentTagRange.Type}",
                 "type": "object",
                 "properties": {
                   "greater": {
@@ -152,16 +155,19 @@
           },
           "required": [
             "value"
-          ]
+          ],
+          "description": "Current Type: {@link CommentTagRange}"
         }
       ]
     },
     "optional": {
+      "description": "Current Type: {@link CommentTagRange}",
       "type": "object",
       "properties": {
         "value": {
           "type": "array",
           "items": {
+            "description": "Current Type: {@link CommentTagRange.Type}",
             "type": "object",
             "properties": {
               "greater": {
@@ -241,6 +247,7 @@
             "value": {
               "type": "array",
               "items": {
+                "description": "Current Type: {@link CommentTagRange.Type}",
                 "type": "object",
                 "properties": {
                   "greater": {
@@ -307,18 +314,21 @@
           },
           "required": [
             "value"
-          ]
+          ],
+          "description": "Current Type: {@link CommentTagRange}"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link CommentTagRange}",
         "type": "object",
         "properties": {
           "value": {
             "type": "array",
             "items": {
+              "description": "Current Type: {@link CommentTagRange.Type}",
               "type": "object",
               "properties": {
                 "greater": {

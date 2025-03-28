@@ -1,9 +1,11 @@
 {
+  "description": "Current Type: {@link TypeTagAtomicUnion}",
   "type": "object",
   "properties": {
     "value": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link TypeTagAtomicUnion.Type}",
         "type": "object",
         "properties": {
           "value": {

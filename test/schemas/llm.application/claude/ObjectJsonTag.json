@@ -11,6 +11,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ObjectJsonTag}",
             "type": "object",
             "properties": {
               "vulnerable": {
@@ -54,6 +55,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ObjectJsonTag}",
             "type": "object",
             "properties": {
               "vulnerable": {
@@ -116,7 +118,8 @@
                   "description",
                   "title",
                   "complicate_title"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectJsonTag}"
               }
             ]
           }
@@ -129,6 +132,7 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link ObjectJsonTag}",
         "type": "object",
         "properties": {
           "vulnerable": {
@@ -197,7 +201,8 @@
                   "description",
                   "title",
                   "complicate_title"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectJsonTag}"
               }
             ]
           },
@@ -234,7 +239,8 @@
                   "description",
                   "title",
                   "complicate_title"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectJsonTag}"
               }
             ]
           },
@@ -271,7 +277,8 @@
                   "description",
                   "title",
                   "complicate_title"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectJsonTag}"
               }
             ]
           }
@@ -316,7 +323,8 @@
               "description",
               "title",
               "complicate_title"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectJsonTag}"
           }
         ]
       }

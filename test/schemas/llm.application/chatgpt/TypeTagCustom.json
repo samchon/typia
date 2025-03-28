@@ -9,9 +9,11 @@
     {
       "name": "insert",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link TypeTagCustom}",
             "type": "object",
             "properties": {
               "id": {
@@ -49,9 +51,11 @@
     {
       "name": "reduce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link TypeTagCustom}",
             "type": "object",
             "properties": {
               "id": {
@@ -108,7 +112,8 @@
                   "dollar",
                   "postfix",
                   "powerOf"
-                ]
+                ],
+                "description": "Current Type: {@link TypeTagCustom}"
               }
             ]
           }
@@ -121,6 +126,7 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link TypeTagCustom}",
         "type": "object",
         "properties": {
           "id": {
@@ -151,6 +157,7 @@
     {
       "name": "coalesce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
@@ -183,7 +190,8 @@
                   "dollar",
                   "postfix",
                   "powerOf"
-                ]
+                ],
+                "description": "Current Type: {@link TypeTagCustom}"
               }
             ]
           },
@@ -217,7 +225,8 @@
                   "dollar",
                   "postfix",
                   "powerOf"
-                ]
+                ],
+                "description": "Current Type: {@link TypeTagCustom}"
               }
             ]
           },
@@ -251,7 +260,8 @@
                   "dollar",
                   "postfix",
                   "powerOf"
-                ]
+                ],
+                "description": "Current Type: {@link TypeTagCustom}"
               }
             ]
           }
@@ -293,7 +303,8 @@
               "dollar",
               "postfix",
               "powerOf"
-            ]
+            ],
+            "description": "Current Type: {@link TypeTagCustom}"
           }
         ]
       }

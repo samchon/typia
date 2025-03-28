@@ -9,14 +9,17 @@
     {
       "name": "insert",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link TypeTagLength}",
             "type": "object",
             "properties": {
               "value": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link TypeTagLength.Type}",
                   "type": "object",
                   "properties": {
                     "fixed": {
@@ -65,14 +68,17 @@
     {
       "name": "reduce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link TypeTagLength}",
             "type": "object",
             "properties": {
               "value": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link TypeTagLength.Type}",
                   "type": "object",
                   "properties": {
                     "fixed": {
@@ -121,6 +127,7 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link TypeTagLength.Type}",
                       "type": "object",
                       "properties": {
                         "fixed": {
@@ -156,7 +163,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link TypeTagLength}"
               }
             ]
           }
@@ -169,11 +177,13 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link TypeTagLength}",
         "type": "object",
         "properties": {
           "value": {
             "type": "array",
             "items": {
+              "description": "Current Type: {@link TypeTagLength.Type}",
               "type": "object",
               "properties": {
                 "fixed": {
@@ -215,6 +225,7 @@
     {
       "name": "coalesce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
@@ -228,6 +239,7 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link TypeTagLength.Type}",
                       "type": "object",
                       "properties": {
                         "fixed": {
@@ -263,7 +275,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link TypeTagLength}"
               }
             ]
           },
@@ -278,6 +291,7 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link TypeTagLength.Type}",
                       "type": "object",
                       "properties": {
                         "fixed": {
@@ -313,7 +327,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link TypeTagLength}"
               }
             ]
           },
@@ -328,6 +343,7 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link TypeTagLength.Type}",
                       "type": "object",
                       "properties": {
                         "fixed": {
@@ -363,7 +379,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link TypeTagLength}"
               }
             ]
           }
@@ -386,6 +403,7 @@
               "value": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link TypeTagLength.Type}",
                   "type": "object",
                   "properties": {
                     "fixed": {
@@ -421,7 +439,8 @@
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link TypeTagLength}"
           }
         ]
       }

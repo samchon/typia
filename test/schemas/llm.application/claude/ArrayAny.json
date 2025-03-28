@@ -11,6 +11,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ArrayAny}",
             "type": "object",
             "properties": {
               "anys": {
@@ -106,6 +107,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ArrayAny}",
             "type": "object",
             "properties": {
               "anys": {
@@ -272,7 +274,8 @@
                   "nullables1",
                   "nullables2",
                   "union"
-                ]
+                ],
+                "description": "Current Type: {@link ArrayAny}"
               }
             ]
           }
@@ -285,6 +288,7 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link ArrayAny}",
         "type": "object",
         "properties": {
           "anys": {
@@ -457,7 +461,8 @@
                   "nullables1",
                   "nullables2",
                   "union"
-                ]
+                ],
+                "description": "Current Type: {@link ArrayAny}"
               }
             ]
           },
@@ -546,7 +551,8 @@
                   "nullables1",
                   "nullables2",
                   "union"
-                ]
+                ],
+                "description": "Current Type: {@link ArrayAny}"
               }
             ]
           },
@@ -635,7 +641,8 @@
                   "nullables1",
                   "nullables2",
                   "union"
-                ]
+                ],
+                "description": "Current Type: {@link ArrayAny}"
               }
             ]
           }
@@ -732,7 +739,8 @@
               "nullables1",
               "nullables2",
               "union"
-            ]
+            ],
+            "description": "Current Type: {@link ArrayAny}"
           }
         ]
       }

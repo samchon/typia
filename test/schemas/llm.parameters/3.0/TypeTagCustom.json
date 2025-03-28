@@ -27,6 +27,7 @@
         "postfix",
         "powerOf"
       ],
+      "description": "Current Type: {@link TypeTagCustom}",
       "additionalProperties": false
     },
     "nullable": {
@@ -84,6 +85,7 @@
         "postfix",
         "powerOf"
       ],
+      "description": "Current Type: {@link TypeTagCustom}",
       "additionalProperties": false
     },
     "faint": {
@@ -143,6 +145,7 @@
           "postfix",
           "powerOf"
         ],
+        "description": "Current Type: {@link TypeTagCustom}",
         "additionalProperties": false
       }
     }

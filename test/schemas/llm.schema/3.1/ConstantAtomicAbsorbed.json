@@ -1,4 +1,5 @@
 {
+  "description": "Current Type: {@link ConstantAtomicAbsorbed}",
   "type": "object",
   "properties": {
     "id": {

@@ -1,7 +1,9 @@
 {
+  "description": "",
   "type": "object",
   "properties": {
     "regular": {
+      "description": "Current Type: {@link ObjectOptional}",
       "type": "object",
       "properties": {
         "id": {
@@ -40,11 +42,13 @@
               "type": "number"
             }
           },
-          "required": []
+          "required": [],
+          "description": "Current Type: {@link ObjectOptional}"
         }
       ]
     },
     "optional": {
+      "description": "Current Type: {@link ObjectOptional}",
       "type": "object",
       "properties": {
         "id": {
@@ -83,13 +87,15 @@
               "type": "number"
             }
           },
-          "required": []
+          "required": [],
+          "description": "Current Type: {@link ObjectOptional}"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link ObjectOptional}",
         "type": "object",
         "properties": {
           "id": {

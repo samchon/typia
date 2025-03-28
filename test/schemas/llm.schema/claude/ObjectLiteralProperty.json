@@ -1,4 +1,5 @@
 {
+  "description": "Current Type: {@link ObjectLiteralProperty.ISomething}",
   "type": "object",
   "properties": {
     "something-interesting-do-you-want?": {

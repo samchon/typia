@@ -12,6 +12,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ClassMethod.Animal}",
             "type": "object",
             "properties": {
               "name": {
@@ -40,6 +41,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ClassMethod.Animal}",
             "type": "object",
             "properties": {
               "name": {
@@ -72,7 +74,8 @@
                 "required": [
                   "name",
                   "age"
-                ]
+                ],
+                "description": "Current Type: {@link ClassMethod.Animal}"
               }
             ]
           }
@@ -85,6 +88,7 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link ClassMethod.Animal}",
         "type": "object",
         "properties": {
           "name": {
@@ -123,7 +127,8 @@
                 "required": [
                   "name",
                   "age"
-                ]
+                ],
+                "description": "Current Type: {@link ClassMethod.Animal}"
               }
             ]
           },
@@ -145,7 +150,8 @@
                 "required": [
                   "name",
                   "age"
-                ]
+                ],
+                "description": "Current Type: {@link ClassMethod.Animal}"
               }
             ]
           },
@@ -167,7 +173,8 @@
                 "required": [
                   "name",
                   "age"
-                ]
+                ],
+                "description": "Current Type: {@link ClassMethod.Animal}"
               }
             ]
           }
@@ -197,7 +204,8 @@
             "required": [
               "name",
               "age"
-            ]
+            ],
+            "description": "Current Type: {@link ClassMethod.Animal}"
           }
         ]
       }

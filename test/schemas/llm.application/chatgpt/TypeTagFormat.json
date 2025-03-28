@@ -9,9 +9,11 @@
     {
       "name": "insert",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link TypeTagFormat}",
             "type": "object",
             "properties": {
               "byte": {
@@ -139,9 +141,11 @@
     {
       "name": "reduce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link TypeTagFormat}",
             "type": "object",
             "properties": {
               "byte": {
@@ -378,7 +382,8 @@
                   "duration",
                   "jsonPointer",
                   "relativeJsonPointer"
-                ]
+                ],
+                "description": "Current Type: {@link TypeTagFormat}"
               }
             ]
           }
@@ -391,6 +396,7 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link TypeTagFormat}",
         "type": "object",
         "properties": {
           "byte": {
@@ -511,6 +517,7 @@
     {
       "name": "coalesce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
@@ -633,7 +640,8 @@
                   "duration",
                   "jsonPointer",
                   "relativeJsonPointer"
-                ]
+                ],
+                "description": "Current Type: {@link TypeTagFormat}"
               }
             ]
           },
@@ -757,7 +765,8 @@
                   "duration",
                   "jsonPointer",
                   "relativeJsonPointer"
-                ]
+                ],
+                "description": "Current Type: {@link TypeTagFormat}"
               }
             ]
           },
@@ -881,7 +890,8 @@
                   "duration",
                   "jsonPointer",
                   "relativeJsonPointer"
-                ]
+                ],
+                "description": "Current Type: {@link TypeTagFormat}"
               }
             ]
           }
@@ -1013,7 +1023,8 @@
               "duration",
               "jsonPointer",
               "relativeJsonPointer"
-            ]
+            ],
+            "description": "Current Type: {@link TypeTagFormat}"
           }
         ]
       }

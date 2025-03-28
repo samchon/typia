@@ -9,11 +9,14 @@
     {
       "name": "insert",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ArraySimple}",
             "type": "array",
             "items": {
+              "description": "Current Type: {@link ArraySimple.IPerson}",
               "type": "object",
               "properties": {
                 "name": {
@@ -25,6 +28,7 @@
                 "hobbies": {
                   "type": "array",
                   "items": {
+                    "description": "Current Type: {@link ArraySimple.IHobby}",
                     "type": "object",
                     "properties": {
                       "name": {
@@ -63,11 +67,14 @@
     {
       "name": "reduce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ArraySimple}",
             "type": "array",
             "items": {
+              "description": "Current Type: {@link ArraySimple.IPerson}",
               "type": "object",
               "properties": {
                 "name": {
@@ -79,6 +86,7 @@
                 "hobbies": {
                   "type": "array",
                   "items": {
+                    "description": "Current Type: {@link ArraySimple.IHobby}",
                     "type": "object",
                     "properties": {
                       "name": {
@@ -114,6 +122,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ArraySimple.IPerson}",
                   "type": "object",
                   "properties": {
                     "name": {
@@ -125,6 +134,7 @@
                     "hobbies": {
                       "type": "array",
                       "items": {
+                        "description": "Current Type: {@link ArraySimple.IHobby}",
                         "type": "object",
                         "properties": {
                           "name": {
@@ -150,7 +160,8 @@
                     "email",
                     "hobbies"
                   ]
-                }
+                },
+                "description": "Current Type: {@link ArraySimple}"
               }
             ]
           }
@@ -163,8 +174,10 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link ArraySimple}",
         "type": "array",
         "items": {
+          "description": "Current Type: {@link ArraySimple.IPerson}",
           "type": "object",
           "properties": {
             "name": {
@@ -176,6 +189,7 @@
             "hobbies": {
               "type": "array",
               "items": {
+                "description": "Current Type: {@link ArraySimple.IHobby}",
                 "type": "object",
                 "properties": {
                   "name": {
@@ -207,6 +221,7 @@
     {
       "name": "coalesce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
@@ -217,6 +232,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ArraySimple.IPerson}",
                   "type": "object",
                   "properties": {
                     "name": {
@@ -228,6 +244,7 @@
                     "hobbies": {
                       "type": "array",
                       "items": {
+                        "description": "Current Type: {@link ArraySimple.IHobby}",
                         "type": "object",
                         "properties": {
                           "name": {
@@ -253,7 +270,8 @@
                     "email",
                     "hobbies"
                   ]
-                }
+                },
+                "description": "Current Type: {@link ArraySimple}"
               }
             ]
           },
@@ -265,6 +283,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ArraySimple.IPerson}",
                   "type": "object",
                   "properties": {
                     "name": {
@@ -276,6 +295,7 @@
                     "hobbies": {
                       "type": "array",
                       "items": {
+                        "description": "Current Type: {@link ArraySimple.IHobby}",
                         "type": "object",
                         "properties": {
                           "name": {
@@ -301,7 +321,8 @@
                     "email",
                     "hobbies"
                   ]
-                }
+                },
+                "description": "Current Type: {@link ArraySimple}"
               }
             ]
           },
@@ -313,6 +334,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ArraySimple.IPerson}",
                   "type": "object",
                   "properties": {
                     "name": {
@@ -324,6 +346,7 @@
                     "hobbies": {
                       "type": "array",
                       "items": {
+                        "description": "Current Type: {@link ArraySimple.IHobby}",
                         "type": "object",
                         "properties": {
                           "name": {
@@ -349,7 +372,8 @@
                     "email",
                     "hobbies"
                   ]
-                }
+                },
+                "description": "Current Type: {@link ArraySimple}"
               }
             ]
           }
@@ -369,6 +393,7 @@
           {
             "type": "array",
             "items": {
+              "description": "Current Type: {@link ArraySimple.IPerson}",
               "type": "object",
               "properties": {
                 "name": {
@@ -380,6 +405,7 @@
                 "hobbies": {
                   "type": "array",
                   "items": {
+                    "description": "Current Type: {@link ArraySimple.IHobby}",
                     "type": "object",
                     "properties": {
                       "name": {
@@ -405,7 +431,8 @@
                 "email",
                 "hobbies"
               ]
-            }
+            },
+            "description": "Current Type: {@link ArraySimple}"
           }
         ]
       }

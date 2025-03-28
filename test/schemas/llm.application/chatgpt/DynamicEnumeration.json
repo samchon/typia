@@ -9,12 +9,15 @@
     {
       "name": "insert",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link DynamicEnumeration}",
             "type": "object",
             "properties": {
               "value": {
+                "description": "",
                 "type": "object",
                 "properties": {
                   "ar": {
@@ -66,12 +69,15 @@
     {
       "name": "reduce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link DynamicEnumeration}",
             "type": "object",
             "properties": {
               "value": {
+                "description": "",
                 "type": "object",
                 "properties": {
                   "ar": {
@@ -121,6 +127,7 @@
                 "type": "object",
                 "properties": {
                   "value": {
+                    "description": "",
                     "type": "object",
                     "properties": {
                       "ar": {
@@ -159,7 +166,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link DynamicEnumeration}"
               }
             ]
           }
@@ -172,9 +180,11 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link DynamicEnumeration}",
         "type": "object",
         "properties": {
           "value": {
+            "description": "",
             "type": "object",
             "properties": {
               "ar": {
@@ -219,6 +229,7 @@
     {
       "name": "coalesce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
@@ -230,6 +241,7 @@
                 "type": "object",
                 "properties": {
                   "value": {
+                    "description": "",
                     "type": "object",
                     "properties": {
                       "ar": {
@@ -268,7 +280,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link DynamicEnumeration}"
               }
             ]
           },
@@ -281,6 +294,7 @@
                 "type": "object",
                 "properties": {
                   "value": {
+                    "description": "",
                     "type": "object",
                     "properties": {
                       "ar": {
@@ -319,7 +333,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link DynamicEnumeration}"
               }
             ]
           },
@@ -332,6 +347,7 @@
                 "type": "object",
                 "properties": {
                   "value": {
+                    "description": "",
                     "type": "object",
                     "properties": {
                       "ar": {
@@ -370,7 +386,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link DynamicEnumeration}"
               }
             ]
           }
@@ -391,6 +408,7 @@
             "type": "object",
             "properties": {
               "value": {
+                "description": "",
                 "type": "object",
                 "properties": {
                   "ar": {
@@ -429,7 +447,8 @@
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link DynamicEnumeration}"
           }
         ]
       }

@@ -96,6 +96,7 @@
                                                             "children",
                                                             "type"
                                                           ],
+                                                          "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IDirectory}",
                                                           "additionalProperties": false
                                                         },
                                                         {
@@ -146,6 +147,7 @@
                                                             "type",
                                                             "extension"
                                                           ],
+                                                          "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IImageFile}",
                                                           "additionalProperties": false
                                                         },
                                                         {
@@ -188,6 +190,7 @@
                                                             "type",
                                                             "extension"
                                                           ],
+                                                          "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.ITextFile}",
                                                           "additionalProperties": false
                                                         },
                                                         {
@@ -230,6 +233,7 @@
                                                             "type",
                                                             "extension"
                                                           ],
+                                                          "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IZipFile}",
                                                           "additionalProperties": false
                                                         }
                                                       ]
@@ -238,6 +242,7 @@
                                                   "required": [
                                                     "value"
                                                   ],
+                                                  "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IBucket}",
                                                   "additionalProperties": false
                                                 }
                                               },
@@ -255,6 +260,7 @@
                                               "children",
                                               "type"
                                             ],
+                                            "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IDirectory}",
                                             "additionalProperties": false
                                           },
                                           {
@@ -305,6 +311,7 @@
                                               "type",
                                               "extension"
                                             ],
+                                            "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IImageFile}",
                                             "additionalProperties": false
                                           },
                                           {
@@ -347,6 +354,7 @@
                                               "type",
                                               "extension"
                                             ],
+                                            "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.ITextFile}",
                                             "additionalProperties": false
                                           },
                                           {
@@ -389,6 +397,7 @@
                                               "type",
                                               "extension"
                                             ],
+                                            "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IZipFile}",
                                             "additionalProperties": false
                                           }
                                         ]
@@ -397,6 +406,7 @@
                                     "required": [
                                       "value"
                                     ],
+                                    "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IBucket}",
                                     "additionalProperties": false
                                   }
                                 },
@@ -414,6 +424,7 @@
                                 "children",
                                 "type"
                               ],
+                              "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IDirectory}",
                               "additionalProperties": false
                             },
                             {
@@ -464,6 +475,7 @@
                                 "type",
                                 "extension"
                               ],
+                              "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IImageFile}",
                               "additionalProperties": false
                             },
                             {
@@ -506,6 +518,7 @@
                                 "type",
                                 "extension"
                               ],
+                              "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.ITextFile}",
                               "additionalProperties": false
                             },
                             {
@@ -548,6 +561,7 @@
                                 "type",
                                 "extension"
                               ],
+                              "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IZipFile}",
                               "additionalProperties": false
                             }
                           ]
@@ -556,6 +570,7 @@
                       "required": [
                         "value"
                       ],
+                      "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IBucket}",
                       "additionalProperties": false
                     }
                   },
@@ -573,6 +588,7 @@
                   "children",
                   "type"
                 ],
+                "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IDirectory}",
                 "additionalProperties": false
               },
               {
@@ -623,6 +639,7 @@
                   "type",
                   "extension"
                 ],
+                "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IImageFile}",
                 "additionalProperties": false
               },
               {
@@ -665,6 +682,7 @@
                   "type",
                   "extension"
                 ],
+                "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.ITextFile}",
                 "additionalProperties": false
               },
               {
@@ -707,6 +725,7 @@
                   "type",
                   "extension"
                 ],
+                "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IZipFile}",
                 "additionalProperties": false
               },
               {
@@ -795,6 +814,7 @@
                                                           "children",
                                                           "type"
                                                         ],
+                                                        "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IDirectory}",
                                                         "additionalProperties": false
                                                       },
                                                       {
@@ -845,6 +865,7 @@
                                                           "type",
                                                           "extension"
                                                         ],
+                                                        "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IImageFile}",
                                                         "additionalProperties": false
                                                       },
                                                       {
@@ -887,6 +908,7 @@
                                                           "type",
                                                           "extension"
                                                         ],
+                                                        "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.ITextFile}",
                                                         "additionalProperties": false
                                                       },
                                                       {
@@ -929,6 +951,7 @@
                                                           "type",
                                                           "extension"
                                                         ],
+                                                        "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IZipFile}",
                                                         "additionalProperties": false
                                                       }
                                                     ]
@@ -937,6 +960,7 @@
                                                 "required": [
                                                   "value"
                                                 ],
+                                                "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IBucket}",
                                                 "additionalProperties": false
                                               }
                                             },
@@ -954,6 +978,7 @@
                                             "children",
                                             "type"
                                           ],
+                                          "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IDirectory}",
                                           "additionalProperties": false
                                         },
                                         {
@@ -1004,6 +1029,7 @@
                                             "type",
                                             "extension"
                                           ],
+                                          "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IImageFile}",
                                           "additionalProperties": false
                                         },
                                         {
@@ -1046,6 +1072,7 @@
                                             "type",
                                             "extension"
                                           ],
+                                          "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.ITextFile}",
                                           "additionalProperties": false
                                         },
                                         {
@@ -1088,6 +1115,7 @@
                                             "type",
                                             "extension"
                                           ],
+                                          "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IZipFile}",
                                           "additionalProperties": false
                                         }
                                       ]
@@ -1096,6 +1124,7 @@
                                   "required": [
                                     "value"
                                   ],
+                                  "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IBucket}",
                                   "additionalProperties": false
                                 }
                               },
@@ -1113,6 +1142,7 @@
                               "children",
                               "type"
                             ],
+                            "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IDirectory}",
                             "additionalProperties": false
                           },
                           {
@@ -1163,6 +1193,7 @@
                               "type",
                               "extension"
                             ],
+                            "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IImageFile}",
                             "additionalProperties": false
                           },
                           {
@@ -1205,6 +1236,7 @@
                               "type",
                               "extension"
                             ],
+                            "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.ITextFile}",
                             "additionalProperties": false
                           },
                           {
@@ -1247,6 +1279,7 @@
                               "type",
                               "extension"
                             ],
+                            "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IZipFile}",
                             "additionalProperties": false
                           },
                           {
@@ -1316,6 +1349,7 @@
                                                         "children",
                                                         "type"
                                                       ],
+                                                      "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IDirectory}",
                                                       "additionalProperties": false
                                                     },
                                                     {
@@ -1366,6 +1400,7 @@
                                                         "type",
                                                         "extension"
                                                       ],
+                                                      "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IImageFile}",
                                                       "additionalProperties": false
                                                     },
                                                     {
@@ -1408,6 +1443,7 @@
                                                         "type",
                                                         "extension"
                                                       ],
+                                                      "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.ITextFile}",
                                                       "additionalProperties": false
                                                     },
                                                     {
@@ -1450,6 +1486,7 @@
                                                         "type",
                                                         "extension"
                                                       ],
+                                                      "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IZipFile}",
                                                       "additionalProperties": false
                                                     }
                                                   ]
@@ -1458,6 +1495,7 @@
                                               "required": [
                                                 "value"
                                               ],
+                                              "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IBucket}",
                                               "additionalProperties": false
                                             }
                                           },
@@ -1475,6 +1513,7 @@
                                           "children",
                                           "type"
                                         ],
+                                        "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IDirectory}",
                                         "additionalProperties": false
                                       },
                                       {
@@ -1525,6 +1564,7 @@
                                           "type",
                                           "extension"
                                         ],
+                                        "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IImageFile}",
                                         "additionalProperties": false
                                       },
                                       {
@@ -1567,6 +1607,7 @@
                                           "type",
                                           "extension"
                                         ],
+                                        "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.ITextFile}",
                                         "additionalProperties": false
                                       },
                                       {
@@ -1609,6 +1650,7 @@
                                           "type",
                                           "extension"
                                         ],
+                                        "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IZipFile}",
                                         "additionalProperties": false
                                       },
                                       {
@@ -1659,6 +1701,7 @@
                                                       "children",
                                                       "type"
                                                     ],
+                                                    "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IDirectory}",
                                                     "additionalProperties": false
                                                   },
                                                   {
@@ -1709,6 +1752,7 @@
                                                       "type",
                                                       "extension"
                                                     ],
+                                                    "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IImageFile}",
                                                     "additionalProperties": false
                                                   },
                                                   {
@@ -1751,6 +1795,7 @@
                                                       "type",
                                                       "extension"
                                                     ],
+                                                    "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.ITextFile}",
                                                     "additionalProperties": false
                                                   },
                                                   {
@@ -1793,6 +1838,7 @@
                                                       "type",
                                                       "extension"
                                                     ],
+                                                    "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IZipFile}",
                                                     "additionalProperties": false
                                                   }
                                                 ]
@@ -1801,6 +1847,7 @@
                                             "required": [
                                               "value"
                                             ],
+                                            "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IBucket}",
                                             "additionalProperties": false
                                           },
                                           "type": {
@@ -1824,6 +1871,7 @@
                                           "type",
                                           "extension"
                                         ],
+                                        "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IShortcut}",
                                         "additionalProperties": false
                                       }
                                     ]
@@ -1832,6 +1880,7 @@
                                 "required": [
                                   "value"
                                 ],
+                                "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IBucket}",
                                 "additionalProperties": false
                               },
                               "type": {
@@ -1855,6 +1904,7 @@
                               "type",
                               "extension"
                             ],
+                            "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IShortcut}",
                             "additionalProperties": false
                           }
                         ]
@@ -1863,6 +1913,7 @@
                     "required": [
                       "value"
                     ],
+                    "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IBucket}",
                     "additionalProperties": false
                   },
                   "type": {
@@ -1886,6 +1937,7 @@
                   "type",
                   "extension"
                 ],
+                "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IShortcut}",
                 "additionalProperties": false
               }
             ]
@@ -1894,6 +1946,7 @@
         "required": [
           "value"
         ],
+        "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IBucket}",
         "additionalProperties": false
       }
     }
@@ -1901,5 +1954,6 @@
   "required": [
     "value"
   ],
+  "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer}",
   "additionalProperties": false
 }

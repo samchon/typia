@@ -1,7 +1,9 @@
 {
+  "description": "",
   "type": "object",
   "properties": {
     "regular": {
+      "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer}",
       "type": "object",
       "properties": {
         "value": {
@@ -32,11 +34,13 @@
           },
           "required": [
             "value"
-          ]
+          ],
+          "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer}"
         }
       ]
     },
     "optional": {
+      "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer}",
       "type": "object",
       "properties": {
         "value": {
@@ -67,13 +71,15 @@
           },
           "required": [
             "value"
-          ]
+          ],
+          "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer}"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer}",
         "type": "object",
         "properties": {
           "value": {
@@ -97,6 +103,7 @@
   "additionalProperties": false,
   "$defs": {
     "ArrayRecursiveUnionExplicitPointer.IBucket": {
+      "description": "",
       "type": "object",
       "properties": {
         "value": {
@@ -151,7 +158,8 @@
                 "size",
                 "type",
                 "extension"
-              ]
+              ],
+              "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IImageFile}"
             },
             {
               "type": "object",
@@ -192,7 +200,8 @@
                 "content",
                 "type",
                 "extension"
-              ]
+              ],
+              "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.ITextFile}"
             },
             {
               "type": "object",
@@ -233,7 +242,8 @@
                 "count",
                 "type",
                 "extension"
-              ]
+              ],
+              "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IZipFile}"
             },
             {
               "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer.IShortcut"
@@ -246,6 +256,7 @@
       ]
     },
     "ArrayRecursiveUnionExplicitPointer.IDirectory": {
+      "description": "",
       "type": "object",
       "properties": {
         "id": {
@@ -279,6 +290,7 @@
       ]
     },
     "ArrayRecursiveUnionExplicitPointer.IShortcut": {
+      "description": "",
       "type": "object",
       "properties": {
         "id": {

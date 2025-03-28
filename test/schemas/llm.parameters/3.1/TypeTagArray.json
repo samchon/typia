@@ -2,11 +2,13 @@
   "type": "object",
   "properties": {
     "regular": {
+      "description": "Current Type: {@link TypeTagArray}",
       "type": "object",
       "properties": {
         "value": {
           "type": "array",
           "items": {
+            "description": "Current Type: {@link TypeTagArray.Type}",
             "type": "object",
             "properties": {
               "items": {
@@ -78,6 +80,7 @@
             "value": {
               "type": "array",
               "items": {
+                "description": "Current Type: {@link TypeTagArray.Type}",
                 "type": "object",
                 "properties": {
                   "items": {
@@ -136,16 +139,19 @@
           },
           "required": [
             "value"
-          ]
+          ],
+          "description": "Current Type: {@link TypeTagArray}"
         }
       ]
     },
     "optional": {
+      "description": "Current Type: {@link TypeTagArray}",
       "type": "object",
       "properties": {
         "value": {
           "type": "array",
           "items": {
+            "description": "Current Type: {@link TypeTagArray.Type}",
             "type": "object",
             "properties": {
               "items": {
@@ -217,6 +223,7 @@
             "value": {
               "type": "array",
               "items": {
+                "description": "Current Type: {@link TypeTagArray.Type}",
                 "type": "object",
                 "properties": {
                   "items": {
@@ -275,18 +282,21 @@
           },
           "required": [
             "value"
-          ]
+          ],
+          "description": "Current Type: {@link TypeTagArray}"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link TypeTagArray}",
         "type": "object",
         "properties": {
           "value": {
             "type": "array",
             "items": {
+              "description": "Current Type: {@link TypeTagArray.Type}",
               "type": "object",
               "properties": {
                 "items": {

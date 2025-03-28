@@ -11,11 +11,13 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link CommentTagArray}",
             "type": "object",
             "properties": {
               "value": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link CommentTagArray.Type}",
                   "type": "object",
                   "properties": {
                     "items": {
@@ -85,11 +87,13 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link CommentTagArray}",
             "type": "object",
             "properties": {
               "value": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link CommentTagArray.Type}",
                   "type": "object",
                   "properties": {
                     "items": {
@@ -156,6 +160,7 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link CommentTagArray.Type}",
                       "type": "object",
                       "properties": {
                         "items": {
@@ -209,7 +214,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link CommentTagArray}"
               }
             ]
           }
@@ -222,11 +228,13 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link CommentTagArray}",
         "type": "object",
         "properties": {
           "value": {
             "type": "array",
             "items": {
+              "description": "Current Type: {@link CommentTagArray.Type}",
               "type": "object",
               "properties": {
                 "items": {
@@ -299,6 +307,7 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link CommentTagArray.Type}",
                       "type": "object",
                       "properties": {
                         "items": {
@@ -352,7 +361,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link CommentTagArray}"
               }
             ]
           },
@@ -367,6 +377,7 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link CommentTagArray.Type}",
                       "type": "object",
                       "properties": {
                         "items": {
@@ -420,7 +431,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link CommentTagArray}"
               }
             ]
           },
@@ -435,6 +447,7 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link CommentTagArray.Type}",
                       "type": "object",
                       "properties": {
                         "items": {
@@ -488,7 +501,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link CommentTagArray}"
               }
             ]
           }
@@ -511,6 +525,7 @@
               "value": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link CommentTagArray.Type}",
                   "type": "object",
                   "properties": {
                     "items": {
@@ -564,7 +579,8 @@
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link CommentTagArray}"
           }
         ]
       }

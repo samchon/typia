@@ -63,8 +63,10 @@
                 "age",
                 "dead"
               ],
+              "description": "Current Type: {@link ObjectAlias.IMember}",
               "additionalProperties": false
-            }
+            },
+            "description": "Current Type: {@link ObjectAlias}"
           }
         },
         "required": [
@@ -130,8 +132,10 @@
                 "age",
                 "dead"
               ],
+              "description": "Current Type: {@link ObjectAlias.IMember}",
               "additionalProperties": false
-            }
+            },
+            "description": "Current Type: {@link ObjectAlias}"
           },
           "second": {
             "type": "array",
@@ -185,6 +189,7 @@
                 "age",
                 "dead"
               ],
+              "description": "Current Type: {@link ObjectAlias.IMember}",
               "additionalProperties": false
             },
             "nullable": true
@@ -248,8 +253,10 @@
             "age",
             "dead"
           ],
+          "description": "Current Type: {@link ObjectAlias.IMember}",
           "additionalProperties": false
-        }
+        },
+        "description": "Current Type: {@link ObjectAlias}"
       }
     },
     {
@@ -309,6 +316,7 @@
                 "age",
                 "dead"
               ],
+              "description": "Current Type: {@link ObjectAlias.IMember}",
               "additionalProperties": false
             },
             "nullable": true
@@ -365,6 +373,7 @@
                 "age",
                 "dead"
               ],
+              "description": "Current Type: {@link ObjectAlias.IMember}",
               "additionalProperties": false
             },
             "nullable": true
@@ -421,6 +430,7 @@
                 "age",
                 "dead"
               ],
+              "description": "Current Type: {@link ObjectAlias.IMember}",
               "additionalProperties": false
             },
             "nullable": true
@@ -484,6 +494,7 @@
             "age",
             "dead"
           ],
+          "description": "Current Type: {@link ObjectAlias.IMember}",
           "additionalProperties": false
         },
         "nullable": true

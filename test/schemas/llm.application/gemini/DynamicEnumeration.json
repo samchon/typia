@@ -52,7 +52,8 @@
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link DynamicEnumeration}"
           }
         },
         "required": [
@@ -107,7 +108,8 @@
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link DynamicEnumeration}"
           },
           "second": {
             "type": "object",
@@ -202,7 +204,8 @@
         },
         "required": [
           "value"
-        ]
+        ],
+        "description": "Current Type: {@link DynamicEnumeration}"
       }
     },
     {

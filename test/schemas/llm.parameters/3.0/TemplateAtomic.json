@@ -50,6 +50,7 @@
         "ipv4",
         "email"
       ],
+      "description": "Current Type: {@link TemplateAtomic}",
       "additionalProperties": false
     },
     "nullable": {
@@ -153,6 +154,7 @@
         "ipv4",
         "email"
       ],
+      "description": "Current Type: {@link TemplateAtomic}",
       "additionalProperties": false
     },
     "faint": {
@@ -258,6 +260,7 @@
           "ipv4",
           "email"
         ],
+        "description": "Current Type: {@link TemplateAtomic}",
         "additionalProperties": false
       }
     }

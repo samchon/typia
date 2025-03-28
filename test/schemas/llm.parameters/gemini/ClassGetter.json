@@ -19,7 +19,8 @@
         "id",
         "name",
         "dead"
-      ]
+      ],
+      "description": "Current Type: {@link ClassGetter.Person}"
     },
     "nullable": {
       "type": "object",
@@ -60,7 +61,8 @@
         "id",
         "name",
         "dead"
-      ]
+      ],
+      "description": "Current Type: {@link ClassGetter.Person}"
     },
     "faint": {
       "type": "object",
@@ -103,7 +105,8 @@
           "id",
           "name",
           "dead"
-        ]
+        ],
+        "description": "Current Type: {@link ClassGetter.Person}"
       }
     }
   },

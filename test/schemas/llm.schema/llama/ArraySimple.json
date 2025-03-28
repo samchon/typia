@@ -1,6 +1,8 @@
 {
+  "description": "Current Type: {@link ArraySimple}",
   "type": "array",
   "items": {
+    "description": "Current Type: {@link ArraySimple.IPerson}",
     "type": "object",
     "properties": {
       "name": {
@@ -12,6 +14,7 @@
       "hobbies": {
         "type": "array",
         "items": {
+          "description": "Current Type: {@link ArraySimple.IHobby}",
           "type": "object",
           "properties": {
             "name": {

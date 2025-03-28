@@ -26,6 +26,7 @@
               "mobile",
               "name"
             ],
+            "description": "Current Type: {@link ToJsonUnion.ICitizen}",
             "additionalProperties": false
           },
           {
@@ -46,6 +47,7 @@
               "brand",
               "name"
             ],
+            "description": "Current Type: {@link ToJsonUnion.IProduct}",
             "additionalProperties": false
           },
           {
@@ -72,10 +74,12 @@
               "mobile",
               "name"
             ],
+            "description": "Current Type: {@link ToJsonUnion.ICitizen}",
             "additionalProperties": false
           }
         ]
-      }
+      },
+      "description": "Current Type: {@link ToJsonUnion}"
     },
     "nullable": {
       "type": "array",
@@ -102,6 +106,7 @@
               "mobile",
               "name"
             ],
+            "description": "Current Type: {@link ToJsonUnion.ICitizen}",
             "additionalProperties": false
           },
           {
@@ -122,6 +127,7 @@
               "brand",
               "name"
             ],
+            "description": "Current Type: {@link ToJsonUnion.IProduct}",
             "additionalProperties": false
           },
           {
@@ -148,6 +154,7 @@
               "mobile",
               "name"
             ],
+            "description": "Current Type: {@link ToJsonUnion.ICitizen}",
             "additionalProperties": false
           }
         ]
@@ -179,6 +186,7 @@
               "mobile",
               "name"
             ],
+            "description": "Current Type: {@link ToJsonUnion.ICitizen}",
             "additionalProperties": false
           },
           {
@@ -199,6 +207,7 @@
               "brand",
               "name"
             ],
+            "description": "Current Type: {@link ToJsonUnion.IProduct}",
             "additionalProperties": false
           },
           {
@@ -225,10 +234,12 @@
               "mobile",
               "name"
             ],
+            "description": "Current Type: {@link ToJsonUnion.ICitizen}",
             "additionalProperties": false
           }
         ]
-      }
+      },
+      "description": "Current Type: {@link ToJsonUnion}"
     },
     "faint": {
       "type": "array",
@@ -255,6 +266,7 @@
               "mobile",
               "name"
             ],
+            "description": "Current Type: {@link ToJsonUnion.ICitizen}",
             "additionalProperties": false
           },
           {
@@ -275,6 +287,7 @@
               "brand",
               "name"
             ],
+            "description": "Current Type: {@link ToJsonUnion.IProduct}",
             "additionalProperties": false
           },
           {
@@ -301,6 +314,7 @@
               "mobile",
               "name"
             ],
+            "description": "Current Type: {@link ToJsonUnion.ICitizen}",
             "additionalProperties": false
           }
         ]
@@ -334,6 +348,7 @@
                 "mobile",
                 "name"
               ],
+              "description": "Current Type: {@link ToJsonUnion.ICitizen}",
               "additionalProperties": false
             },
             {
@@ -354,6 +369,7 @@
                 "brand",
                 "name"
               ],
+              "description": "Current Type: {@link ToJsonUnion.IProduct}",
               "additionalProperties": false
             },
             {
@@ -380,10 +396,12 @@
                 "mobile",
                 "name"
               ],
+              "description": "Current Type: {@link ToJsonUnion.ICitizen}",
               "additionalProperties": false
             }
           ]
-        }
+        },
+        "description": "Current Type: {@link ToJsonUnion}"
       }
     }
   },

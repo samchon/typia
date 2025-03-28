@@ -9,11 +9,14 @@
     {
       "name": "insert",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ObjectAlias}",
             "type": "array",
             "items": {
+              "description": "Current Type: {@link ObjectAlias.IMember}",
               "type": "object",
               "properties": {
                 "id": {
@@ -95,11 +98,14 @@
     {
       "name": "reduce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ObjectAlias}",
             "type": "array",
             "items": {
+              "description": "Current Type: {@link ObjectAlias.IMember}",
               "type": "object",
               "properties": {
                 "id": {
@@ -178,6 +184,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ObjectAlias.IMember}",
                   "type": "object",
                   "properties": {
                     "id": {
@@ -246,7 +253,8 @@
                     "age",
                     "dead"
                   ]
-                }
+                },
+                "description": "Current Type: {@link ObjectAlias}"
               }
             ]
           }
@@ -259,8 +267,10 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link ObjectAlias}",
         "type": "array",
         "items": {
+          "description": "Current Type: {@link ObjectAlias.IMember}",
           "type": "object",
           "properties": {
             "id": {
@@ -335,6 +345,7 @@
     {
       "name": "coalesce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
@@ -345,6 +356,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ObjectAlias.IMember}",
                   "type": "object",
                   "properties": {
                     "id": {
@@ -413,7 +425,8 @@
                     "age",
                     "dead"
                   ]
-                }
+                },
+                "description": "Current Type: {@link ObjectAlias}"
               }
             ]
           },
@@ -425,6 +438,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ObjectAlias.IMember}",
                   "type": "object",
                   "properties": {
                     "id": {
@@ -493,7 +507,8 @@
                     "age",
                     "dead"
                   ]
-                }
+                },
+                "description": "Current Type: {@link ObjectAlias}"
               }
             ]
           },
@@ -505,6 +520,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ObjectAlias.IMember}",
                   "type": "object",
                   "properties": {
                     "id": {
@@ -573,7 +589,8 @@
                     "age",
                     "dead"
                   ]
-                }
+                },
+                "description": "Current Type: {@link ObjectAlias}"
               }
             ]
           }
@@ -593,6 +610,7 @@
           {
             "type": "array",
             "items": {
+              "description": "Current Type: {@link ObjectAlias.IMember}",
               "type": "object",
               "properties": {
                 "id": {
@@ -661,7 +679,8 @@
                 "age",
                 "dead"
               ]
-            }
+            },
+            "description": "Current Type: {@link ObjectAlias}"
           }
         ]
       }

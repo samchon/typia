@@ -11,7 +11,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required",
+            "description": "Description of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required",
             "type": "object",
             "properties": {
               "boolean": {
@@ -94,7 +94,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required",
+            "description": "Description of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required",
             "type": "object",
             "properties": {
               "boolean": {
@@ -172,7 +172,7 @@
                   "array",
                   "object"
                 ],
-                "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required"
+                "description": "Description of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required"
               }
             ]
           }
@@ -217,7 +217,7 @@
         }
       },
       "output": {
-        "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required",
+        "description": "Description of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required",
         "type": "object",
         "properties": {
           "boolean": {
@@ -301,7 +301,7 @@
                   "array",
                   "object"
                 ],
-                "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required"
+                "description": "Description of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required"
               }
             ]
           },
@@ -346,7 +346,7 @@
                   "array",
                   "object"
                 ],
-                "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required"
+                "description": "Description of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required"
               }
             ]
           },
@@ -391,7 +391,7 @@
                   "array",
                   "object"
                 ],
-                "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required"
+                "description": "Description of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required"
               }
             ]
           }
@@ -476,7 +476,7 @@
               "array",
               "object"
             ],
-            "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required"
+            "description": "Description of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required"
           }
         ]
       }

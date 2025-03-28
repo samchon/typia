@@ -9,9 +9,11 @@
     {
       "name": "insert",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link DynamicComposite}",
             "type": "object",
             "properties": {
               "id": {
@@ -50,9 +52,11 @@
     {
       "name": "reduce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link DynamicComposite}",
             "type": "object",
             "properties": {
               "id": {
@@ -99,6 +103,7 @@
                   "id",
                   "name"
                 ],
+                "description": "Current Type: {@link DynamicComposite}",
                 "additionalProperties": {
                   "anyOf": [
                     {
@@ -124,6 +129,7 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link DynamicComposite}",
         "type": "object",
         "properties": {
           "id": {
@@ -155,6 +161,7 @@
     {
       "name": "coalesce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
@@ -176,6 +183,7 @@
                   "id",
                   "name"
                 ],
+                "description": "Current Type: {@link DynamicComposite}",
                 "additionalProperties": {
                   "anyOf": [
                     {
@@ -211,6 +219,7 @@
                   "id",
                   "name"
                 ],
+                "description": "Current Type: {@link DynamicComposite}",
                 "additionalProperties": {
                   "anyOf": [
                     {
@@ -246,6 +255,7 @@
                   "id",
                   "name"
                 ],
+                "description": "Current Type: {@link DynamicComposite}",
                 "additionalProperties": {
                   "anyOf": [
                     {
@@ -289,6 +299,7 @@
               "id",
               "name"
             ],
+            "description": "Current Type: {@link DynamicComposite}",
             "additionalProperties": {
               "anyOf": [
                 {

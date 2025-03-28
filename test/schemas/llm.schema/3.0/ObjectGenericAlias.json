@@ -8,5 +8,6 @@
   "required": [
     "value"
   ],
+  "description": "Current Type: {@link ObjectGenericAlias.Alias}",
   "additionalProperties": false
 }

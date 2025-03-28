@@ -48,11 +48,13 @@
           "both",
           "equal",
           "unique"
-        ]
+        ],
+        "description": "Current Type: {@link CommentTagArray.Type}"
       }
     }
   },
   "required": [
     "value"
-  ]
+  ],
+  "description": "Current Type: {@link CommentTagArray}"
 }

@@ -5,6 +5,7 @@
       "type": "object",
       "properties": {},
       "required": [],
+      "description": "Current Type: {@link ObjectDynamic}",
       "additionalProperties": {
         "oneOf": [
           {
@@ -42,6 +43,7 @@
       "type": "object",
       "properties": {},
       "required": [],
+      "description": "Current Type: {@link ObjectDynamic}",
       "additionalProperties": {
         "oneOf": [
           {
@@ -81,6 +83,7 @@
         "type": "object",
         "properties": {},
         "required": [],
+        "description": "Current Type: {@link ObjectDynamic}",
         "additionalProperties": {
           "oneOf": [
             {

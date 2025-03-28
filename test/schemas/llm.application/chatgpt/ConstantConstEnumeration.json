@@ -9,11 +9,14 @@
     {
       "name": "insert",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ConstantConstEnumeration}",
             "type": "array",
             "items": {
+              "description": "Current Type: {@link ConstantConstEnumeration.Enumeration}",
               "anyOf": [
                 {
                   "type": "number",
@@ -44,11 +47,14 @@
     {
       "name": "reduce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ConstantConstEnumeration}",
             "type": "array",
             "items": {
+              "description": "Current Type: {@link ConstantConstEnumeration.Enumeration}",
               "anyOf": [
                 {
                   "type": "number",
@@ -76,6 +82,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ConstantConstEnumeration.Enumeration}",
                   "anyOf": [
                     {
                       "type": "number",
@@ -93,7 +100,8 @@
                       ]
                     }
                   ]
-                }
+                },
+                "description": "Current Type: {@link ConstantConstEnumeration}"
               }
             ]
           }
@@ -106,8 +114,10 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link ConstantConstEnumeration}",
         "type": "array",
         "items": {
+          "description": "Current Type: {@link ConstantConstEnumeration.Enumeration}",
           "anyOf": [
             {
               "type": "number",
@@ -131,6 +141,7 @@
     {
       "name": "coalesce",
       "parameters": {
+        "description": "",
         "type": "object",
         "properties": {
           "first": {
@@ -141,6 +152,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ConstantConstEnumeration.Enumeration}",
                   "anyOf": [
                     {
                       "type": "number",
@@ -158,7 +170,8 @@
                       ]
                     }
                   ]
-                }
+                },
+                "description": "Current Type: {@link ConstantConstEnumeration}"
               }
             ]
           },
@@ -170,6 +183,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ConstantConstEnumeration.Enumeration}",
                   "anyOf": [
                     {
                       "type": "number",
@@ -187,7 +201,8 @@
                       ]
                     }
                   ]
-                }
+                },
+                "description": "Current Type: {@link ConstantConstEnumeration}"
               }
             ]
           },
@@ -199,6 +214,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ConstantConstEnumeration.Enumeration}",
                   "anyOf": [
                     {
                       "type": "number",
@@ -216,7 +232,8 @@
                       ]
                     }
                   ]
-                }
+                },
+                "description": "Current Type: {@link ConstantConstEnumeration}"
               }
             ]
           }
@@ -236,6 +253,7 @@
           {
             "type": "array",
             "items": {
+              "description": "Current Type: {@link ConstantConstEnumeration.Enumeration}",
               "anyOf": [
                 {
                   "type": "number",
@@ -253,7 +271,8 @@
                   ]
                 }
               ]
-            }
+            },
+            "description": "Current Type: {@link ConstantConstEnumeration}"
           }
         ]
       }
