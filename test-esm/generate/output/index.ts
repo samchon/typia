@@ -17,6 +17,7 @@ const application: ILlmApplication<"chatgpt"> = {
     {
       name: "establishCompany",
       parameters: {
+        description: "",
         type: "object",
         properties: {
           company: {
@@ -27,6 +28,7 @@ const application: ILlmApplication<"chatgpt"> = {
         additionalProperties: false,
         $defs: {
           "default.o1": {
+            description: "",
             type: "object",
             properties: {
               id: {
@@ -53,6 +55,7 @@ const application: ILlmApplication<"chatgpt"> = {
             required: ["id", "serial", "name", "established_at", "departments"],
           },
           "default.o2": {
+            description: "",
             type: "object",
             properties: {
               id: {
@@ -397,6 +400,7 @@ const application: ILlmApplication<"chatgpt"> = {
     {
       name: "createDepartment",
       parameters: {
+        description: "",
         type: "object",
         properties: {
           company: {
@@ -410,6 +414,7 @@ const application: ILlmApplication<"chatgpt"> = {
         additionalProperties: false,
         $defs: {
           "default.o1": {
+            description: "",
             type: "object",
             properties: {
               id: {
@@ -436,6 +441,7 @@ const application: ILlmApplication<"chatgpt"> = {
             required: ["id", "serial", "name", "established_at", "departments"],
           },
           "default.o2": {
+            description: "",
             type: "object",
             properties: {
               id: {
@@ -800,6 +806,7 @@ const application: ILlmApplication<"chatgpt"> = {
     {
       name: "hire",
       parameters: {
+        description: "",
         type: "object",
         properties: {
           company: {
@@ -816,6 +823,7 @@ const application: ILlmApplication<"chatgpt"> = {
         additionalProperties: false,
         $defs: {
           "default.o1": {
+            description: "",
             type: "object",
             properties: {
               id: {
@@ -842,6 +850,7 @@ const application: ILlmApplication<"chatgpt"> = {
             required: ["id", "serial", "name", "established_at", "departments"],
           },
           "default.o2": {
+            description: "",
             type: "object",
             properties: {
               id: {
@@ -1223,6 +1232,7 @@ const application: ILlmApplication<"chatgpt"> = {
     {
       name: "erase",
       parameters: {
+        description: "",
         type: "object",
         properties: {
           entity: {
@@ -1240,6 +1250,7 @@ const application: ILlmApplication<"chatgpt"> = {
         additionalProperties: false,
         $defs: {
           "default.o1": {
+            description: "",
             type: "object",
             properties: {
               id: {
@@ -1266,6 +1277,7 @@ const application: ILlmApplication<"chatgpt"> = {
             required: ["id", "serial", "name", "established_at", "departments"],
           },
           "default.o2": {
+            description: "",
             type: "object",
             properties: {
               id: {
