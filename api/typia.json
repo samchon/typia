@@ -636,7 +636,7 @@
 							"type": {
 								"type": "reference",
 								"target": {
-									"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/OpenApiV3.d.ts",
+									"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/OpenApiV3.d.ts",
 									"qualifiedName": "OpenApiV3.IComponents"
 								},
 								"name": "IComponents",
@@ -663,7 +663,7 @@
 								"elementType": {
 									"type": "reference",
 									"target": {
-										"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/OpenApiV3.d.ts",
+										"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/OpenApiV3.d.ts",
 										"qualifiedName": "OpenApiV3.IJsonSchema"
 									},
 									"name": "IJsonSchema",
@@ -777,7 +777,7 @@
 							"type": {
 								"type": "reference",
 								"target": {
-									"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/OpenApi.d.ts",
+									"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/OpenApi.d.ts",
 									"qualifiedName": "OpenApi.IComponents"
 								},
 								"name": "IComponents",
@@ -804,7 +804,7 @@
 								"elementType": {
 									"type": "reference",
 									"target": {
-										"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/OpenApi.d.ts",
+										"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/OpenApi.d.ts",
 										"qualifiedName": "OpenApi.IJsonSchema"
 									},
 									"name": "IJsonSchema",
@@ -921,7 +921,7 @@
 					},
 					"sources": [
 						{
-							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 							"line": 53,
 							"character": 9
 						}
@@ -938,7 +938,7 @@
 							"type": {
 								"type": "reference",
 								"target": {
-									"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmSchema.d.ts",
+									"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmSchema.d.ts",
 									"qualifiedName": "ILlmSchema.Model"
 								},
 								"name": "ILlmSchema.Model",
@@ -1060,7 +1060,7 @@
 											},
 											"sources": [
 												{
-													"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+													"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 													"line": 82,
 													"character": 8
 												}
@@ -1084,7 +1084,7 @@
 															},
 															"sources": [
 																{
-																	"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+																	"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 																	"line": 82,
 																	"character": 26
 																}
@@ -1119,7 +1119,7 @@
 																				"objectType": {
 																					"type": "reference",
 																					"target": {
-																						"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmSchema.d.ts",
+																						"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmSchema.d.ts",
 																						"qualifiedName": "ILlmSchema.ModelSchema"
 																					},
 																					"name": "ILlmSchema.ModelSchema",
@@ -1150,7 +1150,7 @@
 									],
 									"sources": [
 										{
-											"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+											"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 											"line": 53,
 											"character": 52
 										}
@@ -1169,7 +1169,7 @@
 								"objectType": {
 									"type": "reference",
 									"target": {
-										"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmSchema.d.ts",
+										"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmSchema.d.ts",
 										"qualifiedName": "ILlmSchema.ModelConfig"
 									},
 									"name": "ILlmSchema.ModelConfig",
@@ -1190,12 +1190,12 @@
 			],
 			"sources": [
 				{
-					"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+					"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 					"line": 26,
 					"character": 17
 				},
 				{
-					"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+					"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 					"line": 49,
 					"character": 25
 				}
@@ -1245,7 +1245,7 @@
 							},
 							"sources": [
 								{
-									"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+									"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 									"line": 119,
 									"character": 8
 								}
@@ -1270,7 +1270,7 @@
 										"objectType": {
 											"type": "reference",
 											"target": {
-												"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmSchema.d.ts",
+												"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmSchema.d.ts",
 												"qualifiedName": "ILlmSchema.ModelParameters"
 											},
 											"name": "ModelParameters",
@@ -1307,7 +1307,7 @@
 							},
 							"sources": [
 								{
-									"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+									"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 									"line": 115,
 									"character": 8
 								}
@@ -1325,7 +1325,7 @@
 								"objectType": {
 									"type": "reference",
 									"target": {
-										"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmSchema.d.ts",
+										"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmSchema.d.ts",
 										"qualifiedName": "ILlmSchema.ModelParameters"
 									},
 									"name": "ModelParameters",
@@ -1428,7 +1428,7 @@
 							},
 							"sources": [
 								{
-									"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+									"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 									"line": 145,
 									"character": 8
 								}
@@ -1445,7 +1445,7 @@
 									},
 									"sources": [
 										{
-											"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+											"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 											"line": 145,
 											"character": 20
 										}
@@ -1475,7 +1475,7 @@
 											},
 											"sources": [
 												{
-													"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+													"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 													"line": 145,
 													"character": 20
 												}
@@ -1533,7 +1533,7 @@
 					],
 					"sources": [
 						{
-							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 							"line": 108,
 							"character": 14
 						}
@@ -1550,7 +1550,7 @@
 							"type": {
 								"type": "reference",
 								"target": {
-									"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmSchema.d.ts",
+									"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmSchema.d.ts",
 									"qualifiedName": "ILlmSchema.Model"
 								},
 								"name": "ILlmSchema.Model",
@@ -1570,12 +1570,12 @@
 			],
 			"sources": [
 				{
-					"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+					"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 					"line": 25,
 					"character": 17
 				},
 				{
-					"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+					"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 					"line": 104,
 					"character": 25
 				}
@@ -1609,7 +1609,7 @@
 							},
 							"sources": [
 								{
-									"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+									"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
 									"line": 14,
 									"character": 8
 								}
@@ -1629,7 +1629,7 @@
 							},
 							"sources": [
 								{
-									"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+									"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
 									"line": 13,
 									"character": 8
 								}
@@ -1649,7 +1649,7 @@
 							},
 							"sources": [
 								{
-									"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+									"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
 									"line": 15,
 									"character": 8
 								}
@@ -1672,7 +1672,7 @@
 					],
 					"sources": [
 						{
-							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
 							"line": 12,
 							"character": 14
 						}
@@ -1697,7 +1697,7 @@
 							},
 							"sources": [
 								{
-									"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+									"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
 									"line": 9,
 									"character": 8
 								}
@@ -1717,7 +1717,7 @@
 							},
 							"sources": [
 								{
-									"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+									"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
 									"line": 10,
 									"character": 8
 								}
@@ -1743,7 +1743,7 @@
 							},
 							"sources": [
 								{
-									"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+									"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
 									"line": 8,
 									"character": 8
 								}
@@ -1766,7 +1766,7 @@
 					],
 					"sources": [
 						{
-							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
 							"line": 7,
 							"character": 14
 						}
@@ -1791,7 +1791,7 @@
 							},
 							"sources": [
 								{
-									"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+									"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
 									"line": 5,
 									"character": 8
 								}
@@ -1815,7 +1815,7 @@
 							},
 							"sources": [
 								{
-									"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+									"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
 									"line": 4,
 									"character": 8
 								}
@@ -1837,7 +1837,7 @@
 					],
 					"sources": [
 						{
-							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
 							"line": 3,
 							"character": 14
 						}
@@ -1871,12 +1871,12 @@
 			],
 			"sources": [
 				{
-					"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+					"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
 					"line": 1,
 					"character": 12
 				},
 				{
-					"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+					"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
 					"line": 2,
 					"character": 25
 				}
@@ -9954,7 +9954,7 @@
 					},
 					"sources": [
 						{
-							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 							"line": 47,
 							"character": 4
 						}
@@ -9986,7 +9986,7 @@
 					},
 					"sources": [
 						{
-							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 							"line": 36,
 							"character": 4
 						}
@@ -10029,7 +10029,7 @@
 					},
 					"sources": [
 						{
-							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 							"line": 30,
 							"character": 4
 						}
@@ -10061,7 +10061,7 @@
 					},
 					"sources": [
 						{
-							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 							"line": 40,
 							"character": 4
 						}
@@ -10098,12 +10098,12 @@
 			],
 			"sources": [
 				{
-					"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+					"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 					"line": 26,
 					"character": 17
 				},
 				{
-					"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+					"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 					"line": 49,
 					"character": 25
 				}
@@ -10120,7 +10120,7 @@
 					"type": {
 						"type": "reference",
 						"target": {
-							"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmSchema.d.ts",
+							"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmSchema.d.ts",
 							"qualifiedName": "ILlmSchema.Model"
 						},
 						"name": "ILlmSchema.Model",
@@ -10273,7 +10273,7 @@
 					},
 					"sources": [
 						{
-							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 							"line": 66,
 							"character": 4
 						}
@@ -10326,7 +10326,7 @@
 					},
 					"sources": [
 						{
-							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 							"line": 58,
 							"character": 4
 						}
@@ -10365,7 +10365,7 @@
 					},
 					"sources": [
 						{
-							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 							"line": 31,
 							"character": 4
 						}
@@ -10418,7 +10418,7 @@
 					},
 					"sources": [
 						{
-							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 							"line": 46,
 							"character": 4
 						}
@@ -10436,7 +10436,7 @@
 						"objectType": {
 							"type": "reference",
 							"target": {
-								"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmSchema.d.ts",
+								"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmSchema.d.ts",
 								"qualifiedName": "ILlmSchema.ModelSchema"
 							},
 							"name": "ModelSchema",
@@ -10463,7 +10463,7 @@
 					},
 					"sources": [
 						{
-							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 							"line": 35,
 							"character": 4
 						}
@@ -10481,7 +10481,7 @@
 						"objectType": {
 							"type": "reference",
 							"target": {
-								"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmSchema.d.ts",
+								"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmSchema.d.ts",
 								"qualifiedName": "ILlmSchema.ModelParameters"
 							},
 							"name": "ModelParameters",
@@ -10509,7 +10509,7 @@
 					},
 					"sources": [
 						{
-							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 							"line": 39,
 							"character": 4
 						}
@@ -10559,7 +10559,7 @@
 					},
 					"sources": [
 						{
-							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 							"line": 72,
 							"character": 4
 						}
@@ -10685,7 +10685,7 @@
 					},
 					"sources": [
 						{
-							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 							"line": 102,
 							"character": 4
 						}
@@ -10702,7 +10702,7 @@
 							},
 							"sources": [
 								{
-									"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+									"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 									"line": 102,
 									"character": 14
 								}
@@ -10732,7 +10732,7 @@
 									},
 									"sources": [
 										{
-											"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+											"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 											"line": 102,
 											"character": 14
 										}
@@ -10795,12 +10795,12 @@
 			],
 			"sources": [
 				{
-					"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+					"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 					"line": 25,
 					"character": 17
 				},
 				{
-					"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+					"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 					"line": 104,
 					"character": 25
 				}
@@ -10817,7 +10817,7 @@
 					"type": {
 						"type": "reference",
 						"target": {
-							"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmSchema.d.ts",
+							"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmSchema.d.ts",
 							"qualifiedName": "ILlmSchema.Model"
 						},
 						"name": "ILlmSchema.Model",
@@ -10891,7 +10891,7 @@
 													{
 														"type": "reference",
 														"target": {
-															"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/OpenApi.d.ts",
+															"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/OpenApi.d.ts",
 															"qualifiedName": "OpenApi.IJsonSchema.IArray"
 														},
 														"name": "IArray",
@@ -11071,7 +11071,7 @@
 									"type": {
 										"type": "reference",
 										"target": {
-											"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/OpenApi.d.ts",
+											"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/OpenApi.d.ts",
 											"qualifiedName": "OpenApi.IJsonSchema.IInteger"
 										},
 										"name": "IInteger",
@@ -11623,7 +11623,7 @@
 									"type": {
 										"type": "reference",
 										"target": {
-											"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/OpenApi.d.ts",
+											"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/OpenApi.d.ts",
 											"qualifiedName": "OpenApi.IJsonSchema.IInteger"
 										},
 										"name": "IInteger",
@@ -11858,7 +11858,7 @@
 									"type": {
 										"type": "reference",
 										"target": {
-											"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/OpenApi.d.ts",
+											"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/OpenApi.d.ts",
 											"qualifiedName": "OpenApi.IJsonSchema.INumber"
 										},
 										"name": "INumber",
@@ -12075,7 +12075,7 @@
 									"type": {
 										"type": "reference",
 										"target": {
-											"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/OpenApi.d.ts",
+											"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/OpenApi.d.ts",
 											"qualifiedName": "OpenApi.IJsonSchema.IString"
 										},
 										"name": "IString",
@@ -12796,12 +12796,12 @@
 			},
 			"sources": [
 				{
-					"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+					"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
 					"line": 1,
 					"character": 12
 				},
 				{
-					"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+					"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
 					"line": 2,
 					"character": 25
 				}
@@ -15181,151 +15181,151 @@
 			"qualifiedName": "IJsonSchemaCollection"
 		},
 		"1582": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 			"qualifiedName": "ILlmApplication"
 		},
 		"1583": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 			"qualifiedName": "ILlmApplication.model"
 		},
 		"1584": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 			"qualifiedName": "ILlmApplication.functions"
 		},
 		"1585": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 			"qualifiedName": "ILlmApplication.options"
 		},
 		"1586": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 			"qualifiedName": "ILlmApplication.__class"
 		},
 		"1587": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 			"qualifiedName": "ILlmApplication.Model"
 		},
 		"1588": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 			"qualifiedName": "ILlmApplication.Class"
 		},
 		"1589": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 			"qualifiedName": "ILlmApplication"
 		},
 		"1590": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 			"qualifiedName": "ILlmApplication.IOptions"
 		},
 		"1591": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 			"qualifiedName": "__type"
 		},
 		"1592": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 			"qualifiedName": "__type.separate"
 		},
 		"1593": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 			"qualifiedName": "__type"
 		},
 		"1594": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 			"qualifiedName": "__type"
 		},
 		"1595": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 			"qualifiedName": "schema"
 		},
 		"1596": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 			"qualifiedName": "Model"
 		},
 		"1597": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 			"qualifiedName": "ILlmFunction"
 		},
 		"1598": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 			"qualifiedName": "ILlmFunction.name"
 		},
 		"1599": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 			"qualifiedName": "ILlmFunction.parameters"
 		},
 		"1600": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 			"qualifiedName": "ILlmFunction.separated"
 		},
 		"1601": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 			"qualifiedName": "ILlmFunction.output"
 		},
 		"1602": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 			"qualifiedName": "ILlmFunction.description"
 		},
 		"1603": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 			"qualifiedName": "ILlmFunction.deprecated"
 		},
 		"1604": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 			"qualifiedName": "ILlmFunction.tags"
 		},
 		"1605": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 			"qualifiedName": "ILlmFunction.validate"
 		},
 		"1606": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 			"qualifiedName": "__type"
 		},
 		"1607": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 			"qualifiedName": "__type"
 		},
 		"1608": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 			"qualifiedName": "args"
 		},
 		"1609": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 			"qualifiedName": "ILlmFunction.Model"
 		},
 		"1610": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 			"qualifiedName": "ILlmFunction"
 		},
 		"1611": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 			"qualifiedName": "ILlmFunction.ISeparated"
 		},
 		"1612": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 			"qualifiedName": "ILlmFunction.ISeparated.llm"
 		},
 		"1613": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 			"qualifiedName": "ILlmFunction.ISeparated.human"
 		},
 		"1614": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 			"qualifiedName": "ILlmFunction.ISeparated.validate"
 		},
 		"1615": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 			"qualifiedName": "__type"
 		},
 		"1616": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 			"qualifiedName": "__type"
 		},
 		"1617": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 			"qualifiedName": "args"
 		},
 		"1618": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 			"qualifiedName": "ILlmFunction.ISeparated.Model"
 		},
 		"1619": {
@@ -15669,63 +15669,63 @@
 			"qualifiedName": "IRandomGenerator.relativeJsonPointer"
 		},
 		"1704": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
 			"qualifiedName": "IValidation"
 		},
 		"1705": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
 			"qualifiedName": "T"
 		},
 		"1706": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
 			"qualifiedName": "IValidation"
 		},
 		"1707": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
 			"qualifiedName": "IValidation.ISuccess"
 		},
 		"1708": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
 			"qualifiedName": "IValidation.ISuccess.success"
 		},
 		"1709": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
 			"qualifiedName": "IValidation.ISuccess.data"
 		},
 		"1710": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
 			"qualifiedName": "IValidation.ISuccess.T"
 		},
 		"1711": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
 			"qualifiedName": "IValidation.IFailure"
 		},
 		"1712": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
 			"qualifiedName": "IValidation.IFailure.success"
 		},
 		"1713": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
 			"qualifiedName": "IValidation.IFailure.data"
 		},
 		"1714": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
 			"qualifiedName": "IValidation.IFailure.errors"
 		},
 		"1715": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
 			"qualifiedName": "IValidation.IError"
 		},
 		"1716": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
 			"qualifiedName": "IValidation.IError.path"
 		},
 		"1717": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
 			"qualifiedName": "IValidation.IError.expected"
 		},
 		"1718": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.2/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
 			"qualifiedName": "IValidation.IError.value"
 		},
 		"1719": {
