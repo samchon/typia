@@ -6,14 +6,14 @@
 	"flags": {},
 	"children": [
 		{
-			"id": 1757,
+			"id": 1761,
 			"name": "default",
 			"variant": "declaration",
 			"kind": 4,
 			"flags": {},
 			"children": [
 				{
-					"id": 1790,
+					"id": 1794,
 					"name": "AssertionGuard",
 					"variant": "reference",
 					"kind": 4194304,
@@ -26,10 +26,10 @@
 							"url": "https://github.com/samchon/typia/blob/9a23470df56edafed1704b2a13635495b46931fb/src/AssertionGuard.ts#L1"
 						}
 					],
-					"target": 1615
+					"target": 1619
 				},
 				{
-					"id": 1796,
+					"id": 1800,
 					"name": "CamelCase",
 					"variant": "reference",
 					"kind": 4194304,
@@ -42,10 +42,10 @@
 							"url": "https://github.com/samchon/typia/blob/9a23470df56edafed1704b2a13635495b46931fb/src/CamelCase.ts#L16"
 						}
 					],
-					"target": 1750
+					"target": 1754
 				},
 				{
-					"id": 1776,
+					"id": 1780,
 					"name": "functional",
 					"variant": "reference",
 					"kind": 4194304,
@@ -61,7 +61,7 @@
 					"target": 191
 				},
 				{
-					"id": 1777,
+					"id": 1781,
 					"name": "http",
 					"variant": "reference",
 					"kind": 4194304,
@@ -77,7 +77,7 @@
 					"target": 450
 				},
 				{
-					"id": 1785,
+					"id": 1789,
 					"name": "IJsDocTagInfo",
 					"variant": "reference",
 					"kind": 4194304,
@@ -99,7 +99,7 @@
 					"target": 1558
 				},
 				{
-					"id": 1786,
+					"id": 1790,
 					"name": "IJsonApplication",
 					"variant": "reference",
 					"kind": 4194304,
@@ -115,7 +115,7 @@
 					"target": 1565
 				},
 				{
-					"id": 1787,
+					"id": 1791,
 					"name": "IJsonSchemaCollection",
 					"variant": "reference",
 					"kind": 4194304,
@@ -137,7 +137,7 @@
 					"target": 1565
 				},
 				{
-					"id": 1788,
+					"id": 1792,
 					"name": "ILlmApplicationOfValidate",
 					"variant": "reference",
 					"kind": 4194304,
@@ -153,7 +153,7 @@
 					"target": 1582
 				},
 				{
-					"id": 1789,
+					"id": 1793,
 					"name": "ILlmFunctionOfValidate",
 					"variant": "reference",
 					"kind": 4194304,
@@ -169,7 +169,7 @@
 					"target": 1597
 				},
 				{
-					"id": 1791,
+					"id": 1795,
 					"name": "IRandomGenerator",
 					"variant": "reference",
 					"kind": 4194304,
@@ -182,10 +182,10 @@
 							"url": "https://github.com/samchon/typia/blob/9a23470df56edafed1704b2a13635495b46931fb/src/IRandomGenerator.ts#L3"
 						}
 					],
-					"target": 1620
+					"target": 1624
 				},
 				{
-					"id": 1799,
+					"id": 1803,
 					"name": "IReadableURLSearchParams",
 					"variant": "reference",
 					"kind": 4194304,
@@ -198,10 +198,10 @@
 							"url": "https://github.com/samchon/typia/blob/9a23470df56edafed1704b2a13635495b46931fb/src/IReadableURLSearchParams.ts#L9"
 						}
 					],
-					"target": 1756
+					"target": 1760
 				},
 				{
-					"id": 1792,
+					"id": 1796,
 					"name": "IValidation",
 					"variant": "reference",
 					"kind": 4194304,
@@ -214,10 +214,10 @@
 							"url": "https://github.com/samchon/typia/blob/9a23470df56edafed1704b2a13635495b46931fb/src/IValidation.ts#L1"
 						}
 					],
-					"target": 1700
+					"target": 1704
 				},
 				{
-					"id": 1779,
+					"id": 1783,
 					"name": "json",
 					"variant": "reference",
 					"kind": 4194304,
@@ -233,7 +233,7 @@
 					"target": 666
 				},
 				{
-					"id": 1778,
+					"id": 1782,
 					"name": "llm",
 					"variant": "reference",
 					"kind": 4194304,
@@ -249,7 +249,7 @@
 					"target": 630
 				},
 				{
-					"id": 1780,
+					"id": 1784,
 					"name": "misc",
 					"variant": "reference",
 					"kind": 4194304,
@@ -265,7 +265,7 @@
 					"target": 801
 				},
 				{
-					"id": 1781,
+					"id": 1785,
 					"name": "notations",
 					"variant": "reference",
 					"kind": 4194304,
@@ -281,7 +281,7 @@
 					"target": 944
 				},
 				{
-					"id": 1797,
+					"id": 1801,
 					"name": "PascalCase",
 					"variant": "reference",
 					"kind": 4194304,
@@ -294,10 +294,10 @@
 							"url": "https://github.com/samchon/typia/blob/9a23470df56edafed1704b2a13635495b46931fb/src/PascalCase.ts#L16"
 						}
 					],
-					"target": 1752
+					"target": 1756
 				},
 				{
-					"id": 1794,
+					"id": 1798,
 					"name": "Primitive",
 					"variant": "reference",
 					"kind": 4194304,
@@ -310,10 +310,10 @@
 							"url": "https://github.com/samchon/typia/blob/9a23470df56edafed1704b2a13635495b46931fb/src/Primitive.ts#L42"
 						}
 					],
-					"target": 1746
+					"target": 1750
 				},
 				{
-					"id": 1782,
+					"id": 1786,
 					"name": "protobuf",
 					"variant": "reference",
 					"kind": 4194304,
@@ -329,7 +329,7 @@
 					"target": 1152
 				},
 				{
-					"id": 1783,
+					"id": 1787,
 					"name": "reflect",
 					"variant": "reference",
 					"kind": 4194304,
@@ -345,7 +345,7 @@
 					"target": 1294
 				},
 				{
-					"id": 1795,
+					"id": 1799,
 					"name": "Resolved",
 					"variant": "reference",
 					"kind": 4194304,
@@ -358,10 +358,10 @@
 							"url": "https://github.com/samchon/typia/blob/9a23470df56edafed1704b2a13635495b46931fb/src/Resolved.ts#L34"
 						}
 					],
-					"target": 1748
+					"target": 1752
 				},
 				{
-					"id": 1798,
+					"id": 1802,
 					"name": "SnakeCase",
 					"variant": "reference",
 					"kind": 4194304,
@@ -374,10 +374,10 @@
 							"url": "https://github.com/samchon/typia/blob/9a23470df56edafed1704b2a13635495b46931fb/src/SnakeCase.ts#L15"
 						}
 					],
-					"target": 1754
+					"target": 1758
 				},
 				{
-					"id": 1784,
+					"id": 1788,
 					"name": "tags",
 					"variant": "reference",
 					"kind": 4194304,
@@ -393,7 +393,7 @@
 					"target": 1304
 				},
 				{
-					"id": 1793,
+					"id": 1797,
 					"name": "TypeGuardError",
 					"variant": "reference",
 					"kind": 4194304,
@@ -412,37 +412,37 @@
 							"url": "https://github.com/samchon/typia/blob/9a23470df56edafed1704b2a13635495b46931fb/src/TypeGuardError.ts#L29"
 						}
 					],
-					"target": 1715
+					"target": 1719
 				}
 			],
 			"groups": [
 				{
 					"title": "References",
 					"children": [
-						1790,
-						1796,
-						1776,
-						1777,
-						1785,
-						1786,
-						1787,
-						1788,
-						1789,
-						1791,
-						1799,
-						1792,
-						1779,
-						1778,
+						1794,
+						1800,
 						1780,
 						1781,
-						1797,
-						1794,
-						1782,
-						1783,
+						1789,
+						1790,
+						1791,
+						1792,
+						1793,
 						1795,
-						1798,
+						1803,
+						1796,
+						1783,
+						1782,
 						1784,
-						1793
+						1785,
+						1801,
+						1798,
+						1786,
+						1787,
+						1799,
+						1802,
+						1788,
+						1797
 					]
 				}
 			],
@@ -636,7 +636,7 @@
 							"type": {
 								"type": "reference",
 								"target": {
-									"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/OpenApiV3.d.ts",
+									"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/OpenApiV3.d.ts",
 									"qualifiedName": "OpenApiV3.IComponents"
 								},
 								"name": "IComponents",
@@ -663,7 +663,7 @@
 								"elementType": {
 									"type": "reference",
 									"target": {
-										"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/OpenApiV3.d.ts",
+										"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/OpenApiV3.d.ts",
 										"qualifiedName": "OpenApiV3.IJsonSchema"
 									},
 									"name": "IJsonSchema",
@@ -777,7 +777,7 @@
 							"type": {
 								"type": "reference",
 								"target": {
-									"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/OpenApi.d.ts",
+									"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/OpenApi.d.ts",
 									"qualifiedName": "OpenApi.IComponents"
 								},
 								"name": "IComponents",
@@ -804,7 +804,7 @@
 								"elementType": {
 									"type": "reference",
 									"target": {
-										"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/OpenApi.d.ts",
+										"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/OpenApi.d.ts",
 										"qualifiedName": "OpenApi.IJsonSchema"
 									},
 									"name": "IJsonSchema",
@@ -921,7 +921,7 @@
 					},
 					"sources": [
 						{
-							"fileName": "node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 							"line": 53,
 							"character": 9
 						}
@@ -938,7 +938,7 @@
 							"type": {
 								"type": "reference",
 								"target": {
-									"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmSchema.d.ts",
+									"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmSchema.d.ts",
 									"qualifiedName": "ILlmSchema.Model"
 								},
 								"name": "ILlmSchema.Model",
@@ -1060,7 +1060,7 @@
 											},
 											"sources": [
 												{
-													"fileName": "node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+													"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 													"line": 82,
 													"character": 8
 												}
@@ -1084,7 +1084,7 @@
 															},
 															"sources": [
 																{
-																	"fileName": "node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+																	"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 																	"line": 82,
 																	"character": 26
 																}
@@ -1119,7 +1119,7 @@
 																				"objectType": {
 																					"type": "reference",
 																					"target": {
-																						"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmSchema.d.ts",
+																						"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmSchema.d.ts",
 																						"qualifiedName": "ILlmSchema.ModelSchema"
 																					},
 																					"name": "ILlmSchema.ModelSchema",
@@ -1150,7 +1150,7 @@
 									],
 									"sources": [
 										{
-											"fileName": "node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+											"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 											"line": 53,
 											"character": 52
 										}
@@ -1169,7 +1169,7 @@
 								"objectType": {
 									"type": "reference",
 									"target": {
-										"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmSchema.d.ts",
+										"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmSchema.d.ts",
 										"qualifiedName": "ILlmSchema.ModelConfig"
 									},
 									"name": "ILlmSchema.ModelConfig",
@@ -1190,12 +1190,12 @@
 			],
 			"sources": [
 				{
-					"fileName": "node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+					"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 					"line": 26,
 					"character": 17
 				},
 				{
-					"fileName": "node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+					"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 					"line": 49,
 					"character": 25
 				}
@@ -1245,8 +1245,8 @@
 							},
 							"sources": [
 								{
-									"fileName": "node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
-									"line": 111,
+									"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+									"line": 119,
 									"character": 8
 								}
 							],
@@ -1261,7 +1261,7 @@
 										"type": "indexedAccess",
 										"indexType": {
 											"type": "reference",
-											"target": 1614,
+											"target": 1618,
 											"name": "Model",
 											"package": "@samchon/openapi",
 											"qualifiedName": "ILlmFunction.ISeparated.Model",
@@ -1270,7 +1270,7 @@
 										"objectType": {
 											"type": "reference",
 											"target": {
-												"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmSchema.d.ts",
+												"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmSchema.d.ts",
 												"qualifiedName": "ILlmSchema.ModelParameters"
 											},
 											"name": "ModelParameters",
@@ -1307,8 +1307,8 @@
 							},
 							"sources": [
 								{
-									"fileName": "node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
-									"line": 107,
+									"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+									"line": 115,
 									"character": 8
 								}
 							],
@@ -1316,7 +1316,7 @@
 								"type": "indexedAccess",
 								"indexType": {
 									"type": "reference",
-									"target": 1614,
+									"target": 1618,
 									"name": "Model",
 									"package": "@samchon/openapi",
 									"qualifiedName": "ILlmFunction.ISeparated.Model",
@@ -1325,12 +1325,198 @@
 								"objectType": {
 									"type": "reference",
 									"target": {
-										"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmSchema.d.ts",
+										"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmSchema.d.ts",
 										"qualifiedName": "ILlmSchema.ModelParameters"
 									},
 									"name": "ModelParameters",
 									"package": "@samchon/openapi",
 									"qualifiedName": "ILlmSchema.ModelParameters"
+								}
+							}
+						},
+						{
+							"id": 1614,
+							"name": "validate",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {
+								"isExternal": true,
+								"isOptional": true
+							},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Validate function of the separated arguments.\n\nIf LLM part of separated parameters has some properties,\nthis "
+									},
+									{
+										"kind": "code",
+										"text": "`validate`"
+									},
+									{
+										"kind": "text",
+										"text": " function will be filled for the "
+									},
+									{
+										"kind": "inline-tag",
+										"tag": "@link",
+										"text": "llm",
+										"target": 1612
+									},
+									{
+										"kind": "text",
+										"text": "\ntype validation.\n\n> You know what? LLM (Large Language Model) like OpenAI takes a lot of\n> mistakes when composing arguments in function calling. Even though\n> "
+									},
+									{
+										"kind": "code",
+										"text": "`number`"
+									},
+									{
+										"kind": "text",
+										"text": " like simple type is defined in the "
+									},
+									{
+										"kind": "inline-tag",
+										"tag": "@link",
+										"text": "parameters"
+									},
+									{
+										"kind": "text",
+										"text": " schema,\n> LLM often fills it just by a "
+									},
+									{
+										"kind": "code",
+										"text": "`string`"
+									},
+									{
+										"kind": "text",
+										"text": " typed value.\n>\n> In that case, you have to give a validation feedback to the LLM by\n> using this "
+									},
+									{
+										"kind": "code",
+										"text": "`validate`"
+									},
+									{
+										"kind": "text",
+										"text": " function. The "
+									},
+									{
+										"kind": "code",
+										"text": "`validate`"
+									},
+									{
+										"kind": "text",
+										"text": " function will return\n> detailed information about every type errors about the arguments.\n>\n> And in my experience, OpenAI's "
+									},
+									{
+										"kind": "code",
+										"text": "`gpt-4o-mini`"
+									},
+									{
+										"kind": "text",
+										"text": " model tends to construct\n> an invalid function calling arguments at the first trial about 50% of\n> the time. However, if correct it through this "
+									},
+									{
+										"kind": "code",
+										"text": "`validate`"
+									},
+									{
+										"kind": "text",
+										"text": " function,\n> the success rate soars to 99% at the second trial, and I've never\n> failed at the third trial."
+									}
+								]
+							},
+							"sources": [
+								{
+									"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+									"line": 145,
+									"character": 8
+								}
+							],
+							"type": {
+								"type": "reflection",
+								"declaration": {
+									"id": 1615,
+									"name": "__type",
+									"variant": "declaration",
+									"kind": 65536,
+									"flags": {
+										"isExternal": true
+									},
+									"sources": [
+										{
+											"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+											"line": 145,
+											"character": 20
+										}
+									],
+									"signatures": [
+										{
+											"id": 1616,
+											"name": "__type",
+											"variant": "signature",
+											"kind": 4096,
+											"flags": {
+												"isExternal": true
+											},
+											"comment": {
+												"summary": [],
+												"blockTags": [
+													{
+														"tag": "@returns",
+														"content": [
+															{
+																"kind": "text",
+																"text": "Validate result"
+															}
+														]
+													}
+												]
+											},
+											"sources": [
+												{
+													"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+													"line": 145,
+													"character": 20
+												}
+											],
+											"parameters": [
+												{
+													"id": 1617,
+													"name": "args",
+													"variant": "param",
+													"kind": 32768,
+													"flags": {
+														"isExternal": true
+													},
+													"comment": {
+														"summary": [
+															{
+																"kind": "text",
+																"text": "Arguments to validate"
+															}
+														]
+													},
+													"type": {
+														"type": "intrinsic",
+														"name": "unknown"
+													}
+												}
+											],
+											"type": {
+												"type": "reference",
+												"target": 1704,
+												"typeArguments": [
+													{
+														"type": "intrinsic",
+														"name": "unknown"
+													}
+												],
+												"name": "IValidation",
+												"package": "@samchon/openapi"
+											}
+										}
+									]
 								}
 							}
 						}
@@ -1340,20 +1526,21 @@
 							"title": "Properties",
 							"children": [
 								1613,
-								1612
+								1612,
+								1614
 							]
 						}
 					],
 					"sources": [
 						{
-							"fileName": "node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
-							"line": 100,
+							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+							"line": 108,
 							"character": 14
 						}
 					],
 					"typeParameters": [
 						{
-							"id": 1614,
+							"id": 1618,
 							"name": "Model",
 							"variant": "typeParam",
 							"kind": 131072,
@@ -1363,7 +1550,7 @@
 							"type": {
 								"type": "reference",
 								"target": {
-									"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmSchema.d.ts",
+									"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmSchema.d.ts",
 									"qualifiedName": "ILlmSchema.Model"
 								},
 								"name": "ILlmSchema.Model",
@@ -1383,19 +1570,19 @@
 			],
 			"sources": [
 				{
-					"fileName": "node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+					"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 					"line": 25,
 					"character": 17
 				},
 				{
-					"fileName": "node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
-					"line": 96,
+					"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+					"line": 104,
 					"character": 25
 				}
 			]
 		},
 		{
-			"id": 1702,
+			"id": 1706,
 			"name": "IValidation",
 			"variant": "declaration",
 			"kind": 4,
@@ -1404,7 +1591,7 @@
 			},
 			"children": [
 				{
-					"id": 1711,
+					"id": 1715,
 					"name": "IError",
 					"variant": "declaration",
 					"kind": 256,
@@ -1413,7 +1600,7 @@
 					},
 					"children": [
 						{
-							"id": 1713,
+							"id": 1717,
 							"name": "expected",
 							"variant": "declaration",
 							"kind": 1024,
@@ -1422,7 +1609,7 @@
 							},
 							"sources": [
 								{
-									"fileName": "node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+									"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
 									"line": 14,
 									"character": 8
 								}
@@ -1433,7 +1620,7 @@
 							}
 						},
 						{
-							"id": 1712,
+							"id": 1716,
 							"name": "path",
 							"variant": "declaration",
 							"kind": 1024,
@@ -1442,7 +1629,7 @@
 							},
 							"sources": [
 								{
-									"fileName": "node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+									"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
 									"line": 13,
 									"character": 8
 								}
@@ -1453,7 +1640,7 @@
 							}
 						},
 						{
-							"id": 1714,
+							"id": 1718,
 							"name": "value",
 							"variant": "declaration",
 							"kind": 1024,
@@ -1462,7 +1649,7 @@
 							},
 							"sources": [
 								{
-									"fileName": "node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+									"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
 									"line": 15,
 									"character": 8
 								}
@@ -1477,23 +1664,117 @@
 						{
 							"title": "Properties",
 							"children": [
-								1713,
-								1712,
-								1714
+								1717,
+								1716,
+								1718
 							]
 						}
 					],
 					"sources": [
 						{
-							"fileName": "node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
 							"line": 12,
 							"character": 14
 						}
 					]
 				},
 				{
-					"id": 1707,
+					"id": 1711,
 					"name": "IFailure",
+					"variant": "declaration",
+					"kind": 256,
+					"flags": {
+						"isExternal": true
+					},
+					"children": [
+						{
+							"id": 1713,
+							"name": "data",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {
+								"isExternal": true
+							},
+							"sources": [
+								{
+									"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+									"line": 9,
+									"character": 8
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "unknown"
+							}
+						},
+						{
+							"id": 1714,
+							"name": "errors",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {
+								"isExternal": true
+							},
+							"sources": [
+								{
+									"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+									"line": 10,
+									"character": 8
+								}
+							],
+							"type": {
+								"type": "array",
+								"elementType": {
+									"type": "reference",
+									"target": 1715,
+									"name": "IError",
+									"package": "@samchon/openapi",
+									"qualifiedName": "IValidation.IError"
+								}
+							}
+						},
+						{
+							"id": 1712,
+							"name": "success",
+							"variant": "declaration",
+							"kind": 1024,
+							"flags": {
+								"isExternal": true
+							},
+							"sources": [
+								{
+									"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+									"line": 8,
+									"character": 8
+								}
+							],
+							"type": {
+								"type": "literal",
+								"value": false
+							}
+						}
+					],
+					"groups": [
+						{
+							"title": "Properties",
+							"children": [
+								1713,
+								1714,
+								1712
+							]
+						}
+					],
+					"sources": [
+						{
+							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+							"line": 7,
+							"character": 14
+						}
+					]
+				},
+				{
+					"id": 1707,
+					"name": "ISuccess",
 					"variant": "declaration",
 					"kind": 256,
 					"flags": {
@@ -1510,40 +1791,18 @@
 							},
 							"sources": [
 								{
-									"fileName": "node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
-									"line": 9,
+									"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+									"line": 5,
 									"character": 8
 								}
 							],
 							"type": {
-								"type": "intrinsic",
-								"name": "unknown"
-							}
-						},
-						{
-							"id": 1710,
-							"name": "errors",
-							"variant": "declaration",
-							"kind": 1024,
-							"flags": {
-								"isExternal": true
-							},
-							"sources": [
-								{
-									"fileName": "node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
-									"line": 10,
-									"character": 8
-								}
-							],
-							"type": {
-								"type": "array",
-								"elementType": {
-									"type": "reference",
-									"target": 1711,
-									"name": "IError",
-									"package": "@samchon/openapi",
-									"qualifiedName": "IValidation.IError"
-								}
+								"type": "reference",
+								"target": 1710,
+								"name": "T",
+								"package": "@samchon/openapi",
+								"qualifiedName": "IValidation.ISuccess.T",
+								"refersToTypeParameter": true
 							}
 						},
 						{
@@ -1556,79 +1815,7 @@
 							},
 							"sources": [
 								{
-									"fileName": "node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
-									"line": 8,
-									"character": 8
-								}
-							],
-							"type": {
-								"type": "literal",
-								"value": false
-							}
-						}
-					],
-					"groups": [
-						{
-							"title": "Properties",
-							"children": [
-								1709,
-								1710,
-								1708
-							]
-						}
-					],
-					"sources": [
-						{
-							"fileName": "node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
-							"line": 7,
-							"character": 14
-						}
-					]
-				},
-				{
-					"id": 1703,
-					"name": "ISuccess",
-					"variant": "declaration",
-					"kind": 256,
-					"flags": {
-						"isExternal": true
-					},
-					"children": [
-						{
-							"id": 1705,
-							"name": "data",
-							"variant": "declaration",
-							"kind": 1024,
-							"flags": {
-								"isExternal": true
-							},
-							"sources": [
-								{
-									"fileName": "node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
-									"line": 5,
-									"character": 8
-								}
-							],
-							"type": {
-								"type": "reference",
-								"target": 1706,
-								"name": "T",
-								"package": "@samchon/openapi",
-								"qualifiedName": "IValidation.ISuccess.T",
-								"refersToTypeParameter": true
-							}
-						},
-						{
-							"id": 1704,
-							"name": "success",
-							"variant": "declaration",
-							"kind": 1024,
-							"flags": {
-								"isExternal": true
-							},
-							"sources": [
-								{
-									"fileName": "node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+									"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
 									"line": 4,
 									"character": 8
 								}
@@ -1643,21 +1830,21 @@
 						{
 							"title": "Properties",
 							"children": [
-								1705,
-								1704
+								1709,
+								1708
 							]
 						}
 					],
 					"sources": [
 						{
-							"fileName": "node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
 							"line": 3,
 							"character": 14
 						}
 					],
 					"typeParameters": [
 						{
-							"id": 1706,
+							"id": 1710,
 							"name": "T",
 							"variant": "typeParam",
 							"kind": 131072,
@@ -1676,20 +1863,20 @@
 				{
 					"title": "Interfaces",
 					"children": [
+						1715,
 						1711,
-						1707,
-						1703
+						1707
 					]
 				}
 			],
 			"sources": [
 				{
-					"fileName": "node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+					"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
 					"line": 1,
 					"character": 12
 				},
 				{
-					"fileName": "node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+					"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
 					"line": 2,
 					"character": 25
 				}
@@ -8787,21 +8974,21 @@
 			]
 		},
 		{
-			"id": 1739,
+			"id": 1743,
 			"name": "TypeGuardError",
 			"variant": "declaration",
 			"kind": 4,
 			"flags": {},
 			"children": [
 				{
-					"id": 1740,
+					"id": 1744,
 					"name": "IProps",
 					"variant": "declaration",
 					"kind": 256,
 					"flags": {},
 					"children": [
 						{
-							"id": 1743,
+							"id": 1747,
 							"name": "expected",
 							"variant": "declaration",
 							"kind": 1024,
@@ -8820,7 +9007,7 @@
 							}
 						},
 						{
-							"id": 1745,
+							"id": 1749,
 							"name": "message",
 							"variant": "declaration",
 							"kind": 1024,
@@ -8841,7 +9028,7 @@
 							}
 						},
 						{
-							"id": 1741,
+							"id": 1745,
 							"name": "method",
 							"variant": "declaration",
 							"kind": 1024,
@@ -8860,7 +9047,7 @@
 							}
 						},
 						{
-							"id": 1742,
+							"id": 1746,
 							"name": "path",
 							"variant": "declaration",
 							"kind": 1024,
@@ -8881,7 +9068,7 @@
 							}
 						},
 						{
-							"id": 1744,
+							"id": 1748,
 							"name": "value",
 							"variant": "declaration",
 							"kind": 1024,
@@ -8904,11 +9091,11 @@
 						{
 							"title": "Properties",
 							"children": [
-								1743,
+								1747,
+								1749,
 								1745,
-								1741,
-								1742,
-								1744
+								1746,
+								1748
 							]
 						}
 					],
@@ -8926,7 +9113,7 @@
 				{
 					"title": "Interfaces",
 					"children": [
-						1740
+						1744
 					]
 				}
 			],
@@ -8946,14 +9133,14 @@
 			]
 		},
 		{
-			"id": 1715,
+			"id": 1719,
 			"name": "TypeGuardError",
 			"variant": "declaration",
 			"kind": 128,
 			"flags": {},
 			"children": [
 				{
-					"id": 1726,
+					"id": 1730,
 					"name": "constructor",
 					"variant": "declaration",
 					"kind": 512,
@@ -8970,7 +9157,7 @@
 					],
 					"signatures": [
 						{
-							"id": 1727,
+							"id": 1731,
 							"name": "TypeGuardError",
 							"variant": "signature",
 							"kind": 16384,
@@ -8985,7 +9172,7 @@
 							],
 							"typeParameters": [
 								{
-									"id": 1728,
+									"id": 1732,
 									"name": "T",
 									"variant": "typeParam",
 									"kind": 131072,
@@ -8998,14 +9185,14 @@
 							],
 							"parameters": [
 								{
-									"id": 1729,
+									"id": 1733,
 									"name": "props",
 									"variant": "param",
 									"kind": 32768,
 									"flags": {},
 									"type": {
 										"type": "reference",
-										"target": 1740,
+										"target": 1744,
 										"name": "IProps",
 										"package": "typia",
 										"qualifiedName": "TypeGuardError.IProps"
@@ -9014,11 +9201,11 @@
 							],
 							"type": {
 								"type": "reference",
-								"target": 1715,
+								"target": 1719,
 								"typeArguments": [
 									{
 										"type": "reference",
-										"target": 1728,
+										"target": 1732,
 										"name": "T",
 										"package": "typia",
 										"qualifiedName": "TypeGuardError.T",
@@ -9042,7 +9229,7 @@
 					}
 				},
 				{
-					"id": 1732,
+					"id": 1736,
 					"name": "expected",
 					"variant": "declaration",
 					"kind": 1024,
@@ -9064,7 +9251,7 @@
 					}
 				},
 				{
-					"id": 1734,
+					"id": 1738,
 					"name": "fake_expected_typed_value_",
 					"variant": "declaration",
 					"kind": 1024,
@@ -9083,7 +9270,7 @@
 					],
 					"type": {
 						"type": "reference",
-						"target": 1728,
+						"target": 1732,
 						"name": "T",
 						"package": "typia",
 						"qualifiedName": "TypeGuardError.T",
@@ -9091,7 +9278,7 @@
 					}
 				},
 				{
-					"id": 1736,
+					"id": 1740,
 					"name": "message",
 					"variant": "declaration",
 					"kind": 1024,
@@ -9117,7 +9304,7 @@
 					}
 				},
 				{
-					"id": 1730,
+					"id": 1734,
 					"name": "method",
 					"variant": "declaration",
 					"kind": 1024,
@@ -9139,7 +9326,7 @@
 					}
 				},
 				{
-					"id": 1735,
+					"id": 1739,
 					"name": "name",
 					"variant": "declaration",
 					"kind": 1024,
@@ -9165,7 +9352,7 @@
 					}
 				},
 				{
-					"id": 1731,
+					"id": 1735,
 					"name": "path",
 					"variant": "declaration",
 					"kind": 1024,
@@ -9196,7 +9383,7 @@
 					}
 				},
 				{
-					"id": 1737,
+					"id": 1741,
 					"name": "stack",
 					"variant": "declaration",
 					"kind": 1024,
@@ -9223,7 +9410,7 @@
 					}
 				},
 				{
-					"id": 1733,
+					"id": 1737,
 					"name": "value",
 					"variant": "declaration",
 					"kind": 1024,
@@ -9245,7 +9432,7 @@
 					}
 				},
 				{
-					"id": 1720,
+					"id": 1724,
 					"name": "prepareStackTrace",
 					"variant": "declaration",
 					"kind": 1024,
@@ -9276,7 +9463,7 @@
 					},
 					"sources": [
 						{
-							"fileName": "node_modules/.pnpm/@types+node@18.19.76/node_modules/@types/node/globals.d.ts",
+							"fileName": "node_modules/.pnpm/@types+node@18.19.84/node_modules/@types/node/globals.d.ts",
 							"line": 98,
 							"character": 8
 						}
@@ -9284,7 +9471,7 @@
 					"type": {
 						"type": "reflection",
 						"declaration": {
-							"id": 1721,
+							"id": 1725,
 							"name": "__type",
 							"variant": "declaration",
 							"kind": 65536,
@@ -9293,14 +9480,14 @@
 							},
 							"sources": [
 								{
-									"fileName": "node_modules/.pnpm/@types+node@18.19.76/node_modules/@types/node/globals.d.ts",
+									"fileName": "node_modules/.pnpm/@types+node@18.19.84/node_modules/@types/node/globals.d.ts",
 									"line": 98,
 									"character": 29
 								}
 							],
 							"signatures": [
 								{
-									"id": 1722,
+									"id": 1726,
 									"name": "__type",
 									"variant": "signature",
 									"kind": 4096,
@@ -9309,14 +9496,14 @@
 									},
 									"sources": [
 										{
-											"fileName": "node_modules/.pnpm/@types+node@18.19.76/node_modules/@types/node/globals.d.ts",
+											"fileName": "node_modules/.pnpm/@types+node@18.19.84/node_modules/@types/node/globals.d.ts",
 											"line": 98,
 											"character": 29
 										}
 									],
 									"parameters": [
 										{
-											"id": 1723,
+											"id": 1727,
 											"name": "err",
 											"variant": "param",
 											"kind": 32768,
@@ -9334,7 +9521,7 @@
 											}
 										},
 										{
-											"id": 1724,
+											"id": 1728,
 											"name": "stackTraces",
 											"variant": "param",
 											"kind": 32768,
@@ -9346,7 +9533,7 @@
 												"elementType": {
 													"type": "reference",
 													"target": {
-														"sourceFileName": "../node_modules/.pnpm/@types+node@18.19.76/node_modules/@types/node/globals.d.ts",
+														"sourceFileName": "../node_modules/.pnpm/@types+node@18.19.84/node_modules/@types/node/globals.d.ts",
 														"qualifiedName": "__global.NodeJS.CallSite"
 													},
 													"name": "CallSite",
@@ -9371,7 +9558,7 @@
 					}
 				},
 				{
-					"id": 1725,
+					"id": 1729,
 					"name": "stackTraceLimit",
 					"variant": "declaration",
 					"kind": 1024,
@@ -9382,7 +9569,7 @@
 					},
 					"sources": [
 						{
-							"fileName": "node_modules/.pnpm/@types+node@18.19.76/node_modules/@types/node/globals.d.ts",
+							"fileName": "node_modules/.pnpm/@types+node@18.19.84/node_modules/@types/node/globals.d.ts",
 							"line": 100,
 							"character": 8
 						}
@@ -9398,7 +9585,7 @@
 					}
 				},
 				{
-					"id": 1716,
+					"id": 1720,
 					"name": "captureStackTrace",
 					"variant": "declaration",
 					"kind": 2048,
@@ -9409,14 +9596,14 @@
 					},
 					"sources": [
 						{
-							"fileName": "node_modules/.pnpm/@types+node@18.19.76/node_modules/@types/node/globals.d.ts",
+							"fileName": "node_modules/.pnpm/@types+node@18.19.84/node_modules/@types/node/globals.d.ts",
 							"line": 91,
 							"character": 8
 						}
 					],
 					"signatures": [
 						{
-							"id": 1717,
+							"id": 1721,
 							"name": "captureStackTrace",
 							"variant": "signature",
 							"kind": 4096,
@@ -9434,14 +9621,14 @@
 							},
 							"sources": [
 								{
-									"fileName": "node_modules/.pnpm/@types+node@18.19.76/node_modules/@types/node/globals.d.ts",
+									"fileName": "node_modules/.pnpm/@types+node@18.19.84/node_modules/@types/node/globals.d.ts",
 									"line": 91,
 									"character": 8
 								}
 							],
 							"parameters": [
 								{
-									"id": 1718,
+									"id": 1722,
 									"name": "targetObject",
 									"variant": "param",
 									"kind": 32768,
@@ -9454,7 +9641,7 @@
 									}
 								},
 								{
-									"id": 1719,
+									"id": 1723,
 									"name": "constructorOpt",
 									"variant": "param",
 									"kind": 32768,
@@ -9495,28 +9682,28 @@
 				{
 					"title": "Constructors",
 					"children": [
-						1726
+						1730
 					]
 				},
 				{
 					"title": "Properties",
 					"children": [
-						1732,
-						1734,
 						1736,
-						1730,
+						1738,
+						1740,
+						1734,
+						1739,
 						1735,
-						1731,
+						1741,
 						1737,
-						1733,
-						1720,
-						1725
+						1724,
+						1729
 					]
 				},
 				{
 					"title": "Methods",
 					"children": [
-						1716
+						1720
 					]
 				}
 			],
@@ -9536,7 +9723,7 @@
 			],
 			"typeParameters": [
 				{
-					"id": 1738,
+					"id": 1742,
 					"name": "T",
 					"variant": "typeParam",
 					"kind": 131072,
@@ -9767,7 +9954,7 @@
 					},
 					"sources": [
 						{
-							"fileName": "node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 							"line": 47,
 							"character": 4
 						}
@@ -9799,7 +9986,7 @@
 					},
 					"sources": [
 						{
-							"fileName": "node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 							"line": 36,
 							"character": 4
 						}
@@ -9842,7 +10029,7 @@
 					},
 					"sources": [
 						{
-							"fileName": "node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 							"line": 30,
 							"character": 4
 						}
@@ -9874,7 +10061,7 @@
 					},
 					"sources": [
 						{
-							"fileName": "node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 							"line": 40,
 							"character": 4
 						}
@@ -9911,12 +10098,12 @@
 			],
 			"sources": [
 				{
-					"fileName": "node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+					"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 					"line": 26,
 					"character": 17
 				},
 				{
-					"fileName": "node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+					"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 					"line": 49,
 					"character": 25
 				}
@@ -9933,7 +10120,7 @@
 					"type": {
 						"type": "reference",
 						"target": {
-							"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmSchema.d.ts",
+							"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmSchema.d.ts",
 							"qualifiedName": "ILlmSchema.Model"
 						},
 						"name": "ILlmSchema.Model",
@@ -10086,7 +10273,7 @@
 					},
 					"sources": [
 						{
-							"fileName": "node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 							"line": 66,
 							"character": 4
 						}
@@ -10139,7 +10326,7 @@
 					},
 					"sources": [
 						{
-							"fileName": "node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 							"line": 58,
 							"character": 4
 						}
@@ -10178,7 +10365,7 @@
 					},
 					"sources": [
 						{
-							"fileName": "node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 							"line": 31,
 							"character": 4
 						}
@@ -10231,7 +10418,7 @@
 					},
 					"sources": [
 						{
-							"fileName": "node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 							"line": 46,
 							"character": 4
 						}
@@ -10249,7 +10436,7 @@
 						"objectType": {
 							"type": "reference",
 							"target": {
-								"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmSchema.d.ts",
+								"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmSchema.d.ts",
 								"qualifiedName": "ILlmSchema.ModelSchema"
 							},
 							"name": "ModelSchema",
@@ -10276,7 +10463,7 @@
 					},
 					"sources": [
 						{
-							"fileName": "node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 							"line": 35,
 							"character": 4
 						}
@@ -10294,7 +10481,7 @@
 						"objectType": {
 							"type": "reference",
 							"target": {
-								"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmSchema.d.ts",
+								"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmSchema.d.ts",
 								"qualifiedName": "ILlmSchema.ModelParameters"
 							},
 							"name": "ModelParameters",
@@ -10322,7 +10509,7 @@
 					},
 					"sources": [
 						{
-							"fileName": "node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 							"line": 39,
 							"character": 4
 						}
@@ -10372,7 +10559,7 @@
 					},
 					"sources": [
 						{
-							"fileName": "node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 							"line": 72,
 							"character": 4
 						}
@@ -10455,14 +10642,51 @@
 							},
 							{
 								"kind": "text",
-								"text": " function,\nthe success rate soars to 99% at the second trial, and I've never failed\nat the third trial."
+								"text": " function,\nthe success rate soars to 99% at the second trial, and I've never\nfailed at the third trial.\n\n> If you've "
+							},
+							{
+								"kind": "inline-tag",
+								"tag": "@link",
+								"text": "separated",
+								"target": 1600
+							},
+							{
+								"kind": "text",
+								"text": " parameters, use the\n> "
+							},
+							{
+								"kind": "inline-tag",
+								"tag": "@link",
+								"text": "ILlmFunction.ISeparated.validate",
+								"target": 1614
+							},
+							{
+								"kind": "text",
+								"text": " function instead when\n> validating the LLM composed arguments.\n>\n> In that case, This "
+							},
+							{
+								"kind": "code",
+								"text": "`validate`"
+							},
+							{
+								"kind": "text",
+								"text": " function would be meaningful only\n> when you've merged the LLM and human composed arguments by\n> "
+							},
+							{
+								"kind": "inline-tag",
+								"tag": "@link",
+								"text": "HttpLlm.mergeParameters"
+							},
+							{
+								"kind": "text",
+								"text": " function."
 							}
 						]
 					},
 					"sources": [
 						{
-							"fileName": "node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
-							"line": 94,
+							"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+							"line": 102,
 							"character": 4
 						}
 					],
@@ -10478,8 +10702,8 @@
 							},
 							"sources": [
 								{
-									"fileName": "node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
-									"line": 94,
+									"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+									"line": 102,
 									"character": 14
 								}
 							],
@@ -10508,8 +10732,8 @@
 									},
 									"sources": [
 										{
-											"fileName": "node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
-											"line": 94,
+											"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+											"line": 102,
 											"character": 14
 										}
 									],
@@ -10526,7 +10750,7 @@
 												"summary": [
 													{
 														"kind": "text",
-														"text": "Arguments to validate."
+														"text": "Arguments to validate"
 													}
 												]
 											},
@@ -10538,7 +10762,7 @@
 									],
 									"type": {
 										"type": "reference",
-										"target": 1700,
+										"target": 1704,
 										"typeArguments": [
 											{
 												"type": "intrinsic",
@@ -10571,13 +10795,13 @@
 			],
 			"sources": [
 				{
-					"fileName": "node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+					"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 					"line": 25,
 					"character": 17
 				},
 				{
-					"fileName": "node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
-					"line": 96,
+					"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+					"line": 104,
 					"character": 25
 				}
 			],
@@ -10593,7 +10817,7 @@
 					"type": {
 						"type": "reference",
 						"target": {
-							"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmSchema.d.ts",
+							"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmSchema.d.ts",
 							"qualifiedName": "ILlmSchema.Model"
 						},
 						"name": "ILlmSchema.Model",
@@ -10603,14 +10827,14 @@
 			]
 		},
 		{
-			"id": 1620,
+			"id": 1624,
 			"name": "IRandomGenerator",
 			"variant": "declaration",
 			"kind": 256,
 			"flags": {},
 			"children": [
 				{
-					"id": 1635,
+					"id": 1639,
 					"name": "array",
 					"variant": "declaration",
 					"kind": 2048,
@@ -10625,7 +10849,7 @@
 					],
 					"signatures": [
 						{
-							"id": 1636,
+							"id": 1640,
 							"name": "array",
 							"variant": "signature",
 							"kind": 4096,
@@ -10640,7 +10864,7 @@
 							],
 							"typeParameters": [
 								{
-									"id": 1637,
+									"id": 1641,
 									"name": "T",
 									"variant": "typeParam",
 									"kind": 131072,
@@ -10649,7 +10873,7 @@
 							],
 							"parameters": [
 								{
-									"id": 1638,
+									"id": 1642,
 									"name": "schema",
 									"variant": "param",
 									"kind": 32768,
@@ -10667,7 +10891,7 @@
 													{
 														"type": "reference",
 														"target": {
-															"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/OpenApi.d.ts",
+															"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/OpenApi.d.ts",
 															"qualifiedName": "OpenApi.IJsonSchema.IArray"
 														},
 														"name": "IArray",
@@ -10685,14 +10909,14 @@
 											{
 												"type": "reflection",
 												"declaration": {
-													"id": 1639,
+													"id": 1643,
 													"name": "__type",
 													"variant": "declaration",
 													"kind": 65536,
 													"flags": {},
 													"children": [
 														{
-															"id": 1640,
+															"id": 1644,
 															"name": "element",
 															"variant": "declaration",
 															"kind": 1024,
@@ -10708,7 +10932,7 @@
 															"type": {
 																"type": "reflection",
 																"declaration": {
-																	"id": 1641,
+																	"id": 1645,
 																	"name": "__type",
 																	"variant": "declaration",
 																	"kind": 65536,
@@ -10723,7 +10947,7 @@
 																	],
 																	"signatures": [
 																		{
-																			"id": 1642,
+																			"id": 1646,
 																			"name": "__type",
 																			"variant": "signature",
 																			"kind": 4096,
@@ -10738,7 +10962,7 @@
 																			],
 																			"parameters": [
 																				{
-																					"id": 1643,
+																					"id": 1647,
 																					"name": "index",
 																					"variant": "param",
 																					"kind": 32768,
@@ -10749,7 +10973,7 @@
 																					}
 																				},
 																				{
-																					"id": 1644,
+																					"id": 1648,
 																					"name": "count",
 																					"variant": "param",
 																					"kind": 32768,
@@ -10762,7 +10986,7 @@
 																			],
 																			"type": {
 																				"type": "reference",
-																				"target": 1637,
+																				"target": 1641,
 																				"name": "T",
 																				"package": "typia",
 																				"refersToTypeParameter": true
@@ -10777,7 +11001,7 @@
 														{
 															"title": "Properties",
 															"children": [
-																1640
+																1644
 															]
 														}
 													],
@@ -10799,7 +11023,7 @@
 								"type": "array",
 								"elementType": {
 									"type": "reference",
-									"target": 1637,
+									"target": 1641,
 									"name": "T",
 									"package": "typia",
 									"refersToTypeParameter": true
@@ -10809,7 +11033,7 @@
 					]
 				},
 				{
-					"id": 1629,
+					"id": 1633,
 					"name": "bigint",
 					"variant": "declaration",
 					"kind": 2048,
@@ -10824,7 +11048,7 @@
 					],
 					"signatures": [
 						{
-							"id": 1630,
+							"id": 1634,
 							"name": "bigint",
 							"variant": "signature",
 							"kind": 4096,
@@ -10839,7 +11063,7 @@
 							],
 							"parameters": [
 								{
-									"id": 1631,
+									"id": 1635,
 									"name": "schema",
 									"variant": "param",
 									"kind": 32768,
@@ -10847,7 +11071,7 @@
 									"type": {
 										"type": "reference",
 										"target": {
-											"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/OpenApi.d.ts",
+											"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/OpenApi.d.ts",
 											"qualifiedName": "OpenApi.IJsonSchema.IInteger"
 										},
 										"name": "IInteger",
@@ -10864,7 +11088,7 @@
 					]
 				},
 				{
-					"id": 1621,
+					"id": 1625,
 					"name": "boolean",
 					"variant": "declaration",
 					"kind": 2048,
@@ -10879,7 +11103,7 @@
 					],
 					"signatures": [
 						{
-							"id": 1622,
+							"id": 1626,
 							"name": "boolean",
 							"variant": "signature",
 							"kind": 4096,
@@ -10909,7 +11133,7 @@
 					]
 				},
 				{
-					"id": 1648,
+					"id": 1652,
 					"name": "byte",
 					"variant": "declaration",
 					"kind": 2048,
@@ -10924,7 +11148,7 @@
 					],
 					"signatures": [
 						{
-							"id": 1649,
+							"id": 1653,
 							"name": "byte",
 							"variant": "signature",
 							"kind": 4096,
@@ -10945,7 +11169,7 @@
 					]
 				},
 				{
-					"id": 1686,
+					"id": 1690,
 					"name": "date",
 					"variant": "declaration",
 					"kind": 2048,
@@ -10960,7 +11184,7 @@
 					],
 					"signatures": [
 						{
-							"id": 1687,
+							"id": 1691,
 							"name": "date",
 							"variant": "signature",
 							"kind": 4096,
@@ -10975,7 +11199,7 @@
 							],
 							"parameters": [
 								{
-									"id": 1688,
+									"id": 1692,
 									"name": "props",
 									"variant": "param",
 									"kind": 32768,
@@ -10985,14 +11209,14 @@
 									"type": {
 										"type": "reflection",
 										"declaration": {
-											"id": 1689,
+											"id": 1693,
 											"name": "__type",
 											"variant": "declaration",
 											"kind": 65536,
 											"flags": {},
 											"children": [
 												{
-													"id": 1691,
+													"id": 1695,
 													"name": "maximum",
 													"variant": "declaration",
 													"kind": 1024,
@@ -11013,7 +11237,7 @@
 													}
 												},
 												{
-													"id": 1690,
+													"id": 1694,
 													"name": "minimum",
 													"variant": "declaration",
 													"kind": 1024,
@@ -11038,8 +11262,8 @@
 												{
 													"title": "Properties",
 													"children": [
-														1691,
-														1690
+														1695,
+														1694
 													]
 												}
 											],
@@ -11063,7 +11287,7 @@
 					]
 				},
 				{
-					"id": 1680,
+					"id": 1684,
 					"name": "datetime",
 					"variant": "declaration",
 					"kind": 2048,
@@ -11078,7 +11302,7 @@
 					],
 					"signatures": [
 						{
-							"id": 1681,
+							"id": 1685,
 							"name": "datetime",
 							"variant": "signature",
 							"kind": 4096,
@@ -11093,7 +11317,7 @@
 							],
 							"parameters": [
 								{
-									"id": 1682,
+									"id": 1686,
 									"name": "props",
 									"variant": "param",
 									"kind": 32768,
@@ -11103,14 +11327,14 @@
 									"type": {
 										"type": "reflection",
 										"declaration": {
-											"id": 1683,
+											"id": 1687,
 											"name": "__type",
 											"variant": "declaration",
 											"kind": 65536,
 											"flags": {},
 											"children": [
 												{
-													"id": 1685,
+													"id": 1689,
 													"name": "maximum",
 													"variant": "declaration",
 													"kind": 1024,
@@ -11131,7 +11355,7 @@
 													}
 												},
 												{
-													"id": 1684,
+													"id": 1688,
 													"name": "minimum",
 													"variant": "declaration",
 													"kind": 1024,
@@ -11156,8 +11380,8 @@
 												{
 													"title": "Properties",
 													"children": [
-														1685,
-														1684
+														1689,
+														1688
 													]
 												}
 											],
@@ -11181,7 +11405,7 @@
 					]
 				},
 				{
-					"id": 1694,
+					"id": 1698,
 					"name": "duration",
 					"variant": "declaration",
 					"kind": 2048,
@@ -11196,7 +11420,7 @@
 					],
 					"signatures": [
 						{
-							"id": 1695,
+							"id": 1699,
 							"name": "duration",
 							"variant": "signature",
 							"kind": 4096,
@@ -11217,7 +11441,7 @@
 					]
 				},
 				{
-					"id": 1656,
+					"id": 1660,
 					"name": "email",
 					"variant": "declaration",
 					"kind": 2048,
@@ -11232,7 +11456,7 @@
 					],
 					"signatures": [
 						{
-							"id": 1657,
+							"id": 1661,
 							"name": "email",
 							"variant": "signature",
 							"kind": 4096,
@@ -11253,7 +11477,7 @@
 					]
 				},
 				{
-					"id": 1658,
+					"id": 1662,
 					"name": "hostname",
 					"variant": "declaration",
 					"kind": 2048,
@@ -11268,7 +11492,7 @@
 					],
 					"signatures": [
 						{
-							"id": 1659,
+							"id": 1663,
 							"name": "hostname",
 							"variant": "signature",
 							"kind": 4096,
@@ -11289,7 +11513,7 @@
 					]
 				},
 				{
-					"id": 1660,
+					"id": 1664,
 					"name": "idnEmail",
 					"variant": "declaration",
 					"kind": 2048,
@@ -11304,7 +11528,7 @@
 					],
 					"signatures": [
 						{
-							"id": 1661,
+							"id": 1665,
 							"name": "idnEmail",
 							"variant": "signature",
 							"kind": 4096,
@@ -11325,7 +11549,7 @@
 					]
 				},
 				{
-					"id": 1662,
+					"id": 1666,
 					"name": "idnHostname",
 					"variant": "declaration",
 					"kind": 2048,
@@ -11340,7 +11564,7 @@
 					],
 					"signatures": [
 						{
-							"id": 1663,
+							"id": 1667,
 							"name": "idnHostname",
 							"variant": "signature",
 							"kind": 4096,
@@ -11361,7 +11585,7 @@
 					]
 				},
 				{
-					"id": 1626,
+					"id": 1630,
 					"name": "integer",
 					"variant": "declaration",
 					"kind": 2048,
@@ -11376,7 +11600,7 @@
 					],
 					"signatures": [
 						{
-							"id": 1627,
+							"id": 1631,
 							"name": "integer",
 							"variant": "signature",
 							"kind": 4096,
@@ -11391,7 +11615,7 @@
 							],
 							"parameters": [
 								{
-									"id": 1628,
+									"id": 1632,
 									"name": "schema",
 									"variant": "param",
 									"kind": 32768,
@@ -11399,7 +11623,7 @@
 									"type": {
 										"type": "reference",
 										"target": {
-											"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/OpenApi.d.ts",
+											"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/OpenApi.d.ts",
 											"qualifiedName": "OpenApi.IJsonSchema.IInteger"
 										},
 										"name": "IInteger",
@@ -11416,7 +11640,7 @@
 					]
 				},
 				{
-					"id": 1668,
+					"id": 1672,
 					"name": "ipv4",
 					"variant": "declaration",
 					"kind": 2048,
@@ -11431,7 +11655,7 @@
 					],
 					"signatures": [
 						{
-							"id": 1669,
+							"id": 1673,
 							"name": "ipv4",
 							"variant": "signature",
 							"kind": 4096,
@@ -11452,7 +11676,7 @@
 					]
 				},
 				{
-					"id": 1670,
+					"id": 1674,
 					"name": "ipv6",
 					"variant": "declaration",
 					"kind": 2048,
@@ -11467,7 +11691,7 @@
 					],
 					"signatures": [
 						{
-							"id": 1671,
+							"id": 1675,
 							"name": "ipv6",
 							"variant": "signature",
 							"kind": 4096,
@@ -11488,7 +11712,7 @@
 					]
 				},
 				{
-					"id": 1664,
+					"id": 1668,
 					"name": "iri",
 					"variant": "declaration",
 					"kind": 2048,
@@ -11503,7 +11727,7 @@
 					],
 					"signatures": [
 						{
-							"id": 1665,
+							"id": 1669,
 							"name": "iri",
 							"variant": "signature",
 							"kind": 4096,
@@ -11524,7 +11748,7 @@
 					]
 				},
 				{
-					"id": 1666,
+					"id": 1670,
 					"name": "iriReference",
 					"variant": "declaration",
 					"kind": 2048,
@@ -11539,7 +11763,7 @@
 					],
 					"signatures": [
 						{
-							"id": 1667,
+							"id": 1671,
 							"name": "iriReference",
 							"variant": "signature",
 							"kind": 4096,
@@ -11560,7 +11784,7 @@
 					]
 				},
 				{
-					"id": 1696,
+					"id": 1700,
 					"name": "jsonPointer",
 					"variant": "declaration",
 					"kind": 2048,
@@ -11575,7 +11799,7 @@
 					],
 					"signatures": [
 						{
-							"id": 1697,
+							"id": 1701,
 							"name": "jsonPointer",
 							"variant": "signature",
 							"kind": 4096,
@@ -11596,7 +11820,7 @@
 					]
 				},
 				{
-					"id": 1623,
+					"id": 1627,
 					"name": "number",
 					"variant": "declaration",
 					"kind": 2048,
@@ -11611,7 +11835,7 @@
 					],
 					"signatures": [
 						{
-							"id": 1624,
+							"id": 1628,
 							"name": "number",
 							"variant": "signature",
 							"kind": 4096,
@@ -11626,7 +11850,7 @@
 							],
 							"parameters": [
 								{
-									"id": 1625,
+									"id": 1629,
 									"name": "schema",
 									"variant": "param",
 									"kind": 32768,
@@ -11634,7 +11858,7 @@
 									"type": {
 										"type": "reference",
 										"target": {
-											"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/OpenApi.d.ts",
+											"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/OpenApi.d.ts",
 											"qualifiedName": "OpenApi.IJsonSchema.INumber"
 										},
 										"name": "INumber",
@@ -11651,7 +11875,7 @@
 					]
 				},
 				{
-					"id": 1650,
+					"id": 1654,
 					"name": "password",
 					"variant": "declaration",
 					"kind": 2048,
@@ -11666,7 +11890,7 @@
 					],
 					"signatures": [
 						{
-							"id": 1651,
+							"id": 1655,
 							"name": "password",
 							"variant": "signature",
 							"kind": 4096,
@@ -11687,7 +11911,7 @@
 					]
 				},
 				{
-					"id": 1645,
+					"id": 1649,
 					"name": "pattern",
 					"variant": "declaration",
 					"kind": 2048,
@@ -11702,7 +11926,7 @@
 					],
 					"signatures": [
 						{
-							"id": 1646,
+							"id": 1650,
 							"name": "pattern",
 							"variant": "signature",
 							"kind": 4096,
@@ -11717,7 +11941,7 @@
 							],
 							"parameters": [
 								{
-									"id": 1647,
+									"id": 1651,
 									"name": "regex",
 									"variant": "param",
 									"kind": 32768,
@@ -11741,7 +11965,7 @@
 					]
 				},
 				{
-					"id": 1652,
+					"id": 1656,
 					"name": "regex",
 					"variant": "declaration",
 					"kind": 2048,
@@ -11756,7 +11980,7 @@
 					],
 					"signatures": [
 						{
-							"id": 1653,
+							"id": 1657,
 							"name": "regex",
 							"variant": "signature",
 							"kind": 4096,
@@ -11777,7 +12001,7 @@
 					]
 				},
 				{
-					"id": 1698,
+					"id": 1702,
 					"name": "relativeJsonPointer",
 					"variant": "declaration",
 					"kind": 2048,
@@ -11792,7 +12016,7 @@
 					],
 					"signatures": [
 						{
-							"id": 1699,
+							"id": 1703,
 							"name": "relativeJsonPointer",
 							"variant": "signature",
 							"kind": 4096,
@@ -11813,7 +12037,7 @@
 					]
 				},
 				{
-					"id": 1632,
+					"id": 1636,
 					"name": "string",
 					"variant": "declaration",
 					"kind": 2048,
@@ -11828,7 +12052,7 @@
 					],
 					"signatures": [
 						{
-							"id": 1633,
+							"id": 1637,
 							"name": "string",
 							"variant": "signature",
 							"kind": 4096,
@@ -11843,7 +12067,7 @@
 							],
 							"parameters": [
 								{
-									"id": 1634,
+									"id": 1638,
 									"name": "schema",
 									"variant": "param",
 									"kind": 32768,
@@ -11851,7 +12075,7 @@
 									"type": {
 										"type": "reference",
 										"target": {
-											"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/OpenApi.d.ts",
+											"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/OpenApi.d.ts",
 											"qualifiedName": "OpenApi.IJsonSchema.IString"
 										},
 										"name": "IString",
@@ -11868,7 +12092,7 @@
 					]
 				},
 				{
-					"id": 1692,
+					"id": 1696,
 					"name": "time",
 					"variant": "declaration",
 					"kind": 2048,
@@ -11883,7 +12107,7 @@
 					],
 					"signatures": [
 						{
-							"id": 1693,
+							"id": 1697,
 							"name": "time",
 							"variant": "signature",
 							"kind": 4096,
@@ -11904,7 +12128,7 @@
 					]
 				},
 				{
-					"id": 1672,
+					"id": 1676,
 					"name": "uri",
 					"variant": "declaration",
 					"kind": 2048,
@@ -11919,7 +12143,7 @@
 					],
 					"signatures": [
 						{
-							"id": 1673,
+							"id": 1677,
 							"name": "uri",
 							"variant": "signature",
 							"kind": 4096,
@@ -11940,7 +12164,7 @@
 					]
 				},
 				{
-					"id": 1674,
+					"id": 1678,
 					"name": "uriReference",
 					"variant": "declaration",
 					"kind": 2048,
@@ -11955,7 +12179,7 @@
 					],
 					"signatures": [
 						{
-							"id": 1675,
+							"id": 1679,
 							"name": "uriReference",
 							"variant": "signature",
 							"kind": 4096,
@@ -11976,7 +12200,7 @@
 					]
 				},
 				{
-					"id": 1676,
+					"id": 1680,
 					"name": "uriTemplate",
 					"variant": "declaration",
 					"kind": 2048,
@@ -11991,7 +12215,7 @@
 					],
 					"signatures": [
 						{
-							"id": 1677,
+							"id": 1681,
 							"name": "uriTemplate",
 							"variant": "signature",
 							"kind": 4096,
@@ -12012,7 +12236,7 @@
 					]
 				},
 				{
-					"id": 1678,
+					"id": 1682,
 					"name": "url",
 					"variant": "declaration",
 					"kind": 2048,
@@ -12027,7 +12251,7 @@
 					],
 					"signatures": [
 						{
-							"id": 1679,
+							"id": 1683,
 							"name": "url",
 							"variant": "signature",
 							"kind": 4096,
@@ -12048,7 +12272,7 @@
 					]
 				},
 				{
-					"id": 1654,
+					"id": 1658,
 					"name": "uuid",
 					"variant": "declaration",
 					"kind": 2048,
@@ -12063,7 +12287,7 @@
 					],
 					"signatures": [
 						{
-							"id": 1655,
+							"id": 1659,
 							"name": "uuid",
 							"variant": "signature",
 							"kind": 4096,
@@ -12088,35 +12312,35 @@
 				{
 					"title": "Methods",
 					"children": [
-						1635,
-						1629,
-						1621,
-						1648,
-						1686,
-						1680,
-						1694,
-						1656,
-						1658,
+						1639,
+						1633,
+						1625,
+						1652,
+						1690,
+						1684,
+						1698,
 						1660,
 						1662,
-						1626,
-						1668,
-						1670,
 						1664,
 						1666,
-						1696,
-						1623,
-						1650,
-						1645,
-						1652,
-						1698,
-						1632,
-						1692,
+						1630,
 						1672,
 						1674,
+						1668,
+						1670,
+						1700,
+						1627,
+						1654,
+						1649,
+						1656,
+						1702,
+						1636,
+						1696,
 						1676,
 						1678,
-						1654
+						1680,
+						1682,
+						1658
 					]
 				}
 			],
@@ -12130,7 +12354,7 @@
 			]
 		},
 		{
-			"id": 1615,
+			"id": 1619,
 			"name": "AssertionGuard",
 			"variant": "declaration",
 			"kind": 2097152,
@@ -12145,7 +12369,7 @@
 			],
 			"typeParameters": [
 				{
-					"id": 1619,
+					"id": 1623,
 					"name": "T",
 					"variant": "typeParam",
 					"kind": 131072,
@@ -12155,7 +12379,7 @@
 			"type": {
 				"type": "reflection",
 				"declaration": {
-					"id": 1616,
+					"id": 1620,
 					"name": "__type",
 					"variant": "declaration",
 					"kind": 65536,
@@ -12170,14 +12394,14 @@
 					],
 					"signatures": [
 						{
-							"id": 1617,
+							"id": 1621,
 							"name": "__type",
 							"variant": "signature",
 							"kind": 4096,
 							"flags": {},
 							"parameters": [
 								{
-									"id": 1618,
+									"id": 1622,
 									"name": "input",
 									"variant": "param",
 									"kind": 32768,
@@ -12194,7 +12418,7 @@
 								"asserts": true,
 								"targetType": {
 									"type": "reference",
-									"target": 1619,
+									"target": 1623,
 									"name": "T",
 									"package": "typia",
 									"refersToTypeParameter": true
@@ -12206,7 +12430,7 @@
 			}
 		},
 		{
-			"id": 1750,
+			"id": 1754,
 			"name": "CamelCase",
 			"variant": "declaration",
 			"kind": 2097152,
@@ -12229,7 +12453,7 @@
 						"kind": "inline-tag",
 						"tag": "@link",
 						"text": "Resolved",
-						"target": 1748
+						"target": 1752
 					},
 					{
 						"kind": "text",
@@ -12258,7 +12482,7 @@
 			],
 			"typeParameters": [
 				{
-					"id": 1751,
+					"id": 1755,
 					"name": "T",
 					"variant": "typeParam",
 					"kind": 131072,
@@ -12284,7 +12508,7 @@
 					"typeArguments": [
 						{
 							"type": "reference",
-							"target": 1751,
+							"target": 1755,
 							"name": "T",
 							"package": "typia",
 							"refersToTypeParameter": true
@@ -12298,7 +12522,7 @@
 							"typeArguments": [
 								{
 									"type": "reference",
-									"target": 1751,
+									"target": 1755,
 									"name": "T",
 									"package": "typia",
 									"refersToTypeParameter": true
@@ -12317,7 +12541,7 @@
 				},
 				"trueType": {
 					"type": "reference",
-					"target": 1751,
+					"target": 1755,
 					"name": "T",
 					"package": "typia",
 					"refersToTypeParameter": true
@@ -12331,7 +12555,7 @@
 					"typeArguments": [
 						{
 							"type": "reference",
-							"target": 1751,
+							"target": 1755,
 							"name": "T",
 							"package": "typia",
 							"refersToTypeParameter": true
@@ -12483,7 +12707,7 @@
 			}
 		},
 		{
-			"id": 1756,
+			"id": 1760,
 			"name": "IReadableURLSearchParams",
 			"variant": "declaration",
 			"kind": 2097152,
@@ -12563,7 +12787,7 @@
 			}
 		},
 		{
-			"id": 1700,
+			"id": 1704,
 			"name": "IValidation",
 			"variant": "declaration",
 			"kind": 2097152,
@@ -12572,19 +12796,19 @@
 			},
 			"sources": [
 				{
-					"fileName": "node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+					"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
 					"line": 1,
 					"character": 12
 				},
 				{
-					"fileName": "node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+					"fileName": "node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
 					"line": 2,
 					"character": 25
 				}
 			],
 			"typeParameters": [
 				{
-					"id": 1701,
+					"id": 1705,
 					"name": "T",
 					"variant": "typeParam",
 					"kind": 131072,
@@ -12602,11 +12826,11 @@
 				"types": [
 					{
 						"type": "reference",
-						"target": 1703,
+						"target": 1707,
 						"typeArguments": [
 							{
 								"type": "reference",
-								"target": 1701,
+								"target": 1705,
 								"name": "T",
 								"package": "@samchon/openapi",
 								"refersToTypeParameter": true
@@ -12617,7 +12841,7 @@
 					},
 					{
 						"type": "reference",
-						"target": 1707,
+						"target": 1711,
 						"name": "IValidation.IFailure",
 						"package": "@samchon/openapi"
 					}
@@ -12625,7 +12849,7 @@
 			}
 		},
 		{
-			"id": 1752,
+			"id": 1756,
 			"name": "PascalCase",
 			"variant": "declaration",
 			"kind": 2097152,
@@ -12648,7 +12872,7 @@
 						"kind": "inline-tag",
 						"tag": "@link",
 						"text": "Resolved",
-						"target": 1748
+						"target": 1752
 					},
 					{
 						"kind": "text",
@@ -12677,7 +12901,7 @@
 			],
 			"typeParameters": [
 				{
-					"id": 1753,
+					"id": 1757,
 					"name": "T",
 					"variant": "typeParam",
 					"kind": 131072,
@@ -12703,7 +12927,7 @@
 					"typeArguments": [
 						{
 							"type": "reference",
-							"target": 1753,
+							"target": 1757,
 							"name": "T",
 							"package": "typia",
 							"refersToTypeParameter": true
@@ -12717,7 +12941,7 @@
 							"typeArguments": [
 								{
 									"type": "reference",
-									"target": 1753,
+									"target": 1757,
 									"name": "T",
 									"package": "typia",
 									"refersToTypeParameter": true
@@ -12736,7 +12960,7 @@
 				},
 				"trueType": {
 					"type": "reference",
-					"target": 1753,
+					"target": 1757,
 					"name": "T",
 					"package": "typia",
 					"refersToTypeParameter": true
@@ -12750,7 +12974,7 @@
 					"typeArguments": [
 						{
 							"type": "reference",
-							"target": 1753,
+							"target": 1757,
 							"name": "T",
 							"package": "typia",
 							"refersToTypeParameter": true
@@ -12762,7 +12986,7 @@
 			}
 		},
 		{
-			"id": 1746,
+			"id": 1750,
 			"name": "Primitive",
 			"variant": "declaration",
 			"kind": 2097152,
@@ -13006,7 +13230,7 @@
 			],
 			"typeParameters": [
 				{
-					"id": 1747,
+					"id": 1751,
 					"name": "T",
 					"variant": "typeParam",
 					"kind": 131072,
@@ -13032,7 +13256,7 @@
 					"typeArguments": [
 						{
 							"type": "reference",
-							"target": 1747,
+							"target": 1751,
 							"name": "T",
 							"package": "typia",
 							"refersToTypeParameter": true
@@ -13046,7 +13270,7 @@
 							"typeArguments": [
 								{
 									"type": "reference",
-									"target": 1747,
+									"target": 1751,
 									"name": "T",
 									"package": "typia",
 									"refersToTypeParameter": true
@@ -13065,7 +13289,7 @@
 				},
 				"trueType": {
 					"type": "reference",
-					"target": 1747,
+					"target": 1751,
 					"name": "T",
 					"package": "typia",
 					"refersToTypeParameter": true
@@ -13079,7 +13303,7 @@
 					"typeArguments": [
 						{
 							"type": "reference",
-							"target": 1747,
+							"target": 1751,
 							"name": "T",
 							"package": "typia",
 							"refersToTypeParameter": true
@@ -13091,7 +13315,7 @@
 			}
 		},
 		{
-			"id": 1748,
+			"id": 1752,
 			"name": "Resolved",
 			"variant": "declaration",
 			"kind": 2097152,
@@ -13278,7 +13502,7 @@
 			],
 			"typeParameters": [
 				{
-					"id": 1749,
+					"id": 1753,
 					"name": "T",
 					"variant": "typeParam",
 					"kind": 131072,
@@ -13304,7 +13528,7 @@
 					"typeArguments": [
 						{
 							"type": "reference",
-							"target": 1749,
+							"target": 1753,
 							"name": "T",
 							"package": "typia",
 							"refersToTypeParameter": true
@@ -13318,7 +13542,7 @@
 							"typeArguments": [
 								{
 									"type": "reference",
-									"target": 1749,
+									"target": 1753,
 									"name": "T",
 									"package": "typia",
 									"refersToTypeParameter": true
@@ -13337,7 +13561,7 @@
 				},
 				"trueType": {
 					"type": "reference",
-					"target": 1749,
+					"target": 1753,
 					"name": "T",
 					"package": "typia",
 					"refersToTypeParameter": true
@@ -13351,7 +13575,7 @@
 					"typeArguments": [
 						{
 							"type": "reference",
-							"target": 1749,
+							"target": 1753,
 							"name": "T",
 							"package": "typia",
 							"refersToTypeParameter": true
@@ -13363,7 +13587,7 @@
 			}
 		},
 		{
-			"id": 1754,
+			"id": 1758,
 			"name": "SnakeCase",
 			"variant": "declaration",
 			"kind": 2097152,
@@ -13386,7 +13610,7 @@
 						"kind": "inline-tag",
 						"tag": "@link",
 						"text": "Resolved",
-						"target": 1748
+						"target": 1752
 					},
 					{
 						"kind": "text",
@@ -13415,7 +13639,7 @@
 			],
 			"typeParameters": [
 				{
-					"id": 1755,
+					"id": 1759,
 					"name": "T",
 					"variant": "typeParam",
 					"kind": 131072,
@@ -13441,7 +13665,7 @@
 					"typeArguments": [
 						{
 							"type": "reference",
-							"target": 1755,
+							"target": 1759,
 							"name": "T",
 							"package": "typia",
 							"refersToTypeParameter": true
@@ -13455,7 +13679,7 @@
 							"typeArguments": [
 								{
 									"type": "reference",
-									"target": 1755,
+									"target": 1759,
 									"name": "T",
 									"package": "typia",
 									"refersToTypeParameter": true
@@ -13474,7 +13698,7 @@
 				},
 				"trueType": {
 					"type": "reference",
-					"target": 1755,
+					"target": 1759,
 					"name": "T",
 					"package": "typia",
 					"refersToTypeParameter": true
@@ -13488,7 +13712,7 @@
 					"typeArguments": [
 						{
 							"type": "reference",
-							"target": 1755,
+							"target": 1759,
 							"name": "T",
 							"package": "typia",
 							"refersToTypeParameter": true
@@ -13526,14 +13750,14 @@
 		{
 			"title": "Namespaces",
 			"children": [
-				1757,
+				1761,
 				191,
 				450,
 				1561,
 				1568,
 				1589,
 				1610,
-				1702,
+				1706,
 				666,
 				630,
 				801,
@@ -13541,13 +13765,13 @@
 				1152,
 				1294,
 				1304,
-				1739
+				1743
 			]
 		},
 		{
 			"title": "Classes",
 			"children": [
-				1715
+				1719
 			]
 		},
 		{
@@ -13556,21 +13780,21 @@
 				1558,
 				1582,
 				1597,
-				1620
+				1624
 			]
 		},
 		{
 			"title": "Type Aliases",
 			"children": [
-				1615,
-				1750,
+				1619,
+				1754,
 				1565,
+				1760,
+				1704,
 				1756,
-				1700,
+				1750,
 				1752,
-				1746,
-				1748,
-				1754
+				1758
 			]
 		},
 		{
@@ -14957,228 +15181,228 @@
 			"qualifiedName": "IJsonSchemaCollection"
 		},
 		"1582": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 			"qualifiedName": "ILlmApplication"
 		},
 		"1583": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 			"qualifiedName": "ILlmApplication.model"
 		},
 		"1584": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 			"qualifiedName": "ILlmApplication.functions"
 		},
 		"1585": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 			"qualifiedName": "ILlmApplication.options"
 		},
 		"1586": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 			"qualifiedName": "ILlmApplication.__class"
 		},
 		"1587": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 			"qualifiedName": "ILlmApplication.Model"
 		},
 		"1588": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 			"qualifiedName": "ILlmApplication.Class"
 		},
 		"1589": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 			"qualifiedName": "ILlmApplication"
 		},
 		"1590": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 			"qualifiedName": "ILlmApplication.IOptions"
 		},
 		"1591": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 			"qualifiedName": "__type"
 		},
 		"1592": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 			"qualifiedName": "__type.separate"
 		},
 		"1593": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 			"qualifiedName": "__type"
 		},
 		"1594": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 			"qualifiedName": "__type"
 		},
 		"1595": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 			"qualifiedName": "schema"
 		},
 		"1596": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmApplication.d.ts",
 			"qualifiedName": "Model"
 		},
 		"1597": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 			"qualifiedName": "ILlmFunction"
 		},
 		"1598": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 			"qualifiedName": "ILlmFunction.name"
 		},
 		"1599": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 			"qualifiedName": "ILlmFunction.parameters"
 		},
 		"1600": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 			"qualifiedName": "ILlmFunction.separated"
 		},
 		"1601": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 			"qualifiedName": "ILlmFunction.output"
 		},
 		"1602": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 			"qualifiedName": "ILlmFunction.description"
 		},
 		"1603": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 			"qualifiedName": "ILlmFunction.deprecated"
 		},
 		"1604": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 			"qualifiedName": "ILlmFunction.tags"
 		},
 		"1605": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 			"qualifiedName": "ILlmFunction.validate"
 		},
 		"1606": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 			"qualifiedName": "__type"
 		},
 		"1607": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 			"qualifiedName": "__type"
 		},
 		"1608": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 			"qualifiedName": "args"
 		},
 		"1609": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 			"qualifiedName": "ILlmFunction.Model"
 		},
 		"1610": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 			"qualifiedName": "ILlmFunction"
 		},
 		"1611": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 			"qualifiedName": "ILlmFunction.ISeparated"
 		},
 		"1612": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 			"qualifiedName": "ILlmFunction.ISeparated.llm"
 		},
 		"1613": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 			"qualifiedName": "ILlmFunction.ISeparated.human"
 		},
 		"1614": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
-			"qualifiedName": "ILlmFunction.ISeparated.Model"
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+			"qualifiedName": "ILlmFunction.ISeparated.validate"
 		},
 		"1615": {
-			"sourceFileName": "../src/AssertionGuard.ts",
-			"qualifiedName": "AssertionGuard"
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+			"qualifiedName": "__type"
 		},
 		"1616": {
-			"sourceFileName": "../src/AssertionGuard.ts",
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
 			"qualifiedName": "__type"
 		},
 		"1617": {
-			"sourceFileName": "../src/AssertionGuard.ts",
-			"qualifiedName": "__type"
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+			"qualifiedName": "args"
 		},
 		"1618": {
-			"sourceFileName": "../src/AssertionGuard.ts",
-			"qualifiedName": "input"
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/ILlmFunction.d.ts",
+			"qualifiedName": "ILlmFunction.ISeparated.Model"
 		},
 		"1619": {
 			"sourceFileName": "../src/AssertionGuard.ts",
-			"qualifiedName": "T"
+			"qualifiedName": "AssertionGuard"
 		},
 		"1620": {
-			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator"
+			"sourceFileName": "../src/AssertionGuard.ts",
+			"qualifiedName": "__type"
 		},
 		"1621": {
-			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.boolean"
+			"sourceFileName": "../src/AssertionGuard.ts",
+			"qualifiedName": "__type"
 		},
 		"1622": {
-			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.boolean"
+			"sourceFileName": "../src/AssertionGuard.ts",
+			"qualifiedName": "input"
 		},
 		"1623": {
-			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.number"
+			"sourceFileName": "../src/AssertionGuard.ts",
+			"qualifiedName": "T"
 		},
 		"1624": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.number"
+			"qualifiedName": "IRandomGenerator"
 		},
 		"1625": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "schema"
+			"qualifiedName": "IRandomGenerator.boolean"
 		},
 		"1626": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.integer"
+			"qualifiedName": "IRandomGenerator.boolean"
 		},
 		"1627": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.integer"
+			"qualifiedName": "IRandomGenerator.number"
 		},
 		"1628": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "schema"
+			"qualifiedName": "IRandomGenerator.number"
 		},
 		"1629": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.bigint"
+			"qualifiedName": "schema"
 		},
 		"1630": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.bigint"
+			"qualifiedName": "IRandomGenerator.integer"
 		},
 		"1631": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "schema"
+			"qualifiedName": "IRandomGenerator.integer"
 		},
 		"1632": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.string"
+			"qualifiedName": "schema"
 		},
 		"1633": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.string"
+			"qualifiedName": "IRandomGenerator.bigint"
 		},
 		"1634": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "schema"
+			"qualifiedName": "IRandomGenerator.bigint"
 		},
 		"1635": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.array"
+			"qualifiedName": "schema"
 		},
 		"1636": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.array"
+			"qualifiedName": "IRandomGenerator.string"
 		},
 		"1637": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "T"
+			"qualifiedName": "IRandomGenerator.string"
 		},
 		"1638": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
@@ -15186,573 +15410,589 @@
 		},
 		"1639": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "__type"
+			"qualifiedName": "IRandomGenerator.array"
 		},
 		"1640": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "__type.element"
+			"qualifiedName": "IRandomGenerator.array"
 		},
 		"1641": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "__type"
+			"qualifiedName": "T"
 		},
 		"1642": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "__type"
+			"qualifiedName": "schema"
 		},
 		"1643": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "index"
+			"qualifiedName": "__type"
 		},
 		"1644": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "count"
+			"qualifiedName": "__type.element"
 		},
 		"1645": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.pattern"
+			"qualifiedName": "__type"
 		},
 		"1646": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.pattern"
+			"qualifiedName": "__type"
 		},
 		"1647": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "regex"
+			"qualifiedName": "index"
 		},
 		"1648": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.byte"
+			"qualifiedName": "count"
 		},
 		"1649": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.byte"
+			"qualifiedName": "IRandomGenerator.pattern"
 		},
 		"1650": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.password"
+			"qualifiedName": "IRandomGenerator.pattern"
 		},
 		"1651": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.password"
+			"qualifiedName": "regex"
 		},
 		"1652": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.regex"
+			"qualifiedName": "IRandomGenerator.byte"
 		},
 		"1653": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.regex"
+			"qualifiedName": "IRandomGenerator.byte"
 		},
 		"1654": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.uuid"
+			"qualifiedName": "IRandomGenerator.password"
 		},
 		"1655": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.uuid"
+			"qualifiedName": "IRandomGenerator.password"
 		},
 		"1656": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.email"
+			"qualifiedName": "IRandomGenerator.regex"
 		},
 		"1657": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.email"
+			"qualifiedName": "IRandomGenerator.regex"
 		},
 		"1658": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.hostname"
+			"qualifiedName": "IRandomGenerator.uuid"
 		},
 		"1659": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.hostname"
+			"qualifiedName": "IRandomGenerator.uuid"
 		},
 		"1660": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.idnEmail"
+			"qualifiedName": "IRandomGenerator.email"
 		},
 		"1661": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.idnEmail"
+			"qualifiedName": "IRandomGenerator.email"
 		},
 		"1662": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.idnHostname"
+			"qualifiedName": "IRandomGenerator.hostname"
 		},
 		"1663": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.idnHostname"
+			"qualifiedName": "IRandomGenerator.hostname"
 		},
 		"1664": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.iri"
+			"qualifiedName": "IRandomGenerator.idnEmail"
 		},
 		"1665": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.iri"
+			"qualifiedName": "IRandomGenerator.idnEmail"
 		},
 		"1666": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.iriReference"
+			"qualifiedName": "IRandomGenerator.idnHostname"
 		},
 		"1667": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.iriReference"
+			"qualifiedName": "IRandomGenerator.idnHostname"
 		},
 		"1668": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.ipv4"
+			"qualifiedName": "IRandomGenerator.iri"
 		},
 		"1669": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.ipv4"
+			"qualifiedName": "IRandomGenerator.iri"
 		},
 		"1670": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.ipv6"
+			"qualifiedName": "IRandomGenerator.iriReference"
 		},
 		"1671": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.ipv6"
+			"qualifiedName": "IRandomGenerator.iriReference"
 		},
 		"1672": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.uri"
+			"qualifiedName": "IRandomGenerator.ipv4"
 		},
 		"1673": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.uri"
+			"qualifiedName": "IRandomGenerator.ipv4"
 		},
 		"1674": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.uriReference"
+			"qualifiedName": "IRandomGenerator.ipv6"
 		},
 		"1675": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.uriReference"
+			"qualifiedName": "IRandomGenerator.ipv6"
 		},
 		"1676": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.uriTemplate"
+			"qualifiedName": "IRandomGenerator.uri"
 		},
 		"1677": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.uriTemplate"
+			"qualifiedName": "IRandomGenerator.uri"
 		},
 		"1678": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.url"
+			"qualifiedName": "IRandomGenerator.uriReference"
 		},
 		"1679": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.url"
+			"qualifiedName": "IRandomGenerator.uriReference"
 		},
 		"1680": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.datetime"
+			"qualifiedName": "IRandomGenerator.uriTemplate"
 		},
 		"1681": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.datetime"
+			"qualifiedName": "IRandomGenerator.uriTemplate"
 		},
 		"1682": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "props"
+			"qualifiedName": "IRandomGenerator.url"
 		},
 		"1683": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "__type"
+			"qualifiedName": "IRandomGenerator.url"
 		},
 		"1684": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "__type.minimum"
+			"qualifiedName": "IRandomGenerator.datetime"
 		},
 		"1685": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "__type.maximum"
+			"qualifiedName": "IRandomGenerator.datetime"
 		},
 		"1686": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.date"
+			"qualifiedName": "props"
 		},
 		"1687": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.date"
+			"qualifiedName": "__type"
 		},
 		"1688": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "props"
+			"qualifiedName": "__type.minimum"
 		},
 		"1689": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "__type"
+			"qualifiedName": "__type.maximum"
 		},
 		"1690": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "__type.minimum"
+			"qualifiedName": "IRandomGenerator.date"
 		},
 		"1691": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "__type.maximum"
+			"qualifiedName": "IRandomGenerator.date"
 		},
 		"1692": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.time"
+			"qualifiedName": "props"
 		},
 		"1693": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.time"
+			"qualifiedName": "__type"
 		},
 		"1694": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.duration"
+			"qualifiedName": "__type.minimum"
 		},
 		"1695": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.duration"
+			"qualifiedName": "__type.maximum"
 		},
 		"1696": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.jsonPointer"
+			"qualifiedName": "IRandomGenerator.time"
 		},
 		"1697": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.jsonPointer"
+			"qualifiedName": "IRandomGenerator.time"
 		},
 		"1698": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.relativeJsonPointer"
+			"qualifiedName": "IRandomGenerator.duration"
 		},
 		"1699": {
 			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator.relativeJsonPointer"
+			"qualifiedName": "IRandomGenerator.duration"
 		},
 		"1700": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
-			"qualifiedName": "IValidation"
+			"sourceFileName": "../src/IRandomGenerator.ts",
+			"qualifiedName": "IRandomGenerator.jsonPointer"
 		},
 		"1701": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
-			"qualifiedName": "T"
+			"sourceFileName": "../src/IRandomGenerator.ts",
+			"qualifiedName": "IRandomGenerator.jsonPointer"
 		},
 		"1702": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
-			"qualifiedName": "IValidation"
+			"sourceFileName": "../src/IRandomGenerator.ts",
+			"qualifiedName": "IRandomGenerator.relativeJsonPointer"
 		},
 		"1703": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
-			"qualifiedName": "IValidation.ISuccess"
+			"sourceFileName": "../src/IRandomGenerator.ts",
+			"qualifiedName": "IRandomGenerator.relativeJsonPointer"
 		},
 		"1704": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
-			"qualifiedName": "IValidation.ISuccess.success"
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+			"qualifiedName": "IValidation"
 		},
 		"1705": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
-			"qualifiedName": "IValidation.ISuccess.data"
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+			"qualifiedName": "T"
 		},
 		"1706": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
-			"qualifiedName": "IValidation.ISuccess.T"
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+			"qualifiedName": "IValidation"
 		},
 		"1707": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
-			"qualifiedName": "IValidation.IFailure"
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+			"qualifiedName": "IValidation.ISuccess"
 		},
 		"1708": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
-			"qualifiedName": "IValidation.IFailure.success"
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+			"qualifiedName": "IValidation.ISuccess.success"
 		},
 		"1709": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
-			"qualifiedName": "IValidation.IFailure.data"
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+			"qualifiedName": "IValidation.ISuccess.data"
 		},
 		"1710": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
-			"qualifiedName": "IValidation.IFailure.errors"
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+			"qualifiedName": "IValidation.ISuccess.T"
 		},
 		"1711": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
-			"qualifiedName": "IValidation.IError"
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+			"qualifiedName": "IValidation.IFailure"
 		},
 		"1712": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
-			"qualifiedName": "IValidation.IError.path"
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+			"qualifiedName": "IValidation.IFailure.success"
 		},
 		"1713": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
-			"qualifiedName": "IValidation.IError.expected"
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+			"qualifiedName": "IValidation.IFailure.data"
 		},
 		"1714": {
-			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.0.0/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
-			"qualifiedName": "IValidation.IError.value"
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+			"qualifiedName": "IValidation.IFailure.errors"
 		},
 		"1715": {
-			"sourceFileName": "../src/TypeGuardError.ts",
-			"qualifiedName": "TypeGuardError"
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+			"qualifiedName": "IValidation.IError"
 		},
 		"1716": {
-			"sourceFileName": "../node_modules/.pnpm/@types+node@18.19.76/node_modules/@types/node/globals.d.ts",
-			"qualifiedName": "__global.ErrorConstructor.captureStackTrace"
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+			"qualifiedName": "IValidation.IError.path"
 		},
 		"1717": {
-			"sourceFileName": "../node_modules/.pnpm/@types+node@18.19.76/node_modules/@types/node/globals.d.ts",
-			"qualifiedName": "__global.ErrorConstructor.captureStackTrace"
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+			"qualifiedName": "IValidation.IError.expected"
 		},
 		"1718": {
-			"sourceFileName": "../node_modules/.pnpm/@types+node@18.19.76/node_modules/@types/node/globals.d.ts",
-			"qualifiedName": "targetObject"
+			"sourceFileName": "../node_modules/.pnpm/@samchon+openapi@3.2.1/node_modules/@samchon/openapi/lib/structures/IValidation.d.ts",
+			"qualifiedName": "IValidation.IError.value"
 		},
 		"1719": {
-			"sourceFileName": "../node_modules/.pnpm/@types+node@18.19.76/node_modules/@types/node/globals.d.ts",
-			"qualifiedName": "constructorOpt"
-		},
-		"1720": {
-			"sourceFileName": "../node_modules/.pnpm/@types+node@18.19.76/node_modules/@types/node/globals.d.ts",
-			"qualifiedName": "__global.ErrorConstructor.prepareStackTrace"
-		},
-		"1721": {
-			"sourceFileName": "../node_modules/.pnpm/@types+node@18.19.76/node_modules/@types/node/globals.d.ts",
-			"qualifiedName": "__type"
-		},
-		"1722": {
-			"sourceFileName": "../node_modules/.pnpm/@types+node@18.19.76/node_modules/@types/node/globals.d.ts",
-			"qualifiedName": "__type"
-		},
-		"1723": {
-			"sourceFileName": "../node_modules/.pnpm/@types+node@18.19.76/node_modules/@types/node/globals.d.ts",
-			"qualifiedName": "err"
-		},
-		"1724": {
-			"sourceFileName": "../node_modules/.pnpm/@types+node@18.19.76/node_modules/@types/node/globals.d.ts",
-			"qualifiedName": "stackTraces"
-		},
-		"1725": {
-			"sourceFileName": "../node_modules/.pnpm/@types+node@18.19.76/node_modules/@types/node/globals.d.ts",
-			"qualifiedName": "__global.ErrorConstructor.stackTraceLimit"
-		},
-		"1726": {
-			"sourceFileName": "../src/TypeGuardError.ts",
-			"qualifiedName": "TypeGuardError.__constructor"
-		},
-		"1727": {
 			"sourceFileName": "../src/TypeGuardError.ts",
 			"qualifiedName": "TypeGuardError"
 		},
+		"1720": {
+			"sourceFileName": "../node_modules/.pnpm/@types+node@18.19.84/node_modules/@types/node/globals.d.ts",
+			"qualifiedName": "__global.ErrorConstructor.captureStackTrace"
+		},
+		"1721": {
+			"sourceFileName": "../node_modules/.pnpm/@types+node@18.19.84/node_modules/@types/node/globals.d.ts",
+			"qualifiedName": "__global.ErrorConstructor.captureStackTrace"
+		},
+		"1722": {
+			"sourceFileName": "../node_modules/.pnpm/@types+node@18.19.84/node_modules/@types/node/globals.d.ts",
+			"qualifiedName": "targetObject"
+		},
+		"1723": {
+			"sourceFileName": "../node_modules/.pnpm/@types+node@18.19.84/node_modules/@types/node/globals.d.ts",
+			"qualifiedName": "constructorOpt"
+		},
+		"1724": {
+			"sourceFileName": "../node_modules/.pnpm/@types+node@18.19.84/node_modules/@types/node/globals.d.ts",
+			"qualifiedName": "__global.ErrorConstructor.prepareStackTrace"
+		},
+		"1725": {
+			"sourceFileName": "../node_modules/.pnpm/@types+node@18.19.84/node_modules/@types/node/globals.d.ts",
+			"qualifiedName": "__type"
+		},
+		"1726": {
+			"sourceFileName": "../node_modules/.pnpm/@types+node@18.19.84/node_modules/@types/node/globals.d.ts",
+			"qualifiedName": "__type"
+		},
+		"1727": {
+			"sourceFileName": "../node_modules/.pnpm/@types+node@18.19.84/node_modules/@types/node/globals.d.ts",
+			"qualifiedName": "err"
+		},
 		"1728": {
-			"sourceFileName": "../src/TypeGuardError.ts",
-			"qualifiedName": "TypeGuardError.T"
+			"sourceFileName": "../node_modules/.pnpm/@types+node@18.19.84/node_modules/@types/node/globals.d.ts",
+			"qualifiedName": "stackTraces"
 		},
 		"1729": {
-			"sourceFileName": "../src/TypeGuardError.ts",
-			"qualifiedName": "props"
+			"sourceFileName": "../node_modules/.pnpm/@types+node@18.19.84/node_modules/@types/node/globals.d.ts",
+			"qualifiedName": "__global.ErrorConstructor.stackTraceLimit"
 		},
 		"1730": {
 			"sourceFileName": "../src/TypeGuardError.ts",
-			"qualifiedName": "TypeGuardError.method"
+			"qualifiedName": "TypeGuardError.__constructor"
 		},
 		"1731": {
 			"sourceFileName": "../src/TypeGuardError.ts",
-			"qualifiedName": "TypeGuardError.path"
+			"qualifiedName": "TypeGuardError"
 		},
 		"1732": {
 			"sourceFileName": "../src/TypeGuardError.ts",
-			"qualifiedName": "TypeGuardError.expected"
+			"qualifiedName": "TypeGuardError.T"
 		},
 		"1733": {
 			"sourceFileName": "../src/TypeGuardError.ts",
-			"qualifiedName": "TypeGuardError.value"
+			"qualifiedName": "props"
 		},
 		"1734": {
 			"sourceFileName": "../src/TypeGuardError.ts",
-			"qualifiedName": "TypeGuardError.fake_expected_typed_value_"
+			"qualifiedName": "TypeGuardError.method"
 		},
 		"1735": {
-			"sourceFileName": "node_modules/typescript/lib/lib.es5.d.ts",
-			"qualifiedName": "Error.name"
+			"sourceFileName": "../src/TypeGuardError.ts",
+			"qualifiedName": "TypeGuardError.path"
 		},
 		"1736": {
-			"sourceFileName": "node_modules/typescript/lib/lib.es5.d.ts",
-			"qualifiedName": "Error.message"
+			"sourceFileName": "../src/TypeGuardError.ts",
+			"qualifiedName": "TypeGuardError.expected"
 		},
 		"1737": {
-			"sourceFileName": "node_modules/typescript/lib/lib.es5.d.ts",
-			"qualifiedName": "Error.stack"
+			"sourceFileName": "../src/TypeGuardError.ts",
+			"qualifiedName": "TypeGuardError.value"
 		},
 		"1738": {
 			"sourceFileName": "../src/TypeGuardError.ts",
-			"qualifiedName": "TypeGuardError.T"
+			"qualifiedName": "TypeGuardError.fake_expected_typed_value_"
 		},
 		"1739": {
-			"sourceFileName": "../src/TypeGuardError.ts",
-			"qualifiedName": "TypeGuardError"
+			"sourceFileName": "node_modules/typescript/lib/lib.es5.d.ts",
+			"qualifiedName": "Error.name"
 		},
 		"1740": {
-			"sourceFileName": "../src/TypeGuardError.ts",
-			"qualifiedName": "TypeGuardError.IProps"
+			"sourceFileName": "node_modules/typescript/lib/lib.es5.d.ts",
+			"qualifiedName": "Error.message"
 		},
 		"1741": {
-			"sourceFileName": "../src/TypeGuardError.ts",
-			"qualifiedName": "TypeGuardError.IProps.method"
+			"sourceFileName": "node_modules/typescript/lib/lib.es5.d.ts",
+			"qualifiedName": "Error.stack"
 		},
 		"1742": {
 			"sourceFileName": "../src/TypeGuardError.ts",
-			"qualifiedName": "TypeGuardError.IProps.path"
+			"qualifiedName": "TypeGuardError.T"
 		},
 		"1743": {
 			"sourceFileName": "../src/TypeGuardError.ts",
-			"qualifiedName": "TypeGuardError.IProps.expected"
+			"qualifiedName": "TypeGuardError"
 		},
 		"1744": {
 			"sourceFileName": "../src/TypeGuardError.ts",
-			"qualifiedName": "TypeGuardError.IProps.value"
+			"qualifiedName": "TypeGuardError.IProps"
 		},
 		"1745": {
 			"sourceFileName": "../src/TypeGuardError.ts",
-			"qualifiedName": "TypeGuardError.IProps.message"
+			"qualifiedName": "TypeGuardError.IProps.method"
 		},
 		"1746": {
+			"sourceFileName": "../src/TypeGuardError.ts",
+			"qualifiedName": "TypeGuardError.IProps.path"
+		},
+		"1747": {
+			"sourceFileName": "../src/TypeGuardError.ts",
+			"qualifiedName": "TypeGuardError.IProps.expected"
+		},
+		"1748": {
+			"sourceFileName": "../src/TypeGuardError.ts",
+			"qualifiedName": "TypeGuardError.IProps.value"
+		},
+		"1749": {
+			"sourceFileName": "../src/TypeGuardError.ts",
+			"qualifiedName": "TypeGuardError.IProps.message"
+		},
+		"1750": {
 			"sourceFileName": "../src/Primitive.ts",
 			"qualifiedName": "Primitive"
 		},
-		"1747": {
-			"sourceFileName": "../src/Primitive.ts",
-			"qualifiedName": "T"
-		},
-		"1748": {
-			"sourceFileName": "../src/Resolved.ts",
-			"qualifiedName": "Resolved"
-		},
-		"1749": {
-			"sourceFileName": "../src/Resolved.ts",
-			"qualifiedName": "T"
-		},
-		"1750": {
-			"sourceFileName": "../src/CamelCase.ts",
-			"qualifiedName": "CamelCase"
-		},
 		"1751": {
-			"sourceFileName": "../src/CamelCase.ts",
+			"sourceFileName": "../src/Primitive.ts",
 			"qualifiedName": "T"
 		},
 		"1752": {
-			"sourceFileName": "../src/PascalCase.ts",
-			"qualifiedName": "PascalCase"
-		},
-		"1753": {
-			"sourceFileName": "../src/PascalCase.ts",
-			"qualifiedName": "T"
-		},
-		"1754": {
-			"sourceFileName": "../src/SnakeCase.ts",
-			"qualifiedName": "SnakeCase"
-		},
-		"1755": {
-			"sourceFileName": "../src/SnakeCase.ts",
-			"qualifiedName": "T"
-		},
-		"1756": {
-			"sourceFileName": "../src/IReadableURLSearchParams.ts",
-			"qualifiedName": "IReadableURLSearchParams"
-		},
-		"1757": {
-			"sourceFileName": "../src/module.ts",
-			"qualifiedName": ""
-		},
-		"1776": {
-			"sourceFileName": "../src/module.ts",
-			"qualifiedName": "functional"
-		},
-		"1777": {
-			"sourceFileName": "../src/module.ts",
-			"qualifiedName": "http"
-		},
-		"1778": {
-			"sourceFileName": "../src/module.ts",
-			"qualifiedName": "llm"
-		},
-		"1779": {
-			"sourceFileName": "../src/module.ts",
-			"qualifiedName": "json"
-		},
-		"1780": {
-			"sourceFileName": "../src/module.ts",
-			"qualifiedName": "misc"
-		},
-		"1781": {
-			"sourceFileName": "../src/module.ts",
-			"qualifiedName": "notations"
-		},
-		"1782": {
-			"sourceFileName": "../src/module.ts",
-			"qualifiedName": "protobuf"
-		},
-		"1783": {
-			"sourceFileName": "../src/module.ts",
-			"qualifiedName": "reflect"
-		},
-		"1784": {
-			"sourceFileName": "../src/module.ts",
-			"qualifiedName": "tags"
-		},
-		"1785": {
-			"sourceFileName": "../src/schemas/metadata/IJsDocTagInfo.ts",
-			"qualifiedName": "IJsDocTagInfo"
-		},
-		"1786": {
-			"sourceFileName": "../src/schemas/json/IJsonApplication.ts",
-			"qualifiedName": "IJsonApplication"
-		},
-		"1787": {
-			"sourceFileName": "../src/schemas/json/IJsonSchemaCollection.ts",
-			"qualifiedName": "IJsonSchemaCollection"
-		},
-		"1788": {
-			"sourceFileName": "../src/schemas/llm/ILlmApplicationOfValidate.ts",
-			"qualifiedName": "ILlmApplicationOfValidate"
-		},
-		"1789": {
-			"sourceFileName": "../src/schemas/llm/ILlmFunctionOfValidate.ts",
-			"qualifiedName": "ILlmFunctionOfValidate"
-		},
-		"1790": {
-			"sourceFileName": "../src/AssertionGuard.ts",
-			"qualifiedName": "AssertionGuard"
-		},
-		"1791": {
-			"sourceFileName": "../src/IRandomGenerator.ts",
-			"qualifiedName": "IRandomGenerator"
-		},
-		"1792": {
-			"sourceFileName": "../src/IValidation.ts",
-			"qualifiedName": "IValidation"
-		},
-		"1793": {
-			"sourceFileName": "../src/TypeGuardError.ts",
-			"qualifiedName": "TypeGuardError"
-		},
-		"1794": {
-			"sourceFileName": "../src/Primitive.ts",
-			"qualifiedName": "Primitive"
-		},
-		"1795": {
 			"sourceFileName": "../src/Resolved.ts",
 			"qualifiedName": "Resolved"
 		},
-		"1796": {
+		"1753": {
+			"sourceFileName": "../src/Resolved.ts",
+			"qualifiedName": "T"
+		},
+		"1754": {
 			"sourceFileName": "../src/CamelCase.ts",
 			"qualifiedName": "CamelCase"
 		},
-		"1797": {
+		"1755": {
+			"sourceFileName": "../src/CamelCase.ts",
+			"qualifiedName": "T"
+		},
+		"1756": {
 			"sourceFileName": "../src/PascalCase.ts",
 			"qualifiedName": "PascalCase"
 		},
-		"1798": {
+		"1757": {
+			"sourceFileName": "../src/PascalCase.ts",
+			"qualifiedName": "T"
+		},
+		"1758": {
 			"sourceFileName": "../src/SnakeCase.ts",
 			"qualifiedName": "SnakeCase"
 		},
+		"1759": {
+			"sourceFileName": "../src/SnakeCase.ts",
+			"qualifiedName": "T"
+		},
+		"1760": {
+			"sourceFileName": "../src/IReadableURLSearchParams.ts",
+			"qualifiedName": "IReadableURLSearchParams"
+		},
+		"1761": {
+			"sourceFileName": "../src/module.ts",
+			"qualifiedName": ""
+		},
+		"1780": {
+			"sourceFileName": "../src/module.ts",
+			"qualifiedName": "functional"
+		},
+		"1781": {
+			"sourceFileName": "../src/module.ts",
+			"qualifiedName": "http"
+		},
+		"1782": {
+			"sourceFileName": "../src/module.ts",
+			"qualifiedName": "llm"
+		},
+		"1783": {
+			"sourceFileName": "../src/module.ts",
+			"qualifiedName": "json"
+		},
+		"1784": {
+			"sourceFileName": "../src/module.ts",
+			"qualifiedName": "misc"
+		},
+		"1785": {
+			"sourceFileName": "../src/module.ts",
+			"qualifiedName": "notations"
+		},
+		"1786": {
+			"sourceFileName": "../src/module.ts",
+			"qualifiedName": "protobuf"
+		},
+		"1787": {
+			"sourceFileName": "../src/module.ts",
+			"qualifiedName": "reflect"
+		},
+		"1788": {
+			"sourceFileName": "../src/module.ts",
+			"qualifiedName": "tags"
+		},
+		"1789": {
+			"sourceFileName": "../src/schemas/metadata/IJsDocTagInfo.ts",
+			"qualifiedName": "IJsDocTagInfo"
+		},
+		"1790": {
+			"sourceFileName": "../src/schemas/json/IJsonApplication.ts",
+			"qualifiedName": "IJsonApplication"
+		},
+		"1791": {
+			"sourceFileName": "../src/schemas/json/IJsonSchemaCollection.ts",
+			"qualifiedName": "IJsonSchemaCollection"
+		},
+		"1792": {
+			"sourceFileName": "../src/schemas/llm/ILlmApplicationOfValidate.ts",
+			"qualifiedName": "ILlmApplicationOfValidate"
+		},
+		"1793": {
+			"sourceFileName": "../src/schemas/llm/ILlmFunctionOfValidate.ts",
+			"qualifiedName": "ILlmFunctionOfValidate"
+		},
+		"1794": {
+			"sourceFileName": "../src/AssertionGuard.ts",
+			"qualifiedName": "AssertionGuard"
+		},
+		"1795": {
+			"sourceFileName": "../src/IRandomGenerator.ts",
+			"qualifiedName": "IRandomGenerator"
+		},
+		"1796": {
+			"sourceFileName": "../src/IValidation.ts",
+			"qualifiedName": "IValidation"
+		},
+		"1797": {
+			"sourceFileName": "../src/TypeGuardError.ts",
+			"qualifiedName": "TypeGuardError"
+		},
+		"1798": {
+			"sourceFileName": "../src/Primitive.ts",
+			"qualifiedName": "Primitive"
+		},
 		"1799": {
+			"sourceFileName": "../src/Resolved.ts",
+			"qualifiedName": "Resolved"
+		},
+		"1800": {
+			"sourceFileName": "../src/CamelCase.ts",
+			"qualifiedName": "CamelCase"
+		},
+		"1801": {
+			"sourceFileName": "../src/PascalCase.ts",
+			"qualifiedName": "PascalCase"
+		},
+		"1802": {
+			"sourceFileName": "../src/SnakeCase.ts",
+			"qualifiedName": "SnakeCase"
+		},
+		"1803": {
 			"sourceFileName": "../src/IReadableURLSearchParams.ts",
 			"qualifiedName": "IReadableURLSearchParams"
 		}
@@ -15782,7 +16022,7 @@
 			"8": 1152,
 			"9": 1294,
 			"10": 1304,
-			"11": 1757
+			"11": 1761
 		}
 	}
 }
