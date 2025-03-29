@@ -9,7 +9,7 @@ importers:
   .:
     dependencies:
       '@samchon/openapi':
-        specifier: ^3.0.0
+        specifier: ^3.2.2
         version: 3.2.2
       commander:
         specifier: ^10.0.0
