@@ -16,6 +16,6 @@ type Placeholder<Value extends string> = tags.JsonSchemaPlugin<{
 }>;
 
 interface IAccount {
-  code: string & Placeholder<"Write you account code please">;
+  code: string & Placeholder<"Write your account code please">;
   balance: number & Monetary<"dollar">;
 }
