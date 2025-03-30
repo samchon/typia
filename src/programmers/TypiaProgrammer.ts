@@ -166,9 +166,10 @@ export namespace TypiaProgrammer {
   };
 
   const is_supported_extension = (filename: string): boolean => {
-    return (
-      (filename.endsWith(".ts") && !filename.endsWith(".d.ts")) ||
-      (filename.endsWith(".tsx") && !filename.endsWith(".d.tsx"))
-    );
+    // avoid using look-behind assertion as it is not marked as Baseline Widely Available
+    return TS_PATTERN.test(filename) && !DTS_PATTERN.test(filename);
   };
 }
+
+const TS_PATTERN = /\.[cm]?tsx?$/;
+const DTS_PATTERN = /\.d\.[cm]?tsx?$/;
