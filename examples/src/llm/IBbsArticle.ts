@@ -36,7 +36,7 @@ export namespace IBbsArticle {
     /**
      * Content body.
      *
-     * Content body of the article writtn in the markdown format.
+     * Content body of the article written in the markdown format.
      */
     body: string;
 
