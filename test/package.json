@@ -4,11 +4,6 @@
   "version": "0.1.0",
   "description": "Test program for typia",
   "main": "bin/index.js",
-  "tsp": {
-    "tscOptions": {
-      "parseAllJsDoc": true
-    }
-  },
   "scripts": {
     "build": "rimraf bin && tsc",
     "build_run": "npm run build",
@@ -34,7 +29,7 @@
   "bugs": {
     "url": "https://github.com/samchon/typia/issues"
   },
-  "homepage": "https://github.com/samchon/typia#readme",
+  "homepage": "https://typia.io",
   "devDependencies": {
     "@trivago/prettier-plugin-sort-imports": "^4.3.0",
     "@types/cli": "^0.11.25",

@@ -86,10 +86,10 @@ type PowerOf<Value extends number> = typia.tags.TagBase<{
   target: "number";
   value: Value;
   validate: `(() => {
-        const denominator: number = Math.log(${Value});
-        const value: number = Math.log($input) / denominator;
-        return Math.abs(value - Math.round(value)) < 0.00000001;
-    })()`;
+    const denominator: number = Math.log(${Value});
+    const value: number = Math.log($input) / denominator;
+    return Math.abs(value - Math.round(value)) < 0.00000001;
+  })()`;
   schema: {
     "x-typia-powerOf": Value;
   };
