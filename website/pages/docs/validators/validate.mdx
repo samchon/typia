@@ -242,7 +242,7 @@ export namespace IValidation {
   </Tabs.Tab>
 </Tabs>
 
-More strict validatae function prohibiting superfluous properties.
+More strict validate function prohibiting superfluous properties.
 
 `typia.validate<T>` function detects every type errors of `input` value, however, it can't detect superfluous properties. If you want to prohibit those superfluous properties, so that archive them into `IValidation.IFailure.errors` array, use `typia.validateEquals<T>()` function instead.
 
