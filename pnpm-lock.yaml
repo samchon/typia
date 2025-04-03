@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@samchon/openapi':
-        specifier: ^3.2.2
-        version: 3.2.2
+        specifier: ^3.2.3
+        version: 3.2.3
       commander:
         specifier: ^10.0.0
         version: 10.0.1
@@ -399,8 +399,8 @@ packages:
     resolution: {integrity: sha512-uGCqr47fnthkqwq5luNl2dksgcpHHjSXz2jUra7TXtFOpqvnhOW8qXjoa1ivlkq8qhqlaZwCzPdbcN0lXpmLzQ==}
     engines: {node: '>=18.0.0'}
 
-  '@aws-sdk/credential-providers@3.777.0':
-    resolution: {integrity: sha512-t1UyC1dUa4aph+kFixR0+5naKtDYZEtN2+PrDig4l1IvxJlD5rRRGodcVqi1duQjqfvhBwa7UPiHz5M4eRli7g==}
+  '@aws-sdk/credential-providers@3.778.0':
+    resolution: {integrity: sha512-Yy1RSBvoDp/iqGDpmgy5/YnSP2ac9NxTv3wdAjKlqVVStlKWU9nG8MPHZRfy01oPNJ5YWZL9stxHjNKC9hg9eg==}
     engines: {node: '>=18.0.0'}
 
   '@aws-sdk/middleware-host-header@3.775.0':
@@ -636,8 +636,8 @@ packages:
   '@jridgewell/trace-mapping@0.3.9':
     resolution: {integrity: sha512-3Belt6tdc8bPgAtbcmdtNJlirVoTmEb5e2gC94PnkwEW9jI6CAHUeoG85tjWP5WquqfavoMtMwiG4P926ZKKuQ==}
 
-  '@mongodb-js/saslprep@1.2.0':
-    resolution: {integrity: sha512-+ywrb0AqkfaYuhHs6LxKWgqbh3I72EpEgESCw37o+9qPx9WTCkgDm2B+eMrwehGtHBWHFU4GXvnSCNiFhhausg==}
+  '@mongodb-js/saslprep@1.2.1':
+    resolution: {integrity: sha512-1NCa8GsZ+OFLTw5KkKQS22wLS+Rs+y02sgkhr99Pm4OSXtSDHCJyq0uscPF0qA86ipGYH4PwtC2+a8Y4RKkCcg==}
 
   '@nodelib/fs.scandir@2.1.5':
     resolution: {integrity: sha512-vq24Bq3ym5HEQm2NKCr3yXDwjc7vTsEThRDnkp2DK9p1uqLR+DHurm/NOTo0KG7HYHU7eppKZj3MyqYuMBf62g==}
@@ -825,8 +825,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@samchon/openapi@3.2.2':
-    resolution: {integrity: sha512-ij6qrXDj+uF2Jvz/DPAAQ929QGxAF0dYBL4b+41Y2iogZ8YUR/us9lklFmHYxYKWr450TShWDMCu0jSywUsITQ==}
+  '@samchon/openapi@3.2.3':
+    resolution: {integrity: sha512-CQVa92i3hvfZftd6mULs13/WRib5a5/5qfEH/L6e5gjSSHIXrKMmwVPawi447F/bQiEd4EPE+dPmGU3lvEsVqw==}
 
   '@sinclair/typebox@0.31.28':
     resolution: {integrity: sha512-/s55Jujywdw/Jpan+vsy6JZs1z2ZTGxTmbZTPiuSL2wz9mfzA2gN1zzaqmvfi4pq+uOt7Du85fkiwv5ymW84aQ==}
@@ -1172,6 +1172,9 @@ packages:
 
   '@types/node@18.19.84':
     resolution: {integrity: sha512-ACYy2HGcZPHxEeWTqowTF7dhXN+JU1o7Gr4b41klnn6pj2LD6rsiGqSZojMdk1Jh2ys3m76ap+ae1vvE4+5+vg==}
+
+  '@types/node@18.19.86':
+    resolution: {integrity: sha512-fifKayi175wLyKyc5qUfyENhQ1dCNI1UNjp653d8kuYcPQN5JhX3dGuP/XmvPTg/xRBn1VTLpbmi+H/Mr7tLfQ==}
 
   '@types/node@20.17.28':
     resolution: {integrity: sha512-DHlH/fNL6Mho38jTy7/JT7sn2wnXI+wULR6PV4gy4VHLVvnrV/d3pHAMQHhc4gjdLmK2ZiPoMxzp6B3yRajLSQ==}
@@ -3537,7 +3540,7 @@ snapshots:
       - aws-crt
     optional: true
 
-  '@aws-sdk/credential-providers@3.777.0':
+  '@aws-sdk/credential-providers@3.778.0':
     dependencies:
       '@aws-sdk/client-cognito-identity': 3.777.0
       '@aws-sdk/core': 3.775.0
@@ -3551,8 +3554,10 @@ snapshots:
       '@aws-sdk/credential-provider-web-identity': 3.777.0
       '@aws-sdk/nested-clients': 3.777.0
       '@aws-sdk/types': 3.775.0
+      '@smithy/config-resolver': 4.1.0
       '@smithy/core': 3.2.0
       '@smithy/credential-provider-imds': 4.0.2
+      '@smithy/node-config-provider': 4.0.2
       '@smithy/property-provider': 4.0.2
       '@smithy/types': 4.2.0
       tslib: 2.8.1
@@ -3949,7 +3954,7 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.5.0
 
-  '@mongodb-js/saslprep@1.2.0':
+  '@mongodb-js/saslprep@1.2.1':
     dependencies:
       sparse-bitfield: 3.0.3
     optional: true
@@ -4090,7 +4095,7 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.37.0':
     optional: true
 
-  '@samchon/openapi@3.2.2': {}
+  '@samchon/openapi@3.2.3': {}
 
   '@sinclair/typebox@0.31.28': {}
 
@@ -4624,6 +4629,10 @@ snapshots:
     dependencies:
       undici-types: 5.26.5
 
+  '@types/node@18.19.86':
+    dependencies:
+      undici-types: 5.26.5
+
   '@types/node@20.17.28':
     dependencies:
       undici-types: 6.19.8
@@ -4671,7 +4680,7 @@ snapshots:
 
   '@types/whatwg-url@8.2.2':
     dependencies:
-      '@types/node': 22.13.14
+      '@types/node': 18.19.86
       '@types/webidl-conversions': 7.0.3
 
   '@types/ws@7.4.7':
@@ -6076,8 +6085,8 @@ snapshots:
       mongodb-connection-string-url: 2.6.0
       socks: 2.8.4
     optionalDependencies:
-      '@aws-sdk/credential-providers': 3.777.0
-      '@mongodb-js/saslprep': 1.2.0
+      '@aws-sdk/credential-providers': 3.778.0
+      '@mongodb-js/saslprep': 1.2.1
     transitivePeerDependencies:
       - aws-crt
 
