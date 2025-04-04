@@ -9,8 +9,8 @@ importers:
   .:
     dependencies:
       '@samchon/openapi':
-        specifier: ^3.3.0
-        version: 3.3.0
+        specifier: ^4.0.0-dev.20250405-2
+        version: 4.0.0-dev.20250405-2
       commander:
         specifier: ^10.0.0
         version: 10.0.1
@@ -825,8 +825,8 @@ packages:
     cpu: [x64]
     os: [win32]
 
-  '@samchon/openapi@3.3.0':
-    resolution: {integrity: sha512-f8HMS0PVAKTGR0TwgiBX4PKlZRPfdtH5fJbtpUth3fMUZmikjZ7CBey8gX7HZgY4n/aYHyNQKcf/W/E2267oYw==}
+  '@samchon/openapi@4.0.0-dev.20250405-2':
+    resolution: {integrity: sha512-GHYIfASs0i5950mIVqCYLPJqNR6kP/QZgKm9AxkEymApJEHfgN7DKmC3LrX2mLCT8N6lq/eI7Ib2K4u2JjSqMw==}
 
   '@sinclair/typebox@0.31.28':
     resolution: {integrity: sha512-/s55Jujywdw/Jpan+vsy6JZs1z2ZTGxTmbZTPiuSL2wz9mfzA2gN1zzaqmvfi4pq+uOt7Du85fkiwv5ymW84aQ==}
@@ -4090,7 +4090,7 @@ snapshots:
   '@rollup/rollup-win32-x64-msvc@4.37.0':
     optional: true
 
-  '@samchon/openapi@3.3.0': {}
+  '@samchon/openapi@4.0.0-dev.20250405-2': {}
 
   '@sinclair/typebox@0.31.28': {}
 

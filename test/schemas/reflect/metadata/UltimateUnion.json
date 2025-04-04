@@ -1616,7 +1616,7 @@
               "functions": [],
               "atomics": [
                 {
-                  "type": "boolean",
+                  "type": "number",
                   "tags": []
                 }
               ],
@@ -1632,7 +1632,7 @@
               "sets": [],
               "maps": []
             },
-            "description": "Exclusive minimum value restriction.\n\nFor reference, even though your Swagger (or OpenAPI) document has\ndefined the `exclusiveMinimum` value as `number`, {@link OpenApi}\nforcibly converts it to `boolean` type, and assign the numeric value to\nthe {@link minimum} property.",
+            "description": "Exclusive minimum value restriction.",
             "jsDocTags": []
           },
           {
@@ -1673,7 +1673,7 @@
               "functions": [],
               "atomics": [
                 {
-                  "type": "boolean",
+                  "type": "number",
                   "tags": []
                 }
               ],
@@ -1689,7 +1689,7 @@
               "sets": [],
               "maps": []
             },
-            "description": "Exclusive maximum value restriction.\n\nFor reference, even though your Swagger (or OpenAPI) document has\ndefined the `exclusiveMaximum` value as `number`, {@link OpenApi}\nforcibly converts it to `boolean` type, and assign the numeric value to\nthe {@link maximum} property.",
+            "description": "Exclusive maximum value restriction.",
             "jsDocTags": []
           },
           {
@@ -2360,7 +2360,7 @@
               "functions": [],
               "atomics": [
                 {
-                  "type": "boolean",
+                  "type": "number",
                   "tags": []
                 }
               ],
@@ -2376,7 +2376,7 @@
               "sets": [],
               "maps": []
             },
-            "description": "Exclusive minimum value restriction.\n\nFor reference, even though your Swagger (or OpenAPI) document has\ndefined the `exclusiveMinimum` value as `number`, {@link OpenAiComposer}\nforcibly converts it to `boolean` type, and assign the numeric value to\nthe {@link minimum} property.",
+            "description": "Exclusive minimum value restriction.",
             "jsDocTags": []
           },
           {
@@ -2417,7 +2417,7 @@
               "functions": [],
               "atomics": [
                 {
-                  "type": "boolean",
+                  "type": "number",
                   "tags": []
                 }
               ],
@@ -2433,7 +2433,7 @@
               "sets": [],
               "maps": []
             },
-            "description": "Exclusive maximum value restriction.\n\nFor reference, even though your Swagger (or OpenAPI) document has\ndefined the `exclusiveMaximum` value as `number`, {@link OpenAiComposer}\nforcibly converts it to `boolean` type, and assign the numeric value to\nthe {@link maximum} property.",
+            "description": "Exclusive maximum value restriction.",
             "jsDocTags": []
           },
           {

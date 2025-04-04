@@ -27,10 +27,8 @@ export const test_pr_1217_bigint_json_schema = (): void => {
     },
     {
       type: "integer",
-      minimum: 0,
-      maximum: 100,
-      exclusiveMinimum: true,
-      exclusiveMaximum: true,
+      exclusiveMinimum: 0,
+      exclusiveMaximum: 100,
     },
   ]);
 };

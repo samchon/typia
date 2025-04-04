@@ -9,7 +9,8 @@
           "description": "@default something"
         },
         "age": {
-          "type": "number"
+          "type": "number",
+          "default": 20
         }
       },
       "required": [
@@ -26,7 +27,8 @@
           "description": "@default something"
         },
         "age": {
-          "type": "number"
+          "type": "number",
+          "default": 20
         }
       },
       "required": [
@@ -43,7 +45,8 @@
           "description": "@default something"
         },
         "age": {
-          "type": "number"
+          "type": "number",
+          "default": 20
         }
       },
       "required": [
@@ -60,7 +63,8 @@
           "description": "@default something"
         },
         "age": {
-          "type": "number"
+          "type": "number",
+          "default": 20
         }
       },
       "required": [
@@ -79,7 +83,8 @@
             "description": "@default something"
           },
           "age": {
-            "type": "number"
+            "type": "number",
+            "default": 20
           }
         },
         "required": [

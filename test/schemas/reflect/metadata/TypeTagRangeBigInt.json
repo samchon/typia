@@ -153,8 +153,7 @@
                           "minimum"
                         ],
                         "schema": {
-                          "exclusiveMinimum": true,
-                          "minimum": 3
+                          "exclusiveMinimum": 3
                         }
                       }
                     ]
@@ -463,8 +462,7 @@
                           "minimum"
                         ],
                         "schema": {
-                          "exclusiveMinimum": true,
-                          "minimum": 3
+                          "exclusiveMinimum": 3
                         }
                       },
                       {
@@ -654,8 +652,7 @@
                           "minimum"
                         ],
                         "schema": {
-                          "exclusiveMinimum": true,
-                          "minimum": 3
+                          "exclusiveMinimum": 3
                         }
                       },
                       {
