@@ -307,8 +307,7 @@
                           "maximum"
                         ],
                         "schema": {
-                          "exclusiveMaximum": true,
-                          "maximum": 7
+                          "exclusiveMaximum": 7
                         }
                       }
                     ]
@@ -479,8 +478,7 @@
                           "maximum"
                         ],
                         "schema": {
-                          "exclusiveMaximum": true,
-                          "maximum": 7
+                          "exclusiveMaximum": 7
                         }
                       }
                     ]
@@ -574,8 +572,7 @@
                           "maximum"
                         ],
                         "schema": {
-                          "exclusiveMaximum": true,
-                          "maximum": 7
+                          "exclusiveMaximum": 7
                         }
                       }
                     ]

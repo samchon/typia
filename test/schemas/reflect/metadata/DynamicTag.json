@@ -67,8 +67,7 @@
                           "maximum"
                         ],
                         "schema": {
-                          "exclusiveMaximum": true,
-                          "maximum": 10
+                          "exclusiveMaximum": 10
                         }
                       }
                     ]

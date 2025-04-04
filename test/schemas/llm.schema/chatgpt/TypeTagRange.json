@@ -17,23 +17,20 @@
             "type": "integer"
           },
           "less": {
-            "description": "@maximum 7",
-            "type": "integer",
-            "exclusiveMaximum": true
+            "description": "@exclusiveMaximum 7",
+            "type": "integer"
           },
           "less_equal": {
             "description": "@maximum 7",
             "type": "integer"
           },
           "greater_less": {
-            "description": "@maximum 7\n@exclusiveMinimum 3",
-            "type": "integer",
-            "exclusiveMaximum": true
+            "description": "@exclusiveMinimum 3\n@exclusiveMaximum 7",
+            "type": "integer"
           },
           "greater_equal_less": {
-            "description": "@minimum 3\n@maximum 7",
-            "type": "integer",
-            "exclusiveMaximum": true
+            "description": "@minimum 3\n@exclusiveMaximum 7",
+            "type": "integer"
           },
           "greater_less_equal": {
             "description": "@maximum 7\n@exclusiveMinimum 3",

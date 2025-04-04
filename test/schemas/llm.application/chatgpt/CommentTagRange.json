@@ -31,23 +31,20 @@
                       "type": "integer"
                     },
                     "less": {
-                      "description": "@maximum 7",
-                      "type": "integer",
-                      "exclusiveMaximum": true
+                      "description": "@maximum 7\n@exclusiveMaximum true",
+                      "type": "integer"
                     },
                     "less_equal": {
                       "description": "@maximum 7",
                       "type": "integer"
                     },
                     "greater_less": {
-                      "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true",
-                      "type": "integer",
-                      "exclusiveMaximum": true
+                      "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true\n@exclusiveMaximum true",
+                      "type": "integer"
                     },
                     "greater_equal_less": {
-                      "description": "@minimum 3\n@maximum 7",
-                      "type": "integer",
-                      "exclusiveMaximum": true
+                      "description": "@minimum 3\n@maximum 7\n@exclusiveMaximum true",
+                      "type": "integer"
                     },
                     "greater_less_equal": {
                       "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true",
@@ -113,23 +110,20 @@
                       "type": "integer"
                     },
                     "less": {
-                      "description": "@maximum 7",
-                      "type": "integer",
-                      "exclusiveMaximum": true
+                      "description": "@maximum 7\n@exclusiveMaximum true",
+                      "type": "integer"
                     },
                     "less_equal": {
                       "description": "@maximum 7",
                       "type": "integer"
                     },
                     "greater_less": {
-                      "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true",
-                      "type": "integer",
-                      "exclusiveMaximum": true
+                      "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true\n@exclusiveMaximum true",
+                      "type": "integer"
                     },
                     "greater_equal_less": {
-                      "description": "@minimum 3\n@maximum 7",
-                      "type": "integer",
-                      "exclusiveMaximum": true
+                      "description": "@minimum 3\n@maximum 7\n@exclusiveMaximum true",
+                      "type": "integer"
                     },
                     "greater_less_equal": {
                       "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true",
@@ -185,23 +179,20 @@
                           "type": "integer"
                         },
                         "less": {
-                          "description": "@maximum 7",
-                          "type": "integer",
-                          "exclusiveMaximum": true
+                          "description": "@maximum 7\n@exclusiveMaximum true",
+                          "type": "integer"
                         },
                         "less_equal": {
                           "description": "@maximum 7",
                           "type": "integer"
                         },
                         "greater_less": {
-                          "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true",
-                          "type": "integer",
-                          "exclusiveMaximum": true
+                          "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true\n@exclusiveMaximum true",
+                          "type": "integer"
                         },
                         "greater_equal_less": {
-                          "description": "@minimum 3\n@maximum 7",
-                          "type": "integer",
-                          "exclusiveMaximum": true
+                          "description": "@minimum 3\n@maximum 7\n@exclusiveMaximum true",
+                          "type": "integer"
                         },
                         "greater_less_equal": {
                           "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true",
@@ -264,23 +255,20 @@
                   "type": "integer"
                 },
                 "less": {
-                  "description": "@maximum 7",
-                  "type": "integer",
-                  "exclusiveMaximum": true
+                  "description": "@maximum 7\n@exclusiveMaximum true",
+                  "type": "integer"
                 },
                 "less_equal": {
                   "description": "@maximum 7",
                   "type": "integer"
                 },
                 "greater_less": {
-                  "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true",
-                  "type": "integer",
-                  "exclusiveMaximum": true
+                  "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true\n@exclusiveMaximum true",
+                  "type": "integer"
                 },
                 "greater_equal_less": {
-                  "description": "@minimum 3\n@maximum 7",
-                  "type": "integer",
-                  "exclusiveMaximum": true
+                  "description": "@minimum 3\n@maximum 7\n@exclusiveMaximum true",
+                  "type": "integer"
                 },
                 "greater_less_equal": {
                   "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true",
@@ -343,23 +331,20 @@
                           "type": "integer"
                         },
                         "less": {
-                          "description": "@maximum 7",
-                          "type": "integer",
-                          "exclusiveMaximum": true
+                          "description": "@maximum 7\n@exclusiveMaximum true",
+                          "type": "integer"
                         },
                         "less_equal": {
                           "description": "@maximum 7",
                           "type": "integer"
                         },
                         "greater_less": {
-                          "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true",
-                          "type": "integer",
-                          "exclusiveMaximum": true
+                          "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true\n@exclusiveMaximum true",
+                          "type": "integer"
                         },
                         "greater_equal_less": {
-                          "description": "@minimum 3\n@maximum 7",
-                          "type": "integer",
-                          "exclusiveMaximum": true
+                          "description": "@minimum 3\n@maximum 7\n@exclusiveMaximum true",
+                          "type": "integer"
                         },
                         "greater_less_equal": {
                           "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true",
@@ -418,23 +403,20 @@
                           "type": "integer"
                         },
                         "less": {
-                          "description": "@maximum 7",
-                          "type": "integer",
-                          "exclusiveMaximum": true
+                          "description": "@maximum 7\n@exclusiveMaximum true",
+                          "type": "integer"
                         },
                         "less_equal": {
                           "description": "@maximum 7",
                           "type": "integer"
                         },
                         "greater_less": {
-                          "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true",
-                          "type": "integer",
-                          "exclusiveMaximum": true
+                          "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true\n@exclusiveMaximum true",
+                          "type": "integer"
                         },
                         "greater_equal_less": {
-                          "description": "@minimum 3\n@maximum 7",
-                          "type": "integer",
-                          "exclusiveMaximum": true
+                          "description": "@minimum 3\n@maximum 7\n@exclusiveMaximum true",
+                          "type": "integer"
                         },
                         "greater_less_equal": {
                           "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true",
@@ -493,23 +475,20 @@
                           "type": "integer"
                         },
                         "less": {
-                          "description": "@maximum 7",
-                          "type": "integer",
-                          "exclusiveMaximum": true
+                          "description": "@maximum 7\n@exclusiveMaximum true",
+                          "type": "integer"
                         },
                         "less_equal": {
                           "description": "@maximum 7",
                           "type": "integer"
                         },
                         "greater_less": {
-                          "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true",
-                          "type": "integer",
-                          "exclusiveMaximum": true
+                          "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true\n@exclusiveMaximum true",
+                          "type": "integer"
                         },
                         "greater_equal_less": {
-                          "description": "@minimum 3\n@maximum 7",
-                          "type": "integer",
-                          "exclusiveMaximum": true
+                          "description": "@minimum 3\n@maximum 7\n@exclusiveMaximum true",
+                          "type": "integer"
                         },
                         "greater_less_equal": {
                           "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true",
@@ -576,23 +555,20 @@
                       "type": "integer"
                     },
                     "less": {
-                      "description": "@maximum 7",
-                      "type": "integer",
-                      "exclusiveMaximum": true
+                      "description": "@maximum 7\n@exclusiveMaximum true",
+                      "type": "integer"
                     },
                     "less_equal": {
                       "description": "@maximum 7",
                       "type": "integer"
                     },
                     "greater_less": {
-                      "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true",
-                      "type": "integer",
-                      "exclusiveMaximum": true
+                      "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true\n@exclusiveMaximum true",
+                      "type": "integer"
                     },
                     "greater_equal_less": {
-                      "description": "@minimum 3\n@maximum 7",
-                      "type": "integer",
-                      "exclusiveMaximum": true
+                      "description": "@minimum 3\n@maximum 7\n@exclusiveMaximum true",
+                      "type": "integer"
                     },
                     "greater_less_equal": {
                       "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true",

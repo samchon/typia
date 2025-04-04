@@ -1741,8 +1741,7 @@ export const createRandom = (() => {
       _generator?.integer ?? __typia_transform__randomInteger._randomInteger
     )({
       type: "integer",
-      exclusiveMaximum: true,
-      maximum: 100,
+      exclusiveMaximum: 100,
     }),
     motto: (
       _generator?.string ?? __typia_transform__randomString._randomString

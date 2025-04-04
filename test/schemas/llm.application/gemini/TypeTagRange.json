@@ -20,47 +20,39 @@
                   "properties": {
                     "greater": {
                       "type": "integer",
-                      "exclusiveMinimum": 3
+                      "description": "@exclusiveMinimum 3"
                     },
                     "greater_equal": {
                       "type": "integer",
-                      "minimum": 3
+                      "description": "@minimum 3"
                     },
                     "less": {
                       "type": "integer",
-                      "exclusiveMaximum": true,
-                      "maximum": 7
+                      "description": "@exclusiveMaximum 7"
                     },
                     "less_equal": {
                       "type": "integer",
-                      "maximum": 7
+                      "description": "@maximum 7"
                     },
                     "greater_less": {
                       "type": "integer",
-                      "exclusiveMinimum": 3,
-                      "exclusiveMaximum": true,
-                      "maximum": 7
+                      "description": "@exclusiveMinimum 3\n@exclusiveMaximum 7"
                     },
                     "greater_equal_less": {
                       "type": "integer",
-                      "minimum": 3,
-                      "exclusiveMaximum": true,
-                      "maximum": 7
+                      "description": "@minimum 3\n@exclusiveMaximum 7"
                     },
                     "greater_less_equal": {
                       "type": "integer",
-                      "exclusiveMinimum": 3,
-                      "maximum": 7
+                      "description": "@maximum 7\n@exclusiveMinimum 3"
                     },
                     "greater_equal_less_equal": {
                       "type": "integer",
-                      "minimum": 3,
-                      "maximum": 7
+                      "description": "@minimum 3\n@maximum 7"
                     },
                     "equal": {
                       "type": "integer",
-                      "minimum": 10,
-                      "maximum": 10
+                      "description": "@minimum 10\n@maximum 10"
                     }
                   },
                   "required": [
@@ -104,47 +96,39 @@
                   "properties": {
                     "greater": {
                       "type": "integer",
-                      "exclusiveMinimum": 3
+                      "description": "@exclusiveMinimum 3"
                     },
                     "greater_equal": {
                       "type": "integer",
-                      "minimum": 3
+                      "description": "@minimum 3"
                     },
                     "less": {
                       "type": "integer",
-                      "exclusiveMaximum": true,
-                      "maximum": 7
+                      "description": "@exclusiveMaximum 7"
                     },
                     "less_equal": {
                       "type": "integer",
-                      "maximum": 7
+                      "description": "@maximum 7"
                     },
                     "greater_less": {
                       "type": "integer",
-                      "exclusiveMinimum": 3,
-                      "exclusiveMaximum": true,
-                      "maximum": 7
+                      "description": "@exclusiveMinimum 3\n@exclusiveMaximum 7"
                     },
                     "greater_equal_less": {
                       "type": "integer",
-                      "minimum": 3,
-                      "exclusiveMaximum": true,
-                      "maximum": 7
+                      "description": "@minimum 3\n@exclusiveMaximum 7"
                     },
                     "greater_less_equal": {
                       "type": "integer",
-                      "exclusiveMinimum": 3,
-                      "maximum": 7
+                      "description": "@maximum 7\n@exclusiveMinimum 3"
                     },
                     "greater_equal_less_equal": {
                       "type": "integer",
-                      "minimum": 3,
-                      "maximum": 7
+                      "description": "@minimum 3\n@maximum 7"
                     },
                     "equal": {
                       "type": "integer",
-                      "minimum": 10,
-                      "maximum": 10
+                      "description": "@minimum 10\n@maximum 10"
                     }
                   },
                   "required": [
@@ -177,47 +161,39 @@
                   "properties": {
                     "greater": {
                       "type": "integer",
-                      "exclusiveMinimum": 3
+                      "description": "@exclusiveMinimum 3"
                     },
                     "greater_equal": {
                       "type": "integer",
-                      "minimum": 3
+                      "description": "@minimum 3"
                     },
                     "less": {
                       "type": "integer",
-                      "exclusiveMaximum": true,
-                      "maximum": 7
+                      "description": "@exclusiveMaximum 7"
                     },
                     "less_equal": {
                       "type": "integer",
-                      "maximum": 7
+                      "description": "@maximum 7"
                     },
                     "greater_less": {
                       "type": "integer",
-                      "exclusiveMinimum": 3,
-                      "exclusiveMaximum": true,
-                      "maximum": 7
+                      "description": "@exclusiveMinimum 3\n@exclusiveMaximum 7"
                     },
                     "greater_equal_less": {
                       "type": "integer",
-                      "minimum": 3,
-                      "exclusiveMaximum": true,
-                      "maximum": 7
+                      "description": "@minimum 3\n@exclusiveMaximum 7"
                     },
                     "greater_less_equal": {
                       "type": "integer",
-                      "exclusiveMinimum": 3,
-                      "maximum": 7
+                      "description": "@maximum 7\n@exclusiveMinimum 3"
                     },
                     "greater_equal_less_equal": {
                       "type": "integer",
-                      "minimum": 3,
-                      "maximum": 7
+                      "description": "@minimum 3\n@maximum 7"
                     },
                     "equal": {
                       "type": "integer",
-                      "minimum": 10,
-                      "maximum": 10
+                      "description": "@minimum 10\n@maximum 10"
                     }
                   },
                   "required": [
@@ -256,47 +232,39 @@
               "properties": {
                 "greater": {
                   "type": "integer",
-                  "exclusiveMinimum": 3
+                  "description": "@exclusiveMinimum 3"
                 },
                 "greater_equal": {
                   "type": "integer",
-                  "minimum": 3
+                  "description": "@minimum 3"
                 },
                 "less": {
                   "type": "integer",
-                  "exclusiveMaximum": true,
-                  "maximum": 7
+                  "description": "@exclusiveMaximum 7"
                 },
                 "less_equal": {
                   "type": "integer",
-                  "maximum": 7
+                  "description": "@maximum 7"
                 },
                 "greater_less": {
                   "type": "integer",
-                  "exclusiveMinimum": 3,
-                  "exclusiveMaximum": true,
-                  "maximum": 7
+                  "description": "@exclusiveMinimum 3\n@exclusiveMaximum 7"
                 },
                 "greater_equal_less": {
                   "type": "integer",
-                  "minimum": 3,
-                  "exclusiveMaximum": true,
-                  "maximum": 7
+                  "description": "@minimum 3\n@exclusiveMaximum 7"
                 },
                 "greater_less_equal": {
                   "type": "integer",
-                  "exclusiveMinimum": 3,
-                  "maximum": 7
+                  "description": "@maximum 7\n@exclusiveMinimum 3"
                 },
                 "greater_equal_less_equal": {
                   "type": "integer",
-                  "minimum": 3,
-                  "maximum": 7
+                  "description": "@minimum 3\n@maximum 7"
                 },
                 "equal": {
                   "type": "integer",
-                  "minimum": 10,
-                  "maximum": 10
+                  "description": "@minimum 10\n@maximum 10"
                 }
               },
               "required": [
@@ -335,47 +303,39 @@
                   "properties": {
                     "greater": {
                       "type": "integer",
-                      "exclusiveMinimum": 3
+                      "description": "@exclusiveMinimum 3"
                     },
                     "greater_equal": {
                       "type": "integer",
-                      "minimum": 3
+                      "description": "@minimum 3"
                     },
                     "less": {
                       "type": "integer",
-                      "exclusiveMaximum": true,
-                      "maximum": 7
+                      "description": "@exclusiveMaximum 7"
                     },
                     "less_equal": {
                       "type": "integer",
-                      "maximum": 7
+                      "description": "@maximum 7"
                     },
                     "greater_less": {
                       "type": "integer",
-                      "exclusiveMinimum": 3,
-                      "exclusiveMaximum": true,
-                      "maximum": 7
+                      "description": "@exclusiveMinimum 3\n@exclusiveMaximum 7"
                     },
                     "greater_equal_less": {
                       "type": "integer",
-                      "minimum": 3,
-                      "exclusiveMaximum": true,
-                      "maximum": 7
+                      "description": "@minimum 3\n@exclusiveMaximum 7"
                     },
                     "greater_less_equal": {
                       "type": "integer",
-                      "exclusiveMinimum": 3,
-                      "maximum": 7
+                      "description": "@maximum 7\n@exclusiveMinimum 3"
                     },
                     "greater_equal_less_equal": {
                       "type": "integer",
-                      "minimum": 3,
-                      "maximum": 7
+                      "description": "@minimum 3\n@maximum 7"
                     },
                     "equal": {
                       "type": "integer",
-                      "minimum": 10,
-                      "maximum": 10
+                      "description": "@minimum 10\n@maximum 10"
                     }
                   },
                   "required": [
@@ -408,47 +368,39 @@
                   "properties": {
                     "greater": {
                       "type": "integer",
-                      "exclusiveMinimum": 3
+                      "description": "@exclusiveMinimum 3"
                     },
                     "greater_equal": {
                       "type": "integer",
-                      "minimum": 3
+                      "description": "@minimum 3"
                     },
                     "less": {
                       "type": "integer",
-                      "exclusiveMaximum": true,
-                      "maximum": 7
+                      "description": "@exclusiveMaximum 7"
                     },
                     "less_equal": {
                       "type": "integer",
-                      "maximum": 7
+                      "description": "@maximum 7"
                     },
                     "greater_less": {
                       "type": "integer",
-                      "exclusiveMinimum": 3,
-                      "exclusiveMaximum": true,
-                      "maximum": 7
+                      "description": "@exclusiveMinimum 3\n@exclusiveMaximum 7"
                     },
                     "greater_equal_less": {
                       "type": "integer",
-                      "minimum": 3,
-                      "exclusiveMaximum": true,
-                      "maximum": 7
+                      "description": "@minimum 3\n@exclusiveMaximum 7"
                     },
                     "greater_less_equal": {
                       "type": "integer",
-                      "exclusiveMinimum": 3,
-                      "maximum": 7
+                      "description": "@maximum 7\n@exclusiveMinimum 3"
                     },
                     "greater_equal_less_equal": {
                       "type": "integer",
-                      "minimum": 3,
-                      "maximum": 7
+                      "description": "@minimum 3\n@maximum 7"
                     },
                     "equal": {
                       "type": "integer",
-                      "minimum": 10,
-                      "maximum": 10
+                      "description": "@minimum 10\n@maximum 10"
                     }
                   },
                   "required": [
@@ -481,47 +433,39 @@
                   "properties": {
                     "greater": {
                       "type": "integer",
-                      "exclusiveMinimum": 3
+                      "description": "@exclusiveMinimum 3"
                     },
                     "greater_equal": {
                       "type": "integer",
-                      "minimum": 3
+                      "description": "@minimum 3"
                     },
                     "less": {
                       "type": "integer",
-                      "exclusiveMaximum": true,
-                      "maximum": 7
+                      "description": "@exclusiveMaximum 7"
                     },
                     "less_equal": {
                       "type": "integer",
-                      "maximum": 7
+                      "description": "@maximum 7"
                     },
                     "greater_less": {
                       "type": "integer",
-                      "exclusiveMinimum": 3,
-                      "exclusiveMaximum": true,
-                      "maximum": 7
+                      "description": "@exclusiveMinimum 3\n@exclusiveMaximum 7"
                     },
                     "greater_equal_less": {
                       "type": "integer",
-                      "minimum": 3,
-                      "exclusiveMaximum": true,
-                      "maximum": 7
+                      "description": "@minimum 3\n@exclusiveMaximum 7"
                     },
                     "greater_less_equal": {
                       "type": "integer",
-                      "exclusiveMinimum": 3,
-                      "maximum": 7
+                      "description": "@maximum 7\n@exclusiveMinimum 3"
                     },
                     "greater_equal_less_equal": {
                       "type": "integer",
-                      "minimum": 3,
-                      "maximum": 7
+                      "description": "@minimum 3\n@maximum 7"
                     },
                     "equal": {
                       "type": "integer",
-                      "minimum": 10,
-                      "maximum": 10
+                      "description": "@minimum 10\n@maximum 10"
                     }
                   },
                   "required": [
@@ -560,47 +504,39 @@
               "properties": {
                 "greater": {
                   "type": "integer",
-                  "exclusiveMinimum": 3
+                  "description": "@exclusiveMinimum 3"
                 },
                 "greater_equal": {
                   "type": "integer",
-                  "minimum": 3
+                  "description": "@minimum 3"
                 },
                 "less": {
                   "type": "integer",
-                  "exclusiveMaximum": true,
-                  "maximum": 7
+                  "description": "@exclusiveMaximum 7"
                 },
                 "less_equal": {
                   "type": "integer",
-                  "maximum": 7
+                  "description": "@maximum 7"
                 },
                 "greater_less": {
                   "type": "integer",
-                  "exclusiveMinimum": 3,
-                  "exclusiveMaximum": true,
-                  "maximum": 7
+                  "description": "@exclusiveMinimum 3\n@exclusiveMaximum 7"
                 },
                 "greater_equal_less": {
                   "type": "integer",
-                  "minimum": 3,
-                  "exclusiveMaximum": true,
-                  "maximum": 7
+                  "description": "@minimum 3\n@exclusiveMaximum 7"
                 },
                 "greater_less_equal": {
                   "type": "integer",
-                  "exclusiveMinimum": 3,
-                  "maximum": 7
+                  "description": "@maximum 7\n@exclusiveMinimum 3"
                 },
                 "greater_equal_less_equal": {
                   "type": "integer",
-                  "minimum": 3,
-                  "maximum": 7
+                  "description": "@minimum 3\n@maximum 7"
                 },
                 "equal": {
                   "type": "integer",
-                  "minimum": 10,
-                  "maximum": 10
+                  "description": "@minimum 10\n@maximum 10"
                 }
               },
               "required": [

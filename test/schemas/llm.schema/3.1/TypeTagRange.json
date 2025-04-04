@@ -18,8 +18,7 @@
           },
           "less": {
             "type": "integer",
-            "exclusiveMaximum": true,
-            "maximum": 7
+            "exclusiveMaximum": 7
           },
           "less_equal": {
             "type": "integer",
@@ -28,14 +27,12 @@
           "greater_less": {
             "type": "integer",
             "exclusiveMinimum": 3,
-            "exclusiveMaximum": true,
-            "maximum": 7
+            "exclusiveMaximum": 7
           },
           "greater_equal_less": {
             "type": "integer",
             "minimum": 3,
-            "exclusiveMaximum": true,
-            "maximum": 7
+            "exclusiveMaximum": 7
           },
           "greater_less_equal": {
             "type": "integer",

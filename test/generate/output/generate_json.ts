@@ -39,8 +39,7 @@ export const collection = {
           },
           age: {
             type: "integer",
-            exclusiveMaximum: true,
-            maximum: 100,
+            exclusiveMaximum: 100,
           },
           motto: {
             type: "string",

@@ -1,12 +1,7 @@
-import typia, { tags } from "typia";
+import typia from "typia";
+
+import { TypeTagRange } from "../structures/TypeTagRange";
 
 console.log(
-  JSON.stringify(
-    typia.llm.schema<
-      number & tags.ExclusiveMinimum<0> & tags.ExclusiveMaximum<100>,
-      "gemini"
-    >(),
-    null,
-    2,
-  ),
+  JSON.stringify(typia.llm.schema<TypeTagRange, "gemini">(), null, 2),
 );
