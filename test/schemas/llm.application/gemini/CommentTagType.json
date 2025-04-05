@@ -24,19 +24,21 @@
                     },
                     "uint": {
                       "type": "integer",
-                      "description": "Unsigned integer value."
+                      "description": "Unsigned integer value.\n\n\n@minimum 0"
                     },
                     "int32": {
                       "type": "integer"
                     },
                     "uint32": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "@minimum 0"
                     },
                     "int64": {
                       "type": "integer"
                     },
                     "uint64": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "@minimum 0"
                     },
                     "float": {
                       "type": "number"
@@ -85,19 +87,21 @@
                     },
                     "uint": {
                       "type": "integer",
-                      "description": "Unsigned integer value."
+                      "description": "Unsigned integer value.\n\n\n@minimum 0"
                     },
                     "int32": {
                       "type": "integer"
                     },
                     "uint32": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "@minimum 0"
                     },
                     "int64": {
                       "type": "integer"
                     },
                     "uint64": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "@minimum 0"
                     },
                     "float": {
                       "type": "number"
@@ -135,19 +139,21 @@
                     },
                     "uint": {
                       "type": "integer",
-                      "description": "Unsigned integer value."
+                      "description": "Unsigned integer value.\n\n\n@minimum 0"
                     },
                     "int32": {
                       "type": "integer"
                     },
                     "uint32": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "@minimum 0"
                     },
                     "int64": {
                       "type": "integer"
                     },
                     "uint64": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "@minimum 0"
                     },
                     "float": {
                       "type": "number"
@@ -191,19 +197,21 @@
                 },
                 "uint": {
                   "type": "integer",
-                  "description": "Unsigned integer value."
+                  "description": "Unsigned integer value.\n\n\n@minimum 0"
                 },
                 "int32": {
                   "type": "integer"
                 },
                 "uint32": {
-                  "type": "integer"
+                  "type": "integer",
+                  "description": "@minimum 0"
                 },
                 "int64": {
                   "type": "integer"
                 },
                 "uint64": {
-                  "type": "integer"
+                  "type": "integer",
+                  "description": "@minimum 0"
                 },
                 "float": {
                   "type": "number"
@@ -247,19 +255,21 @@
                     },
                     "uint": {
                       "type": "integer",
-                      "description": "Unsigned integer value."
+                      "description": "Unsigned integer value.\n\n\n@minimum 0"
                     },
                     "int32": {
                       "type": "integer"
                     },
                     "uint32": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "@minimum 0"
                     },
                     "int64": {
                       "type": "integer"
                     },
                     "uint64": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "@minimum 0"
                     },
                     "float": {
                       "type": "number"
@@ -297,19 +307,21 @@
                     },
                     "uint": {
                       "type": "integer",
-                      "description": "Unsigned integer value."
+                      "description": "Unsigned integer value.\n\n\n@minimum 0"
                     },
                     "int32": {
                       "type": "integer"
                     },
                     "uint32": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "@minimum 0"
                     },
                     "int64": {
                       "type": "integer"
                     },
                     "uint64": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "@minimum 0"
                     },
                     "float": {
                       "type": "number"
@@ -347,19 +359,21 @@
                     },
                     "uint": {
                       "type": "integer",
-                      "description": "Unsigned integer value."
+                      "description": "Unsigned integer value.\n\n\n@minimum 0"
                     },
                     "int32": {
                       "type": "integer"
                     },
                     "uint32": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "@minimum 0"
                     },
                     "int64": {
                       "type": "integer"
                     },
                     "uint64": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "@minimum 0"
                     },
                     "float": {
                       "type": "number"
@@ -403,19 +417,21 @@
                 },
                 "uint": {
                   "type": "integer",
-                  "description": "Unsigned integer value."
+                  "description": "Unsigned integer value.\n\n\n@minimum 0"
                 },
                 "int32": {
                   "type": "integer"
                 },
                 "uint32": {
-                  "type": "integer"
+                  "type": "integer",
+                  "description": "@minimum 0"
                 },
                 "int64": {
                   "type": "integer"
                 },
                 "uint64": {
-                  "type": "integer"
+                  "type": "integer",
+                  "description": "@minimum 0"
                 },
                 "float": {
                   "type": "number"

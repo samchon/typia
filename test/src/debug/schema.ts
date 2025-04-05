@@ -1,9 +1,17 @@
-import typia, { tags } from "typia";
+import typia from "typia";
 
-console.log(
-  typia.llm.schema<number & tags.Type<"uint32"> & tags.Minimum<10>, "3.0">(),
-  typia.llm.schema<
-    number & tags.Type<"uint32"> & tags.ExclusiveMinimum<10>,
-    "3.0"
-  >(),
-);
+interface Something {
+  /**
+   * @exclusiveMinimum 3
+   */
+  exclusiveMinimum: number;
+
+  /**
+   * @type uint32
+   */
+  uint32: number;
+}
+
+const p = typia.llm.parameters<Something, "claude">();
+
+console.log(JSON.stringify(p, null, 2));

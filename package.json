@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "typia",
-  "version": "9.0.0",
+  "version": "9.0.1",
   "description": "Superfast runtime validators with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -73,9 +73,6 @@
     "tinyglobby": "^0.2.12",
     "ts-node": "^10.9.2",
     "typescript": "~5.8.3"
-  },
-  "stackblitz": {
-    "startCommand": "npm install && npm run test"
   },
   "sideEffects": false,
   "files": [

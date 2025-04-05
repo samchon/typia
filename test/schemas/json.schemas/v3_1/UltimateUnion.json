@@ -230,8 +230,7 @@
           },
           "multipleOf": {
             "type": "integer",
-            "exclusiveMinimum": true,
-            "minimum": 0,
+            "exclusiveMinimum": 0,
             "title": "Multiple of value restriction",
             "description": "Multiple of value restriction."
           },
@@ -300,8 +299,7 @@
           },
           "multipleOf": {
             "type": "number",
-            "exclusiveMinimum": true,
-            "minimum": 0,
+            "exclusiveMinimum": 0,
             "title": "Multiple of value restriction",
             "description": "Multiple of value restriction."
           },
@@ -365,11 +363,13 @@
           },
           "minLength": {
             "type": "integer",
+            "minimum": 0,
             "title": "Minimum length restriction",
             "description": "Minimum length restriction."
           },
           "maxLength": {
             "type": "integer",
+            "minimum": 0,
             "title": "Maximum length restriction",
             "description": "Maximum length restriction."
           },
@@ -423,11 +423,13 @@
           },
           "minItems": {
             "type": "integer",
+            "minimum": 0,
             "title": "Minimum items restriction",
             "description": "Minimum items restriction.\n\nRestriction of minimum number of items in the array."
           },
           "maxItems": {
             "type": "integer",
+            "minimum": 0,
             "title": "Maximum items restriction",
             "description": "Maximum items restriction.\n\nRestriction of maximum number of items in the array."
           },
@@ -535,11 +537,13 @@
           },
           "minItems": {
             "type": "integer",
+            "minimum": 0,
             "title": "Minimum items restriction",
             "description": "Minimum items restriction.\n\nRestriction of minimum number of items in the tuple."
           },
           "maxItems": {
             "type": "integer",
+            "minimum": 0,
             "title": "Maximum items restriction",
             "description": "Maximum items restriction.\n\nRestriction of maximum number of items in the tuple."
           },
