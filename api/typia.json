@@ -1524,7 +1524,7 @@
 										"summary": [
 											{
 												"kind": "text",
-												"text": "Exclusive option.\n\nIf this property configured as "
+												"text": "Exclusive option.\r\n\r\nIf this property configured as "
 											},
 											{
 												"kind": "code",
@@ -1542,7 +1542,7 @@
 											},
 											{
 												"kind": "text",
-												"text": " tag cannot be\nduplicated in the target type. Otherwise, if you've configured this\nproperty as string array, all of the "
+												"text": " tag cannot be\r\nduplicated in the target type. Otherwise, if you've configured this\r\nproperty as string array, all of the "
 											},
 											{
 												"kind": "inline-tag",
@@ -1552,7 +1552,7 @@
 											},
 											{
 												"kind": "text",
-												"text": " value assigned\ntags cannot be compatible in the target type."
+												"text": " value assigned\r\ntags cannot be compatible in the target type."
 											}
 										],
 										"blockTags": [
@@ -1679,7 +1679,7 @@
 										"summary": [
 											{
 												"kind": "text",
-												"text": "Target type.\n\nIf user tries to adapt this tag to a different type, it would be a compile\nerror.\n\nFor example, you've configured target type as "
+												"text": "Target type.\r\n\r\nIf user tries to adapt this tag to a different type, it would be a compile\r\nerror.\r\n\r\nFor example, you've configured target type as "
 											},
 											{
 												"kind": "code",
@@ -1687,7 +1687,7 @@
 											},
 											{
 												"kind": "text",
-												"text": ", but user adapted it\nonto a "
+												"text": ", but user adapted it\r\nonto a "
 											},
 											{
 												"kind": "code",
@@ -1703,7 +1703,7 @@
 											},
 											{
 												"kind": "text",
-												"text": "), then it would be\nblocked by TypeScript compiler."
+												"text": "), then it would be\r\nblocked by TypeScript compiler."
 											}
 										]
 									},
@@ -1736,7 +1736,7 @@
 										"summary": [
 											{
 												"kind": "text",
-												"text": "Validation script.\n\nThis script would be inserted into the generated validation function.\nIn here script, target variable name must be "
+												"text": "Validation script.\r\n\r\nThis script would be inserted into the generated validation function.\r\nIn here script, target variable name must be "
 											},
 											{
 												"kind": "code",
@@ -1744,7 +1744,7 @@
 											},
 											{
 												"kind": "text",
-												"text": ". The variable name\n"
+												"text": ". The variable name\r\n"
 											},
 											{
 												"kind": "code",
@@ -1752,7 +1752,7 @@
 											},
 											{
 												"kind": "text",
-												"text": " would be transformed to the suitable when compilation.\n\nAlso, If you've take a mistake on this script, compile error would be\noccurred. So, define it with confidence. Compiler will block all your\nmistakes."
+												"text": " would be transformed to the suitable when compilation.\r\n\r\nAlso, If you've take a mistake on this script, compile error would be\r\noccurred. So, define it with confidence. Compiler will block all your\r\nmistakes."
 											}
 										]
 									},
@@ -7295,7 +7295,7 @@
 										"summary": [
 											{
 												"kind": "text",
-												"text": "This is a dummy property for compilation.\n\nIt does not mean anything in runtime."
+												"text": "This is a dummy property for compilation.\r\n\r\nIt does not mean anything in runtime."
 											}
 										]
 									},
@@ -8752,7 +8752,7 @@
 					},
 					"sources": [
 						{
-							"fileName": "node_modules/.pnpm/@types+node@18.19.86/node_modules/@types/node/globals.d.ts",
+							"fileName": "node_modules/.pnpm/@types+node@18.19.84/node_modules/@types/node/globals.d.ts",
 							"line": 98,
 							"character": 8
 						}
@@ -8769,7 +8769,7 @@
 							},
 							"sources": [
 								{
-									"fileName": "node_modules/.pnpm/@types+node@18.19.86/node_modules/@types/node/globals.d.ts",
+									"fileName": "node_modules/.pnpm/@types+node@18.19.84/node_modules/@types/node/globals.d.ts",
 									"line": 98,
 									"character": 29
 								}
@@ -8785,7 +8785,7 @@
 									},
 									"sources": [
 										{
-											"fileName": "node_modules/.pnpm/@types+node@18.19.86/node_modules/@types/node/globals.d.ts",
+											"fileName": "node_modules/.pnpm/@types+node@18.19.84/node_modules/@types/node/globals.d.ts",
 											"line": 98,
 											"character": 29
 										}
@@ -8822,7 +8822,7 @@
 												"elementType": {
 													"type": "reference",
 													"target": {
-														"sourceFileName": "../node_modules/.pnpm/@types+node@18.19.86/node_modules/@types/node/globals.d.ts",
+														"sourceFileName": "../node_modules/.pnpm/@types+node@18.19.84/node_modules/@types/node/globals.d.ts",
 														"qualifiedName": "__global.NodeJS.CallSite"
 													},
 													"name": "CallSite",
@@ -8858,7 +8858,7 @@
 					},
 					"sources": [
 						{
-							"fileName": "node_modules/.pnpm/@types+node@18.19.86/node_modules/@types/node/globals.d.ts",
+							"fileName": "node_modules/.pnpm/@types+node@18.19.84/node_modules/@types/node/globals.d.ts",
 							"line": 100,
 							"character": 8
 						}
@@ -8885,7 +8885,7 @@
 					},
 					"sources": [
 						{
-							"fileName": "node_modules/.pnpm/@types+node@18.19.86/node_modules/@types/node/globals.d.ts",
+							"fileName": "node_modules/.pnpm/@types+node@18.19.84/node_modules/@types/node/globals.d.ts",
 							"line": 91,
 							"character": 8
 						}
@@ -8910,7 +8910,7 @@
 							},
 							"sources": [
 								{
-									"fileName": "node_modules/.pnpm/@types+node@18.19.86/node_modules/@types/node/globals.d.ts",
+									"fileName": "node_modules/.pnpm/@types+node@18.19.84/node_modules/@types/node/globals.d.ts",
 									"line": 91,
 									"character": 8
 								}
@@ -10726,7 +10726,7 @@
 				"summary": [
 					{
 						"kind": "text",
-						"text": "Camel case type.\n\n"
+						"text": "Camel case type.\r\n\r\n"
 					},
 					{
 						"kind": "code",
@@ -10734,7 +10734,7 @@
 					},
 					{
 						"kind": "text",
-						"text": " type is a type that all keys of an object are camelized.\n\nIt also erase every method properties like "
+						"text": " type is a type that all keys of an object are camelized.\r\n\r\nIt also erase every method properties like "
 					},
 					{
 						"kind": "inline-tag",
@@ -11003,7 +11003,7 @@
 				"summary": [
 					{
 						"kind": "text",
-						"text": "Interface for a readable URLSearchParams object.\n\nThis interface is a subset of the "
+						"text": "Interface for a readable URLSearchParams object.\r\n\r\nThis interface is a subset of the "
 					},
 					{
 						"kind": "inline-tag",
@@ -11016,7 +11016,7 @@
 					},
 					{
 						"kind": "text",
-						"text": " interface,\ndesigned especially for the [Hono.JS](https://hono.dev/) library."
+						"text": " interface,\r\ndesigned especially for the [Hono.JS](https://hono.dev/) library."
 					}
 				],
 				"blockTags": [
@@ -11145,7 +11145,7 @@
 				"summary": [
 					{
 						"kind": "text",
-						"text": "Pascal case type.\n\n"
+						"text": "Pascal case type.\r\n\r\n"
 					},
 					{
 						"kind": "code",
@@ -11153,7 +11153,7 @@
 					},
 					{
 						"kind": "text",
-						"text": " type is a type that all keys of an object are pascalized.\n\nIt also erase every method properties like "
+						"text": " type is a type that all keys of an object are pascalized.\r\n\r\nIt also erase every method properties like "
 					},
 					{
 						"kind": "inline-tag",
@@ -11282,7 +11282,7 @@
 				"summary": [
 					{
 						"kind": "text",
-						"text": "Primitive type of JSON.\n\n"
+						"text": "Primitive type of JSON.\r\n\r\n"
 					},
 					{
 						"kind": "code",
@@ -11290,7 +11290,7 @@
 					},
 					{
 						"kind": "text",
-						"text": " is a TMP (Type Meta Programming) type which converts\nits argument as a primitive type within framework JSON.\n\nIf the target argument is a built-in class which returns its origin primitive type\nthrough the "
+						"text": " is a TMP (Type Meta Programming) type which converts\r\nits argument as a primitive type within framework JSON.\r\n\r\nIf the target argument is a built-in class which returns its origin primitive type\r\nthrough the "
 					},
 					{
 						"kind": "code",
@@ -11314,7 +11314,7 @@
 					},
 					{
 						"kind": "text",
-						"text": ", its return type would\nbe the "
+						"text": ", its return type would\r\nbe the "
 					},
 					{
 						"kind": "code",
@@ -11330,7 +11330,7 @@
 					},
 					{
 						"kind": "text",
-						"text": ". Otherwise, the built-in class does not have the\n"
+						"text": ". Otherwise, the built-in class does not have the\r\n"
 					},
 					{
 						"kind": "code",
@@ -11346,7 +11346,7 @@
 					},
 					{
 						"kind": "text",
-						"text": ").\n\nOtherwise, the target argument is a type of custom class, all of its custom method\nwould be erased and its prototype would be changed to the primitive "
+						"text": ").\r\n\r\nOtherwise, the target argument is a type of custom class, all of its custom method\r\nwould be erased and its prototype would be changed to the primitive "
 					},
 					{
 						"kind": "code",
@@ -11354,7 +11354,7 @@
 					},
 					{
 						"kind": "text",
-						"text": ".\nTherefore, return type of the TMP type finally be the primitive object.\n\nIn addition, if the target argument is a type of custom class and it has a special\nmethod "
+						"text": ".\r\nTherefore, return type of the TMP type finally be the primitive object.\r\n\r\nIn addition, if the target argument is a type of custom class and it has a special\r\nmethod "
 					},
 					{
 						"kind": "code",
@@ -11378,7 +11378,7 @@
 					},
 					{
 						"kind": "text",
-						"text": "\nbut "
+						"text": "\r\nbut "
 					},
 					{
 						"kind": "code",
@@ -11386,7 +11386,7 @@
 					},
 					{
 						"kind": "text",
-						"text": ".\n\nBefore                  | After\n------------------------|----------------------------------------\n"
+						"text": ".\r\n\r\nBefore                  | After\r\n------------------------|----------------------------------------\r\n"
 					},
 					{
 						"kind": "code",
@@ -11402,7 +11402,7 @@
 					},
 					{
 						"kind": "text",
-						"text": "\n"
+						"text": "\r\n"
 					},
 					{
 						"kind": "code",
@@ -11418,7 +11418,7 @@
 					},
 					{
 						"kind": "text",
-						"text": "\n"
+						"text": "\r\n"
 					},
 					{
 						"kind": "code",
@@ -11434,7 +11434,7 @@
 					},
 					{
 						"kind": "text",
-						"text": "\n"
+						"text": "\r\n"
 					},
 					{
 						"kind": "code",
@@ -11450,7 +11450,7 @@
 					},
 					{
 						"kind": "text",
-						"text": "\n"
+						"text": "\r\n"
 					},
 					{
 						"kind": "code",
@@ -11474,7 +11474,7 @@
 					},
 					{
 						"kind": "text",
-						"text": "\nNative Class            | never\nOthers                  | No change"
+						"text": "\r\nNative Class            | never\r\nOthers                  | No change"
 					}
 				],
 				"blockTags": [
@@ -11611,7 +11611,7 @@
 				"summary": [
 					{
 						"kind": "text",
-						"text": "Resolved type erased every methods.\n\n"
+						"text": "Resolved type erased every methods.\r\n\r\n"
 					},
 					{
 						"kind": "code",
@@ -11619,7 +11619,7 @@
 					},
 					{
 						"kind": "text",
-						"text": " is a type of TMP (Type Meta Programming) type which converts\nits argument as a resolved type that erased every method properties.\n\nIf the target argument is a built-in class which returns its origin primitive type\nthrough the "
+						"text": " is a type of TMP (Type Meta Programming) type which converts\r\nits argument as a resolved type that erased every method properties.\r\n\r\nIf the target argument is a built-in class which returns its origin primitive type\r\nthrough the "
 					},
 					{
 						"kind": "code",
@@ -11643,7 +11643,7 @@
 					},
 					{
 						"kind": "text",
-						"text": ", its return type would\nbe the "
+						"text": ", its return type would\r\nbe the "
 					},
 					{
 						"kind": "code",
@@ -11659,7 +11659,7 @@
 					},
 					{
 						"kind": "text",
-						"text": ". Otherwise, the built-in class does not have the\n"
+						"text": ". Otherwise, the built-in class does not have the\r\n"
 					},
 					{
 						"kind": "code",
@@ -11667,7 +11667,7 @@
 					},
 					{
 						"kind": "text",
-						"text": " method, the return type would be same with the target argument.\n\nOtherwise, the target argument is a type of custom class, all of its custom methods\nwould be erased and its prototype would be changed to the primitive "
+						"text": " method, the return type would be same with the target argument.\r\n\r\nOtherwise, the target argument is a type of custom class, all of its custom methods\r\nwould be erased and its prototype would be changed to the primitive "
 					},
 					{
 						"kind": "code",
@@ -11675,7 +11675,7 @@
 					},
 					{
 						"kind": "text",
-						"text": ".\nTherefore, return type of the TMP type finally be the resolved object.\n\nBefore                  | After\n------------------------|----------------------------------------\n"
+						"text": ".\r\nTherefore, return type of the TMP type finally be the resolved object.\r\n\r\nBefore                  | After\r\n------------------------|----------------------------------------\r\n"
 					},
 					{
 						"kind": "code",
@@ -11691,7 +11691,7 @@
 					},
 					{
 						"kind": "text",
-						"text": "\n"
+						"text": "\r\n"
 					},
 					{
 						"kind": "code",
@@ -11707,7 +11707,7 @@
 					},
 					{
 						"kind": "text",
-						"text": "\n"
+						"text": "\r\n"
 					},
 					{
 						"kind": "code",
@@ -11723,7 +11723,7 @@
 					},
 					{
 						"kind": "text",
-						"text": "\n"
+						"text": "\r\n"
 					},
 					{
 						"kind": "code",
@@ -11739,7 +11739,7 @@
 					},
 					{
 						"kind": "text",
-						"text": "\n"
+						"text": "\r\n"
 					},
 					{
 						"kind": "code",
@@ -11755,7 +11755,7 @@
 					},
 					{
 						"kind": "text",
-						"text": "\nNative Class or Others  | No change"
+						"text": "\r\nNative Class or Others  | No change"
 					}
 				],
 				"blockTags": [
@@ -11883,7 +11883,7 @@
 				"summary": [
 					{
 						"kind": "text",
-						"text": "Snake case type.\n\n"
+						"text": "Snake case type.\r\n\r\n"
 					},
 					{
 						"kind": "code",
@@ -11891,7 +11891,7 @@
 					},
 					{
 						"kind": "text",
-						"text": " type is a type that all keys of an object are converted to snake case.\n\nIt also erase every method properties like "
+						"text": " type is a type that all keys of an object are converted to snake case.\r\n\r\nIt also erase every method properties like "
 					},
 					{
 						"kind": "inline-tag",
@@ -13864,43 +13864,43 @@
 			"qualifiedName": "TypeGuardError"
 		},
 		"1668": {
-			"sourceFileName": "../node_modules/.pnpm/@types+node@18.19.86/node_modules/@types/node/globals.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@types+node@18.19.84/node_modules/@types/node/globals.d.ts",
 			"qualifiedName": "__global.ErrorConstructor.captureStackTrace"
 		},
 		"1669": {
-			"sourceFileName": "../node_modules/.pnpm/@types+node@18.19.86/node_modules/@types/node/globals.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@types+node@18.19.84/node_modules/@types/node/globals.d.ts",
 			"qualifiedName": "__global.ErrorConstructor.captureStackTrace"
 		},
 		"1670": {
-			"sourceFileName": "../node_modules/.pnpm/@types+node@18.19.86/node_modules/@types/node/globals.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@types+node@18.19.84/node_modules/@types/node/globals.d.ts",
 			"qualifiedName": "targetObject"
 		},
 		"1671": {
-			"sourceFileName": "../node_modules/.pnpm/@types+node@18.19.86/node_modules/@types/node/globals.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@types+node@18.19.84/node_modules/@types/node/globals.d.ts",
 			"qualifiedName": "constructorOpt"
 		},
 		"1672": {
-			"sourceFileName": "../node_modules/.pnpm/@types+node@18.19.86/node_modules/@types/node/globals.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@types+node@18.19.84/node_modules/@types/node/globals.d.ts",
 			"qualifiedName": "__global.ErrorConstructor.prepareStackTrace"
 		},
 		"1673": {
-			"sourceFileName": "../node_modules/.pnpm/@types+node@18.19.86/node_modules/@types/node/globals.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@types+node@18.19.84/node_modules/@types/node/globals.d.ts",
 			"qualifiedName": "__type"
 		},
 		"1674": {
-			"sourceFileName": "../node_modules/.pnpm/@types+node@18.19.86/node_modules/@types/node/globals.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@types+node@18.19.84/node_modules/@types/node/globals.d.ts",
 			"qualifiedName": "__type"
 		},
 		"1675": {
-			"sourceFileName": "../node_modules/.pnpm/@types+node@18.19.86/node_modules/@types/node/globals.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@types+node@18.19.84/node_modules/@types/node/globals.d.ts",
 			"qualifiedName": "err"
 		},
 		"1676": {
-			"sourceFileName": "../node_modules/.pnpm/@types+node@18.19.86/node_modules/@types/node/globals.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@types+node@18.19.84/node_modules/@types/node/globals.d.ts",
 			"qualifiedName": "stackTraces"
 		},
 		"1677": {
-			"sourceFileName": "../node_modules/.pnpm/@types+node@18.19.86/node_modules/@types/node/globals.d.ts",
+			"sourceFileName": "../node_modules/.pnpm/@types+node@18.19.84/node_modules/@types/node/globals.d.ts",
 			"qualifiedName": "__global.ErrorConstructor.stackTraceLimit"
 		},
 		"1678": {
