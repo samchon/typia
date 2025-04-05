@@ -15,6 +15,7 @@
           "oneOf": [
             {
               "type": "integer",
+              "minimum": 0,
               "maximum": 100
             },
             {
@@ -47,6 +48,7 @@
           "oneOf": [
             {
               "type": "integer",
+              "minimum": 0,
               "maximum": 100
             },
             {
@@ -79,6 +81,7 @@
           "oneOf": [
             {
               "type": "integer",
+              "minimum": 0,
               "maximum": 100
             },
             {
@@ -111,6 +114,7 @@
           "oneOf": [
             {
               "type": "integer",
+              "minimum": 0,
               "maximum": 100
             },
             {
@@ -145,6 +149,7 @@
             "oneOf": [
               {
                 "type": "integer",
+                "minimum": 0,
                 "maximum": 100
               },
               {

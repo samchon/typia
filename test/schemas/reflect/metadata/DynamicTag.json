@@ -105,7 +105,8 @@
                         "validate": "BigInt(0) <= $input",
                         "exclusive": true,
                         "schema": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0
                         }
                       }
                     ]

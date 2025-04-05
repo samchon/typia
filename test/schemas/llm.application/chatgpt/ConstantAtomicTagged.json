@@ -27,7 +27,7 @@
                 "anyOf": [
                   {
                     "type": "integer",
-                    "description": "@maximum 100"
+                    "description": "@minimum 0\n@maximum 100"
                   },
                   {
                     "type": "number",
@@ -72,7 +72,7 @@
                 "anyOf": [
                   {
                     "type": "integer",
-                    "description": "@maximum 100"
+                    "description": "@minimum 0\n@maximum 100"
                   },
                   {
                     "type": "number",
@@ -107,7 +107,7 @@
                     "anyOf": [
                       {
                         "type": "integer",
-                        "description": "@maximum 100"
+                        "description": "@minimum 0\n@maximum 100"
                       },
                       {
                         "type": "number",
@@ -149,7 +149,7 @@
             "anyOf": [
               {
                 "type": "integer",
-                "description": "@maximum 100"
+                "description": "@minimum 0\n@maximum 100"
               },
               {
                 "type": "number",
@@ -191,7 +191,7 @@
                     "anyOf": [
                       {
                         "type": "integer",
-                        "description": "@maximum 100"
+                        "description": "@minimum 0\n@maximum 100"
                       },
                       {
                         "type": "number",
@@ -229,7 +229,7 @@
                     "anyOf": [
                       {
                         "type": "integer",
-                        "description": "@maximum 100"
+                        "description": "@minimum 0\n@maximum 100"
                       },
                       {
                         "type": "number",
@@ -267,7 +267,7 @@
                     "anyOf": [
                       {
                         "type": "integer",
-                        "description": "@maximum 100"
+                        "description": "@minimum 0\n@maximum 100"
                       },
                       {
                         "type": "number",
@@ -313,7 +313,7 @@
                 "anyOf": [
                   {
                     "type": "integer",
-                    "description": "@maximum 100"
+                    "description": "@minimum 0\n@maximum 100"
                   },
                   {
                     "type": "number",

@@ -1,9 +1,5 @@
-import typia from "typia";
+import typia, { tags } from "typia";
 
-import { TypeTagObjectUnion } from "../structures/TypeTagObjectUnion";
-
-const collection = typia.json.schemas<[TypeTagObjectUnion], "3.0">();
 console.log(
-  //JSON.stringify(collection, null, 2)
-  collection.components.schemas?.TypeTagObjectUnion,
+  typia.llm.schema<number & tags.Type<"uint32"> & tags.Minimum<10>, "3.0">(),
 );

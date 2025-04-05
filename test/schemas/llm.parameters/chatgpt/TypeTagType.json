@@ -16,18 +16,21 @@
                 "type": "integer"
               },
               "uint": {
+                "description": "@minimum 0",
                 "type": "integer"
               },
               "int32": {
                 "type": "integer"
               },
               "uint32": {
+                "description": "@minimum 0",
                 "type": "integer"
               },
               "int64": {
                 "type": "integer"
               },
               "uint64": {
+                "description": "@minimum 0",
                 "type": "integer"
               },
               "float": {
@@ -68,18 +71,21 @@
                     "type": "integer"
                   },
                   "uint": {
+                    "description": "@minimum 0",
                     "type": "integer"
                   },
                   "int32": {
                     "type": "integer"
                   },
                   "uint32": {
+                    "description": "@minimum 0",
                     "type": "integer"
                   },
                   "int64": {
                     "type": "integer"
                   },
                   "uint64": {
+                    "description": "@minimum 0",
                     "type": "integer"
                   },
                   "float": {
@@ -119,18 +125,21 @@
                 "type": "integer"
               },
               "uint": {
+                "description": "@minimum 0",
                 "type": "integer"
               },
               "int32": {
                 "type": "integer"
               },
               "uint32": {
+                "description": "@minimum 0",
                 "type": "integer"
               },
               "int64": {
                 "type": "integer"
               },
               "uint64": {
+                "description": "@minimum 0",
                 "type": "integer"
               },
               "float": {
@@ -171,18 +180,21 @@
                     "type": "integer"
                   },
                   "uint": {
+                    "description": "@minimum 0",
                     "type": "integer"
                   },
                   "int32": {
                     "type": "integer"
                   },
                   "uint32": {
+                    "description": "@minimum 0",
                     "type": "integer"
                   },
                   "int64": {
                     "type": "integer"
                   },
                   "uint64": {
+                    "description": "@minimum 0",
                     "type": "integer"
                   },
                   "float": {
@@ -224,18 +236,21 @@
                   "type": "integer"
                 },
                 "uint": {
+                  "description": "@minimum 0",
                   "type": "integer"
                 },
                 "int32": {
                   "type": "integer"
                 },
                 "uint32": {
+                  "description": "@minimum 0",
                   "type": "integer"
                 },
                 "int64": {
                   "type": "integer"
                 },
                 "uint64": {
+                  "description": "@minimum 0",
                   "type": "integer"
                 },
                 "float": {

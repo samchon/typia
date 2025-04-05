@@ -12,19 +12,22 @@
             "type": "integer"
           },
           "uint": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0
           },
           "int32": {
             "type": "integer"
           },
           "uint32": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0
           },
           "int64": {
             "type": "integer"
           },
           "uint64": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0
           },
           "float": {
             "type": "number"
