@@ -219,14 +219,14 @@
             "description": "Maximum value restriction."
           },
           "exclusiveMinimum": {
-            "type": "boolean",
+            "type": "number",
             "title": "Exclusive minimum value restriction",
-            "description": "Exclusive minimum value restriction.\n\nFor reference, even though your Swagger (or OpenAPI) document has\ndefined the `exclusiveMinimum` value as `number`, {@link OpenApi}\nforcibly converts it to `boolean` type, and assign the numeric value to\nthe {@link minimum} property."
+            "description": "Exclusive minimum value restriction."
           },
           "exclusiveMaximum": {
-            "type": "boolean",
+            "type": "number",
             "title": "Exclusive maximum value restriction",
-            "description": "Exclusive maximum value restriction.\n\nFor reference, even though your Swagger (or OpenAPI) document has\ndefined the `exclusiveMaximum` value as `number`, {@link OpenApi}\nforcibly converts it to `boolean` type, and assign the numeric value to\nthe {@link maximum} property."
+            "description": "Exclusive maximum value restriction."
           },
           "multipleOf": {
             "type": "integer",
@@ -289,14 +289,14 @@
             "description": "Maximum value restriction."
           },
           "exclusiveMinimum": {
-            "type": "boolean",
+            "type": "number",
             "title": "Exclusive minimum value restriction",
-            "description": "Exclusive minimum value restriction.\n\nFor reference, even though your Swagger (or OpenAPI) document has\ndefined the `exclusiveMinimum` value as `number`, {@link OpenAiComposer}\nforcibly converts it to `boolean` type, and assign the numeric value to\nthe {@link minimum} property."
+            "description": "Exclusive minimum value restriction."
           },
           "exclusiveMaximum": {
-            "type": "boolean",
+            "type": "number",
             "title": "Exclusive maximum value restriction",
-            "description": "Exclusive maximum value restriction.\n\nFor reference, even though your Swagger (or OpenAPI) document has\ndefined the `exclusiveMaximum` value as `number`, {@link OpenAiComposer}\nforcibly converts it to `boolean` type, and assign the numeric value to\nthe {@link maximum} property."
+            "description": "Exclusive maximum value restriction."
           },
           "multipleOf": {
             "type": "number",

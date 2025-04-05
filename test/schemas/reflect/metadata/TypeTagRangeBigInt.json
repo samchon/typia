@@ -153,8 +153,7 @@
                           "minimum"
                         ],
                         "schema": {
-                          "exclusiveMinimum": true,
-                          "minimum": 3
+                          "exclusiveMinimum": 3
                         }
                       }
                     ]
@@ -308,8 +307,7 @@
                           "maximum"
                         ],
                         "schema": {
-                          "exclusiveMaximum": true,
-                          "maximum": 7
+                          "exclusiveMaximum": 7
                         }
                       }
                     ]
@@ -463,8 +461,7 @@
                           "minimum"
                         ],
                         "schema": {
-                          "exclusiveMinimum": true,
-                          "minimum": 3
+                          "exclusiveMinimum": 3
                         }
                       },
                       {
@@ -481,8 +478,7 @@
                           "maximum"
                         ],
                         "schema": {
-                          "exclusiveMaximum": true,
-                          "maximum": 7
+                          "exclusiveMaximum": 7
                         }
                       }
                     ]
@@ -576,8 +572,7 @@
                           "maximum"
                         ],
                         "schema": {
-                          "exclusiveMaximum": true,
-                          "maximum": 7
+                          "exclusiveMaximum": 7
                         }
                       }
                     ]
@@ -654,8 +649,7 @@
                           "minimum"
                         ],
                         "schema": {
-                          "exclusiveMinimum": true,
-                          "minimum": 3
+                          "exclusiveMinimum": 3
                         }
                       },
                       {

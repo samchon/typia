@@ -9,7 +9,7 @@
         "type": "object",
         "properties": {
           "greater": {
-            "description": "@exclusiveMinimum 3",
+            "description": "@minimum 3\n@exclusiveMinimum true",
             "type": "integer"
           },
           "greater_equal": {
@@ -17,7 +17,7 @@
             "type": "integer"
           },
           "less": {
-            "description": "@exclusiveMaximum 7",
+            "description": "@maximum 7\n@exclusiveMaximum true",
             "type": "integer"
           },
           "less_equal": {
@@ -25,15 +25,15 @@
             "type": "integer"
           },
           "greater_less": {
-            "description": "@exclusiveMinimum 3\n@exclusiveMaximum 7",
+            "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true\n@exclusiveMaximum true",
             "type": "integer"
           },
           "greater_equal_less": {
-            "description": "@minimum 3\n@exclusiveMaximum 7",
+            "description": "@minimum 3\n@maximum 7\n@exclusiveMaximum true",
             "type": "integer"
           },
           "greater_less_equal": {
-            "description": "@maximum 7\n@exclusiveMinimum 3",
+            "description": "@minimum 3\n@maximum 7\n@exclusiveMinimum true",
             "type": "integer"
           },
           "greater_equal_less_equal": {

@@ -36,11 +36,11 @@ export const _test_llm_application =
     if (valid.success === false) {
       console.log(valid);
       throw new Error(
-        `Bug on typia.llm.applicationOfValidate(): failed to understand the ${props.name} type.`,
+        `Bug on typia.llm.application(): failed to understand the ${props.name} type.`,
       );
     } else if (valid.data !== input)
       throw new Error(
-        "Bug on typia.llm.applicationOfValidate(): failed to archive the input value.",
+        "Bug on typia.llm.application(): failed to archive the input value.",
       );
     typia.assert(valid);
 
@@ -53,7 +53,7 @@ export const _test_llm_application =
       });
       if (valid.success === true)
         throw new Error(
-          `Bug on typia.llm.applicationOfValidate(): failed to detect error on the ${props.name} type.`,
+          `Bug on typia.llm.application(): failed to detect error on the ${props.name} type.`,
         );
 
       typia.assert(valid);
@@ -74,7 +74,7 @@ export const _test_llm_application =
     if (wrong.length !== 0) {
       console.log(wrong);
       throw new Error(
-        `Bug on typia.llm.applicationOfValidate(): failed to detect error on the ${props.name} type.`,
+        `Bug on typia.llm.application(): failed to detect error on the ${props.name} type.`,
       );
     }
   };
