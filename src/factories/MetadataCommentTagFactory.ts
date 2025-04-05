@@ -313,9 +313,11 @@ const PARSER: Record<
                       ? `-1.175494351e38 <= $input && $input <= 3.4028235e38`
                       : `true`,
           exclusive: true,
-          schema: ["int32", "uint32", "int64", "uint64"].includes(value)
+          schema: ["int32", "int64"].includes(value)
             ? { type: "integer" }
-            : undefined,
+            : ["uint32", "uint64"].includes(value)
+              ? { type: "integer", minimum: 0 }
+              : undefined,
         },
       ],
       bigint:
@@ -414,8 +416,7 @@ const PARSER: Record<
         validate: `${props.value} < $input`,
         exclusive: ["minimum", "exclusiveMinimum"],
         schema: {
-          exclusiveMinimum: true,
-          minimum: parse_number(props),
+          exclusiveMinimum: parse_number(props),
         },
       },
     ],
@@ -435,8 +436,7 @@ const PARSER: Record<
         validate: `${props.value} < $input`,
         exclusive: ["minimum", "exclusiveMinimum"],
         schema: {
-          exclusiveMinimum: true,
-          minimum: parse_number(props),
+          exclusiveMinimum: parse_number(props),
         },
       },
     ],
@@ -451,8 +451,7 @@ const PARSER: Record<
         validate: `$input < ${props.value}`,
         exclusive: ["maximum", "exclusiveMaximum"],
         schema: {
-          exclusiveMaximum: true,
-          maximum: parse_number(props),
+          exclusiveMaximum: parse_number(props),
         },
       },
     ],
@@ -472,8 +471,7 @@ const PARSER: Record<
         validate: `$input < ${props.value}`,
         exclusive: ["maximum", "exclusiveMaximum"],
         schema: {
-          exclusiveMaximum: true,
-          maximum: parse_number(props),
+          exclusiveMaximum: parse_number(props),
         },
       },
     ],
