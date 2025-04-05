@@ -1,19 +1,25 @@
 import { OpenApi } from "@samchon/openapi";
 
-export const _randomInteger = (props: OpenApi.IJsonSchema.IInteger) => {
+export const _randomInteger = (schema: OpenApi.IJsonSchema.IInteger) => {
   let minimum: number =
-    props.minimum ??
-    (props.multipleOf ?? 1) *
-      (props.maximum === undefined ? 0 : props.maximum - 100);
-  if (props.minimum !== undefined && props.exclusiveMinimum === true) minimum++;
+    schema.minimum ??
+    schema.exclusiveMinimum ??
+    (schema.multipleOf ?? 1) *
+      (schema.maximum === undefined && schema.exclusiveMaximum === undefined
+        ? 0
+        : (schema.maximum ?? schema.exclusiveMaximum!) - 100);
+  if (schema.exclusiveMinimum !== undefined) minimum++;
   let maximum: number =
-    props.maximum ??
-    (props.multipleOf ?? 1) *
-      (props.minimum === undefined ? 100 : props.minimum + 100);
-  if (props.maximum !== undefined && props.exclusiveMaximum === true) maximum--;
+    schema.maximum ??
+    schema.exclusiveMaximum ??
+    (schema.multipleOf ?? 1) *
+      (schema.minimum === undefined && schema.exclusiveMinimum === undefined
+        ? 100
+        : (schema.minimum ?? schema.exclusiveMinimum!) + 100);
+  if (schema.exclusiveMaximum !== undefined) maximum--;
   if (minimum > maximum)
     throw new Error("Minimum value is greater than maximum value.");
-  return props.multipleOf === undefined
+  return schema.multipleOf === undefined
     ? scalar({
         minimum,
         maximum,
@@ -21,7 +27,7 @@ export const _randomInteger = (props: OpenApi.IJsonSchema.IInteger) => {
     : multiple({
         minimum,
         maximum,
-        multipleOf: props.multipleOf,
+        multipleOf: schema.multipleOf,
       });
 };
 

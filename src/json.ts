@@ -63,62 +63,6 @@ export function schemas(): never {
   halt("schemas");
 }
 
-/**
- * > You must configure the generic argument `Types`.
- *
- * JSON Schemas generator.
- *
- * Creates a JSON schema list which contains both main JSON schemas
- * and components. Note that, all of the named types are stored in the
- * {@link IJsonSchemaCollection.components} property for the `$ref` referencing.
- *
- * Also, you can specify the OpenAPI version by configuring the second generic
- * argument `Version`. For reference, the default version is `"3.1"`, and key
- * different of `"3.0"` and `"3.1"` is whether supporting the tuple type or not.
- *
- * @template Types Tuple of target types
- * @template Version Version of OpenAPI specification. Default is 3.1
- * @return JSON schema list
- *
- * @deprecated Use {@link schemas} function instead please.
- *             This function would be changed to return {@linkk ILlmApplication} like
- *             structure in the future version (maybe next v8 major update).
- * @author Jeongho Nam - https://github.com/samchon
- */
-export function application(): never;
-
-/**
- * JSON Schemas generator.
- *
- * Creates a JSON schema list which contains both main JSON schemas
- * and components. Note that, all of the named types are stored in the
- * {@link IJsonSchemaCollection.components} property for the `$ref` referencing.
- *
- * Also, you can specify the OpenAPI version by configuring the second generic
- * argument `Version`. For reference, the default version is `"3.1"`, and key
- * different of `"3.0"` and `"3.1"` is whether supporting the tuple type or not.
- *
- * @template Types Tuple of target types
- * @template Version Version of OpenAPI specification. Default is 3.1
- * @return JSON schema list
- *
- * @deprecated Use {@link schemas} function instead please.
- *             This function would be changed to return {@linkk ILlmApplication} like
- *             structure in the future version (maybe next v8 major update).
- * @author Jeongho Nam - https://github.com/samchon
- */
-export function application<
-  Types extends unknown[],
-  Version extends "3.0" | "3.1" = "3.1",
->(): IJsonSchemaCollection<Version, Types>;
-
-/**
- * @internal
- */
-export function application(): never {
-  halt("application");
-}
-
 // /**
 //  * > You must configure the generic argument `App`.
 //  *

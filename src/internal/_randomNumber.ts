@@ -3,27 +3,33 @@ import { OpenApi } from "@samchon/openapi";
 export const _randomNumber = (schema: OpenApi.IJsonSchema.INumber): number => {
   const minimum: number =
     schema.minimum ??
+    schema.exclusiveMinimum ??
     (schema.multipleOf ?? 1) *
-      (schema.maximum === undefined ? 0 : schema.maximum - 100);
+      (schema.maximum === undefined && schema.exclusiveMaximum === undefined
+        ? 0
+        : (schema.maximum ?? schema.exclusiveMaximum!) - 100);
   const maximum: number =
     schema.maximum ??
+    schema.exclusiveMaximum ??
     (schema.multipleOf ?? 1) *
-      (schema.minimum === undefined ? 100 : schema.minimum + 100);
+      (schema.minimum === undefined && schema.exclusiveMinimum === undefined
+        ? 100
+        : (schema.minimum ?? schema.exclusiveMinimum!) + 100);
   if (minimum > maximum)
     throw new Error("Minimum value is greater than maximum value.");
   return schema.multipleOf === undefined
     ? scalar({
         minimum,
         maximum,
-        exclusiveMinimum: schema.exclusiveMinimum,
-        exclusiveMaximum: schema.exclusiveMaximum,
+        exclusiveMinimum: schema.exclusiveMinimum !== undefined,
+        exclusiveMaximum: schema.exclusiveMaximum !== undefined,
       })
     : multiple({
         minimum,
         maximum,
         multipleOf: schema.multipleOf,
-        exclusiveMinimum: schema.exclusiveMinimum,
-        exclusiveMaximum: schema.exclusiveMaximum,
+        exclusiveMinimum: schema.exclusiveMinimum !== undefined,
+        exclusiveMaximum: schema.exclusiveMaximum !== undefined,
       });
 };
 

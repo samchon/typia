@@ -8,12 +8,10 @@ export type ExclusiveMaximum<Value extends number | bigint> = TagBase<{
   exclusive: ["exclusiveMaximum", "maximum"];
   schema: Value extends bigint
     ? {
-        exclusiveMaximum: true;
-        maximum: Numeric<Value>;
+        exclusiveMaximum: Numeric<Value>;
       }
     : {
-        exclusiveMaximum: true;
-        maximum: Value;
+        exclusiveMaximum: Value;
       };
 }>;
 

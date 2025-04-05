@@ -8,12 +8,10 @@ export type ExclusiveMinimum<Value extends number | bigint> = TagBase<{
   exclusive: ["exclusiveMinimum", "minimum"];
   schema: Value extends bigint
     ? {
-        exclusiveMinimum: true;
-        minimum: Numeric<Value>;
+        exclusiveMinimum: Numeric<Value>;
       }
     : {
-        exclusiveMinimum: true;
-        minimum: Value;
+        exclusiveMinimum: Value;
       };
 }>;
 

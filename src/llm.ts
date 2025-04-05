@@ -124,60 +124,6 @@ export function application(): never {
 }
 
 /**
- * > You must configure the generic argument `App`.
- *
- * Use {@link application} instead.
- *
- * Since the version `typia@8.0.0`, {@link application} function has
- * started supporting the {@link ILlmFunction.validate} function which
- * has been designed for the validation feedback strategy of the LLM
- * function calling.
- *
- * This `applicationOfValidate` function would be eliminated in the
- * next major version `typia@9.0.0`. So please use {@link application}
- * function instead.
- *
- * @deprecated
- */
-export function applicationOfValidate(
-  options?: Partial<Pick<ILlmApplication.IOptions<any>, "separate">>,
-): never;
-
-/**
- * Use {@link application} instead.
- *
- * Since the version `typia@8.0.0`, {@link application} function has
- * started supporting the {@link ILlmFunction.validate} function which
- * has been designed for the validation feedback strategy of the LLM
- * function calling.
- *
- * This `applicationOfValidate` function would be eliminated in the
- * next major version `typia@9.0.0`. So please use {@link application}
- * function instead.
- *
- * @template App Target class or interface type collecting the functions to call
- * @template Model LLM schema model
- * @template Config Configuration of LLM schema composition
- * @param options Options for the LLM application construction
- * @returns Application of LLM function calling schemas
- * @deprecated
- */
-export function applicationOfValidate<
-  App extends Record<string, any>,
-  Model extends ILlmSchema.Model,
-  Config extends Partial<ILlmSchema.ModelConfig[Model]> = {},
->(
-  options?: Partial<Pick<ILlmApplication.IOptions<Model>, "separate">>,
-): ILlmApplication<Model, App>;
-
-/**
- * @internal
- */
-export function applicationOfValidate(): never {
-  halt("applicationOfValidate");
-}
-
-/**
  * > You must configure the generic argument `Parameters`.
  *
  * TypeScript parameters to LLM parameters schema.
