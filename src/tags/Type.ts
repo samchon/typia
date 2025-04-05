@@ -24,9 +24,14 @@ export type Type<
             ? `$importInternal("isTypeFloat")($input)`
             : `true`;
   exclusive: true;
-  schema: {
-    type: Value extends "int32" | "uint32" | "int64" | "uint64"
-      ? "integer"
-      : "number";
-  };
+  schema: Value extends "uint32" | "uint64"
+    ? {
+        type: "integer";
+        minimum: 0;
+      }
+    : {
+        type: Value extends "int32" | "uint32" | "int64" | "uint64"
+          ? "integer"
+          : "number";
+      };
 }>;

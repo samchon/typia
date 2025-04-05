@@ -710,7 +710,8 @@
                     "validate": "$importInternal(\"isTypeUint32\")($input)",
                     "exclusive": true,
                     "schema": {
-                      "type": "integer"
+                      "type": "integer",
+                      "minimum": 0
                     }
                   }
                 ]
@@ -802,7 +803,8 @@
                     "validate": "BigInt(0) <= $input",
                     "exclusive": true,
                     "schema": {
-                      "type": "integer"
+                      "type": "integer",
+                      "minimum": 0
                     }
                   }
                 ]

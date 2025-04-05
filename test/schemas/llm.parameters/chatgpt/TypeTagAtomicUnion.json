@@ -15,12 +15,12 @@
               "value": {
                 "anyOf": [
                   {
-                    "type": "number",
-                    "description": "@minimum 3"
-                  },
-                  {
                     "type": "string",
                     "description": "@minLength 3\n@maxLength 7"
+                  },
+                  {
+                    "type": "number",
+                    "description": "@minimum 3"
                   }
                 ]
               }
@@ -52,12 +52,12 @@
                   "value": {
                     "anyOf": [
                       {
-                        "type": "number",
-                        "description": "@minimum 3"
-                      },
-                      {
                         "type": "string",
                         "description": "@minLength 3\n@maxLength 7"
+                      },
+                      {
+                        "type": "number",
+                        "description": "@minimum 3"
                       }
                     ]
                   }
@@ -88,12 +88,12 @@
               "value": {
                 "anyOf": [
                   {
-                    "type": "number",
-                    "description": "@minimum 3"
-                  },
-                  {
                     "type": "string",
                     "description": "@minLength 3\n@maxLength 7"
+                  },
+                  {
+                    "type": "number",
+                    "description": "@minimum 3"
                   }
                 ]
               }
@@ -125,12 +125,12 @@
                   "value": {
                     "anyOf": [
                       {
-                        "type": "number",
-                        "description": "@minimum 3"
-                      },
-                      {
                         "type": "string",
                         "description": "@minLength 3\n@maxLength 7"
+                      },
+                      {
+                        "type": "number",
+                        "description": "@minimum 3"
                       }
                     ]
                   }
@@ -163,12 +163,12 @@
                 "value": {
                   "anyOf": [
                     {
-                      "type": "number",
-                      "description": "@minimum 3"
-                    },
-                    {
                       "type": "string",
                       "description": "@minLength 3\n@maxLength 7"
+                    },
+                    {
+                      "type": "number",
+                      "description": "@minimum 3"
                     }
                   ]
                 }
