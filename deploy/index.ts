@@ -21,32 +21,35 @@ const main = async (): Promise<void> => {
     tag,
     publish: tag !== "test",
     setup: true,
-    testExecutors: [
-      {
-        name: "test",
-        commands:
-          tag === "test" && template === true
-            ? [
-                "pnpm run template",
-                "pnpm run build",
-                "pnpm start",
-                "pnpm run generate",
-              ]
-            : ["pnpm run build", "pnpm start", "pnpm run generate"],
-      },
-      {
-        name: "test-esm",
-        commands: ["pnpm run build", "pnpm start"],
-      },
-      {
-        name: "test-error",
-        commands: ["pnpm start"],
-      },
-      {
-        name: "benchmark",
-        commands: ["pnpm run build"],
-      },
-    ],
+    testExecutors:
+      tag === "test"
+        ? [
+            {
+              name: "test",
+              commands:
+                tag === "test" && template === true
+                  ? [
+                      "pnpm run template",
+                      "pnpm run build",
+                      "pnpm start",
+                      "pnpm run generate",
+                    ]
+                  : ["pnpm run build", "pnpm start", "pnpm run generate"],
+            },
+            {
+              name: "test-esm",
+              commands: ["pnpm run build", "pnpm start"],
+            },
+            {
+              name: "test-error",
+              commands: ["pnpm start"],
+            },
+            {
+              name: "benchmark",
+              commands: ["pnpm run build"],
+            },
+          ]
+        : [],
   });
 };
 main().catch((exp) => {
