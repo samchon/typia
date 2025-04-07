@@ -6,17 +6,22 @@ import { DynamicImportIterator } from "./helpers/DynamicImportIterator";
 async function main(): Promise<void> {
   const counter: IPointer<number> = { value: 0 };
   const exceptions: Error[] = [];
+  const subfolder =
+    process.argv.find((a) => a.startsWith("--folder"))?.split("=")[1] ?? "";
 
   console.log("-------------------------------------------------------");
   console.log("  TRANSFORMATION TESTING");
   console.log("-------------------------------------------------------");
 
   exceptions.push(
-    ...(await DynamicImportIterator.force(__dirname + "/features", {
-      prefix: "test",
-      parameters: () => [],
-      counter,
-    })),
+    ...(await DynamicImportIterator.force(
+      __dirname + "/features/" + subfolder,
+      {
+        prefix: "test",
+        parameters: () => [],
+        counter,
+      },
+    )),
   );
 
   if (
