@@ -7,6 +7,8 @@
 ==============================================================
     LITERALS
 ----------------------------------------------------------- */
+import { NoTransformConfigurationError } from "./transformers/NoTransformConfigurationError";
+
 import { Atomic } from "./typings/Atomic";
 
 import { IValidation } from "./IValidation";
@@ -51,7 +53,7 @@ export function literals<T extends Atomic.Type | null>(): T[];
  * @internal
  */
 export function literals(): never {
-  halt("literals");
+  NoTransformConfigurationError("misc.literals");
 }
 
 /* -----------------------------------------------------------
@@ -81,7 +83,7 @@ export function clone<T>(input: T): Resolved<T>;
  * @internal
  */
 export function clone(): never {
-  halt("clone");
+  NoTransformConfigurationError("misc.clone");
 }
 
 /**
@@ -134,7 +136,7 @@ export function assertClone<T>(
  * @internal
  */
 export function assertClone(): never {
-  halt("assertClone");
+  NoTransformConfigurationError("misc.assertClone");
 }
 
 /**
@@ -179,7 +181,7 @@ export function isClone<T>(input: unknown): Resolved<T> | null;
  * @internal
  */
 export function isClone(): never {
-  halt("isClone");
+  NoTransformConfigurationError("misc.isClone");
 }
 
 /**
@@ -222,7 +224,7 @@ export function validateClone<T>(input: unknown): IValidation<Resolved<T>>;
  * @internal
  */
 export function validateClone(): never {
-  halt("validateClone");
+  NoTransformConfigurationError("misc.validateClone");
 }
 
 /* -----------------------------------------------------------
@@ -255,7 +257,7 @@ export function prune<T extends object>(input: T): void;
  * @internal
  */
 export function prune(): never {
-  halt("prune");
+  NoTransformConfigurationError("misc.prune");
 }
 
 /**
@@ -308,7 +310,7 @@ export function assertPrune<T>(
  * @internal
  */
 export function assertPrune(): unknown {
-  halt("assertPrune");
+  NoTransformConfigurationError("misc.assertPrune");
 }
 
 /**
@@ -353,7 +355,7 @@ export function isPrune<T>(input: unknown): input is T;
  * @internal
  */
 export function isPrune(): never {
-  halt("isPrune");
+  NoTransformConfigurationError("misc.isPrune");
 }
 
 /**
@@ -400,7 +402,7 @@ export function validatePrune<T>(input: unknown): IValidation<T>;
  * @internal
  */
 export function validatePrune<T>(): IValidation<T> {
-  halt("validatePrune");
+  NoTransformConfigurationError("misc.validatePrune");
 }
 
 /* -----------------------------------------------------------
@@ -431,7 +433,7 @@ export function createClone<T>(): (input: T) => Resolved<T>;
  * @internal
  */
 export function createClone(): never {
-  halt("createClone");
+  NoTransformConfigurationError("misc.createClone");
 }
 
 /**
@@ -465,7 +467,7 @@ export function createAssertClone<T>(
  * @internal
  */
 export function createAssertClone(): never {
-  halt("createAssertClone");
+  NoTransformConfigurationError("misc.createAssertClone");
 }
 
 /**
@@ -493,7 +495,7 @@ export function createIsClone<T>(): (input: unknown) => Resolved<T> | null;
  * @internal
  */
 export function createIsClone(): never {
-  halt("createIsClone");
+  NoTransformConfigurationError("misc.createIsClone");
 }
 
 /**
@@ -523,7 +525,7 @@ export function createValidateClone<T>(): (
  * @internal
  */
 export function createValidateClone(): never {
-  halt("createValidateClone");
+  NoTransformConfigurationError("misc.createValidateClone");
 }
 
 /**
@@ -551,7 +553,7 @@ export function createPrune<T extends object>(): (input: T) => void;
  * @internal
  */
 export function createPrune<T extends object>(): (input: T) => void {
-  halt("createPrune");
+  NoTransformConfigurationError("misc.createPrune");
 }
 
 /**
@@ -585,7 +587,7 @@ export function createAssertPrune<T extends object>(
  * @internal
  */
 export function createAssertPrune<T extends object>(): (input: T) => T {
-  halt("createAssertPrune");
+  NoTransformConfigurationError("misc.createAssertPrune");
 }
 
 /**
@@ -613,7 +615,7 @@ export function createIsPrune<T extends object>(): (input: T) => input is T;
  * @internal
  */
 export function createIsPrune<T extends object>(): (input: T) => input is T {
-  halt("createIsPrune");
+  NoTransformConfigurationError("misc.createIsPrune");
 }
 
 /**
@@ -645,14 +647,5 @@ export function createValidatePrune<T extends object>(): (
 export function createValidatePrune<T extends object>(): (
   input: T,
 ) => IValidation<T> {
-  halt("createValidatePrune");
-}
-
-/**
- * @internal
- */
-function halt(name: string): never {
-  throw new Error(
-    `Error on typia.misc.${name}(): no transform has been configured. Read and follow https://typia.io/docs/setup please.`,
-  );
+  NoTransformConfigurationError("misc.createValidatePrune");
 }

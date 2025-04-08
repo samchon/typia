@@ -1,3 +1,5 @@
+import { NoTransformConfigurationError } from "./transformers/NoTransformConfigurationError";
+
 import { IValidation } from "./IValidation";
 import { Resolved } from "./Resolved";
 import { TypeGuardError } from "./TypeGuardError";
@@ -57,7 +59,7 @@ export function message<T>(): string;
  * @internal
  */
 export function message(): never {
-  halt("message");
+  NoTransformConfigurationError("protobuf.message");
 }
 
 /* -----------------------------------------------------------
@@ -129,7 +131,7 @@ export function decode<T>(input: Uint8Array): Resolved<T>;
  * @internal
  */
 export function decode(): never {
-  halt("decode");
+  NoTransformConfigurationError("protobuf.decode");
 }
 
 /**
@@ -204,7 +206,7 @@ export function assertDecode<T>(
  * @internal
  */
 export function assertDecode(): never {
-  halt("assertDecode");
+  NoTransformConfigurationError("protobuf.assertDecode");
 }
 
 /**
@@ -271,7 +273,7 @@ export function isDecode<T>(input: Uint8Array): Resolved<T> | null;
  * @internal
  */
 export function isDecode(): never {
-  halt("isDecode");
+  NoTransformConfigurationError("protobuf.isDecode");
 }
 
 /**
@@ -340,7 +342,7 @@ export function validateDecode<T>(input: Uint8Array): IValidation<Resolved<T>>;
  * @internal
  */
 export function validateDecode(): never {
-  halt("validateDecode");
+  NoTransformConfigurationError("protobuf.validateDecode");
 }
 
 /* -----------------------------------------------------------
@@ -379,7 +381,7 @@ export function encode<T>(input: T): Uint8Array;
  * @internal
  */
 export function encode(): never {
-  halt("encode");
+  NoTransformConfigurationError("protobuf.encode");
 }
 
 /**
@@ -460,7 +462,7 @@ export function assertEncode<T>(
  * @internal
  */
 export function assertEncode(): never {
-  halt("assertEncode");
+  NoTransformConfigurationError("protobuf.assertEncode");
 }
 
 /**
@@ -533,7 +535,7 @@ export function isEncode<T>(input: unknown): Uint8Array | null;
  * @internal
  */
 export function isEncode(): never {
-  halt("isEncode");
+  NoTransformConfigurationError("protobuf.isEncode");
 }
 
 /**
@@ -608,7 +610,7 @@ export function validateEncode<T>(input: unknown): IValidation<Uint8Array>;
  * @internal
  */
 export function validateEncode(): never {
-  halt("validateEncode");
+  NoTransformConfigurationError("protobuf.validateEncode");
 }
 
 /* -----------------------------------------------------------
@@ -639,7 +641,7 @@ export function createDecode<T>(): (input: Uint8Array) => Resolved<T>;
  * @internal
  */
 export function createDecode<T>(): (input: Uint8Array) => Resolved<T> {
-  halt("createDecode");
+  NoTransformConfigurationError("protobuf.createDecode");
 }
 
 /**
@@ -667,7 +669,7 @@ export function createIsDecode<T>(): (input: Uint8Array) => Resolved<T> | null;
  * @internal
  */
 export function createIsDecode<T>(): (input: Uint8Array) => Resolved<T> | null {
-  halt("createIsDecode");
+  NoTransformConfigurationError("protobuf.createIsDecode");
 }
 
 /**
@@ -701,7 +703,7 @@ export function createAssertDecode<T>(
  * @internal
  */
 export function createAssertDecode<T>(): (input: Uint8Array) => Resolved<T> {
-  halt("createAssertDecode");
+  NoTransformConfigurationError("protobuf.createAssertDecode");
 }
 
 /**
@@ -733,7 +735,7 @@ export function createValidateDecode<T>(): (
 export function createValidateDecode<T>(): (
   input: Uint8Array,
 ) => IValidation<Resolved<T>> {
-  halt("createValidateDecode");
+  NoTransformConfigurationError("protobuf.createValidateDecode");
 }
 
 /**
@@ -761,7 +763,7 @@ export function createEncode<T>(): (input: T) => Uint8Array;
  * @internal
  */
 export function createEncode<T>(): (input: T) => Uint8Array {
-  halt("createEncode");
+  NoTransformConfigurationError("protobuf.createEncode");
 }
 
 /**
@@ -789,7 +791,7 @@ export function createIsEncode<T>(): (input: T) => Uint8Array | null;
  * @internal
  */
 export function createIsEncode<T>(): (input: T) => Uint8Array | null {
-  halt("createIsEncode");
+  NoTransformConfigurationError("protobuf.createIsEncode");
 }
 
 /**
@@ -823,7 +825,7 @@ export function createAssertEncode<T>(
  * @internal
  */
 export function createAssertEncode<T>(): (input: T) => Uint8Array {
-  halt("createAssertEncode");
+  NoTransformConfigurationError("protobuf.createAssertEncode");
 }
 
 /**
@@ -855,14 +857,5 @@ export function createValidateEncode<T>(): (
 export function createValidateEncode<T>(): (
   input: T,
 ) => IValidation<Uint8Array> {
-  halt("createValidateEncode");
-}
-
-/**
- * @internal
- */
-function halt(name: string): never {
-  throw new Error(
-    `Error on typia.protobuf.${name}(): no transform has been configured. Read and follow https://typia.io/docs/setup please.`,
-  );
+  NoTransformConfigurationError("protobuf.createValidateEncode");
 }

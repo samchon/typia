@@ -1,5 +1,7 @@
 import { ILlmApplication, ILlmSchema } from "@samchon/openapi";
 
+import { NoTransformConfigurationError } from "./transformers/NoTransformConfigurationError";
+
 /**
  * > You must configure the generic argument `App`.
  *
@@ -120,7 +122,7 @@ export function application<
  * @internal
  */
 export function application(): never {
-  halt("application");
+  NoTransformConfigurationError("llm.application");
 }
 
 /**
@@ -213,7 +215,7 @@ export function parameters<
  * @internal
  */
 export function parameters(): never {
-  halt("parameters");
+  NoTransformConfigurationError("llm.parameters");
 }
 
 /**
@@ -329,14 +331,5 @@ export function schema<
  * @internal
  */
 export function schema(): never {
-  halt("schema");
-}
-
-/**
- * @internal
- */
-function halt(name: string): never {
-  throw new Error(
-    `Error on typia.llm.${name}(): no transform has been configured. Read and follow https://typia.io/docs/setup please.`,
-  );
+  NoTransformConfigurationError("llm.schema");
 }

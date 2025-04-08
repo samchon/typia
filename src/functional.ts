@@ -1,3 +1,5 @@
+import { NoTransformConfigurationError } from "./transformers/NoTransformConfigurationError";
+
 import { IValidation } from "./IValidation";
 import { TypeGuardError } from "./TypeGuardError";
 
@@ -50,7 +52,7 @@ export function assertFunction<T extends (...args: any[]) => any>(
  * @internal
  */
 export function assertFunction(): never {
-  halt("assertFunction");
+  NoTransformConfigurationError("functional.assertFunction");
 }
 
 /**
@@ -90,7 +92,7 @@ export function assertParameters<T extends (...args: any[]) => any>(
  * @internal
  */
 export function assertParameters(): never {
-  halt("assertParameters");
+  NoTransformConfigurationError("functional.assertParameters");
 }
 
 /**
@@ -130,7 +132,7 @@ export function assertReturn<T extends (...args: any[]) => any>(
  * @internal
  */
 export function assertReturn(): never {
-  halt("assertReturn");
+  NoTransformConfigurationError("functional.assertReturn");
 }
 
 /**
@@ -175,7 +177,7 @@ export function assertEqualsFunction<T extends (...args: any[]) => any>(
  * @internal
  */
 export function assertEqualsFunction(): never {
-  halt("assertEqualsFunction");
+  NoTransformConfigurationError("functional.assertEqualsFunction");
 }
 
 /**
@@ -216,7 +218,7 @@ export function assertEqualsParameters<T extends (...args: any[]) => any>(
  * @internal
  */
 export function assertEqualsParameters(): never {
-  halt("assertEqualsParameters");
+  NoTransformConfigurationError("functional.assertEqualsParameters");
 }
 
 /**
@@ -256,7 +258,7 @@ export function assertEqualsReturn<T extends (...args: any[]) => any>(
  * @internal
  */
 export function assertEqualsReturn(): never {
-  halt("assertEqualsReturn");
+  NoTransformConfigurationError("functional.assertEqualsReturn");
 }
 
 /* -----------------------------------------------------------
@@ -296,7 +298,7 @@ export function isFunction<T extends (...args: any[]) => any>(
  * @internal
  */
 export function isFunction(): never {
-  halt("isFunction");
+  NoTransformConfigurationError("functional.isFunction");
 }
 
 /**
@@ -333,7 +335,7 @@ export function isParameters<T extends (...args: any[]) => any>(
  * @internal
  */
 export function isParameters(): never {
-  halt("isParameters");
+  NoTransformConfigurationError("functional.isParameters");
 }
 
 /**
@@ -370,7 +372,7 @@ export function isReturn<T extends (...args: any[]) => any>(
  * @internal
  */
 export function isReturn(): never {
-  halt("isReturn");
+  NoTransformConfigurationError("functional.isReturn");
 }
 
 /**
@@ -406,7 +408,7 @@ export function equalsFunction<T extends (...args: any[]) => any>(
  * @internal
  */
 export function equalsFunction(): never {
-  halt("equalsFunction");
+  NoTransformConfigurationError("functional.equalsFunction");
 }
 
 /**
@@ -439,7 +441,7 @@ export function equalsParameters<T extends (...args: any[]) => any>(
  * @internal
  */
 export function equalsParameters(): never {
-  halt("equalsParameters");
+  NoTransformConfigurationError("functional.equalsParameters");
 }
 
 /**
@@ -475,7 +477,7 @@ export function equalsReturn<T extends (...args: any[]) => any>(
  * @internal
  */
 export function equalsReturn(): never {
-  halt("equalsReturn");
+  NoTransformConfigurationError("functional.equalsReturn");
 }
 
 /* -----------------------------------------------------------
@@ -524,7 +526,7 @@ export function validateFunction<T extends (...args: any[]) => any>(
  * @internal
  */
 export function validateFunction(): never {
-  halt("validateFunction");
+  NoTransformConfigurationError("functional.validateFunction");
 }
 
 /**
@@ -565,7 +567,7 @@ export function validateParameters<T extends (...args: any[]) => any>(
  * @internal
  */
 export function validateParameters(): never {
-  halt("validateReturn");
+  NoTransformConfigurationError("functional.validateReturn");
 }
 
 /**
@@ -606,7 +608,7 @@ export function validateReturn<T extends (...args: any[]) => any>(
  * @internal
  */
 export function validateReturn(): never {
-  halt("validateReturn");
+  NoTransformConfigurationError("functional.validateReturn");
 }
 
 /**
@@ -652,7 +654,7 @@ export function validateEqualsFunction<T extends (...args: any[]) => any>(
  * @internal
  */
 export function validateEqualsFunction(): never {
-  halt("validateEqualsFunction");
+  NoTransformConfigurationError("functional.validateEqualsFunction");
 }
 
 /**
@@ -693,7 +695,7 @@ export function validateEqualsParameters<T extends (...args: any[]) => any>(
  * @internal
  */
 export function validateEqualsParameters(): never {
-  halt("validateEqualsParameters");
+  NoTransformConfigurationError("functional.validateEqualsParameters");
 }
 
 /**
@@ -734,17 +736,5 @@ export function validateEqualsReturn<T extends (...args: any[]) => any>(
  * @internal
  */
 export function validateEqualsReturn(): never {
-  halt("validateEqualsReturn");
-}
-
-/* -----------------------------------------------------------
-  HALTER
------------------------------------------------------------ */
-/**
- * @internal
- */
-function halt(name: string): never {
-  throw new Error(
-    `Error on typia.functional.${name}(): no transform has been configured. Read and follow https://typia.io/docs/setup please.`,
-  );
+  NoTransformConfigurationError("functional.validateEqualsReturn");
 }

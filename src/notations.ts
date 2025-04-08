@@ -1,3 +1,5 @@
+import { NoTransformConfigurationError } from "./transformers/NoTransformConfigurationError";
+
 import { CamelCase } from "./CamelCase";
 import { IValidation } from "./IValidation";
 import { PascalCase } from "./PascalCase";
@@ -38,7 +40,7 @@ export function camel<T>(input: T): CamelCase<T>;
  * @internal
  */
 export function camel(): never {
-  return halt("camel");
+  return NoTransformConfigurationError("notations.camel");
 }
 
 /**
@@ -81,7 +83,7 @@ export function assertCamel<T>(
  * @internal
  */
 export function assertCamel(): never {
-  return halt("assertCamel");
+  return NoTransformConfigurationError("notations.assertCamel");
 }
 
 /**
@@ -116,7 +118,7 @@ export function isCamel<T>(input: unknown): CamelCase<T> | null;
  * @internal
  */
 export function isCamel(): never {
-  return halt("isCamel");
+  return NoTransformConfigurationError("notations.isCamel");
 }
 
 /**
@@ -155,7 +157,7 @@ export function validateCamel<T>(input: unknown): IValidation<CamelCase<T>>;
  * @internal
  */
 export function validateCamel(): never {
-  return halt("validateCamel");
+  return NoTransformConfigurationError("notations.validateCamel");
 }
 
 /* -----------------------------------------------------------
@@ -186,7 +188,7 @@ export function pascal<T>(input: T): PascalCase<T>;
  * @internal
  */
 export function pascal(): never {
-  return halt("pascal");
+  return NoTransformConfigurationError("notations.pascal");
 }
 
 /**
@@ -229,7 +231,7 @@ export function assertPascal<T>(
  * @internal
  */
 export function assertPascal(): never {
-  return halt("assertPascal");
+  return NoTransformConfigurationError("notations.assertPascal");
 }
 
 /**
@@ -264,7 +266,7 @@ export function isPascal<T>(input: unknown): PascalCase<T> | null;
  * @internal
  */
 export function isPascal(): never {
-  return halt("isPascal");
+  return NoTransformConfigurationError("notations.isPascal");
 }
 
 /**
@@ -303,7 +305,7 @@ export function validatePascal<T>(input: unknown): IValidation<PascalCase<T>>;
  * @internal
  */
 export function validatePascal(): never {
-  return halt("validatePascal");
+  return NoTransformConfigurationError("notations.validatePascal");
 }
 
 /* -----------------------------------------------------------
@@ -334,7 +336,7 @@ export function snake<T>(input: T): SnakeCase<T>;
  * @internal
  */
 export function snake(): never {
-  return halt("snake");
+  return NoTransformConfigurationError("notations.snake");
 }
 
 /**
@@ -377,7 +379,7 @@ export function assertSnake<T>(
  * @internal
  */
 export function assertSnake(): never {
-  return halt("assertSnake");
+  return NoTransformConfigurationError("notations.assertSnake");
 }
 
 /**
@@ -412,7 +414,7 @@ export function isSnake<T>(input: unknown): SnakeCase<T> | null;
  * @internal
  */
 export function isSnake(): never {
-  return halt("isSnake");
+  return NoTransformConfigurationError("notations.isSnake");
 }
 
 /**
@@ -451,7 +453,7 @@ export function validateSnake<T>(input: unknown): IValidation<SnakeCase<T>>;
  * @internal
  */
 export function validateSnake(): never {
-  return halt("validateSnake");
+  return NoTransformConfigurationError("notations.validateSnake");
 }
 
 /* -----------------------------------------------------------
@@ -482,7 +484,7 @@ export function createCamel<T>(): (input: T) => CamelCase<T>;
  * @internal
  */
 export function createCamel(): never {
-  halt("createCamel");
+  NoTransformConfigurationError("notations.createCamel");
 }
 
 /**
@@ -516,7 +518,7 @@ export function createAssertCamel<T>(
  * @internal
  */
 export function createAssertCamel(): never {
-  halt("createAssertCamel");
+  NoTransformConfigurationError("notations.createAssertCamel");
 }
 
 /**
@@ -544,7 +546,7 @@ export function createIsCamel<T>(): (input: T) => CamelCase<T> | null;
  * @internal
  */
 export function createIsCamel(): never {
-  halt("createIsCamel");
+  NoTransformConfigurationError("notations.createIsCamel");
 }
 
 /**
@@ -574,7 +576,7 @@ export function createValidateCamel<T>(): (
  * @internal
  */
 export function createValidateCamel(): never {
-  halt("createValidateCamel");
+  NoTransformConfigurationError("notations.createValidateCamel");
 }
 
 /**
@@ -602,7 +604,7 @@ export function createPascal<T>(): (input: T) => PascalCase<T>;
  * @internal
  */
 export function createPascal(): never {
-  halt("createPascal");
+  NoTransformConfigurationError("notations.createPascal");
 }
 
 /**
@@ -636,7 +638,7 @@ export function createAssertPascal<T>(
  * @internal
  */
 export function createAssertPascal(): never {
-  halt("createAssertPascal");
+  NoTransformConfigurationError("notations.createAssertPascal");
 }
 
 /**
@@ -664,7 +666,7 @@ export function createIsPascal<T>(): (input: T) => PascalCase<T> | null;
  * @internal
  */
 export function createIsPascal(): never {
-  halt("createIsPascal");
+  NoTransformConfigurationError("notations.createIsPascal");
 }
 
 /**
@@ -694,7 +696,7 @@ export function createValidatePascal<T>(): (
  * @internal
  */
 export function createValidatePascal(): never {
-  halt("createValidatePascal");
+  NoTransformConfigurationError("notations.createValidatePascal");
 }
 
 /**
@@ -722,7 +724,7 @@ export function createSnake<T>(): (input: T) => SnakeCase<T>;
  * @internal
  */
 export function createSnake(): never {
-  halt("createSnake");
+  NoTransformConfigurationError("notations.createSnake");
 }
 
 /**
@@ -756,7 +758,7 @@ export function createAssertSnake<T>(
  * @internal
  */
 export function createAssertSnake(): never {
-  halt("createAssertSnake");
+  NoTransformConfigurationError("notations.createAssertSnake");
 }
 
 /**
@@ -784,7 +786,7 @@ export function createIsSnake<T>(): (input: T) => SnakeCase<T> | null;
  * @internal
  */
 export function createIsSnake(): never {
-  halt("createIsSnake");
+  NoTransformConfigurationError("notations.createIsSnake");
 }
 
 /**
@@ -814,14 +816,5 @@ export function createValidateSnake<T>(): (
  * @internal
  */
 export function createValidateSnake(): never {
-  halt("createValidateSnake");
-}
-
-/**
- * @internal
- */
-function halt(name: string): never {
-  throw new Error(
-    `Error on typia.notations.${name}(): no transform has been configured. Read and follow https://typia.io/docs/setup please.`,
-  );
+  NoTransformConfigurationError("notations.createValidateSnake");
 }

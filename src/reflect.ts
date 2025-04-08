@@ -1,5 +1,7 @@
 import { IMetadataApplication } from "./schemas/metadata/IMetadataApplication";
 
+import { NoTransformConfigurationError } from "./transformers/NoTransformConfigurationError";
+
 /**
  * > You must configure the generic argument `Types`.
  *
@@ -38,20 +40,11 @@ export function metadata<Types extends unknown[]>(): IMetadataApplication;
  * @internal
  */
 export function metadata(): never {
-  halt("metadata");
+  NoTransformConfigurationError("reflect.metadata");
 }
 
 export function name<T, Regular extends boolean = false>(): string;
 export function name(): never;
 export function name(): never {
-  halt("name");
-}
-
-/**
- * @internal
- */
-function halt(name: string): never {
-  throw new Error(
-    `Error on typia.reflect.${name}(): no transform has been configured. Read and follow https://typia.io/docs/setup please.`,
-  );
+  NoTransformConfigurationError("reflect.name");
 }
