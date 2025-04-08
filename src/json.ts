@@ -1,4 +1,7 @@
 import { IJsonSchemaCollection } from "./schemas/json/IJsonSchemaCollection";
+import { IJsonSchemaUnit } from "./schemas/json/IJsonSchemaUnit";
+
+import { NoTransformConfigurationError } from "./transformers/NoTransformConfigurationError";
 
 import { IValidation } from "./IValidation";
 import { Primitive } from "./Primitive";
@@ -16,7 +19,7 @@ import { TypeGuardError } from "./TypeGuardError";
 /**
  * > You must configure the generic argument `Types`.
  *
- * JSON Schemas generator.
+ * JSON Schemas Generator.
  *
  * Creates a JSON schema list which contains both main JSON schemas
  * and components. Note that, all of the named types are stored in the
@@ -28,14 +31,14 @@ import { TypeGuardError } from "./TypeGuardError";
  *
  * @template Types Tuple of target types
  * @template Version Version of OpenAPI specification. Default is 3.1
- * @return JSON schema list
+ * @return JSON schema collection
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function schemas(): never;
 
 /**
- * JSON Schemas generator.
+ * JSON Schemas Generator.
  *
  * Creates a JSON schema list which contains both main JSON schemas
  * and components. Note that, all of the named types are stored in the
@@ -47,7 +50,7 @@ export function schemas(): never;
  *
  * @template Types Tuple of target types
  * @template Version Version of OpenAPI specification. Default is 3.1
- * @return JSON schema list
+ * @return JSON schema collection
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
@@ -60,54 +63,60 @@ export function schemas<
  * @internal
  */
 export function schemas(): never {
-  halt("schemas");
+  NoTransformConfigurationError("json.schemas");
 }
 
-// /**
-//  * > You must configure the generic argument `App`.
-//  *
-//  * TypeScript functions to JSON schema based application schema.
-//  *
-//  * Creates an application schema collecting the functions' schema based on the
-//  * JSON schema specification.
-//  *
-//  * The default version of the OpenAPI specification is `"3.1"`, but you can
-//  * specify the version by configuring the second generic argument `Version`.
-//  *
-//  * @template App Target class or interface type collecting the functions
-//  * @template Version Version of OpenAPI specification. Default is 3.1
-//  * @returns Application schema of JSON schema based
-//  *
-//  * @author Jeongho Nam - https://github.com/samchon
-//  */
-// export function application(): never;
+/**
+ * > You must configure the generic argument `Type`.
+ *
+ * JSON schema generator.
+ *
+ * Creates a JSON schema unit which contains a main JSON schema and
+ * its components. Note that, all of the named types are stored in the
+ * {@link IJsonSchemaUnit.components} property for the `$ref` referencing.
+ *
+ * Also, you can specify the OpenAPI version by configuring the second
+ * generic argument `Version`. For reference, the default version is `"3.1"`,
+ * and key different of `"3.0"` and `"3.1"` is whether supporting the
+ * tuple type or not.
+ *
+ * @template Type Target type
+ * @template Version Version of OpenAPI specification. Default is 3.1
+ * @return JSON schema unit
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function schema(): never;
 
-// /**
-//  * TypeScript functions to JSON schema based application schema.
-//  *
-//  * Creates an application schema collecting the functions' schema based on the
-//  * JSON schema specification.
-//  *
-//  * The default version of the OpenAPI specification is `"3.1"`, but you can
-//  * specify the version by configuring the second generic argument `Version`.
-//  *
-//  * @template App Target class or interface type collecting the functions
-//  * @template Version Version of OpenAPI specification. Default is 3.1
-//  * @returns Application schema of JSON schema based
-//  *
-//  * @author Jeongho Nam - https://github.com/samchon
-//  */
-// export function application<
-//   App extends object,
-//   Version extends "3.0" | "3.1" = "3.1",
-// >(): IJsonApplication<Version, App>;
+/**
+ * JSON schema generator.
+ *
+ * Creates a JSON schema unit which contains a main JSON schema and
+ * its components. Note that, all of the named types are stored in the
+ * {@link IJsonSchemaUnit.components} property for the `$ref` referencing.
+ *
+ * Also, you can specify the OpenAPI version by configuring the second
+ * generic argument `Version`. For reference, the default version is `"3.1"`,
+ * and key different of `"3.0"` and `"3.1"` is whether supporting the
+ * tuple type or not.
+ *
+ * @template Type Target type
+ * @template Version Version of OpenAPI specification. Default is 3.1
+ * @return JSON schema unit
+ *
+ * @author Jeongho Nam - https://github.com/samchon
+ */
+export function schema<
+  Type extends unknown,
+  Version extends "3.0" | "3.1" = "3.1",
+>(): IJsonSchemaUnit<Version, Type>;
 
-// /**
-//  * @internal
-//  */
-// export function application(): never {
-//   halt("application");
-// }
+/**
+ * @internal
+ */
+export function schema(): never {
+  NoTransformConfigurationError("json.schema");
+}
 
 /* -----------------------------------------------------------
     PARSE
@@ -165,7 +174,7 @@ export function assertParse<T>(
  * @internal
  */
 export function assertParse<T>(): Primitive<T> {
-  halt("assertParse");
+  NoTransformConfigurationError("json.assertParse");
 }
 
 /**
@@ -212,7 +221,7 @@ export function isParse<T>(input: string): Primitive<T> | null;
  * @internal
  */
 export function isParse<T>(): Primitive<T> | null {
-  halt("isParse");
+  NoTransformConfigurationError("json.isParse");
 }
 
 /**
@@ -261,7 +270,7 @@ export function validateParse<T>(input: string): IValidation<Primitive<T>>;
  * @internal
  */
 export function validateParse<T>(): IValidation<Primitive<T>> {
-  halt("validateParse");
+  NoTransformConfigurationError("json.validateParse");
 }
 
 /* -----------------------------------------------------------
@@ -295,7 +304,7 @@ export function stringify<T>(input: T): string;
  * @internal
  */
 export function stringify(): never {
-  halt("stringify");
+  NoTransformConfigurationError("json.stringify");
 }
 
 /**
@@ -356,7 +365,7 @@ export function assertStringify<T>(
  * @internal
  */
 export function assertStringify(): string {
-  halt("assertStringify");
+  NoTransformConfigurationError("json.assertStringify");
 }
 
 /**
@@ -409,7 +418,7 @@ export function isStringify<T>(input: unknown): string | null;
  * @internal
  */
 export function isStringify(): string | null {
-  halt("isStringify");
+  NoTransformConfigurationError("json.isStringify");
 }
 
 /**
@@ -464,7 +473,7 @@ export function validateStringify<T>(input: unknown): IValidation<string>;
  * @internal
  */
 export function validateStringify(): IValidation<string> {
-  halt("validateStringify");
+  NoTransformConfigurationError("json.validateStringify");
 }
 
 /* -----------------------------------------------------------
@@ -495,7 +504,7 @@ export function createIsParse<T>(): (input: string) => Primitive<T> | null;
  * @internal
  */
 export function createIsParse<T>(): (input: string) => Primitive<T> | null {
-  halt("createIsParse");
+  NoTransformConfigurationError("json.createIsParse");
 }
 
 /**
@@ -529,7 +538,7 @@ export function createAssertParse<T>(
  * @internal
  */
 export function createAssertParse<T>(): (input: string) => Primitive<T> {
-  halt("createAssertParse");
+  NoTransformConfigurationError("json.createAssertParse");
 }
 
 /**
@@ -561,7 +570,7 @@ export function createValidateParse<T>(): (
 export function createValidateParse<T>(): (
   input: string,
 ) => IValidation<Primitive<T>> {
-  halt("createValidateParse");
+  NoTransformConfigurationError("json.createValidateParse");
 }
 
 /**
@@ -589,7 +598,7 @@ export function createStringify<T>(): (input: T) => string;
  * @internal
  */
 export function createStringify<T>(): (input: T) => string {
-  halt("createStringify");
+  NoTransformConfigurationError("json.createStringify");
 }
 
 /**
@@ -623,7 +632,7 @@ export function createAssertStringify<T>(
  * @internal
  */
 export function createAssertStringify(): (input: unknown) => string {
-  halt("createAssertStringify");
+  NoTransformConfigurationError("json.createAssertStringify");
 }
 
 /**
@@ -651,7 +660,7 @@ export function createIsStringify<T>(): (input: unknown) => string | null;
  * @internal
  */
 export function createIsStringify(): (input: unknown) => string | null {
-  halt("createIsStringify");
+  NoTransformConfigurationError("json.createIsStringify");
 }
 
 /**
@@ -683,14 +692,5 @@ export function createValidateStringify<T>(): (
 export function createValidateStringify(): (
   input: unknown,
 ) => IValidation<string> {
-  halt("createValidateStringify");
-}
-
-/**
- * @internal
- */
-function halt(name: string): never {
-  throw new Error(
-    `Error on typia.json.${name}(): no transform has been configured. Read and follow https://typia.io/docs/setup please.`,
-  );
+  NoTransformConfigurationError("json.createValidateStringify");
 }

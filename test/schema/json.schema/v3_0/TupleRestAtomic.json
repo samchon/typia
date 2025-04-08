@@ -1,0 +1,27 @@
+{
+  "version": "3.0",
+  "components": {
+    "schemas": {
+      "TupleRestAtomic": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "minItems": 2
+      }
+    }
+  },
+  "schema": {
+    "$ref": "#/components/schemas/TupleRestAtomic"
+  }
+}

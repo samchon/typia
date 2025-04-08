@@ -1,3 +1,5 @@
+import { NoTransformConfigurationError } from "./transformers/NoTransformConfigurationError";
+
 import { Atomic } from "./typings/Atomic";
 
 import { IReadableURLSearchParams } from "./IReadableURLSearchParams";
@@ -48,7 +50,7 @@ export function formData<T extends object>(input: FormData): Resolved<T>;
  * @internal
  */
 export function formData(): never {
-  halt("formData");
+  NoTransformConfigurationError("http.formData");
 }
 
 /**
@@ -89,7 +91,7 @@ export function assertFormData<T extends object>(
  * @internal
  */
 export function assertFormData(): never {
-  halt("assertFormData");
+  NoTransformConfigurationError("http.assertFormData");
 }
 
 /**
@@ -127,7 +129,7 @@ export function isFormData<T extends object>(
  * @internal
  */
 export function isFormData(): never {
-  halt("isFormData");
+  NoTransformConfigurationError("http.isFormData");
 }
 
 /**
@@ -167,7 +169,7 @@ export function validateFormData<T extends object>(
  * @internal
  */
 export function validateFormData(): never {
-  halt("validateFormData");
+  NoTransformConfigurationError("http.validateFormData");
 }
 
 /* -----------------------------------------------------------
@@ -212,7 +214,7 @@ export function query<T extends object>(
  * @internal
  */
 export function query(): never {
-  halt("query");
+  NoTransformConfigurationError("http.query");
 }
 
 /**
@@ -253,7 +255,7 @@ export function assertQuery<T extends object>(
  * @internal
  */
 export function assertQuery(): never {
-  halt("assertQuery");
+  NoTransformConfigurationError("http.assertQuery");
 }
 
 /**
@@ -291,7 +293,7 @@ export function isQuery<T extends object>(
  * @internal
  */
 export function isQuery(): never {
-  halt("isQuery");
+  NoTransformConfigurationError("http.isQuery");
 }
 
 /**
@@ -330,7 +332,7 @@ export function validateQuery<T extends object>(
  * @internal
  */
 export function validateQuery(): never {
-  halt("validateQuery");
+  NoTransformConfigurationError("http.validateQuery");
 }
 
 /* -----------------------------------------------------------
@@ -396,7 +398,7 @@ export function headers<T extends object>(
  * @internal
  */
 export function headers(): never {
-  halt("headers");
+  NoTransformConfigurationError("http.headers");
 }
 
 /**
@@ -459,7 +461,7 @@ export function assertHeaders<T extends object>(
  * @internal
  */
 export function assertHeaders(): never {
-  halt("assertHeaders");
+  NoTransformConfigurationError("http.assertHeaders");
 }
 
 /**
@@ -521,7 +523,7 @@ export function isHeaders<T extends object>(
  * @internal
  */
 export function isHeaders(): never {
-  halt("isHeaders");
+  NoTransformConfigurationError("http.isHeaders");
 }
 
 /**
@@ -582,7 +584,7 @@ export function validateHeaders<T extends object>(
  * @internal
  */
 export function validateHeaders(): never {
-  halt("validateHeaders");
+  NoTransformConfigurationError("http.validateHeaders");
 }
 
 /* -----------------------------------------------------------
@@ -611,7 +613,7 @@ export function parameter<T extends Atomic.Type | null>(
  * @internal
  */
 export function parameter(): never {
-  halt("parameter");
+  NoTransformConfigurationError("http.parameter");
 }
 
 /* -----------------------------------------------------------
@@ -642,7 +644,7 @@ export function createFormData<T extends object>(): (input: FormData) => T;
  * @internal
  */
 export function createFormData<T>(): (input: FormData) => T {
-  halt("createFormData");
+  NoTransformConfigurationError("http.createFormData");
 }
 
 /**
@@ -676,7 +678,7 @@ export function createAssertFormData<T extends object>(
  * @internal
  */
 export function createAssertFormData<T>(): (input: FormData) => T {
-  halt("createAssertFormData");
+  NoTransformConfigurationError("http.createAssertFormData");
 }
 
 /**
@@ -706,7 +708,7 @@ export function createIsFormData<T extends object>(): (
  * @internal
  */
 export function createIsFormData<T>(): (input: FormData) => T | null {
-  halt("createIsFormData");
+  NoTransformConfigurationError("http.createIsFormData");
 }
 
 /**
@@ -738,7 +740,7 @@ export function createValidateFormData<T extends object>(): (
 export function createValidateFormData<T>(): (
   input: FormData,
 ) => IValidation<Resolved<T>> {
-  halt("createValidateFormData");
+  NoTransformConfigurationError("http.createValidateFormData");
 }
 
 /**
@@ -770,7 +772,7 @@ export function createQuery<T extends object>(): (
 export function createQuery<T>(): (
   input: string | IReadableURLSearchParams,
 ) => T {
-  halt("createQuery");
+  NoTransformConfigurationError("http.createQuery");
 }
 
 /**
@@ -806,7 +808,7 @@ export function createAssertQuery<T extends object>(
 export function createAssertQuery<T>(): (
   input: string | IReadableURLSearchParams,
 ) => T {
-  halt("createAssertQuery");
+  NoTransformConfigurationError("http.createAssertQuery");
 }
 
 /**
@@ -838,7 +840,7 @@ export function createIsQuery<T extends object>(): (
 export function createIsQuery<T>(): (
   input: string | IReadableURLSearchParams,
 ) => T | null {
-  halt("createIsQuery");
+  NoTransformConfigurationError("http.createIsQuery");
 }
 
 /**
@@ -870,7 +872,7 @@ export function createValidateQuery<T extends object>(): (
 export function createValidateQuery<T>(): (
   input: string | IReadableURLSearchParams,
 ) => IValidation<Resolved<T>> {
-  halt("createValidateQuery");
+  NoTransformConfigurationError("http.createValidateQuery");
 }
 
 /**
@@ -902,7 +904,7 @@ export function createHeaders<T extends object>(): (
 export function createHeaders<T>(): (
   input: Record<string, string | string[] | undefined>,
 ) => T {
-  halt("createHeaders");
+  NoTransformConfigurationError("http.createHeaders");
 }
 
 /**
@@ -938,7 +940,7 @@ export function createAssertHeaders<T extends object>(
 export function createAssertHeaders<T>(): (
   input: Record<string, string | string[] | undefined>,
 ) => T {
-  halt("createAssertHeaders");
+  NoTransformConfigurationError("http.createAssertHeaders");
 }
 
 /**
@@ -970,7 +972,7 @@ export function createIsHeaders<T extends object>(): (
 export function createIsHeaders<T>(): (
   input: Record<string, string | string[] | undefined>,
 ) => T | null {
-  halt("createIsHeaders");
+  NoTransformConfigurationError("http.createIsHeaders");
 }
 
 /**
@@ -1002,7 +1004,7 @@ export function createValidateHeaders<T extends object>(): (
 export function createValidateHeaders<T>(): (
   input: Record<string, string | string[] | undefined>,
 ) => IValidation<Resolved<T>> {
-  halt("createValidateHeaders");
+  NoTransformConfigurationError("http.createValidateHeaders");
 }
 
 /**
@@ -1034,14 +1036,5 @@ export function createParameter<T extends Atomic.Type | null>(): (
 export function createParameter<T extends Atomic.Type | null>(): (
   input: string,
 ) => T {
-  halt("createParameter");
-}
-
-/**
- * @internal
- */
-function halt(name: string): never {
-  throw new Error(
-    `Error on typia.http.${name}(): no transform has been configured. Read and follow https://typia.io/docs/setup please.`,
-  );
+  NoTransformConfigurationError("http.createParameter");
 }

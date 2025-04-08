@@ -1,0 +1,27 @@
+{
+  "version": "3.1",
+  "components": {
+    "schemas": {
+      "ConstantAtomicAbsorbed": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "default": "something"
+          },
+          "age": {
+            "type": "number",
+            "default": 20
+          }
+        },
+        "required": [
+          "id",
+          "age"
+        ]
+      }
+    }
+  },
+  "schema": {
+    "$ref": "#/components/schemas/ConstantAtomicAbsorbed"
+  }
+}

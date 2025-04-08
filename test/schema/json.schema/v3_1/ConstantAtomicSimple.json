@@ -1,0 +1,28 @@
+{
+  "version": "3.1",
+  "components": {
+    "schemas": {
+      "ConstantAtomicSimple": {
+        "type": "array",
+        "prefixItems": [
+          {
+            "const": false
+          },
+          {
+            "const": true
+          },
+          {
+            "const": 2
+          },
+          {
+            "const": "three"
+          }
+        ],
+        "additionalItems": false
+      }
+    }
+  },
+  "schema": {
+    "$ref": "#/components/schemas/ConstantAtomicSimple"
+  }
+}

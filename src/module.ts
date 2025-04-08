@@ -1,3 +1,5 @@
+import { NoTransformConfigurationError } from "./transformers/NoTransformConfigurationError";
+
 import { AssertionGuard } from "./AssertionGuard";
 import { IRandomGenerator } from "./IRandomGenerator";
 import { IValidation } from "./IValidation";
@@ -17,6 +19,7 @@ export * as tags from "./tags";
 export * from "./schemas/metadata/IJsDocTagInfo";
 export * from "./schemas/json/IJsonApplication";
 export * from "./schemas/json/IJsonSchemaCollection";
+export * from "./schemas/json/IJsonSchemaUnit";
 export * from "./AssertionGuard";
 export * from "./IRandomGenerator";
 export * from "./IValidation";
@@ -92,7 +95,7 @@ export function assert<T>(
  * @internal
  */
 export function assert(): never {
-  halt("assert");
+  NoTransformConfigurationError("assert");
 }
 
 /**
@@ -159,7 +162,7 @@ export function assertGuard<T>(
  * @internal
  */
 export function assertGuard(): never {
-  halt("assertGuard");
+  NoTransformConfigurationError("assertGuard");
 }
 
 /**
@@ -215,7 +218,7 @@ export function is<T>(input: unknown): input is T;
  * @internal
  */
 export function is(): never {
-  halt("is");
+  NoTransformConfigurationError("is");
 }
 
 /**
@@ -272,7 +275,7 @@ export function validate<T>(input: unknown): IValidation<T>;
  * @internal
  */
 export function validate(): never {
-  halt("validate");
+  NoTransformConfigurationError("validate");
 }
 
 /* -----------------------------------------------------------
@@ -340,7 +343,7 @@ export function assertEquals<T>(
  * @internal
  */
 export function assertEquals(): never {
-  halt("assertEquals");
+  NoTransformConfigurationError("assertEquals");
 }
 
 /**
@@ -413,7 +416,7 @@ export function assertGuardEquals<T>(
  * @internal
  */
 export function assertGuardEquals(): never {
-  halt("assertGuardEquals");
+  NoTransformConfigurationError("assertGuardEquals");
 }
 
 /**
@@ -470,7 +473,7 @@ export function equals<T>(input: unknown): input is T;
  * @internal
  */
 export function equals(): never {
-  halt("equals");
+  NoTransformConfigurationError("equals");
 }
 
 /**
@@ -529,7 +532,7 @@ export function validateEquals<T>(input: unknown): IValidation<T>;
  * @internal
  */
 export function validateEquals(): never {
-  halt("validateEquals");
+  NoTransformConfigurationError("validateEquals");
 }
 
 /* -----------------------------------------------------------
@@ -577,7 +580,7 @@ export function random<T>(generator?: Partial<IRandomGenerator>): Resolved<T>;
  * @internal
  */
 export function random(): never {
-  halt("random");
+  NoTransformConfigurationError("random");
 }
 
 /* -----------------------------------------------------------
@@ -614,7 +617,7 @@ export function createAssert<T>(
  * @internal
  */
 export function createAssert<T>(): (input: unknown) => T {
-  halt("createAssert");
+  NoTransformConfigurationError("createAssert");
 }
 
 /**
@@ -678,7 +681,7 @@ export function createAssertGuard<T>(
  * @internal
  */
 export function createAssertGuard<T>(): (input: unknown) => AssertionGuard<T> {
-  halt("createAssertGuard");
+  NoTransformConfigurationError("createAssertGuard");
 }
 
 /**
@@ -706,7 +709,7 @@ export function createIs<T>(): (input: unknown) => input is T;
  * @internal
  */
 export function createIs<T>(): (input: unknown) => input is T {
-  halt("createIs");
+  NoTransformConfigurationError("createIs");
 }
 
 /**
@@ -734,7 +737,7 @@ export function createValidate<T>(): (input: unknown) => IValidation<T>;
  * @internal
  */
 export function createValidate(): (input: unknown) => IValidation {
-  halt("createValidate");
+  NoTransformConfigurationError("createValidate");
 }
 
 /**
@@ -768,7 +771,7 @@ export function createAssertEquals<T>(
  * @internal
  */
 export function createAssertEquals<T>(): (input: unknown) => T {
-  halt("createAssertEquals");
+  NoTransformConfigurationError("createAssertEquals");
 }
 
 /**
@@ -834,7 +837,7 @@ export function createAssertGuardEquals<T>(
 export function createAssertGuardEquals<T>(): (
   input: unknown,
 ) => AssertionGuard<T> {
-  halt("createAssertGuardEquals");
+  NoTransformConfigurationError("createAssertGuardEquals");
 }
 
 /**
@@ -862,7 +865,7 @@ export function createEquals<T>(): (input: unknown) => input is T;
  * @internal
  */
 export function createEquals<T>(): (input: unknown) => input is T {
-  halt("createEquals");
+  NoTransformConfigurationError("createEquals");
 }
 
 /**
@@ -890,7 +893,7 @@ export function createValidateEquals<T>(): (input: unknown) => IValidation<T>;
  * @internal
  */
 export function createValidateEquals(): (input: unknown) => IValidation {
-  halt("createValidateEquals");
+  NoTransformConfigurationError("createValidateEquals");
 }
 
 /**
@@ -922,14 +925,5 @@ export function createRandom<T>(
  * @internal
  */
 export function createRandom(): never {
-  halt("createRandom");
-}
-
-/**
- * @internal
- */
-function halt(name: string): never {
-  throw new Error(
-    `Error on typia.${name}(): no transform has been configured. Read and follow https://typia.io/docs/setup please.`,
-  );
+  NoTransformConfigurationError("createRandom");
 }
