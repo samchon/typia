@@ -2,6 +2,7 @@ import cp from "child_process";
 import fs from "fs";
 
 import { TestFeature } from "./internal/TestFeature";
+import { TestJsonSchemaGenerator } from "./internal/TestJsonSchemaGenerator";
 import { TestJsonSchemasGenerator } from "./internal/TestJsonSchemasGenerator";
 import { TestLlmApplicationGenerator } from "./internal/TestLlmApplicationGenerator";
 import { TestLlmParametersGenerator } from "./internal/TestLlmParametersGenerator";
@@ -162,8 +163,8 @@ async function main(): Promise<void> {
   if (fs.existsSync(schemas)) cp.execSync(`npx rimraf ${schemas}`);
   await fs.promises.mkdir(schemas, { recursive: true });
 
-  // await TestJsonApplicationGenerator.generate(structures);
   await TestJsonSchemasGenerator.generate(structures);
+  await TestJsonSchemaGenerator.generate(structures);
   await TestProtobufMessageGenerator.generate(structures);
   await TestReflectMetadataGenerator.generate(structures);
 
@@ -171,6 +172,7 @@ async function main(): Promise<void> {
   cp.execSync("npm run build", { stdio: "inherit" });
 
   await TestJsonSchemasGenerator.schemas();
+  await TestJsonSchemaGenerator.schemas();
   await TestProtobufMessageGenerator.schemas();
   await TestReflectMetadataGenerator.schemas();
 
@@ -184,7 +186,9 @@ async function main(): Promise<void> {
   await TestLlmParametersGenerator.schemas();
   await TestLlmSchemaGenerator.schemas();
 
-  cp.execSync("npm run prettier", { stdio: "inherit" });
+  try {
+    cp.execSync("npm run prettier", { stdio: "inherit" });
+  } catch {}
 }
 main().catch((exp) => {
   console.log(exp);

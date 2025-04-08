@@ -1,0 +1,38 @@
+{
+  "version": "3.0",
+  "components": {
+    "schemas": {
+      "DynamicTree": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "sequence": {
+            "type": "number"
+          },
+          "children": {
+            "$ref": "#/components/schemas/RecordstringDynamicTree"
+          }
+        },
+        "required": [
+          "id",
+          "sequence",
+          "children"
+        ]
+      },
+      "RecordstringDynamicTree": {
+        "type": "object",
+        "properties": {},
+        "required": [],
+        "description": "Construct a type with a set of properties K of type T",
+        "additionalProperties": {
+          "$ref": "#/components/schemas/DynamicTree"
+        }
+      }
+    }
+  },
+  "schema": {
+    "$ref": "#/components/schemas/DynamicTree"
+  }
+}

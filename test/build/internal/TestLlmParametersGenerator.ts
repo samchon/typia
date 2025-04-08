@@ -1,4 +1,3 @@
-import cp from "child_process";
 import fs from "fs";
 
 import { TestLlmApplicationGenerator } from "./TestLlmApplicationGenerator";
@@ -9,8 +8,7 @@ export namespace TestLlmParametersGenerator {
     structures: TestStructure<any>[],
   ): Promise<void> {
     const location: string = `${__dirname}/../../src/features/llm.parameters`;
-    if (fs.existsSync(location)) cp.execSync("npx rimraf " + location);
-    await fs.promises.mkdir(location);
+    await mkdir(location);
     for (const model of MODELS) {
       await fs.promises.mkdir(`${location}/${model}`);
       await parameters(model, structures);
@@ -58,7 +56,6 @@ export namespace TestLlmParametersGenerator {
 
   export async function schemas(): Promise<void> {
     const location: string = `${__dirname}/../../schemas/llm.parameters`;
-    if (fs.existsSync(location)) cp.execSync("npx rimraf " + location);
     await mkdir(location);
     for (const model of MODELS) {
       await mkdir(`${location}/${model}`);
@@ -97,7 +94,8 @@ export namespace TestLlmParametersGenerator {
   }
 
   async function mkdir(path: string): Promise<void> {
-    if (fs.existsSync(path)) cp.execSync(`npx rimraf ${path}`);
+    if (fs.existsSync(path) === true)
+      await fs.promises.rm(path, { recursive: true });
     await fs.promises.mkdir(path, { recursive: true });
   }
 }

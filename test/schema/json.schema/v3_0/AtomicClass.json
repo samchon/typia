@@ -1,0 +1,46 @@
+{
+  "version": "3.0",
+  "components": {
+    "schemas": {
+      "AtomicClass": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "minItems": 9,
+        "maxItems": 9
+      }
+    }
+  },
+  "schema": {
+    "$ref": "#/components/schemas/AtomicClass"
+  }
+}

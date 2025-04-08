@@ -1,0 +1,43 @@
+{
+  "version": "3.0",
+  "components": {
+    "schemas": {
+      "ConstantAtomicSimple": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "type": "boolean",
+              "enum": [
+                false
+              ]
+            },
+            {
+              "type": "boolean",
+              "enum": [
+                true
+              ]
+            },
+            {
+              "type": "number",
+              "enum": [
+                2
+              ]
+            },
+            {
+              "type": "string",
+              "enum": [
+                "three"
+              ]
+            }
+          ]
+        },
+        "minItems": 4,
+        "maxItems": 4
+      }
+    }
+  },
+  "schema": {
+    "$ref": "#/components/schemas/ConstantAtomicSimple"
+  }
+}

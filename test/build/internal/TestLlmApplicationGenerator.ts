@@ -1,4 +1,3 @@
-import cp from "child_process";
 import fs from "fs";
 import { VariadicSingleton } from "tstl";
 
@@ -40,8 +39,7 @@ export namespace TestLlmApplicationGenerator {
     structures: TestStructure<any>[],
   ): Promise<void> {
     const location: string = `${__dirname}/../../src/features/llm.application`;
-    if (fs.existsSync(location)) cp.execSync("npx rimraf " + location);
-    await fs.promises.mkdir(location);
+    await mkdir(location);
     for (const model of MODELS) {
       await fs.promises.mkdir(`${location}/${model}`);
       await application(model, structures);
@@ -88,7 +86,6 @@ export namespace TestLlmApplicationGenerator {
 
   export async function schemas(): Promise<void> {
     const location: string = `${__dirname}/../../schemas/llm.application`;
-    if (fs.existsSync(location)) cp.execSync("npx rimraf " + location);
     await mkdir(location);
     for (const model of MODELS) {
       await mkdir(`${location}/${model}`);
@@ -127,7 +124,8 @@ export namespace TestLlmApplicationGenerator {
   }
 
   async function mkdir(path: string): Promise<void> {
-    if (fs.existsSync(path)) cp.execSync(`npx rimraf ${path}`);
+    if (fs.existsSync(path) === true)
+      await fs.promises.rm(path, { recursive: true });
     await fs.promises.mkdir(path, { recursive: true });
   }
 }

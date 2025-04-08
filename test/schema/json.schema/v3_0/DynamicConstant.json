@@ -1,0 +1,41 @@
+{
+  "version": "3.0",
+  "components": {
+    "schemas": {
+      "DynamicConstant": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "object",
+            "properties": {
+              "a": {
+                "type": "number"
+              },
+              "b": {
+                "type": "number"
+              },
+              "c": {
+                "type": "number"
+              },
+              "d": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "a",
+              "b",
+              "c",
+              "d"
+            ]
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+    }
+  },
+  "schema": {
+    "$ref": "#/components/schemas/DynamicConstant"
+  }
+}
