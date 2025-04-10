@@ -10,12 +10,13 @@ import { IMetadataIteratorProps } from "./IMetadataIteratorProps";
 export const iterate_metadata_native = (
   props: IMetadataIteratorProps,
 ): boolean => {
-  const name: string =
+  const name: string = getNativeName(
     TypeFactory.getFullName({
       checker: props.checker,
       type: props.type,
       symbol: props.type.getSymbol(),
-    }).split("<")?.[0] ?? "";
+    }),
+  );
   const simple: IClassInfo | undefined = SIMPLES.get(name);
   if (
     simple !== undefined &&
@@ -114,6 +115,14 @@ const getBinaryProps = (className: string): IClassInfo => ({
     }),
   ),
 });
+
+const getNativeName = (name: string): string => {
+  name = name.split("<")?.[0] ?? "";
+  if (name.startsWith('"') && name.slice(0).includes('".'))
+    name = name.slice(name.indexOf('".', 1) + 2);
+  return name;
+};
+
 const SIMPLES: Map<string, IClassInfo> = new Map([
   [
     "Date",
