@@ -19,7 +19,7 @@ const main = async () => {
     });
   execute("npx typedoc --json typedoc-json/typia.json");
   execute(
-    `npx typedoc --entryPointStrategy merge "typedoc-json/*.json" --plugin typedoc-github-theme --theme typedoc-github-theme --hostedBaseUrl https://typia.io/api/`,
+    `npx typedoc --entryPointStrategy merge "typedoc-json/*.json" --hostedBaseUrl https://typia.io/api/`,
   );
   await fs.promises.writeFile(
     `${__dirname}/../public/api/typia.json`,
