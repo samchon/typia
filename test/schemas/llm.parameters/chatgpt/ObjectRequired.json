@@ -1,5 +1,4 @@
 {
-  "description": "",
   "type": "object",
   "properties": {
     "regular": {
@@ -218,7 +217,6 @@
   "additionalProperties": false,
   "$defs": {
     "ObjectRequired.IBase": {
-      "description": "",
       "type": "object",
       "properties": {
         "boolean": {

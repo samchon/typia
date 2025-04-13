@@ -1,5 +1,4 @@
 {
-  "description": "",
   "type": "object",
   "properties": {
     "regular": {
@@ -43,7 +42,6 @@
   "additionalProperties": false,
   "$defs": {
     "ObjectRecursive.IDepartment": {
-      "description": "",
       "type": "object",
       "properties": {
         "parent": {

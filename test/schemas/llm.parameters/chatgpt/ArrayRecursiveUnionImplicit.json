@@ -1,5 +1,4 @@
 {
-  "description": "",
   "type": "object",
   "properties": {
     "regular": {
@@ -168,7 +167,6 @@
       ]
     },
     "ArrayRecursiveUnionImplicit.IDirectory": {
-      "description": "",
       "type": "object",
       "properties": {
         "id": {
@@ -195,7 +193,6 @@
       ]
     },
     "ArrayRecursiveUnionImplicit.ISharedDirectory": {
-      "description": "",
       "type": "object",
       "properties": {
         "access": {
@@ -230,7 +227,6 @@
       ]
     },
     "ArrayRecursiveUnionImplicit.IShortcut": {
-      "description": "",
       "type": "object",
       "properties": {
         "id": {

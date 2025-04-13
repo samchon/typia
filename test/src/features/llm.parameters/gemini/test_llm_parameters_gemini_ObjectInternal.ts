@@ -1,12 +1,14 @@
 import typia from "typia";
-
-import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 import { ObjectInternal } from "../../../structures/ObjectInternal";
+import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 
-export const test_llm_parameters_gemini_ObjectInternal = _test_llm_parameters({
-  model: "gemini",
-  name: "ObjectInternal",
-})(typia.llm.parameters<ObjectInternalParameters, "gemini">());
+export const test_llm_parameters_gemini_ObjectInternal = 
+  _test_llm_parameters({
+    model: "gemini",
+    name: "ObjectInternal",
+  })(
+    typia.llm.parameters<ObjectInternalParameters, "gemini">(),
+  );
 
 interface ObjectInternalParameters {
   regular: ObjectInternal;

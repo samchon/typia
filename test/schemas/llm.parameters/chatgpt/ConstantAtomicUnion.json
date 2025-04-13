@@ -1,5 +1,4 @@
 {
-  "description": "",
   "type": "object",
   "properties": {
     "regular": {
@@ -20,8 +19,7 @@
             },
             "required": [
               "key"
-            ],
-            "description": ""
+            ]
           },
           {
             "type": "boolean",
@@ -68,8 +66,7 @@
                 },
                 "required": [
                   "key"
-                ],
-                "description": ""
+                ]
               },
               {
                 "type": "boolean",
@@ -115,8 +112,7 @@
             },
             "required": [
               "key"
-            ],
-            "description": ""
+            ]
           },
           {
             "type": "boolean",
@@ -163,8 +159,7 @@
                 },
                 "required": [
                   "key"
-                ],
-                "description": ""
+                ]
               },
               {
                 "type": "boolean",
@@ -212,8 +207,7 @@
               },
               "required": [
                 "key"
-              ],
-              "description": ""
+              ]
             },
             {
               "type": "boolean",

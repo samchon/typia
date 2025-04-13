@@ -1,9 +1,7 @@
 {
-  "description": "",
   "type": "object",
   "properties": {
     "regular": {
-      "description": "",
       "type": "object",
       "properties": {
         "id": {
@@ -44,13 +42,11 @@
             "id",
             "name",
             "age"
-          ],
-          "description": ""
+          ]
         }
       ]
     },
     "optional": {
-      "description": "",
       "type": "object",
       "properties": {
         "id": {
@@ -91,15 +87,13 @@
             "id",
             "name",
             "age"
-          ],
-          "description": ""
+          ]
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
-        "description": "",
         "type": "object",
         "properties": {
           "id": {

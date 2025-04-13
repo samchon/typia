@@ -9,7 +9,6 @@
     {
       "name": "insert",
       "parameters": {
-        "description": "",
         "type": "object",
         "properties": {
           "first": {
@@ -22,7 +21,6 @@
         "additionalProperties": false,
         "$defs": {
           "ObjectPartialAndRequired": {
-            "description": "",
             "type": "object",
             "properties": {
               "string": {
@@ -62,7 +60,6 @@
     {
       "name": "reduce",
       "parameters": {
-        "description": "",
         "type": "object",
         "properties": {
           "first": {
@@ -86,7 +83,6 @@
         "additionalProperties": false,
         "$defs": {
           "ObjectPartialAndRequired": {
-            "description": "",
             "type": "object",
             "properties": {
               "string": {
@@ -129,7 +125,6 @@
     {
       "name": "coalesce",
       "parameters": {
-        "description": "",
         "type": "object",
         "properties": {
           "first": {
@@ -170,7 +165,6 @@
         "additionalProperties": false,
         "$defs": {
           "ObjectPartialAndRequired": {
-            "description": "",
             "type": "object",
             "properties": {
               "string": {

@@ -9,7 +9,6 @@
     {
       "name": "insert",
       "parameters": {
-        "description": "",
         "type": "object",
         "properties": {
           "first": {
@@ -51,7 +50,6 @@
     {
       "name": "reduce",
       "parameters": {
-        "description": "",
         "type": "object",
         "properties": {
           "first": {
@@ -157,7 +155,6 @@
     {
       "name": "coalesce",
       "parameters": {
-        "description": "",
         "type": "object",
         "properties": {
           "first": {

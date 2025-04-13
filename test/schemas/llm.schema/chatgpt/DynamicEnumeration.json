@@ -3,7 +3,6 @@
   "type": "object",
   "properties": {
     "value": {
-      "description": "",
       "type": "object",
       "properties": {
         "ar": {

@@ -8,7 +8,6 @@
         "type": "object",
         "properties": {
           "value": {
-            "description": "",
             "type": "object",
             "properties": {
               "x": {
@@ -25,7 +24,6 @@
                 "type": "object",
                 "properties": {
                   "value": {
-                    "description": "",
                     "type": "object",
                     "properties": {
                       "y": {
@@ -46,7 +44,6 @@
                 "type": "object",
                 "properties": {
                   "value": {
-                    "description": "",
                     "type": "object",
                     "properties": {
                       "y": {
@@ -76,7 +73,6 @@
         "type": "object",
         "properties": {
           "value": {
-            "description": "",
             "type": "object",
             "properties": {
               "x": {
@@ -93,7 +89,6 @@
                 "type": "object",
                 "properties": {
                   "value": {
-                    "description": "",
                     "type": "object",
                     "properties": {
                       "y": {
@@ -117,7 +112,6 @@
                 "type": "object",
                 "properties": {
                   "value": {
-                    "description": "",
                     "type": "object",
                     "properties": {
                       "y": {
