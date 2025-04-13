@@ -1,5 +1,4 @@
 {
-  "description": "",
   "type": "object",
   "properties": {
     "regular": {
@@ -103,7 +102,6 @@
   "additionalProperties": false,
   "$defs": {
     "ArrayRecursiveUnionExplicitPointer.IBucket": {
-      "description": "",
       "type": "object",
       "properties": {
         "value": {
@@ -256,7 +254,6 @@
       ]
     },
     "ArrayRecursiveUnionExplicitPointer.IDirectory": {
-      "description": "",
       "type": "object",
       "properties": {
         "id": {
@@ -290,7 +287,6 @@
       ]
     },
     "ArrayRecursiveUnionExplicitPointer.IShortcut": {
-      "description": "",
       "type": "object",
       "properties": {
         "id": {

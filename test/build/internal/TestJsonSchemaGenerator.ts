@@ -6,7 +6,7 @@ export namespace TestJsonSchemaGenerator {
   export async function generate(
     structures: TestStructure<any>[],
   ): Promise<void> {
-    await mkdir(`${__dirname}/../../src/features/json.schema`);
+    await mkdir(`${__dirname}/../../src/features/json.schemas`);
     for (const version of ["3.0", "3.1"] as const)
       await functor(structures, version);
   }
@@ -16,7 +16,7 @@ export namespace TestJsonSchemaGenerator {
     version: "3.0" | "3.1",
   ): Promise<void> {
     const title: string = `v${version.replace(".", "_")}`;
-    const path: string = `${__dirname}/../../src/features/json.schema/${title}`;
+    const path: string = `${__dirname}/../../src/features/json.schemas/${title}`;
     await fs.promises.mkdir(path);
 
     for (const s of structures) {
@@ -42,7 +42,7 @@ export namespace TestJsonSchemaGenerator {
   }
 
   export async function schemas(): Promise<void> {
-    const location: string = `${__dirname}/../../schema/json.schema`;
+    const location: string = `${__dirname}/../../schemas/json.schema`;
     await mkdir(location);
 
     for (const version of ["3.0", "3.1"] as const) await iterate(version);
@@ -57,7 +57,7 @@ export namespace TestJsonSchemaGenerator {
   async function iterate(version: "3.0" | "3.1") {
     const title: string = `v${version.replace(".", "_")}`;
     const path: string = `${__dirname}/../../src/features/json.schema/${title}`;
-    const schemaPath: string = `${__dirname}/../../schema/json.schema/${title}`;
+    const schemaPath: string = `${__dirname}/../../schemas/json.schema/${title}`;
     await mkdir(schemaPath);
 
     for (const file of await fs.promises.readdir(path)) {

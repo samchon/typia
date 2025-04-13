@@ -1,5 +1,4 @@
 {
-  "description": "",
   "type": "object",
   "properties": {
     "regular": {
@@ -7,7 +6,6 @@
       "type": "object",
       "properties": {
         "value": {
-          "description": "",
           "type": "object",
           "properties": {
             "ar": {
@@ -57,7 +55,6 @@
           "type": "object",
           "properties": {
             "value": {
-              "description": "",
               "type": "object",
               "properties": {
                 "ar": {
@@ -106,7 +103,6 @@
       "type": "object",
       "properties": {
         "value": {
-          "description": "",
           "type": "object",
           "properties": {
             "ar": {
@@ -156,7 +152,6 @@
           "type": "object",
           "properties": {
             "value": {
-              "description": "",
               "type": "object",
               "properties": {
                 "ar": {
@@ -207,7 +202,6 @@
         "type": "object",
         "properties": {
           "value": {
-            "description": "",
             "type": "object",
             "properties": {
               "ar": {

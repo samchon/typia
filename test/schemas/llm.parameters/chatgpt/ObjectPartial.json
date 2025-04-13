@@ -1,5 +1,4 @@
 {
-  "description": "",
   "type": "object",
   "properties": {
     "regular": {
@@ -188,7 +187,6 @@
   "additionalProperties": false,
   "$defs": {
     "ObjectPartial.IBase": {
-      "description": "",
       "type": "object",
       "properties": {
         "boolean": {

@@ -9,7 +9,6 @@
     {
       "name": "insert",
       "parameters": {
-        "description": "",
         "type": "object",
         "properties": {
           "first": {
@@ -63,8 +62,7 @@
                           },
                           "required": [
                             "name"
-                          ],
-                          "description": ""
+                          ]
                         }
                       ]
                     }
@@ -93,7 +91,6 @@
     {
       "name": "reduce",
       "parameters": {
-        "description": "",
         "type": "object",
         "properties": {
           "first": {
@@ -147,8 +144,7 @@
                           },
                           "required": [
                             "name"
-                          ],
-                          "description": ""
+                          ]
                         }
                       ]
                     }
@@ -221,8 +217,7 @@
                               },
                               "required": [
                                 "name"
-                              ],
-                              "description": ""
+                              ]
                             }
                           ]
                         }
@@ -302,8 +297,7 @@
                       },
                       "required": [
                         "name"
-                      ],
-                      "description": ""
+                      ]
                     }
                   ]
                 }
@@ -325,7 +319,6 @@
     {
       "name": "coalesce",
       "parameters": {
-        "description": "",
         "type": "object",
         "properties": {
           "first": {
@@ -383,8 +376,7 @@
                               },
                               "required": [
                                 "name"
-                              ],
-                              "description": ""
+                              ]
                             }
                           ]
                         }
@@ -460,8 +452,7 @@
                               },
                               "required": [
                                 "name"
-                              ],
-                              "description": ""
+                              ]
                             }
                           ]
                         }
@@ -537,8 +528,7 @@
                               },
                               "required": [
                                 "name"
-                              ],
-                              "description": ""
+                              ]
                             }
                           ]
                         }
@@ -622,8 +612,7 @@
                           },
                           "required": [
                             "name"
-                          ],
-                          "description": ""
+                          ]
                         }
                       ]
                     }

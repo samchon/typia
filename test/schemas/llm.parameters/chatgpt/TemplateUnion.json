@@ -1,5 +1,4 @@
 {
-  "description": "",
   "type": "object",
   "properties": {
     "regular": {
@@ -53,8 +52,7 @@
                     },
                     "required": [
                       "name"
-                    ],
-                    "description": ""
+                    ]
                   }
                 ]
               }
@@ -127,8 +125,7 @@
                         },
                         "required": [
                           "name"
-                        ],
-                        "description": ""
+                        ]
                       }
                     ]
                   }
@@ -200,8 +197,7 @@
                     },
                     "required": [
                       "name"
-                    ],
-                    "description": ""
+                    ]
                   }
                 ]
               }
@@ -274,8 +270,7 @@
                         },
                         "required": [
                           "name"
-                        ],
-                        "description": ""
+                        ]
                       }
                     ]
                   }
@@ -349,8 +344,7 @@
                       },
                       "required": [
                         "name"
-                      ],
-                      "description": ""
+                      ]
                     }
                   ]
                 }

@@ -49,8 +49,7 @@
                 },
                 "required": [
                   "name"
-                ],
-                "description": ""
+                ]
               }
             ]
           }

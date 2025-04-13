@@ -9,7 +9,6 @@
     {
       "name": "insert",
       "parameters": {
-        "description": "",
         "type": "object",
         "properties": {
           "first": {
@@ -131,7 +130,6 @@
             ]
           },
           "ArrayRecursiveUnionImplicit.IDirectory": {
-            "description": "",
             "type": "object",
             "properties": {
               "id": {
@@ -158,7 +156,6 @@
             ]
           },
           "ArrayRecursiveUnionImplicit.ISharedDirectory": {
-            "description": "",
             "type": "object",
             "properties": {
               "access": {
@@ -193,7 +190,6 @@
             ]
           },
           "ArrayRecursiveUnionImplicit.IShortcut": {
-            "description": "",
             "type": "object",
             "properties": {
               "id": {
@@ -222,7 +218,6 @@
     {
       "name": "reduce",
       "parameters": {
-        "description": "",
         "type": "object",
         "properties": {
           "first": {
@@ -359,7 +354,6 @@
             ]
           },
           "ArrayRecursiveUnionImplicit.IDirectory": {
-            "description": "",
             "type": "object",
             "properties": {
               "id": {
@@ -386,7 +380,6 @@
             ]
           },
           "ArrayRecursiveUnionImplicit.ISharedDirectory": {
-            "description": "",
             "type": "object",
             "properties": {
               "access": {
@@ -421,7 +414,6 @@
             ]
           },
           "ArrayRecursiveUnionImplicit.IShortcut": {
-            "description": "",
             "type": "object",
             "properties": {
               "id": {
@@ -457,7 +449,6 @@
     {
       "name": "coalesce",
       "parameters": {
-        "description": "",
         "type": "object",
         "properties": {
           "first": {
@@ -615,7 +606,6 @@
             ]
           },
           "ArrayRecursiveUnionImplicit.IDirectory": {
-            "description": "",
             "type": "object",
             "properties": {
               "id": {
@@ -642,7 +632,6 @@
             ]
           },
           "ArrayRecursiveUnionImplicit.ISharedDirectory": {
-            "description": "",
             "type": "object",
             "properties": {
               "access": {
@@ -677,7 +666,6 @@
             ]
           },
           "ArrayRecursiveUnionImplicit.IShortcut": {
-            "description": "",
             "type": "object",
             "properties": {
               "id": {

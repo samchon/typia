@@ -1,12 +1,14 @@
 import typia from "typia";
-
-import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 import { TypeTagRange } from "../../../structures/TypeTagRange";
+import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 
-export const test_llm_parameters_claude_TypeTagRange = _test_llm_parameters({
-  model: "claude",
-  name: "TypeTagRange",
-})(typia.llm.parameters<TypeTagRangeParameters, "claude">());
+export const test_llm_parameters_claude_TypeTagRange = 
+  _test_llm_parameters({
+    model: "claude",
+    name: "TypeTagRange",
+  })(
+    typia.llm.parameters<TypeTagRangeParameters, "claude">(),
+  );
 
 interface TypeTagRangeParameters {
   regular: TypeTagRange;

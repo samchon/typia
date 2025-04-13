@@ -1,12 +1,14 @@
 import typia from "typia";
-
-import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 import { ObjectSimple } from "../../../structures/ObjectSimple";
+import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 
-export const test_llm_parameters_gemini_ObjectSimple = _test_llm_parameters({
-  model: "gemini",
-  name: "ObjectSimple",
-})(typia.llm.parameters<ObjectSimpleParameters, "gemini">());
+export const test_llm_parameters_gemini_ObjectSimple = 
+  _test_llm_parameters({
+    model: "gemini",
+    name: "ObjectSimple",
+  })(
+    typia.llm.parameters<ObjectSimpleParameters, "gemini">(),
+  );
 
 interface ObjectSimpleParameters {
   regular: ObjectSimple;

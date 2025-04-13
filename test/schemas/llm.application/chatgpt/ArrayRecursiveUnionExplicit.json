@@ -9,7 +9,6 @@
     {
       "name": "insert",
       "parameters": {
-        "description": "",
         "type": "object",
         "properties": {
           "first": {
@@ -170,7 +169,6 @@
             ]
           },
           "ArrayRecursiveUnionExplicit.IDirectory": {
-            "description": "",
             "type": "object",
             "properties": {
               "id": {
@@ -204,7 +202,6 @@
             ]
           },
           "ArrayRecursiveUnionExplicit.IShortcut": {
-            "description": "",
             "type": "object",
             "properties": {
               "id": {
@@ -247,7 +244,6 @@
     {
       "name": "reduce",
       "parameters": {
-        "description": "",
         "type": "object",
         "properties": {
           "first": {
@@ -423,7 +419,6 @@
             ]
           },
           "ArrayRecursiveUnionExplicit.IDirectory": {
-            "description": "",
             "type": "object",
             "properties": {
               "id": {
@@ -457,7 +452,6 @@
             ]
           },
           "ArrayRecursiveUnionExplicit.IShortcut": {
-            "description": "",
             "type": "object",
             "properties": {
               "id": {
@@ -507,7 +501,6 @@
     {
       "name": "coalesce",
       "parameters": {
-        "description": "",
         "type": "object",
         "properties": {
           "first": {
@@ -704,7 +697,6 @@
             ]
           },
           "ArrayRecursiveUnionExplicit.IDirectory": {
-            "description": "",
             "type": "object",
             "properties": {
               "id": {
@@ -738,7 +730,6 @@
             ]
           },
           "ArrayRecursiveUnionExplicit.IShortcut": {
-            "description": "",
             "type": "object",
             "properties": {
               "id": {

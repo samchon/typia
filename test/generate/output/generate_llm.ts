@@ -13,7 +13,6 @@ export const schema = ((props: {
   if (undefined !== props?.$defs)
     Object.assign(props.$defs, {
       ICompany: {
-        description: "",
         type: "object",
         properties: {
           id: {
@@ -40,7 +39,6 @@ export const schema = ((props: {
         required: ["id", "serial", "name", "established_at", "departments"],
       },
       IDepartment: {
-        description: "",
         type: "object",
         properties: {
           id: {
@@ -80,7 +78,6 @@ export const schema = ((props: {
         ],
       },
       IEmployee: {
-        description: "",
         type: "object",
         properties: {
           id: {
