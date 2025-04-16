@@ -133,7 +133,7 @@ export namespace LlmApplicationProgrammer {
       const type: Metadata = func.parameters[0]!.type;
       if (type.size() !== 1 || type.objects.length !== 1)
         output.push(
-          `${prefix}'s parameter must be an object type. Union types (e.g., string | object) are not supported.`,
+          `${prefix}'s parameter must be an object type. Union types ${type.getName()} are not supported.`,
         );
       else {
         if (
