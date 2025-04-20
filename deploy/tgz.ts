@@ -7,7 +7,7 @@ const execute = (str: string) =>
     stdio: "inherit",
   });
 execute("pnpm run build");
-execute("npm pack");
+execute("pnpm pack");
 
 const directory: string[] = fs.readdirSync(`${__dirname}/..`);
 if (directory.includes("typia.tgz")) fs.unlinkSync(`${__dirname}/../typia.tgz`);
