@@ -4,11 +4,11 @@
   "description": "Typia Guide Documents",
   "private": true,
   "scripts": {
-    "build": "rimraf .next && rimraf out && npm run build:typedoc && next build && node build/sitemap",
+    "build": "rimraf .next && rimraf out && npm run build:playground && npm run build:typedoc && next build && node build/sitemap",
+    "build:playground": "node build/raw && rspack && npm run build:typedoc",
     "build:typedoc": "node build/typedoc",
     "deploy": "node build/deploy",
-    "dev": "next dev",
-    "prepare": "node build/raw && rspack && npm run build:typedoc"
+    "dev": "next dev"
   },
   "repository": {
     "type": "git",
@@ -39,7 +39,7 @@
     "tgrid": "^1.0.3",
     "tstl": "^3.0.0",
     "typescript": "~5.8.3",
-    "typia": "latest"
+    "typia": "../typia.tgz"
   },
   "devDependencies": {
     "@rspack/cli": "^1.0.0",

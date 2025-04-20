@@ -19,11 +19,13 @@ jobs:
         with:
           version: 8
       - name: Root
-        run: pnpm install
+        run: |
+          pnpm install
+          pnpm run package:tgz
       - name: Build
         working-directory: website
         run: |
-          npm install --force
+          npm install
           npm run build
       - name: Deploy
         uses: JamesIves/github-pages-deploy-action@4.1.3
