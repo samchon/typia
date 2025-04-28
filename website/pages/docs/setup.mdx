@@ -238,8 +238,7 @@ Currently, `unplugin-typia` supports the following bundlers:
 <Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
   <Tabs.Tab>
 ```bash filename="Terminal" showLineNumbers copy
-npx jsr add -D @ryoppippi/unplugin-typia # via jsr (recommended)
-# npm install -D @ryoppippi/unplugin-typia # via npm
+npm install -D @ryoppippi/unplugin-typia
 
 npm install --save typia
 npx typia setup
@@ -247,7 +246,7 @@ npx typia setup
  </Tabs.Tab>
   <Tabs.Tab>
 ```bash filename="Terminal" showLineNumbers copy
-pnpm dlx jsr add -D @ryoppippi/unplugin-typia
+pnpm install -D @ryoppippi/unplugin-typia
 pnpm install typia
 pnpm typia setup --manager pnpm
 ```
@@ -255,14 +254,14 @@ pnpm typia setup --manager pnpm
   <Tabs.Tab>
 ```bash filename="Terminal" showLineNumbers copy
 # YARN BERRY IS NOT SUPPORTED
-yarn dlx jsr add -D @ryoppippi/unplugin-typia
+yarn add -D @ryoppippi/unplugin-typia
 yarn add typia
 yarn typia setup --manager yarn
 ```
   </Tabs.Tab>
   <Tabs.Tab>
 ```bash filename="Terminal" showLineNumbers copy
-bunx jsr add @ryoppippi/unplugin-typia
+bun add -D @ryoppippi/unplugin-typia
 bun add typia
 bun typia setup
 ```
