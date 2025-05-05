@@ -1,3 +1,4 @@
+import { write_compare } from "../writers/write_compare";
 import { write_functional } from "../writers/write_functional";
 import { write_functionalAsync } from "../writers/write_functionalAsync";
 import { write_notation } from "../writers/write_notation";
@@ -410,6 +411,22 @@ export namespace TestFeature {
       )
       .flat(),
 
+    //----
+    // COMPARES
+    //----
+    ...["equals"]
+      .map((method) => [
+        {
+          module: "compare",
+          method,
+          creatable: false,
+          spoilable: true,
+          programmer() {
+            return write_compare(this)(false);
+          },
+        },
+      ])
+      .flat(),
     //----
     // MISCELLANEOUS
     //----

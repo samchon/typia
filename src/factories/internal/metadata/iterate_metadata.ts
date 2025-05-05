@@ -30,6 +30,9 @@ export const iterate_metadata = (props: IMetadataIteratorProps): void => {
     });
     return;
   }
+  if (props.type.isClass()) {
+    props.metadata.class = true;
+  }
   // CHECK SPECIAL CASES
   if (
     (props.explore.aliased !== true && iterate_metadata_alias(props)) ||
