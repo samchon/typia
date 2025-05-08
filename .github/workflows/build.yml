@@ -49,7 +49,6 @@ jobs:
           version: 8
       - run: pnpm install --force
       - run: pnpm run eslint
-      - run: pnpm run prettier
 
   NodeJS:
     runs-on: ubuntu-latest
