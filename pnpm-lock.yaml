@@ -1176,9 +1176,6 @@ packages:
   '@types/node@18.19.86':
     resolution: {integrity: sha512-fifKayi175wLyKyc5qUfyENhQ1dCNI1UNjp653d8kuYcPQN5JhX3dGuP/XmvPTg/xRBn1VTLpbmi+H/Mr7tLfQ==}
 
-  '@types/node@18.19.87':
-    resolution: {integrity: sha512-OIAAu6ypnVZHmsHCeJ+7CCSub38QNBS9uceMQeg7K5Ur0Jr+wG9wEOEvvMbhp09pxD5czIUy/jND7s7Tb6Nw7A==}
-
   '@types/node@20.17.30':
     resolution: {integrity: sha512-7zf4YyHA+jvBNfVrk2Gtvs6x7E8V+YDW05bNfG2XkWDJfYRXrTiP/DsB2zSYTaHX0bGIujTBQdMVAhb+j7mwpg==}
 
@@ -4633,10 +4630,6 @@ snapshots:
     dependencies:
       undici-types: 5.26.5
 
-  '@types/node@18.19.87':
-    dependencies:
-      undici-types: 5.26.5
-
   '@types/node@20.17.30':
     dependencies:
       undici-types: 6.19.8
@@ -4684,7 +4677,7 @@ snapshots:
 
   '@types/whatwg-url@8.2.2':
     dependencies:
-      '@types/node': 22.13.5
+      '@types/node': 22.14.1
       '@types/webidl-conversions': 7.0.3
 
   '@types/ws@7.4.7':
