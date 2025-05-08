@@ -60,6 +60,7 @@
               "ipv4",
               "email"
             ],
+            "description": "Current Type: {@link TemplateAtomic}",
             "additionalProperties": false
           }
         },
@@ -123,6 +124,7 @@
               "ipv4",
               "email"
             ],
+            "description": "Current Type: {@link TemplateAtomic}",
             "additionalProperties": false
           },
           "second": {
@@ -233,6 +235,7 @@
           "ipv4",
           "email"
         ],
+        "description": "Current Type: {@link TemplateAtomic}",
         "additionalProperties": false
       }
     },

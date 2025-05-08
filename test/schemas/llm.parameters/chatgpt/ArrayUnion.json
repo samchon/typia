@@ -2,8 +2,10 @@
   "type": "object",
   "properties": {
     "regular": {
+      "description": "Current Type: {@link ArrayUnion}",
       "type": "array",
       "items": {
+        "description": "Current Type: {@link ArrayUnion.IUnion}",
         "anyOf": [
           {
             "type": "array",
@@ -34,6 +36,7 @@
         {
           "type": "array",
           "items": {
+            "description": "Current Type: {@link ArrayUnion.IUnion}",
             "anyOf": [
               {
                 "type": "array",
@@ -54,13 +57,16 @@
                 }
               }
             ]
-          }
+          },
+          "description": "Current Type: {@link ArrayUnion}"
         }
       ]
     },
     "optional": {
+      "description": "Current Type: {@link ArrayUnion}",
       "type": "array",
       "items": {
+        "description": "Current Type: {@link ArrayUnion.IUnion}",
         "anyOf": [
           {
             "type": "array",
@@ -91,6 +97,7 @@
         {
           "type": "array",
           "items": {
+            "description": "Current Type: {@link ArrayUnion.IUnion}",
             "anyOf": [
               {
                 "type": "array",
@@ -111,15 +118,18 @@
                 }
               }
             ]
-          }
+          },
+          "description": "Current Type: {@link ArrayUnion}"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link ArrayUnion}",
         "type": "array",
         "items": {
+          "description": "Current Type: {@link ArrayUnion.IUnion}",
           "anyOf": [
             {
               "type": "array",

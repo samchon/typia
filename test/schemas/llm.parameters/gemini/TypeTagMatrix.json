@@ -19,7 +19,8 @@
       },
       "required": [
         "matrix"
-      ]
+      ],
+      "description": "Current Type: {@link TypeTagMatrix}"
     },
     "nullable": {
       "type": "object",
@@ -60,7 +61,8 @@
       },
       "required": [
         "matrix"
-      ]
+      ],
+      "description": "Current Type: {@link TypeTagMatrix}"
     },
     "faint": {
       "type": "object",
@@ -103,7 +105,8 @@
         },
         "required": [
           "matrix"
-        ]
+        ],
+        "description": "Current Type: {@link TypeTagMatrix}"
       }
     }
   },

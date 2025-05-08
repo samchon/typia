@@ -228,7 +228,8 @@
                         "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
                         "exclusive": true,
                         "schema": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0
                         }
                       }
                     ]
@@ -390,7 +391,8 @@
                         "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 4294967295",
                         "exclusive": true,
                         "schema": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0
                         }
                       }
                     ]
@@ -552,7 +554,8 @@
                         "validate": "Math.floor($input) === $input && 0 <= $input && $input <= 18446744073709551615",
                         "exclusive": true,
                         "schema": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0
                         }
                       }
                     ]

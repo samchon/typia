@@ -1,12 +1,14 @@
 import typia from "typia";
-
-import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 import { ArraySimple } from "../../../structures/ArraySimple";
+import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 
-export const test_llm_parameters_gemini_ArraySimple = _test_llm_parameters({
-  model: "gemini",
-  name: "ArraySimple",
-})(typia.llm.parameters<ArraySimpleParameters, "gemini">());
+export const test_llm_parameters_gemini_ArraySimple = 
+  _test_llm_parameters({
+    model: "gemini",
+    name: "ArraySimple",
+  })(
+    typia.llm.parameters<ArraySimpleParameters, "gemini">(),
+  );
 
 interface ArraySimpleParameters {
   regular: ArraySimple;

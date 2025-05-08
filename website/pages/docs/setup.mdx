@@ -238,8 +238,7 @@ Currently, `unplugin-typia` supports the following bundlers:
 <Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
   <Tabs.Tab>
 ```bash filename="Terminal" showLineNumbers copy
-npx jsr add -D @ryoppippi/unplugin-typia # via jsr (recommended)
-# npm install -D @ryoppippi/unplugin-typia # via npm
+npm install -D @ryoppippi/unplugin-typia
 
 npm install --save typia
 npx typia setup
@@ -247,7 +246,7 @@ npx typia setup
  </Tabs.Tab>
   <Tabs.Tab>
 ```bash filename="Terminal" showLineNumbers copy
-pnpm dlx jsr add -D @ryoppippi/unplugin-typia
+pnpm install -D @ryoppippi/unplugin-typia
 pnpm install typia
 pnpm typia setup --manager pnpm
 ```
@@ -255,14 +254,14 @@ pnpm typia setup --manager pnpm
   <Tabs.Tab>
 ```bash filename="Terminal" showLineNumbers copy
 # YARN BERRY IS NOT SUPPORTED
-yarn dlx jsr add -D @ryoppippi/unplugin-typia
+yarn add -D @ryoppippi/unplugin-typia
 yarn add typia
 yarn typia setup --manager yarn
 ```
   </Tabs.Tab>
   <Tabs.Tab>
 ```bash filename="Terminal" showLineNumbers copy
-bunx jsr add @ryoppippi/unplugin-typia
+bun add -D @ryoppippi/unplugin-typia
 bun add typia
 bun typia setup
 ```
@@ -537,7 +536,13 @@ After installing `typia` like above, and ensuring the `prepare` script is someth
 }
 ```
 
-After this, when running `nx <package-name>:build` it _should_ now output with the Typia transforms applied. But if Typia fails for any reasons (for example it considers some type you have to be invalid), this error is not reported back via Nx. Nx will silent swallow these errors from ts-patch/typia, and you will just not get the output you expect. To debug this, you can create a new task in your `project.json` file similar to the below.
+After this, when running `nx <package-name>:build` it _should_ now output with the Typia transforms applied. **But if Typia fails for any reason** (for example it considers some type you have to be invalid), this error is not reported back via Nx. Nx will silent swallow these errors from ts-patch/typia, and the resulting transpiled code will not have typia transformations applied. This will result in an error such as the following when running you tests that use typia (`nx <package-name>:test`), dev versions of your application (`nx <package-name>:serve`), as well as running your application after building.
+
+```bash filename="Terminal"
+Error on typia.createAssert(): no transform has been configured.
+```
+
+To debug whether this is an issue with your setup or simply NX just silently swallowing typia errors, you can create a new task in your `project.json` file similar to the one below.
 
 ```json filename="project.json" showLineNumbers copy
  "targets": {

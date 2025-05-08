@@ -41,7 +41,8 @@
               "note",
               "editable",
               "incremental"
-            ]
+            ],
+            "description": "Current Type: {@link ClassPropertyAssignment}"
           }
         },
         "required": [
@@ -85,7 +86,8 @@
               "note",
               "editable",
               "incremental"
-            ]
+            ],
+            "description": "Current Type: {@link ClassPropertyAssignment}"
           },
           "second": {
             "type": "object",
@@ -158,7 +160,8 @@
           "note",
           "editable",
           "incremental"
-        ]
+        ],
+        "description": "Current Type: {@link ClassPropertyAssignment}"
       }
     },
     {

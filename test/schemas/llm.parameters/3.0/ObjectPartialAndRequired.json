@@ -105,6 +105,7 @@
         "object",
         "array"
       ],
+      "description": "Current Type: {@link ObjectPartialAndRequired}",
       "additionalProperties": false
     },
     "nullable": {
@@ -318,6 +319,7 @@
         "object",
         "array"
       ],
+      "description": "Current Type: {@link ObjectPartialAndRequired}",
       "additionalProperties": false
     },
     "faint": {
@@ -533,6 +535,7 @@
           "object",
           "array"
         ],
+        "description": "Current Type: {@link ObjectPartialAndRequired}",
         "additionalProperties": false
       }
     }

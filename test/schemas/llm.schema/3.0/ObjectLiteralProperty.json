@@ -12,5 +12,6 @@
     "something-interesting-do-you-want?",
     "or-something-crazy-do-you-want?"
   ],
+  "description": "Current Type: {@link ObjectLiteralProperty.ISomething}",
   "additionalProperties": false
 }

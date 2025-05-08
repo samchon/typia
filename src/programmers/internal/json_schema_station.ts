@@ -4,6 +4,8 @@ import { Metadata } from "../../schemas/metadata/Metadata";
 import { MetadataAtomic } from "../../schemas/metadata/MetadataAtomic";
 import { MetadataNative } from "../../schemas/metadata/MetadataNative";
 
+import { OpenApiExclusiveEmender } from "@samchon/openapi/lib/utils/OpenApiExclusiveEmender";
+
 import { AtomicPredicator } from "../helpers/AtomicPredicator";
 import { json_schema_alias } from "./json_schema_alias";
 import { json_schema_array } from "./json_schema_array";
@@ -70,7 +72,8 @@ export const json_schema_station = <BlockNever extends boolean>(props: {
   for (const a of props.metadata.atomics)
     if (a.type === "boolean") json_schema_boolean(a).forEach(insert);
     else if (a.type === "bigint") json_schema_bigint(a).forEach(insert);
-    else if (a.type === "number") json_schema_number(a).forEach(insert);
+    else if (a.type === "number")
+      json_schema_number(a).map(OpenApiExclusiveEmender.emend).forEach(insert);
     else if (a.type === "string") json_schema_string(a).forEach(insert);
 
   // ARRAY

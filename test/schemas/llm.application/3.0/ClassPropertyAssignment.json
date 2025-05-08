@@ -43,6 +43,7 @@
               "editable",
               "incremental"
             ],
+            "description": "Current Type: {@link ClassPropertyAssignment}",
             "additionalProperties": false
           }
         },
@@ -89,6 +90,7 @@
               "editable",
               "incremental"
             ],
+            "description": "Current Type: {@link ClassPropertyAssignment}",
             "additionalProperties": false
           },
           "second": {
@@ -165,6 +167,7 @@
           "editable",
           "incremental"
         ],
+        "description": "Current Type: {@link ClassPropertyAssignment}",
         "additionalProperties": false
       }
     },

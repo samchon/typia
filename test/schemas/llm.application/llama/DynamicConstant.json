@@ -11,6 +11,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link DynamicConstant}",
             "type": "object",
             "properties": {
               "value": {
@@ -55,6 +56,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link DynamicConstant}",
             "type": "object",
             "properties": {
               "value": {
@@ -119,7 +121,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link DynamicConstant}"
               }
             ]
           }
@@ -132,6 +135,7 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link DynamicConstant}",
         "type": "object",
         "properties": {
           "value": {
@@ -202,7 +206,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link DynamicConstant}"
               }
             ]
           },
@@ -240,7 +245,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link DynamicConstant}"
               }
             ]
           },
@@ -278,7 +284,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link DynamicConstant}"
               }
             ]
           }
@@ -324,7 +331,8 @@
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link DynamicConstant}"
           }
         ]
       }

@@ -45,13 +45,15 @@
                     "maximum",
                     "minimum_and_maximum",
                     "equal"
-                  ]
+                  ],
+                  "description": "Current Type: {@link CommentTagLength.Type}"
                 }
               }
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link CommentTagLength}"
           }
         },
         "required": [
@@ -99,13 +101,15 @@
                     "maximum",
                     "minimum_and_maximum",
                     "equal"
-                  ]
+                  ],
+                  "description": "Current Type: {@link CommentTagLength.Type}"
                 }
               }
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link CommentTagLength}"
           },
           "second": {
             "type": "object",
@@ -142,7 +146,8 @@
                     "maximum",
                     "minimum_and_maximum",
                     "equal"
-                  ]
+                  ],
+                  "description": "Current Type: {@link CommentTagLength.Type}"
                 }
               }
             },
@@ -192,13 +197,15 @@
                 "maximum",
                 "minimum_and_maximum",
                 "equal"
-              ]
+              ],
+              "description": "Current Type: {@link CommentTagLength.Type}"
             }
           }
         },
         "required": [
           "value"
-        ]
+        ],
+        "description": "Current Type: {@link CommentTagLength}"
       }
     },
     {
@@ -241,7 +248,8 @@
                     "maximum",
                     "minimum_and_maximum",
                     "equal"
-                  ]
+                  ],
+                  "description": "Current Type: {@link CommentTagLength.Type}"
                 }
               }
             },
@@ -285,7 +293,8 @@
                     "maximum",
                     "minimum_and_maximum",
                     "equal"
-                  ]
+                  ],
+                  "description": "Current Type: {@link CommentTagLength.Type}"
                 }
               }
             },
@@ -329,7 +338,8 @@
                     "maximum",
                     "minimum_and_maximum",
                     "equal"
-                  ]
+                  ],
+                  "description": "Current Type: {@link CommentTagLength.Type}"
                 }
               }
             },
@@ -379,7 +389,8 @@
                 "maximum",
                 "minimum_and_maximum",
                 "equal"
-              ]
+              ],
+              "description": "Current Type: {@link CommentTagLength.Type}"
             }
           }
         },

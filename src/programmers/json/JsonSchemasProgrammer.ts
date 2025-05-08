@@ -81,7 +81,7 @@ export namespace JsonSchemasProgrammer {
         const schema: OpenApi.IJsonSchema | null = generator(meta);
         if (schema === null)
           throw new TransformerError({
-            code: "typia.json.application",
+            code: "typia.json.schemas",
             message: `invalid type on argument - (${meta.getName()}, ${i})`,
           });
         return schema;

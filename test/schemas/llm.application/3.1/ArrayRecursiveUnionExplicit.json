@@ -12,6 +12,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ArrayRecursiveUnionExplicit}",
             "type": "array",
             "items": {
               "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IBucket"
@@ -69,7 +70,8 @@
                   "size",
                   "type",
                   "extension"
-                ]
+                ],
+                "description": "Current Type: {@link ArrayRecursiveUnionExplicit.IImageFile}"
               },
               {
                 "type": "object",
@@ -104,7 +106,8 @@
                   "content",
                   "type",
                   "extension"
-                ]
+                ],
+                "description": "Current Type: {@link ArrayRecursiveUnionExplicit.ITextFile}"
               },
               {
                 "type": "object",
@@ -139,7 +142,8 @@
                   "count",
                   "type",
                   "extension"
-                ]
+                ],
+                "description": "Current Type: {@link ArrayRecursiveUnionExplicit.IZipFile}"
               },
               {
                 "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IShortcut"
@@ -216,6 +220,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ArrayRecursiveUnionExplicit}",
             "type": "array",
             "items": {
               "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IBucket"
@@ -230,7 +235,8 @@
                 "type": "array",
                 "items": {
                   "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IBucket"
-                }
+                },
+                "description": "Current Type: {@link ArrayRecursiveUnionExplicit}"
               }
             ]
           }
@@ -287,7 +293,8 @@
                   "size",
                   "type",
                   "extension"
-                ]
+                ],
+                "description": "Current Type: {@link ArrayRecursiveUnionExplicit.IImageFile}"
               },
               {
                 "type": "object",
@@ -322,7 +329,8 @@
                   "content",
                   "type",
                   "extension"
-                ]
+                ],
+                "description": "Current Type: {@link ArrayRecursiveUnionExplicit.ITextFile}"
               },
               {
                 "type": "object",
@@ -357,7 +365,8 @@
                   "count",
                   "type",
                   "extension"
-                ]
+                ],
+                "description": "Current Type: {@link ArrayRecursiveUnionExplicit.IZipFile}"
               },
               {
                 "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IShortcut"
@@ -428,6 +437,7 @@
         }
       },
       "output": {
+        "description": "Current Type: {@link ArrayRecursiveUnionExplicit}",
         "type": "array",
         "items": {
           "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IBucket"
@@ -448,7 +458,8 @@
                 "type": "array",
                 "items": {
                   "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IBucket"
-                }
+                },
+                "description": "Current Type: {@link ArrayRecursiveUnionExplicit}"
               }
             ]
           },
@@ -461,7 +472,8 @@
                 "type": "array",
                 "items": {
                   "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IBucket"
-                }
+                },
+                "description": "Current Type: {@link ArrayRecursiveUnionExplicit}"
               }
             ]
           },
@@ -474,7 +486,8 @@
                 "type": "array",
                 "items": {
                   "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IBucket"
-                }
+                },
+                "description": "Current Type: {@link ArrayRecursiveUnionExplicit}"
               }
             ]
           }
@@ -531,7 +544,8 @@
                   "size",
                   "type",
                   "extension"
-                ]
+                ],
+                "description": "Current Type: {@link ArrayRecursiveUnionExplicit.IImageFile}"
               },
               {
                 "type": "object",
@@ -566,7 +580,8 @@
                   "content",
                   "type",
                   "extension"
-                ]
+                ],
+                "description": "Current Type: {@link ArrayRecursiveUnionExplicit.ITextFile}"
               },
               {
                 "type": "object",
@@ -601,7 +616,8 @@
                   "count",
                   "type",
                   "extension"
-                ]
+                ],
+                "description": "Current Type: {@link ArrayRecursiveUnionExplicit.IZipFile}"
               },
               {
                 "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IShortcut"
@@ -680,7 +696,8 @@
             "type": "array",
             "items": {
               "$ref": "#/$defs/ArrayRecursiveUnionExplicit.IBucket"
-            }
+            },
+            "description": "Current Type: {@link ArrayRecursiveUnionExplicit}"
           }
         ]
       }

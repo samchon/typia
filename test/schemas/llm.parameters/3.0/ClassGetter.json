@@ -20,6 +20,7 @@
         "name",
         "dead"
       ],
+      "description": "Current Type: {@link ClassGetter.Person}",
       "additionalProperties": false
     },
     "nullable": {
@@ -63,6 +64,7 @@
         "name",
         "dead"
       ],
+      "description": "Current Type: {@link ClassGetter.Person}",
       "additionalProperties": false
     },
     "faint": {
@@ -108,6 +110,7 @@
           "name",
           "dead"
         ],
+        "description": "Current Type: {@link ClassGetter.Person}",
         "additionalProperties": false
       }
     }

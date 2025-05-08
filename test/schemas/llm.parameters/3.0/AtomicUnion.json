@@ -17,8 +17,10 @@
             "type": "boolean",
             "nullable": true
           }
-        ]
-      }
+        ],
+        "description": "Current Type: {@link AtomicUnion.Union}"
+      },
+      "description": "Current Type: {@link AtomicUnion}"
     },
     "nullable": {
       "type": "array",
@@ -36,7 +38,8 @@
             "type": "boolean",
             "nullable": true
           }
-        ]
+        ],
+        "description": "Current Type: {@link AtomicUnion.Union}"
       },
       "nullable": true
     },
@@ -56,8 +59,10 @@
             "type": "boolean",
             "nullable": true
           }
-        ]
-      }
+        ],
+        "description": "Current Type: {@link AtomicUnion.Union}"
+      },
+      "description": "Current Type: {@link AtomicUnion}"
     },
     "faint": {
       "type": "array",
@@ -75,7 +80,8 @@
             "type": "boolean",
             "nullable": true
           }
-        ]
+        ],
+        "description": "Current Type: {@link AtomicUnion.Union}"
       },
       "nullable": true
     },
@@ -97,8 +103,10 @@
               "type": "boolean",
               "nullable": true
             }
-          ]
-        }
+          ],
+          "description": "Current Type: {@link AtomicUnion.Union}"
+        },
+        "description": "Current Type: {@link AtomicUnion}"
       }
     }
   },

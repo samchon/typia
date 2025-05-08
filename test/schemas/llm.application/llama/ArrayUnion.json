@@ -11,8 +11,10 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ArrayUnion}",
             "type": "array",
             "items": {
+              "description": "Current Type: {@link ArrayUnion.IUnion}",
               "oneOf": [
                 {
                   "type": "array",
@@ -49,8 +51,10 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ArrayUnion}",
             "type": "array",
             "items": {
+              "description": "Current Type: {@link ArrayUnion.IUnion}",
               "oneOf": [
                 {
                   "type": "array",
@@ -81,6 +85,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ArrayUnion.IUnion}",
                   "oneOf": [
                     {
                       "type": "array",
@@ -101,7 +106,8 @@
                       }
                     }
                   ]
-                }
+                },
+                "description": "Current Type: {@link ArrayUnion}"
               }
             ]
           }
@@ -114,8 +120,10 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link ArrayUnion}",
         "type": "array",
         "items": {
+          "description": "Current Type: {@link ArrayUnion.IUnion}",
           "oneOf": [
             {
               "type": "array",
@@ -152,6 +160,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ArrayUnion.IUnion}",
                   "oneOf": [
                     {
                       "type": "array",
@@ -172,7 +181,8 @@
                       }
                     }
                   ]
-                }
+                },
+                "description": "Current Type: {@link ArrayUnion}"
               }
             ]
           },
@@ -184,6 +194,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ArrayUnion.IUnion}",
                   "oneOf": [
                     {
                       "type": "array",
@@ -204,7 +215,8 @@
                       }
                     }
                   ]
-                }
+                },
+                "description": "Current Type: {@link ArrayUnion}"
               }
             ]
           },
@@ -216,6 +228,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ArrayUnion.IUnion}",
                   "oneOf": [
                     {
                       "type": "array",
@@ -236,7 +249,8 @@
                       }
                     }
                   ]
-                }
+                },
+                "description": "Current Type: {@link ArrayUnion}"
               }
             ]
           }
@@ -256,6 +270,7 @@
           {
             "type": "array",
             "items": {
+              "description": "Current Type: {@link ArrayUnion.IUnion}",
               "oneOf": [
                 {
                   "type": "array",
@@ -276,7 +291,8 @@
                   }
                 }
               ]
-            }
+            },
+            "description": "Current Type: {@link ArrayUnion}"
           }
         ]
       }

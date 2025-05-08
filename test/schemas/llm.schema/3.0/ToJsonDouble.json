@@ -12,5 +12,6 @@
     "id",
     "flag"
   ],
+  "description": "Current Type: {@link ToJsonDouble.Child}",
   "additionalProperties": false
 }

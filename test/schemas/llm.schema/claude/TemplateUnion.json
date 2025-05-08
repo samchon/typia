@@ -1,9 +1,11 @@
 {
+  "description": "Current Type: {@link TemplateUnion}",
   "type": "object",
   "properties": {
     "value": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link TemplateUnion.Type}",
         "type": "object",
         "properties": {
           "prefix": {

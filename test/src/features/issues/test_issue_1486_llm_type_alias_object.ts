@@ -7,7 +7,7 @@ export const test_issue_1486_llm_type_alias_object = () => {
     },
     "chatgpt"
   >();
-  typia.llm.applicationOfValidate<
+  typia.llm.application<
     {
       call(input: FinishEvaluateMessageType): void;
     },

@@ -23,5 +23,6 @@
     "email",
     "ipv4",
     "ipv6"
-  ]
+  ],
+  "description": "Current Type: {@link TypeTagPattern}"
 }

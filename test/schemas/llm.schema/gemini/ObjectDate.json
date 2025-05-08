@@ -32,5 +32,6 @@
     "datetime",
     "time",
     "duration"
-  ]
+  ],
+  "description": "Current Type: {@link ObjectDate}"
 }

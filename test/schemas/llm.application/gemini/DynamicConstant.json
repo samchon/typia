@@ -39,7 +39,8 @@
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link DynamicConstant}"
           }
         },
         "required": [
@@ -81,7 +82,8 @@
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link DynamicConstant}"
           },
           "second": {
             "type": "object",
@@ -150,7 +152,8 @@
         },
         "required": [
           "value"
-        ]
+        ],
+        "description": "Current Type: {@link DynamicConstant}"
       }
     },
     {

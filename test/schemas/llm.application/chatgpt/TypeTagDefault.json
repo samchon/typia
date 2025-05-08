@@ -12,6 +12,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link TypeTagDefault}",
             "type": "object",
             "properties": {
               "boolean": {
@@ -123,6 +124,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link TypeTagDefault}",
             "type": "object",
             "properties": {
               "boolean": {
@@ -321,7 +323,8 @@
                   "union_but_number",
                   "union_but_string",
                   "boolean_and_number_and_template"
-                ]
+                ],
+                "description": "Current Type: {@link TypeTagDefault}"
               }
             ]
           }
@@ -334,6 +337,7 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link TypeTagDefault}",
         "type": "object",
         "properties": {
           "boolean": {
@@ -538,7 +542,8 @@
                   "union_but_number",
                   "union_but_string",
                   "boolean_and_number_and_template"
-                ]
+                ],
+                "description": "Current Type: {@link TypeTagDefault}"
               }
             ]
           },
@@ -643,7 +648,8 @@
                   "union_but_number",
                   "union_but_string",
                   "boolean_and_number_and_template"
-                ]
+                ],
+                "description": "Current Type: {@link TypeTagDefault}"
               }
             ]
           },
@@ -748,7 +754,8 @@
                   "union_but_number",
                   "union_but_string",
                   "boolean_and_number_and_template"
-                ]
+                ],
+                "description": "Current Type: {@link TypeTagDefault}"
               }
             ]
           }
@@ -861,7 +868,8 @@
               "union_but_number",
               "union_but_string",
               "boolean_and_number_and_template"
-            ]
+            ],
+            "description": "Current Type: {@link TypeTagDefault}"
           }
         ]
       }

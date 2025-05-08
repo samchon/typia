@@ -1,13 +1,14 @@
 import typia from "typia";
-
-import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 import { TypeTagArrayUnion } from "../../../structures/TypeTagArrayUnion";
+import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 
-export const test_llm_parameters_claude_TypeTagArrayUnion =
+export const test_llm_parameters_claude_TypeTagArrayUnion = 
   _test_llm_parameters({
     model: "claude",
     name: "TypeTagArrayUnion",
-  })(typia.llm.parameters<TypeTagArrayUnionParameters, "claude">());
+  })(
+    typia.llm.parameters<TypeTagArrayUnionParameters, "claude">(),
+  );
 
 interface TypeTagArrayUnionParameters {
   regular: TypeTagArrayUnion;

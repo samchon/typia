@@ -1,0 +1,38 @@
+{
+  "version": "3.1",
+  "components": {
+    "schemas": {
+      "DynamicComposite": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ],
+        "additionalProperties": {
+          "oneOf": [
+            {
+              "type": "number"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "boolean"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "schema": {
+    "$ref": "#/components/schemas/DynamicComposite"
+  }
+}

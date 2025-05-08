@@ -1,9 +1,17 @@
 import typia from "typia";
 
-import { TypeTagObjectUnion } from "../structures/TypeTagObjectUnion";
+interface Something {
+  /**
+   * @exclusiveMinimum 3
+   */
+  exclusiveMinimum: number;
 
-const collection = typia.json.schemas<[TypeTagObjectUnion], "3.0">();
-console.log(
-  //JSON.stringify(collection, null, 2)
-  collection.components.schemas?.TypeTagObjectUnion,
-);
+  /**
+   * @type uint32
+   */
+  uint32: number;
+}
+
+const p = typia.llm.parameters<Something, "claude">();
+
+console.log(JSON.stringify(p, null, 2));

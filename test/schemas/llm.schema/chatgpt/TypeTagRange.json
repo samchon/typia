@@ -1,9 +1,11 @@
 {
+  "description": "Current Type: {@link TypeTagRange}",
   "type": "object",
   "properties": {
     "value": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link TypeTagRange.Type}",
         "type": "object",
         "properties": {
           "greater": {

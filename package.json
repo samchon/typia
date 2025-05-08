@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "typia",
-  "version": "8.0.0",
+  "version": "9.1.1",
   "description": "Superfast runtime validators with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
@@ -29,7 +29,7 @@
     "package:latest": "ts-node deploy --tag latest",
     "package:next": "ts-node deploy --tag next",
     "package:patch": "ts-node deploy --tag patch",
-    "preinstall": "npx only-allow pnpm"
+    "package:tgz": "ts-node deploy/tgz.ts"
   },
   "repository": {
     "type": "git",
@@ -42,7 +42,7 @@
   },
   "homepage": "https://typia.io",
   "dependencies": {
-    "@samchon/openapi": "^3.0.0",
+    "@samchon/openapi": "^4.2.0",
     "@standard-schema/spec": "^1.0.0",
     "commander": "^10.0.0",
     "comment-json": "^4.2.3",
@@ -51,7 +51,7 @@
     "randexp": "^0.5.3"
   },
   "peerDependencies": {
-    "@samchon/openapi": ">=3.0.0 <4.0.0",
+    "@samchon/openapi": ">=4.0.0 <5.0.0",
     "typescript": ">=4.8.0 <5.9.0"
   },
   "devDependencies": {
@@ -74,10 +74,7 @@
     "suppress-warnings": "^1.0.2",
     "tinyglobby": "^0.2.12",
     "ts-node": "^10.9.2",
-    "typescript": "~5.8.2"
-  },
-  "stackblitz": {
-    "startCommand": "npm install && npm run test"
+    "typescript": "~5.8.3"
   },
   "sideEffects": false,
   "files": [

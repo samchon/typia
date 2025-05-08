@@ -12,6 +12,7 @@
       "oneOf": [
         {
           "type": "integer",
+          "minimum": 0,
           "maximum": 100
         },
         {
@@ -27,5 +28,6 @@
     "id",
     "age"
   ],
+  "description": "Current Type: {@link ConstantAtomicTagged}",
   "additionalProperties": false
 }

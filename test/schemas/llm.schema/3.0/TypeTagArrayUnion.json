@@ -52,6 +52,8 @@
       "maxItems",
       "both"
     ],
+    "description": "Current Type: {@link TypeTagArrayUnion.Type}",
     "additionalProperties": false
-  }
+  },
+  "description": "Current Type: {@link TypeTagArrayUnion}"
 }

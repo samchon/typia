@@ -2,8 +2,10 @@
   "type": "object",
   "properties": {
     "regular": {
+      "description": "Current Type: {@link ArrayHierarchical}",
       "type": "array",
       "items": {
+        "description": "Current Type: {@link ArrayHierarchical.ICompany}",
         "type": "object",
         "properties": {
           "id": {
@@ -16,6 +18,7 @@
             "type": "string"
           },
           "established_at": {
+            "description": "Current Type: {@link ArrayHierarchical.ITimestamp}",
             "type": "object",
             "properties": {
               "time": {
@@ -33,6 +36,7 @@
           "departments": {
             "type": "array",
             "items": {
+              "description": "Current Type: {@link ArrayHierarchical.IDepartment}",
               "type": "object",
               "properties": {
                 "id": {
@@ -45,6 +49,7 @@
                   "type": "number"
                 },
                 "created_at": {
+                  "description": "Current Type: {@link ArrayHierarchical.ITimestamp}",
                   "type": "object",
                   "properties": {
                     "time": {
@@ -62,6 +67,7 @@
                 "employees": {
                   "type": "array",
                   "items": {
+                    "description": "Current Type: {@link ArrayHierarchical.IEmployee}",
                     "type": "object",
                     "properties": {
                       "id": {
@@ -77,6 +83,7 @@
                         "type": "number"
                       },
                       "employed_at": {
+                        "description": "Current Type: {@link ArrayHierarchical.ITimestamp}",
                         "type": "object",
                         "properties": {
                           "time": {
@@ -129,6 +136,7 @@
         {
           "type": "array",
           "items": {
+            "description": "Current Type: {@link ArrayHierarchical.ICompany}",
             "type": "object",
             "properties": {
               "id": {
@@ -141,6 +149,7 @@
                 "type": "string"
               },
               "established_at": {
+                "description": "Current Type: {@link ArrayHierarchical.ITimestamp}",
                 "type": "object",
                 "properties": {
                   "time": {
@@ -158,6 +167,7 @@
               "departments": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ArrayHierarchical.IDepartment}",
                   "type": "object",
                   "properties": {
                     "id": {
@@ -170,6 +180,7 @@
                       "type": "number"
                     },
                     "created_at": {
+                      "description": "Current Type: {@link ArrayHierarchical.ITimestamp}",
                       "type": "object",
                       "properties": {
                         "time": {
@@ -187,6 +198,7 @@
                     "employees": {
                       "type": "array",
                       "items": {
+                        "description": "Current Type: {@link ArrayHierarchical.IEmployee}",
                         "type": "object",
                         "properties": {
                           "id": {
@@ -202,6 +214,7 @@
                             "type": "number"
                           },
                           "employed_at": {
+                            "description": "Current Type: {@link ArrayHierarchical.ITimestamp}",
                             "type": "object",
                             "properties": {
                               "time": {
@@ -244,13 +257,16 @@
               "established_at",
               "departments"
             ]
-          }
+          },
+          "description": "Current Type: {@link ArrayHierarchical}"
         }
       ]
     },
     "optional": {
+      "description": "Current Type: {@link ArrayHierarchical}",
       "type": "array",
       "items": {
+        "description": "Current Type: {@link ArrayHierarchical.ICompany}",
         "type": "object",
         "properties": {
           "id": {
@@ -263,6 +279,7 @@
             "type": "string"
           },
           "established_at": {
+            "description": "Current Type: {@link ArrayHierarchical.ITimestamp}",
             "type": "object",
             "properties": {
               "time": {
@@ -280,6 +297,7 @@
           "departments": {
             "type": "array",
             "items": {
+              "description": "Current Type: {@link ArrayHierarchical.IDepartment}",
               "type": "object",
               "properties": {
                 "id": {
@@ -292,6 +310,7 @@
                   "type": "number"
                 },
                 "created_at": {
+                  "description": "Current Type: {@link ArrayHierarchical.ITimestamp}",
                   "type": "object",
                   "properties": {
                     "time": {
@@ -309,6 +328,7 @@
                 "employees": {
                   "type": "array",
                   "items": {
+                    "description": "Current Type: {@link ArrayHierarchical.IEmployee}",
                     "type": "object",
                     "properties": {
                       "id": {
@@ -324,6 +344,7 @@
                         "type": "number"
                       },
                       "employed_at": {
+                        "description": "Current Type: {@link ArrayHierarchical.ITimestamp}",
                         "type": "object",
                         "properties": {
                           "time": {
@@ -376,6 +397,7 @@
         {
           "type": "array",
           "items": {
+            "description": "Current Type: {@link ArrayHierarchical.ICompany}",
             "type": "object",
             "properties": {
               "id": {
@@ -388,6 +410,7 @@
                 "type": "string"
               },
               "established_at": {
+                "description": "Current Type: {@link ArrayHierarchical.ITimestamp}",
                 "type": "object",
                 "properties": {
                   "time": {
@@ -405,6 +428,7 @@
               "departments": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ArrayHierarchical.IDepartment}",
                   "type": "object",
                   "properties": {
                     "id": {
@@ -417,6 +441,7 @@
                       "type": "number"
                     },
                     "created_at": {
+                      "description": "Current Type: {@link ArrayHierarchical.ITimestamp}",
                       "type": "object",
                       "properties": {
                         "time": {
@@ -434,6 +459,7 @@
                     "employees": {
                       "type": "array",
                       "items": {
+                        "description": "Current Type: {@link ArrayHierarchical.IEmployee}",
                         "type": "object",
                         "properties": {
                           "id": {
@@ -449,6 +475,7 @@
                             "type": "number"
                           },
                           "employed_at": {
+                            "description": "Current Type: {@link ArrayHierarchical.ITimestamp}",
                             "type": "object",
                             "properties": {
                               "time": {
@@ -491,15 +518,18 @@
               "established_at",
               "departments"
             ]
-          }
+          },
+          "description": "Current Type: {@link ArrayHierarchical}"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link ArrayHierarchical}",
         "type": "array",
         "items": {
+          "description": "Current Type: {@link ArrayHierarchical.ICompany}",
           "type": "object",
           "properties": {
             "id": {
@@ -512,6 +542,7 @@
               "type": "string"
             },
             "established_at": {
+              "description": "Current Type: {@link ArrayHierarchical.ITimestamp}",
               "type": "object",
               "properties": {
                 "time": {
@@ -529,6 +560,7 @@
             "departments": {
               "type": "array",
               "items": {
+                "description": "Current Type: {@link ArrayHierarchical.IDepartment}",
                 "type": "object",
                 "properties": {
                   "id": {
@@ -541,6 +573,7 @@
                     "type": "number"
                   },
                   "created_at": {
+                    "description": "Current Type: {@link ArrayHierarchical.ITimestamp}",
                     "type": "object",
                     "properties": {
                       "time": {
@@ -558,6 +591,7 @@
                   "employees": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link ArrayHierarchical.IEmployee}",
                       "type": "object",
                       "properties": {
                         "id": {
@@ -573,6 +607,7 @@
                           "type": "number"
                         },
                         "employed_at": {
+                          "description": "Current Type: {@link ArrayHierarchical.ITimestamp}",
                           "type": "object",
                           "properties": {
                             "time": {

@@ -48,7 +48,8 @@
               "extension",
               "url",
               "created_at"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectPrimitive.IFile}"
           }
         },
         "secret": {
@@ -66,7 +67,8 @@
         "files",
         "secret",
         "created_at"
-      ]
+      ],
+      "description": "Current Type: {@link ObjectPrimitive.IArticle}"
     },
     "nullable": {
       "type": "object",
@@ -115,7 +117,8 @@
               "extension",
               "url",
               "created_at"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectPrimitive.IFile}"
           }
         },
         "secret": {
@@ -183,7 +186,8 @@
               "extension",
               "url",
               "created_at"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectPrimitive.IFile}"
           }
         },
         "secret": {
@@ -201,7 +205,8 @@
         "files",
         "secret",
         "created_at"
-      ]
+      ],
+      "description": "Current Type: {@link ObjectPrimitive.IArticle}"
     },
     "faint": {
       "type": "object",
@@ -250,7 +255,8 @@
               "extension",
               "url",
               "created_at"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectPrimitive.IFile}"
           }
         },
         "secret": {
@@ -320,7 +326,8 @@
                 "extension",
                 "url",
                 "created_at"
-              ]
+              ],
+              "description": "Current Type: {@link ObjectPrimitive.IFile}"
             }
           },
           "secret": {
@@ -338,7 +345,8 @@
           "files",
           "secret",
           "created_at"
-        ]
+        ],
+        "description": "Current Type: {@link ObjectPrimitive.IArticle}"
       }
     }
   },

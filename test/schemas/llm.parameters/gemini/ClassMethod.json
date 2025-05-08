@@ -14,7 +14,8 @@
       "required": [
         "name",
         "age"
-      ]
+      ],
+      "description": "Current Type: {@link ClassMethod.Animal}"
     },
     "nullable": {
       "type": "object",
@@ -45,7 +46,8 @@
       "required": [
         "name",
         "age"
-      ]
+      ],
+      "description": "Current Type: {@link ClassMethod.Animal}"
     },
     "faint": {
       "type": "object",
@@ -78,7 +80,8 @@
         "required": [
           "name",
           "age"
-        ]
+        ],
+        "description": "Current Type: {@link ClassMethod.Animal}"
       }
     }
   },

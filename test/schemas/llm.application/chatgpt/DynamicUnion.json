@@ -12,6 +12,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link DynamicUnion}",
             "type": "object",
             "properties": {},
             "required": [],
@@ -40,6 +41,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link DynamicUnion}",
             "type": "object",
             "properties": {},
             "required": [],
@@ -63,6 +65,7 @@
                 "type": "object",
                 "properties": {},
                 "required": [],
+                "description": "Current Type: {@link DynamicUnion}",
                 "additionalProperties": {
                   "anyOf": [
                     {
@@ -85,6 +88,7 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link DynamicUnion}",
         "type": "object",
         "properties": {},
         "required": [],
@@ -114,6 +118,7 @@
                 "type": "object",
                 "properties": {},
                 "required": [],
+                "description": "Current Type: {@link DynamicUnion}",
                 "additionalProperties": {
                   "anyOf": [
                     {
@@ -136,6 +141,7 @@
                 "type": "object",
                 "properties": {},
                 "required": [],
+                "description": "Current Type: {@link DynamicUnion}",
                 "additionalProperties": {
                   "anyOf": [
                     {
@@ -158,6 +164,7 @@
                 "type": "object",
                 "properties": {},
                 "required": [],
+                "description": "Current Type: {@link DynamicUnion}",
                 "additionalProperties": {
                   "anyOf": [
                     {
@@ -188,6 +195,7 @@
             "type": "object",
             "properties": {},
             "required": [],
+            "description": "Current Type: {@link DynamicUnion}",
             "additionalProperties": {
               "anyOf": [
                 {

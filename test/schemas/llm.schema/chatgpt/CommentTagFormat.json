@@ -1,4 +1,5 @@
 {
+  "description": "Current Type: {@link CommentTagFormat}",
   "type": "object",
   "properties": {
     "byte": {

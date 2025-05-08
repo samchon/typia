@@ -55,6 +55,7 @@
             "required": [
               "value"
             ],
+            "description": "Current Type: {@link DynamicEnumeration}",
             "additionalProperties": false
           }
         },
@@ -113,6 +114,7 @@
             "required": [
               "value"
             ],
+            "description": "Current Type: {@link DynamicEnumeration}",
             "additionalProperties": false
           },
           "second": {
@@ -213,6 +215,7 @@
         "required": [
           "value"
         ],
+        "description": "Current Type: {@link DynamicEnumeration}",
         "additionalProperties": false
       }
     },

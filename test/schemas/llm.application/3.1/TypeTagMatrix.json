@@ -12,6 +12,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link TypeTagMatrix}",
             "type": "object",
             "properties": {
               "matrix": {
@@ -47,6 +48,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link TypeTagMatrix}",
             "type": "object",
             "properties": {
               "matrix": {
@@ -93,7 +95,8 @@
                 },
                 "required": [
                   "matrix"
-                ]
+                ],
+                "description": "Current Type: {@link TypeTagMatrix}"
               }
             ]
           }
@@ -106,6 +109,7 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link TypeTagMatrix}",
         "type": "object",
         "properties": {
           "matrix": {
@@ -158,7 +162,8 @@
                 },
                 "required": [
                   "matrix"
-                ]
+                ],
+                "description": "Current Type: {@link TypeTagMatrix}"
               }
             ]
           },
@@ -187,7 +192,8 @@
                 },
                 "required": [
                   "matrix"
-                ]
+                ],
+                "description": "Current Type: {@link TypeTagMatrix}"
               }
             ]
           },
@@ -216,7 +222,8 @@
                 },
                 "required": [
                   "matrix"
-                ]
+                ],
+                "description": "Current Type: {@link TypeTagMatrix}"
               }
             ]
           }
@@ -253,7 +260,8 @@
             },
             "required": [
               "matrix"
-            ]
+            ],
+            "description": "Current Type: {@link TypeTagMatrix}"
           }
         ]
       }

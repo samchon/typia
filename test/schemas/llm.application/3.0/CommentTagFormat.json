@@ -127,6 +127,7 @@
               "jsonPointer",
               "relativeJsonPointer"
             ],
+            "description": "Current Type: {@link CommentTagFormat}",
             "additionalProperties": false
           }
         },
@@ -257,6 +258,7 @@
               "jsonPointer",
               "relativeJsonPointer"
             ],
+            "description": "Current Type: {@link CommentTagFormat}",
             "additionalProperties": false
           },
           "second": {
@@ -501,6 +503,7 @@
           "jsonPointer",
           "relativeJsonPointer"
         ],
+        "description": "Current Type: {@link CommentTagFormat}",
         "additionalProperties": false
       }
     },

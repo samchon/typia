@@ -8,5 +8,6 @@
         "type": "number"
       }
     }
-  }
+  },
+  "description": "Current Type: {@link ArrayMatrix}"
 }

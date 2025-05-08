@@ -38,6 +38,6 @@
     "newLine"
   ],
   "title": "This is the title of object type",
-  "description": "An interface designed to test JSON schema's object description.",
+  "description": "Description of the current {@link ObjectDescription} type:\n\n> An interface designed to test JSON schema's object description.",
   "additionalProperties": false
 }

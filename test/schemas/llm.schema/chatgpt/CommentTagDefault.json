@@ -1,4 +1,5 @@
 {
+  "description": "Current Type: {@link CommentTagDefault}",
   "type": "object",
   "properties": {
     "boolean": {

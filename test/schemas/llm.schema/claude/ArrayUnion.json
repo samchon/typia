@@ -1,6 +1,8 @@
 {
+  "description": "Current Type: {@link ArrayUnion}",
   "type": "array",
   "items": {
+    "description": "Current Type: {@link ArrayUnion.IUnion}",
     "oneOf": [
       {
         "type": "array",

@@ -16,5 +16,6 @@
     "name",
     "vulnerable"
   ],
+  "description": "Current Type: {@link ObjectIntersection}",
   "additionalProperties": false
 }

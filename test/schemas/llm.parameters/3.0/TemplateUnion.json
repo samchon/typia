@@ -62,6 +62,7 @@
               "middle",
               "mixed"
             ],
+            "description": "Current Type: {@link TemplateUnion.Type}",
             "additionalProperties": false
           }
         }
@@ -69,6 +70,7 @@
       "required": [
         "value"
       ],
+      "description": "Current Type: {@link TemplateUnion}",
       "additionalProperties": false
     },
     "nullable": {
@@ -132,6 +134,7 @@
               "middle",
               "mixed"
             ],
+            "description": "Current Type: {@link TemplateUnion.Type}",
             "additionalProperties": false
           }
         }
@@ -203,6 +206,7 @@
               "middle",
               "mixed"
             ],
+            "description": "Current Type: {@link TemplateUnion.Type}",
             "additionalProperties": false
           }
         }
@@ -210,6 +214,7 @@
       "required": [
         "value"
       ],
+      "description": "Current Type: {@link TemplateUnion}",
       "additionalProperties": false
     },
     "faint": {
@@ -273,6 +278,7 @@
               "middle",
               "mixed"
             ],
+            "description": "Current Type: {@link TemplateUnion.Type}",
             "additionalProperties": false
           }
         }
@@ -346,6 +352,7 @@
                 "middle",
                 "mixed"
               ],
+              "description": "Current Type: {@link TemplateUnion.Type}",
               "additionalProperties": false
             }
           }
@@ -353,6 +360,7 @@
         "required": [
           "value"
         ],
+        "description": "Current Type: {@link TemplateUnion}",
         "additionalProperties": false
       }
     }

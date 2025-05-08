@@ -12,6 +12,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link TemplateAtomic}",
             "type": "object",
             "properties": {
               "prefix": {
@@ -75,6 +76,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link TemplateAtomic}",
             "type": "object",
             "properties": {
               "prefix": {
@@ -177,7 +179,8 @@
                   "middle_boolean",
                   "ipv4",
                   "email"
-                ]
+                ],
+                "description": "Current Type: {@link TemplateAtomic}"
               }
             ]
           }
@@ -190,6 +193,7 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link TemplateAtomic}",
         "type": "object",
         "properties": {
           "prefix": {
@@ -298,7 +302,8 @@
                   "middle_boolean",
                   "ipv4",
                   "email"
-                ]
+                ],
+                "description": "Current Type: {@link TemplateAtomic}"
               }
             ]
           },
@@ -355,7 +360,8 @@
                   "middle_boolean",
                   "ipv4",
                   "email"
-                ]
+                ],
+                "description": "Current Type: {@link TemplateAtomic}"
               }
             ]
           },
@@ -412,7 +418,8 @@
                   "middle_boolean",
                   "ipv4",
                   "email"
-                ]
+                ],
+                "description": "Current Type: {@link TemplateAtomic}"
               }
             ]
           }
@@ -477,7 +484,8 @@
               "middle_boolean",
               "ipv4",
               "email"
-            ]
+            ],
+            "description": "Current Type: {@link TemplateAtomic}"
           }
         ]
       }

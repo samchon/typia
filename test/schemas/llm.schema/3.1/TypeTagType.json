@@ -1,28 +1,33 @@
 {
+  "description": "Current Type: {@link TypeTagType}",
   "type": "object",
   "properties": {
     "value": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link TypeTagType.Type}",
         "type": "object",
         "properties": {
           "int": {
             "type": "integer"
           },
           "uint": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0
           },
           "int32": {
             "type": "integer"
           },
           "uint32": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0
           },
           "int64": {
             "type": "integer"
           },
           "uint64": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0
           },
           "float": {
             "type": "number"

@@ -23,7 +23,8 @@
             "required": [
               "id",
               "flag"
-            ]
+            ],
+            "description": "Current Type: {@link ToJsonDouble.Child}"
           }
         },
         "required": [
@@ -49,7 +50,8 @@
             "required": [
               "id",
               "flag"
-            ]
+            ],
+            "description": "Current Type: {@link ToJsonDouble.Child}"
           },
           "second": {
             "type": "object",
@@ -86,7 +88,8 @@
         "required": [
           "id",
           "flag"
-        ]
+        ],
+        "description": "Current Type: {@link ToJsonDouble.Child}"
       }
     },
     {

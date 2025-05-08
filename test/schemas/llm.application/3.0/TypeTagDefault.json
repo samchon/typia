@@ -112,6 +112,7 @@
               "union_but_string",
               "boolean_and_number_and_template"
             ],
+            "description": "Current Type: {@link TypeTagDefault}",
             "additionalProperties": false
           }
         },
@@ -227,6 +228,7 @@
               "union_but_string",
               "boolean_and_number_and_template"
             ],
+            "description": "Current Type: {@link TypeTagDefault}",
             "additionalProperties": false
           },
           "second": {
@@ -441,6 +443,7 @@
           "union_but_string",
           "boolean_and_number_and_template"
         ],
+        "description": "Current Type: {@link TypeTagDefault}",
         "additionalProperties": false
       }
     },

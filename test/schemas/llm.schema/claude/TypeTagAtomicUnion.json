@@ -1,21 +1,23 @@
 {
+  "description": "Current Type: {@link TypeTagAtomicUnion}",
   "type": "object",
   "properties": {
     "value": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link TypeTagAtomicUnion.Type}",
         "type": "object",
         "properties": {
           "value": {
             "oneOf": [
               {
-                "type": "number",
-                "minimum": 3
-              },
-              {
                 "type": "string",
                 "minLength": 3,
                 "maxLength": 7
+              },
+              {
+                "type": "number",
+                "minimum": 3
               }
             ]
           }

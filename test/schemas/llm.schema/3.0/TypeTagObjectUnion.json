@@ -13,6 +13,7 @@
         "required": [
           "value"
         ],
+        "description": "Current Type: {@link TypeTagObjectUnion.Numeric}",
         "additionalProperties": false
       },
       {
@@ -27,8 +28,11 @@
         "required": [
           "value"
         ],
+        "description": "Current Type: {@link TypeTagObjectUnion.Literal}",
         "additionalProperties": false
       }
-    ]
-  }
+    ],
+    "description": "Current Type: {@link TypeTagObjectUnion.Type}"
+  },
+  "description": "Current Type: {@link TypeTagObjectUnion}"
 }

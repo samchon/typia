@@ -55,7 +55,8 @@
                                   "required": [
                                     "time",
                                     "zone"
-                                  ]
+                                  ],
+                                  "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
                                 }
                               },
                               "required": [
@@ -64,7 +65,8 @@
                                 "code",
                                 "sequence",
                                 "created_at"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ArrayRecursive.ICategory}"
                             }
                           },
                           "id": {
@@ -89,7 +91,8 @@
                             "required": [
                               "time",
                               "zone"
-                            ]
+                            ],
+                            "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
                           }
                         },
                         "required": [
@@ -98,7 +101,8 @@
                           "code",
                           "sequence",
                           "created_at"
-                        ]
+                        ],
+                        "description": "Current Type: {@link ArrayRecursive.ICategory}"
                       }
                     },
                     "id": {
@@ -123,7 +127,8 @@
                       "required": [
                         "time",
                         "zone"
-                      ]
+                      ],
+                      "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
                     }
                   },
                   "required": [
@@ -132,7 +137,8 @@
                     "code",
                     "sequence",
                     "created_at"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ArrayRecursive.ICategory}"
                 }
               },
               "id": {
@@ -157,7 +163,8 @@
                 "required": [
                   "time",
                   "zone"
-                ]
+                ],
+                "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
               }
             },
             "required": [
@@ -166,7 +173,8 @@
               "code",
               "sequence",
               "created_at"
-            ]
+            ],
+            "description": "Current Type: {@link ArrayRecursive.ICategory}"
           }
         },
         "required": [
@@ -224,7 +232,8 @@
                                   "required": [
                                     "time",
                                     "zone"
-                                  ]
+                                  ],
+                                  "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
                                 }
                               },
                               "required": [
@@ -233,7 +242,8 @@
                                 "code",
                                 "sequence",
                                 "created_at"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ArrayRecursive.ICategory}"
                             }
                           },
                           "id": {
@@ -258,7 +268,8 @@
                             "required": [
                               "time",
                               "zone"
-                            ]
+                            ],
+                            "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
                           }
                         },
                         "required": [
@@ -267,7 +278,8 @@
                           "code",
                           "sequence",
                           "created_at"
-                        ]
+                        ],
+                        "description": "Current Type: {@link ArrayRecursive.ICategory}"
                       }
                     },
                     "id": {
@@ -292,7 +304,8 @@
                       "required": [
                         "time",
                         "zone"
-                      ]
+                      ],
+                      "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
                     }
                   },
                   "required": [
@@ -301,7 +314,8 @@
                     "code",
                     "sequence",
                     "created_at"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ArrayRecursive.ICategory}"
                 }
               },
               "id": {
@@ -326,7 +340,8 @@
                 "required": [
                   "time",
                   "zone"
-                ]
+                ],
+                "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
               }
             },
             "required": [
@@ -335,7 +350,8 @@
               "code",
               "sequence",
               "created_at"
-            ]
+            ],
+            "description": "Current Type: {@link ArrayRecursive.ICategory}"
           },
           "second": {
             "type": "object",
@@ -382,7 +398,8 @@
                                   "required": [
                                     "time",
                                     "zone"
-                                  ]
+                                  ],
+                                  "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
                                 }
                               },
                               "required": [
@@ -391,7 +408,8 @@
                                 "code",
                                 "sequence",
                                 "created_at"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ArrayRecursive.ICategory}"
                             }
                           },
                           "id": {
@@ -416,7 +434,8 @@
                             "required": [
                               "time",
                               "zone"
-                            ]
+                            ],
+                            "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
                           }
                         },
                         "required": [
@@ -425,7 +444,8 @@
                           "code",
                           "sequence",
                           "created_at"
-                        ]
+                        ],
+                        "description": "Current Type: {@link ArrayRecursive.ICategory}"
                       }
                     },
                     "id": {
@@ -450,7 +470,8 @@
                       "required": [
                         "time",
                         "zone"
-                      ]
+                      ],
+                      "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
                     }
                   },
                   "required": [
@@ -459,7 +480,8 @@
                     "code",
                     "sequence",
                     "created_at"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ArrayRecursive.ICategory}"
                 }
               },
               "id": {
@@ -484,7 +506,8 @@
                 "required": [
                   "time",
                   "zone"
-                ]
+                ],
+                "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
               }
             },
             "required": [
@@ -547,7 +570,8 @@
                               "required": [
                                 "time",
                                 "zone"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
                             }
                           },
                           "required": [
@@ -556,7 +580,8 @@
                             "code",
                             "sequence",
                             "created_at"
-                          ]
+                          ],
+                          "description": "Current Type: {@link ArrayRecursive.ICategory}"
                         }
                       },
                       "id": {
@@ -581,7 +606,8 @@
                         "required": [
                           "time",
                           "zone"
-                        ]
+                        ],
+                        "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
                       }
                     },
                     "required": [
@@ -590,7 +616,8 @@
                       "code",
                       "sequence",
                       "created_at"
-                    ]
+                    ],
+                    "description": "Current Type: {@link ArrayRecursive.ICategory}"
                   }
                 },
                 "id": {
@@ -615,7 +642,8 @@
                   "required": [
                     "time",
                     "zone"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
                 }
               },
               "required": [
@@ -624,7 +652,8 @@
                 "code",
                 "sequence",
                 "created_at"
-              ]
+              ],
+              "description": "Current Type: {@link ArrayRecursive.ICategory}"
             }
           },
           "id": {
@@ -649,7 +678,8 @@
             "required": [
               "time",
               "zone"
-            ]
+            ],
+            "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
           }
         },
         "required": [
@@ -658,7 +688,8 @@
           "code",
           "sequence",
           "created_at"
-        ]
+        ],
+        "description": "Current Type: {@link ArrayRecursive.ICategory}"
       }
     },
     {
@@ -711,7 +742,8 @@
                                   "required": [
                                     "time",
                                     "zone"
-                                  ]
+                                  ],
+                                  "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
                                 }
                               },
                               "required": [
@@ -720,7 +752,8 @@
                                 "code",
                                 "sequence",
                                 "created_at"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ArrayRecursive.ICategory}"
                             }
                           },
                           "id": {
@@ -745,7 +778,8 @@
                             "required": [
                               "time",
                               "zone"
-                            ]
+                            ],
+                            "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
                           }
                         },
                         "required": [
@@ -754,7 +788,8 @@
                           "code",
                           "sequence",
                           "created_at"
-                        ]
+                        ],
+                        "description": "Current Type: {@link ArrayRecursive.ICategory}"
                       }
                     },
                     "id": {
@@ -779,7 +814,8 @@
                       "required": [
                         "time",
                         "zone"
-                      ]
+                      ],
+                      "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
                     }
                   },
                   "required": [
@@ -788,7 +824,8 @@
                     "code",
                     "sequence",
                     "created_at"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ArrayRecursive.ICategory}"
                 }
               },
               "id": {
@@ -813,7 +850,8 @@
                 "required": [
                   "time",
                   "zone"
-                ]
+                ],
+                "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
               }
             },
             "required": [
@@ -870,7 +908,8 @@
                                   "required": [
                                     "time",
                                     "zone"
-                                  ]
+                                  ],
+                                  "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
                                 }
                               },
                               "required": [
@@ -879,7 +918,8 @@
                                 "code",
                                 "sequence",
                                 "created_at"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ArrayRecursive.ICategory}"
                             }
                           },
                           "id": {
@@ -904,7 +944,8 @@
                             "required": [
                               "time",
                               "zone"
-                            ]
+                            ],
+                            "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
                           }
                         },
                         "required": [
@@ -913,7 +954,8 @@
                           "code",
                           "sequence",
                           "created_at"
-                        ]
+                        ],
+                        "description": "Current Type: {@link ArrayRecursive.ICategory}"
                       }
                     },
                     "id": {
@@ -938,7 +980,8 @@
                       "required": [
                         "time",
                         "zone"
-                      ]
+                      ],
+                      "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
                     }
                   },
                   "required": [
@@ -947,7 +990,8 @@
                     "code",
                     "sequence",
                     "created_at"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ArrayRecursive.ICategory}"
                 }
               },
               "id": {
@@ -972,7 +1016,8 @@
                 "required": [
                   "time",
                   "zone"
-                ]
+                ],
+                "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
               }
             },
             "required": [
@@ -1029,7 +1074,8 @@
                                   "required": [
                                     "time",
                                     "zone"
-                                  ]
+                                  ],
+                                  "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
                                 }
                               },
                               "required": [
@@ -1038,7 +1084,8 @@
                                 "code",
                                 "sequence",
                                 "created_at"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ArrayRecursive.ICategory}"
                             }
                           },
                           "id": {
@@ -1063,7 +1110,8 @@
                             "required": [
                               "time",
                               "zone"
-                            ]
+                            ],
+                            "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
                           }
                         },
                         "required": [
@@ -1072,7 +1120,8 @@
                           "code",
                           "sequence",
                           "created_at"
-                        ]
+                        ],
+                        "description": "Current Type: {@link ArrayRecursive.ICategory}"
                       }
                     },
                     "id": {
@@ -1097,7 +1146,8 @@
                       "required": [
                         "time",
                         "zone"
-                      ]
+                      ],
+                      "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
                     }
                   },
                   "required": [
@@ -1106,7 +1156,8 @@
                     "code",
                     "sequence",
                     "created_at"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ArrayRecursive.ICategory}"
                 }
               },
               "id": {
@@ -1131,7 +1182,8 @@
                 "required": [
                   "time",
                   "zone"
-                ]
+                ],
+                "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
               }
             },
             "required": [
@@ -1194,7 +1246,8 @@
                               "required": [
                                 "time",
                                 "zone"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
                             }
                           },
                           "required": [
@@ -1203,7 +1256,8 @@
                             "code",
                             "sequence",
                             "created_at"
-                          ]
+                          ],
+                          "description": "Current Type: {@link ArrayRecursive.ICategory}"
                         }
                       },
                       "id": {
@@ -1228,7 +1282,8 @@
                         "required": [
                           "time",
                           "zone"
-                        ]
+                        ],
+                        "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
                       }
                     },
                     "required": [
@@ -1237,7 +1292,8 @@
                       "code",
                       "sequence",
                       "created_at"
-                    ]
+                    ],
+                    "description": "Current Type: {@link ArrayRecursive.ICategory}"
                   }
                 },
                 "id": {
@@ -1262,7 +1318,8 @@
                   "required": [
                     "time",
                     "zone"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
                 }
               },
               "required": [
@@ -1271,7 +1328,8 @@
                 "code",
                 "sequence",
                 "created_at"
-              ]
+              ],
+              "description": "Current Type: {@link ArrayRecursive.ICategory}"
             }
           },
           "id": {
@@ -1296,7 +1354,8 @@
             "required": [
               "time",
               "zone"
-            ]
+            ],
+            "description": "Current Type: {@link ArrayRecursive.ITimestamp}"
           }
         },
         "required": [

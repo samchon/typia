@@ -70,6 +70,7 @@
                     "equal",
                     "unique"
                   ],
+                  "description": "Current Type: {@link TypeTagArray.Type}",
                   "additionalProperties": false
                 }
               }
@@ -77,6 +78,7 @@
             "required": [
               "value"
             ],
+            "description": "Current Type: {@link TypeTagArray}",
             "additionalProperties": false
           }
         },
@@ -150,6 +152,7 @@
                     "equal",
                     "unique"
                   ],
+                  "description": "Current Type: {@link TypeTagArray.Type}",
                   "additionalProperties": false
                 }
               }
@@ -157,6 +160,7 @@
             "required": [
               "value"
             ],
+            "description": "Current Type: {@link TypeTagArray}",
             "additionalProperties": false
           },
           "second": {
@@ -218,6 +222,7 @@
                     "equal",
                     "unique"
                   ],
+                  "description": "Current Type: {@link TypeTagArray.Type}",
                   "additionalProperties": false
                 }
               }
@@ -294,6 +299,7 @@
                 "equal",
                 "unique"
               ],
+              "description": "Current Type: {@link TypeTagArray.Type}",
               "additionalProperties": false
             }
           }
@@ -301,6 +307,7 @@
         "required": [
           "value"
         ],
+        "description": "Current Type: {@link TypeTagArray}",
         "additionalProperties": false
       }
     },
@@ -368,6 +375,7 @@
                     "equal",
                     "unique"
                   ],
+                  "description": "Current Type: {@link TypeTagArray.Type}",
                   "additionalProperties": false
                 }
               }
@@ -437,6 +445,7 @@
                     "equal",
                     "unique"
                   ],
+                  "description": "Current Type: {@link TypeTagArray.Type}",
                   "additionalProperties": false
                 }
               }
@@ -506,6 +515,7 @@
                     "equal",
                     "unique"
                   ],
+                  "description": "Current Type: {@link TypeTagArray.Type}",
                   "additionalProperties": false
                 }
               }
@@ -582,6 +592,7 @@
                 "equal",
                 "unique"
               ],
+              "description": "Current Type: {@link TypeTagArray.Type}",
               "additionalProperties": false
             }
           }

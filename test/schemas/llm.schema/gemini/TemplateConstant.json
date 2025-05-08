@@ -41,11 +41,13 @@
           "prefix",
           "postfix",
           "combined"
-        ]
+        ],
+        "description": "Current Type: {@link TemplateConstant.Type}"
       }
     }
   },
   "required": [
     "value"
-  ]
+  ],
+  "description": "Current Type: {@link TemplateConstant}"
 }

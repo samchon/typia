@@ -2,6 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
+      "description": "Current Type: {@link CommentTagDefault}",
       "type": "object",
       "properties": {
         "boolean": {
@@ -244,11 +245,13 @@
             "union_but_string",
             "vulnerable_range",
             "boolean_and_number_and_template"
-          ]
+          ],
+          "description": "Current Type: {@link CommentTagDefault}"
         }
       ]
     },
     "optional": {
+      "description": "Current Type: {@link CommentTagDefault}",
       "type": "object",
       "properties": {
         "boolean": {
@@ -491,13 +494,15 @@
             "union_but_string",
             "vulnerable_range",
             "boolean_and_number_and_template"
-          ]
+          ],
+          "description": "Current Type: {@link CommentTagDefault}"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link CommentTagDefault}",
         "type": "object",
         "properties": {
           "boolean": {

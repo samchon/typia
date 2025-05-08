@@ -12,6 +12,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ObjectDate}",
             "type": "object",
             "properties": {
               "classDate": {
@@ -91,6 +92,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ObjectDate}",
             "type": "object",
             "properties": {
               "classDate": {
@@ -225,7 +227,8 @@
                   "datetime",
                   "time",
                   "duration"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectDate}"
               }
             ]
           }
@@ -238,6 +241,7 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link ObjectDate}",
         "type": "object",
         "properties": {
           "classDate": {
@@ -378,7 +382,8 @@
                   "datetime",
                   "time",
                   "duration"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectDate}"
               }
             ]
           },
@@ -451,7 +456,8 @@
                   "datetime",
                   "time",
                   "duration"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectDate}"
               }
             ]
           },
@@ -524,7 +530,8 @@
                   "datetime",
                   "time",
                   "duration"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectDate}"
               }
             ]
           }
@@ -605,7 +612,8 @@
               "datetime",
               "time",
               "duration"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectDate}"
           }
         ]
       }

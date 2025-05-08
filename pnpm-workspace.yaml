@@ -4,3 +4,4 @@ packages:
   - 'test-error'
   - 'test-esm'
   - 'benchmark'
+  - 'examples'

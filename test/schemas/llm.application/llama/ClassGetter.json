@@ -11,6 +11,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ClassGetter.Person}",
             "type": "object",
             "properties": {
               "id": {
@@ -50,6 +51,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ClassGetter.Person}",
             "type": "object",
             "properties": {
               "id": {
@@ -104,7 +106,8 @@
                   "id",
                   "name",
                   "dead"
-                ]
+                ],
+                "description": "Current Type: {@link ClassGetter.Person}"
               }
             ]
           }
@@ -117,6 +120,7 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link ClassGetter.Person}",
         "type": "object",
         "properties": {
           "id": {
@@ -177,7 +181,8 @@
                   "id",
                   "name",
                   "dead"
-                ]
+                ],
+                "description": "Current Type: {@link ClassGetter.Person}"
               }
             ]
           },
@@ -210,7 +215,8 @@
                   "id",
                   "name",
                   "dead"
-                ]
+                ],
+                "description": "Current Type: {@link ClassGetter.Person}"
               }
             ]
           },
@@ -243,7 +249,8 @@
                   "id",
                   "name",
                   "dead"
-                ]
+                ],
+                "description": "Current Type: {@link ClassGetter.Person}"
               }
             ]
           }
@@ -284,7 +291,8 @@
               "id",
               "name",
               "dead"
-            ]
+            ],
+            "description": "Current Type: {@link ClassGetter.Person}"
           }
         ]
       }

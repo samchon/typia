@@ -1,0 +1,41 @@
+{
+  "version": "3.0",
+  "components": {
+    "schemas": {
+      "ConstantAtomicTagged": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "enum": [
+              "latest"
+            ]
+          },
+          "age": {
+            "oneOf": [
+              {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 100
+              },
+              {
+                "type": "number",
+                "enum": [
+                  -1
+                ]
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "age"
+        ]
+      }
+    }
+  },
+  "schema": {
+    "$ref": "#/components/schemas/ConstantAtomicTagged"
+  }
+}

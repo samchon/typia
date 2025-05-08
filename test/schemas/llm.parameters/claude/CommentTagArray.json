@@ -2,11 +2,13 @@
   "type": "object",
   "properties": {
     "regular": {
+      "description": "Current Type: {@link CommentTagArray}",
       "type": "object",
       "properties": {
         "value": {
           "type": "array",
           "items": {
+            "description": "Current Type: {@link CommentTagArray.Type}",
             "type": "object",
             "properties": {
               "items": {
@@ -73,6 +75,7 @@
             "value": {
               "type": "array",
               "items": {
+                "description": "Current Type: {@link CommentTagArray.Type}",
                 "type": "object",
                 "properties": {
                   "items": {
@@ -126,16 +129,19 @@
           },
           "required": [
             "value"
-          ]
+          ],
+          "description": "Current Type: {@link CommentTagArray}"
         }
       ]
     },
     "optional": {
+      "description": "Current Type: {@link CommentTagArray}",
       "type": "object",
       "properties": {
         "value": {
           "type": "array",
           "items": {
+            "description": "Current Type: {@link CommentTagArray.Type}",
             "type": "object",
             "properties": {
               "items": {
@@ -202,6 +208,7 @@
             "value": {
               "type": "array",
               "items": {
+                "description": "Current Type: {@link CommentTagArray.Type}",
                 "type": "object",
                 "properties": {
                   "items": {
@@ -255,18 +262,21 @@
           },
           "required": [
             "value"
-          ]
+          ],
+          "description": "Current Type: {@link CommentTagArray}"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link CommentTagArray}",
         "type": "object",
         "properties": {
           "value": {
             "type": "array",
             "items": {
+              "description": "Current Type: {@link CommentTagArray.Type}",
               "type": "object",
               "properties": {
                 "items": {

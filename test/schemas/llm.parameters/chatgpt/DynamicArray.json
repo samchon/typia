@@ -2,6 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
+      "description": "Current Type: {@link DynamicArray}",
       "type": "object",
       "properties": {
         "value": {
@@ -42,11 +43,13 @@
           },
           "required": [
             "value"
-          ]
+          ],
+          "description": "Current Type: {@link DynamicArray}"
         }
       ]
     },
     "optional": {
+      "description": "Current Type: {@link DynamicArray}",
       "type": "object",
       "properties": {
         "value": {
@@ -87,13 +90,15 @@
           },
           "required": [
             "value"
-          ]
+          ],
+          "description": "Current Type: {@link DynamicArray}"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link DynamicArray}",
         "type": "object",
         "properties": {
           "value": {

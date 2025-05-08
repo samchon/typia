@@ -37,6 +37,7 @@
               "postfix",
               "powerOf"
             ],
+            "description": "Current Type: {@link TypeTagCustom}",
             "additionalProperties": false
           }
         },
@@ -77,6 +78,7 @@
               "postfix",
               "powerOf"
             ],
+            "description": "Current Type: {@link TypeTagCustom}",
             "additionalProperties": false
           },
           "second": {
@@ -141,6 +143,7 @@
           "postfix",
           "powerOf"
         ],
+        "description": "Current Type: {@link TypeTagCustom}",
         "additionalProperties": false
       }
     },

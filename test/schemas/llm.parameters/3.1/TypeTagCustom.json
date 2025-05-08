@@ -2,6 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
+      "description": "Current Type: {@link TypeTagCustom}",
       "type": "object",
       "properties": {
         "id": {
@@ -58,11 +59,13 @@
             "dollar",
             "postfix",
             "powerOf"
-          ]
+          ],
+          "description": "Current Type: {@link TypeTagCustom}"
         }
       ]
     },
     "optional": {
+      "description": "Current Type: {@link TypeTagCustom}",
       "type": "object",
       "properties": {
         "id": {
@@ -119,13 +122,15 @@
             "dollar",
             "postfix",
             "powerOf"
-          ]
+          ],
+          "description": "Current Type: {@link TypeTagCustom}"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link TypeTagCustom}",
         "type": "object",
         "properties": {
           "id": {

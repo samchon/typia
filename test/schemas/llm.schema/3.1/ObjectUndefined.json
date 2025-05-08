@@ -1,6 +1,8 @@
 {
+  "description": "Current Type: {@link ObjectUndefined}",
   "type": "array",
   "items": {
+    "description": "Current Type: {@link ObjectUndefined.ILecture}",
     "type": "object",
     "properties": {
       "name": {
@@ -17,6 +19,7 @@
         ]
       },
       "classroom": {
+        "description": "Current Type: {@link ObjectUndefined.IClassroom}",
         "type": "object",
         "properties": {
           "id": {

@@ -12,6 +12,7 @@
     "id",
     "name"
   ],
+  "description": "Current Type: {@link DynamicComposite}",
   "additionalProperties": {
     "oneOf": [
       {

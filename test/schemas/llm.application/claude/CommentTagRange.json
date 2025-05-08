@@ -11,17 +11,18 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link CommentTagRange}",
             "type": "object",
             "properties": {
               "value": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link CommentTagRange.Type}",
                   "type": "object",
                   "properties": {
                     "greater": {
                       "type": "integer",
-                      "exclusiveMinimum": true,
-                      "minimum": 3
+                      "exclusiveMinimum": 3
                     },
                     "greater_equal": {
                       "type": "integer",
@@ -29,8 +30,7 @@
                     },
                     "less": {
                       "type": "integer",
-                      "exclusiveMaximum": true,
-                      "maximum": 7
+                      "exclusiveMaximum": 7
                     },
                     "less_equal": {
                       "type": "integer",
@@ -38,21 +38,17 @@
                     },
                     "greater_less": {
                       "type": "integer",
-                      "exclusiveMinimum": true,
-                      "minimum": 3,
-                      "exclusiveMaximum": true,
-                      "maximum": 7
+                      "exclusiveMinimum": 3,
+                      "exclusiveMaximum": 7
                     },
                     "greater_equal_less": {
                       "type": "integer",
                       "minimum": 3,
-                      "exclusiveMaximum": true,
-                      "maximum": 7
+                      "exclusiveMaximum": 7
                     },
                     "greater_less_equal": {
                       "type": "integer",
-                      "exclusiveMinimum": true,
-                      "minimum": 3,
+                      "exclusiveMinimum": 3,
                       "maximum": 7
                     },
                     "greater_equal_less_equal": {
@@ -98,17 +94,18 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link CommentTagRange}",
             "type": "object",
             "properties": {
               "value": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link CommentTagRange.Type}",
                   "type": "object",
                   "properties": {
                     "greater": {
                       "type": "integer",
-                      "exclusiveMinimum": true,
-                      "minimum": 3
+                      "exclusiveMinimum": 3
                     },
                     "greater_equal": {
                       "type": "integer",
@@ -116,8 +113,7 @@
                     },
                     "less": {
                       "type": "integer",
-                      "exclusiveMaximum": true,
-                      "maximum": 7
+                      "exclusiveMaximum": 7
                     },
                     "less_equal": {
                       "type": "integer",
@@ -125,21 +121,17 @@
                     },
                     "greater_less": {
                       "type": "integer",
-                      "exclusiveMinimum": true,
-                      "minimum": 3,
-                      "exclusiveMaximum": true,
-                      "maximum": 7
+                      "exclusiveMinimum": 3,
+                      "exclusiveMaximum": 7
                     },
                     "greater_equal_less": {
                       "type": "integer",
                       "minimum": 3,
-                      "exclusiveMaximum": true,
-                      "maximum": 7
+                      "exclusiveMaximum": 7
                     },
                     "greater_less_equal": {
                       "type": "integer",
-                      "exclusiveMinimum": true,
-                      "minimum": 3,
+                      "exclusiveMinimum": 3,
                       "maximum": 7
                     },
                     "greater_equal_less_equal": {
@@ -182,12 +174,12 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link CommentTagRange.Type}",
                       "type": "object",
                       "properties": {
                         "greater": {
                           "type": "integer",
-                          "exclusiveMinimum": true,
-                          "minimum": 3
+                          "exclusiveMinimum": 3
                         },
                         "greater_equal": {
                           "type": "integer",
@@ -195,8 +187,7 @@
                         },
                         "less": {
                           "type": "integer",
-                          "exclusiveMaximum": true,
-                          "maximum": 7
+                          "exclusiveMaximum": 7
                         },
                         "less_equal": {
                           "type": "integer",
@@ -204,21 +195,17 @@
                         },
                         "greater_less": {
                           "type": "integer",
-                          "exclusiveMinimum": true,
-                          "minimum": 3,
-                          "exclusiveMaximum": true,
-                          "maximum": 7
+                          "exclusiveMinimum": 3,
+                          "exclusiveMaximum": 7
                         },
                         "greater_equal_less": {
                           "type": "integer",
                           "minimum": 3,
-                          "exclusiveMaximum": true,
-                          "maximum": 7
+                          "exclusiveMaximum": 7
                         },
                         "greater_less_equal": {
                           "type": "integer",
-                          "exclusiveMinimum": true,
-                          "minimum": 3,
+                          "exclusiveMinimum": 3,
                           "maximum": 7
                         },
                         "greater_equal_less_equal": {
@@ -248,7 +235,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link CommentTagRange}"
               }
             ]
           }
@@ -261,17 +249,18 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link CommentTagRange}",
         "type": "object",
         "properties": {
           "value": {
             "type": "array",
             "items": {
+              "description": "Current Type: {@link CommentTagRange.Type}",
               "type": "object",
               "properties": {
                 "greater": {
                   "type": "integer",
-                  "exclusiveMinimum": true,
-                  "minimum": 3
+                  "exclusiveMinimum": 3
                 },
                 "greater_equal": {
                   "type": "integer",
@@ -279,8 +268,7 @@
                 },
                 "less": {
                   "type": "integer",
-                  "exclusiveMaximum": true,
-                  "maximum": 7
+                  "exclusiveMaximum": 7
                 },
                 "less_equal": {
                   "type": "integer",
@@ -288,21 +276,17 @@
                 },
                 "greater_less": {
                   "type": "integer",
-                  "exclusiveMinimum": true,
-                  "minimum": 3,
-                  "exclusiveMaximum": true,
-                  "maximum": 7
+                  "exclusiveMinimum": 3,
+                  "exclusiveMaximum": 7
                 },
                 "greater_equal_less": {
                   "type": "integer",
                   "minimum": 3,
-                  "exclusiveMaximum": true,
-                  "maximum": 7
+                  "exclusiveMaximum": 7
                 },
                 "greater_less_equal": {
                   "type": "integer",
-                  "exclusiveMinimum": true,
-                  "minimum": 3,
+                  "exclusiveMinimum": 3,
                   "maximum": 7
                 },
                 "greater_equal_less_equal": {
@@ -351,12 +335,12 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link CommentTagRange.Type}",
                       "type": "object",
                       "properties": {
                         "greater": {
                           "type": "integer",
-                          "exclusiveMinimum": true,
-                          "minimum": 3
+                          "exclusiveMinimum": 3
                         },
                         "greater_equal": {
                           "type": "integer",
@@ -364,8 +348,7 @@
                         },
                         "less": {
                           "type": "integer",
-                          "exclusiveMaximum": true,
-                          "maximum": 7
+                          "exclusiveMaximum": 7
                         },
                         "less_equal": {
                           "type": "integer",
@@ -373,21 +356,17 @@
                         },
                         "greater_less": {
                           "type": "integer",
-                          "exclusiveMinimum": true,
-                          "minimum": 3,
-                          "exclusiveMaximum": true,
-                          "maximum": 7
+                          "exclusiveMinimum": 3,
+                          "exclusiveMaximum": 7
                         },
                         "greater_equal_less": {
                           "type": "integer",
                           "minimum": 3,
-                          "exclusiveMaximum": true,
-                          "maximum": 7
+                          "exclusiveMaximum": 7
                         },
                         "greater_less_equal": {
                           "type": "integer",
-                          "exclusiveMinimum": true,
-                          "minimum": 3,
+                          "exclusiveMinimum": 3,
                           "maximum": 7
                         },
                         "greater_equal_less_equal": {
@@ -417,7 +396,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link CommentTagRange}"
               }
             ]
           },
@@ -432,12 +412,12 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link CommentTagRange.Type}",
                       "type": "object",
                       "properties": {
                         "greater": {
                           "type": "integer",
-                          "exclusiveMinimum": true,
-                          "minimum": 3
+                          "exclusiveMinimum": 3
                         },
                         "greater_equal": {
                           "type": "integer",
@@ -445,8 +425,7 @@
                         },
                         "less": {
                           "type": "integer",
-                          "exclusiveMaximum": true,
-                          "maximum": 7
+                          "exclusiveMaximum": 7
                         },
                         "less_equal": {
                           "type": "integer",
@@ -454,21 +433,17 @@
                         },
                         "greater_less": {
                           "type": "integer",
-                          "exclusiveMinimum": true,
-                          "minimum": 3,
-                          "exclusiveMaximum": true,
-                          "maximum": 7
+                          "exclusiveMinimum": 3,
+                          "exclusiveMaximum": 7
                         },
                         "greater_equal_less": {
                           "type": "integer",
                           "minimum": 3,
-                          "exclusiveMaximum": true,
-                          "maximum": 7
+                          "exclusiveMaximum": 7
                         },
                         "greater_less_equal": {
                           "type": "integer",
-                          "exclusiveMinimum": true,
-                          "minimum": 3,
+                          "exclusiveMinimum": 3,
                           "maximum": 7
                         },
                         "greater_equal_less_equal": {
@@ -498,7 +473,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link CommentTagRange}"
               }
             ]
           },
@@ -513,12 +489,12 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link CommentTagRange.Type}",
                       "type": "object",
                       "properties": {
                         "greater": {
                           "type": "integer",
-                          "exclusiveMinimum": true,
-                          "minimum": 3
+                          "exclusiveMinimum": 3
                         },
                         "greater_equal": {
                           "type": "integer",
@@ -526,8 +502,7 @@
                         },
                         "less": {
                           "type": "integer",
-                          "exclusiveMaximum": true,
-                          "maximum": 7
+                          "exclusiveMaximum": 7
                         },
                         "less_equal": {
                           "type": "integer",
@@ -535,21 +510,17 @@
                         },
                         "greater_less": {
                           "type": "integer",
-                          "exclusiveMinimum": true,
-                          "minimum": 3,
-                          "exclusiveMaximum": true,
-                          "maximum": 7
+                          "exclusiveMinimum": 3,
+                          "exclusiveMaximum": 7
                         },
                         "greater_equal_less": {
                           "type": "integer",
                           "minimum": 3,
-                          "exclusiveMaximum": true,
-                          "maximum": 7
+                          "exclusiveMaximum": 7
                         },
                         "greater_less_equal": {
                           "type": "integer",
-                          "exclusiveMinimum": true,
-                          "minimum": 3,
+                          "exclusiveMinimum": 3,
                           "maximum": 7
                         },
                         "greater_equal_less_equal": {
@@ -579,7 +550,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link CommentTagRange}"
               }
             ]
           }
@@ -602,12 +574,12 @@
               "value": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link CommentTagRange.Type}",
                   "type": "object",
                   "properties": {
                     "greater": {
                       "type": "integer",
-                      "exclusiveMinimum": true,
-                      "minimum": 3
+                      "exclusiveMinimum": 3
                     },
                     "greater_equal": {
                       "type": "integer",
@@ -615,8 +587,7 @@
                     },
                     "less": {
                       "type": "integer",
-                      "exclusiveMaximum": true,
-                      "maximum": 7
+                      "exclusiveMaximum": 7
                     },
                     "less_equal": {
                       "type": "integer",
@@ -624,21 +595,17 @@
                     },
                     "greater_less": {
                       "type": "integer",
-                      "exclusiveMinimum": true,
-                      "minimum": 3,
-                      "exclusiveMaximum": true,
-                      "maximum": 7
+                      "exclusiveMinimum": 3,
+                      "exclusiveMaximum": 7
                     },
                     "greater_equal_less": {
                       "type": "integer",
                       "minimum": 3,
-                      "exclusiveMaximum": true,
-                      "maximum": 7
+                      "exclusiveMaximum": 7
                     },
                     "greater_less_equal": {
                       "type": "integer",
-                      "exclusiveMinimum": true,
-                      "minimum": 3,
+                      "exclusiveMinimum": 3,
                       "maximum": 7
                     },
                     "greater_equal_less_equal": {
@@ -668,7 +635,8 @@
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link CommentTagRange}"
           }
         ]
       }

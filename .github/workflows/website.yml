@@ -4,6 +4,7 @@ on:
     branches:
       - master
     paths:
+      - .github/workflows/website.yml
       - 'website/**'
       - 'website/package.json'
 jobs:
@@ -18,7 +19,9 @@ jobs:
         with:
           version: 8
       - name: Root
-        run: pnpm install
+        run: |
+          pnpm install
+          pnpm run package:tgz
       - name: Build
         working-directory: website
         run: |

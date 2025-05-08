@@ -37,6 +37,7 @@
               "ipv4",
               "ipv6"
             ],
+            "description": "Current Type: {@link CommentTagPattern}",
             "additionalProperties": false
           }
         },
@@ -77,6 +78,7 @@
               "ipv4",
               "ipv6"
             ],
+            "description": "Current Type: {@link CommentTagPattern}",
             "additionalProperties": false
           },
           "second": {
@@ -141,6 +143,7 @@
           "ipv4",
           "ipv6"
         ],
+        "description": "Current Type: {@link CommentTagPattern}",
         "additionalProperties": false
       }
     },

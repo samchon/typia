@@ -16,6 +16,7 @@
       "required": [
         "value"
       ],
+      "description": "Current Type: {@link DynamicSimple}",
       "additionalProperties": false
     },
     "nullable": {
@@ -51,6 +52,7 @@
       "required": [
         "value"
       ],
+      "description": "Current Type: {@link DynamicSimple}",
       "additionalProperties": false
     },
     "faint": {
@@ -88,6 +90,7 @@
         "required": [
           "value"
         ],
+        "description": "Current Type: {@link DynamicSimple}",
         "additionalProperties": false
       }
     }

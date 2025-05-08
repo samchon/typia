@@ -117,5 +117,6 @@
     "vulnerable_range",
     "boolean_and_number_and_template"
   ],
+  "description": "Current Type: {@link CommentTagDefault}",
   "additionalProperties": false
 }

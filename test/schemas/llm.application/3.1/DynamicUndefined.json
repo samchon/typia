@@ -12,6 +12,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link DynamicUndefined}",
             "type": "object",
             "properties": {},
             "required": []
@@ -30,6 +31,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link DynamicUndefined}",
             "type": "object",
             "properties": {},
             "required": []
@@ -42,7 +44,8 @@
               {
                 "type": "object",
                 "properties": {},
-                "required": []
+                "required": [],
+                "description": "Current Type: {@link DynamicUndefined}"
               }
             ]
           }
@@ -55,6 +58,7 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link DynamicUndefined}",
         "type": "object",
         "properties": {},
         "required": []
@@ -73,7 +77,8 @@
               {
                 "type": "object",
                 "properties": {},
-                "required": []
+                "required": [],
+                "description": "Current Type: {@link DynamicUndefined}"
               }
             ]
           },
@@ -85,7 +90,8 @@
               {
                 "type": "object",
                 "properties": {},
-                "required": []
+                "required": [],
+                "description": "Current Type: {@link DynamicUndefined}"
               }
             ]
           },
@@ -97,7 +103,8 @@
               {
                 "type": "object",
                 "properties": {},
-                "required": []
+                "required": [],
+                "description": "Current Type: {@link DynamicUndefined}"
               }
             ]
           }
@@ -117,7 +124,8 @@
           {
             "type": "object",
             "properties": {},
-            "required": []
+            "required": [],
+            "description": "Current Type: {@link DynamicUndefined}"
           }
         ]
       }

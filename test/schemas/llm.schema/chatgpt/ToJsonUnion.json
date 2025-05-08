@@ -1,4 +1,5 @@
 {
+  "description": "Current Type: {@link ToJsonUnion}",
   "type": "array",
   "items": {
     "anyOf": [
@@ -22,7 +23,8 @@
           "id",
           "mobile",
           "name"
-        ]
+        ],
+        "description": "Current Type: {@link ToJsonUnion.ICitizen}"
       },
       {
         "type": "object",
@@ -41,7 +43,8 @@
           "manufacturer",
           "brand",
           "name"
-        ]
+        ],
+        "description": "Current Type: {@link ToJsonUnion.IProduct}"
       },
       {
         "type": "string"
@@ -66,7 +69,8 @@
           "id",
           "mobile",
           "name"
-        ]
+        ],
+        "description": "Current Type: {@link ToJsonUnion.ICitizen}"
       }
     ]
   }

@@ -25,6 +25,7 @@
               "id",
               "name"
             ],
+            "description": "Current Type: {@link ObjectInternal}",
             "additionalProperties": false
           }
         },
@@ -53,6 +54,7 @@
               "id",
               "name"
             ],
+            "description": "Current Type: {@link ObjectInternal}",
             "additionalProperties": false
           },
           "second": {
@@ -93,6 +95,7 @@
           "id",
           "name"
         ],
+        "description": "Current Type: {@link ObjectInternal}",
         "additionalProperties": false
       }
     },

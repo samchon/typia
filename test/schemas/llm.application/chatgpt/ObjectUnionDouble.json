@@ -12,8 +12,10 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ObjectUnionDouble}",
             "type": "array",
             "items": {
+              "description": "Current Type: {@link ObjectUnionDouble.Union}",
               "anyOf": [
                 {
                   "type": "object",
@@ -48,7 +50,8 @@
                           },
                           "required": [
                             "value"
-                          ]
+                          ],
+                          "description": "Current Type: {@link ObjectUnionDouble.IAB}"
                         },
                         {
                           "type": "object",
@@ -67,7 +70,8 @@
                           },
                           "required": [
                             "value"
-                          ]
+                          ],
+                          "description": "Current Type: {@link ObjectUnionDouble.IAA}"
                         }
                       ]
                     }
@@ -75,7 +79,8 @@
                   "required": [
                     "value",
                     "child"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ObjectUnionDouble.IA}"
                 },
                 {
                   "type": "object",
@@ -113,7 +118,8 @@
                           },
                           "required": [
                             "value"
-                          ]
+                          ],
+                          "description": "Current Type: {@link ObjectUnionDouble.IBB}"
                         },
                         {
                           "type": "object",
@@ -132,7 +138,8 @@
                           },
                           "required": [
                             "value"
-                          ]
+                          ],
+                          "description": "Current Type: {@link ObjectUnionDouble.IBA}"
                         }
                       ]
                     }
@@ -140,7 +147,8 @@
                   "required": [
                     "value",
                     "child"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ObjectUnionDouble.IB}"
                 }
               ]
             }
@@ -159,8 +167,10 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ObjectUnionDouble}",
             "type": "array",
             "items": {
+              "description": "Current Type: {@link ObjectUnionDouble.Union}",
               "anyOf": [
                 {
                   "type": "object",
@@ -195,7 +205,8 @@
                           },
                           "required": [
                             "value"
-                          ]
+                          ],
+                          "description": "Current Type: {@link ObjectUnionDouble.IAB}"
                         },
                         {
                           "type": "object",
@@ -214,7 +225,8 @@
                           },
                           "required": [
                             "value"
-                          ]
+                          ],
+                          "description": "Current Type: {@link ObjectUnionDouble.IAA}"
                         }
                       ]
                     }
@@ -222,7 +234,8 @@
                   "required": [
                     "value",
                     "child"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ObjectUnionDouble.IA}"
                 },
                 {
                   "type": "object",
@@ -260,7 +273,8 @@
                           },
                           "required": [
                             "value"
-                          ]
+                          ],
+                          "description": "Current Type: {@link ObjectUnionDouble.IBB}"
                         },
                         {
                           "type": "object",
@@ -279,7 +293,8 @@
                           },
                           "required": [
                             "value"
-                          ]
+                          ],
+                          "description": "Current Type: {@link ObjectUnionDouble.IBA}"
                         }
                       ]
                     }
@@ -287,7 +302,8 @@
                   "required": [
                     "value",
                     "child"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ObjectUnionDouble.IB}"
                 }
               ]
             }
@@ -300,6 +316,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ObjectUnionDouble.Union}",
                   "anyOf": [
                     {
                       "type": "object",
@@ -334,7 +351,8 @@
                               },
                               "required": [
                                 "value"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionDouble.IAB}"
                             },
                             {
                               "type": "object",
@@ -353,7 +371,8 @@
                               },
                               "required": [
                                 "value"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionDouble.IAA}"
                             }
                           ]
                         }
@@ -361,7 +380,8 @@
                       "required": [
                         "value",
                         "child"
-                      ]
+                      ],
+                      "description": "Current Type: {@link ObjectUnionDouble.IA}"
                     },
                     {
                       "type": "object",
@@ -399,7 +419,8 @@
                               },
                               "required": [
                                 "value"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionDouble.IBB}"
                             },
                             {
                               "type": "object",
@@ -418,7 +439,8 @@
                               },
                               "required": [
                                 "value"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionDouble.IBA}"
                             }
                           ]
                         }
@@ -426,10 +448,12 @@
                       "required": [
                         "value",
                         "child"
-                      ]
+                      ],
+                      "description": "Current Type: {@link ObjectUnionDouble.IB}"
                     }
                   ]
-                }
+                },
+                "description": "Current Type: {@link ObjectUnionDouble}"
               }
             ]
           }
@@ -442,8 +466,10 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link ObjectUnionDouble}",
         "type": "array",
         "items": {
+          "description": "Current Type: {@link ObjectUnionDouble.Union}",
           "anyOf": [
             {
               "type": "object",
@@ -478,7 +504,8 @@
                       },
                       "required": [
                         "value"
-                      ]
+                      ],
+                      "description": "Current Type: {@link ObjectUnionDouble.IAB}"
                     },
                     {
                       "type": "object",
@@ -497,7 +524,8 @@
                       },
                       "required": [
                         "value"
-                      ]
+                      ],
+                      "description": "Current Type: {@link ObjectUnionDouble.IAA}"
                     }
                   ]
                 }
@@ -505,7 +533,8 @@
               "required": [
                 "value",
                 "child"
-              ]
+              ],
+              "description": "Current Type: {@link ObjectUnionDouble.IA}"
             },
             {
               "type": "object",
@@ -543,7 +572,8 @@
                       },
                       "required": [
                         "value"
-                      ]
+                      ],
+                      "description": "Current Type: {@link ObjectUnionDouble.IBB}"
                     },
                     {
                       "type": "object",
@@ -562,7 +592,8 @@
                       },
                       "required": [
                         "value"
-                      ]
+                      ],
+                      "description": "Current Type: {@link ObjectUnionDouble.IBA}"
                     }
                   ]
                 }
@@ -570,7 +601,8 @@
               "required": [
                 "value",
                 "child"
-              ]
+              ],
+              "description": "Current Type: {@link ObjectUnionDouble.IB}"
             }
           ]
         }
@@ -589,6 +621,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ObjectUnionDouble.Union}",
                   "anyOf": [
                     {
                       "type": "object",
@@ -623,7 +656,8 @@
                               },
                               "required": [
                                 "value"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionDouble.IAB}"
                             },
                             {
                               "type": "object",
@@ -642,7 +676,8 @@
                               },
                               "required": [
                                 "value"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionDouble.IAA}"
                             }
                           ]
                         }
@@ -650,7 +685,8 @@
                       "required": [
                         "value",
                         "child"
-                      ]
+                      ],
+                      "description": "Current Type: {@link ObjectUnionDouble.IA}"
                     },
                     {
                       "type": "object",
@@ -688,7 +724,8 @@
                               },
                               "required": [
                                 "value"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionDouble.IBB}"
                             },
                             {
                               "type": "object",
@@ -707,7 +744,8 @@
                               },
                               "required": [
                                 "value"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionDouble.IBA}"
                             }
                           ]
                         }
@@ -715,10 +753,12 @@
                       "required": [
                         "value",
                         "child"
-                      ]
+                      ],
+                      "description": "Current Type: {@link ObjectUnionDouble.IB}"
                     }
                   ]
-                }
+                },
+                "description": "Current Type: {@link ObjectUnionDouble}"
               }
             ]
           },
@@ -730,6 +770,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ObjectUnionDouble.Union}",
                   "anyOf": [
                     {
                       "type": "object",
@@ -764,7 +805,8 @@
                               },
                               "required": [
                                 "value"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionDouble.IAB}"
                             },
                             {
                               "type": "object",
@@ -783,7 +825,8 @@
                               },
                               "required": [
                                 "value"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionDouble.IAA}"
                             }
                           ]
                         }
@@ -791,7 +834,8 @@
                       "required": [
                         "value",
                         "child"
-                      ]
+                      ],
+                      "description": "Current Type: {@link ObjectUnionDouble.IA}"
                     },
                     {
                       "type": "object",
@@ -829,7 +873,8 @@
                               },
                               "required": [
                                 "value"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionDouble.IBB}"
                             },
                             {
                               "type": "object",
@@ -848,7 +893,8 @@
                               },
                               "required": [
                                 "value"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionDouble.IBA}"
                             }
                           ]
                         }
@@ -856,10 +902,12 @@
                       "required": [
                         "value",
                         "child"
-                      ]
+                      ],
+                      "description": "Current Type: {@link ObjectUnionDouble.IB}"
                     }
                   ]
-                }
+                },
+                "description": "Current Type: {@link ObjectUnionDouble}"
               }
             ]
           },
@@ -871,6 +919,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ObjectUnionDouble.Union}",
                   "anyOf": [
                     {
                       "type": "object",
@@ -905,7 +954,8 @@
                               },
                               "required": [
                                 "value"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionDouble.IAB}"
                             },
                             {
                               "type": "object",
@@ -924,7 +974,8 @@
                               },
                               "required": [
                                 "value"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionDouble.IAA}"
                             }
                           ]
                         }
@@ -932,7 +983,8 @@
                       "required": [
                         "value",
                         "child"
-                      ]
+                      ],
+                      "description": "Current Type: {@link ObjectUnionDouble.IA}"
                     },
                     {
                       "type": "object",
@@ -970,7 +1022,8 @@
                               },
                               "required": [
                                 "value"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionDouble.IBB}"
                             },
                             {
                               "type": "object",
@@ -989,7 +1042,8 @@
                               },
                               "required": [
                                 "value"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionDouble.IBA}"
                             }
                           ]
                         }
@@ -997,10 +1051,12 @@
                       "required": [
                         "value",
                         "child"
-                      ]
+                      ],
+                      "description": "Current Type: {@link ObjectUnionDouble.IB}"
                     }
                   ]
-                }
+                },
+                "description": "Current Type: {@link ObjectUnionDouble}"
               }
             ]
           }
@@ -1020,6 +1076,7 @@
           {
             "type": "array",
             "items": {
+              "description": "Current Type: {@link ObjectUnionDouble.Union}",
               "anyOf": [
                 {
                   "type": "object",
@@ -1054,7 +1111,8 @@
                           },
                           "required": [
                             "value"
-                          ]
+                          ],
+                          "description": "Current Type: {@link ObjectUnionDouble.IAB}"
                         },
                         {
                           "type": "object",
@@ -1073,7 +1131,8 @@
                           },
                           "required": [
                             "value"
-                          ]
+                          ],
+                          "description": "Current Type: {@link ObjectUnionDouble.IAA}"
                         }
                       ]
                     }
@@ -1081,7 +1140,8 @@
                   "required": [
                     "value",
                     "child"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ObjectUnionDouble.IA}"
                 },
                 {
                   "type": "object",
@@ -1119,7 +1179,8 @@
                           },
                           "required": [
                             "value"
-                          ]
+                          ],
+                          "description": "Current Type: {@link ObjectUnionDouble.IBB}"
                         },
                         {
                           "type": "object",
@@ -1138,7 +1199,8 @@
                           },
                           "required": [
                             "value"
-                          ]
+                          ],
+                          "description": "Current Type: {@link ObjectUnionDouble.IBA}"
                         }
                       ]
                     }
@@ -1146,10 +1208,12 @@
                   "required": [
                     "value",
                     "child"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ObjectUnionDouble.IB}"
                 }
               ]
-            }
+            },
+            "description": "Current Type: {@link ObjectUnionDouble}"
           }
         ]
       }

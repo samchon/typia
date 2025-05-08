@@ -1,6 +1,8 @@
 {
+  "description": "Current Type: {@link CommentTagArrayUnion}",
   "type": "array",
   "items": {
+    "description": "Current Type: {@link CommentTagArrayUnion.Type}",
     "type": "object",
     "properties": {
       "items": {

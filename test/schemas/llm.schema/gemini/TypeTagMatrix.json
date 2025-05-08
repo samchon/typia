@@ -16,5 +16,6 @@
   },
   "required": [
     "matrix"
-  ]
+  ],
+  "description": "Current Type: {@link TypeTagMatrix}"
 }

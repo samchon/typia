@@ -1,4 +1,5 @@
 {
+  "description": "Current Type: {@link ObjectPrimitive.IArticle}",
   "type": "object",
   "properties": {
     "id": {
@@ -21,6 +22,7 @@
     "files": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link ObjectPrimitive.IFile}",
         "type": "object",
         "properties": {
           "id": {

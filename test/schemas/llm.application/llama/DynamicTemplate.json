@@ -11,6 +11,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link DynamicTemplate}",
             "type": "object",
             "properties": {},
             "required": [],
@@ -42,6 +43,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link DynamicTemplate}",
             "type": "object",
             "properties": {},
             "required": [],
@@ -68,6 +70,7 @@
                 "type": "object",
                 "properties": {},
                 "required": [],
+                "description": "Current Type: {@link DynamicTemplate}",
                 "additionalProperties": {
                   "oneOf": [
                     {
@@ -93,6 +96,7 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link DynamicTemplate}",
         "type": "object",
         "properties": {},
         "required": [],
@@ -125,6 +129,7 @@
                 "type": "object",
                 "properties": {},
                 "required": [],
+                "description": "Current Type: {@link DynamicTemplate}",
                 "additionalProperties": {
                   "oneOf": [
                     {
@@ -150,6 +155,7 @@
                 "type": "object",
                 "properties": {},
                 "required": [],
+                "description": "Current Type: {@link DynamicTemplate}",
                 "additionalProperties": {
                   "oneOf": [
                     {
@@ -175,6 +181,7 @@
                 "type": "object",
                 "properties": {},
                 "required": [],
+                "description": "Current Type: {@link DynamicTemplate}",
                 "additionalProperties": {
                   "oneOf": [
                     {
@@ -208,6 +215,7 @@
             "type": "object",
             "properties": {},
             "required": [],
+            "description": "Current Type: {@link DynamicTemplate}",
             "additionalProperties": {
               "oneOf": [
                 {

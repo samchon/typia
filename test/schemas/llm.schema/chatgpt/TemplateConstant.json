@@ -1,9 +1,11 @@
 {
+  "description": "Current Type: {@link TemplateConstant}",
   "type": "object",
   "properties": {
     "value": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link TemplateConstant.Type}",
         "type": "object",
         "properties": {
           "prefix": {

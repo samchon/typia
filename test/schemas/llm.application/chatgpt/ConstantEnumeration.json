@@ -12,8 +12,10 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ConstantEnumeration}",
             "type": "array",
             "items": {
+              "description": "Current Type: {@link ConstantEnumeration.Enumeration}",
               "anyOf": [
                 {
                   "type": "number",
@@ -47,8 +49,10 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ConstantEnumeration}",
             "type": "array",
             "items": {
+              "description": "Current Type: {@link ConstantEnumeration.Enumeration}",
               "anyOf": [
                 {
                   "type": "number",
@@ -76,6 +80,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ConstantEnumeration.Enumeration}",
                   "anyOf": [
                     {
                       "type": "number",
@@ -93,7 +98,8 @@
                       ]
                     }
                   ]
-                }
+                },
+                "description": "Current Type: {@link ConstantEnumeration}"
               }
             ]
           }
@@ -106,8 +112,10 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link ConstantEnumeration}",
         "type": "array",
         "items": {
+          "description": "Current Type: {@link ConstantEnumeration.Enumeration}",
           "anyOf": [
             {
               "type": "number",
@@ -141,6 +149,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ConstantEnumeration.Enumeration}",
                   "anyOf": [
                     {
                       "type": "number",
@@ -158,7 +167,8 @@
                       ]
                     }
                   ]
-                }
+                },
+                "description": "Current Type: {@link ConstantEnumeration}"
               }
             ]
           },
@@ -170,6 +180,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ConstantEnumeration.Enumeration}",
                   "anyOf": [
                     {
                       "type": "number",
@@ -187,7 +198,8 @@
                       ]
                     }
                   ]
-                }
+                },
+                "description": "Current Type: {@link ConstantEnumeration}"
               }
             ]
           },
@@ -199,6 +211,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ConstantEnumeration.Enumeration}",
                   "anyOf": [
                     {
                       "type": "number",
@@ -216,7 +229,8 @@
                       ]
                     }
                   ]
-                }
+                },
+                "description": "Current Type: {@link ConstantEnumeration}"
               }
             ]
           }
@@ -236,6 +250,7 @@
           {
             "type": "array",
             "items": {
+              "description": "Current Type: {@link ConstantEnumeration.Enumeration}",
               "anyOf": [
                 {
                   "type": "number",
@@ -253,7 +268,8 @@
                   ]
                 }
               ]
-            }
+            },
+            "description": "Current Type: {@link ConstantEnumeration}"
           }
         ]
       }

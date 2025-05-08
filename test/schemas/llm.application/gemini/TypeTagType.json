@@ -22,19 +22,22 @@
                       "type": "integer"
                     },
                     "uint": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "@minimum 0"
                     },
                     "int32": {
                       "type": "integer"
                     },
                     "uint32": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "@minimum 0"
                     },
                     "int64": {
                       "type": "integer"
                     },
                     "uint64": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "@minimum 0"
                     },
                     "float": {
                       "type": "number"
@@ -48,13 +51,15 @@
                     "int64",
                     "uint64",
                     "float"
-                  ]
+                  ],
+                  "description": "Current Type: {@link TypeTagType.Type}"
                 }
               }
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link TypeTagType}"
           }
         },
         "required": [
@@ -79,19 +84,22 @@
                       "type": "integer"
                     },
                     "uint": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "@minimum 0"
                     },
                     "int32": {
                       "type": "integer"
                     },
                     "uint32": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "@minimum 0"
                     },
                     "int64": {
                       "type": "integer"
                     },
                     "uint64": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "@minimum 0"
                     },
                     "float": {
                       "type": "number"
@@ -105,13 +113,15 @@
                     "int64",
                     "uint64",
                     "float"
-                  ]
+                  ],
+                  "description": "Current Type: {@link TypeTagType.Type}"
                 }
               }
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link TypeTagType}"
           },
           "second": {
             "type": "object",
@@ -125,19 +135,22 @@
                       "type": "integer"
                     },
                     "uint": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "@minimum 0"
                     },
                     "int32": {
                       "type": "integer"
                     },
                     "uint32": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "@minimum 0"
                     },
                     "int64": {
                       "type": "integer"
                     },
                     "uint64": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "@minimum 0"
                     },
                     "float": {
                       "type": "number"
@@ -151,7 +164,8 @@
                     "int64",
                     "uint64",
                     "float"
-                  ]
+                  ],
+                  "description": "Current Type: {@link TypeTagType.Type}"
                 }
               }
             },
@@ -178,19 +192,22 @@
                   "type": "integer"
                 },
                 "uint": {
-                  "type": "integer"
+                  "type": "integer",
+                  "description": "@minimum 0"
                 },
                 "int32": {
                   "type": "integer"
                 },
                 "uint32": {
-                  "type": "integer"
+                  "type": "integer",
+                  "description": "@minimum 0"
                 },
                 "int64": {
                   "type": "integer"
                 },
                 "uint64": {
-                  "type": "integer"
+                  "type": "integer",
+                  "description": "@minimum 0"
                 },
                 "float": {
                   "type": "number"
@@ -204,13 +221,15 @@
                 "int64",
                 "uint64",
                 "float"
-              ]
+              ],
+              "description": "Current Type: {@link TypeTagType.Type}"
             }
           }
         },
         "required": [
           "value"
-        ]
+        ],
+        "description": "Current Type: {@link TypeTagType}"
       }
     },
     {
@@ -230,19 +249,22 @@
                       "type": "integer"
                     },
                     "uint": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "@minimum 0"
                     },
                     "int32": {
                       "type": "integer"
                     },
                     "uint32": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "@minimum 0"
                     },
                     "int64": {
                       "type": "integer"
                     },
                     "uint64": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "@minimum 0"
                     },
                     "float": {
                       "type": "number"
@@ -256,7 +278,8 @@
                     "int64",
                     "uint64",
                     "float"
-                  ]
+                  ],
+                  "description": "Current Type: {@link TypeTagType.Type}"
                 }
               }
             },
@@ -277,19 +300,22 @@
                       "type": "integer"
                     },
                     "uint": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "@minimum 0"
                     },
                     "int32": {
                       "type": "integer"
                     },
                     "uint32": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "@minimum 0"
                     },
                     "int64": {
                       "type": "integer"
                     },
                     "uint64": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "@minimum 0"
                     },
                     "float": {
                       "type": "number"
@@ -303,7 +329,8 @@
                     "int64",
                     "uint64",
                     "float"
-                  ]
+                  ],
+                  "description": "Current Type: {@link TypeTagType.Type}"
                 }
               }
             },
@@ -324,19 +351,22 @@
                       "type": "integer"
                     },
                     "uint": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "@minimum 0"
                     },
                     "int32": {
                       "type": "integer"
                     },
                     "uint32": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "@minimum 0"
                     },
                     "int64": {
                       "type": "integer"
                     },
                     "uint64": {
-                      "type": "integer"
+                      "type": "integer",
+                      "description": "@minimum 0"
                     },
                     "float": {
                       "type": "number"
@@ -350,7 +380,8 @@
                     "int64",
                     "uint64",
                     "float"
-                  ]
+                  ],
+                  "description": "Current Type: {@link TypeTagType.Type}"
                 }
               }
             },
@@ -377,19 +408,22 @@
                   "type": "integer"
                 },
                 "uint": {
-                  "type": "integer"
+                  "type": "integer",
+                  "description": "@minimum 0"
                 },
                 "int32": {
                   "type": "integer"
                 },
                 "uint32": {
-                  "type": "integer"
+                  "type": "integer",
+                  "description": "@minimum 0"
                 },
                 "int64": {
                   "type": "integer"
                 },
                 "uint64": {
-                  "type": "integer"
+                  "type": "integer",
+                  "description": "@minimum 0"
                 },
                 "float": {
                   "type": "number"
@@ -403,7 +437,8 @@
                 "int64",
                 "uint64",
                 "float"
-              ]
+              ],
+              "description": "Current Type: {@link TypeTagType.Type}"
             }
           }
         },

@@ -14,7 +14,8 @@
       "required": [
         "id",
         "name"
-      ]
+      ],
+      "description": "Current Type: {@link ObjectInternal}"
     },
     "nullable": {
       "type": "object",
@@ -45,7 +46,8 @@
       "required": [
         "id",
         "name"
-      ]
+      ],
+      "description": "Current Type: {@link ObjectInternal}"
     },
     "faint": {
       "type": "object",
@@ -78,7 +80,8 @@
         "required": [
           "id",
           "name"
-        ]
+        ],
+        "description": "Current Type: {@link ObjectInternal}"
       }
     }
   },

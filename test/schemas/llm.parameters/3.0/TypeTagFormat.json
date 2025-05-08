@@ -117,6 +117,7 @@
         "jsonPointer",
         "relativeJsonPointer"
       ],
+      "description": "Current Type: {@link TypeTagFormat}",
       "additionalProperties": false
     },
     "nullable": {
@@ -354,6 +355,7 @@
         "jsonPointer",
         "relativeJsonPointer"
       ],
+      "description": "Current Type: {@link TypeTagFormat}",
       "additionalProperties": false
     },
     "faint": {
@@ -593,6 +595,7 @@
           "jsonPointer",
           "relativeJsonPointer"
         ],
+        "description": "Current Type: {@link TypeTagFormat}",
         "additionalProperties": false
       }
     }

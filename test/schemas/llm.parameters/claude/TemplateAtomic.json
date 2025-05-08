@@ -2,6 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
+      "description": "Current Type: {@link TemplateAtomic}",
       "type": "object",
       "properties": {
         "prefix": {
@@ -110,11 +111,13 @@
             "middle_boolean",
             "ipv4",
             "email"
-          ]
+          ],
+          "description": "Current Type: {@link TemplateAtomic}"
         }
       ]
     },
     "optional": {
+      "description": "Current Type: {@link TemplateAtomic}",
       "type": "object",
       "properties": {
         "prefix": {
@@ -223,13 +226,15 @@
             "middle_boolean",
             "ipv4",
             "email"
-          ]
+          ],
+          "description": "Current Type: {@link TemplateAtomic}"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link TemplateAtomic}",
         "type": "object",
         "properties": {
           "prefix": {

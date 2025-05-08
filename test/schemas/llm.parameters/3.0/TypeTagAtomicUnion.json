@@ -12,13 +12,13 @@
               "value": {
                 "oneOf": [
                   {
-                    "type": "number",
-                    "minimum": 3
-                  },
-                  {
                     "type": "string",
                     "minLength": 3,
                     "maxLength": 7
+                  },
+                  {
+                    "type": "number",
+                    "minimum": 3
                   }
                 ]
               }
@@ -26,6 +26,7 @@
             "required": [
               "value"
             ],
+            "description": "Current Type: {@link TypeTagAtomicUnion.Type}",
             "additionalProperties": false
           }
         }
@@ -33,6 +34,7 @@
       "required": [
         "value"
       ],
+      "description": "Current Type: {@link TypeTagAtomicUnion}",
       "additionalProperties": false
     },
     "nullable": {
@@ -46,13 +48,13 @@
               "value": {
                 "oneOf": [
                   {
-                    "type": "number",
-                    "minimum": 3
-                  },
-                  {
                     "type": "string",
                     "minLength": 3,
                     "maxLength": 7
+                  },
+                  {
+                    "type": "number",
+                    "minimum": 3
                   }
                 ]
               }
@@ -60,6 +62,7 @@
             "required": [
               "value"
             ],
+            "description": "Current Type: {@link TypeTagAtomicUnion.Type}",
             "additionalProperties": false
           }
         }
@@ -81,13 +84,13 @@
               "value": {
                 "oneOf": [
                   {
-                    "type": "number",
-                    "minimum": 3
-                  },
-                  {
                     "type": "string",
                     "minLength": 3,
                     "maxLength": 7
+                  },
+                  {
+                    "type": "number",
+                    "minimum": 3
                   }
                 ]
               }
@@ -95,6 +98,7 @@
             "required": [
               "value"
             ],
+            "description": "Current Type: {@link TypeTagAtomicUnion.Type}",
             "additionalProperties": false
           }
         }
@@ -102,6 +106,7 @@
       "required": [
         "value"
       ],
+      "description": "Current Type: {@link TypeTagAtomicUnion}",
       "additionalProperties": false
     },
     "faint": {
@@ -115,13 +120,13 @@
               "value": {
                 "oneOf": [
                   {
-                    "type": "number",
-                    "minimum": 3
-                  },
-                  {
                     "type": "string",
                     "minLength": 3,
                     "maxLength": 7
+                  },
+                  {
+                    "type": "number",
+                    "minimum": 3
                   }
                 ]
               }
@@ -129,6 +134,7 @@
             "required": [
               "value"
             ],
+            "description": "Current Type: {@link TypeTagAtomicUnion.Type}",
             "additionalProperties": false
           }
         }
@@ -152,13 +158,13 @@
                 "value": {
                   "oneOf": [
                     {
-                      "type": "number",
-                      "minimum": 3
-                    },
-                    {
                       "type": "string",
                       "minLength": 3,
                       "maxLength": 7
+                    },
+                    {
+                      "type": "number",
+                      "minimum": 3
                     }
                   ]
                 }
@@ -166,6 +172,7 @@
               "required": [
                 "value"
               ],
+              "description": "Current Type: {@link TypeTagAtomicUnion.Type}",
               "additionalProperties": false
             }
           }
@@ -173,6 +180,7 @@
         "required": [
           "value"
         ],
+        "description": "Current Type: {@link TypeTagAtomicUnion}",
         "additionalProperties": false
       }
     }

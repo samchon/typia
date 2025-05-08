@@ -145,7 +145,7 @@
               }
             },
             "required": [],
-            "description": "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional"
+            "description": "Description of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional"
           }
         },
         "required": [
@@ -293,7 +293,7 @@
               }
             },
             "required": [],
-            "description": "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional"
+            "description": "Description of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional"
           },
           "second": {
             "type": "object",
@@ -573,7 +573,7 @@
           }
         },
         "required": [],
-        "description": "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional"
+        "description": "Description of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional"
       }
     },
     {

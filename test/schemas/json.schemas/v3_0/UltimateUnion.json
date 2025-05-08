@@ -225,19 +225,18 @@
             "description": "Maximum value restriction."
           },
           "exclusiveMinimum": {
-            "type": "boolean",
+            "type": "number",
             "title": "Exclusive minimum value restriction",
-            "description": "Exclusive minimum value restriction.\n\nFor reference, even though your Swagger (or OpenAPI) document has\ndefined the `exclusiveMinimum` value as `number`, {@link OpenApi}\nforcibly converts it to `boolean` type, and assign the numeric value to\nthe {@link minimum} property."
+            "description": "Exclusive minimum value restriction."
           },
           "exclusiveMaximum": {
-            "type": "boolean",
+            "type": "number",
             "title": "Exclusive maximum value restriction",
-            "description": "Exclusive maximum value restriction.\n\nFor reference, even though your Swagger (or OpenAPI) document has\ndefined the `exclusiveMaximum` value as `number`, {@link OpenApi}\nforcibly converts it to `boolean` type, and assign the numeric value to\nthe {@link maximum} property."
+            "description": "Exclusive maximum value restriction."
           },
           "multipleOf": {
             "type": "integer",
-            "exclusiveMinimum": true,
-            "minimum": 0,
+            "exclusiveMinimum": 0,
             "title": "Multiple of value restriction",
             "description": "Multiple of value restriction."
           },
@@ -298,19 +297,18 @@
             "description": "Maximum value restriction."
           },
           "exclusiveMinimum": {
-            "type": "boolean",
+            "type": "number",
             "title": "Exclusive minimum value restriction",
-            "description": "Exclusive minimum value restriction.\n\nFor reference, even though your Swagger (or OpenAPI) document has\ndefined the `exclusiveMinimum` value as `number`, {@link OpenAiComposer}\nforcibly converts it to `boolean` type, and assign the numeric value to\nthe {@link minimum} property."
+            "description": "Exclusive minimum value restriction."
           },
           "exclusiveMaximum": {
-            "type": "boolean",
+            "type": "number",
             "title": "Exclusive maximum value restriction",
-            "description": "Exclusive maximum value restriction.\n\nFor reference, even though your Swagger (or OpenAPI) document has\ndefined the `exclusiveMaximum` value as `number`, {@link OpenAiComposer}\nforcibly converts it to `boolean` type, and assign the numeric value to\nthe {@link maximum} property."
+            "description": "Exclusive maximum value restriction."
           },
           "multipleOf": {
             "type": "number",
-            "exclusiveMinimum": true,
-            "minimum": 0,
+            "exclusiveMinimum": 0,
             "title": "Multiple of value restriction",
             "description": "Multiple of value restriction."
           },
@@ -377,11 +375,13 @@
           },
           "minLength": {
             "type": "integer",
+            "minimum": 0,
             "title": "Minimum length restriction",
             "description": "Minimum length restriction."
           },
           "maxLength": {
             "type": "integer",
+            "minimum": 0,
             "title": "Maximum length restriction",
             "description": "Maximum length restriction."
           },
@@ -438,11 +438,13 @@
           },
           "minItems": {
             "type": "integer",
+            "minimum": 0,
             "title": "Minimum items restriction",
             "description": "Minimum items restriction.\n\nRestriction of minimum number of items in the array."
           },
           "maxItems": {
             "type": "integer",
+            "minimum": 0,
             "title": "Maximum items restriction",
             "description": "Maximum items restriction.\n\nRestriction of maximum number of items in the array."
           },
@@ -556,11 +558,13 @@
           },
           "minItems": {
             "type": "integer",
+            "minimum": 0,
             "title": "Minimum items restriction",
             "description": "Minimum items restriction.\n\nRestriction of minimum number of items in the tuple."
           },
           "maxItems": {
             "type": "integer",
+            "minimum": 0,
             "title": "Maximum items restriction",
             "description": "Maximum items restriction.\n\nRestriction of maximum number of items in the tuple."
           },

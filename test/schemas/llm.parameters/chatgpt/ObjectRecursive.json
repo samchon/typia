@@ -67,6 +67,7 @@
           "type": "number"
         },
         "created_at": {
+          "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
           "type": "object",
           "properties": {
             "time": {

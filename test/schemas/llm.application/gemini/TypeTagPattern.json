@@ -35,7 +35,8 @@
               "email",
               "ipv4",
               "ipv6"
-            ]
+            ],
+            "description": "Current Type: {@link TypeTagPattern}"
           }
         },
         "required": [
@@ -73,7 +74,8 @@
               "email",
               "ipv4",
               "ipv6"
-            ]
+            ],
+            "description": "Current Type: {@link TypeTagPattern}"
           },
           "second": {
             "type": "object",
@@ -134,7 +136,8 @@
           "email",
           "ipv4",
           "ipv6"
-        ]
+        ],
+        "description": "Current Type: {@link TypeTagPattern}"
       }
     },
     {

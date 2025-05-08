@@ -118,7 +118,7 @@
         "array",
         "object"
       ],
-      "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required"
+      "description": "Description of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required"
     },
     "nullable": {
       "type": "object",
@@ -356,7 +356,7 @@
         "array",
         "object"
       ],
-      "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required"
+      "description": "Description of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required"
     },
     "faint": {
       "type": "object",
@@ -596,7 +596,7 @@
           "array",
           "object"
         ],
-        "description": "Make all properties in T required\n\n------------------------------\n\nDescription of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required"
+        "description": "Description of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required"
       }
     }
   },

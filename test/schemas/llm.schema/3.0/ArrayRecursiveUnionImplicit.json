@@ -74,6 +74,7 @@
                                         "path",
                                         "children"
                                       ],
+                                      "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IDirectory}",
                                       "additionalProperties": false
                                     },
                                     {
@@ -108,6 +109,7 @@
                                         "path",
                                         "children"
                                       ],
+                                      "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ISharedDirectory}",
                                       "additionalProperties": false
                                     },
                                     {
@@ -144,6 +146,7 @@
                                         "url",
                                         "size"
                                       ],
+                                      "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IImageFile}",
                                       "additionalProperties": false
                                     },
                                     {
@@ -172,6 +175,7 @@
                                         "size",
                                         "content"
                                       ],
+                                      "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ITextFile}",
                                       "additionalProperties": false
                                     },
                                     {
@@ -200,9 +204,11 @@
                                         "size",
                                         "count"
                                       ],
+                                      "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IZipFile}",
                                       "additionalProperties": false
                                     }
-                                  ]
+                                  ],
+                                  "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IBucket}"
                                 }
                               }
                             },
@@ -212,6 +218,7 @@
                               "path",
                               "children"
                             ],
+                            "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IDirectory}",
                             "additionalProperties": false
                           },
                           {
@@ -246,6 +253,7 @@
                               "path",
                               "children"
                             ],
+                            "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ISharedDirectory}",
                             "additionalProperties": false
                           },
                           {
@@ -282,6 +290,7 @@
                               "url",
                               "size"
                             ],
+                            "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IImageFile}",
                             "additionalProperties": false
                           },
                           {
@@ -310,6 +319,7 @@
                               "size",
                               "content"
                             ],
+                            "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ITextFile}",
                             "additionalProperties": false
                           },
                           {
@@ -338,9 +348,11 @@
                               "size",
                               "count"
                             ],
+                            "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IZipFile}",
                             "additionalProperties": false
                           }
-                        ]
+                        ],
+                        "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IBucket}"
                       }
                     }
                   },
@@ -350,6 +362,7 @@
                     "path",
                     "children"
                   ],
+                  "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IDirectory}",
                   "additionalProperties": false
                 },
                 {
@@ -384,6 +397,7 @@
                     "path",
                     "children"
                   ],
+                  "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ISharedDirectory}",
                   "additionalProperties": false
                 },
                 {
@@ -420,6 +434,7 @@
                     "url",
                     "size"
                   ],
+                  "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IImageFile}",
                   "additionalProperties": false
                 },
                 {
@@ -448,6 +463,7 @@
                     "size",
                     "content"
                   ],
+                  "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ITextFile}",
                   "additionalProperties": false
                 },
                 {
@@ -476,9 +492,11 @@
                     "size",
                     "count"
                   ],
+                  "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IZipFile}",
                   "additionalProperties": false
                 }
-              ]
+              ],
+              "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IBucket}"
             }
           }
         },
@@ -488,6 +506,7 @@
           "path",
           "children"
         ],
+        "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IDirectory}",
         "additionalProperties": false
       },
       {
@@ -569,6 +588,7 @@
                                         "path",
                                         "children"
                                       ],
+                                      "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IDirectory}",
                                       "additionalProperties": false
                                     },
                                     {
@@ -603,6 +623,7 @@
                                         "path",
                                         "children"
                                       ],
+                                      "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ISharedDirectory}",
                                       "additionalProperties": false
                                     },
                                     {
@@ -639,6 +660,7 @@
                                         "url",
                                         "size"
                                       ],
+                                      "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IImageFile}",
                                       "additionalProperties": false
                                     },
                                     {
@@ -667,6 +689,7 @@
                                         "size",
                                         "content"
                                       ],
+                                      "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ITextFile}",
                                       "additionalProperties": false
                                     },
                                     {
@@ -695,9 +718,11 @@
                                         "size",
                                         "count"
                                       ],
+                                      "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IZipFile}",
                                       "additionalProperties": false
                                     }
-                                  ]
+                                  ],
+                                  "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IBucket}"
                                 }
                               }
                             },
@@ -707,6 +732,7 @@
                               "path",
                               "children"
                             ],
+                            "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IDirectory}",
                             "additionalProperties": false
                           },
                           {
@@ -741,6 +767,7 @@
                               "path",
                               "children"
                             ],
+                            "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ISharedDirectory}",
                             "additionalProperties": false
                           },
                           {
@@ -777,6 +804,7 @@
                               "url",
                               "size"
                             ],
+                            "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IImageFile}",
                             "additionalProperties": false
                           },
                           {
@@ -805,6 +833,7 @@
                               "size",
                               "content"
                             ],
+                            "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ITextFile}",
                             "additionalProperties": false
                           },
                           {
@@ -833,9 +862,11 @@
                               "size",
                               "count"
                             ],
+                            "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IZipFile}",
                             "additionalProperties": false
                           }
-                        ]
+                        ],
+                        "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IBucket}"
                       }
                     }
                   },
@@ -845,6 +876,7 @@
                     "path",
                     "children"
                   ],
+                  "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IDirectory}",
                   "additionalProperties": false
                 },
                 {
@@ -910,6 +942,7 @@
                                         "path",
                                         "children"
                                       ],
+                                      "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IDirectory}",
                                       "additionalProperties": false
                                     },
                                     {
@@ -944,6 +977,7 @@
                                         "path",
                                         "children"
                                       ],
+                                      "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ISharedDirectory}",
                                       "additionalProperties": false
                                     },
                                     {
@@ -980,6 +1014,7 @@
                                         "url",
                                         "size"
                                       ],
+                                      "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IImageFile}",
                                       "additionalProperties": false
                                     },
                                     {
@@ -1008,6 +1043,7 @@
                                         "size",
                                         "content"
                                       ],
+                                      "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ITextFile}",
                                       "additionalProperties": false
                                     },
                                     {
@@ -1036,9 +1072,11 @@
                                         "size",
                                         "count"
                                       ],
+                                      "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IZipFile}",
                                       "additionalProperties": false
                                     }
-                                  ]
+                                  ],
+                                  "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IBucket}"
                                 }
                               }
                             },
@@ -1048,6 +1086,7 @@
                               "path",
                               "children"
                             ],
+                            "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IDirectory}",
                             "additionalProperties": false
                           },
                           {
@@ -1097,6 +1136,7 @@
                                         "path",
                                         "children"
                                       ],
+                                      "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IDirectory}",
                                       "additionalProperties": false
                                     },
                                     {
@@ -1131,6 +1171,7 @@
                                         "path",
                                         "children"
                                       ],
+                                      "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ISharedDirectory}",
                                       "additionalProperties": false
                                     },
                                     {
@@ -1167,6 +1208,7 @@
                                         "url",
                                         "size"
                                       ],
+                                      "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IImageFile}",
                                       "additionalProperties": false
                                     },
                                     {
@@ -1195,6 +1237,7 @@
                                         "size",
                                         "content"
                                       ],
+                                      "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ITextFile}",
                                       "additionalProperties": false
                                     },
                                     {
@@ -1223,9 +1266,11 @@
                                         "size",
                                         "count"
                                       ],
+                                      "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IZipFile}",
                                       "additionalProperties": false
                                     }
-                                  ]
+                                  ],
+                                  "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IBucket}"
                                 }
                               }
                             },
@@ -1236,6 +1281,7 @@
                               "path",
                               "children"
                             ],
+                            "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ISharedDirectory}",
                             "additionalProperties": false
                           },
                           {
@@ -1272,6 +1318,7 @@
                               "url",
                               "size"
                             ],
+                            "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IImageFile}",
                             "additionalProperties": false
                           },
                           {
@@ -1300,6 +1347,7 @@
                               "size",
                               "content"
                             ],
+                            "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ITextFile}",
                             "additionalProperties": false
                           },
                           {
@@ -1328,9 +1376,11 @@
                               "size",
                               "count"
                             ],
+                            "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IZipFile}",
                             "additionalProperties": false
                           }
-                        ]
+                        ],
+                        "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IBucket}"
                       }
                     }
                   },
@@ -1341,6 +1391,7 @@
                     "path",
                     "children"
                   ],
+                  "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ISharedDirectory}",
                   "additionalProperties": false
                 },
                 {
@@ -1377,6 +1428,7 @@
                     "url",
                     "size"
                   ],
+                  "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IImageFile}",
                   "additionalProperties": false
                 },
                 {
@@ -1405,6 +1457,7 @@
                     "size",
                     "content"
                   ],
+                  "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ITextFile}",
                   "additionalProperties": false
                 },
                 {
@@ -1433,9 +1486,11 @@
                     "size",
                     "count"
                   ],
+                  "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IZipFile}",
                   "additionalProperties": false
                 }
-              ]
+              ],
+              "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IBucket}"
             }
           }
         },
@@ -1446,6 +1501,7 @@
           "path",
           "children"
         ],
+        "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ISharedDirectory}",
         "additionalProperties": false
       },
       {
@@ -1482,6 +1538,7 @@
           "url",
           "size"
         ],
+        "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IImageFile}",
         "additionalProperties": false
       },
       {
@@ -1510,6 +1567,7 @@
           "size",
           "content"
         ],
+        "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ITextFile}",
         "additionalProperties": false
       },
       {
@@ -1538,6 +1596,7 @@
           "size",
           "count"
         ],
+        "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IZipFile}",
         "additionalProperties": false
       },
       {
@@ -1610,6 +1669,7 @@
                                       "path",
                                       "children"
                                     ],
+                                    "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IDirectory}",
                                     "additionalProperties": false
                                   },
                                   {
@@ -1644,6 +1704,7 @@
                                       "path",
                                       "children"
                                     ],
+                                    "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ISharedDirectory}",
                                     "additionalProperties": false
                                   },
                                   {
@@ -1680,6 +1741,7 @@
                                       "url",
                                       "size"
                                     ],
+                                    "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IImageFile}",
                                     "additionalProperties": false
                                   },
                                   {
@@ -1708,6 +1770,7 @@
                                       "size",
                                       "content"
                                     ],
+                                    "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ITextFile}",
                                     "additionalProperties": false
                                   },
                                   {
@@ -1736,9 +1799,11 @@
                                       "size",
                                       "count"
                                     ],
+                                    "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IZipFile}",
                                     "additionalProperties": false
                                   }
-                                ]
+                                ],
+                                "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IBucket}"
                               }
                             }
                           },
@@ -1748,6 +1813,7 @@
                             "path",
                             "children"
                           ],
+                          "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IDirectory}",
                           "additionalProperties": false
                         },
                         {
@@ -1782,6 +1848,7 @@
                             "path",
                             "children"
                           ],
+                          "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ISharedDirectory}",
                           "additionalProperties": false
                         },
                         {
@@ -1818,6 +1885,7 @@
                             "url",
                             "size"
                           ],
+                          "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IImageFile}",
                           "additionalProperties": false
                         },
                         {
@@ -1846,6 +1914,7 @@
                             "size",
                             "content"
                           ],
+                          "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ITextFile}",
                           "additionalProperties": false
                         },
                         {
@@ -1874,9 +1943,11 @@
                             "size",
                             "count"
                           ],
+                          "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IZipFile}",
                           "additionalProperties": false
                         }
-                      ]
+                      ],
+                      "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IBucket}"
                     }
                   }
                 },
@@ -1886,6 +1957,7 @@
                   "path",
                   "children"
                 ],
+                "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IDirectory}",
                 "additionalProperties": false
               },
               {
@@ -1951,6 +2023,7 @@
                                       "path",
                                       "children"
                                     ],
+                                    "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IDirectory}",
                                     "additionalProperties": false
                                   },
                                   {
@@ -1985,6 +2058,7 @@
                                       "path",
                                       "children"
                                     ],
+                                    "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ISharedDirectory}",
                                     "additionalProperties": false
                                   },
                                   {
@@ -2021,6 +2095,7 @@
                                       "url",
                                       "size"
                                     ],
+                                    "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IImageFile}",
                                     "additionalProperties": false
                                   },
                                   {
@@ -2049,6 +2124,7 @@
                                       "size",
                                       "content"
                                     ],
+                                    "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ITextFile}",
                                     "additionalProperties": false
                                   },
                                   {
@@ -2077,9 +2153,11 @@
                                       "size",
                                       "count"
                                     ],
+                                    "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IZipFile}",
                                     "additionalProperties": false
                                   }
-                                ]
+                                ],
+                                "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IBucket}"
                               }
                             }
                           },
@@ -2089,6 +2167,7 @@
                             "path",
                             "children"
                           ],
+                          "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IDirectory}",
                           "additionalProperties": false
                         },
                         {
@@ -2138,6 +2217,7 @@
                                       "path",
                                       "children"
                                     ],
+                                    "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IDirectory}",
                                     "additionalProperties": false
                                   },
                                   {
@@ -2172,6 +2252,7 @@
                                       "path",
                                       "children"
                                     ],
+                                    "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ISharedDirectory}",
                                     "additionalProperties": false
                                   },
                                   {
@@ -2208,6 +2289,7 @@
                                       "url",
                                       "size"
                                     ],
+                                    "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IImageFile}",
                                     "additionalProperties": false
                                   },
                                   {
@@ -2236,6 +2318,7 @@
                                       "size",
                                       "content"
                                     ],
+                                    "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ITextFile}",
                                     "additionalProperties": false
                                   },
                                   {
@@ -2264,9 +2347,11 @@
                                       "size",
                                       "count"
                                     ],
+                                    "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IZipFile}",
                                     "additionalProperties": false
                                   }
-                                ]
+                                ],
+                                "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IBucket}"
                               }
                             }
                           },
@@ -2277,6 +2362,7 @@
                             "path",
                             "children"
                           ],
+                          "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ISharedDirectory}",
                           "additionalProperties": false
                         },
                         {
@@ -2313,6 +2399,7 @@
                             "url",
                             "size"
                           ],
+                          "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IImageFile}",
                           "additionalProperties": false
                         },
                         {
@@ -2341,6 +2428,7 @@
                             "size",
                             "content"
                           ],
+                          "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ITextFile}",
                           "additionalProperties": false
                         },
                         {
@@ -2369,9 +2457,11 @@
                             "size",
                             "count"
                           ],
+                          "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IZipFile}",
                           "additionalProperties": false
                         }
-                      ]
+                      ],
+                      "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IBucket}"
                     }
                   }
                 },
@@ -2382,6 +2472,7 @@
                   "path",
                   "children"
                 ],
+                "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ISharedDirectory}",
                 "additionalProperties": false
               },
               {
@@ -2418,6 +2509,7 @@
                   "url",
                   "size"
                 ],
+                "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IImageFile}",
                 "additionalProperties": false
               },
               {
@@ -2446,6 +2538,7 @@
                   "size",
                   "content"
                 ],
+                "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ITextFile}",
                 "additionalProperties": false
               },
               {
@@ -2474,6 +2567,7 @@
                   "size",
                   "count"
                 ],
+                "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IZipFile}",
                 "additionalProperties": false
               },
               {
@@ -2530,6 +2624,7 @@
                                     "path",
                                     "children"
                                   ],
+                                  "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IDirectory}",
                                   "additionalProperties": false
                                 },
                                 {
@@ -2564,6 +2659,7 @@
                                     "path",
                                     "children"
                                   ],
+                                  "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ISharedDirectory}",
                                   "additionalProperties": false
                                 },
                                 {
@@ -2600,6 +2696,7 @@
                                     "url",
                                     "size"
                                   ],
+                                  "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IImageFile}",
                                   "additionalProperties": false
                                 },
                                 {
@@ -2628,6 +2725,7 @@
                                     "size",
                                     "content"
                                   ],
+                                  "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ITextFile}",
                                   "additionalProperties": false
                                 },
                                 {
@@ -2656,9 +2754,11 @@
                                     "size",
                                     "count"
                                   ],
+                                  "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IZipFile}",
                                   "additionalProperties": false
                                 }
-                              ]
+                              ],
+                              "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IBucket}"
                             }
                           }
                         },
@@ -2668,6 +2768,7 @@
                           "path",
                           "children"
                         ],
+                        "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IDirectory}",
                         "additionalProperties": false
                       },
                       {
@@ -2717,6 +2818,7 @@
                                     "path",
                                     "children"
                                   ],
+                                  "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IDirectory}",
                                   "additionalProperties": false
                                 },
                                 {
@@ -2751,6 +2853,7 @@
                                     "path",
                                     "children"
                                   ],
+                                  "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ISharedDirectory}",
                                   "additionalProperties": false
                                 },
                                 {
@@ -2787,6 +2890,7 @@
                                     "url",
                                     "size"
                                   ],
+                                  "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IImageFile}",
                                   "additionalProperties": false
                                 },
                                 {
@@ -2815,6 +2919,7 @@
                                     "size",
                                     "content"
                                   ],
+                                  "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ITextFile}",
                                   "additionalProperties": false
                                 },
                                 {
@@ -2843,9 +2948,11 @@
                                     "size",
                                     "count"
                                   ],
+                                  "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IZipFile}",
                                   "additionalProperties": false
                                 }
-                              ]
+                              ],
+                              "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IBucket}"
                             }
                           }
                         },
@@ -2856,6 +2963,7 @@
                           "path",
                           "children"
                         ],
+                        "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ISharedDirectory}",
                         "additionalProperties": false
                       },
                       {
@@ -2892,6 +3000,7 @@
                           "url",
                           "size"
                         ],
+                        "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IImageFile}",
                         "additionalProperties": false
                       },
                       {
@@ -2920,6 +3029,7 @@
                           "size",
                           "content"
                         ],
+                        "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ITextFile}",
                         "additionalProperties": false
                       },
                       {
@@ -2948,6 +3058,7 @@
                           "size",
                           "count"
                         ],
+                        "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IZipFile}",
                         "additionalProperties": false
                       },
                       {
@@ -2988,6 +3099,7 @@
                                   "path",
                                   "children"
                                 ],
+                                "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IDirectory}",
                                 "additionalProperties": false
                               },
                               {
@@ -3022,6 +3134,7 @@
                                   "path",
                                   "children"
                                 ],
+                                "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ISharedDirectory}",
                                 "additionalProperties": false
                               },
                               {
@@ -3058,6 +3171,7 @@
                                   "url",
                                   "size"
                                 ],
+                                "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IImageFile}",
                                 "additionalProperties": false
                               },
                               {
@@ -3086,6 +3200,7 @@
                                   "size",
                                   "content"
                                 ],
+                                "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ITextFile}",
                                 "additionalProperties": false
                               },
                               {
@@ -3114,9 +3229,11 @@
                                   "size",
                                   "count"
                                 ],
+                                "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IZipFile}",
                                 "additionalProperties": false
                               }
-                            ]
+                            ],
+                            "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IBucket}"
                           }
                         },
                         "required": [
@@ -3125,9 +3242,11 @@
                           "path",
                           "target"
                         ],
+                        "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IShortcut}",
                         "additionalProperties": false
                       }
-                    ]
+                    ],
+                    "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IBucket}"
                   }
                 },
                 "required": [
@@ -3136,9 +3255,11 @@
                   "path",
                   "target"
                 ],
+                "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IShortcut}",
                 "additionalProperties": false
               }
-            ]
+            ],
+            "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IBucket}"
           }
         },
         "required": [
@@ -3147,8 +3268,11 @@
           "path",
           "target"
         ],
+        "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IShortcut}",
         "additionalProperties": false
       }
-    ]
-  }
+    ],
+    "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IBucket}"
+  },
+  "description": "Current Type: {@link ArrayRecursiveUnionImplicit}"
 }

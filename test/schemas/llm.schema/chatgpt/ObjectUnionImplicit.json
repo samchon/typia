@@ -1,4 +1,5 @@
 {
+  "description": "Current Type: {@link ObjectUnionImplicit}",
   "type": "array",
   "items": {
     "anyOf": [
@@ -25,12 +26,14 @@
         "required": [
           "x",
           "y"
-        ]
+        ],
+        "description": "Current Type: {@link ObjectUnionImplicit.IPoint}"
       },
       {
         "type": "object",
         "properties": {
           "p1": {
+            "description": "Current Type: {@link ObjectUnionImplicit.IPoint}",
             "type": "object",
             "properties": {
               "x": {
@@ -56,6 +59,7 @@
             ]
           },
           "p2": {
+            "description": "Current Type: {@link ObjectUnionImplicit.IPoint}",
             "type": "object",
             "properties": {
               "x": {
@@ -104,12 +108,14 @@
         "required": [
           "p1",
           "p2"
-        ]
+        ],
+        "description": "Current Type: {@link ObjectUnionImplicit.ILine}"
       },
       {
         "type": "object",
         "properties": {
           "p1": {
+            "description": "Current Type: {@link ObjectUnionImplicit.IPoint}",
             "type": "object",
             "properties": {
               "x": {
@@ -135,6 +141,7 @@
             ]
           },
           "p2": {
+            "description": "Current Type: {@link ObjectUnionImplicit.IPoint}",
             "type": "object",
             "properties": {
               "x": {
@@ -160,6 +167,7 @@
             ]
           },
           "p3": {
+            "description": "Current Type: {@link ObjectUnionImplicit.IPoint}",
             "type": "object",
             "properties": {
               "x": {
@@ -219,12 +227,14 @@
           "p1",
           "p2",
           "p3"
-        ]
+        ],
+        "description": "Current Type: {@link ObjectUnionImplicit.ITriangle}"
       },
       {
         "type": "object",
         "properties": {
           "p1": {
+            "description": "Current Type: {@link ObjectUnionImplicit.IPoint}",
             "type": "object",
             "properties": {
               "x": {
@@ -250,6 +260,7 @@
             ]
           },
           "p2": {
+            "description": "Current Type: {@link ObjectUnionImplicit.IPoint}",
             "type": "object",
             "properties": {
               "x": {
@@ -275,6 +286,7 @@
             ]
           },
           "p3": {
+            "description": "Current Type: {@link ObjectUnionImplicit.IPoint}",
             "type": "object",
             "properties": {
               "x": {
@@ -300,6 +312,7 @@
             ]
           },
           "p4": {
+            "description": "Current Type: {@link ObjectUnionImplicit.IPoint}",
             "type": "object",
             "properties": {
               "x": {
@@ -360,7 +373,8 @@
           "p2",
           "p3",
           "p4"
-        ]
+        ],
+        "description": "Current Type: {@link ObjectUnionImplicit.IRectangle}"
       },
       {
         "type": "object",
@@ -368,6 +382,7 @@
           "points": {
             "type": "array",
             "items": {
+              "description": "Current Type: {@link ObjectUnionImplicit.IPoint}",
               "type": "object",
               "properties": {
                 "x": {
@@ -406,17 +421,20 @@
         },
         "required": [
           "points"
-        ]
+        ],
+        "description": "Current Type: {@link ObjectUnionImplicit.IPolyline}"
       },
       {
         "type": "object",
         "properties": {
           "outer": {
+            "description": "Current Type: {@link ObjectUnionImplicit.IPolyline}",
             "type": "object",
             "properties": {
               "points": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ObjectUnionImplicit.IPoint}",
                   "type": "object",
                   "properties": {
                     "x": {
@@ -460,11 +478,13 @@
           "inner": {
             "type": "array",
             "items": {
+              "description": "Current Type: {@link ObjectUnionImplicit.IPolyline}",
               "type": "object",
               "properties": {
                 "points": {
                   "type": "array",
                   "items": {
+                    "description": "Current Type: {@link ObjectUnionImplicit.IPoint}",
                     "type": "object",
                     "properties": {
                       "x": {
@@ -519,7 +539,8 @@
         },
         "required": [
           "outer"
-        ]
+        ],
+        "description": "Current Type: {@link ObjectUnionImplicit.IPolygon}"
       },
       {
         "type": "object",
@@ -528,6 +549,7 @@
             "type": "number"
           },
           "centroid": {
+            "description": "Current Type: {@link ObjectUnionImplicit.IPoint}",
             "type": "object",
             "properties": {
               "x": {
@@ -565,7 +587,8 @@
         },
         "required": [
           "radius"
-        ]
+        ],
+        "description": "Current Type: {@link ObjectUnionImplicit.ICircle}"
       }
     ]
   }

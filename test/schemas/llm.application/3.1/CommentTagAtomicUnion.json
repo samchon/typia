@@ -12,11 +12,13 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link CommentTagAtomicUnion}",
             "type": "object",
             "properties": {
               "value": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link CommentTagAtomicUnion.Type}",
                   "type": "object",
                   "properties": {
                     "value": {
@@ -57,11 +59,13 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link CommentTagAtomicUnion}",
             "type": "object",
             "properties": {
               "value": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link CommentTagAtomicUnion.Type}",
                   "type": "object",
                   "properties": {
                     "value": {
@@ -99,6 +103,7 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link CommentTagAtomicUnion.Type}",
                       "type": "object",
                       "properties": {
                         "value": {
@@ -123,7 +128,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link CommentTagAtomicUnion}"
               }
             ]
           }
@@ -136,11 +142,13 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link CommentTagAtomicUnion}",
         "type": "object",
         "properties": {
           "value": {
             "type": "array",
             "items": {
+              "description": "Current Type: {@link CommentTagAtomicUnion.Type}",
               "type": "object",
               "properties": {
                 "value": {
@@ -184,6 +192,7 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link CommentTagAtomicUnion.Type}",
                       "type": "object",
                       "properties": {
                         "value": {
@@ -208,7 +217,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link CommentTagAtomicUnion}"
               }
             ]
           },
@@ -223,6 +233,7 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link CommentTagAtomicUnion.Type}",
                       "type": "object",
                       "properties": {
                         "value": {
@@ -247,7 +258,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link CommentTagAtomicUnion}"
               }
             ]
           },
@@ -262,6 +274,7 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link CommentTagAtomicUnion.Type}",
                       "type": "object",
                       "properties": {
                         "value": {
@@ -286,7 +299,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link CommentTagAtomicUnion}"
               }
             ]
           }
@@ -309,6 +323,7 @@
               "value": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link CommentTagAtomicUnion.Type}",
                   "type": "object",
                   "properties": {
                     "value": {
@@ -333,7 +348,8 @@
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link CommentTagAtomicUnion}"
           }
         ]
       }

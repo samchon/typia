@@ -40,6 +40,7 @@
               "title",
               "complicate_title"
             ],
+            "description": "Current Type: {@link ObjectJsonTag}",
             "additionalProperties": false
           }
         },
@@ -83,6 +84,7 @@
               "title",
               "complicate_title"
             ],
+            "description": "Current Type: {@link ObjectJsonTag}",
             "additionalProperties": false
           },
           "second": {
@@ -153,6 +155,7 @@
           "title",
           "complicate_title"
         ],
+        "description": "Current Type: {@link ObjectJsonTag}",
         "additionalProperties": false
       }
     },

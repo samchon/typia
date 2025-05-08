@@ -11,6 +11,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ConstantAtomicTagged}",
             "type": "object",
             "properties": {
               "id": {
@@ -31,6 +32,7 @@
                   },
                   {
                     "type": "integer",
+                    "minimum": 0,
                     "maximum": 100
                   }
                 ]
@@ -55,6 +57,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ConstantAtomicTagged}",
             "type": "object",
             "properties": {
               "id": {
@@ -75,6 +78,7 @@
                   },
                   {
                     "type": "integer",
+                    "minimum": 0,
                     "maximum": 100
                   }
                 ]
@@ -111,6 +115,7 @@
                       },
                       {
                         "type": "integer",
+                        "minimum": 0,
                         "maximum": 100
                       }
                     ]
@@ -119,7 +124,8 @@
                 "required": [
                   "id",
                   "age"
-                ]
+                ],
+                "description": "Current Type: {@link ConstantAtomicTagged}"
               }
             ]
           }
@@ -132,6 +138,7 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link ConstantAtomicTagged}",
         "type": "object",
         "properties": {
           "id": {
@@ -152,6 +159,7 @@
               },
               {
                 "type": "integer",
+                "minimum": 0,
                 "maximum": 100
               }
             ]
@@ -194,6 +202,7 @@
                       },
                       {
                         "type": "integer",
+                        "minimum": 0,
                         "maximum": 100
                       }
                     ]
@@ -202,7 +211,8 @@
                 "required": [
                   "id",
                   "age"
-                ]
+                ],
+                "description": "Current Type: {@link ConstantAtomicTagged}"
               }
             ]
           },
@@ -232,6 +242,7 @@
                       },
                       {
                         "type": "integer",
+                        "minimum": 0,
                         "maximum": 100
                       }
                     ]
@@ -240,7 +251,8 @@
                 "required": [
                   "id",
                   "age"
-                ]
+                ],
+                "description": "Current Type: {@link ConstantAtomicTagged}"
               }
             ]
           },
@@ -270,6 +282,7 @@
                       },
                       {
                         "type": "integer",
+                        "minimum": 0,
                         "maximum": 100
                       }
                     ]
@@ -278,7 +291,8 @@
                 "required": [
                   "id",
                   "age"
-                ]
+                ],
+                "description": "Current Type: {@link ConstantAtomicTagged}"
               }
             ]
           }
@@ -316,6 +330,7 @@
                   },
                   {
                     "type": "integer",
+                    "minimum": 0,
                     "maximum": 100
                   }
                 ]
@@ -324,7 +339,8 @@
             "required": [
               "id",
               "age"
-            ]
+            ],
+            "description": "Current Type: {@link ConstantAtomicTagged}"
           }
         ]
       }

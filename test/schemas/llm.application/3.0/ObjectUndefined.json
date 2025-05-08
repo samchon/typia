@@ -43,6 +43,7 @@
                     "id",
                     "name"
                   ],
+                  "description": "Current Type: {@link ObjectUndefined.IClassroom}",
                   "additionalProperties": false
                 },
                 "grade": {
@@ -54,8 +55,10 @@
                 "name",
                 "unknown"
               ],
+              "description": "Current Type: {@link ObjectUndefined.ILecture}",
               "additionalProperties": false
-            }
+            },
+            "description": "Current Type: {@link ObjectUndefined}"
           }
         },
         "required": [
@@ -101,6 +104,7 @@
                     "id",
                     "name"
                   ],
+                  "description": "Current Type: {@link ObjectUndefined.IClassroom}",
                   "additionalProperties": false
                 },
                 "grade": {
@@ -112,8 +116,10 @@
                 "name",
                 "unknown"
               ],
+              "description": "Current Type: {@link ObjectUndefined.ILecture}",
               "additionalProperties": false
-            }
+            },
+            "description": "Current Type: {@link ObjectUndefined}"
           },
           "second": {
             "type": "array",
@@ -147,6 +153,7 @@
                     "id",
                     "name"
                   ],
+                  "description": "Current Type: {@link ObjectUndefined.IClassroom}",
                   "additionalProperties": false
                 },
                 "grade": {
@@ -158,6 +165,7 @@
                 "name",
                 "unknown"
               ],
+              "description": "Current Type: {@link ObjectUndefined.ILecture}",
               "additionalProperties": false
             },
             "nullable": true
@@ -201,6 +209,7 @@
                 "id",
                 "name"
               ],
+              "description": "Current Type: {@link ObjectUndefined.IClassroom}",
               "additionalProperties": false
             },
             "grade": {
@@ -212,8 +221,10 @@
             "name",
             "unknown"
           ],
+          "description": "Current Type: {@link ObjectUndefined.ILecture}",
           "additionalProperties": false
-        }
+        },
+        "description": "Current Type: {@link ObjectUndefined}"
       }
     },
     {
@@ -253,6 +264,7 @@
                     "id",
                     "name"
                   ],
+                  "description": "Current Type: {@link ObjectUndefined.IClassroom}",
                   "additionalProperties": false
                 },
                 "grade": {
@@ -264,6 +276,7 @@
                 "name",
                 "unknown"
               ],
+              "description": "Current Type: {@link ObjectUndefined.ILecture}",
               "additionalProperties": false
             },
             "nullable": true
@@ -300,6 +313,7 @@
                     "id",
                     "name"
                   ],
+                  "description": "Current Type: {@link ObjectUndefined.IClassroom}",
                   "additionalProperties": false
                 },
                 "grade": {
@@ -311,6 +325,7 @@
                 "name",
                 "unknown"
               ],
+              "description": "Current Type: {@link ObjectUndefined.ILecture}",
               "additionalProperties": false
             },
             "nullable": true
@@ -347,6 +362,7 @@
                     "id",
                     "name"
                   ],
+                  "description": "Current Type: {@link ObjectUndefined.IClassroom}",
                   "additionalProperties": false
                 },
                 "grade": {
@@ -358,6 +374,7 @@
                 "name",
                 "unknown"
               ],
+              "description": "Current Type: {@link ObjectUndefined.ILecture}",
               "additionalProperties": false
             },
             "nullable": true
@@ -401,6 +418,7 @@
                 "id",
                 "name"
               ],
+              "description": "Current Type: {@link ObjectUndefined.IClassroom}",
               "additionalProperties": false
             },
             "grade": {
@@ -412,6 +430,7 @@
             "name",
             "unknown"
           ],
+          "description": "Current Type: {@link ObjectUndefined.ILecture}",
           "additionalProperties": false
         },
         "nullable": true

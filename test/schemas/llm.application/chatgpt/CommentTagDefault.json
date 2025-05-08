@@ -12,6 +12,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link CommentTagDefault}",
             "type": "object",
             "properties": {
               "boolean": {
@@ -143,6 +144,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link CommentTagDefault}",
             "type": "object",
             "properties": {
               "boolean": {
@@ -381,7 +383,8 @@
                   "union_but_string",
                   "vulnerable_range",
                   "boolean_and_number_and_template"
-                ]
+                ],
+                "description": "Current Type: {@link CommentTagDefault}"
               }
             ]
           }
@@ -394,6 +397,7 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link CommentTagDefault}",
         "type": "object",
         "properties": {
           "boolean": {
@@ -638,7 +642,8 @@
                   "union_but_string",
                   "vulnerable_range",
                   "boolean_and_number_and_template"
-                ]
+                ],
+                "description": "Current Type: {@link CommentTagDefault}"
               }
             ]
           },
@@ -763,7 +768,8 @@
                   "union_but_string",
                   "vulnerable_range",
                   "boolean_and_number_and_template"
-                ]
+                ],
+                "description": "Current Type: {@link CommentTagDefault}"
               }
             ]
           },
@@ -888,7 +894,8 @@
                   "union_but_string",
                   "vulnerable_range",
                   "boolean_and_number_and_template"
-                ]
+                ],
+                "description": "Current Type: {@link CommentTagDefault}"
               }
             ]
           }
@@ -1021,7 +1028,8 @@
               "union_but_string",
               "vulnerable_range",
               "boolean_and_number_and_template"
-            ]
+            ],
+            "description": "Current Type: {@link CommentTagDefault}"
           }
         ]
       }

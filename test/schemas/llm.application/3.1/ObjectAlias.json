@@ -12,8 +12,10 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ObjectAlias}",
             "type": "array",
             "items": {
+              "description": "Current Type: {@link ObjectAlias.IMember}",
               "type": "object",
               "properties": {
                 "id": {
@@ -96,8 +98,10 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ObjectAlias}",
             "type": "array",
             "items": {
+              "description": "Current Type: {@link ObjectAlias.IMember}",
               "type": "object",
               "properties": {
                 "id": {
@@ -174,6 +178,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ObjectAlias.IMember}",
                   "type": "object",
                   "properties": {
                     "id": {
@@ -240,7 +245,8 @@
                     "age",
                     "dead"
                   ]
-                }
+                },
+                "description": "Current Type: {@link ObjectAlias}"
               }
             ]
           }
@@ -253,8 +259,10 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link ObjectAlias}",
         "type": "array",
         "items": {
+          "description": "Current Type: {@link ObjectAlias.IMember}",
           "type": "object",
           "properties": {
             "id": {
@@ -337,6 +345,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ObjectAlias.IMember}",
                   "type": "object",
                   "properties": {
                     "id": {
@@ -403,7 +412,8 @@
                     "age",
                     "dead"
                   ]
-                }
+                },
+                "description": "Current Type: {@link ObjectAlias}"
               }
             ]
           },
@@ -415,6 +425,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ObjectAlias.IMember}",
                   "type": "object",
                   "properties": {
                     "id": {
@@ -481,7 +492,8 @@
                     "age",
                     "dead"
                   ]
-                }
+                },
+                "description": "Current Type: {@link ObjectAlias}"
               }
             ]
           },
@@ -493,6 +505,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ObjectAlias.IMember}",
                   "type": "object",
                   "properties": {
                     "id": {
@@ -559,7 +572,8 @@
                     "age",
                     "dead"
                   ]
-                }
+                },
+                "description": "Current Type: {@link ObjectAlias}"
               }
             ]
           }
@@ -579,6 +593,7 @@
           {
             "type": "array",
             "items": {
+              "description": "Current Type: {@link ObjectAlias.IMember}",
               "type": "object",
               "properties": {
                 "id": {
@@ -645,7 +660,8 @@
                 "age",
                 "dead"
               ]
-            }
+            },
+            "description": "Current Type: {@link ObjectAlias}"
           }
         ]
       }

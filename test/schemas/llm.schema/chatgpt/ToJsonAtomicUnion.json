@@ -1,4 +1,5 @@
 {
+  "description": "Current Type: {@link ToJsonAtomicUnion}",
   "type": "array",
   "items": {
     "anyOf": [

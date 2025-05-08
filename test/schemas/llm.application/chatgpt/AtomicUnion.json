@@ -12,8 +12,10 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link AtomicUnion}",
             "type": "array",
             "items": {
+              "description": "Current Type: {@link AtomicUnion.Union}",
               "anyOf": [
                 {
                   "type": "null"
@@ -44,8 +46,10 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link AtomicUnion}",
             "type": "array",
             "items": {
+              "description": "Current Type: {@link AtomicUnion.Union}",
               "anyOf": [
                 {
                   "type": "null"
@@ -70,6 +74,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link AtomicUnion.Union}",
                   "anyOf": [
                     {
                       "type": "null"
@@ -84,7 +89,8 @@
                       "type": "boolean"
                     }
                   ]
-                }
+                },
+                "description": "Current Type: {@link AtomicUnion}"
               }
             ]
           }
@@ -97,8 +103,10 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link AtomicUnion}",
         "type": "array",
         "items": {
+          "description": "Current Type: {@link AtomicUnion.Union}",
           "anyOf": [
             {
               "type": "null"
@@ -129,6 +137,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link AtomicUnion.Union}",
                   "anyOf": [
                     {
                       "type": "null"
@@ -143,7 +152,8 @@
                       "type": "boolean"
                     }
                   ]
-                }
+                },
+                "description": "Current Type: {@link AtomicUnion}"
               }
             ]
           },
@@ -155,6 +165,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link AtomicUnion.Union}",
                   "anyOf": [
                     {
                       "type": "null"
@@ -169,7 +180,8 @@
                       "type": "boolean"
                     }
                   ]
-                }
+                },
+                "description": "Current Type: {@link AtomicUnion}"
               }
             ]
           },
@@ -181,6 +193,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link AtomicUnion.Union}",
                   "anyOf": [
                     {
                       "type": "null"
@@ -195,7 +208,8 @@
                       "type": "boolean"
                     }
                   ]
-                }
+                },
+                "description": "Current Type: {@link AtomicUnion}"
               }
             ]
           }
@@ -215,6 +229,7 @@
           {
             "type": "array",
             "items": {
+              "description": "Current Type: {@link AtomicUnion.Union}",
               "anyOf": [
                 {
                   "type": "null"
@@ -229,7 +244,8 @@
                   "type": "boolean"
                 }
               ]
-            }
+            },
+            "description": "Current Type: {@link AtomicUnion}"
           }
         ]
       }

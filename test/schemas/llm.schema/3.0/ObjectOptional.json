@@ -15,5 +15,6 @@
     }
   },
   "required": [],
+  "description": "Current Type: {@link ObjectOptional}",
   "additionalProperties": false
 }

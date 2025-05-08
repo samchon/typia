@@ -2,23 +2,25 @@
   "type": "object",
   "properties": {
     "regular": {
+      "description": "Current Type: {@link TypeTagAtomicUnion}",
       "type": "object",
       "properties": {
         "value": {
           "type": "array",
           "items": {
+            "description": "Current Type: {@link TypeTagAtomicUnion.Type}",
             "type": "object",
             "properties": {
               "value": {
                 "oneOf": [
                   {
-                    "type": "number",
-                    "minimum": 3
-                  },
-                  {
                     "type": "string",
                     "minLength": 3,
                     "maxLength": 7
+                  },
+                  {
+                    "type": "number",
+                    "minimum": 3
                   }
                 ]
               }
@@ -44,18 +46,19 @@
             "value": {
               "type": "array",
               "items": {
+                "description": "Current Type: {@link TypeTagAtomicUnion.Type}",
                 "type": "object",
                 "properties": {
                   "value": {
                     "oneOf": [
                       {
-                        "type": "number",
-                        "minimum": 3
-                      },
-                      {
                         "type": "string",
                         "minLength": 3,
                         "maxLength": 7
+                      },
+                      {
+                        "type": "number",
+                        "minimum": 3
                       }
                     ]
                   }
@@ -68,28 +71,31 @@
           },
           "required": [
             "value"
-          ]
+          ],
+          "description": "Current Type: {@link TypeTagAtomicUnion}"
         }
       ]
     },
     "optional": {
+      "description": "Current Type: {@link TypeTagAtomicUnion}",
       "type": "object",
       "properties": {
         "value": {
           "type": "array",
           "items": {
+            "description": "Current Type: {@link TypeTagAtomicUnion.Type}",
             "type": "object",
             "properties": {
               "value": {
                 "oneOf": [
                   {
-                    "type": "number",
-                    "minimum": 3
-                  },
-                  {
                     "type": "string",
                     "minLength": 3,
                     "maxLength": 7
+                  },
+                  {
+                    "type": "number",
+                    "minimum": 3
                   }
                 ]
               }
@@ -115,18 +121,19 @@
             "value": {
               "type": "array",
               "items": {
+                "description": "Current Type: {@link TypeTagAtomicUnion.Type}",
                 "type": "object",
                 "properties": {
                   "value": {
                     "oneOf": [
                       {
-                        "type": "number",
-                        "minimum": 3
-                      },
-                      {
                         "type": "string",
                         "minLength": 3,
                         "maxLength": 7
+                      },
+                      {
+                        "type": "number",
+                        "minimum": 3
                       }
                     ]
                   }
@@ -139,30 +146,33 @@
           },
           "required": [
             "value"
-          ]
+          ],
+          "description": "Current Type: {@link TypeTagAtomicUnion}"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link TypeTagAtomicUnion}",
         "type": "object",
         "properties": {
           "value": {
             "type": "array",
             "items": {
+              "description": "Current Type: {@link TypeTagAtomicUnion.Type}",
               "type": "object",
               "properties": {
                 "value": {
                   "oneOf": [
                     {
-                      "type": "number",
-                      "minimum": 3
-                    },
-                    {
                       "type": "string",
                       "minLength": 3,
                       "maxLength": 7
+                    },
+                    {
+                      "type": "number",
+                      "minimum": 3
                     }
                   ]
                 }

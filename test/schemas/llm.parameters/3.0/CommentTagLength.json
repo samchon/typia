@@ -40,6 +40,7 @@
               "minimum_and_maximum",
               "equal"
             ],
+            "description": "Current Type: {@link CommentTagLength.Type}",
             "additionalProperties": false
           }
         }
@@ -47,6 +48,7 @@
       "required": [
         "value"
       ],
+      "description": "Current Type: {@link CommentTagLength}",
       "additionalProperties": false
     },
     "nullable": {
@@ -88,6 +90,7 @@
               "minimum_and_maximum",
               "equal"
             ],
+            "description": "Current Type: {@link CommentTagLength.Type}",
             "additionalProperties": false
           }
         }
@@ -137,6 +140,7 @@
               "minimum_and_maximum",
               "equal"
             ],
+            "description": "Current Type: {@link CommentTagLength.Type}",
             "additionalProperties": false
           }
         }
@@ -144,6 +148,7 @@
       "required": [
         "value"
       ],
+      "description": "Current Type: {@link CommentTagLength}",
       "additionalProperties": false
     },
     "faint": {
@@ -185,6 +190,7 @@
               "minimum_and_maximum",
               "equal"
             ],
+            "description": "Current Type: {@link CommentTagLength.Type}",
             "additionalProperties": false
           }
         }
@@ -236,6 +242,7 @@
                 "minimum_and_maximum",
                 "equal"
               ],
+              "description": "Current Type: {@link CommentTagLength.Type}",
               "additionalProperties": false
             }
           }
@@ -243,6 +250,7 @@
         "required": [
           "value"
         ],
+        "description": "Current Type: {@link CommentTagLength}",
         "additionalProperties": false
       }
     }

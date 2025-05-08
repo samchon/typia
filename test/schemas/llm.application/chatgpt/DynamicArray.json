@@ -12,6 +12,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link DynamicArray}",
             "type": "object",
             "properties": {
               "value": {
@@ -44,6 +45,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link DynamicArray}",
             "type": "object",
             "properties": {
               "value": {
@@ -84,7 +86,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link DynamicArray}"
               }
             ]
           }
@@ -97,6 +100,7 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link DynamicArray}",
         "type": "object",
         "properties": {
           "value": {
@@ -143,7 +147,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link DynamicArray}"
               }
             ]
           },
@@ -169,7 +174,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link DynamicArray}"
               }
             ]
           },
@@ -195,7 +201,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link DynamicArray}"
               }
             ]
           }
@@ -229,7 +236,8 @@
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link DynamicArray}"
           }
         ]
       }

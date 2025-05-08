@@ -1,4 +1,3 @@
-import cp from "child_process";
 import fs from "fs";
 
 import { TestStructure } from "./TestStructure";
@@ -68,7 +67,8 @@ export namespace TestProtobufMessageGenerator {
   }
 
   async function mkdir(path: string): Promise<void> {
-    if (fs.existsSync(path)) cp.execSync(`npx rimraf ${path}`);
-    await fs.promises.mkdir(path);
+    if (fs.existsSync(path) === true)
+      await fs.promises.rm(path, { recursive: true });
+    await fs.promises.mkdir(path, { recursive: true });
   }
 }

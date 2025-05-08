@@ -60,7 +60,8 @@
               "nullables1",
               "nullables2",
               "union"
-            ]
+            ],
+            "description": "Current Type: {@link ArrayAny}"
           }
         },
         "required": [
@@ -123,7 +124,8 @@
               "nullables1",
               "nullables2",
               "union"
-            ]
+            ],
+            "description": "Current Type: {@link ArrayAny}"
           },
           "second": {
             "type": "object",
@@ -234,7 +236,8 @@
           "nullables1",
           "nullables2",
           "union"
-        ]
+        ],
+        "description": "Current Type: {@link ArrayAny}"
       }
     },
     {

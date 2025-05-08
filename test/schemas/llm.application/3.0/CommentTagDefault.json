@@ -130,6 +130,7 @@
               "vulnerable_range",
               "boolean_and_number_and_template"
             ],
+            "description": "Current Type: {@link CommentTagDefault}",
             "additionalProperties": false
           }
         },
@@ -263,6 +264,7 @@
               "vulnerable_range",
               "boolean_and_number_and_template"
             ],
+            "description": "Current Type: {@link CommentTagDefault}",
             "additionalProperties": false
           },
           "second": {
@@ -513,6 +515,7 @@
           "vulnerable_range",
           "boolean_and_number_and_template"
         ],
+        "description": "Current Type: {@link CommentTagDefault}",
         "additionalProperties": false
       }
     },

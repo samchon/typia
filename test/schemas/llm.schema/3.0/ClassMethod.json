@@ -12,5 +12,6 @@
     "name",
     "age"
   ],
+  "description": "Current Type: {@link ClassMethod.Animal}",
   "additionalProperties": false
 }

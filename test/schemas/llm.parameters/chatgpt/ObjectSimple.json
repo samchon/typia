@@ -2,9 +2,11 @@
   "type": "object",
   "properties": {
     "regular": {
+      "description": "Current Type: {@link ObjectSimple.IBox3D}",
       "type": "object",
       "properties": {
         "scale": {
+          "description": "Current Type: {@link ObjectSimple.IPoint3D}",
           "type": "object",
           "properties": {
             "x": {
@@ -24,6 +26,7 @@
           ]
         },
         "position": {
+          "description": "Current Type: {@link ObjectSimple.IPoint3D}",
           "type": "object",
           "properties": {
             "x": {
@@ -43,6 +46,7 @@
           ]
         },
         "rotate": {
+          "description": "Current Type: {@link ObjectSimple.IPoint3D}",
           "type": "object",
           "properties": {
             "x": {
@@ -62,6 +66,7 @@
           ]
         },
         "pivot": {
+          "description": "Current Type: {@link ObjectSimple.IPoint3D}",
           "type": "object",
           "properties": {
             "x": {
@@ -97,6 +102,7 @@
           "type": "object",
           "properties": {
             "scale": {
+              "description": "Current Type: {@link ObjectSimple.IPoint3D}",
               "type": "object",
               "properties": {
                 "x": {
@@ -116,6 +122,7 @@
               ]
             },
             "position": {
+              "description": "Current Type: {@link ObjectSimple.IPoint3D}",
               "type": "object",
               "properties": {
                 "x": {
@@ -135,6 +142,7 @@
               ]
             },
             "rotate": {
+              "description": "Current Type: {@link ObjectSimple.IPoint3D}",
               "type": "object",
               "properties": {
                 "x": {
@@ -154,6 +162,7 @@
               ]
             },
             "pivot": {
+              "description": "Current Type: {@link ObjectSimple.IPoint3D}",
               "type": "object",
               "properties": {
                 "x": {
@@ -178,14 +187,17 @@
             "position",
             "rotate",
             "pivot"
-          ]
+          ],
+          "description": "Current Type: {@link ObjectSimple.IBox3D}"
         }
       ]
     },
     "optional": {
+      "description": "Current Type: {@link ObjectSimple.IBox3D}",
       "type": "object",
       "properties": {
         "scale": {
+          "description": "Current Type: {@link ObjectSimple.IPoint3D}",
           "type": "object",
           "properties": {
             "x": {
@@ -205,6 +217,7 @@
           ]
         },
         "position": {
+          "description": "Current Type: {@link ObjectSimple.IPoint3D}",
           "type": "object",
           "properties": {
             "x": {
@@ -224,6 +237,7 @@
           ]
         },
         "rotate": {
+          "description": "Current Type: {@link ObjectSimple.IPoint3D}",
           "type": "object",
           "properties": {
             "x": {
@@ -243,6 +257,7 @@
           ]
         },
         "pivot": {
+          "description": "Current Type: {@link ObjectSimple.IPoint3D}",
           "type": "object",
           "properties": {
             "x": {
@@ -278,6 +293,7 @@
           "type": "object",
           "properties": {
             "scale": {
+              "description": "Current Type: {@link ObjectSimple.IPoint3D}",
               "type": "object",
               "properties": {
                 "x": {
@@ -297,6 +313,7 @@
               ]
             },
             "position": {
+              "description": "Current Type: {@link ObjectSimple.IPoint3D}",
               "type": "object",
               "properties": {
                 "x": {
@@ -316,6 +333,7 @@
               ]
             },
             "rotate": {
+              "description": "Current Type: {@link ObjectSimple.IPoint3D}",
               "type": "object",
               "properties": {
                 "x": {
@@ -335,6 +353,7 @@
               ]
             },
             "pivot": {
+              "description": "Current Type: {@link ObjectSimple.IPoint3D}",
               "type": "object",
               "properties": {
                 "x": {
@@ -359,16 +378,19 @@
             "position",
             "rotate",
             "pivot"
-          ]
+          ],
+          "description": "Current Type: {@link ObjectSimple.IBox3D}"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link ObjectSimple.IBox3D}",
         "type": "object",
         "properties": {
           "scale": {
+            "description": "Current Type: {@link ObjectSimple.IPoint3D}",
             "type": "object",
             "properties": {
               "x": {
@@ -388,6 +410,7 @@
             ]
           },
           "position": {
+            "description": "Current Type: {@link ObjectSimple.IPoint3D}",
             "type": "object",
             "properties": {
               "x": {
@@ -407,6 +430,7 @@
             ]
           },
           "rotate": {
+            "description": "Current Type: {@link ObjectSimple.IPoint3D}",
             "type": "object",
             "properties": {
               "x": {
@@ -426,6 +450,7 @@
             ]
           },
           "pivot": {
+            "description": "Current Type: {@link ObjectSimple.IPoint3D}",
             "type": "object",
             "properties": {
               "x": {

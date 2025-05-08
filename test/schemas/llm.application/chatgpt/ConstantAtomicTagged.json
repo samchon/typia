@@ -12,6 +12,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ConstantAtomicTagged}",
             "type": "object",
             "properties": {
               "id": {
@@ -25,7 +26,7 @@
                 "anyOf": [
                   {
                     "type": "integer",
-                    "description": "@maximum 100"
+                    "description": "@minimum 0\n@maximum 100"
                   },
                   {
                     "type": "number",
@@ -55,6 +56,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ConstantAtomicTagged}",
             "type": "object",
             "properties": {
               "id": {
@@ -68,7 +70,7 @@
                 "anyOf": [
                   {
                     "type": "integer",
-                    "description": "@maximum 100"
+                    "description": "@minimum 0\n@maximum 100"
                   },
                   {
                     "type": "number",
@@ -103,7 +105,7 @@
                     "anyOf": [
                       {
                         "type": "integer",
-                        "description": "@maximum 100"
+                        "description": "@minimum 0\n@maximum 100"
                       },
                       {
                         "type": "number",
@@ -117,7 +119,8 @@
                 "required": [
                   "id",
                   "age"
-                ]
+                ],
+                "description": "Current Type: {@link ConstantAtomicTagged}"
               }
             ]
           }
@@ -130,6 +133,7 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link ConstantAtomicTagged}",
         "type": "object",
         "properties": {
           "id": {
@@ -143,7 +147,7 @@
             "anyOf": [
               {
                 "type": "integer",
-                "description": "@maximum 100"
+                "description": "@minimum 0\n@maximum 100"
               },
               {
                 "type": "number",
@@ -184,7 +188,7 @@
                     "anyOf": [
                       {
                         "type": "integer",
-                        "description": "@maximum 100"
+                        "description": "@minimum 0\n@maximum 100"
                       },
                       {
                         "type": "number",
@@ -198,7 +202,8 @@
                 "required": [
                   "id",
                   "age"
-                ]
+                ],
+                "description": "Current Type: {@link ConstantAtomicTagged}"
               }
             ]
           },
@@ -221,7 +226,7 @@
                     "anyOf": [
                       {
                         "type": "integer",
-                        "description": "@maximum 100"
+                        "description": "@minimum 0\n@maximum 100"
                       },
                       {
                         "type": "number",
@@ -235,7 +240,8 @@
                 "required": [
                   "id",
                   "age"
-                ]
+                ],
+                "description": "Current Type: {@link ConstantAtomicTagged}"
               }
             ]
           },
@@ -258,7 +264,7 @@
                     "anyOf": [
                       {
                         "type": "integer",
-                        "description": "@maximum 100"
+                        "description": "@minimum 0\n@maximum 100"
                       },
                       {
                         "type": "number",
@@ -272,7 +278,8 @@
                 "required": [
                   "id",
                   "age"
-                ]
+                ],
+                "description": "Current Type: {@link ConstantAtomicTagged}"
               }
             ]
           }
@@ -303,7 +310,7 @@
                 "anyOf": [
                   {
                     "type": "integer",
-                    "description": "@maximum 100"
+                    "description": "@minimum 0\n@maximum 100"
                   },
                   {
                     "type": "number",
@@ -317,7 +324,8 @@
             "required": [
               "id",
               "age"
-            ]
+            ],
+            "description": "Current Type: {@link ConstantAtomicTagged}"
           }
         ]
       }

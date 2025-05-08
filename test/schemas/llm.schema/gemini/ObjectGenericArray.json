@@ -22,7 +22,8 @@
         "limit",
         "total_count",
         "total_pages"
-      ]
+      ],
+      "description": "Current Type: {@link ObjectGenericArray.IPagination}"
     },
     "data": {
       "type": "array",
@@ -39,12 +40,14 @@
         "required": [
           "name",
           "age"
-        ]
+        ],
+        "description": "Current Type: {@link ObjectGenericArray.IPerson}"
       }
     }
   },
   "required": [
     "pagination",
     "data"
-  ]
+  ],
+  "description": "Current Type: {@link ObjectGenericArray}"
 }

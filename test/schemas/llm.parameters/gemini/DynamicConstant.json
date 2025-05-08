@@ -30,7 +30,8 @@
       },
       "required": [
         "value"
-      ]
+      ],
+      "description": "Current Type: {@link DynamicConstant}"
     },
     "nullable": {
       "type": "object",
@@ -93,7 +94,8 @@
       },
       "required": [
         "value"
-      ]
+      ],
+      "description": "Current Type: {@link DynamicConstant}"
     },
     "faint": {
       "type": "object",
@@ -158,7 +160,8 @@
         },
         "required": [
           "value"
-        ]
+        ],
+        "description": "Current Type: {@link DynamicConstant}"
       }
     }
   },

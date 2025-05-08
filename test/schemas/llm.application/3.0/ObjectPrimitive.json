@@ -59,6 +59,7 @@
                     "url",
                     "created_at"
                   ],
+                  "description": "Current Type: {@link ObjectPrimitive.IFile}",
                   "additionalProperties": false
                 }
               },
@@ -78,6 +79,7 @@
               "secret",
               "created_at"
             ],
+            "description": "Current Type: {@link ObjectPrimitive.IArticle}",
             "additionalProperties": false
           }
         },
@@ -140,6 +142,7 @@
                     "url",
                     "created_at"
                   ],
+                  "description": "Current Type: {@link ObjectPrimitive.IFile}",
                   "additionalProperties": false
                 }
               },
@@ -159,6 +162,7 @@
               "secret",
               "created_at"
             ],
+            "description": "Current Type: {@link ObjectPrimitive.IArticle}",
             "additionalProperties": false
           },
           "second": {
@@ -209,6 +213,7 @@
                     "url",
                     "created_at"
                   ],
+                  "description": "Current Type: {@link ObjectPrimitive.IFile}",
                   "additionalProperties": false
                 }
               },
@@ -286,6 +291,7 @@
                 "url",
                 "created_at"
               ],
+              "description": "Current Type: {@link ObjectPrimitive.IFile}",
               "additionalProperties": false
             }
           },
@@ -305,6 +311,7 @@
           "secret",
           "created_at"
         ],
+        "description": "Current Type: {@link ObjectPrimitive.IArticle}",
         "additionalProperties": false
       }
     },
@@ -361,6 +368,7 @@
                     "url",
                     "created_at"
                   ],
+                  "description": "Current Type: {@link ObjectPrimitive.IFile}",
                   "additionalProperties": false
                 }
               },
@@ -431,6 +439,7 @@
                     "url",
                     "created_at"
                   ],
+                  "description": "Current Type: {@link ObjectPrimitive.IFile}",
                   "additionalProperties": false
                 }
               },
@@ -501,6 +510,7 @@
                     "url",
                     "created_at"
                   ],
+                  "description": "Current Type: {@link ObjectPrimitive.IFile}",
                   "additionalProperties": false
                 }
               },
@@ -578,6 +588,7 @@
                 "url",
                 "created_at"
               ],
+              "description": "Current Type: {@link ObjectPrimitive.IFile}",
               "additionalProperties": false
             }
           },

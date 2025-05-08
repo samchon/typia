@@ -11,11 +11,13 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link CommentTagType}",
             "type": "object",
             "properties": {
               "value": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link CommentTagType.Type}",
                   "type": "object",
                   "properties": {
                     "int": {
@@ -26,19 +28,22 @@
                     "uint": {
                       "title": "Unsigned integer value",
                       "description": "Unsigned integer value.",
-                      "type": "integer"
+                      "type": "integer",
+                      "minimum": 0
                     },
                     "int32": {
                       "type": "integer"
                     },
                     "uint32": {
-                      "type": "integer"
+                      "type": "integer",
+                      "minimum": 0
                     },
                     "int64": {
                       "type": "integer"
                     },
                     "uint64": {
-                      "type": "integer"
+                      "type": "integer",
+                      "minimum": 0
                     },
                     "float": {
                       "type": "number"
@@ -74,11 +79,13 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link CommentTagType}",
             "type": "object",
             "properties": {
               "value": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link CommentTagType.Type}",
                   "type": "object",
                   "properties": {
                     "int": {
@@ -89,19 +96,22 @@
                     "uint": {
                       "title": "Unsigned integer value",
                       "description": "Unsigned integer value.",
-                      "type": "integer"
+                      "type": "integer",
+                      "minimum": 0
                     },
                     "int32": {
                       "type": "integer"
                     },
                     "uint32": {
-                      "type": "integer"
+                      "type": "integer",
+                      "minimum": 0
                     },
                     "int64": {
                       "type": "integer"
                     },
                     "uint64": {
-                      "type": "integer"
+                      "type": "integer",
+                      "minimum": 0
                     },
                     "float": {
                       "type": "number"
@@ -134,6 +144,7 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link CommentTagType.Type}",
                       "type": "object",
                       "properties": {
                         "int": {
@@ -144,19 +155,22 @@
                         "uint": {
                           "title": "Unsigned integer value",
                           "description": "Unsigned integer value.",
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0
                         },
                         "int32": {
                           "type": "integer"
                         },
                         "uint32": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0
                         },
                         "int64": {
                           "type": "integer"
                         },
                         "uint64": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0
                         },
                         "float": {
                           "type": "number"
@@ -176,7 +190,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link CommentTagType}"
               }
             ]
           }
@@ -189,11 +204,13 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link CommentTagType}",
         "type": "object",
         "properties": {
           "value": {
             "type": "array",
             "items": {
+              "description": "Current Type: {@link CommentTagType.Type}",
               "type": "object",
               "properties": {
                 "int": {
@@ -204,19 +221,22 @@
                 "uint": {
                   "title": "Unsigned integer value",
                   "description": "Unsigned integer value.",
-                  "type": "integer"
+                  "type": "integer",
+                  "minimum": 0
                 },
                 "int32": {
                   "type": "integer"
                 },
                 "uint32": {
-                  "type": "integer"
+                  "type": "integer",
+                  "minimum": 0
                 },
                 "int64": {
                   "type": "integer"
                 },
                 "uint64": {
-                  "type": "integer"
+                  "type": "integer",
+                  "minimum": 0
                 },
                 "float": {
                   "type": "number"
@@ -255,6 +275,7 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link CommentTagType.Type}",
                       "type": "object",
                       "properties": {
                         "int": {
@@ -265,19 +286,22 @@
                         "uint": {
                           "title": "Unsigned integer value",
                           "description": "Unsigned integer value.",
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0
                         },
                         "int32": {
                           "type": "integer"
                         },
                         "uint32": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0
                         },
                         "int64": {
                           "type": "integer"
                         },
                         "uint64": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0
                         },
                         "float": {
                           "type": "number"
@@ -297,7 +321,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link CommentTagType}"
               }
             ]
           },
@@ -312,6 +337,7 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link CommentTagType.Type}",
                       "type": "object",
                       "properties": {
                         "int": {
@@ -322,19 +348,22 @@
                         "uint": {
                           "title": "Unsigned integer value",
                           "description": "Unsigned integer value.",
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0
                         },
                         "int32": {
                           "type": "integer"
                         },
                         "uint32": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0
                         },
                         "int64": {
                           "type": "integer"
                         },
                         "uint64": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0
                         },
                         "float": {
                           "type": "number"
@@ -354,7 +383,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link CommentTagType}"
               }
             ]
           },
@@ -369,6 +399,7 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link CommentTagType.Type}",
                       "type": "object",
                       "properties": {
                         "int": {
@@ -379,19 +410,22 @@
                         "uint": {
                           "title": "Unsigned integer value",
                           "description": "Unsigned integer value.",
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0
                         },
                         "int32": {
                           "type": "integer"
                         },
                         "uint32": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0
                         },
                         "int64": {
                           "type": "integer"
                         },
                         "uint64": {
-                          "type": "integer"
+                          "type": "integer",
+                          "minimum": 0
                         },
                         "float": {
                           "type": "number"
@@ -411,7 +445,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link CommentTagType}"
               }
             ]
           }
@@ -434,6 +469,7 @@
               "value": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link CommentTagType.Type}",
                   "type": "object",
                   "properties": {
                     "int": {
@@ -444,19 +480,22 @@
                     "uint": {
                       "title": "Unsigned integer value",
                       "description": "Unsigned integer value.",
-                      "type": "integer"
+                      "type": "integer",
+                      "minimum": 0
                     },
                     "int32": {
                       "type": "integer"
                     },
                     "uint32": {
-                      "type": "integer"
+                      "type": "integer",
+                      "minimum": 0
                     },
                     "int64": {
                       "type": "integer"
                     },
                     "uint64": {
-                      "type": "integer"
+                      "type": "integer",
+                      "minimum": 0
                     },
                     "float": {
                       "type": "number"
@@ -476,7 +515,8 @@
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link CommentTagType}"
           }
         ]
       }

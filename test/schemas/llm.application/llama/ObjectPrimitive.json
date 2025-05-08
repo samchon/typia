@@ -11,6 +11,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ObjectPrimitive.IArticle}",
             "type": "object",
             "properties": {
               "id": {
@@ -38,6 +39,7 @@
               "files": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ObjectPrimitive.IFile}",
                   "type": "object",
                   "properties": {
                     "id": {
@@ -96,6 +98,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ObjectPrimitive.IArticle}",
             "type": "object",
             "properties": {
               "id": {
@@ -123,6 +126,7 @@
               "files": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ObjectPrimitive.IFile}",
                   "type": "object",
                   "properties": {
                     "id": {
@@ -200,6 +204,7 @@
                   "files": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link ObjectPrimitive.IFile}",
                       "type": "object",
                       "properties": {
                         "id": {
@@ -242,7 +247,8 @@
                   "files",
                   "secret",
                   "created_at"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectPrimitive.IArticle}"
               }
             ]
           }
@@ -255,6 +261,7 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link ObjectPrimitive.IArticle}",
         "type": "object",
         "properties": {
           "id": {
@@ -282,6 +289,7 @@
           "files": {
             "type": "array",
             "items": {
+              "description": "Current Type: {@link ObjectPrimitive.IFile}",
               "type": "object",
               "properties": {
                 "id": {
@@ -365,6 +373,7 @@
                   "files": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link ObjectPrimitive.IFile}",
                       "type": "object",
                       "properties": {
                         "id": {
@@ -407,7 +416,8 @@
                   "files",
                   "secret",
                   "created_at"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectPrimitive.IArticle}"
               }
             ]
           },
@@ -444,6 +454,7 @@
                   "files": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link ObjectPrimitive.IFile}",
                       "type": "object",
                       "properties": {
                         "id": {
@@ -486,7 +497,8 @@
                   "files",
                   "secret",
                   "created_at"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectPrimitive.IArticle}"
               }
             ]
           },
@@ -523,6 +535,7 @@
                   "files": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link ObjectPrimitive.IFile}",
                       "type": "object",
                       "properties": {
                         "id": {
@@ -565,7 +578,8 @@
                   "files",
                   "secret",
                   "created_at"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectPrimitive.IArticle}"
               }
             ]
           }
@@ -610,6 +624,7 @@
               "files": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ObjectPrimitive.IFile}",
                   "type": "object",
                   "properties": {
                     "id": {
@@ -652,7 +667,8 @@
               "files",
               "secret",
               "created_at"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectPrimitive.IArticle}"
           }
         ]
       }

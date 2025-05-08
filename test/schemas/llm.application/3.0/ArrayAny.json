@@ -62,6 +62,7 @@
               "nullables2",
               "union"
             ],
+            "description": "Current Type: {@link ArrayAny}",
             "additionalProperties": false
           }
         },
@@ -127,6 +128,7 @@
               "nullables2",
               "union"
             ],
+            "description": "Current Type: {@link ArrayAny}",
             "additionalProperties": false
           },
           "second": {
@@ -241,6 +243,7 @@
           "nullables2",
           "union"
         ],
+        "description": "Current Type: {@link ArrayAny}",
         "additionalProperties": false
       }
     },

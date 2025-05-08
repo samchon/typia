@@ -15,5 +15,6 @@
     "email",
     "name",
     "vulnerable"
-  ]
+  ],
+  "description": "Current Type: {@link ObjectIntersection}"
 }

@@ -2,6 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
+      "description": "Current Type: {@link ConstantAtomicTagged}",
       "type": "object",
       "properties": {
         "id": {
@@ -22,6 +23,7 @@
             },
             {
               "type": "integer",
+              "minimum": 0,
               "maximum": 100
             }
           ]
@@ -58,6 +60,7 @@
                 },
                 {
                   "type": "integer",
+                  "minimum": 0,
                   "maximum": 100
                 }
               ]
@@ -66,11 +69,13 @@
           "required": [
             "id",
             "age"
-          ]
+          ],
+          "description": "Current Type: {@link ConstantAtomicTagged}"
         }
       ]
     },
     "optional": {
+      "description": "Current Type: {@link ConstantAtomicTagged}",
       "type": "object",
       "properties": {
         "id": {
@@ -91,6 +96,7 @@
             },
             {
               "type": "integer",
+              "minimum": 0,
               "maximum": 100
             }
           ]
@@ -127,6 +133,7 @@
                 },
                 {
                   "type": "integer",
+                  "minimum": 0,
                   "maximum": 100
                 }
               ]
@@ -135,13 +142,15 @@
           "required": [
             "id",
             "age"
-          ]
+          ],
+          "description": "Current Type: {@link ConstantAtomicTagged}"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link ConstantAtomicTagged}",
         "type": "object",
         "properties": {
           "id": {
@@ -162,6 +171,7 @@
               },
               {
                 "type": "integer",
+                "minimum": 0,
                 "maximum": 100
               }
             ]

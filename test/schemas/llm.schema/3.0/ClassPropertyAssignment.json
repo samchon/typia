@@ -30,5 +30,6 @@
     "editable",
     "incremental"
   ],
+  "description": "Current Type: {@link ClassPropertyAssignment}",
   "additionalProperties": false
 }

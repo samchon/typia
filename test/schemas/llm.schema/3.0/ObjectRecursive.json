@@ -39,6 +39,7 @@
                     "time",
                     "zone"
                   ],
+                  "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
                   "additionalProperties": false
                 }
               },
@@ -79,6 +80,7 @@
                 "time",
                 "zone"
               ],
+              "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
               "additionalProperties": false
             }
           },
@@ -119,6 +121,7 @@
             "time",
             "zone"
           ],
+          "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
           "additionalProperties": false
         }
       },
@@ -159,6 +162,7 @@
         "time",
         "zone"
       ],
+      "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
       "additionalProperties": false
     }
   },
@@ -170,5 +174,6 @@
     "sequence",
     "created_at"
   ],
+  "description": "Current Type: {@link ObjectRecursive.IDepartment}",
   "additionalProperties": false
 }

@@ -11,6 +11,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ObjectOptional}",
             "type": "object",
             "properties": {
               "id": {
@@ -42,6 +43,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ObjectOptional}",
             "type": "object",
             "properties": {
               "id": {
@@ -80,7 +82,8 @@
                     "type": "number"
                   }
                 },
-                "required": []
+                "required": [],
+                "description": "Current Type: {@link ObjectOptional}"
               }
             ]
           }
@@ -93,6 +96,7 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link ObjectOptional}",
         "type": "object",
         "properties": {
           "id": {
@@ -137,7 +141,8 @@
                     "type": "number"
                   }
                 },
-                "required": []
+                "required": [],
+                "description": "Current Type: {@link ObjectOptional}"
               }
             ]
           },
@@ -162,7 +167,8 @@
                     "type": "number"
                   }
                 },
-                "required": []
+                "required": [],
+                "description": "Current Type: {@link ObjectOptional}"
               }
             ]
           },
@@ -187,7 +193,8 @@
                     "type": "number"
                   }
                 },
-                "required": []
+                "required": [],
+                "description": "Current Type: {@link ObjectOptional}"
               }
             ]
           }
@@ -220,7 +227,8 @@
                 "type": "number"
               }
             },
-            "required": []
+            "required": [],
+            "description": "Current Type: {@link ObjectOptional}"
           }
         ]
       }

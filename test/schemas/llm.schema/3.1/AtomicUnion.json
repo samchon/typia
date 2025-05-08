@@ -1,6 +1,8 @@
 {
+  "description": "Current Type: {@link AtomicUnion}",
   "type": "array",
   "items": {
+    "description": "Current Type: {@link AtomicUnion.Union}",
     "oneOf": [
       {
         "type": "null"

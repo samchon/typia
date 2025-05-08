@@ -16,6 +16,7 @@
               },
               "uint": {
                 "type": "integer",
+                "minimum": 0,
                 "title": "Unsigned integer value",
                 "description": "Unsigned integer value."
               },
@@ -23,13 +24,15 @@
                 "type": "integer"
               },
               "uint32": {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               },
               "int64": {
                 "type": "integer"
               },
               "uint64": {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               },
               "float": {
                 "type": "number"
@@ -44,6 +47,7 @@
               "uint64",
               "float"
             ],
+            "description": "Current Type: {@link CommentTagType.Type}",
             "additionalProperties": false
           }
         }
@@ -51,6 +55,7 @@
       "required": [
         "value"
       ],
+      "description": "Current Type: {@link CommentTagType}",
       "additionalProperties": false
     },
     "nullable": {
@@ -68,6 +73,7 @@
               },
               "uint": {
                 "type": "integer",
+                "minimum": 0,
                 "title": "Unsigned integer value",
                 "description": "Unsigned integer value."
               },
@@ -75,13 +81,15 @@
                 "type": "integer"
               },
               "uint32": {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               },
               "int64": {
                 "type": "integer"
               },
               "uint64": {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               },
               "float": {
                 "type": "number"
@@ -96,6 +104,7 @@
               "uint64",
               "float"
             ],
+            "description": "Current Type: {@link CommentTagType.Type}",
             "additionalProperties": false
           }
         }
@@ -121,6 +130,7 @@
               },
               "uint": {
                 "type": "integer",
+                "minimum": 0,
                 "title": "Unsigned integer value",
                 "description": "Unsigned integer value."
               },
@@ -128,13 +138,15 @@
                 "type": "integer"
               },
               "uint32": {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               },
               "int64": {
                 "type": "integer"
               },
               "uint64": {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               },
               "float": {
                 "type": "number"
@@ -149,6 +161,7 @@
               "uint64",
               "float"
             ],
+            "description": "Current Type: {@link CommentTagType.Type}",
             "additionalProperties": false
           }
         }
@@ -156,6 +169,7 @@
       "required": [
         "value"
       ],
+      "description": "Current Type: {@link CommentTagType}",
       "additionalProperties": false
     },
     "faint": {
@@ -173,6 +187,7 @@
               },
               "uint": {
                 "type": "integer",
+                "minimum": 0,
                 "title": "Unsigned integer value",
                 "description": "Unsigned integer value."
               },
@@ -180,13 +195,15 @@
                 "type": "integer"
               },
               "uint32": {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               },
               "int64": {
                 "type": "integer"
               },
               "uint64": {
-                "type": "integer"
+                "type": "integer",
+                "minimum": 0
               },
               "float": {
                 "type": "number"
@@ -201,6 +218,7 @@
               "uint64",
               "float"
             ],
+            "description": "Current Type: {@link CommentTagType.Type}",
             "additionalProperties": false
           }
         }
@@ -228,6 +246,7 @@
                 },
                 "uint": {
                   "type": "integer",
+                  "minimum": 0,
                   "title": "Unsigned integer value",
                   "description": "Unsigned integer value."
                 },
@@ -235,13 +254,15 @@
                   "type": "integer"
                 },
                 "uint32": {
-                  "type": "integer"
+                  "type": "integer",
+                  "minimum": 0
                 },
                 "int64": {
                   "type": "integer"
                 },
                 "uint64": {
-                  "type": "integer"
+                  "type": "integer",
+                  "minimum": 0
                 },
                 "float": {
                   "type": "number"
@@ -256,6 +277,7 @@
                 "uint64",
                 "float"
               ],
+              "description": "Current Type: {@link CommentTagType.Type}",
               "additionalProperties": false
             }
           }
@@ -263,6 +285,7 @@
         "required": [
           "value"
         ],
+        "description": "Current Type: {@link CommentTagType}",
         "additionalProperties": false
       }
     }

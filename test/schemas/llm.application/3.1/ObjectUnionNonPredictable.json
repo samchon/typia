@@ -12,22 +12,27 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ObjectUnionNonPredictable}",
             "type": "object",
             "properties": {
               "value": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperObjectUnionNonPredictable.IUnion}",
                   "type": "object",
                   "properties": {
                     "value": {
+                      "description": "Current Type: {@link IPointerObjectUnionNonPredictable.IUnion}",
                       "type": "object",
                       "properties": {
                         "value": {
+                          "description": "Current Type: {@link ObjectUnionNonPredictable.IUnion}",
                           "oneOf": [
                             {
                               "type": "object",
                               "properties": {
                                 "value": {
+                                  "description": "Current Type: {@link IPointerboolean}",
                                   "type": "object",
                                   "properties": {
                                     "value": {
@@ -41,12 +46,14 @@
                               },
                               "required": [
                                 "value"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperboolean}"
                             },
                             {
                               "type": "object",
                               "properties": {
                                 "value": {
+                                  "description": "Current Type: {@link IPointernumber}",
                                   "type": "object",
                                   "properties": {
                                     "value": {
@@ -60,12 +67,14 @@
                               },
                               "required": [
                                 "value"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionNonPredictable.IWrappernumber}"
                             },
                             {
                               "type": "object",
                               "properties": {
                                 "value": {
+                                  "description": "Current Type: {@link IPointerstring}",
                                   "type": "object",
                                   "properties": {
                                     "value": {
@@ -79,7 +88,8 @@
                               },
                               "required": [
                                 "value"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperstring}"
                             }
                           ]
                         }
@@ -113,22 +123,27 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ObjectUnionNonPredictable}",
             "type": "object",
             "properties": {
               "value": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperObjectUnionNonPredictable.IUnion}",
                   "type": "object",
                   "properties": {
                     "value": {
+                      "description": "Current Type: {@link IPointerObjectUnionNonPredictable.IUnion}",
                       "type": "object",
                       "properties": {
                         "value": {
+                          "description": "Current Type: {@link ObjectUnionNonPredictable.IUnion}",
                           "oneOf": [
                             {
                               "type": "object",
                               "properties": {
                                 "value": {
+                                  "description": "Current Type: {@link IPointerboolean}",
                                   "type": "object",
                                   "properties": {
                                     "value": {
@@ -142,12 +157,14 @@
                               },
                               "required": [
                                 "value"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperboolean}"
                             },
                             {
                               "type": "object",
                               "properties": {
                                 "value": {
+                                  "description": "Current Type: {@link IPointernumber}",
                                   "type": "object",
                                   "properties": {
                                     "value": {
@@ -161,12 +178,14 @@
                               },
                               "required": [
                                 "value"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionNonPredictable.IWrappernumber}"
                             },
                             {
                               "type": "object",
                               "properties": {
                                 "value": {
+                                  "description": "Current Type: {@link IPointerstring}",
                                   "type": "object",
                                   "properties": {
                                     "value": {
@@ -180,7 +199,8 @@
                               },
                               "required": [
                                 "value"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperstring}"
                             }
                           ]
                         }
@@ -211,17 +231,21 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperObjectUnionNonPredictable.IUnion}",
                       "type": "object",
                       "properties": {
                         "value": {
+                          "description": "Current Type: {@link IPointerObjectUnionNonPredictable.IUnion}",
                           "type": "object",
                           "properties": {
                             "value": {
+                              "description": "Current Type: {@link ObjectUnionNonPredictable.IUnion}",
                               "oneOf": [
                                 {
                                   "type": "object",
                                   "properties": {
                                     "value": {
+                                      "description": "Current Type: {@link IPointerboolean}",
                                       "type": "object",
                                       "properties": {
                                         "value": {
@@ -235,12 +259,14 @@
                                   },
                                   "required": [
                                     "value"
-                                  ]
+                                  ],
+                                  "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperboolean}"
                                 },
                                 {
                                   "type": "object",
                                   "properties": {
                                     "value": {
+                                      "description": "Current Type: {@link IPointernumber}",
                                       "type": "object",
                                       "properties": {
                                         "value": {
@@ -254,12 +280,14 @@
                                   },
                                   "required": [
                                     "value"
-                                  ]
+                                  ],
+                                  "description": "Current Type: {@link ObjectUnionNonPredictable.IWrappernumber}"
                                 },
                                 {
                                   "type": "object",
                                   "properties": {
                                     "value": {
+                                      "description": "Current Type: {@link IPointerstring}",
                                       "type": "object",
                                       "properties": {
                                         "value": {
@@ -273,7 +301,8 @@
                                   },
                                   "required": [
                                     "value"
-                                  ]
+                                  ],
+                                  "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperstring}"
                                 }
                               ]
                             }
@@ -291,7 +320,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectUnionNonPredictable}"
               }
             ]
           }
@@ -304,22 +334,27 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link ObjectUnionNonPredictable}",
         "type": "object",
         "properties": {
           "value": {
             "type": "array",
             "items": {
+              "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperObjectUnionNonPredictable.IUnion}",
               "type": "object",
               "properties": {
                 "value": {
+                  "description": "Current Type: {@link IPointerObjectUnionNonPredictable.IUnion}",
                   "type": "object",
                   "properties": {
                     "value": {
+                      "description": "Current Type: {@link ObjectUnionNonPredictable.IUnion}",
                       "oneOf": [
                         {
                           "type": "object",
                           "properties": {
                             "value": {
+                              "description": "Current Type: {@link IPointerboolean}",
                               "type": "object",
                               "properties": {
                                 "value": {
@@ -333,12 +368,14 @@
                           },
                           "required": [
                             "value"
-                          ]
+                          ],
+                          "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperboolean}"
                         },
                         {
                           "type": "object",
                           "properties": {
                             "value": {
+                              "description": "Current Type: {@link IPointernumber}",
                               "type": "object",
                               "properties": {
                                 "value": {
@@ -352,12 +389,14 @@
                           },
                           "required": [
                             "value"
-                          ]
+                          ],
+                          "description": "Current Type: {@link ObjectUnionNonPredictable.IWrappernumber}"
                         },
                         {
                           "type": "object",
                           "properties": {
                             "value": {
+                              "description": "Current Type: {@link IPointerstring}",
                               "type": "object",
                               "properties": {
                                 "value": {
@@ -371,7 +410,8 @@
                           },
                           "required": [
                             "value"
-                          ]
+                          ],
+                          "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperstring}"
                         }
                       ]
                     }
@@ -408,17 +448,21 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperObjectUnionNonPredictable.IUnion}",
                       "type": "object",
                       "properties": {
                         "value": {
+                          "description": "Current Type: {@link IPointerObjectUnionNonPredictable.IUnion}",
                           "type": "object",
                           "properties": {
                             "value": {
+                              "description": "Current Type: {@link ObjectUnionNonPredictable.IUnion}",
                               "oneOf": [
                                 {
                                   "type": "object",
                                   "properties": {
                                     "value": {
+                                      "description": "Current Type: {@link IPointerboolean}",
                                       "type": "object",
                                       "properties": {
                                         "value": {
@@ -432,12 +476,14 @@
                                   },
                                   "required": [
                                     "value"
-                                  ]
+                                  ],
+                                  "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperboolean}"
                                 },
                                 {
                                   "type": "object",
                                   "properties": {
                                     "value": {
+                                      "description": "Current Type: {@link IPointernumber}",
                                       "type": "object",
                                       "properties": {
                                         "value": {
@@ -451,12 +497,14 @@
                                   },
                                   "required": [
                                     "value"
-                                  ]
+                                  ],
+                                  "description": "Current Type: {@link ObjectUnionNonPredictable.IWrappernumber}"
                                 },
                                 {
                                   "type": "object",
                                   "properties": {
                                     "value": {
+                                      "description": "Current Type: {@link IPointerstring}",
                                       "type": "object",
                                       "properties": {
                                         "value": {
@@ -470,7 +518,8 @@
                                   },
                                   "required": [
                                     "value"
-                                  ]
+                                  ],
+                                  "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperstring}"
                                 }
                               ]
                             }
@@ -488,7 +537,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectUnionNonPredictable}"
               }
             ]
           },
@@ -503,17 +553,21 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperObjectUnionNonPredictable.IUnion}",
                       "type": "object",
                       "properties": {
                         "value": {
+                          "description": "Current Type: {@link IPointerObjectUnionNonPredictable.IUnion}",
                           "type": "object",
                           "properties": {
                             "value": {
+                              "description": "Current Type: {@link ObjectUnionNonPredictable.IUnion}",
                               "oneOf": [
                                 {
                                   "type": "object",
                                   "properties": {
                                     "value": {
+                                      "description": "Current Type: {@link IPointerboolean}",
                                       "type": "object",
                                       "properties": {
                                         "value": {
@@ -527,12 +581,14 @@
                                   },
                                   "required": [
                                     "value"
-                                  ]
+                                  ],
+                                  "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperboolean}"
                                 },
                                 {
                                   "type": "object",
                                   "properties": {
                                     "value": {
+                                      "description": "Current Type: {@link IPointernumber}",
                                       "type": "object",
                                       "properties": {
                                         "value": {
@@ -546,12 +602,14 @@
                                   },
                                   "required": [
                                     "value"
-                                  ]
+                                  ],
+                                  "description": "Current Type: {@link ObjectUnionNonPredictable.IWrappernumber}"
                                 },
                                 {
                                   "type": "object",
                                   "properties": {
                                     "value": {
+                                      "description": "Current Type: {@link IPointerstring}",
                                       "type": "object",
                                       "properties": {
                                         "value": {
@@ -565,7 +623,8 @@
                                   },
                                   "required": [
                                     "value"
-                                  ]
+                                  ],
+                                  "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperstring}"
                                 }
                               ]
                             }
@@ -583,7 +642,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectUnionNonPredictable}"
               }
             ]
           },
@@ -598,17 +658,21 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperObjectUnionNonPredictable.IUnion}",
                       "type": "object",
                       "properties": {
                         "value": {
+                          "description": "Current Type: {@link IPointerObjectUnionNonPredictable.IUnion}",
                           "type": "object",
                           "properties": {
                             "value": {
+                              "description": "Current Type: {@link ObjectUnionNonPredictable.IUnion}",
                               "oneOf": [
                                 {
                                   "type": "object",
                                   "properties": {
                                     "value": {
+                                      "description": "Current Type: {@link IPointerboolean}",
                                       "type": "object",
                                       "properties": {
                                         "value": {
@@ -622,12 +686,14 @@
                                   },
                                   "required": [
                                     "value"
-                                  ]
+                                  ],
+                                  "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperboolean}"
                                 },
                                 {
                                   "type": "object",
                                   "properties": {
                                     "value": {
+                                      "description": "Current Type: {@link IPointernumber}",
                                       "type": "object",
                                       "properties": {
                                         "value": {
@@ -641,12 +707,14 @@
                                   },
                                   "required": [
                                     "value"
-                                  ]
+                                  ],
+                                  "description": "Current Type: {@link ObjectUnionNonPredictable.IWrappernumber}"
                                 },
                                 {
                                   "type": "object",
                                   "properties": {
                                     "value": {
+                                      "description": "Current Type: {@link IPointerstring}",
                                       "type": "object",
                                       "properties": {
                                         "value": {
@@ -660,7 +728,8 @@
                                   },
                                   "required": [
                                     "value"
-                                  ]
+                                  ],
+                                  "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperstring}"
                                 }
                               ]
                             }
@@ -678,7 +747,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectUnionNonPredictable}"
               }
             ]
           }
@@ -701,17 +771,21 @@
               "value": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperObjectUnionNonPredictable.IUnion}",
                   "type": "object",
                   "properties": {
                     "value": {
+                      "description": "Current Type: {@link IPointerObjectUnionNonPredictable.IUnion}",
                       "type": "object",
                       "properties": {
                         "value": {
+                          "description": "Current Type: {@link ObjectUnionNonPredictable.IUnion}",
                           "oneOf": [
                             {
                               "type": "object",
                               "properties": {
                                 "value": {
+                                  "description": "Current Type: {@link IPointerboolean}",
                                   "type": "object",
                                   "properties": {
                                     "value": {
@@ -725,12 +799,14 @@
                               },
                               "required": [
                                 "value"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperboolean}"
                             },
                             {
                               "type": "object",
                               "properties": {
                                 "value": {
+                                  "description": "Current Type: {@link IPointernumber}",
                                   "type": "object",
                                   "properties": {
                                     "value": {
@@ -744,12 +820,14 @@
                               },
                               "required": [
                                 "value"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionNonPredictable.IWrappernumber}"
                             },
                             {
                               "type": "object",
                               "properties": {
                                 "value": {
+                                  "description": "Current Type: {@link IPointerstring}",
                                   "type": "object",
                                   "properties": {
                                     "value": {
@@ -763,7 +841,8 @@
                               },
                               "required": [
                                 "value"
-                              ]
+                              ],
+                              "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperstring}"
                             }
                           ]
                         }
@@ -781,7 +860,8 @@
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectUnionNonPredictable}"
           }
         ]
       }

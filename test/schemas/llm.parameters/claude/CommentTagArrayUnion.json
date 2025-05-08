@@ -2,8 +2,10 @@
   "type": "object",
   "properties": {
     "regular": {
+      "description": "Current Type: {@link CommentTagArrayUnion}",
       "type": "array",
       "items": {
+        "description": "Current Type: {@link CommentTagArrayUnion.Type}",
         "type": "object",
         "properties": {
           "items": {
@@ -60,6 +62,7 @@
         {
           "type": "array",
           "items": {
+            "description": "Current Type: {@link CommentTagArrayUnion.Type}",
             "type": "object",
             "properties": {
               "items": {
@@ -106,13 +109,16 @@
               "maxItems",
               "both"
             ]
-          }
+          },
+          "description": "Current Type: {@link CommentTagArrayUnion}"
         }
       ]
     },
     "optional": {
+      "description": "Current Type: {@link CommentTagArrayUnion}",
       "type": "array",
       "items": {
+        "description": "Current Type: {@link CommentTagArrayUnion.Type}",
         "type": "object",
         "properties": {
           "items": {
@@ -169,6 +175,7 @@
         {
           "type": "array",
           "items": {
+            "description": "Current Type: {@link CommentTagArrayUnion.Type}",
             "type": "object",
             "properties": {
               "items": {
@@ -215,15 +222,18 @@
               "maxItems",
               "both"
             ]
-          }
+          },
+          "description": "Current Type: {@link CommentTagArrayUnion}"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link CommentTagArrayUnion}",
         "type": "array",
         "items": {
+          "description": "Current Type: {@link CommentTagArrayUnion.Type}",
           "type": "object",
           "properties": {
             "items": {

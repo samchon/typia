@@ -2,8 +2,10 @@
   "type": "object",
   "properties": {
     "regular": {
+      "description": "Current Type: {@link ArraySimple}",
       "type": "array",
       "items": {
+        "description": "Current Type: {@link ArraySimple.IPerson}",
         "type": "object",
         "properties": {
           "name": {
@@ -15,6 +17,7 @@
           "hobbies": {
             "type": "array",
             "items": {
+              "description": "Current Type: {@link ArraySimple.IHobby}",
               "type": "object",
               "properties": {
                 "name": {
@@ -50,6 +53,7 @@
         {
           "type": "array",
           "items": {
+            "description": "Current Type: {@link ArraySimple.IPerson}",
             "type": "object",
             "properties": {
               "name": {
@@ -61,6 +65,7 @@
               "hobbies": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ArraySimple.IHobby}",
                   "type": "object",
                   "properties": {
                     "name": {
@@ -86,13 +91,16 @@
               "email",
               "hobbies"
             ]
-          }
+          },
+          "description": "Current Type: {@link ArraySimple}"
         }
       ]
     },
     "optional": {
+      "description": "Current Type: {@link ArraySimple}",
       "type": "array",
       "items": {
+        "description": "Current Type: {@link ArraySimple.IPerson}",
         "type": "object",
         "properties": {
           "name": {
@@ -104,6 +112,7 @@
           "hobbies": {
             "type": "array",
             "items": {
+              "description": "Current Type: {@link ArraySimple.IHobby}",
               "type": "object",
               "properties": {
                 "name": {
@@ -139,6 +148,7 @@
         {
           "type": "array",
           "items": {
+            "description": "Current Type: {@link ArraySimple.IPerson}",
             "type": "object",
             "properties": {
               "name": {
@@ -150,6 +160,7 @@
               "hobbies": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ArraySimple.IHobby}",
                   "type": "object",
                   "properties": {
                     "name": {
@@ -175,15 +186,18 @@
               "email",
               "hobbies"
             ]
-          }
+          },
+          "description": "Current Type: {@link ArraySimple}"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link ArraySimple}",
         "type": "array",
         "items": {
+          "description": "Current Type: {@link ArraySimple.IPerson}",
           "type": "object",
           "properties": {
             "name": {
@@ -195,6 +209,7 @@
             "hobbies": {
               "type": "array",
               "items": {
+                "description": "Current Type: {@link ArraySimple.IHobby}",
                 "type": "object",
                 "properties": {
                   "name": {

@@ -1,6 +1,8 @@
 {
+  "description": "Current Type: {@link TypeTagObjectUnion}",
   "type": "array",
   "items": {
+    "description": "Current Type: {@link TypeTagObjectUnion.Type}",
     "oneOf": [
       {
         "type": "object",
@@ -12,7 +14,8 @@
         },
         "required": [
           "value"
-        ]
+        ],
+        "description": "Current Type: {@link TypeTagObjectUnion.Numeric}"
       },
       {
         "type": "object",
@@ -25,7 +28,8 @@
         },
         "required": [
           "value"
-        ]
+        ],
+        "description": "Current Type: {@link TypeTagObjectUnion.Literal}"
       }
     ]
   }

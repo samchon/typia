@@ -27,6 +27,7 @@
         "ipv4",
         "ipv6"
       ],
+      "description": "Current Type: {@link TypeTagPattern}",
       "additionalProperties": false
     },
     "nullable": {
@@ -84,6 +85,7 @@
         "ipv4",
         "ipv6"
       ],
+      "description": "Current Type: {@link TypeTagPattern}",
       "additionalProperties": false
     },
     "faint": {
@@ -143,6 +145,7 @@
           "ipv4",
           "ipv6"
         ],
+        "description": "Current Type: {@link TypeTagPattern}",
         "additionalProperties": false
       }
     }

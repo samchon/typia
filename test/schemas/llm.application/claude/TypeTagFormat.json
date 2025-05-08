@@ -11,6 +11,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link TypeTagFormat}",
             "type": "object",
             "properties": {
               "byte": {
@@ -141,6 +142,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link TypeTagFormat}",
             "type": "object",
             "properties": {
               "byte": {
@@ -377,7 +379,8 @@
                   "duration",
                   "jsonPointer",
                   "relativeJsonPointer"
-                ]
+                ],
+                "description": "Current Type: {@link TypeTagFormat}"
               }
             ]
           }
@@ -390,6 +393,7 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link TypeTagFormat}",
         "type": "object",
         "properties": {
           "byte": {
@@ -632,7 +636,8 @@
                   "duration",
                   "jsonPointer",
                   "relativeJsonPointer"
-                ]
+                ],
+                "description": "Current Type: {@link TypeTagFormat}"
               }
             ]
           },
@@ -756,7 +761,8 @@
                   "duration",
                   "jsonPointer",
                   "relativeJsonPointer"
-                ]
+                ],
+                "description": "Current Type: {@link TypeTagFormat}"
               }
             ]
           },
@@ -880,7 +886,8 @@
                   "duration",
                   "jsonPointer",
                   "relativeJsonPointer"
-                ]
+                ],
+                "description": "Current Type: {@link TypeTagFormat}"
               }
             ]
           }
@@ -1012,7 +1019,8 @@
               "duration",
               "jsonPointer",
               "relativeJsonPointer"
-            ]
+            ],
+            "description": "Current Type: {@link TypeTagFormat}"
           }
         ]
       }

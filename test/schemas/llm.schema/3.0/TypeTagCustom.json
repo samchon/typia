@@ -24,5 +24,6 @@
     "postfix",
     "powerOf"
   ],
+  "description": "Current Type: {@link TypeTagCustom}",
   "additionalProperties": false
 }

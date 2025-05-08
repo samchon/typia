@@ -2,11 +2,13 @@
   "type": "object",
   "properties": {
     "regular": {
+      "description": "Current Type: {@link CommentTagAtomicUnion}",
       "type": "object",
       "properties": {
         "value": {
           "type": "array",
           "items": {
+            "description": "Current Type: {@link CommentTagAtomicUnion.Type}",
             "type": "object",
             "properties": {
               "value": {
@@ -43,6 +45,7 @@
             "value": {
               "type": "array",
               "items": {
+                "description": "Current Type: {@link CommentTagAtomicUnion.Type}",
                 "type": "object",
                 "properties": {
                   "value": {
@@ -66,16 +69,19 @@
           },
           "required": [
             "value"
-          ]
+          ],
+          "description": "Current Type: {@link CommentTagAtomicUnion}"
         }
       ]
     },
     "optional": {
+      "description": "Current Type: {@link CommentTagAtomicUnion}",
       "type": "object",
       "properties": {
         "value": {
           "type": "array",
           "items": {
+            "description": "Current Type: {@link CommentTagAtomicUnion.Type}",
             "type": "object",
             "properties": {
               "value": {
@@ -112,6 +118,7 @@
             "value": {
               "type": "array",
               "items": {
+                "description": "Current Type: {@link CommentTagAtomicUnion.Type}",
                 "type": "object",
                 "properties": {
                   "value": {
@@ -135,18 +142,21 @@
           },
           "required": [
             "value"
-          ]
+          ],
+          "description": "Current Type: {@link CommentTagAtomicUnion}"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link CommentTagAtomicUnion}",
         "type": "object",
         "properties": {
           "value": {
             "type": "array",
             "items": {
+              "description": "Current Type: {@link CommentTagAtomicUnion.Type}",
               "type": "object",
               "properties": {
                 "value": {

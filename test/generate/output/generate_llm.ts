@@ -5,94 +5,111 @@ import * as __typia_transform__isFormatUuid from "typia/lib/internal/_isFormatUu
 import * as __typia_transform__llmApplicationFinalize from "typia/lib/internal/_llmApplicationFinalize.js";
 import * as __typia_transform__validateReport from "typia/lib/internal/_validateReport.js";
 
-export const schema = ((
-  $defs: Record<string, import("@samchon/openapi").ILlmSchema<"chatgpt">>,
-) => {
-  Object.assign($defs, {
-    IDepartment: {
-      type: "object",
-      properties: {
-        id: {
-          description: "@format uuid",
-          type: "string",
-        },
-        code: {
-          type: "string",
-        },
-        sales: {
-          type: "number",
-        },
-        created_at: {
-          description: "@format date-time",
-          type: "string",
-        },
-        children: {
-          type: "array",
-          items: {
-            $ref: "#/$defs/IDepartment",
+export const schema = ((props: {
+  $defs?:
+    | Record<string, import("@samchon/openapi").ILlmSchema<"chatgpt">>
+    | undefined;
+}) => {
+  if (undefined !== props?.$defs)
+    Object.assign(props.$defs, {
+      ICompany: {
+        type: "object",
+        properties: {
+          id: {
+            description: "@format uuid",
+            type: "string",
           },
-        },
-        employees: {
-          type: "array",
-          items: {
-            type: "object",
-            properties: {
-              id: {
-                description: "@format uuid",
-                type: "string",
-              },
-              name: {
-                type: "string",
-              },
-              age: {
-                type: "number",
-              },
-              grade: {
-                type: "number",
-              },
-              employed_at: {
-                description: "@format date-time",
-                type: "string",
-              },
+          serial: {
+            type: "number",
+          },
+          name: {
+            type: "string",
+          },
+          established_at: {
+            description: "@format date-time",
+            type: "string",
+          },
+          departments: {
+            type: "array",
+            items: {
+              $ref: "#/$defs/IDepartment",
             },
-            required: ["id", "name", "age", "grade", "employed_at"],
           },
         },
+        required: ["id", "serial", "name", "established_at", "departments"],
       },
-      required: ["id", "code", "sales", "created_at", "children", "employees"],
-    },
-  } as Record<string, import("@samchon/openapi").ILlmSchema<"chatgpt">>);
-  return {
-    type: "object",
-    properties: {
-      id: {
-        description: "@format uuid",
-        type: "string",
-      },
-      serial: {
-        type: "number",
-      },
-      name: {
-        type: "string",
-      },
-      established_at: {
-        description: "@format date-time",
-        type: "string",
-      },
-      departments: {
-        type: "array",
-        items: {
-          $ref: "#/$defs/IDepartment",
+      IDepartment: {
+        type: "object",
+        properties: {
+          id: {
+            description: "@format uuid",
+            type: "string",
+          },
+          code: {
+            type: "string",
+          },
+          sales: {
+            type: "number",
+          },
+          created_at: {
+            description: "@format date-time",
+            type: "string",
+          },
+          children: {
+            type: "array",
+            items: {
+              $ref: "#/$defs/IDepartment",
+            },
+          },
+          employees: {
+            type: "array",
+            items: {
+              $ref: "#/$defs/IEmployee",
+            },
+          },
         },
+        required: [
+          "id",
+          "code",
+          "sales",
+          "created_at",
+          "children",
+          "employees",
+        ],
       },
-    },
-    required: ["id", "serial", "name", "established_at", "departments"],
+      IEmployee: {
+        type: "object",
+        properties: {
+          id: {
+            description: "@format uuid",
+            type: "string",
+          },
+          name: {
+            type: "string",
+          },
+          age: {
+            type: "number",
+          },
+          grade: {
+            type: "number",
+          },
+          employed_at: {
+            description: "@format date-time",
+            type: "string",
+          },
+        },
+        required: ["id", "name", "age", "grade", "employed_at"],
+      },
+    } as Record<string, import("@samchon/openapi").ILlmSchema<"chatgpt">>);
+  return {
+    $ref: "#/$defs/ICompany",
   } as import("@samchon/openapi").ILlmSchema<"chatgpt">;
 })({});
 export const parameters = {
   type: "object",
   properties: {
     company: {
+      description: "Current Type: {@link ICompany}",
       type: "object",
       properties: {
         id: {
@@ -122,6 +139,7 @@ export const parameters = {
       $ref: "#/$defs/IDepartment",
     },
     employee: {
+      description: "Current Type: {@link IEmployee}",
       type: "object",
       properties: {
         id: {
@@ -174,6 +192,7 @@ export const parameters = {
         employees: {
           type: "array",
           items: {
+            description: "Current Type: {@link IEmployee}",
             type: "object",
             properties: {
               id: {
@@ -216,6 +235,7 @@ export const application = (() => {
           type: "object",
           properties: {
             company: {
+              description: "Current Type: {@link ICompany}",
               type: "object",
               properties: {
                 id: {
@@ -277,6 +297,7 @@ export const application = (() => {
                 employees: {
                   type: "array",
                   items: {
+                    description: "Current Type: {@link IEmployee}",
                     type: "object",
                     properties: {
                       id: {
@@ -313,6 +334,7 @@ export const application = (() => {
           },
         },
         output: {
+          description: "Current Type: {@link ICompany}",
           type: "object",
           properties: {
             id: {
@@ -707,6 +729,7 @@ export const application = (() => {
           type: "object",
           properties: {
             company: {
+              description: "Current Type: {@link ICompany}",
               type: "object",
               properties: {
                 id: {
@@ -771,6 +794,7 @@ export const application = (() => {
                 employees: {
                   type: "array",
                   items: {
+                    description: "Current Type: {@link IEmployee}",
                     type: "object",
                     properties: {
                       id: {
@@ -1198,6 +1222,7 @@ export const application = (() => {
           type: "object",
           properties: {
             company: {
+              description: "Current Type: {@link ICompany}",
               type: "object",
               properties: {
                 id: {
@@ -1233,6 +1258,7 @@ export const application = (() => {
               $ref: "#/$defs/IDepartment",
             },
             employee: {
+              description: "Current Type: {@link IEmployee}",
               type: "object",
               properties: {
                 id: {
@@ -1285,6 +1311,7 @@ export const application = (() => {
                 employees: {
                   type: "array",
                   items: {
+                    description: "Current Type: {@link IEmployee}",
                     type: "object",
                     properties: {
                       id: {
@@ -1321,6 +1348,7 @@ export const application = (() => {
           },
         },
         output: {
+          description: "Current Type: {@link IEmployee}",
           type: "object",
           properties: {
             id: {
@@ -1784,6 +1812,7 @@ export const application = (() => {
                     "established_at",
                     "departments",
                   ],
+                  description: "Current Type: {@link ICompany}",
                 },
                 {
                   $ref: "#/$defs/IDepartment",
@@ -1810,6 +1839,7 @@ export const application = (() => {
                     },
                   },
                   required: ["id", "name", "age", "grade", "employed_at"],
+                  description: "Current Type: {@link IEmployee}",
                 },
               ],
             },
@@ -1843,6 +1873,7 @@ export const application = (() => {
                 employees: {
                   type: "array",
                   items: {
+                    description: "Current Type: {@link IEmployee}",
                     type: "object",
                     properties: {
                       id: {

@@ -11,9 +11,11 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ObjectGenericUnion}",
             "type": "object",
             "properties": {
               "value": {
+                "description": "Current Type: {@link ObjectGenericUnion.ISaleEntireArticle}",
                 "oneOf": [
                   {
                     "type": "object",
@@ -38,6 +40,7 @@
                               "contents": {
                                 "type": "array",
                                 "items": {
+                                  "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
                                   "type": "object",
                                   "properties": {
                                     "id": {
@@ -55,6 +58,7 @@
                                     "files": {
                                       "type": "array",
                                       "items": {
+                                        "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
                                         "type": "object",
                                         "properties": {
                                           "name": {
@@ -100,7 +104,8 @@
                               "hit",
                               "contents",
                               "created_at"
-                            ]
+                            ],
+                            "description": "Current Type: {@link ObjectGenericUnion.ISaleAnswer}"
                           }
                         ]
                       },
@@ -113,6 +118,7 @@
                       "contents": {
                         "type": "array",
                         "items": {
+                          "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
                           "type": "object",
                           "properties": {
                             "id": {
@@ -130,6 +136,7 @@
                             "files": {
                               "type": "array",
                               "items": {
+                                "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
                                 "type": "object",
                                 "properties": {
                                   "name": {
@@ -177,7 +184,8 @@
                       "hit",
                       "contents",
                       "created_at"
-                    ]
+                    ],
+                    "description": "Current Type: {@link ObjectGenericUnion.ISaleQuestion}"
                   },
                   {
                     "type": "object",
@@ -202,6 +210,7 @@
                               "contents": {
                                 "type": "array",
                                 "items": {
+                                  "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
                                   "type": "object",
                                   "properties": {
                                     "id": {
@@ -219,6 +228,7 @@
                                     "files": {
                                       "type": "array",
                                       "items": {
+                                        "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
                                         "type": "object",
                                         "properties": {
                                           "name": {
@@ -264,7 +274,8 @@
                               "hit",
                               "contents",
                               "created_at"
-                            ]
+                            ],
+                            "description": "Current Type: {@link ObjectGenericUnion.ISaleAnswer}"
                           }
                         ]
                       },
@@ -277,6 +288,7 @@
                       "contents": {
                         "type": "array",
                         "items": {
+                          "description": "Current Type: {@link ObjectGenericUnion.ISaleReview.IContent}",
                           "type": "object",
                           "properties": {
                             "score": {
@@ -297,6 +309,7 @@
                             "files": {
                               "type": "array",
                               "items": {
+                                "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
                                 "type": "object",
                                 "properties": {
                                   "name": {
@@ -345,7 +358,8 @@
                       "hit",
                       "contents",
                       "created_at"
-                    ]
+                    ],
+                    "description": "Current Type: {@link ObjectGenericUnion.ISaleReview}"
                   }
                 ]
               }
@@ -368,9 +382,11 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ObjectGenericUnion}",
             "type": "object",
             "properties": {
               "value": {
+                "description": "Current Type: {@link ObjectGenericUnion.ISaleEntireArticle}",
                 "oneOf": [
                   {
                     "type": "object",
@@ -395,6 +411,7 @@
                               "contents": {
                                 "type": "array",
                                 "items": {
+                                  "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
                                   "type": "object",
                                   "properties": {
                                     "id": {
@@ -412,6 +429,7 @@
                                     "files": {
                                       "type": "array",
                                       "items": {
+                                        "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
                                         "type": "object",
                                         "properties": {
                                           "name": {
@@ -457,7 +475,8 @@
                               "hit",
                               "contents",
                               "created_at"
-                            ]
+                            ],
+                            "description": "Current Type: {@link ObjectGenericUnion.ISaleAnswer}"
                           }
                         ]
                       },
@@ -470,6 +489,7 @@
                       "contents": {
                         "type": "array",
                         "items": {
+                          "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
                           "type": "object",
                           "properties": {
                             "id": {
@@ -487,6 +507,7 @@
                             "files": {
                               "type": "array",
                               "items": {
+                                "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
                                 "type": "object",
                                 "properties": {
                                   "name": {
@@ -534,7 +555,8 @@
                       "hit",
                       "contents",
                       "created_at"
-                    ]
+                    ],
+                    "description": "Current Type: {@link ObjectGenericUnion.ISaleQuestion}"
                   },
                   {
                     "type": "object",
@@ -559,6 +581,7 @@
                               "contents": {
                                 "type": "array",
                                 "items": {
+                                  "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
                                   "type": "object",
                                   "properties": {
                                     "id": {
@@ -576,6 +599,7 @@
                                     "files": {
                                       "type": "array",
                                       "items": {
+                                        "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
                                         "type": "object",
                                         "properties": {
                                           "name": {
@@ -621,7 +645,8 @@
                               "hit",
                               "contents",
                               "created_at"
-                            ]
+                            ],
+                            "description": "Current Type: {@link ObjectGenericUnion.ISaleAnswer}"
                           }
                         ]
                       },
@@ -634,6 +659,7 @@
                       "contents": {
                         "type": "array",
                         "items": {
+                          "description": "Current Type: {@link ObjectGenericUnion.ISaleReview.IContent}",
                           "type": "object",
                           "properties": {
                             "score": {
@@ -654,6 +680,7 @@
                             "files": {
                               "type": "array",
                               "items": {
+                                "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
                                 "type": "object",
                                 "properties": {
                                   "name": {
@@ -702,7 +729,8 @@
                       "hit",
                       "contents",
                       "created_at"
-                    ]
+                    ],
+                    "description": "Current Type: {@link ObjectGenericUnion.ISaleReview}"
                   }
                 ]
               }
@@ -720,6 +748,7 @@
                 "type": "object",
                 "properties": {
                   "value": {
+                    "description": "Current Type: {@link ObjectGenericUnion.ISaleEntireArticle}",
                     "oneOf": [
                       {
                         "type": "object",
@@ -744,6 +773,7 @@
                                   "contents": {
                                     "type": "array",
                                     "items": {
+                                      "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
                                       "type": "object",
                                       "properties": {
                                         "id": {
@@ -761,6 +791,7 @@
                                         "files": {
                                           "type": "array",
                                           "items": {
+                                            "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
                                             "type": "object",
                                             "properties": {
                                               "name": {
@@ -806,7 +837,8 @@
                                   "hit",
                                   "contents",
                                   "created_at"
-                                ]
+                                ],
+                                "description": "Current Type: {@link ObjectGenericUnion.ISaleAnswer}"
                               }
                             ]
                           },
@@ -819,6 +851,7 @@
                           "contents": {
                             "type": "array",
                             "items": {
+                              "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
                               "type": "object",
                               "properties": {
                                 "id": {
@@ -836,6 +869,7 @@
                                 "files": {
                                   "type": "array",
                                   "items": {
+                                    "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
                                     "type": "object",
                                     "properties": {
                                       "name": {
@@ -883,7 +917,8 @@
                           "hit",
                           "contents",
                           "created_at"
-                        ]
+                        ],
+                        "description": "Current Type: {@link ObjectGenericUnion.ISaleQuestion}"
                       },
                       {
                         "type": "object",
@@ -908,6 +943,7 @@
                                   "contents": {
                                     "type": "array",
                                     "items": {
+                                      "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
                                       "type": "object",
                                       "properties": {
                                         "id": {
@@ -925,6 +961,7 @@
                                         "files": {
                                           "type": "array",
                                           "items": {
+                                            "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
                                             "type": "object",
                                             "properties": {
                                               "name": {
@@ -970,7 +1007,8 @@
                                   "hit",
                                   "contents",
                                   "created_at"
-                                ]
+                                ],
+                                "description": "Current Type: {@link ObjectGenericUnion.ISaleAnswer}"
                               }
                             ]
                           },
@@ -983,6 +1021,7 @@
                           "contents": {
                             "type": "array",
                             "items": {
+                              "description": "Current Type: {@link ObjectGenericUnion.ISaleReview.IContent}",
                               "type": "object",
                               "properties": {
                                 "score": {
@@ -1003,6 +1042,7 @@
                                 "files": {
                                   "type": "array",
                                   "items": {
+                                    "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
                                     "type": "object",
                                     "properties": {
                                       "name": {
@@ -1051,14 +1091,16 @@
                           "hit",
                           "contents",
                           "created_at"
-                        ]
+                        ],
+                        "description": "Current Type: {@link ObjectGenericUnion.ISaleReview}"
                       }
                     ]
                   }
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectGenericUnion}"
               }
             ]
           }
@@ -1071,9 +1113,11 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link ObjectGenericUnion}",
         "type": "object",
         "properties": {
           "value": {
+            "description": "Current Type: {@link ObjectGenericUnion.ISaleEntireArticle}",
             "oneOf": [
               {
                 "type": "object",
@@ -1098,6 +1142,7 @@
                           "contents": {
                             "type": "array",
                             "items": {
+                              "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
                               "type": "object",
                               "properties": {
                                 "id": {
@@ -1115,6 +1160,7 @@
                                 "files": {
                                   "type": "array",
                                   "items": {
+                                    "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
                                     "type": "object",
                                     "properties": {
                                       "name": {
@@ -1160,7 +1206,8 @@
                           "hit",
                           "contents",
                           "created_at"
-                        ]
+                        ],
+                        "description": "Current Type: {@link ObjectGenericUnion.ISaleAnswer}"
                       }
                     ]
                   },
@@ -1173,6 +1220,7 @@
                   "contents": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
                       "type": "object",
                       "properties": {
                         "id": {
@@ -1190,6 +1238,7 @@
                         "files": {
                           "type": "array",
                           "items": {
+                            "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
                             "type": "object",
                             "properties": {
                               "name": {
@@ -1237,7 +1286,8 @@
                   "hit",
                   "contents",
                   "created_at"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectGenericUnion.ISaleQuestion}"
               },
               {
                 "type": "object",
@@ -1262,6 +1312,7 @@
                           "contents": {
                             "type": "array",
                             "items": {
+                              "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
                               "type": "object",
                               "properties": {
                                 "id": {
@@ -1279,6 +1330,7 @@
                                 "files": {
                                   "type": "array",
                                   "items": {
+                                    "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
                                     "type": "object",
                                     "properties": {
                                       "name": {
@@ -1324,7 +1376,8 @@
                           "hit",
                           "contents",
                           "created_at"
-                        ]
+                        ],
+                        "description": "Current Type: {@link ObjectGenericUnion.ISaleAnswer}"
                       }
                     ]
                   },
@@ -1337,6 +1390,7 @@
                   "contents": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link ObjectGenericUnion.ISaleReview.IContent}",
                       "type": "object",
                       "properties": {
                         "score": {
@@ -1357,6 +1411,7 @@
                         "files": {
                           "type": "array",
                           "items": {
+                            "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
                             "type": "object",
                             "properties": {
                               "name": {
@@ -1405,7 +1460,8 @@
                   "hit",
                   "contents",
                   "created_at"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectGenericUnion.ISaleReview}"
               }
             ]
           }
@@ -1429,6 +1485,7 @@
                 "type": "object",
                 "properties": {
                   "value": {
+                    "description": "Current Type: {@link ObjectGenericUnion.ISaleEntireArticle}",
                     "oneOf": [
                       {
                         "type": "object",
@@ -1453,6 +1510,7 @@
                                   "contents": {
                                     "type": "array",
                                     "items": {
+                                      "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
                                       "type": "object",
                                       "properties": {
                                         "id": {
@@ -1470,6 +1528,7 @@
                                         "files": {
                                           "type": "array",
                                           "items": {
+                                            "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
                                             "type": "object",
                                             "properties": {
                                               "name": {
@@ -1515,7 +1574,8 @@
                                   "hit",
                                   "contents",
                                   "created_at"
-                                ]
+                                ],
+                                "description": "Current Type: {@link ObjectGenericUnion.ISaleAnswer}"
                               }
                             ]
                           },
@@ -1528,6 +1588,7 @@
                           "contents": {
                             "type": "array",
                             "items": {
+                              "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
                               "type": "object",
                               "properties": {
                                 "id": {
@@ -1545,6 +1606,7 @@
                                 "files": {
                                   "type": "array",
                                   "items": {
+                                    "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
                                     "type": "object",
                                     "properties": {
                                       "name": {
@@ -1592,7 +1654,8 @@
                           "hit",
                           "contents",
                           "created_at"
-                        ]
+                        ],
+                        "description": "Current Type: {@link ObjectGenericUnion.ISaleQuestion}"
                       },
                       {
                         "type": "object",
@@ -1617,6 +1680,7 @@
                                   "contents": {
                                     "type": "array",
                                     "items": {
+                                      "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
                                       "type": "object",
                                       "properties": {
                                         "id": {
@@ -1634,6 +1698,7 @@
                                         "files": {
                                           "type": "array",
                                           "items": {
+                                            "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
                                             "type": "object",
                                             "properties": {
                                               "name": {
@@ -1679,7 +1744,8 @@
                                   "hit",
                                   "contents",
                                   "created_at"
-                                ]
+                                ],
+                                "description": "Current Type: {@link ObjectGenericUnion.ISaleAnswer}"
                               }
                             ]
                           },
@@ -1692,6 +1758,7 @@
                           "contents": {
                             "type": "array",
                             "items": {
+                              "description": "Current Type: {@link ObjectGenericUnion.ISaleReview.IContent}",
                               "type": "object",
                               "properties": {
                                 "score": {
@@ -1712,6 +1779,7 @@
                                 "files": {
                                   "type": "array",
                                   "items": {
+                                    "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
                                     "type": "object",
                                     "properties": {
                                       "name": {
@@ -1760,14 +1828,16 @@
                           "hit",
                           "contents",
                           "created_at"
-                        ]
+                        ],
+                        "description": "Current Type: {@link ObjectGenericUnion.ISaleReview}"
                       }
                     ]
                   }
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectGenericUnion}"
               }
             ]
           },
@@ -1780,6 +1850,7 @@
                 "type": "object",
                 "properties": {
                   "value": {
+                    "description": "Current Type: {@link ObjectGenericUnion.ISaleEntireArticle}",
                     "oneOf": [
                       {
                         "type": "object",
@@ -1804,6 +1875,7 @@
                                   "contents": {
                                     "type": "array",
                                     "items": {
+                                      "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
                                       "type": "object",
                                       "properties": {
                                         "id": {
@@ -1821,6 +1893,7 @@
                                         "files": {
                                           "type": "array",
                                           "items": {
+                                            "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
                                             "type": "object",
                                             "properties": {
                                               "name": {
@@ -1866,7 +1939,8 @@
                                   "hit",
                                   "contents",
                                   "created_at"
-                                ]
+                                ],
+                                "description": "Current Type: {@link ObjectGenericUnion.ISaleAnswer}"
                               }
                             ]
                           },
@@ -1879,6 +1953,7 @@
                           "contents": {
                             "type": "array",
                             "items": {
+                              "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
                               "type": "object",
                               "properties": {
                                 "id": {
@@ -1896,6 +1971,7 @@
                                 "files": {
                                   "type": "array",
                                   "items": {
+                                    "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
                                     "type": "object",
                                     "properties": {
                                       "name": {
@@ -1943,7 +2019,8 @@
                           "hit",
                           "contents",
                           "created_at"
-                        ]
+                        ],
+                        "description": "Current Type: {@link ObjectGenericUnion.ISaleQuestion}"
                       },
                       {
                         "type": "object",
@@ -1968,6 +2045,7 @@
                                   "contents": {
                                     "type": "array",
                                     "items": {
+                                      "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
                                       "type": "object",
                                       "properties": {
                                         "id": {
@@ -1985,6 +2063,7 @@
                                         "files": {
                                           "type": "array",
                                           "items": {
+                                            "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
                                             "type": "object",
                                             "properties": {
                                               "name": {
@@ -2030,7 +2109,8 @@
                                   "hit",
                                   "contents",
                                   "created_at"
-                                ]
+                                ],
+                                "description": "Current Type: {@link ObjectGenericUnion.ISaleAnswer}"
                               }
                             ]
                           },
@@ -2043,6 +2123,7 @@
                           "contents": {
                             "type": "array",
                             "items": {
+                              "description": "Current Type: {@link ObjectGenericUnion.ISaleReview.IContent}",
                               "type": "object",
                               "properties": {
                                 "score": {
@@ -2063,6 +2144,7 @@
                                 "files": {
                                   "type": "array",
                                   "items": {
+                                    "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
                                     "type": "object",
                                     "properties": {
                                       "name": {
@@ -2111,14 +2193,16 @@
                           "hit",
                           "contents",
                           "created_at"
-                        ]
+                        ],
+                        "description": "Current Type: {@link ObjectGenericUnion.ISaleReview}"
                       }
                     ]
                   }
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectGenericUnion}"
               }
             ]
           },
@@ -2131,6 +2215,7 @@
                 "type": "object",
                 "properties": {
                   "value": {
+                    "description": "Current Type: {@link ObjectGenericUnion.ISaleEntireArticle}",
                     "oneOf": [
                       {
                         "type": "object",
@@ -2155,6 +2240,7 @@
                                   "contents": {
                                     "type": "array",
                                     "items": {
+                                      "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
                                       "type": "object",
                                       "properties": {
                                         "id": {
@@ -2172,6 +2258,7 @@
                                         "files": {
                                           "type": "array",
                                           "items": {
+                                            "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
                                             "type": "object",
                                             "properties": {
                                               "name": {
@@ -2217,7 +2304,8 @@
                                   "hit",
                                   "contents",
                                   "created_at"
-                                ]
+                                ],
+                                "description": "Current Type: {@link ObjectGenericUnion.ISaleAnswer}"
                               }
                             ]
                           },
@@ -2230,6 +2318,7 @@
                           "contents": {
                             "type": "array",
                             "items": {
+                              "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
                               "type": "object",
                               "properties": {
                                 "id": {
@@ -2247,6 +2336,7 @@
                                 "files": {
                                   "type": "array",
                                   "items": {
+                                    "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
                                     "type": "object",
                                     "properties": {
                                       "name": {
@@ -2294,7 +2384,8 @@
                           "hit",
                           "contents",
                           "created_at"
-                        ]
+                        ],
+                        "description": "Current Type: {@link ObjectGenericUnion.ISaleQuestion}"
                       },
                       {
                         "type": "object",
@@ -2319,6 +2410,7 @@
                                   "contents": {
                                     "type": "array",
                                     "items": {
+                                      "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
                                       "type": "object",
                                       "properties": {
                                         "id": {
@@ -2336,6 +2428,7 @@
                                         "files": {
                                           "type": "array",
                                           "items": {
+                                            "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
                                             "type": "object",
                                             "properties": {
                                               "name": {
@@ -2381,7 +2474,8 @@
                                   "hit",
                                   "contents",
                                   "created_at"
-                                ]
+                                ],
+                                "description": "Current Type: {@link ObjectGenericUnion.ISaleAnswer}"
                               }
                             ]
                           },
@@ -2394,6 +2488,7 @@
                           "contents": {
                             "type": "array",
                             "items": {
+                              "description": "Current Type: {@link ObjectGenericUnion.ISaleReview.IContent}",
                               "type": "object",
                               "properties": {
                                 "score": {
@@ -2414,6 +2509,7 @@
                                 "files": {
                                   "type": "array",
                                   "items": {
+                                    "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
                                     "type": "object",
                                     "properties": {
                                       "name": {
@@ -2462,14 +2558,16 @@
                           "hit",
                           "contents",
                           "created_at"
-                        ]
+                        ],
+                        "description": "Current Type: {@link ObjectGenericUnion.ISaleReview}"
                       }
                     ]
                   }
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectGenericUnion}"
               }
             ]
           }
@@ -2490,6 +2588,7 @@
             "type": "object",
             "properties": {
               "value": {
+                "description": "Current Type: {@link ObjectGenericUnion.ISaleEntireArticle}",
                 "oneOf": [
                   {
                     "type": "object",
@@ -2514,6 +2613,7 @@
                               "contents": {
                                 "type": "array",
                                 "items": {
+                                  "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
                                   "type": "object",
                                   "properties": {
                                     "id": {
@@ -2531,6 +2631,7 @@
                                     "files": {
                                       "type": "array",
                                       "items": {
+                                        "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
                                         "type": "object",
                                         "properties": {
                                           "name": {
@@ -2576,7 +2677,8 @@
                               "hit",
                               "contents",
                               "created_at"
-                            ]
+                            ],
+                            "description": "Current Type: {@link ObjectGenericUnion.ISaleAnswer}"
                           }
                         ]
                       },
@@ -2589,6 +2691,7 @@
                       "contents": {
                         "type": "array",
                         "items": {
+                          "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
                           "type": "object",
                           "properties": {
                             "id": {
@@ -2606,6 +2709,7 @@
                             "files": {
                               "type": "array",
                               "items": {
+                                "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
                                 "type": "object",
                                 "properties": {
                                   "name": {
@@ -2653,7 +2757,8 @@
                       "hit",
                       "contents",
                       "created_at"
-                    ]
+                    ],
+                    "description": "Current Type: {@link ObjectGenericUnion.ISaleQuestion}"
                   },
                   {
                     "type": "object",
@@ -2678,6 +2783,7 @@
                               "contents": {
                                 "type": "array",
                                 "items": {
+                                  "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
                                   "type": "object",
                                   "properties": {
                                     "id": {
@@ -2695,6 +2801,7 @@
                                     "files": {
                                       "type": "array",
                                       "items": {
+                                        "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
                                         "type": "object",
                                         "properties": {
                                           "name": {
@@ -2740,7 +2847,8 @@
                               "hit",
                               "contents",
                               "created_at"
-                            ]
+                            ],
+                            "description": "Current Type: {@link ObjectGenericUnion.ISaleAnswer}"
                           }
                         ]
                       },
@@ -2753,6 +2861,7 @@
                       "contents": {
                         "type": "array",
                         "items": {
+                          "description": "Current Type: {@link ObjectGenericUnion.ISaleReview.IContent}",
                           "type": "object",
                           "properties": {
                             "score": {
@@ -2773,6 +2882,7 @@
                             "files": {
                               "type": "array",
                               "items": {
+                                "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
                                 "type": "object",
                                 "properties": {
                                   "name": {
@@ -2821,14 +2931,16 @@
                       "hit",
                       "contents",
                       "created_at"
-                    ]
+                    ],
+                    "description": "Current Type: {@link ObjectGenericUnion.ISaleReview}"
                   }
                 ]
               }
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectGenericUnion}"
           }
         ]
       }

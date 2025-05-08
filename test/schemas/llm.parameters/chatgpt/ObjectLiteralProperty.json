@@ -2,6 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
+      "description": "Current Type: {@link ObjectLiteralProperty.ISomething}",
       "type": "object",
       "properties": {
         "something-interesting-do-you-want?": {
@@ -34,11 +35,13 @@
           "required": [
             "something-interesting-do-you-want?",
             "or-something-crazy-do-you-want?"
-          ]
+          ],
+          "description": "Current Type: {@link ObjectLiteralProperty.ISomething}"
         }
       ]
     },
     "optional": {
+      "description": "Current Type: {@link ObjectLiteralProperty.ISomething}",
       "type": "object",
       "properties": {
         "something-interesting-do-you-want?": {
@@ -71,13 +74,15 @@
           "required": [
             "something-interesting-do-you-want?",
             "or-something-crazy-do-you-want?"
-          ]
+          ],
+          "description": "Current Type: {@link ObjectLiteralProperty.ISomething}"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link ObjectLiteralProperty.ISomething}",
         "type": "object",
         "properties": {
           "something-interesting-do-you-want?": {

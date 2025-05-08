@@ -11,6 +11,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ClassPropertyAssignment}",
             "type": "object",
             "properties": {
               "id": {
@@ -51,6 +52,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ClassPropertyAssignment}",
             "type": "object",
             "properties": {
               "id": {
@@ -107,7 +109,8 @@
                   "note",
                   "editable",
                   "incremental"
-                ]
+                ],
+                "description": "Current Type: {@link ClassPropertyAssignment}"
               }
             ]
           }
@@ -120,6 +123,7 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link ClassPropertyAssignment}",
         "type": "object",
         "properties": {
           "id": {
@@ -182,7 +186,8 @@
                   "note",
                   "editable",
                   "incremental"
-                ]
+                ],
+                "description": "Current Type: {@link ClassPropertyAssignment}"
               }
             ]
           },
@@ -216,7 +221,8 @@
                   "note",
                   "editable",
                   "incremental"
-                ]
+                ],
+                "description": "Current Type: {@link ClassPropertyAssignment}"
               }
             ]
           },
@@ -250,7 +256,8 @@
                   "note",
                   "editable",
                   "incremental"
-                ]
+                ],
+                "description": "Current Type: {@link ClassPropertyAssignment}"
               }
             ]
           }
@@ -292,7 +299,8 @@
               "note",
               "editable",
               "incremental"
-            ]
+            ],
+            "description": "Current Type: {@link ClassPropertyAssignment}"
           }
         ]
       }

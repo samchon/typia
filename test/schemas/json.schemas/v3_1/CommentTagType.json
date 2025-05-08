@@ -26,6 +26,7 @@
           },
           "uint": {
             "type": "integer",
+            "minimum": 0,
             "title": "Unsigned integer value",
             "description": "Unsigned integer value."
           },
@@ -33,13 +34,15 @@
             "type": "integer"
           },
           "uint32": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0
           },
           "int64": {
             "type": "integer"
           },
           "uint64": {
-            "type": "integer"
+            "type": "integer",
+            "minimum": 0
           },
           "float": {
             "type": "number"

@@ -12,23 +12,25 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link TypeTagAtomicUnion}",
             "type": "object",
             "properties": {
               "value": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link TypeTagAtomicUnion.Type}",
                   "type": "object",
                   "properties": {
                     "value": {
                       "oneOf": [
                         {
-                          "type": "number",
-                          "minimum": 3
-                        },
-                        {
                           "type": "string",
                           "minLength": 3,
                           "maxLength": 7
+                        },
+                        {
+                          "type": "number",
+                          "minimum": 3
                         }
                       ]
                     }
@@ -57,23 +59,25 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link TypeTagAtomicUnion}",
             "type": "object",
             "properties": {
               "value": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link TypeTagAtomicUnion.Type}",
                   "type": "object",
                   "properties": {
                     "value": {
                       "oneOf": [
                         {
-                          "type": "number",
-                          "minimum": 3
-                        },
-                        {
                           "type": "string",
                           "minLength": 3,
                           "maxLength": 7
+                        },
+                        {
+                          "type": "number",
+                          "minimum": 3
                         }
                       ]
                     }
@@ -99,18 +103,19 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link TypeTagAtomicUnion.Type}",
                       "type": "object",
                       "properties": {
                         "value": {
                           "oneOf": [
                             {
-                              "type": "number",
-                              "minimum": 3
-                            },
-                            {
                               "type": "string",
                               "minLength": 3,
                               "maxLength": 7
+                            },
+                            {
+                              "type": "number",
+                              "minimum": 3
                             }
                           ]
                         }
@@ -123,7 +128,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link TypeTagAtomicUnion}"
               }
             ]
           }
@@ -136,23 +142,25 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link TypeTagAtomicUnion}",
         "type": "object",
         "properties": {
           "value": {
             "type": "array",
             "items": {
+              "description": "Current Type: {@link TypeTagAtomicUnion.Type}",
               "type": "object",
               "properties": {
                 "value": {
                   "oneOf": [
                     {
-                      "type": "number",
-                      "minimum": 3
-                    },
-                    {
                       "type": "string",
                       "minLength": 3,
                       "maxLength": 7
+                    },
+                    {
+                      "type": "number",
+                      "minimum": 3
                     }
                   ]
                 }
@@ -184,18 +192,19 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link TypeTagAtomicUnion.Type}",
                       "type": "object",
                       "properties": {
                         "value": {
                           "oneOf": [
                             {
-                              "type": "number",
-                              "minimum": 3
-                            },
-                            {
                               "type": "string",
                               "minLength": 3,
                               "maxLength": 7
+                            },
+                            {
+                              "type": "number",
+                              "minimum": 3
                             }
                           ]
                         }
@@ -208,7 +217,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link TypeTagAtomicUnion}"
               }
             ]
           },
@@ -223,18 +233,19 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link TypeTagAtomicUnion.Type}",
                       "type": "object",
                       "properties": {
                         "value": {
                           "oneOf": [
                             {
-                              "type": "number",
-                              "minimum": 3
-                            },
-                            {
                               "type": "string",
                               "minLength": 3,
                               "maxLength": 7
+                            },
+                            {
+                              "type": "number",
+                              "minimum": 3
                             }
                           ]
                         }
@@ -247,7 +258,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link TypeTagAtomicUnion}"
               }
             ]
           },
@@ -262,18 +274,19 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link TypeTagAtomicUnion.Type}",
                       "type": "object",
                       "properties": {
                         "value": {
                           "oneOf": [
                             {
-                              "type": "number",
-                              "minimum": 3
-                            },
-                            {
                               "type": "string",
                               "minLength": 3,
                               "maxLength": 7
+                            },
+                            {
+                              "type": "number",
+                              "minimum": 3
                             }
                           ]
                         }
@@ -286,7 +299,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link TypeTagAtomicUnion}"
               }
             ]
           }
@@ -309,18 +323,19 @@
               "value": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link TypeTagAtomicUnion.Type}",
                   "type": "object",
                   "properties": {
                     "value": {
                       "oneOf": [
                         {
-                          "type": "number",
-                          "minimum": 3
-                        },
-                        {
                           "type": "string",
                           "minLength": 3,
                           "maxLength": 7
+                        },
+                        {
+                          "type": "number",
+                          "minimum": 3
                         }
                       ]
                     }
@@ -333,7 +348,8 @@
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link TypeTagAtomicUnion}"
           }
         ]
       }

@@ -1,4 +1,5 @@
 {
+  "description": "Current Type: {@link DynamicTemplate}",
   "type": "object",
   "properties": {},
   "required": [],

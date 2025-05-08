@@ -12,11 +12,13 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link TypeTagRange}",
             "type": "object",
             "properties": {
               "value": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link TypeTagRange.Type}",
                   "type": "object",
                   "properties": {
                     "greater": {
@@ -88,11 +90,13 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link TypeTagRange}",
             "type": "object",
             "properties": {
               "value": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link TypeTagRange.Type}",
                   "type": "object",
                   "properties": {
                     "greater": {
@@ -161,6 +165,7 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link TypeTagRange.Type}",
                       "type": "object",
                       "properties": {
                         "greater": {
@@ -216,7 +221,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link TypeTagRange}"
               }
             ]
           }
@@ -229,11 +235,13 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link TypeTagRange}",
         "type": "object",
         "properties": {
           "value": {
             "type": "array",
             "items": {
+              "description": "Current Type: {@link TypeTagRange.Type}",
               "type": "object",
               "properties": {
                 "greater": {
@@ -308,6 +316,7 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link TypeTagRange.Type}",
                       "type": "object",
                       "properties": {
                         "greater": {
@@ -363,7 +372,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link TypeTagRange}"
               }
             ]
           },
@@ -378,6 +388,7 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link TypeTagRange.Type}",
                       "type": "object",
                       "properties": {
                         "greater": {
@@ -433,7 +444,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link TypeTagRange}"
               }
             ]
           },
@@ -448,6 +460,7 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link TypeTagRange.Type}",
                       "type": "object",
                       "properties": {
                         "greater": {
@@ -503,7 +516,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link TypeTagRange}"
               }
             ]
           }
@@ -526,6 +540,7 @@
               "value": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link TypeTagRange.Type}",
                   "type": "object",
                   "properties": {
                     "greater": {
@@ -581,7 +596,8 @@
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link TypeTagRange}"
           }
         ]
       }

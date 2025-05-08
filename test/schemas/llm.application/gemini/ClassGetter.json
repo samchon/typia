@@ -28,7 +28,8 @@
               "id",
               "name",
               "dead"
-            ]
+            ],
+            "description": "Current Type: {@link ClassGetter.Person}"
           }
         },
         "required": [
@@ -59,7 +60,8 @@
               "id",
               "name",
               "dead"
-            ]
+            ],
+            "description": "Current Type: {@link ClassGetter.Person}"
           },
           "second": {
             "type": "object",
@@ -106,7 +108,8 @@
           "id",
           "name",
           "dead"
-        ]
+        ],
+        "description": "Current Type: {@link ClassGetter.Person}"
       }
     },
     {

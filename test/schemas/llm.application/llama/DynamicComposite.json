@@ -11,6 +11,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link DynamicComposite}",
             "type": "object",
             "properties": {
               "id": {
@@ -52,6 +53,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link DynamicComposite}",
             "type": "object",
             "properties": {
               "id": {
@@ -98,6 +100,7 @@
                   "id",
                   "name"
                 ],
+                "description": "Current Type: {@link DynamicComposite}",
                 "additionalProperties": {
                   "oneOf": [
                     {
@@ -123,6 +126,7 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link DynamicComposite}",
         "type": "object",
         "properties": {
           "id": {
@@ -175,6 +179,7 @@
                   "id",
                   "name"
                 ],
+                "description": "Current Type: {@link DynamicComposite}",
                 "additionalProperties": {
                   "oneOf": [
                     {
@@ -210,6 +215,7 @@
                   "id",
                   "name"
                 ],
+                "description": "Current Type: {@link DynamicComposite}",
                 "additionalProperties": {
                   "oneOf": [
                     {
@@ -245,6 +251,7 @@
                   "id",
                   "name"
                 ],
+                "description": "Current Type: {@link DynamicComposite}",
                 "additionalProperties": {
                   "oneOf": [
                     {
@@ -288,6 +295,7 @@
               "id",
               "name"
             ],
+            "description": "Current Type: {@link DynamicComposite}",
             "additionalProperties": {
               "oneOf": [
                 {

@@ -37,6 +37,7 @@
           "minimum_and_maximum",
           "equal"
         ],
+        "description": "Current Type: {@link CommentTagLength.Type}",
         "additionalProperties": false
       }
     }
@@ -44,5 +45,6 @@
   "required": [
     "value"
   ],
+  "description": "Current Type: {@link CommentTagLength}",
   "additionalProperties": false
 }

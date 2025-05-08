@@ -12,6 +12,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link TypeTagCustom}",
             "type": "object",
             "properties": {
               "id": {
@@ -52,6 +53,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link TypeTagCustom}",
             "type": "object",
             "properties": {
               "id": {
@@ -108,7 +110,8 @@
                   "dollar",
                   "postfix",
                   "powerOf"
-                ]
+                ],
+                "description": "Current Type: {@link TypeTagCustom}"
               }
             ]
           }
@@ -121,6 +124,7 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link TypeTagCustom}",
         "type": "object",
         "properties": {
           "id": {
@@ -183,7 +187,8 @@
                   "dollar",
                   "postfix",
                   "powerOf"
-                ]
+                ],
+                "description": "Current Type: {@link TypeTagCustom}"
               }
             ]
           },
@@ -217,7 +222,8 @@
                   "dollar",
                   "postfix",
                   "powerOf"
-                ]
+                ],
+                "description": "Current Type: {@link TypeTagCustom}"
               }
             ]
           },
@@ -251,7 +257,8 @@
                   "dollar",
                   "postfix",
                   "powerOf"
-                ]
+                ],
+                "description": "Current Type: {@link TypeTagCustom}"
               }
             ]
           }
@@ -293,7 +300,8 @@
               "dollar",
               "postfix",
               "powerOf"
-            ]
+            ],
+            "description": "Current Type: {@link TypeTagCustom}"
           }
         ]
       }

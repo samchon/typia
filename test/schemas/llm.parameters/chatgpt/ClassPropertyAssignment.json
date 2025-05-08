@@ -2,6 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
+      "description": "Current Type: {@link ClassPropertyAssignment}",
       "type": "object",
       "properties": {
         "id": {
@@ -70,11 +71,13 @@
             "note",
             "editable",
             "incremental"
-          ]
+          ],
+          "description": "Current Type: {@link ClassPropertyAssignment}"
         }
       ]
     },
     "optional": {
+      "description": "Current Type: {@link ClassPropertyAssignment}",
       "type": "object",
       "properties": {
         "id": {
@@ -143,13 +146,15 @@
             "note",
             "editable",
             "incremental"
-          ]
+          ],
+          "description": "Current Type: {@link ClassPropertyAssignment}"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link ClassPropertyAssignment}",
         "type": "object",
         "properties": {
           "id": {

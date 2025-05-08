@@ -98,5 +98,6 @@
   "required": [
     "object",
     "array"
-  ]
+  ],
+  "description": "Current Type: {@link ObjectPartialAndRequired}"
 }

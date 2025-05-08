@@ -519,15 +519,15 @@
                   "type": "string",
                   "values": [
                     {
-                      "value": "one",
-                      "tags": []
-                    },
-                    {
                       "value": "three",
                       "tags": []
                     },
                     {
                       "value": "two",
+                      "tags": []
+                    },
+                    {
+                      "value": "one",
                       "tags": []
                     }
                   ]

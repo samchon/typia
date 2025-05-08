@@ -62,6 +62,7 @@ import { JsonCreateValidateParseTransformer } from "./features/json/JsonCreateVa
 import { JsonCreateValidateStringifyTransformer } from "./features/json/JsonCreateValidateStringifyProgrammer";
 import { JsonIsParseTransformer } from "./features/json/JsonIsParseTransformer";
 import { JsonIsStringifyTransformer } from "./features/json/JsonIsStringifyTransformer";
+import { JsonSchemaTransformer } from "./features/json/JsonSchemaTransformer";
 import { JsonSchemasTransformer } from "./features/json/JsonSchemasTransformer";
 import { JsonStringifyTransformer } from "./features/json/JsonStringifyTransformer";
 import { JsonValidateParseTransformer } from "./features/json/JsonValidateParseTransformer";
@@ -407,9 +408,8 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
   },
   json: {
     // METADATA
-    // application: () => JsonApplicationTransformer.transform,
-    application: () => JsonSchemasTransformer.transform,
     schemas: () => JsonSchemasTransformer.transform,
+    schema: () => JsonSchemaTransformer.transform,
 
     // PARSER
     isParse: () => JsonIsParseTransformer.transform,

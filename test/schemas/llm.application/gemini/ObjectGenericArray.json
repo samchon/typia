@@ -34,7 +34,8 @@
                   "limit",
                   "total_count",
                   "total_pages"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectGenericArray.IPagination}"
               },
               "data": {
                 "type": "array",
@@ -51,14 +52,16 @@
                   "required": [
                     "name",
                     "age"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ObjectGenericArray.IPerson}"
                 }
               }
             },
             "required": [
               "pagination",
               "data"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectGenericArray}"
           }
         },
         "required": [
@@ -95,7 +98,8 @@
                   "limit",
                   "total_count",
                   "total_pages"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectGenericArray.IPagination}"
               },
               "data": {
                 "type": "array",
@@ -112,14 +116,16 @@
                   "required": [
                     "name",
                     "age"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ObjectGenericArray.IPerson}"
                 }
               }
             },
             "required": [
               "pagination",
               "data"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectGenericArray}"
           },
           "second": {
             "type": "object",
@@ -145,7 +151,8 @@
                   "limit",
                   "total_count",
                   "total_pages"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectGenericArray.IPagination}"
               },
               "data": {
                 "type": "array",
@@ -162,7 +169,8 @@
                   "required": [
                     "name",
                     "age"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ObjectGenericArray.IPerson}"
                 }
               }
             },
@@ -202,7 +210,8 @@
               "limit",
               "total_count",
               "total_pages"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectGenericArray.IPagination}"
           },
           "data": {
             "type": "array",
@@ -219,14 +228,16 @@
               "required": [
                 "name",
                 "age"
-              ]
+              ],
+              "description": "Current Type: {@link ObjectGenericArray.IPerson}"
             }
           }
         },
         "required": [
           "pagination",
           "data"
-        ]
+        ],
+        "description": "Current Type: {@link ObjectGenericArray}"
       }
     },
     {
@@ -258,7 +269,8 @@
                   "limit",
                   "total_count",
                   "total_pages"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectGenericArray.IPagination}"
               },
               "data": {
                 "type": "array",
@@ -275,7 +287,8 @@
                   "required": [
                     "name",
                     "age"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ObjectGenericArray.IPerson}"
                 }
               }
             },
@@ -309,7 +322,8 @@
                   "limit",
                   "total_count",
                   "total_pages"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectGenericArray.IPagination}"
               },
               "data": {
                 "type": "array",
@@ -326,7 +340,8 @@
                   "required": [
                     "name",
                     "age"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ObjectGenericArray.IPerson}"
                 }
               }
             },
@@ -360,7 +375,8 @@
                   "limit",
                   "total_count",
                   "total_pages"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectGenericArray.IPagination}"
               },
               "data": {
                 "type": "array",
@@ -377,7 +393,8 @@
                   "required": [
                     "name",
                     "age"
-                  ]
+                  ],
+                  "description": "Current Type: {@link ObjectGenericArray.IPerson}"
                 }
               }
             },
@@ -417,7 +434,8 @@
               "limit",
               "total_count",
               "total_pages"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectGenericArray.IPagination}"
           },
           "data": {
             "type": "array",
@@ -434,7 +452,8 @@
               "required": [
                 "name",
                 "age"
-              ]
+              ],
+              "description": "Current Type: {@link ObjectGenericArray.IPerson}"
             }
           }
         },

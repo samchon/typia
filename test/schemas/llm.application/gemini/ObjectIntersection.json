@@ -27,7 +27,8 @@
               "email",
               "name",
               "vulnerable"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectIntersection}"
           }
         },
         "required": [
@@ -57,7 +58,8 @@
               "email",
               "name",
               "vulnerable"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectIntersection}"
           },
           "second": {
             "type": "object",
@@ -102,7 +104,8 @@
           "email",
           "name",
           "vulnerable"
-        ]
+        ],
+        "description": "Current Type: {@link ObjectIntersection}"
       }
     },
     {

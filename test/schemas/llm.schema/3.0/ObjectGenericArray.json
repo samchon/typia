@@ -23,6 +23,7 @@
         "total_count",
         "total_pages"
       ],
+      "description": "Current Type: {@link ObjectGenericArray.IPagination}",
       "additionalProperties": false
     },
     "data": {
@@ -41,6 +42,7 @@
           "name",
           "age"
         ],
+        "description": "Current Type: {@link ObjectGenericArray.IPerson}",
         "additionalProperties": false
       }
     }
@@ -49,5 +51,6 @@
     "pagination",
     "data"
   ],
+  "description": "Current Type: {@link ObjectGenericArray}",
   "additionalProperties": false
 }

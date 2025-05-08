@@ -24,7 +24,8 @@
             "required": [
               "id",
               "age"
-            ]
+            ],
+            "description": "Current Type: {@link ConstantAtomicAbsorbed}"
           }
         },
         "required": [
@@ -51,7 +52,8 @@
             "required": [
               "id",
               "age"
-            ]
+            ],
+            "description": "Current Type: {@link ConstantAtomicAbsorbed}"
           },
           "second": {
             "type": "object",
@@ -90,7 +92,8 @@
         "required": [
           "id",
           "age"
-        ]
+        ],
+        "description": "Current Type: {@link ConstantAtomicAbsorbed}"
       }
     },
     {

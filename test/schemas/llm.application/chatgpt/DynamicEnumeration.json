@@ -12,6 +12,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link DynamicEnumeration}",
             "type": "object",
             "properties": {
               "value": {
@@ -69,6 +70,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link DynamicEnumeration}",
             "type": "object",
             "properties": {
               "value": {
@@ -159,7 +161,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link DynamicEnumeration}"
               }
             ]
           }
@@ -172,6 +175,7 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link DynamicEnumeration}",
         "type": "object",
         "properties": {
           "value": {
@@ -268,7 +272,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link DynamicEnumeration}"
               }
             ]
           },
@@ -319,7 +324,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link DynamicEnumeration}"
               }
             ]
           },
@@ -370,7 +376,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link DynamicEnumeration}"
               }
             ]
           }
@@ -429,7 +436,8 @@
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link DynamicEnumeration}"
           }
         ]
       }

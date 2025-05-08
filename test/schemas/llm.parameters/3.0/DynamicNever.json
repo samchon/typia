@@ -5,6 +5,7 @@
       "type": "object",
       "properties": {},
       "required": [],
+      "description": "Current Type: {@link DynamicNever}",
       "additionalProperties": false
     },
     "nullable": {
@@ -18,6 +19,7 @@
       "type": "object",
       "properties": {},
       "required": [],
+      "description": "Current Type: {@link DynamicNever}",
       "additionalProperties": false
     },
     "faint": {
@@ -33,6 +35,7 @@
         "type": "object",
         "properties": {},
         "required": [],
+        "description": "Current Type: {@link DynamicNever}",
         "additionalProperties": false
       }
     }

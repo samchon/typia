@@ -23,5 +23,6 @@
     "description",
     "title",
     "complicate_title"
-  ]
+  ],
+  "description": "Current Type: {@link ObjectJsonTag}"
 }

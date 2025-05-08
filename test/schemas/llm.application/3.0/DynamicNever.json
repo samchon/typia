@@ -15,6 +15,7 @@
             "type": "object",
             "properties": {},
             "required": [],
+            "description": "Current Type: {@link DynamicNever}",
             "additionalProperties": false
           }
         },
@@ -33,6 +34,7 @@
             "type": "object",
             "properties": {},
             "required": [],
+            "description": "Current Type: {@link DynamicNever}",
             "additionalProperties": false
           },
           "second": {
@@ -53,6 +55,7 @@
         "type": "object",
         "properties": {},
         "required": [],
+        "description": "Current Type: {@link DynamicNever}",
         "additionalProperties": false
       }
     },

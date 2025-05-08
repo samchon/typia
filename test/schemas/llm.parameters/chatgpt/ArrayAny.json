@@ -2,6 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
+      "description": "Current Type: {@link ArrayAny}",
       "type": "object",
       "properties": {
         "anys": {
@@ -168,11 +169,13 @@
             "nullables1",
             "nullables2",
             "union"
-          ]
+          ],
+          "description": "Current Type: {@link ArrayAny}"
         }
       ]
     },
     "optional": {
+      "description": "Current Type: {@link ArrayAny}",
       "type": "object",
       "properties": {
         "anys": {
@@ -339,13 +342,15 @@
             "nullables1",
             "nullables2",
             "union"
-          ]
+          ],
+          "description": "Current Type: {@link ArrayAny}"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link ArrayAny}",
         "type": "object",
         "properties": {
           "anys": {

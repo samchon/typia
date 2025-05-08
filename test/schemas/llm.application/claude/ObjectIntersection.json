@@ -11,6 +11,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ObjectIntersection}",
             "type": "object",
             "properties": {
               "email": {
@@ -43,6 +44,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ObjectIntersection}",
             "type": "object",
             "properties": {
               "email": {
@@ -83,7 +85,8 @@
                   "email",
                   "name",
                   "vulnerable"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectIntersection}"
               }
             ]
           }
@@ -96,6 +99,7 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link ObjectIntersection}",
         "type": "object",
         "properties": {
           "email": {
@@ -142,7 +146,8 @@
                   "email",
                   "name",
                   "vulnerable"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectIntersection}"
               }
             ]
           },
@@ -168,7 +173,8 @@
                   "email",
                   "name",
                   "vulnerable"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectIntersection}"
               }
             ]
           },
@@ -194,7 +200,8 @@
                   "email",
                   "name",
                   "vulnerable"
-                ]
+                ],
+                "description": "Current Type: {@link ObjectIntersection}"
               }
             ]
           }
@@ -228,7 +235,8 @@
               "email",
               "name",
               "vulnerable"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectIntersection}"
           }
         ]
       }

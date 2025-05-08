@@ -42,6 +42,7 @@
           "postfix",
           "combined"
         ],
+        "description": "Current Type: {@link TemplateConstant.Type}",
         "additionalProperties": false
       }
     }
@@ -49,5 +50,6 @@
   "required": [
     "value"
   ],
+  "description": "Current Type: {@link TemplateConstant}",
   "additionalProperties": false
 }

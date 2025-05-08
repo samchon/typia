@@ -14,6 +14,8 @@
         "type": "boolean",
         "nullable": true
       }
-    ]
-  }
+    ],
+    "description": "Current Type: {@link AtomicUnion.Union}"
+  },
+  "description": "Current Type: {@link AtomicUnion}"
 }

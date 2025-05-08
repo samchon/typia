@@ -12,29 +12,34 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link TypeTagType}",
             "type": "object",
             "properties": {
               "value": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link TypeTagType.Type}",
                   "type": "object",
                   "properties": {
                     "int": {
                       "type": "integer"
                     },
                     "uint": {
+                      "description": "@minimum 0",
                       "type": "integer"
                     },
                     "int32": {
                       "type": "integer"
                     },
                     "uint32": {
+                      "description": "@minimum 0",
                       "type": "integer"
                     },
                     "int64": {
                       "type": "integer"
                     },
                     "uint64": {
+                      "description": "@minimum 0",
                       "type": "integer"
                     },
                     "float": {
@@ -71,29 +76,34 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link TypeTagType}",
             "type": "object",
             "properties": {
               "value": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link TypeTagType.Type}",
                   "type": "object",
                   "properties": {
                     "int": {
                       "type": "integer"
                     },
                     "uint": {
+                      "description": "@minimum 0",
                       "type": "integer"
                     },
                     "int32": {
                       "type": "integer"
                     },
                     "uint32": {
+                      "description": "@minimum 0",
                       "type": "integer"
                     },
                     "int64": {
                       "type": "integer"
                     },
                     "uint64": {
+                      "description": "@minimum 0",
                       "type": "integer"
                     },
                     "float": {
@@ -127,24 +137,28 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link TypeTagType.Type}",
                       "type": "object",
                       "properties": {
                         "int": {
                           "type": "integer"
                         },
                         "uint": {
+                          "description": "@minimum 0",
                           "type": "integer"
                         },
                         "int32": {
                           "type": "integer"
                         },
                         "uint32": {
+                          "description": "@minimum 0",
                           "type": "integer"
                         },
                         "int64": {
                           "type": "integer"
                         },
                         "uint64": {
+                          "description": "@minimum 0",
                           "type": "integer"
                         },
                         "float": {
@@ -165,7 +179,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link TypeTagType}"
               }
             ]
           }
@@ -178,29 +193,34 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link TypeTagType}",
         "type": "object",
         "properties": {
           "value": {
             "type": "array",
             "items": {
+              "description": "Current Type: {@link TypeTagType.Type}",
               "type": "object",
               "properties": {
                 "int": {
                   "type": "integer"
                 },
                 "uint": {
+                  "description": "@minimum 0",
                   "type": "integer"
                 },
                 "int32": {
                   "type": "integer"
                 },
                 "uint32": {
+                  "description": "@minimum 0",
                   "type": "integer"
                 },
                 "int64": {
                   "type": "integer"
                 },
                 "uint64": {
+                  "description": "@minimum 0",
                   "type": "integer"
                 },
                 "float": {
@@ -240,24 +260,28 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link TypeTagType.Type}",
                       "type": "object",
                       "properties": {
                         "int": {
                           "type": "integer"
                         },
                         "uint": {
+                          "description": "@minimum 0",
                           "type": "integer"
                         },
                         "int32": {
                           "type": "integer"
                         },
                         "uint32": {
+                          "description": "@minimum 0",
                           "type": "integer"
                         },
                         "int64": {
                           "type": "integer"
                         },
                         "uint64": {
+                          "description": "@minimum 0",
                           "type": "integer"
                         },
                         "float": {
@@ -278,7 +302,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link TypeTagType}"
               }
             ]
           },
@@ -293,24 +318,28 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link TypeTagType.Type}",
                       "type": "object",
                       "properties": {
                         "int": {
                           "type": "integer"
                         },
                         "uint": {
+                          "description": "@minimum 0",
                           "type": "integer"
                         },
                         "int32": {
                           "type": "integer"
                         },
                         "uint32": {
+                          "description": "@minimum 0",
                           "type": "integer"
                         },
                         "int64": {
                           "type": "integer"
                         },
                         "uint64": {
+                          "description": "@minimum 0",
                           "type": "integer"
                         },
                         "float": {
@@ -331,7 +360,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link TypeTagType}"
               }
             ]
           },
@@ -346,24 +376,28 @@
                   "value": {
                     "type": "array",
                     "items": {
+                      "description": "Current Type: {@link TypeTagType.Type}",
                       "type": "object",
                       "properties": {
                         "int": {
                           "type": "integer"
                         },
                         "uint": {
+                          "description": "@minimum 0",
                           "type": "integer"
                         },
                         "int32": {
                           "type": "integer"
                         },
                         "uint32": {
+                          "description": "@minimum 0",
                           "type": "integer"
                         },
                         "int64": {
                           "type": "integer"
                         },
                         "uint64": {
+                          "description": "@minimum 0",
                           "type": "integer"
                         },
                         "float": {
@@ -384,7 +418,8 @@
                 },
                 "required": [
                   "value"
-                ]
+                ],
+                "description": "Current Type: {@link TypeTagType}"
               }
             ]
           }
@@ -407,24 +442,28 @@
               "value": {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link TypeTagType.Type}",
                   "type": "object",
                   "properties": {
                     "int": {
                       "type": "integer"
                     },
                     "uint": {
+                      "description": "@minimum 0",
                       "type": "integer"
                     },
                     "int32": {
                       "type": "integer"
                     },
                     "uint32": {
+                      "description": "@minimum 0",
                       "type": "integer"
                     },
                     "int64": {
                       "type": "integer"
                     },
                     "uint64": {
+                      "description": "@minimum 0",
                       "type": "integer"
                     },
                     "float": {
@@ -445,7 +484,8 @@
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link TypeTagType}"
           }
         ]
       }

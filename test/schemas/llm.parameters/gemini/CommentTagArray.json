@@ -51,13 +51,15 @@
               "both",
               "equal",
               "unique"
-            ]
+            ],
+            "description": "Current Type: {@link CommentTagArray.Type}"
           }
         }
       },
       "required": [
         "value"
-      ]
+      ],
+      "description": "Current Type: {@link CommentTagArray}"
     },
     "nullable": {
       "type": "object",
@@ -109,7 +111,8 @@
               "both",
               "equal",
               "unique"
-            ]
+            ],
+            "description": "Current Type: {@link CommentTagArray.Type}"
           }
         }
       },
@@ -168,13 +171,15 @@
               "both",
               "equal",
               "unique"
-            ]
+            ],
+            "description": "Current Type: {@link CommentTagArray.Type}"
           }
         }
       },
       "required": [
         "value"
-      ]
+      ],
+      "description": "Current Type: {@link CommentTagArray}"
     },
     "faint": {
       "type": "object",
@@ -226,7 +231,8 @@
               "both",
               "equal",
               "unique"
-            ]
+            ],
+            "description": "Current Type: {@link CommentTagArray.Type}"
           }
         }
       },
@@ -287,13 +293,15 @@
                 "both",
                 "equal",
                 "unique"
-              ]
+              ],
+              "description": "Current Type: {@link CommentTagArray.Type}"
             }
           }
         },
         "required": [
           "value"
-        ]
+        ],
+        "description": "Current Type: {@link CommentTagArray}"
       }
     }
   },

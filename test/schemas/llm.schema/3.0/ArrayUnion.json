@@ -20,6 +20,8 @@
           "type": "boolean"
         }
       }
-    ]
-  }
+    ],
+    "description": "Current Type: {@link ArrayUnion.IUnion}"
+  },
+  "description": "Current Type: {@link ArrayUnion}"
 }

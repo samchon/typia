@@ -44,7 +44,8 @@
               "datetime",
               "time",
               "duration"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectDate}"
           }
         },
         "required": [
@@ -91,7 +92,8 @@
               "datetime",
               "time",
               "duration"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectDate}"
           },
           "second": {
             "type": "object",
@@ -170,7 +172,8 @@
           "datetime",
           "time",
           "duration"
-        ]
+        ],
+        "description": "Current Type: {@link ObjectDate}"
       }
     },
     {

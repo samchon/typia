@@ -2,6 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
+      "description": "Current Type: {@link ObjectGenericAlias.Alias}",
       "type": "object",
       "properties": {
         "value": {
@@ -26,11 +27,13 @@
           },
           "required": [
             "value"
-          ]
+          ],
+          "description": "Current Type: {@link ObjectGenericAlias.Alias}"
         }
       ]
     },
     "optional": {
+      "description": "Current Type: {@link ObjectGenericAlias.Alias}",
       "type": "object",
       "properties": {
         "value": {
@@ -55,13 +58,15 @@
           },
           "required": [
             "value"
-          ]
+          ],
+          "description": "Current Type: {@link ObjectGenericAlias.Alias}"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link ObjectGenericAlias.Alias}",
         "type": "object",
         "properties": {
           "value": {

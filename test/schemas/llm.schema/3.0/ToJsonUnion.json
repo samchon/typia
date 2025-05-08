@@ -23,6 +23,7 @@
           "mobile",
           "name"
         ],
+        "description": "Current Type: {@link ToJsonUnion.ICitizen}",
         "additionalProperties": false
       },
       {
@@ -43,6 +44,7 @@
           "brand",
           "name"
         ],
+        "description": "Current Type: {@link ToJsonUnion.IProduct}",
         "additionalProperties": false
       },
       {
@@ -69,8 +71,10 @@
           "mobile",
           "name"
         ],
+        "description": "Current Type: {@link ToJsonUnion.ICitizen}",
         "additionalProperties": false
       }
     ]
-  }
+  },
+  "description": "Current Type: {@link ToJsonUnion}"
 }

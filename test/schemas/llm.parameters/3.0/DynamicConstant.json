@@ -32,6 +32,7 @@
       "required": [
         "value"
       ],
+      "description": "Current Type: {@link DynamicConstant}",
       "additionalProperties": false
     },
     "nullable": {
@@ -99,6 +100,7 @@
       "required": [
         "value"
       ],
+      "description": "Current Type: {@link DynamicConstant}",
       "additionalProperties": false
     },
     "faint": {
@@ -168,6 +170,7 @@
         "required": [
           "value"
         ],
+        "description": "Current Type: {@link DynamicConstant}",
         "additionalProperties": false
       }
     }

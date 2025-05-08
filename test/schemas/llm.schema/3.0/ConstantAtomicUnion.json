@@ -37,6 +37,8 @@
           "four"
         ]
       }
-    ]
-  }
+    ],
+    "description": "Current Type: {@link ConstantAtomicUnion.Union}"
+  },
+  "description": "Current Type: {@link ConstantAtomicUnion}"
 }

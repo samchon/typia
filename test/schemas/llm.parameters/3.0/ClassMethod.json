@@ -15,6 +15,7 @@
         "name",
         "age"
       ],
+      "description": "Current Type: {@link ClassMethod.Animal}",
       "additionalProperties": false
     },
     "nullable": {
@@ -48,6 +49,7 @@
         "name",
         "age"
       ],
+      "description": "Current Type: {@link ClassMethod.Animal}",
       "additionalProperties": false
     },
     "faint": {
@@ -83,6 +85,7 @@
           "name",
           "age"
         ],
+        "description": "Current Type: {@link ClassMethod.Animal}",
         "additionalProperties": false
       }
     }

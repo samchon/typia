@@ -19,7 +19,8 @@
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectGenericAlias.Alias}"
           }
         },
         "required": [
@@ -41,7 +42,8 @@
             },
             "required": [
               "value"
-            ]
+            ],
+            "description": "Current Type: {@link ObjectGenericAlias.Alias}"
           },
           "second": {
             "type": "object",
@@ -70,7 +72,8 @@
         },
         "required": [
           "value"
-        ]
+        ],
+        "description": "Current Type: {@link ObjectGenericAlias.Alias}"
       }
     },
     {

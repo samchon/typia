@@ -51,7 +51,8 @@
         "nullables1",
         "nullables2",
         "union"
-      ]
+      ],
+      "description": "Current Type: {@link ArrayAny}"
     },
     "nullable": {
       "type": "object",
@@ -156,7 +157,8 @@
         "nullables1",
         "nullables2",
         "union"
-      ]
+      ],
+      "description": "Current Type: {@link ArrayAny}"
     },
     "faint": {
       "type": "object",
@@ -263,7 +265,8 @@
           "nullables1",
           "nullables2",
           "union"
-        ]
+        ],
+        "description": "Current Type: {@link ArrayAny}"
       }
     }
   },

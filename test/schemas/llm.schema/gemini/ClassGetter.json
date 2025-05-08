@@ -16,5 +16,6 @@
     "id",
     "name",
     "dead"
-  ]
+  ],
+  "description": "Current Type: {@link ClassGetter.Person}"
 }

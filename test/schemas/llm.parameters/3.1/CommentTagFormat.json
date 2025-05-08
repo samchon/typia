@@ -2,6 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
+      "description": "Current Type: {@link CommentTagFormat}",
       "type": "object",
       "properties": {
         "byte": {
@@ -238,11 +239,13 @@
             "duration",
             "jsonPointer",
             "relativeJsonPointer"
-          ]
+          ],
+          "description": "Current Type: {@link CommentTagFormat}"
         }
       ]
     },
     "optional": {
+      "description": "Current Type: {@link CommentTagFormat}",
       "type": "object",
       "properties": {
         "byte": {
@@ -479,13 +482,15 @@
             "duration",
             "jsonPointer",
             "relativeJsonPointer"
-          ]
+          ],
+          "description": "Current Type: {@link CommentTagFormat}"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
+        "description": "Current Type: {@link CommentTagFormat}",
         "type": "object",
         "properties": {
           "byte": {

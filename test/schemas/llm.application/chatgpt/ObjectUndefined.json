@@ -12,8 +12,10 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ObjectUndefined}",
             "type": "array",
             "items": {
+              "description": "Current Type: {@link ObjectUndefined.ILecture}",
               "type": "object",
               "properties": {
                 "name": {
@@ -30,6 +32,7 @@
                   ]
                 },
                 "classroom": {
+                  "description": "Current Type: {@link ObjectUndefined.IClassroom}",
                   "type": "object",
                   "properties": {
                     "id": {
@@ -69,8 +72,10 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ObjectUndefined}",
             "type": "array",
             "items": {
+              "description": "Current Type: {@link ObjectUndefined.ILecture}",
               "type": "object",
               "properties": {
                 "name": {
@@ -87,6 +92,7 @@
                   ]
                 },
                 "classroom": {
+                  "description": "Current Type: {@link ObjectUndefined.IClassroom}",
                   "type": "object",
                   "properties": {
                     "id": {
@@ -120,6 +126,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ObjectUndefined.ILecture}",
                   "type": "object",
                   "properties": {
                     "name": {
@@ -136,6 +143,7 @@
                       ]
                     },
                     "classroom": {
+                      "description": "Current Type: {@link ObjectUndefined.IClassroom}",
                       "type": "object",
                       "properties": {
                         "id": {
@@ -159,7 +167,8 @@
                     "name",
                     "unknown"
                   ]
-                }
+                },
+                "description": "Current Type: {@link ObjectUndefined}"
               }
             ]
           }
@@ -172,8 +181,10 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link ObjectUndefined}",
         "type": "array",
         "items": {
+          "description": "Current Type: {@link ObjectUndefined.ILecture}",
           "type": "object",
           "properties": {
             "name": {
@@ -190,6 +201,7 @@
               ]
             },
             "classroom": {
+              "description": "Current Type: {@link ObjectUndefined.IClassroom}",
               "type": "object",
               "properties": {
                 "id": {
@@ -229,6 +241,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ObjectUndefined.ILecture}",
                   "type": "object",
                   "properties": {
                     "name": {
@@ -245,6 +258,7 @@
                       ]
                     },
                     "classroom": {
+                      "description": "Current Type: {@link ObjectUndefined.IClassroom}",
                       "type": "object",
                       "properties": {
                         "id": {
@@ -268,7 +282,8 @@
                     "name",
                     "unknown"
                   ]
-                }
+                },
+                "description": "Current Type: {@link ObjectUndefined}"
               }
             ]
           },
@@ -280,6 +295,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ObjectUndefined.ILecture}",
                   "type": "object",
                   "properties": {
                     "name": {
@@ -296,6 +312,7 @@
                       ]
                     },
                     "classroom": {
+                      "description": "Current Type: {@link ObjectUndefined.IClassroom}",
                       "type": "object",
                       "properties": {
                         "id": {
@@ -319,7 +336,8 @@
                     "name",
                     "unknown"
                   ]
-                }
+                },
+                "description": "Current Type: {@link ObjectUndefined}"
               }
             ]
           },
@@ -331,6 +349,7 @@
               {
                 "type": "array",
                 "items": {
+                  "description": "Current Type: {@link ObjectUndefined.ILecture}",
                   "type": "object",
                   "properties": {
                     "name": {
@@ -347,6 +366,7 @@
                       ]
                     },
                     "classroom": {
+                      "description": "Current Type: {@link ObjectUndefined.IClassroom}",
                       "type": "object",
                       "properties": {
                         "id": {
@@ -370,7 +390,8 @@
                     "name",
                     "unknown"
                   ]
-                }
+                },
+                "description": "Current Type: {@link ObjectUndefined}"
               }
             ]
           }
@@ -390,6 +411,7 @@
           {
             "type": "array",
             "items": {
+              "description": "Current Type: {@link ObjectUndefined.ILecture}",
               "type": "object",
               "properties": {
                 "name": {
@@ -406,6 +428,7 @@
                   ]
                 },
                 "classroom": {
+                  "description": "Current Type: {@link ObjectUndefined.IClassroom}",
                   "type": "object",
                   "properties": {
                     "id": {
@@ -429,7 +452,8 @@
                 "name",
                 "unknown"
               ]
-            }
+            },
+            "description": "Current Type: {@link ObjectUndefined}"
           }
         ]
       }

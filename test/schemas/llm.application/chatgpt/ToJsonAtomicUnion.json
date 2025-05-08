@@ -12,6 +12,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ToJsonAtomicUnion}",
             "type": "array",
             "items": {
               "anyOf": [
@@ -44,6 +45,7 @@
         "type": "object",
         "properties": {
           "first": {
+            "description": "Current Type: {@link ToJsonAtomicUnion}",
             "type": "array",
             "items": {
               "anyOf": [
@@ -84,7 +86,8 @@
                       "type": "boolean"
                     }
                   ]
-                }
+                },
+                "description": "Current Type: {@link ToJsonAtomicUnion}"
               }
             ]
           }
@@ -97,6 +100,7 @@
         "$defs": {}
       },
       "output": {
+        "description": "Current Type: {@link ToJsonAtomicUnion}",
         "type": "array",
         "items": {
           "anyOf": [
@@ -143,7 +147,8 @@
                       "type": "boolean"
                     }
                   ]
-                }
+                },
+                "description": "Current Type: {@link ToJsonAtomicUnion}"
               }
             ]
           },
@@ -169,7 +174,8 @@
                       "type": "boolean"
                     }
                   ]
-                }
+                },
+                "description": "Current Type: {@link ToJsonAtomicUnion}"
               }
             ]
           },
@@ -195,7 +201,8 @@
                       "type": "boolean"
                     }
                   ]
-                }
+                },
+                "description": "Current Type: {@link ToJsonAtomicUnion}"
               }
             ]
           }
@@ -229,7 +236,8 @@
                   "type": "boolean"
                 }
               ]
-            }
+            },
+            "description": "Current Type: {@link ToJsonAtomicUnion}"
           }
         ]
       }
