@@ -4,7 +4,7 @@ import { IValidation } from "../IValidation";
 
 export const _createStandardSchema = <T>(
   fn: (input: unknown) => IValidation<T>,
-) =>
+): ((input: unknown) => IValidation<T>) & StandardSchemaV1<unknown, T> =>
   Object.assign(fn, {
     "~standard": {
       version: 1,
