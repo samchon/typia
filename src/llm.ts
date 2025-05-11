@@ -1,6 +1,29 @@
-import { ILlmApplication, ILlmSchema } from "@samchon/openapi";
+import { ILlmApplication, ILlmController, ILlmSchema } from "@samchon/openapi";
 
 import { NoTransformConfigurationError } from "./transformers/NoTransformConfigurationError";
+
+export function controller(
+  name: string,
+  execute: object,
+  options?: Partial<Pick<ILlmApplication.IOptions<any>, "separate">>,
+): never;
+
+export function controller<
+  Class extends Record<string, any>,
+  Model extends ILlmSchema.Model,
+  Config extends Partial<ILlmSchema.ModelConfig[Model]> = {},
+>(
+  name: string,
+  execute: Class,
+  options?: Partial<Pick<ILlmApplication.IOptions<Model>, "separate">>,
+): ILlmController<Model>;
+
+/**
+ * @internal
+ */
+export function controller(..._args: any[]): never {
+  NoTransformConfigurationError("llm.controller");
+}
 
 /**
  * > You must configure the generic argument `App`.
@@ -47,7 +70,7 @@ import { NoTransformConfigurationError } from "./transformers/NoTransformConfigu
  *   - `3.0`: [`ILlmSchemaV3`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3.ts)
  *   - `3.1`: [`ILlmSchemaV3_1`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3_1.ts)
  *
- * @template App Target class or interface type collecting the functions to call
+ * @template Class Target class or interface type collecting the functions to call
  * @template Model LLM schema model
  * @template Config Configuration of LLM schema composition
  * @param options Options for the LLM application construction
@@ -102,7 +125,7 @@ export function application(
  *   - `3.0`: [`ILlmSchemaV3`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3.ts)
  *   - `3.1`: [`ILlmSchemaV3_1`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3_1.ts)
  *
- * @template App Target class or interface type collecting the functions to call
+ * @template Class Target class or interface type collecting the functions to call
  * @template Model LLM schema model
  * @template Config Configuration of LLM schema composition
  * @param options Options for the LLM application construction
@@ -111,12 +134,12 @@ export function application(
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function application<
-  App extends Record<string, any>,
+  Class extends Record<string, any>,
   Model extends ILlmSchema.Model,
   Config extends Partial<ILlmSchema.ModelConfig[Model]> = {},
 >(
   options?: Partial<Pick<ILlmApplication.IOptions<Model>, "separate">>,
-): ILlmApplication<Model, App>;
+): ILlmApplication<Model, Class>;
 
 /**
  * @internal
