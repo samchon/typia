@@ -1,0 +1,793 @@
+{
+  "model": "llama",
+  "options": {
+    "reference": false,
+    "separate": null
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer}",
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer.IBucket"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ArrayRecursiveUnionExplicitPointer.IBucket": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "oneOf": [
+                  {
+                    "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer.IDirectory"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "path": {
+                        "type": "string"
+                      },
+                      "width": {
+                        "type": "number"
+                      },
+                      "height": {
+                        "type": "number"
+                      },
+                      "url": {
+                        "type": "string"
+                      },
+                      "size": {
+                        "type": "number"
+                      },
+                      "type": {
+                        "const": "file"
+                      },
+                      "extension": {
+                        "const": "jpg"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "name",
+                      "path",
+                      "width",
+                      "height",
+                      "url",
+                      "size",
+                      "type",
+                      "extension"
+                    ],
+                    "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IImageFile}"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "path": {
+                        "type": "string"
+                      },
+                      "size": {
+                        "type": "number"
+                      },
+                      "content": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "const": "file"
+                      },
+                      "extension": {
+                        "const": "txt"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "name",
+                      "path",
+                      "size",
+                      "content",
+                      "type",
+                      "extension"
+                    ],
+                    "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.ITextFile}"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "path": {
+                        "type": "string"
+                      },
+                      "size": {
+                        "type": "number"
+                      },
+                      "count": {
+                        "type": "number"
+                      },
+                      "type": {
+                        "const": "file"
+                      },
+                      "extension": {
+                        "const": "zip"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "name",
+                      "path",
+                      "size",
+                      "count",
+                      "type",
+                      "extension"
+                    ],
+                    "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IZipFile}"
+                  },
+                  {
+                    "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer.IShortcut"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "ArrayRecursiveUnionExplicitPointer.IDirectory": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "children": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer.IBucket"
+                }
+              },
+              "type": {
+                "const": "directory"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "path",
+              "children",
+              "type"
+            ]
+          },
+          "ArrayRecursiveUnionExplicitPointer.IShortcut": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "target": {
+                "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer.IBucket"
+              },
+              "type": {
+                "const": "file"
+              },
+              "extension": {
+                "const": "lnk"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "path",
+              "target",
+              "type",
+              "extension"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer}",
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer.IBucket"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "second": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer.IBucket"
+                    }
+                  }
+                },
+                "required": [
+                  "value"
+                ],
+                "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer}"
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ArrayRecursiveUnionExplicitPointer.IBucket": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "oneOf": [
+                  {
+                    "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer.IDirectory"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "path": {
+                        "type": "string"
+                      },
+                      "width": {
+                        "type": "number"
+                      },
+                      "height": {
+                        "type": "number"
+                      },
+                      "url": {
+                        "type": "string"
+                      },
+                      "size": {
+                        "type": "number"
+                      },
+                      "type": {
+                        "const": "file"
+                      },
+                      "extension": {
+                        "const": "jpg"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "name",
+                      "path",
+                      "width",
+                      "height",
+                      "url",
+                      "size",
+                      "type",
+                      "extension"
+                    ],
+                    "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IImageFile}"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "path": {
+                        "type": "string"
+                      },
+                      "size": {
+                        "type": "number"
+                      },
+                      "content": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "const": "file"
+                      },
+                      "extension": {
+                        "const": "txt"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "name",
+                      "path",
+                      "size",
+                      "content",
+                      "type",
+                      "extension"
+                    ],
+                    "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.ITextFile}"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "path": {
+                        "type": "string"
+                      },
+                      "size": {
+                        "type": "number"
+                      },
+                      "count": {
+                        "type": "number"
+                      },
+                      "type": {
+                        "const": "file"
+                      },
+                      "extension": {
+                        "const": "zip"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "name",
+                      "path",
+                      "size",
+                      "count",
+                      "type",
+                      "extension"
+                    ],
+                    "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IZipFile}"
+                  },
+                  {
+                    "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer.IShortcut"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "ArrayRecursiveUnionExplicitPointer.IDirectory": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "children": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer.IBucket"
+                }
+              },
+              "type": {
+                "const": "directory"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "path",
+              "children",
+              "type"
+            ]
+          },
+          "ArrayRecursiveUnionExplicitPointer.IShortcut": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "target": {
+                "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer.IBucket"
+              },
+              "type": {
+                "const": "file"
+              },
+              "extension": {
+                "const": "lnk"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "path",
+              "target",
+              "type",
+              "extension"
+            ]
+          }
+        }
+      },
+      "output": {
+        "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer}",
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer.IBucket"
+            }
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer.IBucket"
+                    }
+                  }
+                },
+                "required": [
+                  "value"
+                ],
+                "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer}"
+              }
+            ]
+          },
+          "second": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer.IBucket"
+                    }
+                  }
+                },
+                "required": [
+                  "value"
+                ],
+                "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer}"
+              }
+            ]
+          },
+          "third": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer.IBucket"
+                    }
+                  }
+                },
+                "required": [
+                  "value"
+                ],
+                "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer}"
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ArrayRecursiveUnionExplicitPointer.IBucket": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "oneOf": [
+                  {
+                    "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer.IDirectory"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "path": {
+                        "type": "string"
+                      },
+                      "width": {
+                        "type": "number"
+                      },
+                      "height": {
+                        "type": "number"
+                      },
+                      "url": {
+                        "type": "string"
+                      },
+                      "size": {
+                        "type": "number"
+                      },
+                      "type": {
+                        "const": "file"
+                      },
+                      "extension": {
+                        "const": "jpg"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "name",
+                      "path",
+                      "width",
+                      "height",
+                      "url",
+                      "size",
+                      "type",
+                      "extension"
+                    ],
+                    "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IImageFile}"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "path": {
+                        "type": "string"
+                      },
+                      "size": {
+                        "type": "number"
+                      },
+                      "content": {
+                        "type": "string"
+                      },
+                      "type": {
+                        "const": "file"
+                      },
+                      "extension": {
+                        "const": "txt"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "name",
+                      "path",
+                      "size",
+                      "content",
+                      "type",
+                      "extension"
+                    ],
+                    "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.ITextFile}"
+                  },
+                  {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "number"
+                      },
+                      "name": {
+                        "type": "string"
+                      },
+                      "path": {
+                        "type": "string"
+                      },
+                      "size": {
+                        "type": "number"
+                      },
+                      "count": {
+                        "type": "number"
+                      },
+                      "type": {
+                        "const": "file"
+                      },
+                      "extension": {
+                        "const": "zip"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "name",
+                      "path",
+                      "size",
+                      "count",
+                      "type",
+                      "extension"
+                    ],
+                    "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer.IZipFile}"
+                  },
+                  {
+                    "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer.IShortcut"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "ArrayRecursiveUnionExplicitPointer.IDirectory": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "children": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer.IBucket"
+                }
+              },
+              "type": {
+                "const": "directory"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "path",
+              "children",
+              "type"
+            ]
+          },
+          "ArrayRecursiveUnionExplicitPointer.IShortcut": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "path": {
+                "type": "string"
+              },
+              "target": {
+                "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer.IBucket"
+              },
+              "type": {
+                "const": "file"
+              },
+              "extension": {
+                "const": "lnk"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "path",
+              "target",
+              "type",
+              "extension"
+            ]
+          }
+        }
+      },
+      "output": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ArrayRecursiveUnionExplicitPointer.IBucket"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "description": "Current Type: {@link ArrayRecursiveUnionExplicitPointer}"
+          }
+        ]
+      }
+    }
+  ]
+}

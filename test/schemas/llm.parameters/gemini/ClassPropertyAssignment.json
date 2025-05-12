@@ -1,0 +1,183 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "note": {
+          "type": "string",
+          "enum": [
+            "assignment"
+          ]
+        },
+        "editable": {
+          "type": "boolean",
+          "enum": [
+            false
+          ]
+        },
+        "incremental": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "note",
+        "editable",
+        "incremental"
+      ],
+      "description": "Current Type: {@link ClassPropertyAssignment}"
+    },
+    "nullable": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "note": {
+          "type": "string",
+          "enum": [
+            "assignment"
+          ]
+        },
+        "editable": {
+          "type": "boolean",
+          "enum": [
+            false
+          ]
+        },
+        "incremental": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "note",
+        "editable",
+        "incremental"
+      ],
+      "nullable": true
+    },
+    "optional": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "note": {
+          "type": "string",
+          "enum": [
+            "assignment"
+          ]
+        },
+        "editable": {
+          "type": "boolean",
+          "enum": [
+            false
+          ]
+        },
+        "incremental": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "note",
+        "editable",
+        "incremental"
+      ],
+      "description": "Current Type: {@link ClassPropertyAssignment}"
+    },
+    "faint": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "note": {
+          "type": "string",
+          "enum": [
+            "assignment"
+          ]
+        },
+        "editable": {
+          "type": "boolean",
+          "enum": [
+            false
+          ]
+        },
+        "incremental": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "note",
+        "editable",
+        "incremental"
+      ],
+      "nullable": true
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "note": {
+            "type": "string",
+            "enum": [
+              "assignment"
+            ]
+          },
+          "editable": {
+            "type": "boolean",
+            "enum": [
+              false
+            ]
+          },
+          "incremental": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "note",
+          "editable",
+          "incremental"
+        ],
+        "description": "Current Type: {@link ClassPropertyAssignment}"
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ]
+}

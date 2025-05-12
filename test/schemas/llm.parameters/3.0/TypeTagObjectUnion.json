@@ -1,0 +1,204 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "number",
+                "minimum": 3
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "description": "Current Type: {@link TypeTagObjectUnion.Numeric}",
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string",
+                "minLength": 3,
+                "maxLength": 7
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "description": "Current Type: {@link TypeTagObjectUnion.Literal}",
+            "additionalProperties": false
+          }
+        ],
+        "description": "Current Type: {@link TypeTagObjectUnion.Type}"
+      },
+      "description": "Current Type: {@link TypeTagObjectUnion}"
+    },
+    "nullable": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "number",
+                "minimum": 3
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "description": "Current Type: {@link TypeTagObjectUnion.Numeric}",
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string",
+                "minLength": 3,
+                "maxLength": 7
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "description": "Current Type: {@link TypeTagObjectUnion.Literal}",
+            "additionalProperties": false
+          }
+        ],
+        "description": "Current Type: {@link TypeTagObjectUnion.Type}"
+      },
+      "nullable": true
+    },
+    "optional": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "number",
+                "minimum": 3
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "description": "Current Type: {@link TypeTagObjectUnion.Numeric}",
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string",
+                "minLength": 3,
+                "maxLength": 7
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "description": "Current Type: {@link TypeTagObjectUnion.Literal}",
+            "additionalProperties": false
+          }
+        ],
+        "description": "Current Type: {@link TypeTagObjectUnion.Type}"
+      },
+      "description": "Current Type: {@link TypeTagObjectUnion}"
+    },
+    "faint": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "number",
+                "minimum": 3
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "description": "Current Type: {@link TypeTagObjectUnion.Numeric}",
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string",
+                "minLength": 3,
+                "maxLength": 7
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "description": "Current Type: {@link TypeTagObjectUnion.Literal}",
+            "additionalProperties": false
+          }
+        ],
+        "description": "Current Type: {@link TypeTagObjectUnion.Type}"
+      },
+      "nullable": true
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "number",
+                  "minimum": 3
+                }
+              },
+              "required": [
+                "value"
+              ],
+              "description": "Current Type: {@link TypeTagObjectUnion.Numeric}",
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "minLength": 3,
+                  "maxLength": 7
+                }
+              },
+              "required": [
+                "value"
+              ],
+              "description": "Current Type: {@link TypeTagObjectUnion.Literal}",
+              "additionalProperties": false
+            }
+          ],
+          "description": "Current Type: {@link TypeTagObjectUnion.Type}"
+        },
+        "description": "Current Type: {@link TypeTagObjectUnion}"
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,63 @@
+{
+  "version": "3.0",
+  "components": {
+    "schemas": {
+      "ConstantAtomicWrapper": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "$ref": "#/components/schemas/ConstantAtomicWrapper.IPointerboolean"
+            },
+            {
+              "$ref": "#/components/schemas/ConstantAtomicWrapper.IPointernumber"
+            },
+            {
+              "$ref": "#/components/schemas/ConstantAtomicWrapper.IPointerstring"
+            }
+          ]
+        },
+        "minItems": 3,
+        "maxItems": 3
+      },
+      "ConstantAtomicWrapper.IPointerboolean": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      "ConstantAtomicWrapper.IPointernumber": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      },
+      "ConstantAtomicWrapper.IPointerstring": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+    }
+  },
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ConstantAtomicWrapper"
+    }
+  ]
+}

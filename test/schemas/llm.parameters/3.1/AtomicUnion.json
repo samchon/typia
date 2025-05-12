@@ -1,0 +1,134 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "description": "Current Type: {@link AtomicUnion}",
+      "type": "array",
+      "items": {
+        "description": "Current Type: {@link AtomicUnion.Union}",
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "boolean"
+          }
+        ]
+      }
+    },
+    "nullable": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "array",
+          "items": {
+            "description": "Current Type: {@link AtomicUnion.Union}",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "boolean"
+              }
+            ]
+          },
+          "description": "Current Type: {@link AtomicUnion}"
+        }
+      ]
+    },
+    "optional": {
+      "description": "Current Type: {@link AtomicUnion}",
+      "type": "array",
+      "items": {
+        "description": "Current Type: {@link AtomicUnion.Union}",
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "boolean"
+          }
+        ]
+      }
+    },
+    "faint": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "array",
+          "items": {
+            "description": "Current Type: {@link AtomicUnion.Union}",
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "boolean"
+              }
+            ]
+          },
+          "description": "Current Type: {@link AtomicUnion}"
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "description": "Current Type: {@link AtomicUnion}",
+        "type": "array",
+        "items": {
+          "description": "Current Type: {@link AtomicUnion.Union}",
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {}
+}

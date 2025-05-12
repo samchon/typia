@@ -1,0 +1,358 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "extension": {
+          "type": "string",
+          "enum": [
+            "txt",
+            "md",
+            "html"
+          ]
+        },
+        "title": {
+          "type": "string"
+        },
+        "body": {
+          "type": "string"
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "extension": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "created_at": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "extension",
+              "url",
+              "created_at"
+            ],
+            "description": "Current Type: {@link ObjectPrimitive.IFile}"
+          }
+        },
+        "secret": {
+          "type": "boolean"
+        },
+        "created_at": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "extension",
+        "title",
+        "body",
+        "files",
+        "secret",
+        "created_at"
+      ],
+      "description": "Current Type: {@link ObjectPrimitive.IArticle}"
+    },
+    "nullable": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "extension": {
+          "type": "string",
+          "enum": [
+            "txt",
+            "md",
+            "html"
+          ]
+        },
+        "title": {
+          "type": "string"
+        },
+        "body": {
+          "type": "string"
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "extension": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "created_at": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "extension",
+              "url",
+              "created_at"
+            ],
+            "description": "Current Type: {@link ObjectPrimitive.IFile}"
+          }
+        },
+        "secret": {
+          "type": "boolean"
+        },
+        "created_at": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "extension",
+        "title",
+        "body",
+        "files",
+        "secret",
+        "created_at"
+      ],
+      "nullable": true
+    },
+    "optional": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "extension": {
+          "type": "string",
+          "enum": [
+            "txt",
+            "md",
+            "html"
+          ]
+        },
+        "title": {
+          "type": "string"
+        },
+        "body": {
+          "type": "string"
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "extension": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "created_at": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "extension",
+              "url",
+              "created_at"
+            ],
+            "description": "Current Type: {@link ObjectPrimitive.IFile}"
+          }
+        },
+        "secret": {
+          "type": "boolean"
+        },
+        "created_at": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "extension",
+        "title",
+        "body",
+        "files",
+        "secret",
+        "created_at"
+      ],
+      "description": "Current Type: {@link ObjectPrimitive.IArticle}"
+    },
+    "faint": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "extension": {
+          "type": "string",
+          "enum": [
+            "txt",
+            "md",
+            "html"
+          ]
+        },
+        "title": {
+          "type": "string"
+        },
+        "body": {
+          "type": "string"
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "extension": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "created_at": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "extension",
+              "url",
+              "created_at"
+            ],
+            "description": "Current Type: {@link ObjectPrimitive.IFile}"
+          }
+        },
+        "secret": {
+          "type": "boolean"
+        },
+        "created_at": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "extension",
+        "title",
+        "body",
+        "files",
+        "secret",
+        "created_at"
+      ],
+      "nullable": true
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "extension": {
+            "type": "string",
+            "enum": [
+              "txt",
+              "md",
+              "html"
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "body": {
+            "type": "string"
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "extension": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string"
+                },
+                "created_at": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "name",
+                "extension",
+                "url",
+                "created_at"
+              ],
+              "description": "Current Type: {@link ObjectPrimitive.IFile}"
+            }
+          },
+          "secret": {
+            "type": "boolean"
+          },
+          "created_at": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "extension",
+          "title",
+          "body",
+          "files",
+          "secret",
+          "created_at"
+        ],
+        "description": "Current Type: {@link ObjectPrimitive.IArticle}"
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ]
+}

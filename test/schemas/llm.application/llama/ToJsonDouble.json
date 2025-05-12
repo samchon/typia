@@ -1,0 +1,213 @@
+{
+  "model": "llama",
+  "options": {
+    "reference": false,
+    "separate": null
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "description": "Current Type: {@link ToJsonDouble.Child}",
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "flag": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id",
+              "flag"
+            ]
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {}
+      }
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "description": "Current Type: {@link ToJsonDouble.Child}",
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "flag": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id",
+              "flag"
+            ]
+          },
+          "second": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number"
+                  },
+                  "flag": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "id",
+                  "flag"
+                ],
+                "description": "Current Type: {@link ToJsonDouble.Child}"
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false,
+        "$defs": {}
+      },
+      "output": {
+        "description": "Current Type: {@link ToJsonDouble.Child}",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "flag": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "flag"
+        ]
+      }
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number"
+                  },
+                  "flag": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "id",
+                  "flag"
+                ],
+                "description": "Current Type: {@link ToJsonDouble.Child}"
+              }
+            ]
+          },
+          "second": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number"
+                  },
+                  "flag": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "id",
+                  "flag"
+                ],
+                "description": "Current Type: {@link ToJsonDouble.Child}"
+              }
+            ]
+          },
+          "third": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number"
+                  },
+                  "flag": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "id",
+                  "flag"
+                ],
+                "description": "Current Type: {@link ToJsonDouble.Child}"
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false,
+        "$defs": {}
+      },
+      "output": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "flag": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id",
+              "flag"
+            ],
+            "description": "Current Type: {@link ToJsonDouble.Child}"
+          }
+        ]
+      }
+    }
+  ]
+}

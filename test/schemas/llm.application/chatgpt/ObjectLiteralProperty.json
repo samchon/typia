@@ -1,0 +1,214 @@
+{
+  "model": "chatgpt",
+  "options": {
+    "reference": false,
+    "strict": false,
+    "separate": null
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "description": "Current Type: {@link ObjectLiteralProperty.ISomething}",
+            "type": "object",
+            "properties": {
+              "something-interesting-do-you-want?": {
+                "type": "string"
+              },
+              "or-something-crazy-do-you-want?": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "something-interesting-do-you-want?",
+              "or-something-crazy-do-you-want?"
+            ]
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {}
+      }
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "description": "Current Type: {@link ObjectLiteralProperty.ISomething}",
+            "type": "object",
+            "properties": {
+              "something-interesting-do-you-want?": {
+                "type": "string"
+              },
+              "or-something-crazy-do-you-want?": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "something-interesting-do-you-want?",
+              "or-something-crazy-do-you-want?"
+            ]
+          },
+          "second": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "something-interesting-do-you-want?": {
+                    "type": "string"
+                  },
+                  "or-something-crazy-do-you-want?": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "something-interesting-do-you-want?",
+                  "or-something-crazy-do-you-want?"
+                ],
+                "description": "Current Type: {@link ObjectLiteralProperty.ISomething}"
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false,
+        "$defs": {}
+      },
+      "output": {
+        "description": "Current Type: {@link ObjectLiteralProperty.ISomething}",
+        "type": "object",
+        "properties": {
+          "something-interesting-do-you-want?": {
+            "type": "string"
+          },
+          "or-something-crazy-do-you-want?": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "something-interesting-do-you-want?",
+          "or-something-crazy-do-you-want?"
+        ]
+      }
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "something-interesting-do-you-want?": {
+                    "type": "string"
+                  },
+                  "or-something-crazy-do-you-want?": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "something-interesting-do-you-want?",
+                  "or-something-crazy-do-you-want?"
+                ],
+                "description": "Current Type: {@link ObjectLiteralProperty.ISomething}"
+              }
+            ]
+          },
+          "second": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "something-interesting-do-you-want?": {
+                    "type": "string"
+                  },
+                  "or-something-crazy-do-you-want?": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "something-interesting-do-you-want?",
+                  "or-something-crazy-do-you-want?"
+                ],
+                "description": "Current Type: {@link ObjectLiteralProperty.ISomething}"
+              }
+            ]
+          },
+          "third": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "something-interesting-do-you-want?": {
+                    "type": "string"
+                  },
+                  "or-something-crazy-do-you-want?": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "something-interesting-do-you-want?",
+                  "or-something-crazy-do-you-want?"
+                ],
+                "description": "Current Type: {@link ObjectLiteralProperty.ISomething}"
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false,
+        "$defs": {}
+      },
+      "output": {
+        "anyOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "something-interesting-do-you-want?": {
+                "type": "string"
+              },
+              "or-something-crazy-do-you-want?": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "something-interesting-do-you-want?",
+              "or-something-crazy-do-you-want?"
+            ],
+            "description": "Current Type: {@link ObjectLiteralProperty.ISomething}"
+          }
+        ]
+      }
+    }
+  ]
+}

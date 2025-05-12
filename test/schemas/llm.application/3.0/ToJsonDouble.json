@@ -1,0 +1,184 @@
+{
+  "model": "3.0",
+  "options": {
+    "constraint": true,
+    "recursive": 3,
+    "separate": null
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "flag": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id",
+              "flag"
+            ],
+            "description": "Current Type: {@link ToJsonDouble.Child}",
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "flag": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id",
+              "flag"
+            ],
+            "description": "Current Type: {@link ToJsonDouble.Child}",
+            "additionalProperties": false
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "flag": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id",
+              "flag"
+            ],
+            "additionalProperties": false,
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "flag": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "flag"
+        ],
+        "description": "Current Type: {@link ToJsonDouble.Child}",
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "flag": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id",
+              "flag"
+            ],
+            "additionalProperties": false,
+            "nullable": true
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "flag": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id",
+              "flag"
+            ],
+            "additionalProperties": false,
+            "nullable": true
+          },
+          "third": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "flag": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id",
+              "flag"
+            ],
+            "additionalProperties": false,
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "flag": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "flag"
+        ],
+        "additionalProperties": false,
+        "nullable": true
+      }
+    }
+  ]
+}

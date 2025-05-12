@@ -1,0 +1,16 @@
+{
+  "description": "Current Type: {@link ClassMethod.Animal}",
+  "type": "object",
+  "properties": {
+    "name": {
+      "type": "string"
+    },
+    "age": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "name",
+    "age"
+  ]
+}

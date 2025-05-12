@@ -1,0 +1,67 @@
+{
+  "description": "Current Type: {@link ObjectDate}",
+  "type": "object",
+  "properties": {
+    "classDate": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "description": "@format date-time"
+        }
+      ]
+    },
+    "date": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "description": "@format date"
+        }
+      ]
+    },
+    "datetime": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "description": "@format date-time"
+        }
+      ]
+    },
+    "time": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "description": "@format time"
+        }
+      ]
+    },
+    "duration": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string",
+          "description": "@format duration"
+        }
+      ]
+    }
+  },
+  "required": [
+    "date",
+    "datetime",
+    "time",
+    "duration"
+  ]
+}

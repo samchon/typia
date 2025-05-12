@@ -1,0 +1,556 @@
+{
+  "model": "gemini",
+  "options": {
+    "recursive": 3,
+    "separate": null
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "description": "@format uuid"
+                      },
+                      "description": "@minItems 3\n@maxItems 3"
+                    },
+                    "minItems": {
+                      "type": "array",
+                      "items": {
+                        "type": "number",
+                        "description": "@minimum 3"
+                      },
+                      "description": "@minItems 3"
+                    },
+                    "both": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "description": "@format uuid"
+                      },
+                      "description": "@minItems 3\n@maxItems 7"
+                    },
+                    "equal": {
+                      "type": "array",
+                      "items": {
+                        "type": "number",
+                        "description": "@minimum 10\n@maximum 10"
+                      },
+                      "description": "@minItems 10\n@maxItems 10"
+                    },
+                    "unique": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "@uniqueItems"
+                    }
+                  },
+                  "required": [
+                    "items",
+                    "minItems",
+                    "both",
+                    "equal",
+                    "unique"
+                  ],
+                  "description": "Current Type: {@link TypeTagArray.Type}"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "description": "Current Type: {@link TypeTagArray}"
+          }
+        },
+        "required": [
+          "first"
+        ]
+      }
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "description": "@format uuid"
+                      },
+                      "description": "@minItems 3\n@maxItems 3"
+                    },
+                    "minItems": {
+                      "type": "array",
+                      "items": {
+                        "type": "number",
+                        "description": "@minimum 3"
+                      },
+                      "description": "@minItems 3"
+                    },
+                    "both": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "description": "@format uuid"
+                      },
+                      "description": "@minItems 3\n@maxItems 7"
+                    },
+                    "equal": {
+                      "type": "array",
+                      "items": {
+                        "type": "number",
+                        "description": "@minimum 10\n@maximum 10"
+                      },
+                      "description": "@minItems 10\n@maxItems 10"
+                    },
+                    "unique": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "@uniqueItems"
+                    }
+                  },
+                  "required": [
+                    "items",
+                    "minItems",
+                    "both",
+                    "equal",
+                    "unique"
+                  ],
+                  "description": "Current Type: {@link TypeTagArray.Type}"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "description": "Current Type: {@link TypeTagArray}"
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "description": "@format uuid"
+                      },
+                      "description": "@minItems 3\n@maxItems 3"
+                    },
+                    "minItems": {
+                      "type": "array",
+                      "items": {
+                        "type": "number",
+                        "description": "@minimum 3"
+                      },
+                      "description": "@minItems 3"
+                    },
+                    "both": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "description": "@format uuid"
+                      },
+                      "description": "@minItems 3\n@maxItems 7"
+                    },
+                    "equal": {
+                      "type": "array",
+                      "items": {
+                        "type": "number",
+                        "description": "@minimum 10\n@maximum 10"
+                      },
+                      "description": "@minItems 10\n@maxItems 10"
+                    },
+                    "unique": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "@uniqueItems"
+                    }
+                  },
+                  "required": [
+                    "items",
+                    "minItems",
+                    "both",
+                    "equal",
+                    "unique"
+                  ],
+                  "description": "Current Type: {@link TypeTagArray.Type}"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ]
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "@format uuid"
+                  },
+                  "description": "@minItems 3\n@maxItems 3"
+                },
+                "minItems": {
+                  "type": "array",
+                  "items": {
+                    "type": "number",
+                    "description": "@minimum 3"
+                  },
+                  "description": "@minItems 3"
+                },
+                "both": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "@format uuid"
+                  },
+                  "description": "@minItems 3\n@maxItems 7"
+                },
+                "equal": {
+                  "type": "array",
+                  "items": {
+                    "type": "number",
+                    "description": "@minimum 10\n@maximum 10"
+                  },
+                  "description": "@minItems 10\n@maxItems 10"
+                },
+                "unique": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "@uniqueItems"
+                }
+              },
+              "required": [
+                "items",
+                "minItems",
+                "both",
+                "equal",
+                "unique"
+              ],
+              "description": "Current Type: {@link TypeTagArray.Type}"
+            }
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "description": "Current Type: {@link TypeTagArray}"
+      }
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "description": "@format uuid"
+                      },
+                      "description": "@minItems 3\n@maxItems 3"
+                    },
+                    "minItems": {
+                      "type": "array",
+                      "items": {
+                        "type": "number",
+                        "description": "@minimum 3"
+                      },
+                      "description": "@minItems 3"
+                    },
+                    "both": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "description": "@format uuid"
+                      },
+                      "description": "@minItems 3\n@maxItems 7"
+                    },
+                    "equal": {
+                      "type": "array",
+                      "items": {
+                        "type": "number",
+                        "description": "@minimum 10\n@maximum 10"
+                      },
+                      "description": "@minItems 10\n@maxItems 10"
+                    },
+                    "unique": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "@uniqueItems"
+                    }
+                  },
+                  "required": [
+                    "items",
+                    "minItems",
+                    "both",
+                    "equal",
+                    "unique"
+                  ],
+                  "description": "Current Type: {@link TypeTagArray.Type}"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "nullable": true
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "description": "@format uuid"
+                      },
+                      "description": "@minItems 3\n@maxItems 3"
+                    },
+                    "minItems": {
+                      "type": "array",
+                      "items": {
+                        "type": "number",
+                        "description": "@minimum 3"
+                      },
+                      "description": "@minItems 3"
+                    },
+                    "both": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "description": "@format uuid"
+                      },
+                      "description": "@minItems 3\n@maxItems 7"
+                    },
+                    "equal": {
+                      "type": "array",
+                      "items": {
+                        "type": "number",
+                        "description": "@minimum 10\n@maximum 10"
+                      },
+                      "description": "@minItems 10\n@maxItems 10"
+                    },
+                    "unique": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "@uniqueItems"
+                    }
+                  },
+                  "required": [
+                    "items",
+                    "minItems",
+                    "both",
+                    "equal",
+                    "unique"
+                  ],
+                  "description": "Current Type: {@link TypeTagArray.Type}"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "nullable": true
+          },
+          "third": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "items": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "description": "@format uuid"
+                      },
+                      "description": "@minItems 3\n@maxItems 3"
+                    },
+                    "minItems": {
+                      "type": "array",
+                      "items": {
+                        "type": "number",
+                        "description": "@minimum 3"
+                      },
+                      "description": "@minItems 3"
+                    },
+                    "both": {
+                      "type": "array",
+                      "items": {
+                        "type": "string",
+                        "description": "@format uuid"
+                      },
+                      "description": "@minItems 3\n@maxItems 7"
+                    },
+                    "equal": {
+                      "type": "array",
+                      "items": {
+                        "type": "number",
+                        "description": "@minimum 10\n@maximum 10"
+                      },
+                      "description": "@minItems 10\n@maxItems 10"
+                    },
+                    "unique": {
+                      "type": "array",
+                      "items": {
+                        "type": "string"
+                      },
+                      "description": "@uniqueItems"
+                    }
+                  },
+                  "required": [
+                    "items",
+                    "minItems",
+                    "both",
+                    "equal",
+                    "unique"
+                  ],
+                  "description": "Current Type: {@link TypeTagArray.Type}"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ]
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "@format uuid"
+                  },
+                  "description": "@minItems 3\n@maxItems 3"
+                },
+                "minItems": {
+                  "type": "array",
+                  "items": {
+                    "type": "number",
+                    "description": "@minimum 3"
+                  },
+                  "description": "@minItems 3"
+                },
+                "both": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "@format uuid"
+                  },
+                  "description": "@minItems 3\n@maxItems 7"
+                },
+                "equal": {
+                  "type": "array",
+                  "items": {
+                    "type": "number",
+                    "description": "@minimum 10\n@maximum 10"
+                  },
+                  "description": "@minItems 10\n@maxItems 10"
+                },
+                "unique": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "@uniqueItems"
+                }
+              },
+              "required": [
+                "items",
+                "minItems",
+                "both",
+                "equal",
+                "unique"
+              ],
+              "description": "Current Type: {@link TypeTagArray.Type}"
+            }
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "nullable": true
+      }
+    }
+  ]
+}

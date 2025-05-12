@@ -1,0 +1,365 @@
+{
+  "model": "llama",
+  "options": {
+    "reference": false,
+    "separate": null
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "description": "Current Type: {@link ConstantAtomicUnion}",
+            "type": "array",
+            "items": {
+              "description": "Current Type: {@link ConstantAtomicUnion.Union}",
+              "oneOf": [
+                {
+                  "const": false
+                },
+                {
+                  "const": 1
+                },
+                {
+                  "const": 2
+                },
+                {
+                  "const": "three"
+                },
+                {
+                  "const": "four"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "key": {
+                      "const": "key"
+                    }
+                  },
+                  "required": [
+                    "key"
+                  ]
+                }
+              ]
+            }
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {}
+      }
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "description": "Current Type: {@link ConstantAtomicUnion}",
+            "type": "array",
+            "items": {
+              "description": "Current Type: {@link ConstantAtomicUnion.Union}",
+              "oneOf": [
+                {
+                  "const": false
+                },
+                {
+                  "const": 1
+                },
+                {
+                  "const": 2
+                },
+                {
+                  "const": "three"
+                },
+                {
+                  "const": "four"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "key": {
+                      "const": "key"
+                    }
+                  },
+                  "required": [
+                    "key"
+                  ]
+                }
+              ]
+            }
+          },
+          "second": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "description": "Current Type: {@link ConstantAtomicUnion.Union}",
+                  "oneOf": [
+                    {
+                      "const": false
+                    },
+                    {
+                      "const": 1
+                    },
+                    {
+                      "const": 2
+                    },
+                    {
+                      "const": "three"
+                    },
+                    {
+                      "const": "four"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "key": {
+                          "const": "key"
+                        }
+                      },
+                      "required": [
+                        "key"
+                      ]
+                    }
+                  ]
+                },
+                "description": "Current Type: {@link ConstantAtomicUnion}"
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false,
+        "$defs": {}
+      },
+      "output": {
+        "description": "Current Type: {@link ConstantAtomicUnion}",
+        "type": "array",
+        "items": {
+          "description": "Current Type: {@link ConstantAtomicUnion.Union}",
+          "oneOf": [
+            {
+              "const": false
+            },
+            {
+              "const": 1
+            },
+            {
+              "const": 2
+            },
+            {
+              "const": "three"
+            },
+            {
+              "const": "four"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "key": {
+                  "const": "key"
+                }
+              },
+              "required": [
+                "key"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "description": "Current Type: {@link ConstantAtomicUnion.Union}",
+                  "oneOf": [
+                    {
+                      "const": false
+                    },
+                    {
+                      "const": 1
+                    },
+                    {
+                      "const": 2
+                    },
+                    {
+                      "const": "three"
+                    },
+                    {
+                      "const": "four"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "key": {
+                          "const": "key"
+                        }
+                      },
+                      "required": [
+                        "key"
+                      ]
+                    }
+                  ]
+                },
+                "description": "Current Type: {@link ConstantAtomicUnion}"
+              }
+            ]
+          },
+          "second": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "description": "Current Type: {@link ConstantAtomicUnion.Union}",
+                  "oneOf": [
+                    {
+                      "const": false
+                    },
+                    {
+                      "const": 1
+                    },
+                    {
+                      "const": 2
+                    },
+                    {
+                      "const": "three"
+                    },
+                    {
+                      "const": "four"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "key": {
+                          "const": "key"
+                        }
+                      },
+                      "required": [
+                        "key"
+                      ]
+                    }
+                  ]
+                },
+                "description": "Current Type: {@link ConstantAtomicUnion}"
+              }
+            ]
+          },
+          "third": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "description": "Current Type: {@link ConstantAtomicUnion.Union}",
+                  "oneOf": [
+                    {
+                      "const": false
+                    },
+                    {
+                      "const": 1
+                    },
+                    {
+                      "const": 2
+                    },
+                    {
+                      "const": "three"
+                    },
+                    {
+                      "const": "four"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "key": {
+                          "const": "key"
+                        }
+                      },
+                      "required": [
+                        "key"
+                      ]
+                    }
+                  ]
+                },
+                "description": "Current Type: {@link ConstantAtomicUnion}"
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false,
+        "$defs": {}
+      },
+      "output": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "array",
+            "items": {
+              "description": "Current Type: {@link ConstantAtomicUnion.Union}",
+              "oneOf": [
+                {
+                  "const": false
+                },
+                {
+                  "const": 1
+                },
+                {
+                  "const": 2
+                },
+                {
+                  "const": "three"
+                },
+                {
+                  "const": "four"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "key": {
+                      "const": "key"
+                    }
+                  },
+                  "required": [
+                    "key"
+                  ]
+                }
+              ]
+            },
+            "description": "Current Type: {@link ConstantAtomicUnion}"
+          }
+        ]
+      }
+    }
+  ]
+}

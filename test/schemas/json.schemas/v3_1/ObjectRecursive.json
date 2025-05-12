@@ -1,0 +1,65 @@
+{
+  "version": "3.1",
+  "components": {
+    "schemas": {
+      "ObjectRecursive.IDepartment": {
+        "type": "object",
+        "properties": {
+          "parent": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+              }
+            ]
+          },
+          "id": {
+            "type": "number"
+          },
+          "code": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "sequence": {
+            "type": "number"
+          },
+          "created_at": {
+            "$ref": "#/components/schemas/ObjectRecursive.ITimestamp"
+          }
+        },
+        "required": [
+          "parent",
+          "id",
+          "code",
+          "name",
+          "sequence",
+          "created_at"
+        ]
+      },
+      "ObjectRecursive.ITimestamp": {
+        "type": "object",
+        "properties": {
+          "time": {
+            "type": "number"
+          },
+          "zone": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "time",
+          "zone"
+        ]
+      }
+    }
+  },
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ObjectRecursive.IDepartment"
+    }
+  ]
+}

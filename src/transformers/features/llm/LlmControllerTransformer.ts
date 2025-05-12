@@ -12,12 +12,12 @@ export namespace LlmControllerTransformer {
   export const transform = (props: ITransformProps): ts.Expression => {
     const dec = LlmApplicationTransformer.decompose("application", props);
     if (dec === null) return props.expression;
-    else if (props.expression.arguments.length === 0)
+    else if (props.expression.arguments[0] === undefined)
       throw new TransformerError({
         code: `typia.llm.controller`,
         message: `no identifier name.`,
       });
-    else if (props.expression.arguments.length === 1)
+    else if (props.expression.arguments[1] === undefined)
       throw new TransformerError({
         code: `typia.llm.controller`,
         message: `no executor.`,
@@ -43,11 +43,11 @@ export namespace LlmControllerTransformer {
         ),
         ts.factory.createPropertyAssignment(
           "name",
-          props.expression.arguments![0]!,
+          props.expression.arguments[0],
         ),
         ts.factory.createPropertyAssignment(
           "execute",
-          props.expression.arguments![1]!,
+          props.expression.arguments[1],
         ),
         ts.factory.createShorthandPropertyAssignment("application"),
       ],
@@ -60,7 +60,7 @@ export namespace LlmControllerTransformer {
             name: "application",
             value: property,
           }),
-          ...(!!props.expression.arguments?.[2]
+          ...(props.expression.arguments?.[2] !== undefined
             ? [
                 ts.factory.createExpressionStatement(
                   ts.factory.createCallExpression(

@@ -1,0 +1,93 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "type": "object",
+      "properties": {
+        "something-interesting-do-you-want?": {
+          "type": "string"
+        },
+        "or-something-crazy-do-you-want?": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "something-interesting-do-you-want?",
+        "or-something-crazy-do-you-want?"
+      ],
+      "description": "Current Type: {@link ObjectLiteralProperty.ISomething}"
+    },
+    "nullable": {
+      "type": "object",
+      "properties": {
+        "something-interesting-do-you-want?": {
+          "type": "string"
+        },
+        "or-something-crazy-do-you-want?": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "something-interesting-do-you-want?",
+        "or-something-crazy-do-you-want?"
+      ],
+      "nullable": true
+    },
+    "optional": {
+      "type": "object",
+      "properties": {
+        "something-interesting-do-you-want?": {
+          "type": "string"
+        },
+        "or-something-crazy-do-you-want?": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "something-interesting-do-you-want?",
+        "or-something-crazy-do-you-want?"
+      ],
+      "description": "Current Type: {@link ObjectLiteralProperty.ISomething}"
+    },
+    "faint": {
+      "type": "object",
+      "properties": {
+        "something-interesting-do-you-want?": {
+          "type": "string"
+        },
+        "or-something-crazy-do-you-want?": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "something-interesting-do-you-want?",
+        "or-something-crazy-do-you-want?"
+      ],
+      "nullable": true
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "something-interesting-do-you-want?": {
+            "type": "string"
+          },
+          "or-something-crazy-do-you-want?": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "something-interesting-do-you-want?",
+          "or-something-crazy-do-you-want?"
+        ],
+        "description": "Current Type: {@link ObjectLiteralProperty.ISomething}"
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ]
+}

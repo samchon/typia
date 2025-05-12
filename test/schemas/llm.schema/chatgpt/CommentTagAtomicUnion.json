@@ -1,0 +1,33 @@
+{
+  "description": "Current Type: {@link CommentTagAtomicUnion}",
+  "type": "object",
+  "properties": {
+    "value": {
+      "type": "array",
+      "items": {
+        "description": "Current Type: {@link CommentTagAtomicUnion.Type}",
+        "type": "object",
+        "properties": {
+          "value": {
+            "anyOf": [
+              {
+                "type": "string",
+                "description": "@minLength 3\n@maxLength 7"
+              },
+              {
+                "type": "number",
+                "description": "@minimum 3"
+              }
+            ]
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+    }
+  },
+  "required": [
+    "value"
+  ]
+}

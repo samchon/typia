@@ -1,0 +1,38 @@
+{
+  "version": "3.1",
+  "components": {
+    "schemas": {
+      "ClassGetter.Person": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "dead": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "boolean"
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "dead"
+        ]
+      }
+    }
+  },
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ClassGetter.Person"
+    }
+  ]
+}

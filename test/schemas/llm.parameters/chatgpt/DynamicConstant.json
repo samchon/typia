@@ -1,0 +1,189 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "description": "Current Type: {@link DynamicConstant}",
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "object",
+          "properties": {
+            "a": {
+              "type": "number"
+            },
+            "b": {
+              "type": "number"
+            },
+            "c": {
+              "type": "number"
+            },
+            "d": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "a",
+            "b",
+            "c",
+            "d"
+          ]
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "nullable": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "object",
+              "properties": {
+                "a": {
+                  "type": "number"
+                },
+                "b": {
+                  "type": "number"
+                },
+                "c": {
+                  "type": "number"
+                },
+                "d": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "a",
+                "b",
+                "c",
+                "d"
+              ]
+            }
+          },
+          "required": [
+            "value"
+          ],
+          "description": "Current Type: {@link DynamicConstant}"
+        }
+      ]
+    },
+    "optional": {
+      "description": "Current Type: {@link DynamicConstant}",
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "object",
+          "properties": {
+            "a": {
+              "type": "number"
+            },
+            "b": {
+              "type": "number"
+            },
+            "c": {
+              "type": "number"
+            },
+            "d": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "a",
+            "b",
+            "c",
+            "d"
+          ]
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "faint": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "object",
+              "properties": {
+                "a": {
+                  "type": "number"
+                },
+                "b": {
+                  "type": "number"
+                },
+                "c": {
+                  "type": "number"
+                },
+                "d": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "a",
+                "b",
+                "c",
+                "d"
+              ]
+            }
+          },
+          "required": [
+            "value"
+          ],
+          "description": "Current Type: {@link DynamicConstant}"
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "description": "Current Type: {@link DynamicConstant}",
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "object",
+            "properties": {
+              "a": {
+                "type": "number"
+              },
+              "b": {
+                "type": "number"
+              },
+              "c": {
+                "type": "number"
+              },
+              "d": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "a",
+              "b",
+              "c",
+              "d"
+            ]
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {}
+}

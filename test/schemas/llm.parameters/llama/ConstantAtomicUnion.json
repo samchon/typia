@@ -1,0 +1,204 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "description": "Current Type: {@link ConstantAtomicUnion}",
+      "type": "array",
+      "items": {
+        "description": "Current Type: {@link ConstantAtomicUnion.Union}",
+        "oneOf": [
+          {
+            "const": false
+          },
+          {
+            "const": 1
+          },
+          {
+            "const": 2
+          },
+          {
+            "const": "three"
+          },
+          {
+            "const": "four"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "key": {
+                "const": "key"
+              }
+            },
+            "required": [
+              "key"
+            ]
+          }
+        ]
+      }
+    },
+    "nullable": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "array",
+          "items": {
+            "description": "Current Type: {@link ConstantAtomicUnion.Union}",
+            "oneOf": [
+              {
+                "const": false
+              },
+              {
+                "const": 1
+              },
+              {
+                "const": 2
+              },
+              {
+                "const": "three"
+              },
+              {
+                "const": "four"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "key": {
+                    "const": "key"
+                  }
+                },
+                "required": [
+                  "key"
+                ]
+              }
+            ]
+          },
+          "description": "Current Type: {@link ConstantAtomicUnion}"
+        }
+      ]
+    },
+    "optional": {
+      "description": "Current Type: {@link ConstantAtomicUnion}",
+      "type": "array",
+      "items": {
+        "description": "Current Type: {@link ConstantAtomicUnion.Union}",
+        "oneOf": [
+          {
+            "const": false
+          },
+          {
+            "const": 1
+          },
+          {
+            "const": 2
+          },
+          {
+            "const": "three"
+          },
+          {
+            "const": "four"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "key": {
+                "const": "key"
+              }
+            },
+            "required": [
+              "key"
+            ]
+          }
+        ]
+      }
+    },
+    "faint": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "array",
+          "items": {
+            "description": "Current Type: {@link ConstantAtomicUnion.Union}",
+            "oneOf": [
+              {
+                "const": false
+              },
+              {
+                "const": 1
+              },
+              {
+                "const": 2
+              },
+              {
+                "const": "three"
+              },
+              {
+                "const": "four"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "key": {
+                    "const": "key"
+                  }
+                },
+                "required": [
+                  "key"
+                ]
+              }
+            ]
+          },
+          "description": "Current Type: {@link ConstantAtomicUnion}"
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "description": "Current Type: {@link ConstantAtomicUnion}",
+        "type": "array",
+        "items": {
+          "description": "Current Type: {@link ConstantAtomicUnion.Union}",
+          "oneOf": [
+            {
+              "const": false
+            },
+            {
+              "const": 1
+            },
+            {
+              "const": 2
+            },
+            {
+              "const": "three"
+            },
+            {
+              "const": "four"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "key": {
+                  "const": "key"
+                }
+              },
+              "required": [
+                "key"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {}
+}

@@ -1,0 +1,30 @@
+{
+  "version": "3.0",
+  "components": {
+    "schemas": {
+      "ObjectDynamic": {
+        "type": "object",
+        "properties": {},
+        "required": [],
+        "additionalProperties": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "boolean"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ObjectDynamic"
+    }
+  ]
+}

@@ -1,0 +1,254 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "description": "Current Type: {@link DynamicEnumeration}",
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "object",
+          "properties": {
+            "ar": {
+              "type": "string"
+            },
+            "zh-Hans": {
+              "type": "string"
+            },
+            "zh-Hant": {
+              "type": "string"
+            },
+            "en": {
+              "type": "string"
+            },
+            "fr": {
+              "type": "string"
+            },
+            "de": {
+              "type": "string"
+            },
+            "ja": {
+              "type": "string"
+            },
+            "ko": {
+              "type": "string"
+            },
+            "pt": {
+              "type": "string"
+            },
+            "ru": {
+              "type": "string"
+            }
+          },
+          "required": []
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "nullable": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "object",
+              "properties": {
+                "ar": {
+                  "type": "string"
+                },
+                "zh-Hans": {
+                  "type": "string"
+                },
+                "zh-Hant": {
+                  "type": "string"
+                },
+                "en": {
+                  "type": "string"
+                },
+                "fr": {
+                  "type": "string"
+                },
+                "de": {
+                  "type": "string"
+                },
+                "ja": {
+                  "type": "string"
+                },
+                "ko": {
+                  "type": "string"
+                },
+                "pt": {
+                  "type": "string"
+                },
+                "ru": {
+                  "type": "string"
+                }
+              },
+              "required": []
+            }
+          },
+          "required": [
+            "value"
+          ],
+          "description": "Current Type: {@link DynamicEnumeration}"
+        }
+      ]
+    },
+    "optional": {
+      "description": "Current Type: {@link DynamicEnumeration}",
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "object",
+          "properties": {
+            "ar": {
+              "type": "string"
+            },
+            "zh-Hans": {
+              "type": "string"
+            },
+            "zh-Hant": {
+              "type": "string"
+            },
+            "en": {
+              "type": "string"
+            },
+            "fr": {
+              "type": "string"
+            },
+            "de": {
+              "type": "string"
+            },
+            "ja": {
+              "type": "string"
+            },
+            "ko": {
+              "type": "string"
+            },
+            "pt": {
+              "type": "string"
+            },
+            "ru": {
+              "type": "string"
+            }
+          },
+          "required": []
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "faint": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "value": {
+              "type": "object",
+              "properties": {
+                "ar": {
+                  "type": "string"
+                },
+                "zh-Hans": {
+                  "type": "string"
+                },
+                "zh-Hant": {
+                  "type": "string"
+                },
+                "en": {
+                  "type": "string"
+                },
+                "fr": {
+                  "type": "string"
+                },
+                "de": {
+                  "type": "string"
+                },
+                "ja": {
+                  "type": "string"
+                },
+                "ko": {
+                  "type": "string"
+                },
+                "pt": {
+                  "type": "string"
+                },
+                "ru": {
+                  "type": "string"
+                }
+              },
+              "required": []
+            }
+          },
+          "required": [
+            "value"
+          ],
+          "description": "Current Type: {@link DynamicEnumeration}"
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "description": "Current Type: {@link DynamicEnumeration}",
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "object",
+            "properties": {
+              "ar": {
+                "type": "string"
+              },
+              "zh-Hans": {
+                "type": "string"
+              },
+              "zh-Hant": {
+                "type": "string"
+              },
+              "en": {
+                "type": "string"
+              },
+              "fr": {
+                "type": "string"
+              },
+              "de": {
+                "type": "string"
+              },
+              "ja": {
+                "type": "string"
+              },
+              "ko": {
+                "type": "string"
+              },
+              "pt": {
+                "type": "string"
+              },
+              "ru": {
+                "type": "string"
+              }
+            },
+            "required": []
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {}
+}

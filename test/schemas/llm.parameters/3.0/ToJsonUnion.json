@@ -1,0 +1,414 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "mobile": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "mobile",
+              "name"
+            ],
+            "description": "Current Type: {@link ToJsonUnion.ICitizen}",
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "manufacturer": {
+                "type": "string"
+              },
+              "brand": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "manufacturer",
+              "brand",
+              "name"
+            ],
+            "description": "Current Type: {@link ToJsonUnion.IProduct}",
+            "additionalProperties": false
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "mobile": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "mobile",
+              "name"
+            ],
+            "description": "Current Type: {@link ToJsonUnion.ICitizen}",
+            "additionalProperties": false
+          }
+        ]
+      },
+      "description": "Current Type: {@link ToJsonUnion}"
+    },
+    "nullable": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "mobile": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "mobile",
+              "name"
+            ],
+            "description": "Current Type: {@link ToJsonUnion.ICitizen}",
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "manufacturer": {
+                "type": "string"
+              },
+              "brand": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "manufacturer",
+              "brand",
+              "name"
+            ],
+            "description": "Current Type: {@link ToJsonUnion.IProduct}",
+            "additionalProperties": false
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "mobile": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "mobile",
+              "name"
+            ],
+            "description": "Current Type: {@link ToJsonUnion.ICitizen}",
+            "additionalProperties": false
+          }
+        ]
+      },
+      "nullable": true
+    },
+    "optional": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "mobile": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "mobile",
+              "name"
+            ],
+            "description": "Current Type: {@link ToJsonUnion.ICitizen}",
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "manufacturer": {
+                "type": "string"
+              },
+              "brand": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "manufacturer",
+              "brand",
+              "name"
+            ],
+            "description": "Current Type: {@link ToJsonUnion.IProduct}",
+            "additionalProperties": false
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "mobile": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "mobile",
+              "name"
+            ],
+            "description": "Current Type: {@link ToJsonUnion.ICitizen}",
+            "additionalProperties": false
+          }
+        ]
+      },
+      "description": "Current Type: {@link ToJsonUnion}"
+    },
+    "faint": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "mobile": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "mobile",
+              "name"
+            ],
+            "description": "Current Type: {@link ToJsonUnion.ICitizen}",
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "manufacturer": {
+                "type": "string"
+              },
+              "brand": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "manufacturer",
+              "brand",
+              "name"
+            ],
+            "description": "Current Type: {@link ToJsonUnion.IProduct}",
+            "additionalProperties": false
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "mobile": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "mobile",
+              "name"
+            ],
+            "description": "Current Type: {@link ToJsonUnion.ICitizen}",
+            "additionalProperties": false
+          }
+        ]
+      },
+      "nullable": true
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number"
+                },
+                "mobile": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "mobile",
+                "name"
+              ],
+              "description": "Current Type: {@link ToJsonUnion.ICitizen}",
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "manufacturer": {
+                  "type": "string"
+                },
+                "brand": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "manufacturer",
+                "brand",
+                "name"
+              ],
+              "description": "Current Type: {@link ToJsonUnion.IProduct}",
+              "additionalProperties": false
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number"
+                },
+                "mobile": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "mobile",
+                "name"
+              ],
+              "description": "Current Type: {@link ToJsonUnion.ICitizen}",
+              "additionalProperties": false
+            }
+          ]
+        },
+        "description": "Current Type: {@link ToJsonUnion}"
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false
+}

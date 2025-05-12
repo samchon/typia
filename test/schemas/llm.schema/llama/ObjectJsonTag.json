@@ -1,0 +1,31 @@
+{
+  "description": "Current Type: {@link ObjectJsonTag}",
+  "type": "object",
+  "properties": {
+    "vulnerable": {
+      "type": "string",
+      "deprecated": true
+    },
+    "description": {
+      "title": "Descripted property",
+      "description": "Descripted property.",
+      "type": "string"
+    },
+    "title": {
+      "title": "something",
+      "description": "Titled property.",
+      "type": "string"
+    },
+    "complicate_title": {
+      "title": "something weirdo with {@link something } tag",
+      "description": "Complicate title.",
+      "type": "string"
+    }
+  },
+  "required": [
+    "vulnerable",
+    "description",
+    "title",
+    "complicate_title"
+  ]
+}

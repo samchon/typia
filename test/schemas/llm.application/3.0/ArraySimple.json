@@ -1,0 +1,416 @@
+{
+  "model": "3.0",
+  "options": {
+    "constraint": true,
+    "recursive": 3,
+    "separate": null
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "hobbies": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "body": {
+                        "type": "string"
+                      },
+                      "rank": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "body",
+                      "rank"
+                    ],
+                    "description": "Current Type: {@link ArraySimple.IHobby}",
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "name",
+                "email",
+                "hobbies"
+              ],
+              "description": "Current Type: {@link ArraySimple.IPerson}",
+              "additionalProperties": false
+            },
+            "description": "Current Type: {@link ArraySimple}"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false
+      }
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "hobbies": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "body": {
+                        "type": "string"
+                      },
+                      "rank": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "body",
+                      "rank"
+                    ],
+                    "description": "Current Type: {@link ArraySimple.IHobby}",
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "name",
+                "email",
+                "hobbies"
+              ],
+              "description": "Current Type: {@link ArraySimple.IPerson}",
+              "additionalProperties": false
+            },
+            "description": "Current Type: {@link ArraySimple}"
+          },
+          "second": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "hobbies": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "body": {
+                        "type": "string"
+                      },
+                      "rank": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "body",
+                      "rank"
+                    ],
+                    "description": "Current Type: {@link ArraySimple.IHobby}",
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "name",
+                "email",
+                "hobbies"
+              ],
+              "description": "Current Type: {@link ArraySimple.IPerson}",
+              "additionalProperties": false
+            },
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            },
+            "hobbies": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "body": {
+                    "type": "string"
+                  },
+                  "rank": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "name",
+                  "body",
+                  "rank"
+                ],
+                "description": "Current Type: {@link ArraySimple.IHobby}",
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "name",
+            "email",
+            "hobbies"
+          ],
+          "description": "Current Type: {@link ArraySimple.IPerson}",
+          "additionalProperties": false
+        },
+        "description": "Current Type: {@link ArraySimple}"
+      }
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "hobbies": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "body": {
+                        "type": "string"
+                      },
+                      "rank": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "body",
+                      "rank"
+                    ],
+                    "description": "Current Type: {@link ArraySimple.IHobby}",
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "name",
+                "email",
+                "hobbies"
+              ],
+              "description": "Current Type: {@link ArraySimple.IPerson}",
+              "additionalProperties": false
+            },
+            "nullable": true
+          },
+          "second": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "hobbies": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "body": {
+                        "type": "string"
+                      },
+                      "rank": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "body",
+                      "rank"
+                    ],
+                    "description": "Current Type: {@link ArraySimple.IHobby}",
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "name",
+                "email",
+                "hobbies"
+              ],
+              "description": "Current Type: {@link ArraySimple.IPerson}",
+              "additionalProperties": false
+            },
+            "nullable": true
+          },
+          "third": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "name": {
+                  "type": "string"
+                },
+                "email": {
+                  "type": "string"
+                },
+                "hobbies": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "name": {
+                        "type": "string"
+                      },
+                      "body": {
+                        "type": "string"
+                      },
+                      "rank": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "name",
+                      "body",
+                      "rank"
+                    ],
+                    "description": "Current Type: {@link ArraySimple.IHobby}",
+                    "additionalProperties": false
+                  }
+                }
+              },
+              "required": [
+                "name",
+                "email",
+                "hobbies"
+              ],
+              "description": "Current Type: {@link ArraySimple.IPerson}",
+              "additionalProperties": false
+            },
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false
+      },
+      "output": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "name": {
+              "type": "string"
+            },
+            "email": {
+              "type": "string"
+            },
+            "hobbies": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "name": {
+                    "type": "string"
+                  },
+                  "body": {
+                    "type": "string"
+                  },
+                  "rank": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "name",
+                  "body",
+                  "rank"
+                ],
+                "description": "Current Type: {@link ArraySimple.IHobby}",
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "name",
+            "email",
+            "hobbies"
+          ],
+          "description": "Current Type: {@link ArraySimple.IPerson}",
+          "additionalProperties": false
+        },
+        "nullable": true
+      }
+    }
+  ]
+}

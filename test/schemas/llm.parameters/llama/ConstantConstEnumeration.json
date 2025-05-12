@@ -1,0 +1,149 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "description": "Current Type: {@link ConstantConstEnumeration}",
+      "type": "array",
+      "items": {
+        "description": "Current Type: {@link ConstantConstEnumeration.Enumeration}",
+        "oneOf": [
+          {
+            "const": 0
+          },
+          {
+            "const": 1
+          },
+          {
+            "const": 2
+          },
+          {
+            "const": "Three"
+          },
+          {
+            "const": "Four"
+          }
+        ]
+      }
+    },
+    "nullable": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "array",
+          "items": {
+            "description": "Current Type: {@link ConstantConstEnumeration.Enumeration}",
+            "oneOf": [
+              {
+                "const": 0
+              },
+              {
+                "const": 1
+              },
+              {
+                "const": 2
+              },
+              {
+                "const": "Three"
+              },
+              {
+                "const": "Four"
+              }
+            ]
+          },
+          "description": "Current Type: {@link ConstantConstEnumeration}"
+        }
+      ]
+    },
+    "optional": {
+      "description": "Current Type: {@link ConstantConstEnumeration}",
+      "type": "array",
+      "items": {
+        "description": "Current Type: {@link ConstantConstEnumeration.Enumeration}",
+        "oneOf": [
+          {
+            "const": 0
+          },
+          {
+            "const": 1
+          },
+          {
+            "const": 2
+          },
+          {
+            "const": "Three"
+          },
+          {
+            "const": "Four"
+          }
+        ]
+      }
+    },
+    "faint": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "array",
+          "items": {
+            "description": "Current Type: {@link ConstantConstEnumeration.Enumeration}",
+            "oneOf": [
+              {
+                "const": 0
+              },
+              {
+                "const": 1
+              },
+              {
+                "const": 2
+              },
+              {
+                "const": "Three"
+              },
+              {
+                "const": "Four"
+              }
+            ]
+          },
+          "description": "Current Type: {@link ConstantConstEnumeration}"
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "description": "Current Type: {@link ConstantConstEnumeration}",
+        "type": "array",
+        "items": {
+          "description": "Current Type: {@link ConstantConstEnumeration.Enumeration}",
+          "oneOf": [
+            {
+              "const": 0
+            },
+            {
+              "const": 1
+            },
+            {
+              "const": 2
+            },
+            {
+              "const": "Three"
+            },
+            {
+              "const": "Four"
+            }
+          ]
+        }
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {}
+}

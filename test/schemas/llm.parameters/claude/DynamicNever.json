@@ -1,0 +1,59 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "description": "Current Type: {@link DynamicNever}",
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "nullable": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {},
+          "required": [],
+          "description": "Current Type: {@link DynamicNever}"
+        }
+      ]
+    },
+    "optional": {
+      "description": "Current Type: {@link DynamicNever}",
+      "type": "object",
+      "properties": {},
+      "required": []
+    },
+    "faint": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {},
+          "required": [],
+          "description": "Current Type: {@link DynamicNever}"
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "description": "Current Type: {@link DynamicNever}",
+        "type": "object",
+        "properties": {},
+        "required": []
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {}
+}

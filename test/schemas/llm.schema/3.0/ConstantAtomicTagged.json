@@ -1,0 +1,33 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "format": "uuid",
+      "enum": [
+        "latest"
+      ]
+    },
+    "age": {
+      "oneOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 100
+        },
+        {
+          "type": "number",
+          "enum": [
+            -1
+          ]
+        }
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "age"
+  ],
+  "description": "Current Type: {@link ConstantAtomicTagged}",
+  "additionalProperties": false
+}

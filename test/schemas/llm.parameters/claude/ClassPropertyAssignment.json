@@ -1,0 +1,169 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "description": "Current Type: {@link ClassPropertyAssignment}",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "note": {
+          "const": "assignment"
+        },
+        "editable": {
+          "const": false
+        },
+        "incremental": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "note",
+        "editable",
+        "incremental"
+      ]
+    },
+    "nullable": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number"
+            },
+            "name": {
+              "type": "string"
+            },
+            "note": {
+              "const": "assignment"
+            },
+            "editable": {
+              "const": false
+            },
+            "incremental": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "note",
+            "editable",
+            "incremental"
+          ],
+          "description": "Current Type: {@link ClassPropertyAssignment}"
+        }
+      ]
+    },
+    "optional": {
+      "description": "Current Type: {@link ClassPropertyAssignment}",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "note": {
+          "const": "assignment"
+        },
+        "editable": {
+          "const": false
+        },
+        "incremental": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "note",
+        "editable",
+        "incremental"
+      ]
+    },
+    "faint": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number"
+            },
+            "name": {
+              "type": "string"
+            },
+            "note": {
+              "const": "assignment"
+            },
+            "editable": {
+              "const": false
+            },
+            "incremental": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "id",
+            "name",
+            "note",
+            "editable",
+            "incremental"
+          ],
+          "description": "Current Type: {@link ClassPropertyAssignment}"
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "description": "Current Type: {@link ClassPropertyAssignment}",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "note": {
+            "const": "assignment"
+          },
+          "editable": {
+            "const": false
+          },
+          "incremental": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "note",
+          "editable",
+          "incremental"
+        ]
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {}
+}

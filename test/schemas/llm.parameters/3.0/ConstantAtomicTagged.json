@@ -1,0 +1,179 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "enum": [
+            "latest"
+          ]
+        },
+        "age": {
+          "oneOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100
+            },
+            {
+              "type": "number",
+              "enum": [
+                -1
+              ]
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "age"
+      ],
+      "description": "Current Type: {@link ConstantAtomicTagged}",
+      "additionalProperties": false
+    },
+    "nullable": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "enum": [
+            "latest"
+          ]
+        },
+        "age": {
+          "oneOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100
+            },
+            {
+              "type": "number",
+              "enum": [
+                -1
+              ]
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "age"
+      ],
+      "additionalProperties": false,
+      "nullable": true
+    },
+    "optional": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "enum": [
+            "latest"
+          ]
+        },
+        "age": {
+          "oneOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100
+            },
+            {
+              "type": "number",
+              "enum": [
+                -1
+              ]
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "age"
+      ],
+      "description": "Current Type: {@link ConstantAtomicTagged}",
+      "additionalProperties": false
+    },
+    "faint": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "format": "uuid",
+          "enum": [
+            "latest"
+          ]
+        },
+        "age": {
+          "oneOf": [
+            {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 100
+            },
+            {
+              "type": "number",
+              "enum": [
+                -1
+              ]
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "age"
+      ],
+      "additionalProperties": false,
+      "nullable": true
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "enum": [
+              "latest"
+            ]
+          },
+          "age": {
+            "oneOf": [
+              {
+                "type": "integer",
+                "minimum": 0,
+                "maximum": 100
+              },
+              {
+                "type": "number",
+                "enum": [
+                  -1
+                ]
+              }
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "age"
+        ],
+        "description": "Current Type: {@link ConstantAtomicTagged}",
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false
+}

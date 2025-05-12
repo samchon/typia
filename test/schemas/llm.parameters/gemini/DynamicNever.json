@@ -1,0 +1,43 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "type": "object",
+      "properties": {},
+      "required": [],
+      "description": "Current Type: {@link DynamicNever}"
+    },
+    "nullable": {
+      "type": "object",
+      "properties": {},
+      "required": [],
+      "nullable": true
+    },
+    "optional": {
+      "type": "object",
+      "properties": {},
+      "required": [],
+      "description": "Current Type: {@link DynamicNever}"
+    },
+    "faint": {
+      "type": "object",
+      "properties": {},
+      "required": [],
+      "nullable": true
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {},
+        "required": [],
+        "description": "Current Type: {@link DynamicNever}"
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ]
+}

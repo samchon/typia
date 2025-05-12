@@ -1,0 +1,27 @@
+{
+  "version": "3.1",
+  "components": {
+    "schemas": {
+      "AtomicSimple": {
+        "type": "array",
+        "prefixItems": [
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "string"
+          }
+        ],
+        "additionalItems": false
+      }
+    }
+  },
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/AtomicSimple"
+    }
+  ]
+}

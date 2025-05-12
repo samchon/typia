@@ -1,0 +1,310 @@
+{
+  "model": "3.1",
+  "options": {
+    "constraint": true,
+    "reference": false,
+    "separate": null
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "description": "Current Type: {@link ClassPropertyAssignment}",
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "note": {
+                "const": "assignment"
+              },
+              "editable": {
+                "const": false
+              },
+              "incremental": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "note",
+              "editable",
+              "incremental"
+            ]
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {}
+      }
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "description": "Current Type: {@link ClassPropertyAssignment}",
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "note": {
+                "const": "assignment"
+              },
+              "editable": {
+                "const": false
+              },
+              "incremental": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "note",
+              "editable",
+              "incremental"
+            ]
+          },
+          "second": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "note": {
+                    "const": "assignment"
+                  },
+                  "editable": {
+                    "const": false
+                  },
+                  "incremental": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "id",
+                  "name",
+                  "note",
+                  "editable",
+                  "incremental"
+                ],
+                "description": "Current Type: {@link ClassPropertyAssignment}"
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false,
+        "$defs": {}
+      },
+      "output": {
+        "description": "Current Type: {@link ClassPropertyAssignment}",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "name": {
+            "type": "string"
+          },
+          "note": {
+            "const": "assignment"
+          },
+          "editable": {
+            "const": false
+          },
+          "incremental": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "note",
+          "editable",
+          "incremental"
+        ]
+      }
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "note": {
+                    "const": "assignment"
+                  },
+                  "editable": {
+                    "const": false
+                  },
+                  "incremental": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "id",
+                  "name",
+                  "note",
+                  "editable",
+                  "incremental"
+                ],
+                "description": "Current Type: {@link ClassPropertyAssignment}"
+              }
+            ]
+          },
+          "second": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "note": {
+                    "const": "assignment"
+                  },
+                  "editable": {
+                    "const": false
+                  },
+                  "incremental": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "id",
+                  "name",
+                  "note",
+                  "editable",
+                  "incremental"
+                ],
+                "description": "Current Type: {@link ClassPropertyAssignment}"
+              }
+            ]
+          },
+          "third": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "number"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "note": {
+                    "const": "assignment"
+                  },
+                  "editable": {
+                    "const": false
+                  },
+                  "incremental": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "id",
+                  "name",
+                  "note",
+                  "editable",
+                  "incremental"
+                ],
+                "description": "Current Type: {@link ClassPropertyAssignment}"
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false,
+        "$defs": {}
+      },
+      "output": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "number"
+              },
+              "name": {
+                "type": "string"
+              },
+              "note": {
+                "const": "assignment"
+              },
+              "editable": {
+                "const": false
+              },
+              "incremental": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "note",
+              "editable",
+              "incremental"
+            ],
+            "description": "Current Type: {@link ClassPropertyAssignment}"
+          }
+        ]
+      }
+    }
+  ]
+}

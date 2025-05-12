@@ -1,0 +1,137 @@
+{
+  "type": "object",
+  "properties": {
+    "boolean": {
+      "type": "boolean"
+    },
+    "number": {
+      "type": "number"
+    },
+    "string": {
+      "type": "string"
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      }
+    },
+    "object": {
+      "type": "object",
+      "properties": {
+        "boolean": {
+          "type": "boolean"
+        },
+        "number": {
+          "type": "number"
+        },
+        "string": {
+          "type": "string"
+        },
+        "array": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "object": {
+          "type": "object",
+          "properties": {
+            "boolean": {
+              "type": "boolean"
+            },
+            "number": {
+              "type": "number"
+            },
+            "string": {
+              "type": "string"
+            },
+            "array": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "object": {
+              "type": "object",
+              "properties": {
+                "boolean": {
+                  "type": "boolean"
+                },
+                "number": {
+                  "type": "number"
+                },
+                "string": {
+                  "type": "string"
+                },
+                "array": {
+                  "type": "array",
+                  "items": {
+                    "type": "number"
+                  }
+                },
+                "object": {
+                  "type": "object",
+                  "properties": {
+                    "boolean": {
+                      "type": "boolean"
+                    },
+                    "number": {
+                      "type": "number"
+                    },
+                    "string": {
+                      "type": "string"
+                    },
+                    "array": {
+                      "type": "array",
+                      "items": {
+                        "type": "number"
+                      }
+                    },
+                    "object": {
+                      "type": "null"
+                    }
+                  },
+                  "required": [
+                    "boolean",
+                    "number",
+                    "string",
+                    "array",
+                    "object"
+                  ],
+                  "nullable": true
+                }
+              },
+              "required": [
+                "boolean",
+                "number",
+                "string",
+                "array",
+                "object"
+              ],
+              "nullable": true
+            }
+          },
+          "required": [
+            "boolean",
+            "number",
+            "string",
+            "array",
+            "object"
+          ],
+          "nullable": true
+        }
+      },
+      "required": [
+        "boolean",
+        "number",
+        "string",
+        "array",
+        "object"
+      ],
+      "nullable": true
+    }
+  },
+  "required": [],
+  "description": "Description of the current {@link PartialObjectPartial.IBase} type:\n\n> Make all properties in T optional"
+}

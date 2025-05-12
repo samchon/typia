@@ -1,0 +1,701 @@
+{
+  "model": "llama",
+  "options": {
+    "reference": false,
+    "separate": null
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "description": "Current Type: {@link ToJsonUnion}",
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "mobile": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "mobile",
+                    "name"
+                  ],
+                  "description": "Current Type: {@link ToJsonUnion.ICitizen}"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "manufacturer": {
+                      "type": "string"
+                    },
+                    "brand": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "manufacturer",
+                    "brand",
+                    "name"
+                  ],
+                  "description": "Current Type: {@link ToJsonUnion.IProduct}"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "mobile": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "mobile",
+                    "name"
+                  ],
+                  "description": "Current Type: {@link ToJsonUnion.ICitizen}"
+                }
+              ]
+            }
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {}
+      }
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "description": "Current Type: {@link ToJsonUnion}",
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "mobile": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "mobile",
+                    "name"
+                  ],
+                  "description": "Current Type: {@link ToJsonUnion.ICitizen}"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "manufacturer": {
+                      "type": "string"
+                    },
+                    "brand": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "manufacturer",
+                    "brand",
+                    "name"
+                  ],
+                  "description": "Current Type: {@link ToJsonUnion.IProduct}"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "mobile": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "mobile",
+                    "name"
+                  ],
+                  "description": "Current Type: {@link ToJsonUnion.ICitizen}"
+                }
+              ]
+            }
+          },
+          "second": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "mobile": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "mobile",
+                        "name"
+                      ],
+                      "description": "Current Type: {@link ToJsonUnion.ICitizen}"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "manufacturer": {
+                          "type": "string"
+                        },
+                        "brand": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "manufacturer",
+                        "brand",
+                        "name"
+                      ],
+                      "description": "Current Type: {@link ToJsonUnion.IProduct}"
+                    },
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "mobile": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "mobile",
+                        "name"
+                      ],
+                      "description": "Current Type: {@link ToJsonUnion.ICitizen}"
+                    }
+                  ]
+                },
+                "description": "Current Type: {@link ToJsonUnion}"
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false,
+        "$defs": {}
+      },
+      "output": {
+        "description": "Current Type: {@link ToJsonUnion}",
+        "type": "array",
+        "items": {
+          "oneOf": [
+            {
+              "type": "boolean"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number"
+                },
+                "mobile": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "mobile",
+                "name"
+              ],
+              "description": "Current Type: {@link ToJsonUnion.ICitizen}"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "manufacturer": {
+                  "type": "string"
+                },
+                "brand": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "manufacturer",
+                "brand",
+                "name"
+              ],
+              "description": "Current Type: {@link ToJsonUnion.IProduct}"
+            },
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "number"
+                },
+                "mobile": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "mobile",
+                "name"
+              ],
+              "description": "Current Type: {@link ToJsonUnion.ICitizen}"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "mobile": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "mobile",
+                        "name"
+                      ],
+                      "description": "Current Type: {@link ToJsonUnion.ICitizen}"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "manufacturer": {
+                          "type": "string"
+                        },
+                        "brand": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "manufacturer",
+                        "brand",
+                        "name"
+                      ],
+                      "description": "Current Type: {@link ToJsonUnion.IProduct}"
+                    },
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "mobile": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "mobile",
+                        "name"
+                      ],
+                      "description": "Current Type: {@link ToJsonUnion.ICitizen}"
+                    }
+                  ]
+                },
+                "description": "Current Type: {@link ToJsonUnion}"
+              }
+            ]
+          },
+          "second": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "mobile": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "mobile",
+                        "name"
+                      ],
+                      "description": "Current Type: {@link ToJsonUnion.ICitizen}"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "manufacturer": {
+                          "type": "string"
+                        },
+                        "brand": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "manufacturer",
+                        "brand",
+                        "name"
+                      ],
+                      "description": "Current Type: {@link ToJsonUnion.IProduct}"
+                    },
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "mobile": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "mobile",
+                        "name"
+                      ],
+                      "description": "Current Type: {@link ToJsonUnion.ICitizen}"
+                    }
+                  ]
+                },
+                "description": "Current Type: {@link ToJsonUnion}"
+              }
+            ]
+          },
+          "third": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "oneOf": [
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "mobile": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "mobile",
+                        "name"
+                      ],
+                      "description": "Current Type: {@link ToJsonUnion.ICitizen}"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "manufacturer": {
+                          "type": "string"
+                        },
+                        "brand": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "manufacturer",
+                        "brand",
+                        "name"
+                      ],
+                      "description": "Current Type: {@link ToJsonUnion.IProduct}"
+                    },
+                    {
+                      "type": "string"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "number"
+                        },
+                        "mobile": {
+                          "type": "string"
+                        },
+                        "name": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "mobile",
+                        "name"
+                      ],
+                      "description": "Current Type: {@link ToJsonUnion.ICitizen}"
+                    }
+                  ]
+                },
+                "description": "Current Type: {@link ToJsonUnion}"
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false,
+        "$defs": {}
+      },
+      "output": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "boolean"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "mobile": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "mobile",
+                    "name"
+                  ],
+                  "description": "Current Type: {@link ToJsonUnion.ICitizen}"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "manufacturer": {
+                      "type": "string"
+                    },
+                    "brand": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "manufacturer",
+                    "brand",
+                    "name"
+                  ],
+                  "description": "Current Type: {@link ToJsonUnion.IProduct}"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "number"
+                    },
+                    "mobile": {
+                      "type": "string"
+                    },
+                    "name": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "mobile",
+                    "name"
+                  ],
+                  "description": "Current Type: {@link ToJsonUnion.ICitizen}"
+                }
+              ]
+            },
+            "description": "Current Type: {@link ToJsonUnion}"
+          }
+        ]
+      }
+    }
+  ]
+}

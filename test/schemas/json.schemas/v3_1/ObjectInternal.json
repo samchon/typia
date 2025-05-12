@@ -1,0 +1,27 @@
+{
+  "version": "3.1",
+  "components": {
+    "schemas": {
+      "ObjectInternal": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "name"
+        ]
+      }
+    }
+  },
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/ObjectInternal"
+    }
+  ]
+}

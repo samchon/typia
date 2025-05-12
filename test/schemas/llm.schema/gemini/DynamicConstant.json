@@ -1,0 +1,32 @@
+{
+  "type": "object",
+  "properties": {
+    "value": {
+      "type": "object",
+      "properties": {
+        "a": {
+          "type": "number"
+        },
+        "b": {
+          "type": "number"
+        },
+        "c": {
+          "type": "number"
+        },
+        "d": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "a",
+        "b",
+        "c",
+        "d"
+      ]
+    }
+  },
+  "required": [
+    "value"
+  ],
+  "description": "Current Type: {@link DynamicConstant}"
+}

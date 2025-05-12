@@ -1,0 +1,1679 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "writer": {
+                  "type": "string"
+                },
+                "answer": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "hit": {
+                      "type": "number"
+                    },
+                    "contents": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "body": {
+                            "type": "string"
+                          },
+                          "files": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "name": {
+                                  "type": "string"
+                                },
+                                "extension": {
+                                  "type": "string",
+                                  "nullable": true
+                                },
+                                "url": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "name",
+                                "extension",
+                                "url"
+                              ],
+                              "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
+                              "additionalProperties": false
+                            }
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "created_at",
+                          "title",
+                          "body",
+                          "files"
+                        ],
+                        "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
+                        "additionalProperties": false
+                      }
+                    },
+                    "created_at": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "hit",
+                    "contents",
+                    "created_at"
+                  ],
+                  "additionalProperties": false,
+                  "nullable": true
+                },
+                "id": {
+                  "type": "string"
+                },
+                "hit": {
+                  "type": "number"
+                },
+                "contents": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "body": {
+                        "type": "string"
+                      },
+                      "files": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            },
+                            "extension": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "url": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "name",
+                            "extension",
+                            "url"
+                          ],
+                          "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
+                          "additionalProperties": false
+                        }
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "created_at",
+                      "title",
+                      "body",
+                      "files"
+                    ],
+                    "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
+                    "additionalProperties": false
+                  }
+                },
+                "created_at": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "writer",
+                "answer",
+                "id",
+                "hit",
+                "contents",
+                "created_at"
+              ],
+              "description": "Current Type: {@link ObjectGenericUnion.ISaleQuestion}",
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "writer": {
+                  "type": "string"
+                },
+                "answer": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "hit": {
+                      "type": "number"
+                    },
+                    "contents": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "body": {
+                            "type": "string"
+                          },
+                          "files": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "name": {
+                                  "type": "string"
+                                },
+                                "extension": {
+                                  "type": "string",
+                                  "nullable": true
+                                },
+                                "url": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "name",
+                                "extension",
+                                "url"
+                              ],
+                              "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
+                              "additionalProperties": false
+                            }
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "created_at",
+                          "title",
+                          "body",
+                          "files"
+                        ],
+                        "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
+                        "additionalProperties": false
+                      }
+                    },
+                    "created_at": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "hit",
+                    "contents",
+                    "created_at"
+                  ],
+                  "additionalProperties": false,
+                  "nullable": true
+                },
+                "id": {
+                  "type": "string"
+                },
+                "hit": {
+                  "type": "number"
+                },
+                "contents": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "score": {
+                        "type": "number"
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "body": {
+                        "type": "string"
+                      },
+                      "files": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            },
+                            "extension": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "url": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "name",
+                            "extension",
+                            "url"
+                          ],
+                          "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
+                          "additionalProperties": false
+                        }
+                      }
+                    },
+                    "required": [
+                      "score",
+                      "id",
+                      "created_at",
+                      "title",
+                      "body",
+                      "files"
+                    ],
+                    "description": "Current Type: {@link ObjectGenericUnion.ISaleReview.IContent}",
+                    "additionalProperties": false
+                  }
+                },
+                "created_at": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "writer",
+                "answer",
+                "id",
+                "hit",
+                "contents",
+                "created_at"
+              ],
+              "description": "Current Type: {@link ObjectGenericUnion.ISaleReview}",
+              "additionalProperties": false
+            }
+          ],
+          "description": "Current Type: {@link ObjectGenericUnion.ISaleEntireArticle}"
+        }
+      },
+      "required": [
+        "value"
+      ],
+      "description": "Current Type: {@link ObjectGenericUnion}",
+      "additionalProperties": false
+    },
+    "nullable": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "writer": {
+                  "type": "string"
+                },
+                "answer": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "hit": {
+                      "type": "number"
+                    },
+                    "contents": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "body": {
+                            "type": "string"
+                          },
+                          "files": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "name": {
+                                  "type": "string"
+                                },
+                                "extension": {
+                                  "type": "string",
+                                  "nullable": true
+                                },
+                                "url": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "name",
+                                "extension",
+                                "url"
+                              ],
+                              "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
+                              "additionalProperties": false
+                            }
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "created_at",
+                          "title",
+                          "body",
+                          "files"
+                        ],
+                        "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
+                        "additionalProperties": false
+                      }
+                    },
+                    "created_at": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "hit",
+                    "contents",
+                    "created_at"
+                  ],
+                  "additionalProperties": false,
+                  "nullable": true
+                },
+                "id": {
+                  "type": "string"
+                },
+                "hit": {
+                  "type": "number"
+                },
+                "contents": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "body": {
+                        "type": "string"
+                      },
+                      "files": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            },
+                            "extension": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "url": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "name",
+                            "extension",
+                            "url"
+                          ],
+                          "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
+                          "additionalProperties": false
+                        }
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "created_at",
+                      "title",
+                      "body",
+                      "files"
+                    ],
+                    "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
+                    "additionalProperties": false
+                  }
+                },
+                "created_at": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "writer",
+                "answer",
+                "id",
+                "hit",
+                "contents",
+                "created_at"
+              ],
+              "description": "Current Type: {@link ObjectGenericUnion.ISaleQuestion}",
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "writer": {
+                  "type": "string"
+                },
+                "answer": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "hit": {
+                      "type": "number"
+                    },
+                    "contents": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "body": {
+                            "type": "string"
+                          },
+                          "files": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "name": {
+                                  "type": "string"
+                                },
+                                "extension": {
+                                  "type": "string",
+                                  "nullable": true
+                                },
+                                "url": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "name",
+                                "extension",
+                                "url"
+                              ],
+                              "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
+                              "additionalProperties": false
+                            }
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "created_at",
+                          "title",
+                          "body",
+                          "files"
+                        ],
+                        "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
+                        "additionalProperties": false
+                      }
+                    },
+                    "created_at": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "hit",
+                    "contents",
+                    "created_at"
+                  ],
+                  "additionalProperties": false,
+                  "nullable": true
+                },
+                "id": {
+                  "type": "string"
+                },
+                "hit": {
+                  "type": "number"
+                },
+                "contents": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "score": {
+                        "type": "number"
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "body": {
+                        "type": "string"
+                      },
+                      "files": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            },
+                            "extension": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "url": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "name",
+                            "extension",
+                            "url"
+                          ],
+                          "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
+                          "additionalProperties": false
+                        }
+                      }
+                    },
+                    "required": [
+                      "score",
+                      "id",
+                      "created_at",
+                      "title",
+                      "body",
+                      "files"
+                    ],
+                    "description": "Current Type: {@link ObjectGenericUnion.ISaleReview.IContent}",
+                    "additionalProperties": false
+                  }
+                },
+                "created_at": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "writer",
+                "answer",
+                "id",
+                "hit",
+                "contents",
+                "created_at"
+              ],
+              "description": "Current Type: {@link ObjectGenericUnion.ISaleReview}",
+              "additionalProperties": false
+            }
+          ],
+          "description": "Current Type: {@link ObjectGenericUnion.ISaleEntireArticle}"
+        }
+      },
+      "required": [
+        "value"
+      ],
+      "additionalProperties": false,
+      "nullable": true
+    },
+    "optional": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "writer": {
+                  "type": "string"
+                },
+                "answer": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "hit": {
+                      "type": "number"
+                    },
+                    "contents": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "body": {
+                            "type": "string"
+                          },
+                          "files": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "name": {
+                                  "type": "string"
+                                },
+                                "extension": {
+                                  "type": "string",
+                                  "nullable": true
+                                },
+                                "url": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "name",
+                                "extension",
+                                "url"
+                              ],
+                              "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
+                              "additionalProperties": false
+                            }
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "created_at",
+                          "title",
+                          "body",
+                          "files"
+                        ],
+                        "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
+                        "additionalProperties": false
+                      }
+                    },
+                    "created_at": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "hit",
+                    "contents",
+                    "created_at"
+                  ],
+                  "additionalProperties": false,
+                  "nullable": true
+                },
+                "id": {
+                  "type": "string"
+                },
+                "hit": {
+                  "type": "number"
+                },
+                "contents": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "body": {
+                        "type": "string"
+                      },
+                      "files": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            },
+                            "extension": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "url": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "name",
+                            "extension",
+                            "url"
+                          ],
+                          "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
+                          "additionalProperties": false
+                        }
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "created_at",
+                      "title",
+                      "body",
+                      "files"
+                    ],
+                    "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
+                    "additionalProperties": false
+                  }
+                },
+                "created_at": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "writer",
+                "answer",
+                "id",
+                "hit",
+                "contents",
+                "created_at"
+              ],
+              "description": "Current Type: {@link ObjectGenericUnion.ISaleQuestion}",
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "writer": {
+                  "type": "string"
+                },
+                "answer": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "hit": {
+                      "type": "number"
+                    },
+                    "contents": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "body": {
+                            "type": "string"
+                          },
+                          "files": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "name": {
+                                  "type": "string"
+                                },
+                                "extension": {
+                                  "type": "string",
+                                  "nullable": true
+                                },
+                                "url": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "name",
+                                "extension",
+                                "url"
+                              ],
+                              "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
+                              "additionalProperties": false
+                            }
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "created_at",
+                          "title",
+                          "body",
+                          "files"
+                        ],
+                        "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
+                        "additionalProperties": false
+                      }
+                    },
+                    "created_at": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "hit",
+                    "contents",
+                    "created_at"
+                  ],
+                  "additionalProperties": false,
+                  "nullable": true
+                },
+                "id": {
+                  "type": "string"
+                },
+                "hit": {
+                  "type": "number"
+                },
+                "contents": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "score": {
+                        "type": "number"
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "body": {
+                        "type": "string"
+                      },
+                      "files": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            },
+                            "extension": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "url": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "name",
+                            "extension",
+                            "url"
+                          ],
+                          "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
+                          "additionalProperties": false
+                        }
+                      }
+                    },
+                    "required": [
+                      "score",
+                      "id",
+                      "created_at",
+                      "title",
+                      "body",
+                      "files"
+                    ],
+                    "description": "Current Type: {@link ObjectGenericUnion.ISaleReview.IContent}",
+                    "additionalProperties": false
+                  }
+                },
+                "created_at": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "writer",
+                "answer",
+                "id",
+                "hit",
+                "contents",
+                "created_at"
+              ],
+              "description": "Current Type: {@link ObjectGenericUnion.ISaleReview}",
+              "additionalProperties": false
+            }
+          ],
+          "description": "Current Type: {@link ObjectGenericUnion.ISaleEntireArticle}"
+        }
+      },
+      "required": [
+        "value"
+      ],
+      "description": "Current Type: {@link ObjectGenericUnion}",
+      "additionalProperties": false
+    },
+    "faint": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "writer": {
+                  "type": "string"
+                },
+                "answer": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "hit": {
+                      "type": "number"
+                    },
+                    "contents": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "body": {
+                            "type": "string"
+                          },
+                          "files": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "name": {
+                                  "type": "string"
+                                },
+                                "extension": {
+                                  "type": "string",
+                                  "nullable": true
+                                },
+                                "url": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "name",
+                                "extension",
+                                "url"
+                              ],
+                              "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
+                              "additionalProperties": false
+                            }
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "created_at",
+                          "title",
+                          "body",
+                          "files"
+                        ],
+                        "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
+                        "additionalProperties": false
+                      }
+                    },
+                    "created_at": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "hit",
+                    "contents",
+                    "created_at"
+                  ],
+                  "additionalProperties": false,
+                  "nullable": true
+                },
+                "id": {
+                  "type": "string"
+                },
+                "hit": {
+                  "type": "number"
+                },
+                "contents": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "body": {
+                        "type": "string"
+                      },
+                      "files": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            },
+                            "extension": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "url": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "name",
+                            "extension",
+                            "url"
+                          ],
+                          "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
+                          "additionalProperties": false
+                        }
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "created_at",
+                      "title",
+                      "body",
+                      "files"
+                    ],
+                    "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
+                    "additionalProperties": false
+                  }
+                },
+                "created_at": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "writer",
+                "answer",
+                "id",
+                "hit",
+                "contents",
+                "created_at"
+              ],
+              "description": "Current Type: {@link ObjectGenericUnion.ISaleQuestion}",
+              "additionalProperties": false
+            },
+            {
+              "type": "object",
+              "properties": {
+                "writer": {
+                  "type": "string"
+                },
+                "answer": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string"
+                    },
+                    "hit": {
+                      "type": "number"
+                    },
+                    "contents": {
+                      "type": "array",
+                      "items": {
+                        "type": "object",
+                        "properties": {
+                          "id": {
+                            "type": "string"
+                          },
+                          "created_at": {
+                            "type": "string"
+                          },
+                          "title": {
+                            "type": "string"
+                          },
+                          "body": {
+                            "type": "string"
+                          },
+                          "files": {
+                            "type": "array",
+                            "items": {
+                              "type": "object",
+                              "properties": {
+                                "name": {
+                                  "type": "string"
+                                },
+                                "extension": {
+                                  "type": "string",
+                                  "nullable": true
+                                },
+                                "url": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "name",
+                                "extension",
+                                "url"
+                              ],
+                              "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
+                              "additionalProperties": false
+                            }
+                          }
+                        },
+                        "required": [
+                          "id",
+                          "created_at",
+                          "title",
+                          "body",
+                          "files"
+                        ],
+                        "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
+                        "additionalProperties": false
+                      }
+                    },
+                    "created_at": {
+                      "type": "string"
+                    }
+                  },
+                  "required": [
+                    "id",
+                    "hit",
+                    "contents",
+                    "created_at"
+                  ],
+                  "additionalProperties": false,
+                  "nullable": true
+                },
+                "id": {
+                  "type": "string"
+                },
+                "hit": {
+                  "type": "number"
+                },
+                "contents": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "score": {
+                        "type": "number"
+                      },
+                      "id": {
+                        "type": "string"
+                      },
+                      "created_at": {
+                        "type": "string"
+                      },
+                      "title": {
+                        "type": "string"
+                      },
+                      "body": {
+                        "type": "string"
+                      },
+                      "files": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            },
+                            "extension": {
+                              "type": "string",
+                              "nullable": true
+                            },
+                            "url": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "name",
+                            "extension",
+                            "url"
+                          ],
+                          "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
+                          "additionalProperties": false
+                        }
+                      }
+                    },
+                    "required": [
+                      "score",
+                      "id",
+                      "created_at",
+                      "title",
+                      "body",
+                      "files"
+                    ],
+                    "description": "Current Type: {@link ObjectGenericUnion.ISaleReview.IContent}",
+                    "additionalProperties": false
+                  }
+                },
+                "created_at": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "writer",
+                "answer",
+                "id",
+                "hit",
+                "contents",
+                "created_at"
+              ],
+              "description": "Current Type: {@link ObjectGenericUnion.ISaleReview}",
+              "additionalProperties": false
+            }
+          ],
+          "description": "Current Type: {@link ObjectGenericUnion.ISaleEntireArticle}"
+        }
+      },
+      "required": [
+        "value"
+      ],
+      "additionalProperties": false,
+      "nullable": true
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "oneOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "writer": {
+                    "type": "string"
+                  },
+                  "answer": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "hit": {
+                        "type": "number"
+                      },
+                      "contents": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "created_at": {
+                              "type": "string"
+                            },
+                            "title": {
+                              "type": "string"
+                            },
+                            "body": {
+                              "type": "string"
+                            },
+                            "files": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "extension": {
+                                    "type": "string",
+                                    "nullable": true
+                                  },
+                                  "url": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "name",
+                                  "extension",
+                                  "url"
+                                ],
+                                "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
+                                "additionalProperties": false
+                              }
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "created_at",
+                            "title",
+                            "body",
+                            "files"
+                          ],
+                          "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
+                          "additionalProperties": false
+                        }
+                      },
+                      "created_at": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "hit",
+                      "contents",
+                      "created_at"
+                    ],
+                    "additionalProperties": false,
+                    "nullable": true
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "hit": {
+                    "type": "number"
+                  },
+                  "contents": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "id": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string"
+                        },
+                        "title": {
+                          "type": "string"
+                        },
+                        "body": {
+                          "type": "string"
+                        },
+                        "files": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "extension": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "url": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "extension",
+                              "url"
+                            ],
+                            "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
+                            "additionalProperties": false
+                          }
+                        }
+                      },
+                      "required": [
+                        "id",
+                        "created_at",
+                        "title",
+                        "body",
+                        "files"
+                      ],
+                      "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
+                      "additionalProperties": false
+                    }
+                  },
+                  "created_at": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "writer",
+                  "answer",
+                  "id",
+                  "hit",
+                  "contents",
+                  "created_at"
+                ],
+                "description": "Current Type: {@link ObjectGenericUnion.ISaleQuestion}",
+                "additionalProperties": false
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "writer": {
+                    "type": "string"
+                  },
+                  "answer": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string"
+                      },
+                      "hit": {
+                        "type": "number"
+                      },
+                      "contents": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "id": {
+                              "type": "string"
+                            },
+                            "created_at": {
+                              "type": "string"
+                            },
+                            "title": {
+                              "type": "string"
+                            },
+                            "body": {
+                              "type": "string"
+                            },
+                            "files": {
+                              "type": "array",
+                              "items": {
+                                "type": "object",
+                                "properties": {
+                                  "name": {
+                                    "type": "string"
+                                  },
+                                  "extension": {
+                                    "type": "string",
+                                    "nullable": true
+                                  },
+                                  "url": {
+                                    "type": "string"
+                                  }
+                                },
+                                "required": [
+                                  "name",
+                                  "extension",
+                                  "url"
+                                ],
+                                "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
+                                "additionalProperties": false
+                              }
+                            }
+                          },
+                          "required": [
+                            "id",
+                            "created_at",
+                            "title",
+                            "body",
+                            "files"
+                          ],
+                          "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
+                          "additionalProperties": false
+                        }
+                      },
+                      "created_at": {
+                        "type": "string"
+                      }
+                    },
+                    "required": [
+                      "id",
+                      "hit",
+                      "contents",
+                      "created_at"
+                    ],
+                    "additionalProperties": false,
+                    "nullable": true
+                  },
+                  "id": {
+                    "type": "string"
+                  },
+                  "hit": {
+                    "type": "number"
+                  },
+                  "contents": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "score": {
+                          "type": "number"
+                        },
+                        "id": {
+                          "type": "string"
+                        },
+                        "created_at": {
+                          "type": "string"
+                        },
+                        "title": {
+                          "type": "string"
+                        },
+                        "body": {
+                          "type": "string"
+                        },
+                        "files": {
+                          "type": "array",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "name": {
+                                "type": "string"
+                              },
+                              "extension": {
+                                "type": "string",
+                                "nullable": true
+                              },
+                              "url": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "name",
+                              "extension",
+                              "url"
+                            ],
+                            "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
+                            "additionalProperties": false
+                          }
+                        }
+                      },
+                      "required": [
+                        "score",
+                        "id",
+                        "created_at",
+                        "title",
+                        "body",
+                        "files"
+                      ],
+                      "description": "Current Type: {@link ObjectGenericUnion.ISaleReview.IContent}",
+                      "additionalProperties": false
+                    }
+                  },
+                  "created_at": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "writer",
+                  "answer",
+                  "id",
+                  "hit",
+                  "contents",
+                  "created_at"
+                ],
+                "description": "Current Type: {@link ObjectGenericUnion.ISaleReview}",
+                "additionalProperties": false
+              }
+            ],
+            "description": "Current Type: {@link ObjectGenericUnion.ISaleEntireArticle}"
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "description": "Current Type: {@link ObjectGenericUnion}",
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false
+}

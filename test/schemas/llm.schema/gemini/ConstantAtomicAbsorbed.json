@@ -1,0 +1,17 @@
+{
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string",
+      "description": "@default something"
+    },
+    "age": {
+      "type": "number"
+    }
+  },
+  "required": [
+    "id",
+    "age"
+  ],
+  "description": "Current Type: {@link ConstantAtomicAbsorbed}"
+}

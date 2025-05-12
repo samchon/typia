@@ -1,0 +1,109 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "description": "Current Type: {@link ToJsonDouble.Child}",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "flag": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "flag"
+      ]
+    },
+    "nullable": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number"
+            },
+            "flag": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "id",
+            "flag"
+          ],
+          "description": "Current Type: {@link ToJsonDouble.Child}"
+        }
+      ]
+    },
+    "optional": {
+      "description": "Current Type: {@link ToJsonDouble.Child}",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "flag": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "id",
+        "flag"
+      ]
+    },
+    "faint": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "number"
+            },
+            "flag": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "id",
+            "flag"
+          ],
+          "description": "Current Type: {@link ToJsonDouble.Child}"
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "description": "Current Type: {@link ToJsonDouble.Child}",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "number"
+          },
+          "flag": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "flag"
+        ]
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {}
+}

@@ -1,0 +1,3069 @@
+{
+  "model": "llama",
+  "options": {
+    "reference": false,
+    "separate": null
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "description": "Current Type: {@link ObjectUnionExplicitPointer}",
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "description": "Current Type: {@link IPointerObjectUnionExplicitPointer.Shape}",
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "description": "Current Type: {@link ObjectUnionExplicitPointer.Shape}",
+                      "oneOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            },
+                            "type": {
+                              "const": "point"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y",
+                            "type"
+                          ],
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorpointObjectUnionExplicitPointer.IPoint}"
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "p1": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            },
+                            "p2": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            },
+                            "type": {
+                              "const": "line"
+                            }
+                          },
+                          "required": [
+                            "p1",
+                            "p2",
+                            "type"
+                          ],
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorlineObjectUnionExplicitPointer.ILine}"
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "p1": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            },
+                            "p2": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            },
+                            "p3": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            },
+                            "type": {
+                              "const": "triangle"
+                            }
+                          },
+                          "required": [
+                            "p1",
+                            "p2",
+                            "p3",
+                            "type"
+                          ],
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatortriangleObjectUnionExplicitPointer.ITriangle}"
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "p1": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            },
+                            "p2": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            },
+                            "p3": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            },
+                            "p4": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            },
+                            "type": {
+                              "const": "rectangle"
+                            }
+                          },
+                          "required": [
+                            "p1",
+                            "p2",
+                            "p3",
+                            "p4",
+                            "type"
+                          ],
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorrectangleObjectUnionExplicitPointer.IRectangle}"
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "points": {
+                              "type": "array",
+                              "items": {
+                                "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                "type": "object",
+                                "properties": {
+                                  "x": {
+                                    "type": "number"
+                                  },
+                                  "y": {
+                                    "type": "number"
+                                  }
+                                },
+                                "required": [
+                                  "x",
+                                  "y"
+                                ]
+                              }
+                            },
+                            "type": {
+                              "const": "polyline"
+                            }
+                          },
+                          "required": [
+                            "points",
+                            "type"
+                          ],
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorpolylineObjectUnionExplicitPointer.IPolyline}"
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "outer": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPolyline}",
+                              "type": "object",
+                              "properties": {
+                                "points": {
+                                  "type": "array",
+                                  "items": {
+                                    "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                    "type": "object",
+                                    "properties": {
+                                      "x": {
+                                        "type": "number"
+                                      },
+                                      "y": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "required": [
+                                      "x",
+                                      "y"
+                                    ]
+                                  }
+                                }
+                              },
+                              "required": [
+                                "points"
+                              ]
+                            },
+                            "inner": {
+                              "type": "array",
+                              "items": {
+                                "description": "Current Type: {@link ObjectUnionExplicitPointer.IPolyline}",
+                                "type": "object",
+                                "properties": {
+                                  "points": {
+                                    "type": "array",
+                                    "items": {
+                                      "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                      "type": "object",
+                                      "properties": {
+                                        "x": {
+                                          "type": "number"
+                                        },
+                                        "y": {
+                                          "type": "number"
+                                        }
+                                      },
+                                      "required": [
+                                        "x",
+                                        "y"
+                                      ]
+                                    }
+                                  }
+                                },
+                                "required": [
+                                  "points"
+                                ]
+                              }
+                            },
+                            "type": {
+                              "const": "polygon"
+                            }
+                          },
+                          "required": [
+                            "outer",
+                            "inner",
+                            "type"
+                          ],
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorpolygonObjectUnionExplicitPointer.IPolygon}"
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "centroid": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            },
+                            "radius": {
+                              "type": "number"
+                            },
+                            "type": {
+                              "const": "circle"
+                            }
+                          },
+                          "required": [
+                            "centroid",
+                            "radius",
+                            "type"
+                          ],
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorcircleObjectUnionExplicitPointer.ICircle}"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {}
+      }
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "description": "Current Type: {@link ObjectUnionExplicitPointer}",
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "description": "Current Type: {@link IPointerObjectUnionExplicitPointer.Shape}",
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "description": "Current Type: {@link ObjectUnionExplicitPointer.Shape}",
+                      "oneOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            },
+                            "type": {
+                              "const": "point"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y",
+                            "type"
+                          ],
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorpointObjectUnionExplicitPointer.IPoint}"
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "p1": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            },
+                            "p2": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            },
+                            "type": {
+                              "const": "line"
+                            }
+                          },
+                          "required": [
+                            "p1",
+                            "p2",
+                            "type"
+                          ],
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorlineObjectUnionExplicitPointer.ILine}"
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "p1": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            },
+                            "p2": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            },
+                            "p3": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            },
+                            "type": {
+                              "const": "triangle"
+                            }
+                          },
+                          "required": [
+                            "p1",
+                            "p2",
+                            "p3",
+                            "type"
+                          ],
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatortriangleObjectUnionExplicitPointer.ITriangle}"
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "p1": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            },
+                            "p2": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            },
+                            "p3": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            },
+                            "p4": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            },
+                            "type": {
+                              "const": "rectangle"
+                            }
+                          },
+                          "required": [
+                            "p1",
+                            "p2",
+                            "p3",
+                            "p4",
+                            "type"
+                          ],
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorrectangleObjectUnionExplicitPointer.IRectangle}"
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "points": {
+                              "type": "array",
+                              "items": {
+                                "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                "type": "object",
+                                "properties": {
+                                  "x": {
+                                    "type": "number"
+                                  },
+                                  "y": {
+                                    "type": "number"
+                                  }
+                                },
+                                "required": [
+                                  "x",
+                                  "y"
+                                ]
+                              }
+                            },
+                            "type": {
+                              "const": "polyline"
+                            }
+                          },
+                          "required": [
+                            "points",
+                            "type"
+                          ],
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorpolylineObjectUnionExplicitPointer.IPolyline}"
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "outer": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPolyline}",
+                              "type": "object",
+                              "properties": {
+                                "points": {
+                                  "type": "array",
+                                  "items": {
+                                    "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                    "type": "object",
+                                    "properties": {
+                                      "x": {
+                                        "type": "number"
+                                      },
+                                      "y": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "required": [
+                                      "x",
+                                      "y"
+                                    ]
+                                  }
+                                }
+                              },
+                              "required": [
+                                "points"
+                              ]
+                            },
+                            "inner": {
+                              "type": "array",
+                              "items": {
+                                "description": "Current Type: {@link ObjectUnionExplicitPointer.IPolyline}",
+                                "type": "object",
+                                "properties": {
+                                  "points": {
+                                    "type": "array",
+                                    "items": {
+                                      "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                      "type": "object",
+                                      "properties": {
+                                        "x": {
+                                          "type": "number"
+                                        },
+                                        "y": {
+                                          "type": "number"
+                                        }
+                                      },
+                                      "required": [
+                                        "x",
+                                        "y"
+                                      ]
+                                    }
+                                  }
+                                },
+                                "required": [
+                                  "points"
+                                ]
+                              }
+                            },
+                            "type": {
+                              "const": "polygon"
+                            }
+                          },
+                          "required": [
+                            "outer",
+                            "inner",
+                            "type"
+                          ],
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorpolygonObjectUnionExplicitPointer.IPolygon}"
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "centroid": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            },
+                            "radius": {
+                              "type": "number"
+                            },
+                            "type": {
+                              "const": "circle"
+                            }
+                          },
+                          "required": [
+                            "centroid",
+                            "radius",
+                            "type"
+                          ],
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorcircleObjectUnionExplicitPointer.ICircle}"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "second": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "array",
+                    "items": {
+                      "description": "Current Type: {@link IPointerObjectUnionExplicitPointer.Shape}",
+                      "type": "object",
+                      "properties": {
+                        "value": {
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.Shape}",
+                          "oneOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                },
+                                "type": {
+                                  "const": "point"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y",
+                                "type"
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorpointObjectUnionExplicitPointer.IPoint}"
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "p1": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "p2": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "type": {
+                                  "const": "line"
+                                }
+                              },
+                              "required": [
+                                "p1",
+                                "p2",
+                                "type"
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorlineObjectUnionExplicitPointer.ILine}"
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "p1": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "p2": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "p3": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "type": {
+                                  "const": "triangle"
+                                }
+                              },
+                              "required": [
+                                "p1",
+                                "p2",
+                                "p3",
+                                "type"
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatortriangleObjectUnionExplicitPointer.ITriangle}"
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "p1": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "p2": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "p3": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "p4": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "type": {
+                                  "const": "rectangle"
+                                }
+                              },
+                              "required": [
+                                "p1",
+                                "p2",
+                                "p3",
+                                "p4",
+                                "type"
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorrectangleObjectUnionExplicitPointer.IRectangle}"
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "points": {
+                                  "type": "array",
+                                  "items": {
+                                    "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                    "type": "object",
+                                    "properties": {
+                                      "x": {
+                                        "type": "number"
+                                      },
+                                      "y": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "required": [
+                                      "x",
+                                      "y"
+                                    ]
+                                  }
+                                },
+                                "type": {
+                                  "const": "polyline"
+                                }
+                              },
+                              "required": [
+                                "points",
+                                "type"
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorpolylineObjectUnionExplicitPointer.IPolyline}"
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "outer": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPolyline}",
+                                  "type": "object",
+                                  "properties": {
+                                    "points": {
+                                      "type": "array",
+                                      "items": {
+                                        "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                        "type": "object",
+                                        "properties": {
+                                          "x": {
+                                            "type": "number"
+                                          },
+                                          "y": {
+                                            "type": "number"
+                                          }
+                                        },
+                                        "required": [
+                                          "x",
+                                          "y"
+                                        ]
+                                      }
+                                    }
+                                  },
+                                  "required": [
+                                    "points"
+                                  ]
+                                },
+                                "inner": {
+                                  "type": "array",
+                                  "items": {
+                                    "description": "Current Type: {@link ObjectUnionExplicitPointer.IPolyline}",
+                                    "type": "object",
+                                    "properties": {
+                                      "points": {
+                                        "type": "array",
+                                        "items": {
+                                          "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                          "type": "object",
+                                          "properties": {
+                                            "x": {
+                                              "type": "number"
+                                            },
+                                            "y": {
+                                              "type": "number"
+                                            }
+                                          },
+                                          "required": [
+                                            "x",
+                                            "y"
+                                          ]
+                                        }
+                                      }
+                                    },
+                                    "required": [
+                                      "points"
+                                    ]
+                                  }
+                                },
+                                "type": {
+                                  "const": "polygon"
+                                }
+                              },
+                              "required": [
+                                "outer",
+                                "inner",
+                                "type"
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorpolygonObjectUnionExplicitPointer.IPolygon}"
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "centroid": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "radius": {
+                                  "type": "number"
+                                },
+                                "type": {
+                                  "const": "circle"
+                                }
+                              },
+                              "required": [
+                                "centroid",
+                                "radius",
+                                "type"
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorcircleObjectUnionExplicitPointer.ICircle}"
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "value"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "value"
+                ],
+                "description": "Current Type: {@link ObjectUnionExplicitPointer}"
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false,
+        "$defs": {}
+      },
+      "output": {
+        "description": "Current Type: {@link ObjectUnionExplicitPointer}",
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "description": "Current Type: {@link IPointerObjectUnionExplicitPointer.Shape}",
+              "type": "object",
+              "properties": {
+                "value": {
+                  "description": "Current Type: {@link ObjectUnionExplicitPointer.Shape}",
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "x": {
+                          "type": "number"
+                        },
+                        "y": {
+                          "type": "number"
+                        },
+                        "type": {
+                          "const": "point"
+                        }
+                      },
+                      "required": [
+                        "x",
+                        "y",
+                        "type"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorpointObjectUnionExplicitPointer.IPoint}"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "p1": {
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ]
+                        },
+                        "p2": {
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ]
+                        },
+                        "type": {
+                          "const": "line"
+                        }
+                      },
+                      "required": [
+                        "p1",
+                        "p2",
+                        "type"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorlineObjectUnionExplicitPointer.ILine}"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "p1": {
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ]
+                        },
+                        "p2": {
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ]
+                        },
+                        "p3": {
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ]
+                        },
+                        "type": {
+                          "const": "triangle"
+                        }
+                      },
+                      "required": [
+                        "p1",
+                        "p2",
+                        "p3",
+                        "type"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatortriangleObjectUnionExplicitPointer.ITriangle}"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "p1": {
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ]
+                        },
+                        "p2": {
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ]
+                        },
+                        "p3": {
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ]
+                        },
+                        "p4": {
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ]
+                        },
+                        "type": {
+                          "const": "rectangle"
+                        }
+                      },
+                      "required": [
+                        "p1",
+                        "p2",
+                        "p3",
+                        "p4",
+                        "type"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorrectangleObjectUnionExplicitPointer.IRectangle}"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "points": {
+                          "type": "array",
+                          "items": {
+                            "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                            "type": "object",
+                            "properties": {
+                              "x": {
+                                "type": "number"
+                              },
+                              "y": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "x",
+                              "y"
+                            ]
+                          }
+                        },
+                        "type": {
+                          "const": "polyline"
+                        }
+                      },
+                      "required": [
+                        "points",
+                        "type"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorpolylineObjectUnionExplicitPointer.IPolyline}"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "outer": {
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.IPolyline}",
+                          "type": "object",
+                          "properties": {
+                            "points": {
+                              "type": "array",
+                              "items": {
+                                "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                "type": "object",
+                                "properties": {
+                                  "x": {
+                                    "type": "number"
+                                  },
+                                  "y": {
+                                    "type": "number"
+                                  }
+                                },
+                                "required": [
+                                  "x",
+                                  "y"
+                                ]
+                              }
+                            }
+                          },
+                          "required": [
+                            "points"
+                          ]
+                        },
+                        "inner": {
+                          "type": "array",
+                          "items": {
+                            "description": "Current Type: {@link ObjectUnionExplicitPointer.IPolyline}",
+                            "type": "object",
+                            "properties": {
+                              "points": {
+                                "type": "array",
+                                "items": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                }
+                              }
+                            },
+                            "required": [
+                              "points"
+                            ]
+                          }
+                        },
+                        "type": {
+                          "const": "polygon"
+                        }
+                      },
+                      "required": [
+                        "outer",
+                        "inner",
+                        "type"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorpolygonObjectUnionExplicitPointer.IPolygon}"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "centroid": {
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y"
+                          ]
+                        },
+                        "radius": {
+                          "type": "number"
+                        },
+                        "type": {
+                          "const": "circle"
+                        }
+                      },
+                      "required": [
+                        "centroid",
+                        "radius",
+                        "type"
+                      ],
+                      "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorcircleObjectUnionExplicitPointer.ICircle}"
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "value"
+              ]
+            }
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "array",
+                    "items": {
+                      "description": "Current Type: {@link IPointerObjectUnionExplicitPointer.Shape}",
+                      "type": "object",
+                      "properties": {
+                        "value": {
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.Shape}",
+                          "oneOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                },
+                                "type": {
+                                  "const": "point"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y",
+                                "type"
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorpointObjectUnionExplicitPointer.IPoint}"
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "p1": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "p2": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "type": {
+                                  "const": "line"
+                                }
+                              },
+                              "required": [
+                                "p1",
+                                "p2",
+                                "type"
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorlineObjectUnionExplicitPointer.ILine}"
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "p1": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "p2": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "p3": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "type": {
+                                  "const": "triangle"
+                                }
+                              },
+                              "required": [
+                                "p1",
+                                "p2",
+                                "p3",
+                                "type"
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatortriangleObjectUnionExplicitPointer.ITriangle}"
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "p1": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "p2": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "p3": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "p4": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "type": {
+                                  "const": "rectangle"
+                                }
+                              },
+                              "required": [
+                                "p1",
+                                "p2",
+                                "p3",
+                                "p4",
+                                "type"
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorrectangleObjectUnionExplicitPointer.IRectangle}"
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "points": {
+                                  "type": "array",
+                                  "items": {
+                                    "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                    "type": "object",
+                                    "properties": {
+                                      "x": {
+                                        "type": "number"
+                                      },
+                                      "y": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "required": [
+                                      "x",
+                                      "y"
+                                    ]
+                                  }
+                                },
+                                "type": {
+                                  "const": "polyline"
+                                }
+                              },
+                              "required": [
+                                "points",
+                                "type"
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorpolylineObjectUnionExplicitPointer.IPolyline}"
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "outer": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPolyline}",
+                                  "type": "object",
+                                  "properties": {
+                                    "points": {
+                                      "type": "array",
+                                      "items": {
+                                        "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                        "type": "object",
+                                        "properties": {
+                                          "x": {
+                                            "type": "number"
+                                          },
+                                          "y": {
+                                            "type": "number"
+                                          }
+                                        },
+                                        "required": [
+                                          "x",
+                                          "y"
+                                        ]
+                                      }
+                                    }
+                                  },
+                                  "required": [
+                                    "points"
+                                  ]
+                                },
+                                "inner": {
+                                  "type": "array",
+                                  "items": {
+                                    "description": "Current Type: {@link ObjectUnionExplicitPointer.IPolyline}",
+                                    "type": "object",
+                                    "properties": {
+                                      "points": {
+                                        "type": "array",
+                                        "items": {
+                                          "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                          "type": "object",
+                                          "properties": {
+                                            "x": {
+                                              "type": "number"
+                                            },
+                                            "y": {
+                                              "type": "number"
+                                            }
+                                          },
+                                          "required": [
+                                            "x",
+                                            "y"
+                                          ]
+                                        }
+                                      }
+                                    },
+                                    "required": [
+                                      "points"
+                                    ]
+                                  }
+                                },
+                                "type": {
+                                  "const": "polygon"
+                                }
+                              },
+                              "required": [
+                                "outer",
+                                "inner",
+                                "type"
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorpolygonObjectUnionExplicitPointer.IPolygon}"
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "centroid": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "radius": {
+                                  "type": "number"
+                                },
+                                "type": {
+                                  "const": "circle"
+                                }
+                              },
+                              "required": [
+                                "centroid",
+                                "radius",
+                                "type"
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorcircleObjectUnionExplicitPointer.ICircle}"
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "value"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "value"
+                ],
+                "description": "Current Type: {@link ObjectUnionExplicitPointer}"
+              }
+            ]
+          },
+          "second": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "array",
+                    "items": {
+                      "description": "Current Type: {@link IPointerObjectUnionExplicitPointer.Shape}",
+                      "type": "object",
+                      "properties": {
+                        "value": {
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.Shape}",
+                          "oneOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                },
+                                "type": {
+                                  "const": "point"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y",
+                                "type"
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorpointObjectUnionExplicitPointer.IPoint}"
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "p1": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "p2": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "type": {
+                                  "const": "line"
+                                }
+                              },
+                              "required": [
+                                "p1",
+                                "p2",
+                                "type"
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorlineObjectUnionExplicitPointer.ILine}"
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "p1": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "p2": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "p3": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "type": {
+                                  "const": "triangle"
+                                }
+                              },
+                              "required": [
+                                "p1",
+                                "p2",
+                                "p3",
+                                "type"
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatortriangleObjectUnionExplicitPointer.ITriangle}"
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "p1": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "p2": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "p3": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "p4": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "type": {
+                                  "const": "rectangle"
+                                }
+                              },
+                              "required": [
+                                "p1",
+                                "p2",
+                                "p3",
+                                "p4",
+                                "type"
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorrectangleObjectUnionExplicitPointer.IRectangle}"
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "points": {
+                                  "type": "array",
+                                  "items": {
+                                    "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                    "type": "object",
+                                    "properties": {
+                                      "x": {
+                                        "type": "number"
+                                      },
+                                      "y": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "required": [
+                                      "x",
+                                      "y"
+                                    ]
+                                  }
+                                },
+                                "type": {
+                                  "const": "polyline"
+                                }
+                              },
+                              "required": [
+                                "points",
+                                "type"
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorpolylineObjectUnionExplicitPointer.IPolyline}"
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "outer": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPolyline}",
+                                  "type": "object",
+                                  "properties": {
+                                    "points": {
+                                      "type": "array",
+                                      "items": {
+                                        "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                        "type": "object",
+                                        "properties": {
+                                          "x": {
+                                            "type": "number"
+                                          },
+                                          "y": {
+                                            "type": "number"
+                                          }
+                                        },
+                                        "required": [
+                                          "x",
+                                          "y"
+                                        ]
+                                      }
+                                    }
+                                  },
+                                  "required": [
+                                    "points"
+                                  ]
+                                },
+                                "inner": {
+                                  "type": "array",
+                                  "items": {
+                                    "description": "Current Type: {@link ObjectUnionExplicitPointer.IPolyline}",
+                                    "type": "object",
+                                    "properties": {
+                                      "points": {
+                                        "type": "array",
+                                        "items": {
+                                          "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                          "type": "object",
+                                          "properties": {
+                                            "x": {
+                                              "type": "number"
+                                            },
+                                            "y": {
+                                              "type": "number"
+                                            }
+                                          },
+                                          "required": [
+                                            "x",
+                                            "y"
+                                          ]
+                                        }
+                                      }
+                                    },
+                                    "required": [
+                                      "points"
+                                    ]
+                                  }
+                                },
+                                "type": {
+                                  "const": "polygon"
+                                }
+                              },
+                              "required": [
+                                "outer",
+                                "inner",
+                                "type"
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorpolygonObjectUnionExplicitPointer.IPolygon}"
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "centroid": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "radius": {
+                                  "type": "number"
+                                },
+                                "type": {
+                                  "const": "circle"
+                                }
+                              },
+                              "required": [
+                                "centroid",
+                                "radius",
+                                "type"
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorcircleObjectUnionExplicitPointer.ICircle}"
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "value"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "value"
+                ],
+                "description": "Current Type: {@link ObjectUnionExplicitPointer}"
+              }
+            ]
+          },
+          "third": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "array",
+                    "items": {
+                      "description": "Current Type: {@link IPointerObjectUnionExplicitPointer.Shape}",
+                      "type": "object",
+                      "properties": {
+                        "value": {
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.Shape}",
+                          "oneOf": [
+                            {
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                },
+                                "type": {
+                                  "const": "point"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y",
+                                "type"
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorpointObjectUnionExplicitPointer.IPoint}"
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "p1": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "p2": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "type": {
+                                  "const": "line"
+                                }
+                              },
+                              "required": [
+                                "p1",
+                                "p2",
+                                "type"
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorlineObjectUnionExplicitPointer.ILine}"
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "p1": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "p2": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "p3": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "type": {
+                                  "const": "triangle"
+                                }
+                              },
+                              "required": [
+                                "p1",
+                                "p2",
+                                "p3",
+                                "type"
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatortriangleObjectUnionExplicitPointer.ITriangle}"
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "p1": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "p2": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "p3": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "p4": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "type": {
+                                  "const": "rectangle"
+                                }
+                              },
+                              "required": [
+                                "p1",
+                                "p2",
+                                "p3",
+                                "p4",
+                                "type"
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorrectangleObjectUnionExplicitPointer.IRectangle}"
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "points": {
+                                  "type": "array",
+                                  "items": {
+                                    "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                    "type": "object",
+                                    "properties": {
+                                      "x": {
+                                        "type": "number"
+                                      },
+                                      "y": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "required": [
+                                      "x",
+                                      "y"
+                                    ]
+                                  }
+                                },
+                                "type": {
+                                  "const": "polyline"
+                                }
+                              },
+                              "required": [
+                                "points",
+                                "type"
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorpolylineObjectUnionExplicitPointer.IPolyline}"
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "outer": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPolyline}",
+                                  "type": "object",
+                                  "properties": {
+                                    "points": {
+                                      "type": "array",
+                                      "items": {
+                                        "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                        "type": "object",
+                                        "properties": {
+                                          "x": {
+                                            "type": "number"
+                                          },
+                                          "y": {
+                                            "type": "number"
+                                          }
+                                        },
+                                        "required": [
+                                          "x",
+                                          "y"
+                                        ]
+                                      }
+                                    }
+                                  },
+                                  "required": [
+                                    "points"
+                                  ]
+                                },
+                                "inner": {
+                                  "type": "array",
+                                  "items": {
+                                    "description": "Current Type: {@link ObjectUnionExplicitPointer.IPolyline}",
+                                    "type": "object",
+                                    "properties": {
+                                      "points": {
+                                        "type": "array",
+                                        "items": {
+                                          "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                          "type": "object",
+                                          "properties": {
+                                            "x": {
+                                              "type": "number"
+                                            },
+                                            "y": {
+                                              "type": "number"
+                                            }
+                                          },
+                                          "required": [
+                                            "x",
+                                            "y"
+                                          ]
+                                        }
+                                      }
+                                    },
+                                    "required": [
+                                      "points"
+                                    ]
+                                  }
+                                },
+                                "type": {
+                                  "const": "polygon"
+                                }
+                              },
+                              "required": [
+                                "outer",
+                                "inner",
+                                "type"
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorpolygonObjectUnionExplicitPointer.IPolygon}"
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "centroid": {
+                                  "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                  "type": "object",
+                                  "properties": {
+                                    "x": {
+                                      "type": "number"
+                                    },
+                                    "y": {
+                                      "type": "number"
+                                    }
+                                  },
+                                  "required": [
+                                    "x",
+                                    "y"
+                                  ]
+                                },
+                                "radius": {
+                                  "type": "number"
+                                },
+                                "type": {
+                                  "const": "circle"
+                                }
+                              },
+                              "required": [
+                                "centroid",
+                                "radius",
+                                "type"
+                              ],
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorcircleObjectUnionExplicitPointer.ICircle}"
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "value"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "value"
+                ],
+                "description": "Current Type: {@link ObjectUnionExplicitPointer}"
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false,
+        "$defs": {}
+      },
+      "output": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "description": "Current Type: {@link IPointerObjectUnionExplicitPointer.Shape}",
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "description": "Current Type: {@link ObjectUnionExplicitPointer.Shape}",
+                      "oneOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "x": {
+                              "type": "number"
+                            },
+                            "y": {
+                              "type": "number"
+                            },
+                            "type": {
+                              "const": "point"
+                            }
+                          },
+                          "required": [
+                            "x",
+                            "y",
+                            "type"
+                          ],
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorpointObjectUnionExplicitPointer.IPoint}"
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "p1": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            },
+                            "p2": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            },
+                            "type": {
+                              "const": "line"
+                            }
+                          },
+                          "required": [
+                            "p1",
+                            "p2",
+                            "type"
+                          ],
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorlineObjectUnionExplicitPointer.ILine}"
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "p1": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            },
+                            "p2": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            },
+                            "p3": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            },
+                            "type": {
+                              "const": "triangle"
+                            }
+                          },
+                          "required": [
+                            "p1",
+                            "p2",
+                            "p3",
+                            "type"
+                          ],
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatortriangleObjectUnionExplicitPointer.ITriangle}"
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "p1": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            },
+                            "p2": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            },
+                            "p3": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            },
+                            "p4": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            },
+                            "type": {
+                              "const": "rectangle"
+                            }
+                          },
+                          "required": [
+                            "p1",
+                            "p2",
+                            "p3",
+                            "p4",
+                            "type"
+                          ],
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorrectangleObjectUnionExplicitPointer.IRectangle}"
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "points": {
+                              "type": "array",
+                              "items": {
+                                "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                "type": "object",
+                                "properties": {
+                                  "x": {
+                                    "type": "number"
+                                  },
+                                  "y": {
+                                    "type": "number"
+                                  }
+                                },
+                                "required": [
+                                  "x",
+                                  "y"
+                                ]
+                              }
+                            },
+                            "type": {
+                              "const": "polyline"
+                            }
+                          },
+                          "required": [
+                            "points",
+                            "type"
+                          ],
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorpolylineObjectUnionExplicitPointer.IPolyline}"
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "outer": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPolyline}",
+                              "type": "object",
+                              "properties": {
+                                "points": {
+                                  "type": "array",
+                                  "items": {
+                                    "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                    "type": "object",
+                                    "properties": {
+                                      "x": {
+                                        "type": "number"
+                                      },
+                                      "y": {
+                                        "type": "number"
+                                      }
+                                    },
+                                    "required": [
+                                      "x",
+                                      "y"
+                                    ]
+                                  }
+                                }
+                              },
+                              "required": [
+                                "points"
+                              ]
+                            },
+                            "inner": {
+                              "type": "array",
+                              "items": {
+                                "description": "Current Type: {@link ObjectUnionExplicitPointer.IPolyline}",
+                                "type": "object",
+                                "properties": {
+                                  "points": {
+                                    "type": "array",
+                                    "items": {
+                                      "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                                      "type": "object",
+                                      "properties": {
+                                        "x": {
+                                          "type": "number"
+                                        },
+                                        "y": {
+                                          "type": "number"
+                                        }
+                                      },
+                                      "required": [
+                                        "x",
+                                        "y"
+                                      ]
+                                    }
+                                  }
+                                },
+                                "required": [
+                                  "points"
+                                ]
+                              }
+                            },
+                            "type": {
+                              "const": "polygon"
+                            }
+                          },
+                          "required": [
+                            "outer",
+                            "inner",
+                            "type"
+                          ],
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorpolygonObjectUnionExplicitPointer.IPolygon}"
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "centroid": {
+                              "description": "Current Type: {@link ObjectUnionExplicitPointer.IPoint}",
+                              "type": "object",
+                              "properties": {
+                                "x": {
+                                  "type": "number"
+                                },
+                                "y": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "x",
+                                "y"
+                              ]
+                            },
+                            "radius": {
+                              "type": "number"
+                            },
+                            "type": {
+                              "const": "circle"
+                            }
+                          },
+                          "required": [
+                            "centroid",
+                            "radius",
+                            "type"
+                          ],
+                          "description": "Current Type: {@link ObjectUnionExplicitPointer.DiscriminatorcircleObjectUnionExplicitPointer.ICircle}"
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "description": "Current Type: {@link ObjectUnionExplicitPointer}"
+          }
+        ]
+      }
+    }
+  ]
+}

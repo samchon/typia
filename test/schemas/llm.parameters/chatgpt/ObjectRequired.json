@@ -1,0 +1,251 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "description": "Description of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required",
+      "type": "object",
+      "properties": {
+        "boolean": {
+          "type": "boolean"
+        },
+        "number": {
+          "type": "number"
+        },
+        "string": {
+          "type": "string"
+        },
+        "array": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "object": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/ObjectRequired.IBase"
+            }
+          ]
+        }
+      },
+      "required": [
+        "boolean",
+        "number",
+        "string",
+        "array",
+        "object"
+      ]
+    },
+    "nullable": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "boolean": {
+              "type": "boolean"
+            },
+            "number": {
+              "type": "number"
+            },
+            "string": {
+              "type": "string"
+            },
+            "array": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "object": {
+              "anyOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/$defs/ObjectRequired.IBase"
+                }
+              ]
+            }
+          },
+          "required": [
+            "boolean",
+            "number",
+            "string",
+            "array",
+            "object"
+          ],
+          "description": "Description of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required"
+        }
+      ]
+    },
+    "optional": {
+      "description": "Description of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required",
+      "type": "object",
+      "properties": {
+        "boolean": {
+          "type": "boolean"
+        },
+        "number": {
+          "type": "number"
+        },
+        "string": {
+          "type": "string"
+        },
+        "array": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "object": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/ObjectRequired.IBase"
+            }
+          ]
+        }
+      },
+      "required": [
+        "boolean",
+        "number",
+        "string",
+        "array",
+        "object"
+      ]
+    },
+    "faint": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "boolean": {
+              "type": "boolean"
+            },
+            "number": {
+              "type": "number"
+            },
+            "string": {
+              "type": "string"
+            },
+            "array": {
+              "type": "array",
+              "items": {
+                "type": "number"
+              }
+            },
+            "object": {
+              "anyOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "$ref": "#/$defs/ObjectRequired.IBase"
+                }
+              ]
+            }
+          },
+          "required": [
+            "boolean",
+            "number",
+            "string",
+            "array",
+            "object"
+          ],
+          "description": "Description of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required"
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "description": "Description of the current {@link RequiredObjectRequired.IBase} type:\n\n> Make all properties in T required",
+        "type": "object",
+        "properties": {
+          "boolean": {
+            "type": "boolean"
+          },
+          "number": {
+            "type": "number"
+          },
+          "string": {
+            "type": "string"
+          },
+          "array": {
+            "type": "array",
+            "items": {
+              "type": "number"
+            }
+          },
+          "object": {
+            "anyOf": [
+              {
+                "type": "null"
+              },
+              {
+                "$ref": "#/$defs/ObjectRequired.IBase"
+              }
+            ]
+          }
+        },
+        "required": [
+          "boolean",
+          "number",
+          "string",
+          "array",
+          "object"
+        ]
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "ObjectRequired.IBase": {
+      "type": "object",
+      "properties": {
+        "boolean": {
+          "type": "boolean"
+        },
+        "number": {
+          "type": "number"
+        },
+        "string": {
+          "type": "string"
+        },
+        "array": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "object": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "$ref": "#/$defs/ObjectRequired.IBase"
+            }
+          ]
+        }
+      },
+      "required": []
+    }
+  }
+}

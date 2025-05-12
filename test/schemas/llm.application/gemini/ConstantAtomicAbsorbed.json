@@ -1,0 +1,180 @@
+{
+  "model": "gemini",
+  "options": {
+    "recursive": 3,
+    "separate": null
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "@default something"
+              },
+              "age": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "id",
+              "age"
+            ],
+            "description": "Current Type: {@link ConstantAtomicAbsorbed}"
+          }
+        },
+        "required": [
+          "first"
+        ]
+      }
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "@default something"
+              },
+              "age": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "id",
+              "age"
+            ],
+            "description": "Current Type: {@link ConstantAtomicAbsorbed}"
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "@default something"
+              },
+              "age": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "id",
+              "age"
+            ],
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ]
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "@default something"
+          },
+          "age": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "id",
+          "age"
+        ],
+        "description": "Current Type: {@link ConstantAtomicAbsorbed}"
+      }
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "@default something"
+              },
+              "age": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "id",
+              "age"
+            ],
+            "nullable": true
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "@default something"
+              },
+              "age": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "id",
+              "age"
+            ],
+            "nullable": true
+          },
+          "third": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "description": "@default something"
+              },
+              "age": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "id",
+              "age"
+            ],
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ]
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "@default something"
+          },
+          "age": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "id",
+          "age"
+        ],
+        "nullable": true
+      }
+    }
+  ]
+}

@@ -1,0 +1,27 @@
+{
+  "description": "Current Type: {@link ClassGetter.Person}",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "dead": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "boolean"
+        }
+      ]
+    }
+  },
+  "required": [
+    "id",
+    "name",
+    "dead"
+  ]
+}

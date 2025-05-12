@@ -1,0 +1,124 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "dead": {
+          "type": "boolean",
+          "nullable": true
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "dead"
+      ],
+      "description": "Current Type: {@link ClassGetter.Person}",
+      "additionalProperties": false
+    },
+    "nullable": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "dead": {
+          "type": "boolean",
+          "nullable": true
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "dead"
+      ],
+      "additionalProperties": false,
+      "nullable": true
+    },
+    "optional": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "dead": {
+          "type": "boolean",
+          "nullable": true
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "dead"
+      ],
+      "description": "Current Type: {@link ClassGetter.Person}",
+      "additionalProperties": false
+    },
+    "faint": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "dead": {
+          "type": "boolean",
+          "nullable": true
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "dead"
+      ],
+      "additionalProperties": false,
+      "nullable": true
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "dead": {
+            "type": "boolean",
+            "nullable": true
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "dead"
+        ],
+        "description": "Current Type: {@link ClassGetter.Person}",
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false
+}

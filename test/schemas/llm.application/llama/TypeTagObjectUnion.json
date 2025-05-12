@@ -1,0 +1,373 @@
+{
+  "model": "llama",
+  "options": {
+    "reference": false,
+    "separate": null
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "description": "Current Type: {@link TypeTagObjectUnion}",
+            "type": "array",
+            "items": {
+              "description": "Current Type: {@link TypeTagObjectUnion.Type}",
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "number",
+                      "minimum": 3
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ],
+                  "description": "Current Type: {@link TypeTagObjectUnion.Numeric}"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 3,
+                      "maxLength": 7
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ],
+                  "description": "Current Type: {@link TypeTagObjectUnion.Literal}"
+                }
+              ]
+            }
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {}
+      }
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "description": "Current Type: {@link TypeTagObjectUnion}",
+            "type": "array",
+            "items": {
+              "description": "Current Type: {@link TypeTagObjectUnion.Type}",
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "number",
+                      "minimum": 3
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ],
+                  "description": "Current Type: {@link TypeTagObjectUnion.Numeric}"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 3,
+                      "maxLength": 7
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ],
+                  "description": "Current Type: {@link TypeTagObjectUnion.Literal}"
+                }
+              ]
+            }
+          },
+          "second": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "description": "Current Type: {@link TypeTagObjectUnion.Type}",
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "value": {
+                          "type": "number",
+                          "minimum": 3
+                        }
+                      },
+                      "required": [
+                        "value"
+                      ],
+                      "description": "Current Type: {@link TypeTagObjectUnion.Numeric}"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "minLength": 3,
+                          "maxLength": 7
+                        }
+                      },
+                      "required": [
+                        "value"
+                      ],
+                      "description": "Current Type: {@link TypeTagObjectUnion.Literal}"
+                    }
+                  ]
+                },
+                "description": "Current Type: {@link TypeTagObjectUnion}"
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false,
+        "$defs": {}
+      },
+      "output": {
+        "description": "Current Type: {@link TypeTagObjectUnion}",
+        "type": "array",
+        "items": {
+          "description": "Current Type: {@link TypeTagObjectUnion.Type}",
+          "oneOf": [
+            {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "number",
+                  "minimum": 3
+                }
+              },
+              "required": [
+                "value"
+              ],
+              "description": "Current Type: {@link TypeTagObjectUnion.Numeric}"
+            },
+            {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "string",
+                  "minLength": 3,
+                  "maxLength": 7
+                }
+              },
+              "required": [
+                "value"
+              ],
+              "description": "Current Type: {@link TypeTagObjectUnion.Literal}"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "description": "Current Type: {@link TypeTagObjectUnion.Type}",
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "value": {
+                          "type": "number",
+                          "minimum": 3
+                        }
+                      },
+                      "required": [
+                        "value"
+                      ],
+                      "description": "Current Type: {@link TypeTagObjectUnion.Numeric}"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "minLength": 3,
+                          "maxLength": 7
+                        }
+                      },
+                      "required": [
+                        "value"
+                      ],
+                      "description": "Current Type: {@link TypeTagObjectUnion.Literal}"
+                    }
+                  ]
+                },
+                "description": "Current Type: {@link TypeTagObjectUnion}"
+              }
+            ]
+          },
+          "second": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "description": "Current Type: {@link TypeTagObjectUnion.Type}",
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "value": {
+                          "type": "number",
+                          "minimum": 3
+                        }
+                      },
+                      "required": [
+                        "value"
+                      ],
+                      "description": "Current Type: {@link TypeTagObjectUnion.Numeric}"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "minLength": 3,
+                          "maxLength": 7
+                        }
+                      },
+                      "required": [
+                        "value"
+                      ],
+                      "description": "Current Type: {@link TypeTagObjectUnion.Literal}"
+                    }
+                  ]
+                },
+                "description": "Current Type: {@link TypeTagObjectUnion}"
+              }
+            ]
+          },
+          "third": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "array",
+                "items": {
+                  "description": "Current Type: {@link TypeTagObjectUnion.Type}",
+                  "oneOf": [
+                    {
+                      "type": "object",
+                      "properties": {
+                        "value": {
+                          "type": "number",
+                          "minimum": 3
+                        }
+                      },
+                      "required": [
+                        "value"
+                      ],
+                      "description": "Current Type: {@link TypeTagObjectUnion.Numeric}"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "value": {
+                          "type": "string",
+                          "minLength": 3,
+                          "maxLength": 7
+                        }
+                      },
+                      "required": [
+                        "value"
+                      ],
+                      "description": "Current Type: {@link TypeTagObjectUnion.Literal}"
+                    }
+                  ]
+                },
+                "description": "Current Type: {@link TypeTagObjectUnion}"
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false,
+        "$defs": {}
+      },
+      "output": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "array",
+            "items": {
+              "description": "Current Type: {@link TypeTagObjectUnion.Type}",
+              "oneOf": [
+                {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "number",
+                      "minimum": 3
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ],
+                  "description": "Current Type: {@link TypeTagObjectUnion.Numeric}"
+                },
+                {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "type": "string",
+                      "minLength": 3,
+                      "maxLength": 7
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ],
+                  "description": "Current Type: {@link TypeTagObjectUnion.Literal}"
+                }
+              ]
+            },
+            "description": "Current Type: {@link TypeTagObjectUnion}"
+          }
+        ]
+      }
+    }
+  ]
+}

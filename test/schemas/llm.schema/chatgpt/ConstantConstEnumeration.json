@@ -1,0 +1,24 @@
+{
+  "description": "Current Type: {@link ConstantConstEnumeration}",
+  "type": "array",
+  "items": {
+    "description": "Current Type: {@link ConstantConstEnumeration.Enumeration}",
+    "anyOf": [
+      {
+        "type": "number",
+        "enum": [
+          0,
+          1,
+          2
+        ]
+      },
+      {
+        "type": "string",
+        "enum": [
+          "Three",
+          "Four"
+        ]
+      }
+    ]
+  }
+}

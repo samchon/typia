@@ -1,0 +1,19 @@
+{
+  "description": "Current Type: {@link ObjectOptional}",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "email": {
+      "type": "string"
+    },
+    "sequence": {
+      "type": "number"
+    }
+  },
+  "required": []
+}

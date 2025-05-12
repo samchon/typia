@@ -1,0 +1,701 @@
+{
+  "model": "claude",
+  "options": {
+    "reference": false,
+    "separate": null
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "description": "Current Type: {@link TemplateUnion}",
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "description": "Current Type: {@link TemplateUnion.Type}",
+                  "type": "object",
+                  "properties": {
+                    "prefix": {
+                      "type": "string",
+                      "pattern": "^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$"
+                    },
+                    "postfix": {
+                      "type": "string",
+                      "pattern": "(((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$"
+                    },
+                    "middle": {
+                      "oneOf": [
+                        {
+                          "type": "string",
+                          "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                        },
+                        {
+                          "const": "the_false_value"
+                        },
+                        {
+                          "const": "the_true_value"
+                        }
+                      ]
+                    },
+                    "mixed": {
+                      "oneOf": [
+                        {
+                          "type": "string",
+                          "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                        },
+                        {
+                          "const": "the_A_value"
+                        },
+                        {
+                          "const": "the_B_value"
+                        },
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "boolean"
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "name"
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "prefix",
+                    "postfix",
+                    "middle",
+                    "mixed"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {}
+      }
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "description": "Current Type: {@link TemplateUnion}",
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "description": "Current Type: {@link TemplateUnion.Type}",
+                  "type": "object",
+                  "properties": {
+                    "prefix": {
+                      "type": "string",
+                      "pattern": "^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$"
+                    },
+                    "postfix": {
+                      "type": "string",
+                      "pattern": "(((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$"
+                    },
+                    "middle": {
+                      "oneOf": [
+                        {
+                          "type": "string",
+                          "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                        },
+                        {
+                          "const": "the_false_value"
+                        },
+                        {
+                          "const": "the_true_value"
+                        }
+                      ]
+                    },
+                    "mixed": {
+                      "oneOf": [
+                        {
+                          "type": "string",
+                          "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                        },
+                        {
+                          "const": "the_A_value"
+                        },
+                        {
+                          "const": "the_B_value"
+                        },
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "boolean"
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "name"
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "prefix",
+                    "postfix",
+                    "middle",
+                    "mixed"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "second": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "array",
+                    "items": {
+                      "description": "Current Type: {@link TemplateUnion.Type}",
+                      "type": "object",
+                      "properties": {
+                        "prefix": {
+                          "type": "string",
+                          "pattern": "^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$"
+                        },
+                        "postfix": {
+                          "type": "string",
+                          "pattern": "(((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$"
+                        },
+                        "middle": {
+                          "oneOf": [
+                            {
+                              "type": "string",
+                              "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                            },
+                            {
+                              "const": "the_false_value"
+                            },
+                            {
+                              "const": "the_true_value"
+                            }
+                          ]
+                        },
+                        "mixed": {
+                          "oneOf": [
+                            {
+                              "type": "string",
+                              "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                            },
+                            {
+                              "const": "the_A_value"
+                            },
+                            {
+                              "const": "the_B_value"
+                            },
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "boolean"
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "name": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "name"
+                              ]
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "prefix",
+                        "postfix",
+                        "middle",
+                        "mixed"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "value"
+                ],
+                "description": "Current Type: {@link TemplateUnion}"
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false,
+        "$defs": {}
+      },
+      "output": {
+        "description": "Current Type: {@link TemplateUnion}",
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "description": "Current Type: {@link TemplateUnion.Type}",
+              "type": "object",
+              "properties": {
+                "prefix": {
+                  "type": "string",
+                  "pattern": "^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$"
+                },
+                "postfix": {
+                  "type": "string",
+                  "pattern": "(((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$"
+                },
+                "middle": {
+                  "oneOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                    },
+                    {
+                      "const": "the_false_value"
+                    },
+                    {
+                      "const": "the_true_value"
+                    }
+                  ]
+                },
+                "mixed": {
+                  "oneOf": [
+                    {
+                      "type": "string",
+                      "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                    },
+                    {
+                      "const": "the_A_value"
+                    },
+                    {
+                      "const": "the_B_value"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "boolean"
+                    },
+                    {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string"
+                        }
+                      },
+                      "required": [
+                        "name"
+                      ]
+                    }
+                  ]
+                }
+              },
+              "required": [
+                "prefix",
+                "postfix",
+                "middle",
+                "mixed"
+              ]
+            }
+          }
+        },
+        "required": [
+          "value"
+        ]
+      }
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "array",
+                    "items": {
+                      "description": "Current Type: {@link TemplateUnion.Type}",
+                      "type": "object",
+                      "properties": {
+                        "prefix": {
+                          "type": "string",
+                          "pattern": "^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$"
+                        },
+                        "postfix": {
+                          "type": "string",
+                          "pattern": "(((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$"
+                        },
+                        "middle": {
+                          "oneOf": [
+                            {
+                              "type": "string",
+                              "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                            },
+                            {
+                              "const": "the_false_value"
+                            },
+                            {
+                              "const": "the_true_value"
+                            }
+                          ]
+                        },
+                        "mixed": {
+                          "oneOf": [
+                            {
+                              "type": "string",
+                              "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                            },
+                            {
+                              "const": "the_A_value"
+                            },
+                            {
+                              "const": "the_B_value"
+                            },
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "boolean"
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "name": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "name"
+                              ]
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "prefix",
+                        "postfix",
+                        "middle",
+                        "mixed"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "value"
+                ],
+                "description": "Current Type: {@link TemplateUnion}"
+              }
+            ]
+          },
+          "second": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "array",
+                    "items": {
+                      "description": "Current Type: {@link TemplateUnion.Type}",
+                      "type": "object",
+                      "properties": {
+                        "prefix": {
+                          "type": "string",
+                          "pattern": "^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$"
+                        },
+                        "postfix": {
+                          "type": "string",
+                          "pattern": "(((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$"
+                        },
+                        "middle": {
+                          "oneOf": [
+                            {
+                              "type": "string",
+                              "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                            },
+                            {
+                              "const": "the_false_value"
+                            },
+                            {
+                              "const": "the_true_value"
+                            }
+                          ]
+                        },
+                        "mixed": {
+                          "oneOf": [
+                            {
+                              "type": "string",
+                              "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                            },
+                            {
+                              "const": "the_A_value"
+                            },
+                            {
+                              "const": "the_B_value"
+                            },
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "boolean"
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "name": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "name"
+                              ]
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "prefix",
+                        "postfix",
+                        "middle",
+                        "mixed"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "value"
+                ],
+                "description": "Current Type: {@link TemplateUnion}"
+              }
+            ]
+          },
+          "third": {
+            "oneOf": [
+              {
+                "type": "null"
+              },
+              {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "type": "array",
+                    "items": {
+                      "description": "Current Type: {@link TemplateUnion.Type}",
+                      "type": "object",
+                      "properties": {
+                        "prefix": {
+                          "type": "string",
+                          "pattern": "^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$"
+                        },
+                        "postfix": {
+                          "type": "string",
+                          "pattern": "(((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$"
+                        },
+                        "middle": {
+                          "oneOf": [
+                            {
+                              "type": "string",
+                              "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                            },
+                            {
+                              "const": "the_false_value"
+                            },
+                            {
+                              "const": "the_true_value"
+                            }
+                          ]
+                        },
+                        "mixed": {
+                          "oneOf": [
+                            {
+                              "type": "string",
+                              "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                            },
+                            {
+                              "const": "the_A_value"
+                            },
+                            {
+                              "const": "the_B_value"
+                            },
+                            {
+                              "type": "number"
+                            },
+                            {
+                              "type": "boolean"
+                            },
+                            {
+                              "type": "object",
+                              "properties": {
+                                "name": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "name"
+                              ]
+                            }
+                          ]
+                        }
+                      },
+                      "required": [
+                        "prefix",
+                        "postfix",
+                        "middle",
+                        "mixed"
+                      ]
+                    }
+                  }
+                },
+                "required": [
+                  "value"
+                ],
+                "description": "Current Type: {@link TemplateUnion}"
+              }
+            ]
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ],
+        "additionalProperties": false,
+        "$defs": {}
+      },
+      "output": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "description": "Current Type: {@link TemplateUnion.Type}",
+                  "type": "object",
+                  "properties": {
+                    "prefix": {
+                      "type": "string",
+                      "pattern": "^((prefix_(.*))|(prefix_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?))$"
+                    },
+                    "postfix": {
+                      "type": "string",
+                      "pattern": "(((.*)_postfix)|([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_postfix))$"
+                    },
+                    "middle": {
+                      "oneOf": [
+                        {
+                          "type": "string",
+                          "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                        },
+                        {
+                          "const": "the_false_value"
+                        },
+                        {
+                          "const": "the_true_value"
+                        }
+                      ]
+                    },
+                    "mixed": {
+                      "oneOf": [
+                        {
+                          "type": "string",
+                          "pattern": "^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$"
+                        },
+                        {
+                          "const": "the_A_value"
+                        },
+                        {
+                          "const": "the_B_value"
+                        },
+                        {
+                          "type": "number"
+                        },
+                        {
+                          "type": "boolean"
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "name": {
+                              "type": "string"
+                            }
+                          },
+                          "required": [
+                            "name"
+                          ]
+                        }
+                      ]
+                    }
+                  },
+                  "required": [
+                    "prefix",
+                    "postfix",
+                    "middle",
+                    "mixed"
+                  ]
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "description": "Current Type: {@link TemplateUnion}"
+          }
+        ]
+      }
+    }
+  ]
+}

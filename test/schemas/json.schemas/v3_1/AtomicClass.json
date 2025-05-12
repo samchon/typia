@@ -1,0 +1,45 @@
+{
+  "version": "3.1",
+  "components": {
+    "schemas": {
+      "AtomicClass": {
+        "type": "array",
+        "prefixItems": [
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "boolean"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "string"
+          }
+        ],
+        "additionalItems": false
+      }
+    }
+  },
+  "schemas": [
+    {
+      "$ref": "#/components/schemas/AtomicClass"
+    }
+  ]
+}

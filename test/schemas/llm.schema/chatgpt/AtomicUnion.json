@@ -1,0 +1,21 @@
+{
+  "description": "Current Type: {@link AtomicUnion}",
+  "type": "array",
+  "items": {
+    "description": "Current Type: {@link AtomicUnion.Union}",
+    "anyOf": [
+      {
+        "type": "null"
+      },
+      {
+        "type": "string"
+      },
+      {
+        "type": "number"
+      },
+      {
+        "type": "boolean"
+      }
+    ]
+  }
+}

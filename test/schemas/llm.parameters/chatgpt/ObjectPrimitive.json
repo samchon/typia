@@ -1,0 +1,374 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "description": "Current Type: {@link ObjectPrimitive.IArticle}",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "extension": {
+          "type": "string",
+          "enum": [
+            "txt",
+            "md",
+            "html"
+          ]
+        },
+        "title": {
+          "type": "string"
+        },
+        "body": {
+          "type": "string"
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "description": "Current Type: {@link ObjectPrimitive.IFile}",
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "extension": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "created_at": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "extension",
+              "url",
+              "created_at"
+            ]
+          }
+        },
+        "secret": {
+          "type": "boolean"
+        },
+        "created_at": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "extension",
+        "title",
+        "body",
+        "files",
+        "secret",
+        "created_at"
+      ]
+    },
+    "nullable": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "extension": {
+              "type": "string",
+              "enum": [
+                "txt",
+                "md",
+                "html"
+              ]
+            },
+            "title": {
+              "type": "string"
+            },
+            "body": {
+              "type": "string"
+            },
+            "files": {
+              "type": "array",
+              "items": {
+                "description": "Current Type: {@link ObjectPrimitive.IFile}",
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "extension": {
+                    "type": "string"
+                  },
+                  "url": {
+                    "type": "string"
+                  },
+                  "created_at": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "name",
+                  "extension",
+                  "url",
+                  "created_at"
+                ]
+              }
+            },
+            "secret": {
+              "type": "boolean"
+            },
+            "created_at": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "extension",
+            "title",
+            "body",
+            "files",
+            "secret",
+            "created_at"
+          ],
+          "description": "Current Type: {@link ObjectPrimitive.IArticle}"
+        }
+      ]
+    },
+    "optional": {
+      "description": "Current Type: {@link ObjectPrimitive.IArticle}",
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "extension": {
+          "type": "string",
+          "enum": [
+            "txt",
+            "md",
+            "html"
+          ]
+        },
+        "title": {
+          "type": "string"
+        },
+        "body": {
+          "type": "string"
+        },
+        "files": {
+          "type": "array",
+          "items": {
+            "description": "Current Type: {@link ObjectPrimitive.IFile}",
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "extension": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "created_at": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "extension",
+              "url",
+              "created_at"
+            ]
+          }
+        },
+        "secret": {
+          "type": "boolean"
+        },
+        "created_at": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "extension",
+        "title",
+        "body",
+        "files",
+        "secret",
+        "created_at"
+      ]
+    },
+    "faint": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string"
+            },
+            "extension": {
+              "type": "string",
+              "enum": [
+                "txt",
+                "md",
+                "html"
+              ]
+            },
+            "title": {
+              "type": "string"
+            },
+            "body": {
+              "type": "string"
+            },
+            "files": {
+              "type": "array",
+              "items": {
+                "description": "Current Type: {@link ObjectPrimitive.IFile}",
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "name": {
+                    "type": "string"
+                  },
+                  "extension": {
+                    "type": "string"
+                  },
+                  "url": {
+                    "type": "string"
+                  },
+                  "created_at": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "name",
+                  "extension",
+                  "url",
+                  "created_at"
+                ]
+              }
+            },
+            "secret": {
+              "type": "boolean"
+            },
+            "created_at": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "id",
+            "extension",
+            "title",
+            "body",
+            "files",
+            "secret",
+            "created_at"
+          ],
+          "description": "Current Type: {@link ObjectPrimitive.IArticle}"
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "description": "Current Type: {@link ObjectPrimitive.IArticle}",
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "extension": {
+            "type": "string",
+            "enum": [
+              "txt",
+              "md",
+              "html"
+            ]
+          },
+          "title": {
+            "type": "string"
+          },
+          "body": {
+            "type": "string"
+          },
+          "files": {
+            "type": "array",
+            "items": {
+              "description": "Current Type: {@link ObjectPrimitive.IFile}",
+              "type": "object",
+              "properties": {
+                "id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                },
+                "extension": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string"
+                },
+                "created_at": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "id",
+                "name",
+                "extension",
+                "url",
+                "created_at"
+              ]
+            }
+          },
+          "secret": {
+            "type": "boolean"
+          },
+          "created_at": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "id",
+          "extension",
+          "title",
+          "body",
+          "files",
+          "secret",
+          "created_at"
+        ]
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {}
+}

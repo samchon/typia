@@ -1,0 +1,19 @@
+{
+  "type": "object",
+  "properties": {},
+  "required": [],
+  "description": "Current Type: {@link DynamicTemplate}",
+  "additionalProperties": {
+    "oneOf": [
+      {
+        "type": "string"
+      },
+      {
+        "type": "number"
+      },
+      {
+        "type": "boolean"
+      }
+    ]
+  }
+}

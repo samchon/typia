@@ -1,0 +1,27 @@
+{
+  "version": "3.1",
+  "components": {
+    "schemas": {}
+  },
+  "schemas": [
+    {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "age": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "age"
+      ]
+    }
+  ]
+}

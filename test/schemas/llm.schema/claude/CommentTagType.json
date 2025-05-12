@@ -1,0 +1,55 @@
+{
+  "description": "Current Type: {@link CommentTagType}",
+  "type": "object",
+  "properties": {
+    "value": {
+      "type": "array",
+      "items": {
+        "description": "Current Type: {@link CommentTagType.Type}",
+        "type": "object",
+        "properties": {
+          "int": {
+            "title": "Integer value",
+            "description": "Integer value.",
+            "type": "integer"
+          },
+          "uint": {
+            "title": "Unsigned integer value",
+            "description": "Unsigned integer value.",
+            "type": "integer",
+            "minimum": 0
+          },
+          "int32": {
+            "type": "integer"
+          },
+          "uint32": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "int64": {
+            "type": "integer"
+          },
+          "uint64": {
+            "type": "integer",
+            "minimum": 0
+          },
+          "float": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "int",
+          "uint",
+          "int32",
+          "uint32",
+          "int64",
+          "uint64",
+          "float"
+        ]
+      }
+    }
+  },
+  "required": [
+    "value"
+  ]
+}

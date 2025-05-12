@@ -1,0 +1,452 @@
+{
+  "model": "gemini",
+  "options": {
+    "recursive": 3,
+    "separate": null
+  },
+  "functions": [
+    {
+      "name": "insert",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "int": {
+                      "type": "integer"
+                    },
+                    "uint": {
+                      "type": "integer",
+                      "description": "@minimum 0"
+                    },
+                    "int32": {
+                      "type": "integer"
+                    },
+                    "uint32": {
+                      "type": "integer",
+                      "description": "@minimum 0"
+                    },
+                    "int64": {
+                      "type": "integer"
+                    },
+                    "uint64": {
+                      "type": "integer",
+                      "description": "@minimum 0"
+                    },
+                    "float": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "int",
+                    "uint",
+                    "int32",
+                    "uint32",
+                    "int64",
+                    "uint64",
+                    "float"
+                  ],
+                  "description": "Current Type: {@link TypeTagType.Type}"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "description": "Current Type: {@link TypeTagType}"
+          }
+        },
+        "required": [
+          "first"
+        ]
+      }
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "int": {
+                      "type": "integer"
+                    },
+                    "uint": {
+                      "type": "integer",
+                      "description": "@minimum 0"
+                    },
+                    "int32": {
+                      "type": "integer"
+                    },
+                    "uint32": {
+                      "type": "integer",
+                      "description": "@minimum 0"
+                    },
+                    "int64": {
+                      "type": "integer"
+                    },
+                    "uint64": {
+                      "type": "integer",
+                      "description": "@minimum 0"
+                    },
+                    "float": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "int",
+                    "uint",
+                    "int32",
+                    "uint32",
+                    "int64",
+                    "uint64",
+                    "float"
+                  ],
+                  "description": "Current Type: {@link TypeTagType.Type}"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "description": "Current Type: {@link TypeTagType}"
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "int": {
+                      "type": "integer"
+                    },
+                    "uint": {
+                      "type": "integer",
+                      "description": "@minimum 0"
+                    },
+                    "int32": {
+                      "type": "integer"
+                    },
+                    "uint32": {
+                      "type": "integer",
+                      "description": "@minimum 0"
+                    },
+                    "int64": {
+                      "type": "integer"
+                    },
+                    "uint64": {
+                      "type": "integer",
+                      "description": "@minimum 0"
+                    },
+                    "float": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "int",
+                    "uint",
+                    "int32",
+                    "uint32",
+                    "int64",
+                    "uint64",
+                    "float"
+                  ],
+                  "description": "Current Type: {@link TypeTagType.Type}"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ]
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "int": {
+                  "type": "integer"
+                },
+                "uint": {
+                  "type": "integer",
+                  "description": "@minimum 0"
+                },
+                "int32": {
+                  "type": "integer"
+                },
+                "uint32": {
+                  "type": "integer",
+                  "description": "@minimum 0"
+                },
+                "int64": {
+                  "type": "integer"
+                },
+                "uint64": {
+                  "type": "integer",
+                  "description": "@minimum 0"
+                },
+                "float": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "int",
+                "uint",
+                "int32",
+                "uint32",
+                "int64",
+                "uint64",
+                "float"
+              ],
+              "description": "Current Type: {@link TypeTagType.Type}"
+            }
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "description": "Current Type: {@link TypeTagType}"
+      }
+    },
+    {
+      "name": "coalesce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "int": {
+                      "type": "integer"
+                    },
+                    "uint": {
+                      "type": "integer",
+                      "description": "@minimum 0"
+                    },
+                    "int32": {
+                      "type": "integer"
+                    },
+                    "uint32": {
+                      "type": "integer",
+                      "description": "@minimum 0"
+                    },
+                    "int64": {
+                      "type": "integer"
+                    },
+                    "uint64": {
+                      "type": "integer",
+                      "description": "@minimum 0"
+                    },
+                    "float": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "int",
+                    "uint",
+                    "int32",
+                    "uint32",
+                    "int64",
+                    "uint64",
+                    "float"
+                  ],
+                  "description": "Current Type: {@link TypeTagType.Type}"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "nullable": true
+          },
+          "second": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "int": {
+                      "type": "integer"
+                    },
+                    "uint": {
+                      "type": "integer",
+                      "description": "@minimum 0"
+                    },
+                    "int32": {
+                      "type": "integer"
+                    },
+                    "uint32": {
+                      "type": "integer",
+                      "description": "@minimum 0"
+                    },
+                    "int64": {
+                      "type": "integer"
+                    },
+                    "uint64": {
+                      "type": "integer",
+                      "description": "@minimum 0"
+                    },
+                    "float": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "int",
+                    "uint",
+                    "int32",
+                    "uint32",
+                    "int64",
+                    "uint64",
+                    "float"
+                  ],
+                  "description": "Current Type: {@link TypeTagType.Type}"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "nullable": true
+          },
+          "third": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "type": "object",
+                  "properties": {
+                    "int": {
+                      "type": "integer"
+                    },
+                    "uint": {
+                      "type": "integer",
+                      "description": "@minimum 0"
+                    },
+                    "int32": {
+                      "type": "integer"
+                    },
+                    "uint32": {
+                      "type": "integer",
+                      "description": "@minimum 0"
+                    },
+                    "int64": {
+                      "type": "integer"
+                    },
+                    "uint64": {
+                      "type": "integer",
+                      "description": "@minimum 0"
+                    },
+                    "float": {
+                      "type": "number"
+                    }
+                  },
+                  "required": [
+                    "int",
+                    "uint",
+                    "int32",
+                    "uint32",
+                    "int64",
+                    "uint64",
+                    "float"
+                  ],
+                  "description": "Current Type: {@link TypeTagType.Type}"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "nullable": true
+          }
+        },
+        "required": [
+          "first",
+          "second"
+        ]
+      },
+      "output": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "int": {
+                  "type": "integer"
+                },
+                "uint": {
+                  "type": "integer",
+                  "description": "@minimum 0"
+                },
+                "int32": {
+                  "type": "integer"
+                },
+                "uint32": {
+                  "type": "integer",
+                  "description": "@minimum 0"
+                },
+                "int64": {
+                  "type": "integer"
+                },
+                "uint64": {
+                  "type": "integer",
+                  "description": "@minimum 0"
+                },
+                "float": {
+                  "type": "number"
+                }
+              },
+              "required": [
+                "int",
+                "uint",
+                "int32",
+                "uint32",
+                "int64",
+                "uint64",
+                "float"
+              ],
+              "description": "Current Type: {@link TypeTagType.Type}"
+            }
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "nullable": true
+      }
+    }
+  ]
+}

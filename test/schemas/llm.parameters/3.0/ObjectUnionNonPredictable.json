@@ -1,0 +1,549 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "oneOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "value": {
+                            "type": "object",
+                            "properties": {
+                              "value": {
+                                "type": "boolean"
+                              }
+                            },
+                            "required": [
+                              "value"
+                            ],
+                            "description": "Current Type: {@link IPointerboolean}",
+                            "additionalProperties": false
+                          }
+                        },
+                        "required": [
+                          "value"
+                        ],
+                        "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperboolean}",
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "value": {
+                            "type": "object",
+                            "properties": {
+                              "value": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "value"
+                            ],
+                            "description": "Current Type: {@link IPointernumber}",
+                            "additionalProperties": false
+                          }
+                        },
+                        "required": [
+                          "value"
+                        ],
+                        "description": "Current Type: {@link ObjectUnionNonPredictable.IWrappernumber}",
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "value": {
+                            "type": "object",
+                            "properties": {
+                              "value": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "value"
+                            ],
+                            "description": "Current Type: {@link IPointerstring}",
+                            "additionalProperties": false
+                          }
+                        },
+                        "required": [
+                          "value"
+                        ],
+                        "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperstring}",
+                        "additionalProperties": false
+                      }
+                    ],
+                    "description": "Current Type: {@link ObjectUnionNonPredictable.IUnion}"
+                  }
+                },
+                "required": [
+                  "value"
+                ],
+                "description": "Current Type: {@link IPointerObjectUnionNonPredictable.IUnion}",
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperObjectUnionNonPredictable.IUnion}",
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "value"
+      ],
+      "description": "Current Type: {@link ObjectUnionNonPredictable}",
+      "additionalProperties": false
+    },
+    "nullable": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "oneOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "value": {
+                            "type": "object",
+                            "properties": {
+                              "value": {
+                                "type": "boolean"
+                              }
+                            },
+                            "required": [
+                              "value"
+                            ],
+                            "description": "Current Type: {@link IPointerboolean}",
+                            "additionalProperties": false
+                          }
+                        },
+                        "required": [
+                          "value"
+                        ],
+                        "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperboolean}",
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "value": {
+                            "type": "object",
+                            "properties": {
+                              "value": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "value"
+                            ],
+                            "description": "Current Type: {@link IPointernumber}",
+                            "additionalProperties": false
+                          }
+                        },
+                        "required": [
+                          "value"
+                        ],
+                        "description": "Current Type: {@link ObjectUnionNonPredictable.IWrappernumber}",
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "value": {
+                            "type": "object",
+                            "properties": {
+                              "value": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "value"
+                            ],
+                            "description": "Current Type: {@link IPointerstring}",
+                            "additionalProperties": false
+                          }
+                        },
+                        "required": [
+                          "value"
+                        ],
+                        "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperstring}",
+                        "additionalProperties": false
+                      }
+                    ],
+                    "description": "Current Type: {@link ObjectUnionNonPredictable.IUnion}"
+                  }
+                },
+                "required": [
+                  "value"
+                ],
+                "description": "Current Type: {@link IPointerObjectUnionNonPredictable.IUnion}",
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperObjectUnionNonPredictable.IUnion}",
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "value"
+      ],
+      "additionalProperties": false,
+      "nullable": true
+    },
+    "optional": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "oneOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "value": {
+                            "type": "object",
+                            "properties": {
+                              "value": {
+                                "type": "boolean"
+                              }
+                            },
+                            "required": [
+                              "value"
+                            ],
+                            "description": "Current Type: {@link IPointerboolean}",
+                            "additionalProperties": false
+                          }
+                        },
+                        "required": [
+                          "value"
+                        ],
+                        "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperboolean}",
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "value": {
+                            "type": "object",
+                            "properties": {
+                              "value": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "value"
+                            ],
+                            "description": "Current Type: {@link IPointernumber}",
+                            "additionalProperties": false
+                          }
+                        },
+                        "required": [
+                          "value"
+                        ],
+                        "description": "Current Type: {@link ObjectUnionNonPredictable.IWrappernumber}",
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "value": {
+                            "type": "object",
+                            "properties": {
+                              "value": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "value"
+                            ],
+                            "description": "Current Type: {@link IPointerstring}",
+                            "additionalProperties": false
+                          }
+                        },
+                        "required": [
+                          "value"
+                        ],
+                        "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperstring}",
+                        "additionalProperties": false
+                      }
+                    ],
+                    "description": "Current Type: {@link ObjectUnionNonPredictable.IUnion}"
+                  }
+                },
+                "required": [
+                  "value"
+                ],
+                "description": "Current Type: {@link IPointerObjectUnionNonPredictable.IUnion}",
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperObjectUnionNonPredictable.IUnion}",
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "value"
+      ],
+      "description": "Current Type: {@link ObjectUnionNonPredictable}",
+      "additionalProperties": false
+    },
+    "faint": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "object",
+                "properties": {
+                  "value": {
+                    "oneOf": [
+                      {
+                        "type": "object",
+                        "properties": {
+                          "value": {
+                            "type": "object",
+                            "properties": {
+                              "value": {
+                                "type": "boolean"
+                              }
+                            },
+                            "required": [
+                              "value"
+                            ],
+                            "description": "Current Type: {@link IPointerboolean}",
+                            "additionalProperties": false
+                          }
+                        },
+                        "required": [
+                          "value"
+                        ],
+                        "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperboolean}",
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "value": {
+                            "type": "object",
+                            "properties": {
+                              "value": {
+                                "type": "number"
+                              }
+                            },
+                            "required": [
+                              "value"
+                            ],
+                            "description": "Current Type: {@link IPointernumber}",
+                            "additionalProperties": false
+                          }
+                        },
+                        "required": [
+                          "value"
+                        ],
+                        "description": "Current Type: {@link ObjectUnionNonPredictable.IWrappernumber}",
+                        "additionalProperties": false
+                      },
+                      {
+                        "type": "object",
+                        "properties": {
+                          "value": {
+                            "type": "object",
+                            "properties": {
+                              "value": {
+                                "type": "string"
+                              }
+                            },
+                            "required": [
+                              "value"
+                            ],
+                            "description": "Current Type: {@link IPointerstring}",
+                            "additionalProperties": false
+                          }
+                        },
+                        "required": [
+                          "value"
+                        ],
+                        "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperstring}",
+                        "additionalProperties": false
+                      }
+                    ],
+                    "description": "Current Type: {@link ObjectUnionNonPredictable.IUnion}"
+                  }
+                },
+                "required": [
+                  "value"
+                ],
+                "description": "Current Type: {@link IPointerObjectUnionNonPredictable.IUnion}",
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "value"
+            ],
+            "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperObjectUnionNonPredictable.IUnion}",
+            "additionalProperties": false
+          }
+        }
+      },
+      "required": [
+        "value"
+      ],
+      "additionalProperties": false,
+      "nullable": true
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "value": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "value": {
+                  "type": "object",
+                  "properties": {
+                    "value": {
+                      "oneOf": [
+                        {
+                          "type": "object",
+                          "properties": {
+                            "value": {
+                              "type": "object",
+                              "properties": {
+                                "value": {
+                                  "type": "boolean"
+                                }
+                              },
+                              "required": [
+                                "value"
+                              ],
+                              "description": "Current Type: {@link IPointerboolean}",
+                              "additionalProperties": false
+                            }
+                          },
+                          "required": [
+                            "value"
+                          ],
+                          "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperboolean}",
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "value": {
+                              "type": "object",
+                              "properties": {
+                                "value": {
+                                  "type": "number"
+                                }
+                              },
+                              "required": [
+                                "value"
+                              ],
+                              "description": "Current Type: {@link IPointernumber}",
+                              "additionalProperties": false
+                            }
+                          },
+                          "required": [
+                            "value"
+                          ],
+                          "description": "Current Type: {@link ObjectUnionNonPredictable.IWrappernumber}",
+                          "additionalProperties": false
+                        },
+                        {
+                          "type": "object",
+                          "properties": {
+                            "value": {
+                              "type": "object",
+                              "properties": {
+                                "value": {
+                                  "type": "string"
+                                }
+                              },
+                              "required": [
+                                "value"
+                              ],
+                              "description": "Current Type: {@link IPointerstring}",
+                              "additionalProperties": false
+                            }
+                          },
+                          "required": [
+                            "value"
+                          ],
+                          "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperstring}",
+                          "additionalProperties": false
+                        }
+                      ],
+                      "description": "Current Type: {@link ObjectUnionNonPredictable.IUnion}"
+                    }
+                  },
+                  "required": [
+                    "value"
+                  ],
+                  "description": "Current Type: {@link IPointerObjectUnionNonPredictable.IUnion}",
+                  "additionalProperties": false
+                }
+              },
+              "required": [
+                "value"
+              ],
+              "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperObjectUnionNonPredictable.IUnion}",
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "value"
+        ],
+        "description": "Current Type: {@link ObjectUnionNonPredictable}",
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false
+}

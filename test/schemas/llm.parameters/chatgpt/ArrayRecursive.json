@@ -1,0 +1,88 @@
+{
+  "type": "object",
+  "properties": {
+    "regular": {
+      "$ref": "#/$defs/ArrayRecursive.ICategory"
+    },
+    "nullable": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/ArrayRecursive.ICategory"
+        }
+      ]
+    },
+    "optional": {
+      "$ref": "#/$defs/ArrayRecursive.ICategory"
+    },
+    "faint": {
+      "anyOf": [
+        {
+          "type": "null"
+        },
+        {
+          "$ref": "#/$defs/ArrayRecursive.ICategory"
+        }
+      ]
+    },
+    "array": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ArrayRecursive.ICategory"
+      }
+    }
+  },
+  "required": [
+    "regular",
+    "nullable",
+    "array"
+  ],
+  "additionalProperties": false,
+  "$defs": {
+    "ArrayRecursive.ICategory": {
+      "type": "object",
+      "properties": {
+        "children": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/ArrayRecursive.ICategory"
+          }
+        },
+        "id": {
+          "type": "number"
+        },
+        "code": {
+          "type": "string"
+        },
+        "sequence": {
+          "type": "number"
+        },
+        "created_at": {
+          "description": "Current Type: {@link ArrayRecursive.ITimestamp}",
+          "type": "object",
+          "properties": {
+            "time": {
+              "type": "number"
+            },
+            "zone": {
+              "type": "number"
+            }
+          },
+          "required": [
+            "time",
+            "zone"
+          ]
+        }
+      },
+      "required": [
+        "children",
+        "id",
+        "code",
+        "sequence",
+        "created_at"
+      ]
+    }
+  }
+}
