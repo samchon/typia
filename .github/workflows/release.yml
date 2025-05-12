@@ -24,6 +24,8 @@ jobs:
         run: pnpm run package:latest
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_PUBLISH }}
+      - name: Root
+        run: pnpm run package:tgz
       - name: Website Setup
         working-directory: website
         run: |
