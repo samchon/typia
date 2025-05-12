@@ -1,14 +1,13 @@
 import typia from "typia";
-import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
-import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 
-export const test_llm_parameters_gemini_DynamicEnumeration = 
+import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
+import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
+
+export const test_llm_parameters_gemini_DynamicEnumeration =
   _test_llm_parameters({
     model: "gemini",
     name: "DynamicEnumeration",
-  })(
-    typia.llm.parameters<DynamicEnumerationParameters, "gemini">(),
-  );
+  })(typia.llm.parameters<DynamicEnumerationParameters, "gemini">());
 
 interface DynamicEnumerationParameters {
   regular: DynamicEnumeration;

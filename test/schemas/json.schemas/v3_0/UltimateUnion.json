@@ -814,7 +814,7 @@
         "required": [
           "oneOf"
         ],
-        "description": "Union type.\n\nIOneOf` represents an union type of the TypeScript (`A | B | C`).\n\nFor reference, even though your Swagger (or OpenAPI) document has\ndefined `anyOf` instead of the `oneOf`, {@link OpenApi} forcibly\nconverts it to `oneOf` type."
+        "description": "Union type.\n\n`IOneOf` represents an union type of the TypeScript (`A | B | C`).\n\nFor reference, even though your Swagger (or OpenAPI) document has\ndefined `anyOf` instead of the `oneOf`, {@link OpenApi} forcibly\nconverts it to `oneOf` type."
       },
       "OpenApi.IJsonSchema.IUnknown": {
         "type": "object",

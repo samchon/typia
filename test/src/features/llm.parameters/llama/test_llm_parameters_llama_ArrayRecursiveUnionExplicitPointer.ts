@@ -1,13 +1,17 @@
 import typia from "typia";
-import { ArrayRecursiveUnionExplicitPointer } from "../../../structures/ArrayRecursiveUnionExplicitPointer";
-import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 
-export const test_llm_parameters_llama_ArrayRecursiveUnionExplicitPointer = 
+import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
+import { ArrayRecursiveUnionExplicitPointer } from "../../../structures/ArrayRecursiveUnionExplicitPointer";
+
+export const test_llm_parameters_llama_ArrayRecursiveUnionExplicitPointer =
   _test_llm_parameters({
     model: "llama",
     name: "ArrayRecursiveUnionExplicitPointer",
   })(
-    typia.llm.parameters<ArrayRecursiveUnionExplicitPointerParameters, "llama">(),
+    typia.llm.parameters<
+      ArrayRecursiveUnionExplicitPointerParameters,
+      "llama"
+    >(),
   );
 
 interface ArrayRecursiveUnionExplicitPointerParameters {

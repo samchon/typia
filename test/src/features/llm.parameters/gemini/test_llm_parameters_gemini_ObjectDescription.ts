@@ -1,14 +1,13 @@
 import typia from "typia";
-import { ObjectDescription } from "../../../structures/ObjectDescription";
-import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 
-export const test_llm_parameters_gemini_ObjectDescription = 
+import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
+import { ObjectDescription } from "../../../structures/ObjectDescription";
+
+export const test_llm_parameters_gemini_ObjectDescription =
   _test_llm_parameters({
     model: "gemini",
     name: "ObjectDescription",
-  })(
-    typia.llm.parameters<ObjectDescriptionParameters, "gemini">(),
-  );
+  })(typia.llm.parameters<ObjectDescriptionParameters, "gemini">());
 
 interface ObjectDescriptionParameters {
   regular: ObjectDescription;

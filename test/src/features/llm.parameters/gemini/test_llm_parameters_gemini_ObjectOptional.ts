@@ -1,14 +1,12 @@
 import typia from "typia";
-import { ObjectOptional } from "../../../structures/ObjectOptional";
-import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 
-export const test_llm_parameters_gemini_ObjectOptional = 
-  _test_llm_parameters({
-    model: "gemini",
-    name: "ObjectOptional",
-  })(
-    typia.llm.parameters<ObjectOptionalParameters, "gemini">(),
-  );
+import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
+import { ObjectOptional } from "../../../structures/ObjectOptional";
+
+export const test_llm_parameters_gemini_ObjectOptional = _test_llm_parameters({
+  model: "gemini",
+  name: "ObjectOptional",
+})(typia.llm.parameters<ObjectOptionalParameters, "gemini">());
 
 interface ObjectOptionalParameters {
   regular: ObjectOptional;

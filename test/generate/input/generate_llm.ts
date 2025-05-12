@@ -21,6 +21,22 @@ export const application = typia.llm.application<IApplication, "llama">({
     LlmTypeCheckerV3_1.isString(schema) && schema.format === "date-time",
 });
 
+export const controller = typia.llm.controller<IApplication, "deepseek">(
+  "company",
+  {
+    establishCompany: (props: { company: ICompany }) => props.company,
+    createDepartment: (props: { company: ICompany; department: IDepartment }) =>
+      props.department,
+    hire: async (props: {
+      company: ICompany;
+      department: IDepartment;
+      employee: IEmployee;
+    }) => props.employee,
+    erase: async (props: { entity: ICompany | IDepartment | IEmployee }) =>
+      props.entity.id,
+  },
+);
+
 export interface IApplication {
   establishCompany(props: { company: ICompany }): ICompany;
   createDepartment(props: {

@@ -1,14 +1,12 @@
 import typia from "typia";
-import { ArrayAny } from "../../../structures/ArrayAny";
-import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 
-export const test_llm_parameters_llama_ArrayAny = 
-  _test_llm_parameters({
-    model: "llama",
-    name: "ArrayAny",
-  })(
-    typia.llm.parameters<ArrayAnyParameters, "llama">(),
-  );
+import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
+import { ArrayAny } from "../../../structures/ArrayAny";
+
+export const test_llm_parameters_llama_ArrayAny = _test_llm_parameters({
+  model: "llama",
+  name: "ArrayAny",
+})(typia.llm.parameters<ArrayAnyParameters, "llama">());
 
 interface ArrayAnyParameters {
   regular: ArrayAny;

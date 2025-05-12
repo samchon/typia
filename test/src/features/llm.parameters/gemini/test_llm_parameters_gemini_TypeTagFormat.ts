@@ -1,14 +1,12 @@
 import typia from "typia";
-import { TypeTagFormat } from "../../../structures/TypeTagFormat";
-import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 
-export const test_llm_parameters_gemini_TypeTagFormat = 
-  _test_llm_parameters({
-    model: "gemini",
-    name: "TypeTagFormat",
-  })(
-    typia.llm.parameters<TypeTagFormatParameters, "gemini">(),
-  );
+import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
+import { TypeTagFormat } from "../../../structures/TypeTagFormat";
+
+export const test_llm_parameters_gemini_TypeTagFormat = _test_llm_parameters({
+  model: "gemini",
+  name: "TypeTagFormat",
+})(typia.llm.parameters<TypeTagFormatParameters, "gemini">());
 
 interface TypeTagFormatParameters {
   regular: TypeTagFormat;

@@ -1,10 +1,15 @@
-import { ILlmApplication } from "@samchon/openapi";
+import { ILlmController } from "@samchon/openapi";
 import typia from "typia";
 
 import IApplication from "./IApplication";
 
-const application: ILlmApplication<"chatgpt"> = typia.llm.application<
+const controller: ILlmController<"chatgpt"> = typia.llm.controller<
   IApplication,
   "chatgpt"
->();
-export default application;
+>("application", {
+  establishCompany: (props) => props.company,
+  createDepartment: (props) => props.department,
+  hire: async (props) => props.employee,
+  erase: async (props) => props.entity.id,
+});
+export default controller;

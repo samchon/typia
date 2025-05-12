@@ -1,14 +1,13 @@
 import typia from "typia";
-import { ObjectLiteralProperty } from "../../../structures/ObjectLiteralProperty";
-import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 
-export const test_llm_parameters_gemini_ObjectLiteralProperty = 
+import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
+import { ObjectLiteralProperty } from "../../../structures/ObjectLiteralProperty";
+
+export const test_llm_parameters_gemini_ObjectLiteralProperty =
   _test_llm_parameters({
     model: "gemini",
     name: "ObjectLiteralProperty",
-  })(
-    typia.llm.parameters<ObjectLiteralPropertyParameters, "gemini">(),
-  );
+  })(typia.llm.parameters<ObjectLiteralPropertyParameters, "gemini">());
 
 interface ObjectLiteralPropertyParameters {
   regular: ObjectLiteralProperty;
