@@ -8,6 +8,15 @@ export function controller(
   options?: Partial<Pick<ILlmApplication.IOptions<any>, "separate">>,
 ): never;
 
+/**
+ *
+ * @param name Identifier name of the controller
+ * @param execute Executor instance
+ * @param options Options for the LLM application construction
+ * @returns Controller of LLM function calling
+ * @reference https://wrtnlabs.io/agentica/docs/core/controller/typescript/
+ * @author Jeongho Nam - https://github.com/samchon
+ */
 export function controller<
   Class extends Record<string, any>,
   Model extends ILlmSchema.Model,

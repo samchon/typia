@@ -10,7 +10,11 @@ import { IJsonSchemaCollection } from "./IJsonSchemaCollection";
  * @template Types Original TypeScript types used in the JSON schemas.
  * @author Jeongho Nam - https://github.com/samchon
  */
-export import IJsonApplication = IJsonSchemaCollection;
+export type IJsonApplication = IJsonSchemaCollection;
+export namespace IJsonApplication {
+  export type IV3_0 = IJsonSchemaCollection.IV3_0;
+  export type IV3_1 = IJsonSchemaCollection.IV3_1;
+}
 
 // export interface IJsonApplication<
 //   Version extends "3.0" | "3.1" = "3.1",
