@@ -68,8 +68,12 @@ export namespace json {
 
 // LLM FUNCTION CALLING SCHEMA
 export namespace llm {
-  // application schema from a class or interface type
-  export function application<App, Model>(): ILlmApplication<Model>;
+  // collection of function calling schemas
+  export function application<Class, Model>(): ILlmApplication<Class>;
+  export function controller<Class, Model>(
+    name: string,
+    execute: Class,
+  ): ILlmController<Model>; // +executor
   // structured output
   export function parameters<P, Model>(): ILlmSchema.IParameters<Model>; 
   export function schema<T, Model>(): ILlmSchema<Model>; // type schema
