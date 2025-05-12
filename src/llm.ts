@@ -2,6 +2,78 @@ import { ILlmApplication, ILlmController, ILlmSchema } from "@samchon/openapi";
 
 import { NoTransformConfigurationError } from "./transformers/NoTransformConfigurationError";
 
+/**
+ * > You must configure the generic argument `Class`.
+ *
+ * TypeScript functions to LLM function calling controller.
+ *
+ * Creates a controller of LLM (Large Language Model) function calling
+ * from a TypeScript class or interface type containing the target functions to be
+ * called by the LLM function calling feature. The returned controller contains
+ * not only the {@link application} of {@link ILlmFunction function calling schemas},
+ * but also the {@link ILlmController.execute executor} of the functions.
+ *
+ * If you put the returned {@link ILlmController} to the LLM provider like
+ * [OpenAI (ChatGPT)](https://openai.com/), the LLM will automatically select the
+ * proper function and fill its arguments from the conversation (maybe chatting text)
+ * with user (human). And you can actually call the function by using
+ * {@link ILlmController.execute} property. This is the concept of the LLM function
+ * calling.
+ *
+ * Here is an example of using `typia.llm.controller()` function for AI agent
+ * development of performing such AI function calling to mobile API classes
+ * through this `typia` and external `@agentica` libraries.
+ *
+ * ```typescript
+ * import { Agentica } from "@agentica/core";
+ * import typia from "typia";
+ *
+ * const agentica = new Agentica({
+ *   model: "chatgpt",
+ *   vendor: {
+ *     api: new OpenAI({ apiKey: "********" }),
+ *     model: "gpt-4o-mini",
+ *   },
+ *   controllers: [
+ *     typia.llm.controller<ReactNativeFileSystem, "chatgpt">(
+ *       "filesystem",
+ *       new ReactNativeFileSystem(),
+ *     ),
+ *     typia.llm.controller<ReactNativeGallery, "chatgpt">(
+ *       "gallery",
+ *       new ReactNativeGallery(),
+ *     ),
+ *   ],
+ * });
+ * await agentica.conversate(
+ *   "Organize photo collection and sort them into appropriate folders.",
+ * );
+ * ```
+ *
+ * Here is the list of available `Model` types with their corresponding LLM schema.
+ * Reading the following list, and determine the `Model` type considering the
+ * characteristics of the target LLM provider.
+ *
+ * - LLM provider schemas
+ *   - `chatgpt`: [`IChatGptSchema`](https://samchon.github.io/openapi/api/types/IChatGptSchema-1.html)
+ *   - `claude`: [`IClaudeSchema`](https://samchon.github.io/openapi/api/types/IClaudeSchema-1.html)
+ *   - `deepseek`: [`IDeepSeekSchema`](https://samchon.github.io/openapi/api/types/IClaudeSchema-1.html)
+ *   - `gemini`: [`IGeminiSchema`](https://samchon.github.io/openapi/api/types/IGeminiSchema-1.html)
+ *   - `llama`: [`ILlamaSchema`](https://samchon.github.io/openapi/api/types/ILlamaSchema-1.html)
+ * - Midldle layer schemas
+ *   - `3.0`: [`ILlmSchemaV3`](https://samchon.github.io/openapi/api/types/ILlmSchemaV3-1.html)
+ *   - `3.1`: [`ILlmSchemaV3_1`](https://samchon.github.io/openapi/api/types/ILlmSchemaV3_1-1.html)
+ *
+ * @template Class Target class or interface type collecting the functions to call
+ * @template Model LLM schema model
+ * @template Config Configuration of LLM schema composition
+ * @param name Identifier name of the controller
+ * @param execute Executor instance
+ * @param options Options for the LLM application construction
+ * @returns Controller of LLM function calling
+ * @reference https://wrtnlabs.io/agentica/docs/core/controller/typescript/
+ * @author Jeongho Nam - https://github.com/samchon
+ */
 export function controller(
   name: string,
   execute: object,
@@ -9,7 +81,68 @@ export function controller(
 ): never;
 
 /**
+ * TypeScript functions to LLM function calling controller.
  *
+ * Creates a controller of LLM (Large Language Model) function calling
+ * from a TypeScript class or interface type containing the target functions to be
+ * called by the LLM function calling feature. The returned controller contains
+ * not only the {@link application} of {@link ILlmFunction function calling schemas},
+ * but also the {@link ILlmController.execute executor} of the functions.
+ *
+ * If you put the returned {@link ILlmController} to the LLM provider like
+ * [OpenAI (ChatGPT)](https://openai.com/), the LLM will automatically select the
+ * proper function and fill its arguments from the conversation (maybe chatting text)
+ * with user (human). And you can actually call the function by using
+ * {@link ILlmController.execute} property. This is the concept of the LLM function
+ * calling.
+ *
+ * Here is an example of using `typia.llm.controller()` function for AI agent
+ * development of performing such AI function calling to mobile API classes
+ * through this `typia` and external `@agentica` libraries.
+ *
+ * ```typescript
+ * import { Agentica } from "@agentica/core";
+ * import typia from "typia";
+ *
+ * const agentica = new Agentica({
+ *   model: "chatgpt",
+ *   vendor: {
+ *     api: new OpenAI({ apiKey: "********" }),
+ *     model: "gpt-4o-mini",
+ *   },
+ *   controllers: [
+ *     typia.llm.controller<ReactNativeFileSystem, "chatgpt">(
+ *       "filesystem",
+ *       new ReactNativeFileSystem(),
+ *     ),
+ *     typia.llm.controller<ReactNativeGallery, "chatgpt">(
+ *       "gallery",
+ *       new ReactNativeGallery(),
+ *     ),
+ *   ],
+ * });
+ * await agentica.conversate(
+ *   "Organize photo collection and sort them into appropriate folders.",
+ * );
+ * ```
+ *
+ * Here is the list of available `Model` types with their corresponding LLM schema.
+ * Reading the following list, and determine the `Model` type considering the
+ * characteristics of the target LLM provider.
+ *
+ * - LLM provider schemas
+ *   - `chatgpt`: [`IChatGptSchema`](https://samchon.github.io/openapi/api/types/IChatGptSchema-1.html)
+ *   - `claude`: [`IClaudeSchema`](https://samchon.github.io/openapi/api/types/IClaudeSchema-1.html)
+ *   - `deepseek`: [`IDeepSeekSchema`](https://samchon.github.io/openapi/api/types/IClaudeSchema-1.html)
+ *   - `gemini`: [`IGeminiSchema`](https://samchon.github.io/openapi/api/types/IGeminiSchema-1.html)
+ *   - `llama`: [`ILlamaSchema`](https://samchon.github.io/openapi/api/types/ILlamaSchema-1.html)
+ * - Midldle layer schemas
+ *   - `3.0`: [`ILlmSchemaV3`](https://samchon.github.io/openapi/api/types/ILlmSchemaV3-1.html)
+ *   - `3.1`: [`ILlmSchemaV3_1`](https://samchon.github.io/openapi/api/types/ILlmSchemaV3_1-1.html)
+ *
+ * @template Class Target class or interface type collecting the functions to call
+ * @template Model LLM schema model
+ * @template Config Configuration of LLM schema composition
  * @param name Identifier name of the controller
  * @param execute Executor instance
  * @param options Options for the LLM application construction
@@ -35,7 +168,7 @@ export function controller(..._args: any[]): never {
 }
 
 /**
- * > You must configure the generic argument `App`.
+ * > You must configure the generic argument `Class`.
  *
  * TypeScript functions to LLM function calling application.
  *
@@ -72,12 +205,13 @@ export function controller(..._args: any[]): never {
  *
  * - LLM provider schemas
  *   - `chatgpt`: [`IChatGptSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IChatGptSchema.ts)
- *   - `claude`: [`IClaudeSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IClaudeSchema.ts)
- *   - `gemini`: [`IGeminiSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IGeminiSchema.ts)
- *   - `llama`: [`ILlamaSchema`](https://github.com/samchon/openapi/blob/master/src/structures/ILlamaSchema.ts)
+ *   - `claude`: [`IClaudeSchema`](https://samchon.github.io/openapi/api/types/IClaudeSchema-1.html)
+ *   - `deepseek`: [`IDeepSeekSchema`](https://samchon.github.io/openapi/api/types/IClaudeSchema-1.html)
+ *   - `gemini`: [`IGeminiSchema`](https://samchon.github.io/openapi/api/types/IGeminiSchema-1.html)
+ *   - `llama`: [`ILlamaSchema`](https://samchon.github.io/openapi/api/types/ILlamaSchema-1.html)
  * - Midldle layer schemas
- *   - `3.0`: [`ILlmSchemaV3`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3.ts)
- *   - `3.1`: [`ILlmSchemaV3_1`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3_1.ts)
+ *   - `3.0`: [`ILlmSchemaV3`](https://samchon.github.io/openapi/api/types/ILlmSchemaV3-1.html)
+ *   - `3.1`: [`ILlmSchemaV3_1`](https://samchon.github.io/openapi/api/types/ILlmSchemaV3_1-1.html)
  *
  * @template Class Target class or interface type collecting the functions to call
  * @template Model LLM schema model
@@ -127,12 +261,13 @@ export function application(
  *
  * - LLM provider schemas
  *   - `chatgpt`: [`IChatGptSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IChatGptSchema.ts)
- *   - `claude`: [`IClaudeSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IClaudeSchema.ts)
- *   - `gemini`: [`IGeminiSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IGeminiSchema.ts)
- *   - `llama`: [`ILlamaSchema`](https://github.com/samchon/openapi/blob/master/src/structures/ILlamaSchema.ts)
+ *   - `claude`: [`IClaudeSchema`](https://samchon.github.io/openapi/api/types/IClaudeSchema-1.html)
+ *   - `deepseek`: [`IDeepSeekSchema`](https://samchon.github.io/openapi/api/types/IClaudeSchema-1.html)
+ *   - `gemini`: [`IGeminiSchema`](https://samchon.github.io/openapi/api/types/IGeminiSchema-1.html)
+ *   - `llama`: [`ILlamaSchema`](https://samchon.github.io/openapi/api/types/ILlamaSchema-1.html)
  * - Midldle layer schemas
- *   - `3.0`: [`ILlmSchemaV3`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3.ts)
- *   - `3.1`: [`ILlmSchemaV3_1`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3_1.ts)
+ *   - `3.0`: [`ILlmSchemaV3`](https://samchon.github.io/openapi/api/types/ILlmSchemaV3-1.html)
+ *   - `3.1`: [`ILlmSchemaV3_1`](https://samchon.github.io/openapi/api/types/ILlmSchemaV3_1-1.html)
  *
  * @template Class Target class or interface type collecting the functions to call
  * @template Model LLM schema model
@@ -183,12 +318,13 @@ export function application(): never {
  *
  * - LLM provider schemas
  *   - `chatgpt`: [`IChatGptSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IChatGptSchema.ts)
- *   - `claude`: [`IClaudeSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IClaudeSchema.ts)
- *   - `gemini`: [`IGeminiSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IGeminiSchema.ts)
- *   - `llama`: [`ILlamaSchema`](https://github.com/samchon/openapi/blob/master/src/structures/ILlamaSchema.ts)
+ *   - `claude`: [`IClaudeSchema`](https://samchon.github.io/openapi/api/types/IClaudeSchema-1.html)
+ *   - `deepseek`: [`IDeepSeekSchema`](https://samchon.github.io/openapi/api/types/IClaudeSchema-1.html)
+ *   - `gemini`: [`IGeminiSchema`](https://samchon.github.io/openapi/api/types/IGeminiSchema-1.html)
+ *   - `llama`: [`ILlamaSchema`](https://samchon.github.io/openapi/api/types/ILlamaSchema-1.html)
  * - Midldle layer schemas
- *   - `3.0`: [`ILlmSchemaV3`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3.ts)
- *   - `3.1`: [`ILlmSchemaV3_1`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3_1.ts)
+ *   - `3.0`: [`ILlmSchemaV3`](https://samchon.github.io/openapi/api/types/ILlmSchemaV3-1.html)
+ *   - `3.1`: [`ILlmSchemaV3_1`](https://samchon.github.io/openapi/api/types/ILlmSchemaV3_1-1.html)
  *
  * @template Parameters Target parameters type
  * @template Model LLM schema model
@@ -223,12 +359,13 @@ export function parameters(): never;
  *
  * - LLM provider schemas
  *   - `chatgpt`: [`IChatGptSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IChatGptSchema.ts)
- *   - `claude`: [`IClaudeSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IClaudeSchema.ts)
- *   - `gemini`: [`IGeminiSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IGeminiSchema.ts)
- *   - `llama`: [`ILlamaSchema`](https://github.com/samchon/openapi/blob/master/src/structures/ILlamaSchema.ts)
+ *   - `claude`: [`IClaudeSchema`](https://samchon.github.io/openapi/api/types/IClaudeSchema-1.html)
+ *   - `deepseek`: [`IDeepSeekSchema`](https://samchon.github.io/openapi/api/types/IClaudeSchema-1.html)
+ *   - `gemini`: [`IGeminiSchema`](https://samchon.github.io/openapi/api/types/IGeminiSchema-1.html)
+ *   - `llama`: [`ILlamaSchema`](https://samchon.github.io/openapi/api/types/ILlamaSchema-1.html)
  * - Midldle layer schemas
- *   - `3.0`: [`ILlmSchemaV3`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3.ts)
- *   - `3.1`: [`ILlmSchemaV3_1`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3_1.ts)
+ *   - `3.0`: [`ILlmSchemaV3`](https://samchon.github.io/openapi/api/types/ILlmSchemaV3-1.html)
+ *   - `3.1`: [`ILlmSchemaV3_1`](https://samchon.github.io/openapi/api/types/ILlmSchemaV3_1-1.html)
  *
  * @template Parameters Target parameters type
  * @template Model LLM schema model
@@ -266,12 +403,13 @@ export function parameters(): never {
  *
  * - LLM provider schemas
  *   - `chatgpt`: [`IChatGptSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IChatGptSchema.ts)
- *   - `claude`: [`IClaudeSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IClaudeSchema.ts)
- *   - `gemini`: [`IGeminiSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IGeminiSchema.ts)
- *   - `llama`: [`ILlamaSchema`](https://github.com/samchon/openapi/blob/master/src/structures/ILlamaSchema.ts)
+ *   - `claude`: [`IClaudeSchema`](https://samchon.github.io/openapi/api/types/IClaudeSchema-1.html)
+ *   - `deepseek`: [`IDeepSeekSchema`](https://samchon.github.io/openapi/api/types/IClaudeSchema-1.html)
+ *   - `gemini`: [`IGeminiSchema`](https://samchon.github.io/openapi/api/types/IGeminiSchema-1.html)
+ *   - `llama`: [`ILlamaSchema`](https://samchon.github.io/openapi/api/types/ILlamaSchema-1.html)
  * - Midldle layer schemas
- *   - `3.0`: [`ILlmSchemaV3`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3.ts)
- *   - `3.1`: [`ILlmSchemaV3_1`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3_1.ts)
+ *   - `3.0`: [`ILlmSchemaV3`](https://samchon.github.io/openapi/api/types/ILlmSchemaV3-1.html)
+ *   - `3.1`: [`ILlmSchemaV3_1`](https://samchon.github.io/openapi/api/types/ILlmSchemaV3_1-1.html)
  *
  * If you actually want to perform the LLM function calling with TypeScript functions,
  * you can do it with the {@link application} function. Otherwise you hope to perform the
@@ -313,12 +451,13 @@ export function schema(): never;
  *
  * - LLM provider schemas
  *   - `chatgpt`: [`IChatGptSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IChatGptSchema.ts)
- *   - `claude`: [`IClaudeSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IClaudeSchema.ts)
- *   - `gemini`: [`IGeminiSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IGeminiSchema.ts)
- *   - `llama`: [`ILlamaSchema`](https://github.com/samchon/openapi/blob/master/src/structures/ILlamaSchema.ts)
+ *   - `claude`: [`IClaudeSchema`](https://samchon.github.io/openapi/api/types/IClaudeSchema-1.html)
+ *   - `deepseek`: [`IDeepSeekSchema`](https://samchon.github.io/openapi/api/types/IClaudeSchema-1.html)
+ *   - `gemini`: [`IGeminiSchema`](https://samchon.github.io/openapi/api/types/IGeminiSchema-1.html)
+ *   - `llama`: [`ILlamaSchema`](https://samchon.github.io/openapi/api/types/ILlamaSchema-1.html)
  * - Midldle layer schemas
- *   - `3.0`: [`ILlmSchemaV3`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3.ts)
- *   - `3.1`: [`ILlmSchemaV3_1`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3_1.ts)
+ *   - `3.0`: [`ILlmSchemaV3`](https://samchon.github.io/openapi/api/types/ILlmSchemaV3-1.html)
+ *   - `3.1`: [`ILlmSchemaV3_1`](https://samchon.github.io/openapi/api/types/ILlmSchemaV3_1-1.html)
  *
  * If you actually want to perform the LLM function calling with TypeScript functions,
  * you can do it with the {@link application} function. Otherwise you hope to perform the

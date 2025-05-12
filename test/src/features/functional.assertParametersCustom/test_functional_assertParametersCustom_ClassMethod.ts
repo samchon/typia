@@ -1,12 +1,12 @@
 import typia from "typia";
 
+import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_functional_assertParameters } from "../../internal/_test_functional_assertParameters";
 import { ClassMethod } from "../../structures/ClassMethod";
 
-import { CustomGuardError } from "../../internal/CustomGuardError";
-
-export const test_functional_assertParametersCustom_ClassMethod = _test_functional_assertParameters(CustomGuardError)(
-  "ClassMethod"
-)(ClassMethod)(
-  (p: (input: ClassMethod) => ClassMethod) => typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
-)
+export const test_functional_assertParametersCustom_ClassMethod =
+  _test_functional_assertParameters(CustomGuardError)("ClassMethod")(
+    ClassMethod,
+  )((p: (input: ClassMethod) => ClassMethod) =>
+    typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
+  );

@@ -3,8 +3,7 @@ import typia from "typia";
 import { _test_standardSchema_validate } from "../../internal/_test_standardSchema_validate";
 import { ObjectGenericUnion } from "../../structures/ObjectGenericUnion";
 
-export const test_standardSchema_createValidate_ObjectGenericUnion = _test_standardSchema_validate(
-    "ObjectGenericUnion",
-)<ObjectGenericUnion>(
-    ObjectGenericUnion
-)(typia.createValidate<ObjectGenericUnion>());
+export const test_standardSchema_createValidate_ObjectGenericUnion =
+  _test_standardSchema_validate("ObjectGenericUnion")<ObjectGenericUnion>(
+    ObjectGenericUnion,
+  )(typia.createValidate<ObjectGenericUnion>());
