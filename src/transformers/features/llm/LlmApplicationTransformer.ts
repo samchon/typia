@@ -19,30 +19,82 @@ import { TransformerError } from "../../TransformerError";
 
 export namespace LlmApplicationTransformer {
   export const transform = (props: ITransformProps): ts.Expression => {
+    const dec = decompose("application", props);
+    if (dec === null) return props.expression;
+
+    const literal: ts.Expression = ts.factory.createAsExpression(
+      LiteralFactory.write(dec.application),
+      props.context.importer.type({
+        file: "@samchon/openapi",
+        name: "ILlmApplication",
+        arguments: [
+          ts.factory.createLiteralTypeNode(
+            ts.factory.createStringLiteral(dec.application.model),
+          ),
+        ],
+      }),
+    );
+    if (!props.expression.arguments?.[0]) return literal;
+    return ExpressionFactory.selfCall(
+      ts.factory.createBlock(
+        [
+          StatementFactory.constant({
+            name: "application",
+            value: literal,
+          }),
+          ts.factory.createExpressionStatement(
+            ts.factory.createCallExpression(
+              props.context.importer.internal("llmApplicationFinalize"),
+              undefined,
+              [
+                ts.factory.createIdentifier("application"),
+                props.expression.arguments[0],
+              ],
+            ),
+          ),
+          ts.factory.createReturnStatement(
+            ts.factory.createIdentifier("application"),
+          ),
+        ],
+        true,
+      ),
+    );
+  };
+
+  /**
+   * @internal
+   */
+  export const decompose = (
+    method: string,
+    props: ITransformProps,
+  ): {
+    application: ILlmApplication<ILlmSchema.Model>;
+    type: ts.Type;
+    node: ts.TypeNode;
+  } | null => {
     // GET GENERIC ARGUMENT
     if (!props.expression.typeArguments?.length)
       throw new TransformerError({
-        code: "typia.llm.application",
+        code: `typia.llm.${method}`,
         message: "no generic argument.",
       });
-
     const top: ts.Node = props.expression.typeArguments[0]!;
-    if (ts.isTypeNode(top) === false) return props.expression;
+    if (ts.isTypeNode(top) === false) return null;
 
     // GET TYPE
     const model: ILlmSchema.Model = LlmModelPredicator.getModel({
       checker: props.context.checker,
-      method: "application",
+      method,
       node: props.expression.typeArguments[1],
     });
     const config: Partial<ILlmSchema.IConfig> = LlmModelPredicator.getConfig({
       context: props.context,
-      method: "application",
+      method,
       model,
       node: props.expression.typeArguments[2],
     }) as Partial<ILlmSchema.IConfig>;
-
     const type: ts.Type = props.context.checker.getTypeFromTypeNode(top);
+
     // VALIDATE TYPE
     const analyze = (validate: boolean): Metadata => {
       const result: ValidationPipe<Metadata, MetadataFactory.IError> =
@@ -69,7 +121,7 @@ export namespace LlmApplicationTransformer {
         });
       if (result.success === false)
         throw TransformerError.from({
-          code: "typia.llm.application",
+          code: `typia.llm.${method}`,
           errors: result.errors,
         });
       return result.data;
@@ -77,52 +129,17 @@ export namespace LlmApplicationTransformer {
     analyze(true);
 
     // GENERATE LLM APPLICATION
-    const schema: ILlmApplication<ILlmSchema.Model> =
-      LlmApplicationProgrammer.write({
+    return {
+      application: LlmApplicationProgrammer.write({
         model,
         context: props.context,
         modulo: props.modulo,
         metadata: analyze(false),
         config,
         name: top.getFullText().trim(),
-      });
-    const literal: ts.Expression = ts.factory.createAsExpression(
-      LiteralFactory.write(schema),
-      props.context.importer.type({
-        file: "@samchon/openapi",
-        name: "ILlmApplication",
-        arguments: [
-          ts.factory.createLiteralTypeNode(
-            ts.factory.createStringLiteral(model),
-          ),
-        ],
       }),
-    );
-    if (!props.expression.arguments?.[0]) return literal;
-
-    return ExpressionFactory.selfCall(
-      ts.factory.createBlock(
-        [
-          StatementFactory.constant({
-            name: "app",
-            value: literal,
-          }),
-          ts.factory.createExpressionStatement(
-            ts.factory.createCallExpression(
-              props.context.importer.internal("llmApplicationFinalize"),
-              undefined,
-              [
-                ts.factory.createIdentifier("app"),
-                ...(props.expression.arguments?.[0]
-                  ? [props.expression.arguments[0]]
-                  : []),
-              ],
-            ),
-          ),
-          ts.factory.createReturnStatement(ts.factory.createIdentifier("app")),
-        ],
-        true,
-      ),
-    );
+      node: top,
+      type,
+    };
   };
 }
