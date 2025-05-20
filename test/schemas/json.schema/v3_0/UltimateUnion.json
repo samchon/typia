@@ -650,7 +650,7 @@
               }
             ],
             "title": "Additional properties' info",
-            "description": "Additional properties' info.\n\nThe `additionalProperties` means the type schema info of the additional\nproperties that are not listed in the {@link properties}.\n\nIf the value is `true`, it means that the additional properties are not\nrestricted. They can be any type. Otherwise, if the value is\n{@link IOpenAiSchema} type, it means that the additional properties must\nfollow the type schema info.\n\n- `true`: `Record<string, any>`\n- `IOpenAiSchema`: `Record<string, T>`"
+            "description": "Additional properties' info.\n\nThe `additionalProperties` means the type schema info of the additional\nproperties that are not listed in the {@link properties}.\n\nIf the value is `true`, it means that the additional properties are not\nrestricted. They can be any type. Otherwise, if the value is\n{@link IJsonSchema} type, it means that the additional properties must\nfollow the type schema info.\n\n- `true`: `Record<string, any>`\n- `IJsonSchema`: `Record<string, T>`"
           },
           "required": {
             "type": "array",
