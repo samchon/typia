@@ -432,8 +432,8 @@ if (!res.success) console.log(res.errors);
 ]}>
   <Tabs.Tab>
 ```typescript copy
-export function createValidate<T> = (input: unknown) => IValidation<T>;
-export function createValidateEquals<T> = (input: unknown) => IValidation<T>;
+export function createValidate<T> = (input: unknown) => IValidation<T> & StandardSchemaV1<unknown, T>;
+export function createValidateEquals<T> = (input: unknown) => IValidation<T> & StandardSchemaV1<unknown, T>;
 ```
   </Tabs.Tab>
   <Tabs.Tab>
@@ -589,6 +589,34 @@ export const validateMember = (() => {
 ```
   </Tabs.Tab>
 </Tabs>
+
+This reusable function implements [Standard Schema](https://standardschema.dev/) interface. Therefore, you can use this function with [a library which accepts Standard Schema interface](https://standardschema.dev/#:~:text=what%20tools%20%2F%20frameworks%20accept%20spec-compliant%20schemas%3F), such as [upfetch](https://github.com/L-Blondy/up-fetch):
+
+```typescript copy
+import typia from "typia";
+import { up } from "up-fetch";
+
+const upfetch = up(fetch);
+const schema = typia.createValidate<ISmallTodo>();
+
+// passes
+await upfetch("https://jsonplaceholder.typicode.com/todos/1", {
+  schema,
+});
+
+// fails
+await upfetch("https://jsonplaceholder.typicode.com/todos/10", {
+  schema,
+})
+
+interface ISmallTodo {
+  userId: number;
+  /** @maximum 5 */
+  id: number;
+  title: string;
+  completed: boolean;
+}
+```
 
 
 
