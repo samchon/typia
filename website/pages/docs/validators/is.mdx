@@ -5,6 +5,8 @@ import { Tabs } from 'nextra/components'
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 
+import { RemoteSource } from "../../../src/components/RemoteSource";
+
 ## `is()` function
 ```typescript copy filename="typia"
 export function is<T>(input: T): input is T;
@@ -34,53 +36,16 @@ Yeah, `typia` needs only pure TypeScript type. As `typia` is a compiler library,
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-```typescript copy filename="examples/src/is.ts" showLineNumbers
-import typia, { tags } from "typia";
-import { v4 } from "uuid";
-
-const matched: boolean = typia.is<IMember>({
-  id: v4(),
-  email: "samchon.github@gmai19l.com",
-  age: 30,
-});
-
-console.log(matched); // true
-
-interface IMember {
-  id: string & tags.Format<"uuid">;
-  email: string & tags.Format<"email">;
-  age: number &
-    tags.Type<"uint32"> &
-    tags.ExclusiveMinimum<19> &
-    tags.Maximum<100>;
-}
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/validators/is.ts" 
+      filename="examples/src/validator/is.ts"
+      showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-```javascript filename="examples/bin/is.js" showLineNumbers
-import * as __typia_transform__isFormatUuid from "typia/lib/internal/_isFormatUuid.js";
-import * as __typia_transform__isFormatEmail from "typia/lib/internal/_isFormatEmail.js";
-import * as __typia_transform__isTypeUint32 from "typia/lib/internal/_isTypeUint32.js";
-import typia from "typia";
-import { v4 } from "uuid";
-const matched = (() => {
-  const _io0 = (input) =>
-    "string" === typeof input.id &&
-    __typia_transform__isFormatUuid._isFormatUuid(input.id) &&
-    "string" === typeof input.email &&
-    __typia_transform__isFormatEmail._isFormatEmail(input.email) &&
-    "number" === typeof input.age &&
-    __typia_transform__isTypeUint32._isTypeUint32(input.age) &&
-    19 < input.age &&
-    input.age <= 100;
-  return (input) => "object" === typeof input && null !== input && _io0(input);
-})()({
-  id: v4(),
-  email: "samchon.github@gmai19l.com",
-  age: 30,
-});
-console.log(matched); // true
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/validators/is.js" 
+      filename="examples/bin/validator/is.js"
+      showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
