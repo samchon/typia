@@ -1,0 +1,171 @@
+import typia from "typia";
+import * as __typia_transform__assertGuard from "typia/lib/internal/_assertGuard.js";
+import * as __typia_transform__isFormatEmail from "typia/lib/internal/_isFormatEmail.js";
+import * as __typia_transform__isFormatUuid from "typia/lib/internal/_isFormatUuid.js";
+import * as __typia_transform__isTypeUint32 from "typia/lib/internal/_isTypeUint32.js";
+import * as __typia_transform__randomFormatEmail from "typia/lib/internal/_randomFormatEmail.js";
+import * as __typia_transform__randomFormatUuid from "typia/lib/internal/_randomFormatUuid.js";
+import * as __typia_transform__randomInteger from "typia/lib/internal/_randomInteger.js";
+
+const json = JSON.stringify(
+  (() => {
+    const _ro0 = (_recursive = false, _depth = 0) => ({
+      id: (
+        _generator?.uuid ??
+        __typia_transform__randomFormatUuid._randomFormatUuid
+      )(),
+      email: (
+        _generator?.email ??
+        __typia_transform__randomFormatEmail._randomFormatEmail
+      )(),
+      age: (
+        _generator?.integer ?? __typia_transform__randomInteger._randomInteger
+      )({
+        type: "integer",
+        minimum: 0,
+        exclusiveMinimum: 19,
+        maximum: 100,
+      }),
+    });
+    let _generator;
+    return (generator) => {
+      _generator = generator;
+      return _ro0();
+    };
+  })()(),
+);
+const parsed = (() => {
+  const _io0 = (input) =>
+    "string" === typeof input.id &&
+    __typia_transform__isFormatUuid._isFormatUuid(input.id) &&
+    "string" === typeof input.email &&
+    __typia_transform__isFormatEmail._isFormatEmail(input.email) &&
+    "number" === typeof input.age &&
+    __typia_transform__isTypeUint32._isTypeUint32(input.age) &&
+    19 < input.age &&
+    input.age <= 100;
+  const _ao0 = (input, _path, _exceptionable = true) =>
+    (("string" === typeof input.id &&
+      (__typia_transform__isFormatUuid._isFormatUuid(input.id) ||
+        __typia_transform__assertGuard._assertGuard(
+          _exceptionable,
+          {
+            method: "typia.json.assertParse",
+            path: _path + ".id",
+            expected: 'string & Format<"uuid">',
+            value: input.id,
+          },
+          _errorFactory,
+        ))) ||
+      __typia_transform__assertGuard._assertGuard(
+        _exceptionable,
+        {
+          method: "typia.json.assertParse",
+          path: _path + ".id",
+          expected: '(string & Format<"uuid">)',
+          value: input.id,
+        },
+        _errorFactory,
+      )) &&
+    (("string" === typeof input.email &&
+      (__typia_transform__isFormatEmail._isFormatEmail(input.email) ||
+        __typia_transform__assertGuard._assertGuard(
+          _exceptionable,
+          {
+            method: "typia.json.assertParse",
+            path: _path + ".email",
+            expected: 'string & Format<"email">',
+            value: input.email,
+          },
+          _errorFactory,
+        ))) ||
+      __typia_transform__assertGuard._assertGuard(
+        _exceptionable,
+        {
+          method: "typia.json.assertParse",
+          path: _path + ".email",
+          expected: '(string & Format<"email">)',
+          value: input.email,
+        },
+        _errorFactory,
+      )) &&
+    (("number" === typeof input.age &&
+      (__typia_transform__isTypeUint32._isTypeUint32(input.age) ||
+        __typia_transform__assertGuard._assertGuard(
+          _exceptionable,
+          {
+            method: "typia.json.assertParse",
+            path: _path + ".age",
+            expected: 'number & Type<"uint32">',
+            value: input.age,
+          },
+          _errorFactory,
+        )) &&
+      (19 < input.age ||
+        __typia_transform__assertGuard._assertGuard(
+          _exceptionable,
+          {
+            method: "typia.json.assertParse",
+            path: _path + ".age",
+            expected: "number & ExclusiveMinimum<19>",
+            value: input.age,
+          },
+          _errorFactory,
+        )) &&
+      (input.age <= 100 ||
+        __typia_transform__assertGuard._assertGuard(
+          _exceptionable,
+          {
+            method: "typia.json.assertParse",
+            path: _path + ".age",
+            expected: "number & Maximum<100>",
+            value: input.age,
+          },
+          _errorFactory,
+        ))) ||
+      __typia_transform__assertGuard._assertGuard(
+        _exceptionable,
+        {
+          method: "typia.json.assertParse",
+          path: _path + ".age",
+          expected:
+            '(number & Type<"uint32"> & ExclusiveMinimum<19> & Maximum<100>)',
+          value: input.age,
+        },
+        _errorFactory,
+      ));
+  const __is = (input) =>
+    "object" === typeof input && null !== input && _io0(input);
+  let _errorFactory;
+  const __assert = (input, errorFactory) => {
+    if (false === __is(input)) {
+      _errorFactory = errorFactory;
+      ((input, _path, _exceptionable = true) =>
+        ((("object" === typeof input && null !== input) ||
+          __typia_transform__assertGuard._assertGuard(
+            true,
+            {
+              method: "typia.json.assertParse",
+              path: _path + "",
+              expected: "IMember",
+              value: input,
+            },
+            _errorFactory,
+          )) &&
+          _ao0(input, _path + "", true)) ||
+        __typia_transform__assertGuard._assertGuard(
+          true,
+          {
+            method: "typia.json.assertParse",
+            path: _path + "",
+            expected: "IMember",
+            value: input,
+          },
+          _errorFactory,
+        ))(input, "$input", true);
+    }
+    return input;
+  };
+  return (input, errorFactory) => __assert(JSON.parse(input), errorFactory);
+})()(json);
+console.log(json === JSON.stringify(parsed)); // true
