@@ -1,11 +1,14 @@
 ---
 title: Guide Documents > Runtime Validators > Special Tags
 ---
-import { Tabs } from 'nextra/components'
-import Alert from '@mui/material/Alert';
-import AlertTitle from '@mui/material/AlertTitle';
+import Alert from "@mui/material/Alert";
+import AlertTitle from "@mui/material/AlertTitle";
+import { Tabs } from "nextra/components";
+
+import RemoteSource from "../../../src/components/RemoteSource";
 
 ## Outline
+
 `typia` can perform additional validation through [type tags](#type-tags) and [comment tags](#comment-tags).
 
 When you need additional validation logic that is not supported in pure TypeScript type spec, you can use [type tags](#type-tags) and [comment tags](#comment-tags) for it. For example, if you define a type with intersection symbol like `number & typia.tags.Type<"uint32">` and validates it, `typia` will check the target numeric value is unsigned integer or not.
@@ -23,109 +26,21 @@ Therefore, don't be afraid `typia` uses only pure TypeScript types for type vali
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-```typescript copy filename="is.tag.ts" showLineNumbers {3}
-import typia, { tags } from "typia";
-
-export const checkCustomTag = typia.createIs<CustomTag>();
-
-interface CustomTag {
-  /**
-   * @type uint32
-   */
-  type: number;
-
-  number?: number & tags.ExclusiveMinimum<19> & tags.Maximum<100>;
-
-  /**
-   * @minLength 3
-   */
-  string: string;
-
-  pattern: string & tags.Pattern<"^[a-z]+$">;
-
-  /**
-   * Type tag can perform union type.
-   *
-   * In here case, format can be oneof `ipv4` or `ipv6` format.
-   */
-  format: (string & (tags.Format<"ipv4"> | tags.Format<"ipv6">)) | null;
-
-  /**
-   * In the Array case, only type tag can restrict element type.
-   */
-  array: Array<string & tags.Format<"uuid">> &
-    tags.MinItems<3> &
-    tags.MaxItems<100>;
-
-  /**
-   * Also, only type tag can handle map type.
-   */
-  map: Map<
-    number & tags.Type<"uint32">,
-    Array<string & tags.Format<"uuid">> & tags.MinItems<1>
-  >;
-}
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/validators/is-type-tag.ts" 
+      filename="examples/src/validators/is-type-tag.ts" 
+      showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-```javascript filename="is.tag.js" showLineNumbers
-import * as __typia_transform__isFormatIpv4 from "typia/lib/internal/_isFormatIpv4.js";
-import * as __typia_transform__isFormatIpv6 from "typia/lib/internal/_isFormatIpv6.js";
-import * as __typia_transform__isFormatUuid from "typia/lib/internal/_isFormatUuid.js";
-import * as __typia_transform__isTypeUint32 from "typia/lib/internal/_isTypeUint32.js";
-import typia from "typia";
-export const checkCustomTag = (() => {
-  const _io0 = (input) =>
-    "number" === typeof input.type &&
-    Math.floor(input.type) === input.type &&
-    0 <= input.type &&
-    input.type <= 4294967295 &&
-    (undefined === input.number ||
-      ("number" === typeof input.number &&
-        19 < input.number &&
-        input.number <= 100)) &&
-    "string" === typeof input.string &&
-    3 <= input.string.length &&
-    "string" === typeof input.pattern &&
-    RegExp("^[a-z]+$").test(input.pattern) &&
-    (null === input.format ||
-      ("string" === typeof input.format &&
-        (__typia_transform__isFormatIpv4._isFormatIpv4(input.format) ||
-          __typia_transform__isFormatIpv6._isFormatIpv6(input.format)))) &&
-    Array.isArray(input.array) &&
-    3 <= input.array.length &&
-    input.array.length <= 100 &&
-    input.array.every(
-      (elem) =>
-        "string" === typeof elem &&
-        __typia_transform__isFormatUuid._isFormatUuid(elem),
-    ) &&
-    input.map instanceof Map &&
-    (() =>
-      [...input.map].every(
-        (elem) =>
-          Array.isArray(elem) &&
-          elem.length === 2 &&
-          "number" === typeof elem[0] &&
-          __typia_transform__isTypeUint32._isTypeUint32(elem[0]) &&
-          Array.isArray(elem[1]) &&
-          1 <= elem[1].length &&
-          elem[1].every(
-            (elem) =>
-              "string" === typeof elem &&
-              __typia_transform__isFormatUuid._isFormatUuid(elem),
-          ),
-      ))();
-  return (input) => "object" === typeof input && null !== input && _io0(input);
-})();
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/validators/is-type-tag.js" 
+      filename="examples/bin/validators/is-type-tag.js" 
+      showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
-
-
-
 ## Type Tags
+
 By using type tags, you can utilize additional validation logics.
 
 Just import one of type tags from `typia`, and combine it with target through intersection symbol like `number & typia.tags.Type<"uint32">` case. If you want to declare an union validation logic, combine `|` and bracket (`()`) symbols properly like below:
@@ -201,100 +116,21 @@ Also, if you need custom validation logic, just make it by yourself referencing 
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-```typescript copy filename="is.tag.ts" showLineNumbers {3}
-import typia, { tags } from "typia";
-
-export const checkCustomTag = typia.createIs<CustomTag>();
-
-interface CustomTag {
-  type: number & tags.Type<"uint32">;
-
-  number?: number & tags.ExclusiveMinimum<19> & tags.Maximum<100>;
-
-  string: string & tags.MinLength<3>;
-
-  pattern: string & tags.Pattern<"^[a-z]+$">;
-
-  /**
-   * Type tag can perform union type.
-   *
-   * In here case, format can be oneof `ipv4` or `ipv6` format.
-   */
-  format: (string & (tags.Format<"ipv4"> | tags.Format<"ipv6">)) | null;
-
-  /**
-   * In the Array case, only type tag can restrict element type.
-   */
-  array: Array<string & tags.Format<"uuid">> &
-    tags.MinItems<3> &
-    tags.MaxItems<100>;
-
-  /**
-   * Also, only type tag can handle map type.
-   */
-  map: Map<
-    number & tags.Type<"uint32">,
-    Array<string & tags.Format<"uuid">> & tags.MinItems<1>
-  >;
-}
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/validators/is-type-tag.ts" 
+      filename="examples/src/validators/is-type-tag.ts" 
+      showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-```javascript filename="is.tag.js" showLineNumbers
-import * as __typia_transform__isTypeUint32 from "typia/lib/internal/_isTypeUint32.js";
-import * as __typia_transform__isFormatIpv4 from "typia/lib/internal/_isFormatIpv4.js";
-import * as __typia_transform__isFormatIpv6 from "typia/lib/internal/_isFormatIpv6.js";
-import * as __typia_transform__isFormatUuid from "typia/lib/internal/_isFormatUuid.js";
-import typia from "typia";
-export const checkCustomTag = (() => {
-  const _io0 = (input) =>
-    "number" === typeof input.type &&
-    __typia_transform__isTypeUint32._isTypeUint32(input.type) &&
-    (undefined === input.number ||
-      ("number" === typeof input.number &&
-        19 < input.number &&
-        input.number <= 100)) &&
-    "string" === typeof input.string &&
-    3 <= input.string.length &&
-    "string" === typeof input.pattern &&
-    RegExp("^[a-z]+$").test(input.pattern) &&
-    (null === input.format ||
-      ("string" === typeof input.format &&
-        (__typia_transform__isFormatIpv4._isFormatIpv4(input.format) ||
-          __typia_transform__isFormatIpv6._isFormatIpv6(input.format)))) &&
-    Array.isArray(input.array) &&
-    3 <= input.array.length &&
-    input.array.length <= 100 &&
-    input.array.every(
-      (elem) =>
-        "string" === typeof elem &&
-        __typia_transform__isFormatUuid._isFormatUuid(elem),
-    ) &&
-    input.map instanceof Map &&
-    (() =>
-      [...input.map].every(
-        (elem) =>
-          Array.isArray(elem) &&
-          elem.length === 2 &&
-          "number" === typeof elem[0] &&
-          __typia_transform__isTypeUint32._isTypeUint32(elem[0]) &&
-          Array.isArray(elem[1]) &&
-          1 <= elem[1].length &&
-          elem[1].every(
-            (elem) =>
-              "string" === typeof elem &&
-              __typia_transform__isFormatUuid._isFormatUuid(elem),
-          ),
-      ))();
-  return (input) => "object" === typeof input && null !== input && _io0(input);
-})();
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/validators/is-type-tag.js" 
+      filename="examples/bin/validators/is-type-tag.js" 
+      showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
-
-
 ## Comment Tags
+
 `typia` supports those comment tags, too.
 
 Here is the entire list of comment tags that `typia` supports.
@@ -370,86 +206,21 @@ Second, to support [Prisma](../utilization/prisma). If a comment is created in t
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-```typescript copy filename="is.tag.ts" showLineNumbers {3}
-import typia from "typia";
-
-export const checkCustomTag = typia.createIs<CustomTag>();
-
-interface CustomTag {
-  /**
-   * @type uint32
-   */
-  type: number;
-
-  /**
-   * @exclusiveMinimum 19
-   * @maximum 100
-   */
-  number?: number;
-
-  /**
-   * @minLength 3
-   */
-  string: string;
-
-  /**
-   * @Pattern /^[a-z]+$/
-   */
-  pattern: string;
-
-  // NO WAY WHEN COMMENT TAG
-  // /**
-  //  * Type tag can perform union type.
-  //  *
-  //  * In here case, format can be oneof `ipv4` or `ipv6` format.
-  //  */
-  // format: (string & (tags.Format<"ipv4"> | tags.Format<"ipv6">)) | null;
-
-  // NO WAY WHEN COMMENT TAG
-  // /**
-  //  * In the Array case, only type tag can restrict element type.
-  //  */
-  // array: Array<string & tags.Format<"uuid">>
-  //     & tags.MinItems<3>
-  //     & tags.MaxItems<100>;
-
-  // NO WAY WHEN COMMENT TAG
-  // /**
-  //  * Also, only type tag can handle map type.
-  //  */
-  // map: Map<
-  //     number & tags.Type<"uint32">,
-  //     Array<string & tags.Format<"uuid">> & tags.MinItems<1>
-  // >;
-}
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/validators/is-comment-tag.ts" 
+      filename="examples/src/validators/is-comment-tag.ts" 
+      showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-```javascript filename="is.tag.js" showLineNumbers
-import typia from "typia";
-export const checkCustomTag = (() => {
-  const _io0 = (input) =>
-    "number" === typeof input.type &&
-    Math.floor(input.type) === input.type &&
-    0 <= input.type &&
-    input.type <= 4294967295 &&
-    (undefined === input.number ||
-      ("number" === typeof input.number &&
-        19 < input.number &&
-        input.number <= 100)) &&
-    "string" === typeof input.string &&
-    3 <= input.string.length &&
-    "string" === typeof input.pattern;
-  return (input) => "object" === typeof input && null !== input && _io0(input);
-})();
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/validators/is-comment-tag.js" 
+      filename="examples/bin/validators/is-comment-tag.js" 
+      showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
-
-
-
 ## Customization
+
 <Tabs items={[
     <code>TagBase.ts</code>,
     <code>Minimum.ts</code>,
@@ -457,136 +228,28 @@ export const checkCustomTag = (() => {
     <code>Pattern.ts</code>,
 ]}>
   <Tabs.Tab>
-```typescript filename="TagBase.ts" showLineNumbers copy
-export type TagBase<Props extends TagBase.IProps<any, any, any, any, any>> = {
-  /**
-   * This is a dummy property for compilation.
-   *
-   * It does not mean anything in runtime.
-   */
-  "typia.tag"?: Props;
-};
-export namespace TagBase {
-  export interface IProps<
-    Target extends "bigint" | "number" | "string" | "array",
-    Kind extends string,
-    Value extends boolean | bigint | number | string | undefined,
-    Validate extends
-      | string
-      | {
-          [key in Target]?: string;
-        },
-    Exclusive extends boolean | string[],
-  > {
-    /**
-     * Target type.
-     *
-     * If user tries to adapt this tag to a different type, it would be a compile
-     * error.
-     *
-     * For example, you've configured target type as `string`, but user adapted it
-     * onto a `number` type (`number & YourCustomTag<Value>`), then it would be
-     * blocked by TypeScript compiler.
-     */
-    target: Target;
-
-    /**
-     * What kind of tag is this?
-     */
-    kind: Kind;
-
-    /**
-     * Value to be configured by user.
-     */
-    value: Value;
-
-    /**
-     * Validation code.
-     *
-     * This code would be inserted into the generated validation function.
-     * In here script, target variable name must be `$input`. The variable name
-     * `$input` would be transformed to the suitable when compilation.
-     *
-     * Also, If you've take a mistake on this script, compile error would be
-     * occurred. So, define it with confidence. Compiler will block all your
-     * mistakes.
-     */
-    validate: Validate;
-
-    /**
-     * Exclusive option.
-     *
-     * If this property configured as `true`, same {@link kind} tag cannot be
-     * duplicated in the target type. Otherwise, if you've configured this property
-     * as string array, all of the {@link kind} value assigned tag cannot be
-     * compatible in the target type.
-     *
-     * @default false
-     */
-    exclusive?: Exclusive | string[];
-  }
-}
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/src/tags/TagBase.ts" 
+      filename="typia/tags/TagBase.ts" 
+      showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-```typescript filename="Minimum.ts" showLineNumbers copy
-import { TagBase } from "./TagBase";
-
-export type Minimum<Value extends number | bigint> = TagBase<{
-  target: Value extends number ? "number" : "bigint";
-  kind: "minimum";
-  value: Value;
-  validate: `${Numeric<Value>} <= $input`;
-  exclusive: ["minimum", "exclusiveMinimum"];
-}>;
-
-type Numeric<Value extends number | bigint> = Value extends number
-  ? Value
-  : `BigInt(${Value})`;
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/src/tags/Minimum.ts" 
+      filename="typia/tags/Minimum.ts" 
+      showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-```typescript filename="Type.ts" showLineNumbers copy
-import { TagBase } from "./TagBase";
-
-export type Type<
-  Value extends "int32" | "uint32" | "int64" | "uint64" | "float" | "double",
-> = TagBase<{
-  target: Value extends "int64" | "uint64" ? "bigint" | "number" : "number";
-  kind: "type";
-  value: Value;
-  validate: Value extends "int32"
-    ? `Math.floor($input) === $input && -2147483648 <= $input && $input <= 2147483647`
-    : Value extends "uint32"
-    ? `Math.floor($input) === $input && 0 <= $input && $input <= 4294967295`
-    : Value extends "int64"
-    ? {
-        number: `Math.floor($input) === $input && -9223372036854775808 <= $input && $input <= 9223372036854775807`;
-        bigint: `true`;
-      }
-    : Value extends "uint64"
-    ? {
-        number: `Math.floor($input) === $input && 0 <= $input && $input <= 18446744073709551615`;
-        bigint: `BigInt(0) <= $input`;
-      }
-    : Value extends "float"
-    ? `-1.175494351e38 <= $input && $input <= 3.4028235e38`
-    : `true`;
-  exclusive: true;
-}>;
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/src/tags/Type.ts" 
+      filename="typia/tags/Type.ts" 
+      showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-```typescript filename="Pattern.ts" showLineNumbers copy
-import { TagBase } from "./TagBase";
-
-export type Pattern<Value extends string> = TagBase<{
-  target: "string";
-  kind: "pattern";
-  value: Value;
-  validate: `/${Value}/.test($input)`;
-}>;
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/src/tags/Pattern.ts" 
+      filename="typia/tags/Pattern.ts" 
+      showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
@@ -602,65 +265,15 @@ Here is the example code, and I think that it may easy to understand.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-```typescript showLineNumbers copy filename="is.tag.custom.ts"
-import typia from "typia";
-
-export const checkTagCustom = typia.createIs<TagCustom>();
-
-interface TagCustom {
-  id: string & typia.tags.Format<"uuid">;
-  dollar: string & Dolloar;
-  postfix: string & Postfix<"abcd">;
-  powerOf: number & PowerOf<2>;
-}
-
-type Dolloar = typia.tags.TagBase<{
-  kind: "dollar";
-  target: "string";
-  value: undefined;
-  validate: `$input[0] === "$" && !isNaN(Number($input.substring(1).split(",").join("")))`;
-}>;
-
-type Postfix<Value extends string> = typia.tags.TagBase<{
-  kind: "postfix";
-  target: "string";
-  value: Value;
-  validate: `$input.endsWith("${Value}")`;
-}>;
-
-type PowerOf<Value extends number> = typia.tags.TagBase<{
-  kind: "powerOf";
-  target: "number";
-  value: Value;
-  validate: `(() => {
-        const denominator: number = Math.log(${Value});
-        const value: number = Math.log($input) / denominator;
-        return Math.abs(value - Math.round(value)) < 0.00000001;
-    })()`;
-}>;
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/validators/is-custom-tags.ts" 
+      filename="examples/src/validators/is-custom-tags.ts" 
+      showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-```javascript showLineNumbers filename="is.tag.custom.js"
-import * as __typia_transform__isFormatUuid from "typia/lib/internal/_isFormatUuid.js";
-import typia from "typia";
-export const checkTagCustom = (() => {
-  const _io0 = (input) =>
-    "string" === typeof input.id &&
-    __typia_transform__isFormatUuid._isFormatUuid(input.id) &&
-    "string" === typeof input.dollar &&
-    input.dollar[0] === "$" &&
-    !isNaN(Number(input.dollar.substring(1).split(",").join(""))) &&
-    "string" === typeof input.postfix &&
-    input.postfix.endsWith("abcd") &&
-    "number" === typeof input.powerOf &&
-    (() => {
-      const denominator = Math.log(2);
-      const value = Math.log(input.powerOf) / denominator;
-      return Math.abs(value - Math.round(value)) < 1e-8;
-    })();
-  return (input) => "object" === typeof input && null !== input && _io0(input);
-})();
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/validators/is-custom-tags.js" 
+      filename="examples/bin/validators/is-custom-tags.js" 
+      showLineNumbers />
   </Tabs.Tab>
 </Tabs>
