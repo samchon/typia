@@ -3,14 +3,10 @@ title: Guide Documents > Large Language Model > schema() function
 ---
 import { Callout, Tabs } from "nextra/components";
 
-import ILlmApplicationSnippet from "../../../src/snippets/ILlmApplicationSnippet.mdx";
-import ILlmFunctionSnippet from "../../../src/snippets/ILlmFunctionSnippet.mdx";
-import ILlmSchemaSnippet from "../../../src/snippets/ILlmSchemaSnippet.mdx";
-
-import LlmSchemaExampleSnippet from "../../../src/snippets/LlmSchemaExampleSnippet.mdx";
-import LlmSchemaJavaScriptSnippet from "../../../src/snippets/LlmSchemaJavaScriptSnippet.mdx";
+import RemoteSource from "../../../src/components/RemoteSource";
 
 ## `schema()` function
+
 <Tabs items={[
     <code>typia</code>,
     <code>ILlmApplication</code>,
@@ -28,15 +24,6 @@ export namespace llm {
   >(
     options?: Partial<Pick<ILlmApplication.IOptions<Model>, "separate">>,
   ): ILlmApplication<Model>;
-
-  // +VALIDATE FUNCTION EMBEDDED
-  export function applicationOfValidate<
-    App extends Record<string, any>,
-    Model extends ILlmSchema.Model,
-    Config extends Partial<ILlmSchema.ModelConfig[Model]> = {},
-  >(
-    options?: Partial<Pick<ILlmApplicationOfValidate.IOptions<Model>, "separate">>,
-  ): ILlmApplicationOfValidate<Model>;
 
   // STRUCTURED OUTPUT
   export function parameters<
@@ -61,14 +48,23 @@ export namespace llm {
 }
 ```
   </Tabs.Tab>
-    <Tabs.Tab>
-    <ILlmApplicationSnippet />
+  <Tabs.Tab>
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/openapi/refs/heads/master/src/structures/ILlmApplication.ts"
+      filename="@samchon/openapi"
+      showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <ILlmFunctionSnippet />
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/openapi/refs/heads/master/src/structures/ILlmFunction.ts"
+      filename="@samchon/openapi"
+      showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <ILlmSchemaSnippet />
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/openapi/refs/heads/master/src/structures/ILlmSchema.ts"
+      filename="@samchon/openapi"
+      showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
@@ -100,19 +96,23 @@ Structured output is another feature of LLM. The "structured output" means that 
 - https://platform.openai.com/docs/guides/structured-outputs
 </Callout>
 
-<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+<Tabs items={["TypeScript Source Code", "Compiled JavaScript"]}>
   <Tabs.Tab>
-    <LlmSchemaExampleSnippet />
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/llm/schema.ts"
+      filename="example/src/llm/schema.ts"
+      showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LlmSchemaJavaScriptSnippet />
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/llm/schema.js"
+      filename="example/bin/llm/schema.js"
+      showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
-
-
-
 ## Specialization
+
 You can utilize [type tags](../validators/tags/#type-tags) (or [validator's comment tags](../validators/tags/#comment-tags)) to constructing special fields of JSON schema. 
 
 If you write any comment on a property, it would fill the `IJsonSchema.description` value. Also, there're special comment tags only for JSON schema definition that are different with [validator's comment tags](../validators/tags/#comment-tags) like below.
@@ -126,215 +126,44 @@ Let's see how those [type tags](../validators/tags/#type-tags), comment tags and
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-```typescript copy filename="examples/src/llm-schema.ts" showLineNumbers
-import { IChatGptSchema } from "@samchon/openapi";
-import typia, { tags } from "typia";
-
-export const schema: IChatGptSchema = typia.llm.schema<Special, "claude">({
-  $defs: {},
-});
-
-interface Special {
-  /**
-   * Deprecated tags are just used for marking.
-   *
-   * @title Unsigned integer
-   * @deprecated
-   */
-  type: number & tags.Type<"int32">;
-
-  /**
-   * Internal tagged property never be shown in JSON schema.
-   *
-   * It even doesn't be shown in other `typia` functions like `assert<T>()`.
-   *
-   * @internal
-   */
-  internal: number[];
-
-  /**
-   * Hidden tagged property never be shown in JSON schema.
-   *
-   * However, it would be shown in other `typia` functions like `stringify<T>()`.
-   *
-   * @hidden
-   */
-  hidden: boolean;
-
-  /**
-   * You can limit the range of number.
-   *
-   * @exclusiveMinimum 19
-   * @maximum 100
-   */
-  number?: number;
-
-  /**
-   * You can limit the length of string.
-   *
-   * Also, multiple range conditions are also possible.
-   */
-  string: string &
-    (
-      | (tags.MinLength<3> & tags.MaxLength<24>)
-      | (tags.MinLength<40> & tags.MaxLength<100>)
-    );
-
-  /**
-   * You can limit the pattern of string.
-   *
-   * @pattern ^[a-z]+$
-   */
-  pattern: string;
-
-  /**
-   * You can limit the format of string.
-   *
-   * @format date-time
-   */
-  format: string | null;
-
-  /**
-   * In the Array case, possible to restrict its elements.
-   */
-  array: Array<string & tags.Format<"uuid">> & tags.MinItems<3>;
-}
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/llm/schema-special.ts"
+      filename="example/src/llm/schema-special.ts"
+      showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-```javascript filename="examples/bin/llm-schema.js" showLineNumbers
-import typia from "typia";
-export const schema = {
-  type: "object",
-  properties: {
-    type: {
-      type: "integer",
-      deprecated: true,
-      title: "Unsigned integer",
-      description: "Deprecated tags are just used for marking.",
-    },
-    number: {
-      type: "number",
-      exclusiveMinimum: true,
-      minimum: 19,
-      maximum: 100,
-      title: "You can limit the range of number",
-      description: "You can limit the range of number.",
-    },
-    string: {
-      oneOf: [
-        {
-          type: "string",
-          minLength: 3,
-          maxLength: 24,
-        },
-        {
-          type: "string",
-          minLength: 40,
-          maxLength: 100,
-        },
-      ],
-      title: "You can limit the length of string",
-      description:
-        "You can limit the length of string.\n\nAlso, multiple range conditions are also possible.",
-    },
-    pattern: {
-      type: "string",
-      pattern: "^[a-z]+$",
-      title: "You can limit the pattern of string",
-      description: "You can limit the pattern of string.",
-    },
-    format: {
-      oneOf: [
-        {
-          type: "string",
-          format: "date-time",
-        },
-        {
-          type: "null",
-        },
-      ],
-      title: "You can limit the format of string",
-      description: "You can limit the format of string.",
-    },
-    array: {
-      type: "array",
-      items: {
-        type: "string",
-        format: "uuid",
-      },
-      minItems: 3,
-      title: "In the Array case, possible to restrict its elements",
-      description: "In the Array case, possible to restrict its elements.",
-    },
-  },
-  required: ["type", "string", "pattern", "format", "array"],
-  additionalProperties: false,
-};
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/llm/schema-special.js"
+      filename="example/bin/llm/schema-special.js"
+      showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
-
-
-
 ## Customziation
+
 If what you want is not just filling regular properties of LLM schema specification, but to adding custom properties into the JSON schema definition, you can do it through the `tags.TagBase.schema` property type or `tags.JsonSchemaPlugin` type. 
 
 For reference, the custom property must be started with `x-` prefix. It's a rule of LLM schema.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-```typescript copy filename="examples/src/llm-schema-custom.ts" copy showLineNumbers {7-9, 13, 17-18}
-import typia, { tags } from "typia";
- 
-type Monetary<Value extends string> = tags.TagBase<{
-  target: "number";
-  kind: "monetary";
-  value: Value;
-  schema: {
-    "x-monetary": Value;
-  };
-}>;
-
-type Placeholder<Value extends string> = tags.JsonSchemaPlugin<{
-  "x-placeholder": Value;
-}>;
-
-interface IAccount {
-  code: string & Placeholder<"Write you account code please">;
-  balance: number & Monetary<"dollar">;
-};
- 
-typia.llm.schema<IAccount, "chatgpt">();
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/llm/schema-custom.ts"
+      filename="example/src/llm/schema-custom.ts"
+      showLineNumbers
+      highlight="12-14, 18, 22-23" />
   </Tabs.Tab>
   <Tabs.Tab>
-```javascript copy filename="examples/bin/llm-schema-custom.js" showLineNumbers {7, 11}
-import typia from "typia";
-({
-  type: "object",
-  properties: {
-    code: {
-      type: "string",
-      "x-placeholder": "Write you account code please",
-    },
-    balance: {
-      type: "number",
-      "x-monetary": "dollar",
-    },
-  },
-  required: ["code", "balance"],
-  additionalProperties: false,
-});
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/llm/schema-custom.js"
+      filename="example/bin/llm/schema-custom.js"
+      showLineNumbers
+      highlight="7, 11" />
   </Tabs.Tab>
 </Tabs>
 
-
-
-
 ## Restrictions
+
 LLM schema does not support `bigint` type.
 
 LLM schema is based on the JSON schema definition of the OpenAPI v3.0 specification. Therefore, limitations of the JSON schema is also applied to the LLM schema, and the `bigint` type is not supported in the LLM function calling schema composition.
@@ -376,99 +205,16 @@ For reference, if the recursive type comes from the array type, it would be zero
 
 <Tabs items={["TypeScript Source Code", "Compiled JavaScript File"]}>
   <Tabs.Tab>
-```typescript filename="src/examples/llm.schema.recursive.ts" showLineNumbers
-import typia, { tags } from "typia";
-
-typia.llm.schema<IDepartment, "gemini">();
-
-interface IDepartment {
-  id: string & tags.Format<"uuid">;
-  name: string;
-  department: IDepartment[];
-}
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/llm/schema-recursive-gemini.ts"
+      filename="example/src/llm/schema-recursive-gemini.ts"
+      showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-```javascript filename="example/bin/llm.schema.recursive.js" showLineNumbers
-"use strict";
-var __importDefault =
-  (this && this.__importDefault) ||
-  function (mod) {
-    return mod && mod.__esModule ? mod : { default: mod };
-  };
-Object.defineProperty(exports, "__esModule", { value: true });
-const typia_1 = __importDefault(require("typia"));
-({
-  type: "object",
-  properties: {
-    id: {
-      type: "string",
-      format: "uuid",
-    },
-    name: {
-      type: "string",
-    },
-    department: {
-      type: "array",
-      items: {
-        type: "object",
-        properties: {
-          id: {
-            type: "string",
-            format: "uuid",
-          },
-          name: {
-            type: "string",
-          },
-          department: {
-            type: "array",
-            items: {
-              type: "object",
-              properties: {
-                id: {
-                  type: "string",
-                  format: "uuid",
-                },
-                name: {
-                  type: "string",
-                },
-                department: {
-                  type: "array",
-                  items: {
-                    type: "object",
-                    properties: {
-                      id: {
-                        type: "string",
-                        format: "uuid",
-                      },
-                      name: {
-                        type: "string",
-                      },
-                      department: {
-                        type: "array",
-                        items: {},
-                        maxItems: 0,
-                      },
-                    },
-                    required: ["id", "name", "department"],
-                    additionalProperties: false,
-                  },
-                },
-              },
-              required: ["id", "name", "department"],
-              additionalProperties: false,
-            },
-          },
-        },
-        required: ["id", "name", "department"],
-        additionalProperties: false,
-      },
-    },
-  },
-  required: ["id", "name", "department"],
-  additionalProperties: false,
-});
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/llm/schema-recursive-gemini.js"
+      filename="example/bin/llm/schema-recursive-gemini.js"
+      showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 

@@ -15,27 +15,36 @@
             "type": "string",
             "enum": [
               "3.1"
-            ]
+            ],
+            "title": "OpenAPI specification version identifier",
+            "description": "OpenAPI specification version identifier.\n\nAlways set to \"3.1\" to indicate this collection uses OpenAPI v3.1\nschema format with enhanced JSON Schema compatibility."
           },
           "components": {
-            "$ref": "#/components/schemas/OpenApi.IComponents"
+            "$ref": "#/components/schemas/OpenApi.IComponents",
+            "title": "Reusable schema components for OpenAPI v3.1",
+            "description": "Reusable schema components for OpenAPI v3.1.\n\nContains reusable schema definitions and other components following the\nOpenAPI v3.1 specification. This structure is similar to v3.0 but supports\nenhanced JSON Schema features and improved type definitions.\n\nComponents include:\n- schemas: Named type definitions with enhanced JSON Schema support\n- securitySchemes: Authentication and authorization schemes\n\nThe emended OpenAPI v3.1 format used here removes ambiguous expressions\nand standardizes certain patterns for better tooling compatibility."
           },
           "schemas": {
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/OpenApi.IJsonSchema"
-            }
+            },
+            "title": "Array of generated JSON schemas with v3.1 enhancements",
+            "description": "Array of generated JSON schemas with v3.1 enhancements.\n\nContains JSON schema definitions that take advantage of OpenAPI v3.1's\nenhanced capabilities. These schemas can express more complex TypeScript\ntypes accurately, including:\n- Tuple types using prefixItems\n- Union types with proper null handling\n- Complex nested object structures\n- Pattern-based property definitions\n\nEach schema corresponds to one of the input TypeScript types and may\nreference components defined in the {@link components} property."
           },
           "__types": {
             "type": "array",
-            "items": {}
+            "items": {},
+            "title": "Type metadata for compile-time type tracking",
+            "description": "Type metadata for compile-time type tracking.\n\nThis optional property stores the original TypeScript types that were\nused to generate the JSON schemas. It provides compile-time type safety\nand enables better development experience without affecting runtime behavior.\n\nBenefits include:\n- Strong typing connection to original TypeScript definitions\n- Enhanced IDE support and autocompletion\n- Compile-time validation of schema usage\n- Type-safe integration with validation libraries"
           }
         },
         "required": [
           "version",
           "components",
           "schemas"
-        ]
+        ],
+        "description": "JSON Schema collection formatted for OpenAPI v3.1 specification.\n\nThis interface represents a collection of JSON schemas that comply with\nOpenAPI v3.1 standards, which provide enhanced JSON Schema compatibility\nand support for modern JSON Schema features. OpenAPI v3.1 is based on\nJSON Schema Draft 2020-12 and offers significant improvements over v3.0.\n\nKey advantages of v3.1:\n- Full tuple type support with prefixItems\n- Pattern properties support for dynamic object keys\n- Proper null type handling via union types\n- Enhanced JSON Schema Draft 2020-12 compatibility\n- Better const, enum, and validation support"
       },
       "OpenApi.IComponents": {
         "type": "object",

@@ -79,7 +79,7 @@ import typia, { tags } from "typia";
 export const checkString = typia.createIs<string>();
 
 //----
-// examples/checkUUID.js
+// examples/checkString.js
 //----
 import typia from "typia";
 export const checkString = (() => {
