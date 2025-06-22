@@ -40,4 +40,9 @@ export const RemoteSource = (props: {
 export default RemoteSource;
 
 const BRACKET = "```";
-const loader = new VariadicSingleton((url) => fetch(url).then((r) => r.text()));
+const loader = new VariadicSingleton(async (url) => {
+  const response = await fetch(url);
+  if (response.status !== 200) console.error(url, response.status);
+  const text = await response.text();
+  return text;
+});
