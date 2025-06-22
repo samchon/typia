@@ -433,10 +433,10 @@
 <p>GitHub MCP server to <a href="https://openai.github.io/openai-agents-python/mcp/#using-mcp-servers" target="_blank" class="external"><code>mcp_servers</code></a> often breaks down AI agent.</p>
 <p>However, if call the function of GitHub MCP server by function calling with <a href="https://github.com/wrtnlabs/agentica" target="_blank" class="external"><code>@agentica</code></a>, it works properly without any problem.</p>
 <ul>
-<li>Function calling to GitHub MCP: <a href="https://www.youtube.com/watch?v=rLlHkc24cJs" target="_blank" class="external">https://www.youtube.com/watch?v=rLlHkc24cJs</a>
-To make function calling schemas, call <a href="#validation-feedback"><code>McpLlm.application()</code></a> function. <a href="https://samchon.github.io/openapi/api/interfaces/IMcpLlmApplication-1.html" target="_blank" class="external"><code>IMcpLlmApplication</code></a> typed application instance would be returned, and it will contain the <a href="https://samchon.github.io/openapi/api/interfaces/IMcpLlmFunction.html#validate" target="_blank" class="external"><code>IMcpLlmFunction.validate()</code></a> function utilized for the <a href="#validation-feedback">validation feedback</a> strategy.</li>
+<li>Function calling to GitHub MCP: <a href="https://www.youtube.com/watch?v=rLlHkc24cJs" target="_blank" class="external">https://www.youtube.com/watch?v=rLlHkc24cJs</a></li>
 </ul>
 </blockquote>
+<p>To make function calling schemas, call <a href="#validation-feedback"><code>McpLlm.application()</code></a> function. <a href="https://samchon.github.io/openapi/api/interfaces/IMcpLlmApplication-1.html" target="_blank" class="external"><code>IMcpLlmApplication</code></a> typed application instance would be returned, and it will contain the <a href="https://samchon.github.io/openapi/api/interfaces/IMcpLlmFunction.html#validate" target="_blank" class="external"><code>IMcpLlmFunction.validate()</code></a> function utilized for the <a href="#validation-feedback">validation feedback</a> strategy.</p>
 <p>Don't worry about the JSON schema specification. As MCP (Model Context Protocol) does not restrict any JSON schema specification, the <a href="#validation-feedback"><code>McpLlm.application()</code></a> function has been designed to support every JSON schema specifications.</p>
 <ul>
 <li>JSON Schema v4, v5, v6, v7</li>

@@ -1,35 +1,45 @@
 <!DOCTYPE html><html class="default" lang="en" data-base=".."><head><meta charset="utf-8"/><meta http-equiv="x-ua-compatible" content="IE=edge"/><title>OpenApi | typia.io</title><meta name="description" content="Documentation for typia.io"/><meta name="viewport" content="width=device-width, initial-scale=1"/><link rel="stylesheet" href="../assets/style.css"/><link rel="stylesheet" href="../assets/highlight.css"/><script defer src="../assets/main.js"></script><script async src="../assets/icons.js" id="tsd-icons-script"></script><script async src="../assets/search.js" id="tsd-search-script"></script><script async src="../assets/navigation.js" id="tsd-nav-script"></script><script async src="../assets/hierarchy.js" id="tsd-hierarchy-script"></script></head><body><script>document.documentElement.dataset.theme = localStorage.getItem("tsd-theme") || "os";document.body.style.display="none";setTimeout(() => app?app.showPage():document.body.style.removeProperty("display"),500)</script><header class="tsd-page-toolbar"><div class="tsd-toolbar-contents container"><div class="table-cell" id="tsd-search"><div class="field"><label for="tsd-search-field" class="tsd-widget tsd-toolbar-icon search no-caption"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-search"></use></svg></label><input type="text" id="tsd-search-field" aria-label="Search"/></div><div class="field"><div id="tsd-toolbar-links"></div></div><ul class="results"><li class="state loading">Preparing search index...</li><li class="state failure">The search index is not available</li></ul><a href="../index.html" class="title">typia.io</a></div><div class="table-cell" id="tsd-widgets"><a href="#" class="tsd-widget tsd-toolbar-icon menu no-caption" data-toggle="menu" aria-label="Menu"><svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true"><use href="../assets/icons.svg#icon-menu"></use></svg></a></div></div></header><div class="container container-main"><div class="col-content"><div class="tsd-page-title"><ul class="tsd-breadcrumb"><li><a href="../modules.html">typia.io</a></li><li><a href="_samchon_openapi.html">@samchon/openapi</a></li><li><a href="_samchon_openapi.OpenApi.html">OpenApi</a></li></ul><h1>Namespace OpenApi</h1></div><section class="tsd-panel tsd-comment"><div class="tsd-comment tsd-typography"><p>Emended OpenAPI v3.1 definition used by <code>typia</code> and <code>nestia</code>.</p>
 <p><code>OpenApi</code> is a namespace containing functions and interfaces for emended
-OpenAPI v3.1 specification. The keyword &quot;emended&quot; means that <code>OpenApi</code> is
-not a direct OpenAPI v3.1 specification (<a href="_samchon_openapi.OpenApiV3_1.html" class="tsd-kind-namespace">OpenApiV3_1</a>), but a little
-bit shrunk to remove ambiguous and duplicated expressions of OpenAPI v3.1
-for the convenience of <code>typia</code> and <code>nestia</code>.</p>
-<p>For example, when representing nullable type, OpenAPI v3.1 supports three ways.
-In that case, <code>OpenApi</code> remains only the third way, so that makes <code>typia</code> and
-<code>nestia</code> (especially <code>@nestia/editor</code>) to be simple and easy to implement.</p>
+OpenAPI v3.1 specification. The keyword &quot;emended&quot; means that <code>OpenApi</code> is not
+a direct OpenAPI v3.1 specification (<a href="_samchon_openapi.OpenApiV3_1.html" class="tsd-kind-namespace">OpenApiV3_1</a>), but a little bit
+shrunk to remove ambiguous and duplicated expressions of OpenAPI v3.1 for the
+convenience of <code>typia</code> and <code>nestia</code>.</p>
+<p>For example, when representing nullable type, OpenAPI v3.1 supports three
+ways. In that case, <code>OpenApi</code> remains only the third way, so that makes
+<code>typia</code> and <code>nestia</code> (especially <code>@nestia/editor</code>) to be simple and easy to
+implement.</p>
 <ol>
 <li><code>{ type: [&quot;string&quot;, &quot;null&quot;] }</code></li>
 <li><code>{ type: &quot;string&quot;, nullable: true }</code></li>
 <li><code>{ oneOf: [{ type: &quot;string&quot; }, { type: &quot;null&quot; }] }</code></li>
 </ol>
-<p>Here is the entire list of differences between OpenAPI v3.1 and emended <code>OpenApi</code>.</p>
+<p>Here is the entire list of differences between OpenAPI v3.1 and emended
+<code>OpenApi</code>.</p>
 <ul>
-<li>Operation
+<li>
+<p>Operation</p>
 <ul>
-<li>Merge <a href="../interfaces/_samchon_openapi.OpenApiV3_1.IPath.html#parameters" class="tsd-kind-property">OpenApiV3_1.IPath.parameters</a> to <a href="../interfaces/_samchon_openapi.OpenApi.IOperation-1.html#parameters" class="tsd-kind-property">OpenApi.IOperation.parameters</a></li>
-<li>Resolve <a href="../interfaces/_samchon_openapi.OpenApi.IJsonSchema.IReference.html" class="tsd-kind-interface">references</a> of <a href="../interfaces/_samchon_openapi.OpenApiV3_1.IOperation-1.html" class="tsd-kind-interface">OpenApiV3_1.IOperation</a> members</li>
+<li>Merge <a href="../interfaces/_samchon_openapi.OpenApiV3_1.IPath.html#parameters" class="tsd-kind-property">OpenApiV3_1.IPath.parameters</a> to
+<a href="../interfaces/_samchon_openapi.OpenApi.IOperation-1.html#parameters" class="tsd-kind-property">OpenApi.IOperation.parameters</a></li>
+<li>Resolve <a href="../interfaces/_samchon_openapi.OpenApi.IJsonSchema.IReference.html" class="tsd-kind-interface">references</a> of
+<a href="../interfaces/_samchon_openapi.OpenApiV3_1.IOperation-1.html" class="tsd-kind-interface">OpenApiV3_1.IOperation</a> members</li>
 <li>Escape references of <a href="../interfaces/_samchon_openapi.OpenApiV3_1.IComponents.html#examples" class="tsd-kind-property">OpenApiV3_1.IComponents.examples</a></li>
 </ul>
 </li>
-<li>JSON Schema
+<li>
+<p>JSON Schema</p>
 <ul>
 <li>Decompose mixed type: <a href="../interfaces/_samchon_openapi.OpenApiV3_1.IJsonSchema.IMixed.html" class="tsd-kind-interface">OpenApiV3_1.IJsonSchema.IMixed</a></li>
-<li>Resolve nullable property: OpenApiV3_1.IJsonSchema.__ISignificant.nullable</li>
+<li>Resolve nullable property:
+OpenApiV3_1.IJsonSchema.__ISignificant.nullable</li>
 <li>Array type utilizes only single <a href="../interfaces/_samchon_openapi.OpenApi.IJsonSchema.IArray.html#items" class="tsd-kind-property">OpenApi.IJsonSchema.IArray.items</a></li>
 <li>Tuple type utilizes only <a href="../interfaces/_samchon_openapi.OpenApi.IJsonSchema.ITuple.html#prefixitems" class="tsd-kind-property">OpenApi.IJsonSchema.ITuple.prefixItems</a></li>
-<li>Merge <a href="../interfaces/_samchon_openapi.OpenApiV3_1.IJsonSchema.IAllOf.html" class="tsd-kind-interface">OpenApiV3_1.IJsonSchema.IAllOf</a> to <a href="../interfaces/_samchon_openapi.OpenApi.IJsonSchema.IObject.html" class="tsd-kind-interface">OpenApi.IJsonSchema.IObject</a></li>
-<li>Merge <a href="../interfaces/_samchon_openapi.OpenApiV3_1.IJsonSchema.IAnyOf.html" class="tsd-kind-interface">OpenApiV3_1.IJsonSchema.IAnyOf</a> to <a href="../interfaces/_samchon_openapi.OpenApi.IJsonSchema.IOneOf-1.html" class="tsd-kind-interface">OpenApi.IJsonSchema.IOneOf</a></li>
-<li>Merge <a href="../interfaces/_samchon_openapi.OpenApiV3_1.IJsonSchema.IRecursiveReference.html" class="tsd-kind-interface">OpenApiV3_1.IJsonSchema.IRecursiveReference</a> to <a href="../interfaces/_samchon_openapi.OpenApi.IJsonSchema.IReference.html" class="tsd-kind-interface">OpenApi.IJsonSchema.IReference</a></li>
+<li>Merge <a href="../interfaces/_samchon_openapi.OpenApiV3_1.IJsonSchema.IAllOf.html" class="tsd-kind-interface">OpenApiV3_1.IJsonSchema.IAllOf</a> to
+<a href="../interfaces/_samchon_openapi.OpenApi.IJsonSchema.IObject.html" class="tsd-kind-interface">OpenApi.IJsonSchema.IObject</a></li>
+<li>Merge <a href="../interfaces/_samchon_openapi.OpenApiV3_1.IJsonSchema.IAnyOf.html" class="tsd-kind-interface">OpenApiV3_1.IJsonSchema.IAnyOf</a> to
+<a href="../interfaces/_samchon_openapi.OpenApi.IJsonSchema.IOneOf-1.html" class="tsd-kind-interface">OpenApi.IJsonSchema.IOneOf</a></li>
+<li>Merge <a href="../interfaces/_samchon_openapi.OpenApiV3_1.IJsonSchema.IRecursiveReference.html" class="tsd-kind-interface">OpenApiV3_1.IJsonSchema.IRecursiveReference</a> to
+<a href="../interfaces/_samchon_openapi.OpenApi.IJsonSchema.IReference.html" class="tsd-kind-interface">OpenApi.IJsonSchema.IReference</a></li>
 </ul>
 </li>
 </ul>
