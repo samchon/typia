@@ -1,7 +1,6 @@
 import typia, { tags } from "typia";
 
 const data: TypeTag = typia.random<TypeTag>();
-
 console.log(data);
 
 interface TypeTag {

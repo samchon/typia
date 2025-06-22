@@ -1,9 +1,12 @@
 ---
 title: Guide Documents > Setup
 ---
-import { Callout, Tabs } from 'nextra/components'
+import { Callout, Tabs } from "nextra/components";
+
+import RemoteSource from "../../src/components/RemoteSource";
 
 ## Summary
+
 <Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
   <Tabs.Tab>
 ```bash filename="Terminal" showLineNumbers copy
@@ -45,11 +48,10 @@ Otherwise non-standard compiler case, only the [generation](#generation) mode is
     - [esbuild](https://esbuild.github.io/) -> covered by [`unplugin-typia`](#unplugin-typia)
     - [SWC](https://swc.rs)
 
-
-
-
 ## Transformation
+
 ### Concepts
+
 AOT (Ahead of Time) compilation mode.
 
 When you write a TypeScript code calling `typia.createIs<IMember>()` function and compile it through `tsc` command, `typia` will replace the `typia.createIs<IMember>()` statement to optimal validation code in the compiled JavaScript file, for the `IMember` type. 
@@ -58,39 +60,21 @@ This is the transform mode performing AOT (Ahead of Time) compilation.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-```typescript copy filename="examples/src/check.ts" showLineNumbers {3}
-import typia, { tags } from "typia";
-
-export const check = typia.createIs<IMember>();
-
-interface IMember {
-  id: string & tags.Format<"uuid">;
-  email: string & tags.Format<"email">;
-  age: number & tags.ExclusiveMinimum<19> & tags.Maximum<100>;
-}
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/validators/is.ts" 
+      filename="examples/src/validators/is.ts" 
+      showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-```javascript filename="examples/bin/check.js" showLineNumbers {2-16}
-import * as __typia_transform__isFormatUuid from "typia/lib/internal/_isFormatUuid.js";
-import * as __typia_transform__isFormatEmail from "typia/lib/internal/_isFormatEmail.js";
-import typia from "typia";
-export const check = (() => {
-  const _io0 = (input) =>
-    "string" === typeof input.id &&
-    __typia_transform__isFormatUuid._isFormatUuid(input.id) &&
-    "string" === typeof input.email &&
-    __typia_transform__isFormatEmail._isFormatEmail(input.email) &&
-    "number" === typeof input.age &&
-    19 < input.age &&
-    input.age <= 100;
-  return (input) => "object" === typeof input && null !== input && _io0(input);
-})();
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/validators/is.js" 
+      filename="examples/bin/validators/is.js" 
+      showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
 ### Setup Wizard
+
 <Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
   <Tabs.Tab>
 ```bash filename="Terminal" copy showLineNumbers
@@ -124,6 +108,7 @@ You can turn on transformation mode just by running `npx typia setup` command.
 Setup wizard would be executed, and it will do everything for the transformation.
 
 ### Manual Setup
+
 <Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
   <Tabs.Tab>
 ```bash filename="Terminal" copy showLineNumbers
@@ -218,11 +203,10 @@ Be sure to run `npm run prepare` once you have made these changes.
 
 For reference, [`ts-patch`](https://github.com/nonara/ts-patch) is an helper library of TypeScript compiler that supporting custom transformations by plugins. From now on, whenever you run `tsc` command, your `typia` function call statements would be transformed to the optimal operation codes in the compiled JavaScript files.
 
-
-
-
 ## Bundlers
+
 ### `unplugin-typia`
+
 [`unplugin-typia`](https://github.com/ryoppippi/unplugin-typia/) is a plugin to integrate `typia` into your bundlers seamlessly.
 
 Currently, `unplugin-typia` supports the following bundlers:
@@ -358,10 +342,8 @@ For more details, please refer to the [`unplugin-typia` documentation](https://g
   </Tabs.Tab>
 </Tabs>
 
+### Webpack
 
-
-
-### webpack
 <Callout type="info">
 [`unplugin-typia`](#unplugin-typia) also supports `webpack` as well.
 </Callout>
@@ -489,10 +471,8 @@ Additionally, if you're using `typia` in the NodeJS project especially for the b
     - [With `node_modules`](https://nestia.io/docs/setup/#with-node_modules)
     - [Single JS file only](https://nestia.io/docs/setup/#single-js-file-only)
 
+### NX
 
-
-
-### Nx
 <Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
   <Tabs.Tab>
 ```bash filename="Terminal" copy showLineNumbers
@@ -564,6 +544,7 @@ Running this task will show you the errors from Typia, and allow you to correct 
 Note: While Nx has a `transformers` feature on the `@nx/js` plugin, that won't work with Typia. The reason is because Nx is expecting a transformer to export a `before` hook, which Nx then plugs directly into TypeScript via the compiler API. Typia doesn't export that kind of hook, because Typia only works with ts-patch, which abstracts the need for creating a specific before hook in the way Nx wants.
 
 ## Generation
+
 <Tabs items={['npm', 'pnpm', 'yarn', 'bun']}>
   <Tabs.Tab>
 ```bash filename="Terminal" copy showLineNumbers
