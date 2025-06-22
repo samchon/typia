@@ -1,11 +1,14 @@
 ---
 title: Guide Documents > JSON > stringify() function
 ---
-import { Tabs } from 'nextra/components'
-import Alert from '@mui/material/Alert';
-import AlertTitle from '@mui/material/AlertTitle';
+import Alert from "@mui/material/Alert";
+import AlertTitle from "@mui/material/AlertTitle";
+import { Tabs } from "nextra/components";
+
+import RemoteSource from "../../../src/components/RemoteSource";
 
 ## `stringify()` functions
+
 <Tabs items={[
   <code>typia</code>, 
   <code>TypeGuardError.ts</code>, 
@@ -22,35 +25,16 @@ export namespace json {
 ```
   </Tabs.Tab>
   <Tabs.Tab>
-```typescript copy
-export class TypeGuardError extends Error {
-  public readonly method: string;
-  public readonly path: string | undefined;
-  public readonly expected: string;
-  public readonly value: any;
-}
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/src/TypeGuardError.ts"
+      filename="typia/TypeGuardError.ts"
+      showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-```typescript copy
-export type IValidation<T> = IValidation.ISuccess<T> | IValidation.IFailure;
-export namespace IValidation {
-  export interface ISuccess<T> {
-    success: true;
-    data: T;
-  }
-  export interface IFailure {
-    success: false;
-    errors: IError[];
-    data: unknown;
-  }
-  export interface IError {
-    path: string;
-    expected: string;
-    value: any;
-  }
-}
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/openapi/refs/heads/master/src/structures/IValidation.ts"
+      filename="@samchon/openapi"
+      showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
@@ -76,136 +60,21 @@ Instead, `typia` supports type safe JSON serialization functions like `typia.jso
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-```typescript copy filename="examples/src/isStringify.ts" showLineNumbers
-import typia, { tags } from "typia";
-
-const department: IDepartment = typia.random<IDepartment>();
-const json: string | null = typia.json.isStringify(department);
-
-console.log(json); // not null, but string
-
-interface IDepartment {
-  id: string & tags.Format<"uuid">;
-  name: string & tags.MinLength<3>;
-  limit: number & tags.Type<"int32">;
-  clerks: IClerk[];
-}
-interface IClerk {
-  name: string;
-  age: number 
-    & tags.Type<"uint32"> 
-    & tags.ExclusiveMinimum<19> 
-    & tags.Maximum<100>;
-  authority: number;
-  joined_at: string & tags.Format<"date">;
-}
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/json/isStringify.ts"
+      filename="examples/src/json/isStringify.ts"
+      showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-```javascript filename="examples/bin/isStringify.js" showLineNumbers
-import * as __typia_transform__randomFormatUuid from "typia/lib/internal/_randomFormatUuid.js";
-import * as __typia_transform__randomString from "typia/lib/internal/_randomString.js";
-import * as __typia_transform__randomInteger from "typia/lib/internal/_randomInteger.js";
-import * as __typia_transform__randomArray from "typia/lib/internal/_randomArray.js";
-import * as __typia_transform__randomNumber from "typia/lib/internal/_randomNumber.js";
-import * as __typia_transform__randomFormatDate from "typia/lib/internal/_randomFormatDate.js";
-import * as __typia_transform__isFormatUuid from "typia/lib/internal/_isFormatUuid.js";
-import * as __typia_transform__isTypeInt32 from "typia/lib/internal/_isTypeInt32.js";
-import * as __typia_transform__isTypeUint32 from "typia/lib/internal/_isTypeUint32.js";
-import * as __typia_transform__isFormatDate from "typia/lib/internal/_isFormatDate.js";
-import * as __typia_transform__jsonStringifyString from "typia/lib/internal/_jsonStringifyString.js";
-import * as __typia_transform__jsonStringifyNumber from "typia/lib/internal/_jsonStringifyNumber.js";
-import typia from "typia";
-const department = (() => {
-  const _ro0 = (_recursive = false, _depth = 0) => ({
-    id: (
-      _generator?.uuid ?? __typia_transform__randomFormatUuid._randomFormatUuid
-    )(),
-    name: (_generator?.string ?? __typia_transform__randomString._randomString)(
-      {
-        type: "string",
-        minLength: 3,
-      },
-    ),
-    limit: (
-      _generator?.integer ?? __typia_transform__randomInteger._randomInteger
-    )({
-      type: "integer",
-    }),
-    clerks: (_generator?.array ?? __typia_transform__randomArray._randomArray)({
-      type: "array",
-      element: () => _ro1(_recursive, _recursive ? 1 + _depth : _depth),
-    }),
-  });
-  const _ro1 = (_recursive = false, _depth = 0) => ({
-    name: (_generator?.string ?? __typia_transform__randomString._randomString)(
-      {
-        type: "string",
-      },
-    ),
-    age: (
-      _generator?.integer ?? __typia_transform__randomInteger._randomInteger
-    )({
-      type: "integer",
-      exclusiveMinimum: true,
-      minimum: 19,
-      maximum: 100,
-    }),
-    authority: (
-      _generator?.number ?? __typia_transform__randomNumber._randomNumber
-    )({
-      type: "number",
-    }),
-    joined_at: (
-      _generator?.date ?? __typia_transform__randomFormatDate._randomFormatDate
-    )(),
-  });
-  let _generator;
-  return (generator) => {
-    _generator = generator;
-    return _ro0();
-  };
-})()();
-const json = (() => {
-  const _io0 = (input) =>
-    "string" === typeof input.id &&
-    __typia_transform__isFormatUuid._isFormatUuid(input.id) &&
-    "string" === typeof input.name &&
-    3 <= input.name.length &&
-    "number" === typeof input.limit &&
-    __typia_transform__isTypeInt32._isTypeInt32(input.limit) &&
-    Array.isArray(input.clerks) &&
-    input.clerks.every(
-      (elem) => "object" === typeof elem && null !== elem && _io1(elem),
-    );
-  const _io1 = (input) =>
-    "string" === typeof input.name &&
-    "number" === typeof input.age &&
-    __typia_transform__isTypeUint32._isTypeUint32(input.age) &&
-    19 < input.age &&
-    input.age <= 100 &&
-    "number" === typeof input.authority &&
-    !Number.isNaN(input.authority) &&
-    "string" === typeof input.joined_at &&
-    __typia_transform__isFormatDate._isFormatDate(input.joined_at);
-  const _so0 = (input) =>
-    `{"id":${__typia_transform__jsonStringifyString._jsonStringifyString(input.id)},"name":${__typia_transform__jsonStringifyString._jsonStringifyString(input.name)},"limit":${__typia_transform__jsonStringifyNumber._jsonStringifyNumber(input.limit)},"clerks":${`[${input.clerks.map((elem) => _so1(elem)).join(",")}]`}}`;
-  const _so1 = (input) =>
-    `{"name":${__typia_transform__jsonStringifyString._jsonStringifyString(input.name)},"age":${__typia_transform__jsonStringifyNumber._jsonStringifyNumber(input.age)},"authority":${__typia_transform__jsonStringifyNumber._jsonStringifyNumber(input.authority)},"joined_at":${__typia_transform__jsonStringifyString._jsonStringifyString(input.joined_at)}}`;
-  const __is = (input) =>
-    "object" === typeof input && null !== input && _io0(input);
-  const __stringify = (input) => _so0(input);
-  return (input) => (__is(input) ? __stringify(input) : null);
-})()(department);
-console.log(json); // not null, but string
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/json/isStringify.js"
+      filename="examples/bin/json/isStringify.js"
+      showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
-
-
-
 ## Reusable functions
+
 <Tabs items={[
   <code>typia</code>, 
   <code>TypeGuardError.ts</code>, 
@@ -224,35 +93,16 @@ export namespace json {
 ```
   </Tabs.Tab>
   <Tabs.Tab>
-```typescript copy
-export class TypeGuardError extends Error {
-  public readonly method: string;
-  public readonly path: string | undefined;
-  public readonly expected: string;
-  public readonly value: any;
-}
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/src/TypeGuardError.ts"
+      filename="typia/TypeGuardError.ts"
+      showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-```typescript copy
-export type IValidation<T> = IValidation.ISuccess<T> | IValidation.IFailure;
-export namespace IValidation {
-  export interface ISuccess<T> {
-    success: true;
-    data: T;
-  }
-  export interface IFailure {
-    success: false;
-    errors: IError[];
-    data: unknown;
-  }
-  export interface IError {
-    path: string;
-    expected: string;
-    value: any;
-  }
-}
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/openapi/refs/heads/master/src/structures/IValidation.ts"
+      filename="@samchon/openapi"
+      showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
@@ -264,316 +114,21 @@ Just look at the code below, then you may understand how to use it.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-```typescript copy filename="examples/src/createAssertStringify.ts" showLineNumbers
-import typia, { tags } from "typia";
-
-export const assertDepartment = typia.json.createAssertStringify<IDepartment>();
-
-interface IDepartment {
-  id: string & tags.Format<"uuid">;
-  name: string & tags.MinLength<3>;
-  limit: number & tags.Type<"int32">;
-  clerks: IClerk[];
-}
-interface IClerk {
-  name: string;
-  age: number &
-    tags.Type<"uint32"> &
-    tags.ExclusiveMinimum<19> &
-    tags.Maximum<100>;
-  authority: number;
-  joined_at: string & tags.Format<"date">;
-}
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/json/createAssertStringify.ts"
+      filename="examples/src/json/createAssertStringify.ts"
+      showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-```javascript filename="examples/bin/createAssertStringify.js" showLineNumbers
-import * as __typia_transform__isFormatUuid from "typia/lib/internal/_isFormatUuid.js";
-import * as __typia_transform__isTypeInt32 from "typia/lib/internal/_isTypeInt32.js";
-import * as __typia_transform__isTypeUint32 from "typia/lib/internal/_isTypeUint32.js";
-import * as __typia_transform__isFormatDate from "typia/lib/internal/_isFormatDate.js";
-import * as __typia_transform__assertGuard from "typia/lib/internal/_assertGuard.js";
-import * as __typia_transform__jsonStringifyString from "typia/lib/internal/_jsonStringifyString.js";
-import typia from "typia";
-export const assertDepartment = (() => {
-  const _io0 = (input) =>
-    "string" === typeof input.id &&
-    __typia_transform__isFormatUuid._isFormatUuid(input.id) &&
-    "string" === typeof input.name &&
-    3 <= input.name.length &&
-    "number" === typeof input.limit &&
-    __typia_transform__isTypeInt32._isTypeInt32(input.limit) &&
-    Array.isArray(input.clerks) &&
-    input.clerks.every(
-      (elem) => "object" === typeof elem && null !== elem && _io1(elem),
-    );
-  const _io1 = (input) =>
-    "string" === typeof input.name &&
-    "number" === typeof input.age &&
-    __typia_transform__isTypeUint32._isTypeUint32(input.age) &&
-    19 < input.age &&
-    input.age <= 100 &&
-    "number" === typeof input.authority &&
-    !Number.isNaN(input.authority) &&
-    "string" === typeof input.joined_at &&
-    __typia_transform__isFormatDate._isFormatDate(input.joined_at);
-  const _ao0 = (input, _path, _exceptionable = true) =>
-    (("string" === typeof input.id &&
-      (__typia_transform__isFormatUuid._isFormatUuid(input.id) ||
-        __typia_transform__assertGuard._assertGuard(
-          _exceptionable,
-          {
-            method: "typia.json.createAssertStringify",
-            path: _path + ".id",
-            expected: 'string & Format<"uuid">',
-            value: input.id,
-          },
-          _errorFactory,
-        ))) ||
-      __typia_transform__assertGuard._assertGuard(
-        _exceptionable,
-        {
-          method: "typia.json.createAssertStringify",
-          path: _path + ".id",
-          expected: '(string & Format<"uuid">)',
-          value: input.id,
-        },
-        _errorFactory,
-      )) &&
-    (("string" === typeof input.name &&
-      (3 <= input.name.length ||
-        __typia_transform__assertGuard._assertGuard(
-          _exceptionable,
-          {
-            method: "typia.json.createAssertStringify",
-            path: _path + ".name",
-            expected: "string & MinLength<3>",
-            value: input.name,
-          },
-          _errorFactory,
-        ))) ||
-      __typia_transform__assertGuard._assertGuard(
-        _exceptionable,
-        {
-          method: "typia.json.createAssertStringify",
-          path: _path + ".name",
-          expected: "(string & MinLength<3>)",
-          value: input.name,
-        },
-        _errorFactory,
-      )) &&
-    (("number" === typeof input.limit &&
-      (__typia_transform__isTypeInt32._isTypeInt32(input.limit) ||
-        __typia_transform__assertGuard._assertGuard(
-          _exceptionable,
-          {
-            method: "typia.json.createAssertStringify",
-            path: _path + ".limit",
-            expected: 'number & Type<"int32">',
-            value: input.limit,
-          },
-          _errorFactory,
-        ))) ||
-      __typia_transform__assertGuard._assertGuard(
-        _exceptionable,
-        {
-          method: "typia.json.createAssertStringify",
-          path: _path + ".limit",
-          expected: '(number & Type<"int32">)',
-          value: input.limit,
-        },
-        _errorFactory,
-      )) &&
-    (((Array.isArray(input.clerks) ||
-      __typia_transform__assertGuard._assertGuard(
-        _exceptionable,
-        {
-          method: "typia.json.createAssertStringify",
-          path: _path + ".clerks",
-          expected: "Array<IClerk>",
-          value: input.clerks,
-        },
-        _errorFactory,
-      )) &&
-      input.clerks.every(
-        (elem, _index2) =>
-          ((("object" === typeof elem && null !== elem) ||
-            __typia_transform__assertGuard._assertGuard(
-              _exceptionable,
-              {
-                method: "typia.json.createAssertStringify",
-                path: _path + ".clerks[" + _index2 + "]",
-                expected: "IClerk",
-                value: elem,
-              },
-              _errorFactory,
-            )) &&
-            _ao1(
-              elem,
-              _path + ".clerks[" + _index2 + "]",
-              true && _exceptionable,
-            )) ||
-          __typia_transform__assertGuard._assertGuard(
-            _exceptionable,
-            {
-              method: "typia.json.createAssertStringify",
-              path: _path + ".clerks[" + _index2 + "]",
-              expected: "IClerk",
-              value: elem,
-            },
-            _errorFactory,
-          ),
-      )) ||
-      __typia_transform__assertGuard._assertGuard(
-        _exceptionable,
-        {
-          method: "typia.json.createAssertStringify",
-          path: _path + ".clerks",
-          expected: "Array<IClerk>",
-          value: input.clerks,
-        },
-        _errorFactory,
-      ));
-  const _ao1 = (input, _path, _exceptionable = true) =>
-    ("string" === typeof input.name ||
-      __typia_transform__assertGuard._assertGuard(
-        _exceptionable,
-        {
-          method: "typia.json.createAssertStringify",
-          path: _path + ".name",
-          expected: "string",
-          value: input.name,
-        },
-        _errorFactory,
-      )) &&
-    (("number" === typeof input.age &&
-      (__typia_transform__isTypeUint32._isTypeUint32(input.age) ||
-        __typia_transform__assertGuard._assertGuard(
-          _exceptionable,
-          {
-            method: "typia.json.createAssertStringify",
-            path: _path + ".age",
-            expected: 'number & Type<"uint32">',
-            value: input.age,
-          },
-          _errorFactory,
-        )) &&
-      (19 < input.age ||
-        __typia_transform__assertGuard._assertGuard(
-          _exceptionable,
-          {
-            method: "typia.json.createAssertStringify",
-            path: _path + ".age",
-            expected: "number & ExclusiveMinimum<19>",
-            value: input.age,
-          },
-          _errorFactory,
-        )) &&
-      (input.age <= 100 ||
-        __typia_transform__assertGuard._assertGuard(
-          _exceptionable,
-          {
-            method: "typia.json.createAssertStringify",
-            path: _path + ".age",
-            expected: "number & Maximum<100>",
-            value: input.age,
-          },
-          _errorFactory,
-        ))) ||
-      __typia_transform__assertGuard._assertGuard(
-        _exceptionable,
-        {
-          method: "typia.json.createAssertStringify",
-          path: _path + ".age",
-          expected:
-            '(number & Type<"uint32"> & ExclusiveMinimum<19> & Maximum<100>)',
-          value: input.age,
-        },
-        _errorFactory,
-      )) &&
-    (("number" === typeof input.authority && !Number.isNaN(input.authority)) ||
-      __typia_transform__assertGuard._assertGuard(
-        _exceptionable,
-        {
-          method: "typia.json.createAssertStringify",
-          path: _path + ".authority",
-          expected: "number",
-          value: input.authority,
-        },
-        _errorFactory,
-      )) &&
-    (("string" === typeof input.joined_at &&
-      (__typia_transform__isFormatDate._isFormatDate(input.joined_at) ||
-        __typia_transform__assertGuard._assertGuard(
-          _exceptionable,
-          {
-            method: "typia.json.createAssertStringify",
-            path: _path + ".joined_at",
-            expected: 'string & Format<"date">',
-            value: input.joined_at,
-          },
-          _errorFactory,
-        ))) ||
-      __typia_transform__assertGuard._assertGuard(
-        _exceptionable,
-        {
-          method: "typia.json.createAssertStringify",
-          path: _path + ".joined_at",
-          expected: '(string & Format<"date">)',
-          value: input.joined_at,
-        },
-        _errorFactory,
-      ));
-  const _so0 = (input) =>
-    `{"id":${__typia_transform__jsonStringifyString._jsonStringifyString(input.id)},"name":${__typia_transform__jsonStringifyString._jsonStringifyString(input.name)},"limit":${input.limit},"clerks":${`[${input.clerks.map((elem) => _so1(elem)).join(",")}]`}}`;
-  const _so1 = (input) =>
-    `{"name":${__typia_transform__jsonStringifyString._jsonStringifyString(input.name)},"age":${input.age},"authority":${input.authority},"joined_at":${__typia_transform__jsonStringifyString._jsonStringifyString(input.joined_at)}}`;
-  const __is = (input) =>
-    "object" === typeof input && null !== input && _io0(input);
-  let _errorFactory;
-  const __assert = (input, errorFactory) => {
-    if (false === __is(input)) {
-      _errorFactory = errorFactory;
-      ((input, _path, _exceptionable = true) =>
-        ((("object" === typeof input && null !== input) ||
-          __typia_transform__assertGuard._assertGuard(
-            true,
-            {
-              method: "typia.json.createAssertStringify",
-              path: _path + "",
-              expected: "IDepartment",
-              value: input,
-            },
-            _errorFactory,
-          )) &&
-          _ao0(input, _path + "", true)) ||
-        __typia_transform__assertGuard._assertGuard(
-          true,
-          {
-            method: "typia.json.createAssertStringify",
-            path: _path + "",
-            expected: "IDepartment",
-            value: input,
-          },
-          _errorFactory,
-        ))(input, "$input", true);
-    }
-    return input;
-  };
-  const __stringify = (input) => _so0(input);
-  return (input, errorFactory) => {
-    __assert(input, errorFactory);
-    return __stringify(input);
-  };
-})();
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/json/createAssertStringify.js"
+      filename="examples/bin/json/createAssertStringify.js"
+      showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
-
-
-
 ## Performance
+
 Comparing JSON serialization speed with others, it is maximum 200x faster than `class-transformer`.
 
 For reference, `class-transformer` is the most famous library used in `NestJS` with `class-validator`. Also, `fast-json-stringify` is another famous one used in `fastify`. However, whether they are fast or slow, both of them require extra schema definition, that is different with TypeScript type. If you see the code below without experience of them, you may get shocked: how complicate and inefficient they are:
@@ -585,10 +140,8 @@ For reference, `class-transformer` is the most famous library used in `NestJS` w
 
 > Measured on [AMD Ryzen 9 7940HS, Rog Flow x13](https://github.com/samchon/typia/tree/master/benchmark/results/AMD%20Ryzen%209%207940HS%20w%20Radeon%20780M%20Graphics#stringify)
 
-
-
-
 ## Server Performance
+
 Someone may ask:
 
 > JSON serialization speed affects on the server performance? 
@@ -601,6 +154,6 @@ Most operations in NodeJS server are asynchronously executed in background threa
 
 I'll show you the benchmark result that, how JSON serizliation speed affects on the server performance.
 
-![Server Benchmark](https://raw.githubusercontent.com/samchon/typia/master/benchmark/results/AMD%20Ryzen%209%207940HS%20w%20Radeon%20780M%20Graphics/images/server.svg)
+![Server Benchmark](https://raw.githubusercontent.com/samchon/typia/master/benchmark/results/AMD%20Ryzen%209%207940HS%20w%20Radeon%20780M%20Graphics/images/server-stringify.svg)
 
-> Measured on [AMD Ryzen 9 7940HS, Rog Flow x13](https://github.com/samchon/typia/tree/master/benchmark/results/AMD%20Ryzen%209%207940HS%20w%20Radeon%20780M%20Graphics#server)
+> Measured on [AMD Ryzen 9 7940HS, Rog Flow x13](https://github.com/samchon/typia/tree/master/benchmark/results/AMD%20Ryzen%209%207940HS%20w%20Radeon%20780M%20Graphics#server-stringify)
