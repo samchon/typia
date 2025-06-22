@@ -3,8 +3,7 @@ title: Guide Documents > Large Language Model > AI Chatbot Development
 ---
 import { Callout, Tabs } from "nextra/components";
 
-import BbsArticleServiceSnippet from "../../../src/snippets/BbsArticleServiceSnippet.mdx";
-import IBbsArticleSnippet from "../../../src/snippets/IBbsArticleSnippet.mdx";
+import RemoteSource from "../../../src/components/RemoteSource";
 import ValidatorSupportMatrixSnippet from "../../../src/snippets/ValidatorSupportMatrixSnippet.mdx";
 
 ## Agentica
@@ -24,26 +23,10 @@ Look at below demonstration, and and feel how `@agentica` is powerful. Now, you 
 
 <Tabs 
   items={[
-    "Pseudo Code",
-    "Real Code",
+    <code>src/main.ts</code>,
     <code>BbsArticleService.ts</code>, 
     <code>IBbsArticle.ts</code>, 
   ]}>
-  <Tabs.Tab>
-```typescript showLineNumbers
-import { Agentica } from "@agentica/core";
-import typia from "typia";
-
-import { BbsArticleService } from "./BbsArticleService";
-
-const agent = new Agentica({
-  controllers: [
-    typia.llm.application<BbsArticleService>(),
-  ]
-});
-await agent.conversate("Hello, I want to create an article.");
-```
-  </Tabs.Tab>
   <Tabs.Tab>
 ```typescript filename="src/index.tsx" showLineNumbers {23-26, 37}
 import { Agentica } from "@agentica/core";
@@ -58,29 +41,33 @@ const agent = new Agentica({
     model: "gpt-4o-mini",
   },
   controllers: [
-    {
-      protocol: "class",
-      name: "bbs",
-      application: typia.llm.application<BbsArticleService>(),
-      execute: new BbsArticleService(),
-    },
+    typia.llm.controller<BbsArticleService, "chatgpt">(
+      "bbs",
+      new BbsArticleService(),
+    ),
   ],
 });
 await agent.conversate("Hello, I want to create an article.");
 ```
   </Tabs.Tab>
   <Tabs.Tab>
-    <BbsArticleServiceSnippet />
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/llm/BbsArticleService.ts"
+      filename="examples/src/llm/BbsArticleService.ts"
+      showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <IBbsArticleSnippet />
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/llm/IBbsArticle.ts"
+      filename="examples/src/llm/IBbsArticle.ts"
+      showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
 <br/>
 <iframe 
   src="https://www.youtube.com/embed/pdsplQyok8k?si=geL7DH5CWcC8qlz_" 
-  title="Shopping A.I. Chatbot built with Typia" 
+  title="BBS A.I. Chatbot built with Typia" 
   width="100%" 
   height="600" 
   allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerPolicy="strict-origin-when-cross-origin" 
@@ -89,96 +76,48 @@ await agent.conversate("Hello, I want to create an article.");
 
   - BBS A.I. Chatbot Application: https://nestia.io/chat/bbs
 
-
-
-
 ## Swagger Chatbot
+
 You also can make the super A.I. chatbot by Swagger document too.
 
 With `@agentica`, you can build Agentic AI chatbot only with Swagger document built by [`@nestia/sdk`](/docs/swagger). Complex agent workflows and graphs required in conventional AI agent development are not necessary in `@agentica`. Only with the Swagger document, `@agentica` will do everything with the function calling.
 
 Look at below demonstration, and feel how `@agentica` is powerful. Now, you can let users to search and purchase products only with conversation texts. The backend API functions would be adequately called in the AI chatbot with LLM function calling.
 
-<Tabs items={["Pseudo Code", "Real Code"]}>
-  <Tabs.Tab>
-```typescript showLineNumbers {6-8}
-import { Agentica } from "@agentica/core";
+```typescript filename="src/main.ts" showLineNumbers
+import { Agentica, assertHttpController } from "@agentica/core";
+import OpenAI from "openai";
 import typia from "typia";
-
+ 
+import { MobileFileSystem } from "./services/MobileFileSystem";
+ 
 const agent = new Agentica({
+  vendor: {
+    api: new OpenAI({ apiKey: "********" }),
+    model: "gpt-4o-mini",
+  },
   controllers: [
-    await fetch(
-      "https://shopping-be.wrtn.ai/editor/swagger.json",
-    ).then(r => r.json()),
-    typia.llm.application<ShoppingCounselor>(),
-    typia.llm.application<ShoppingPolicy>(),
-    typia.llm.application<ShoppingSearchRag>(),
+    // functions from TypeScript class
+    typia.llm.controller<MobileFileSystem, "chatgpt">(
+      "filesystem",
+      MobileFileSystem(),
+    ),
+    // functions from Swagger/OpenAPI
+    assertHttpController({
+      name: "shopping",
+      model: "chatgpt",
+      document: await fetch(
+        "https://shopping-be.wrtn.ai/editor/swagger.json",
+      ).then(r => r.json()),
+      connection: {
+        host: "https://shopping-be.wrtn.ai",
+        headers: { Authorization: "Bearer ********" },
+      },
+    }),
   ],
 });
 await agent.conversate("I wanna buy MacBook Pro");
 ```
-  </Tabs.Tab>
-  <Tabs.Tab>
-```typescript showLineNumbers {16-23}
-import { Agentica } from "@agentica/core";
-import { OpenApi, HttpLlm } from "@samchon/openapi";
-import typia from "typia";
-
-const main = async (): Promise<void> => {
-  const agent = new Agentica({
-    model: "chatgpt",
-    vendor: {
-      api: new OpenAI({ apiKey: "*****" }),
-      model: "gpt-4o-mini",
-    },
-    controllers: [
-      {
-        protocol: "http",
-        name: "shopping",
-        application: HttpLlm.application({
-          model: "chatgpt",
-          document: OpenApi.convert(
-            await fetch(
-              "https://shopping-be.wrtn.ai/editor/swagger.json",
-            ).then(r => r.json()),
-          ),
-        }),
-        connection: {
-          host: "https://shopping-be.wrtn.ai",
-          headers: {
-            Authorization: "Bearer *****",
-          },
-        },
-      },
-      {
-        protocol: "class",
-        name: "counselor",
-        application: 
-          typia.llm.application<ShoppingCounselor, "chatgpt">(),
-        execute: new ShoppingCounselor(),
-      },
-      {
-        protocol: "class",
-        name: "policy",
-        application: 
-          typia.llm.application<ShoppingPolicy, "chatgpt">(),
-        execute: new ShoppingPolicy(),
-      },
-      {
-        protocol: "class",
-        name: "rag",
-        application: 
-          typia.llm.application<ShoppingSearchRag, "chatgpt">(),
-        execute: new ShoppingSearchRag(),
-      },
-    ],
-  });
-  await agent.conversate("I wanna buy MacBook Pro");
-};
-main().catch(console.error);
-```
-  </Tabs.Tab>
-</Tabs>
 
 <br/>
 <iframe src="https://www.youtube.com/embed/m47p4iJ90Ms?si=cvgfckN25GJhjLTB" 
@@ -192,11 +131,10 @@ main().catch(console.error);
 - Shopping Backend Repository: https://github.com/samchon/shopping-backend
 - Shopping Swagger Document (`@nestia/editor`): [https://nestia.io/editor/?url=...](https://nestia.io/editor/?simulate=true&e2e=true&url=https%3A%2F%2Fraw.githubusercontent.com%2Fsamchon%2Fshopping-backend%2Frefs%2Fheads%2Fmaster%2Fpackages%2Fapi%2Fswagger.json)
 
-
-
-
 ## Principles
+
 ### Agent Strategy
+
 ```mermaid
 sequenceDiagram
 actor User
@@ -252,6 +190,7 @@ And `@agentica/core` enters to a loop statement until the candidate functions to
 Such LLM (Large Language Model) function calling strategy separating `selector`, `caller`, and `describer` is the key logic of `@agentica/core`.
 
 ### Validation Feedback
+
 ```typescript
 import { FunctionCall } from "pseudo";
 import { ILlmFunction, IValidation } from "typia";
@@ -314,6 +253,7 @@ In that case, if you give validation feedback from `ILlmFunction.validate()` fun
     - `array`: `minItems`, `maxItems`, `uniqueItems`, `items`
 
 ### OpenAPI Specification
+
 ```mermaid
 flowchart
   subgraph "OpenAPI Specification"

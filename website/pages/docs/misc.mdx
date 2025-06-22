@@ -5,10 +5,12 @@ import { Tabs } from 'nextra/components'
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 
-
+import RemoteSource from "../../src/components/RemoteSource";
 
 ## `misc` module
+
 ### `clone()` functions
+
 <Tabs items={[
   <code>typia</code>, 
   <code>TypeGuardError.ts</code>, 
@@ -33,157 +35,22 @@ export namespace misc {
 ```
   </Tabs.Tab>
   <Tabs.Tab>
-```typescript
-export class TypeGuardError extends Error {
-  public readonly method: string;
-  public readonly path: string | undefined;
-  public readonly expected: string;
-  public readonly value: any;
-}
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/src/TypeGuardError.ts"
+      filename="typia/TypeGuardError.ts"
+      showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-```typescript
-export type IValidation<T> = IValidation.ISuccess<T> | IValidation.IFailure;
-export namespace IValidation {
-  export interface ISuccess<T> {
-    success: true;
-    data: T;
-  }
-  export interface IFailure {
-    success: false;
-    errors: IError[];
-    data: unknown;
-  }
-  export interface IError {
-    path: string;
-    expected: string;
-    value: any;
-  }
-}
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/openapi/refs/heads/master/src/structures/IValidation.ts"
+      filename="@samchon/openapi"
+      showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-```typescript
-/**
- * Resolved type erased every methods.
- *
- * `Resolved` is a type of TMP (Type Meta Programming) type which converts
- * its argument as a resolved type that erased every method properties.
- *
- * If the target argument is a built-in class which returns its origin primitive type
- * through the `valueOf()` method like the `String` or `Number`, its return type would
- * be the `string` or `number`. Otherwise, the built-in class does not have the
- * `valueOf()` method, the return type would be same with the target argument.
- *
- * Otherwise, the target argument is a type of custom class, all of its custom methods
- * would be erased and its prototype would be changed to the primitive `object`.
- * Therefore, return type of the TMP type finally be the resolved object.
- *
- * Before                  | After
- * ------------------------|----------------------------------------
- * `Boolean`               | `boolean`
- * `Number`                | `number`
- * `BigInt`                | `bigint`
- * `String`                | `string`
- * `Class`                 | `interface`
- * Native Class or Others  | No change
- *
- * @template T Target argument type.
- * @author Jeongho Nam - https://github.com/samchon
- * @author Kyungsu Kang - https://github.com/kakasoo
- */
-export type Resolved<T> = Equal<T, ResolvedMain<T>> extends true
-  ? T
-  : ResolvedMain<T>;
-
-type Equal<X, Y> = X extends Y ? (Y extends X ? true : false) : false;
-
-type ResolvedMain<T> = T extends [never]
-  ? never // (special trick for jsonable | null) type
-  : ValueOf<T> extends boolean | number | bigint | string
-  ? ValueOf<T>
-  : T extends Function
-  ? never
-  : T extends object
-  ? ResolvedObject<T>
-  : ValueOf<T>;
-
-type ResolvedObject<T extends object> = T extends Array<infer U>
-  ? IsTuple<T> extends true
-    ? ResolvedTuple<T>
-    : ResolvedMain<U>[]
-  : T extends Set<infer U>
-  ? Set<ResolvedMain<U>>
-  : T extends Map<infer K, infer V>
-  ? Map<ResolvedMain<K>, ResolvedMain<V>>
-  : T extends WeakSet<any> | WeakMap<any, any>
-  ? never
-  : T extends
-      | Date
-      | Uint8Array
-      | Uint8ClampedArray
-      | Uint16Array
-      | Uint32Array
-      | BigUint64Array
-      | Int8Array
-      | Int16Array
-      | Int32Array
-      | BigInt64Array
-      | Float32Array
-      | Float64Array
-      | ArrayBuffer
-      | SharedArrayBuffer
-      | DataView
-      | Blob
-      | File
-  ? T
-  : {
-      [P in keyof T]: ResolvedMain<T[P]>;
-    };
-
-type ResolvedTuple<T extends readonly any[]> = T extends []
-  ? []
-  : T extends [infer F]
-  ? [ResolvedMain<F>]
-  : T extends [infer F, ...infer Rest extends readonly any[]]
-  ? [ResolvedMain<F>, ...ResolvedTuple<Rest>]
-  : T extends [(infer F)?]
-  ? [ResolvedMain<F>?]
-  : T extends [(infer F)?, ...infer Rest extends readonly any[]]
-  ? [ResolvedMain<F>?, ...ResolvedTuple<Rest>]
-  : [];
-
-type IsTuple<T extends readonly any[] | { length: number }> = [T] extends [
-  never,
-]
-  ? false
-  : T extends readonly any[]
-  ? number extends T["length"]
-    ? false
-    : true
-  : false;
-
-type ValueOf<Instance> = IsValueOf<Instance, Boolean> extends true
-  ? boolean
-  : IsValueOf<Instance, Number> extends true
-  ? number
-  : IsValueOf<Instance, String> extends true
-  ? string
-  : Instance;
-
-type IsValueOf<Instance, Object extends IValueOf<any>> = Instance extends Object
-  ? Object extends IValueOf<infer Primitive>
-    ? Instance extends Primitive
-      ? false
-      : true // not Primitive, but Object
-    : false // cannot be
-  : false;
-
-interface IValueOf<T> {
-  valueOf(): T;
-}
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/src/Resolved.ts"
+      filename="typia/Resolved.ts"
+      showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
@@ -197,393 +64,27 @@ When you want to copy an instance, just call `typia.misc.clone()` function. It w
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-```typescript copy filename="examples/src/assertClone.ts" showLineNumbers {4}
-import typia from "typia";
-
-const department: IDepartment = typia.random<IDepartment>();
-const cloned: IDepartment = typia.misc.assertClone(department);
-
-console.log(cloned);
-
-interface IDepartment {
-  /**
-   * @format uuid
-   */
-  id: string;
-
-  /**
-   * @minLength 3
-   */
-  name: string;
-
-  /**
-   * @type int
-   */
-  limit: number;
-
-  clerks: IClerk[];
-}
-interface IClerk {
-  name: string;
-
-  /**
-   * @exclusiveMinimum 19
-   * @maximum 100
-   */
-  age: number;
-
-  authority: number;
-
-  /**
-   * @format date
-   */
-  joined_at: string;
-}
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/misc/assertClone.ts"
+      filename="examples/src/misc/assertClone.ts"
+      showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-```javascript filename="examples/bin/assertClone.js" showLineNumbers {67-325}
-import * as __typia_transform__randomFormatUuid from "typia/lib/internal/_randomFormatUuid.js";
-import * as __typia_transform__randomString from "typia/lib/internal/_randomString.js";
-import * as __typia_transform__randomInteger from "typia/lib/internal/_randomInteger.js";
-import * as __typia_transform__randomArray from "typia/lib/internal/_randomArray.js";
-import * as __typia_transform__randomNumber from "typia/lib/internal/_randomNumber.js";
-import * as __typia_transform__randomFormatDate from "typia/lib/internal/_randomFormatDate.js";
-import * as __typia_transform__assertGuard from "typia/lib/internal/_assertGuard.js";
-import typia from "typia";
-const department = (() => {
-  const _ro0 = (_recursive = false, _depth = 0) => ({
-    id: (
-      _generator?.uuid ?? __typia_transform__randomFormatUuid._randomFormatUuid
-    )(),
-    name: (_generator?.string ?? __typia_transform__randomString._randomString)(
-      {
-        type: "string",
-        minLength: 3,
-      },
-    ),
-    limit: (
-      _generator?.integer ?? __typia_transform__randomInteger._randomInteger
-    )({
-      type: "integer",
-    }),
-    clerks: (_generator?.array ?? __typia_transform__randomArray._randomArray)({
-      type: "array",
-      element: () => _ro1(_recursive, _recursive ? 1 + _depth : _depth),
-    }),
-  });
-  const _ro1 = (_recursive = false, _depth = 0) => ({
-    name: (_generator?.string ?? __typia_transform__randomString._randomString)(
-      {
-        type: "string",
-      },
-    ),
-    age: (_generator?.number ?? __typia_transform__randomNumber._randomNumber)({
-      type: "number",
-      exclusiveMinimum: true,
-      minimum: 19,
-      maximum: 100,
-    }),
-    authority: (
-      _generator?.number ?? __typia_transform__randomNumber._randomNumber
-    )({
-      type: "number",
-    }),
-    joined_at: (
-      _generator?.date ?? __typia_transform__randomFormatDate._randomFormatDate
-    )(),
-  });
-  let _generator;
-  return (generator) => {
-    _generator = generator;
-    return _ro0();
-  };
-})()();
-const cloned = (() => {
-  const _cp0 = (input) => input.map((elem) => _co1(elem));
-  const _io0 = (input) =>
-    "string" === typeof input.id &&
-    /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
-      input.id,
-    ) &&
-    "string" === typeof input.name &&
-    3 <= input.name.length &&
-    "number" === typeof input.limit &&
-    Math.floor(input.limit) === input.limit &&
-    -2147483648 <= input.limit &&
-    input.limit <= 2147483647 &&
-    Array.isArray(input.clerks) &&
-    input.clerks.every(
-      (elem) => "object" === typeof elem && null !== elem && _io1(elem),
-    );
-  const _io1 = (input) =>
-    "string" === typeof input.name &&
-    "number" === typeof input.age &&
-    19 < input.age &&
-    input.age <= 100 &&
-    "number" === typeof input.authority &&
-    "string" === typeof input.joined_at &&
-    /^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/.test(input.joined_at);
-  const _ao0 = (input, _path, _exceptionable = true) =>
-    (("string" === typeof input.id &&
-      (/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
-        input.id,
-      ) ||
-        __typia_transform__assertGuard._assertGuard(
-          _exceptionable,
-          {
-            method: "typia.misc.assertClone",
-            path: _path + ".id",
-            expected: 'string & Format<"uuid">',
-            value: input.id,
-          },
-          _errorFactory,
-        ))) ||
-      __typia_transform__assertGuard._assertGuard(
-        _exceptionable,
-        {
-          method: "typia.misc.assertClone",
-          path: _path + ".id",
-          expected: '(string & Format<"uuid">)',
-          value: input.id,
-        },
-        _errorFactory,
-      )) &&
-    (("string" === typeof input.name &&
-      (3 <= input.name.length ||
-        __typia_transform__assertGuard._assertGuard(
-          _exceptionable,
-          {
-            method: "typia.misc.assertClone",
-            path: _path + ".name",
-            expected: "string & MinLength<3>",
-            value: input.name,
-          },
-          _errorFactory,
-        ))) ||
-      __typia_transform__assertGuard._assertGuard(
-        _exceptionable,
-        {
-          method: "typia.misc.assertClone",
-          path: _path + ".name",
-          expected: "(string & MinLength<3>)",
-          value: input.name,
-        },
-        _errorFactory,
-      )) &&
-    (("number" === typeof input.limit &&
-      ((Math.floor(input.limit) === input.limit &&
-        -2147483648 <= input.limit &&
-        input.limit <= 2147483647) ||
-        __typia_transform__assertGuard._assertGuard(
-          _exceptionable,
-          {
-            method: "typia.misc.assertClone",
-            path: _path + ".limit",
-            expected: 'number & Type<"int32">',
-            value: input.limit,
-          },
-          _errorFactory,
-        ))) ||
-      __typia_transform__assertGuard._assertGuard(
-        _exceptionable,
-        {
-          method: "typia.misc.assertClone",
-          path: _path + ".limit",
-          expected: '(number & Type<"int32">)',
-          value: input.limit,
-        },
-        _errorFactory,
-      )) &&
-    (((Array.isArray(input.clerks) ||
-      __typia_transform__assertGuard._assertGuard(
-        _exceptionable,
-        {
-          method: "typia.misc.assertClone",
-          path: _path + ".clerks",
-          expected: "Array<IClerk>",
-          value: input.clerks,
-        },
-        _errorFactory,
-      )) &&
-      input.clerks.every(
-        (elem, _index2) =>
-          ((("object" === typeof elem && null !== elem) ||
-            __typia_transform__assertGuard._assertGuard(
-              _exceptionable,
-              {
-                method: "typia.misc.assertClone",
-                path: _path + ".clerks[" + _index2 + "]",
-                expected: "IClerk",
-                value: elem,
-              },
-              _errorFactory,
-            )) &&
-            _ao1(
-              elem,
-              _path + ".clerks[" + _index2 + "]",
-              true && _exceptionable,
-            )) ||
-          __typia_transform__assertGuard._assertGuard(
-            _exceptionable,
-            {
-              method: "typia.misc.assertClone",
-              path: _path + ".clerks[" + _index2 + "]",
-              expected: "IClerk",
-              value: elem,
-            },
-            _errorFactory,
-          ),
-      )) ||
-      __typia_transform__assertGuard._assertGuard(
-        _exceptionable,
-        {
-          method: "typia.misc.assertClone",
-          path: _path + ".clerks",
-          expected: "Array<IClerk>",
-          value: input.clerks,
-        },
-        _errorFactory,
-      ));
-  const _ao1 = (input, _path, _exceptionable = true) =>
-    ("string" === typeof input.name ||
-      __typia_transform__assertGuard._assertGuard(
-        _exceptionable,
-        {
-          method: "typia.misc.assertClone",
-          path: _path + ".name",
-          expected: "string",
-          value: input.name,
-        },
-        _errorFactory,
-      )) &&
-    (("number" === typeof input.age &&
-      (19 < input.age ||
-        __typia_transform__assertGuard._assertGuard(
-          _exceptionable,
-          {
-            method: "typia.misc.assertClone",
-            path: _path + ".age",
-            expected: "number & ExclusiveMinimum<19>",
-            value: input.age,
-          },
-          _errorFactory,
-        )) &&
-      (input.age <= 100 ||
-        __typia_transform__assertGuard._assertGuard(
-          _exceptionable,
-          {
-            method: "typia.misc.assertClone",
-            path: _path + ".age",
-            expected: "number & Maximum<100>",
-            value: input.age,
-          },
-          _errorFactory,
-        ))) ||
-      __typia_transform__assertGuard._assertGuard(
-        _exceptionable,
-        {
-          method: "typia.misc.assertClone",
-          path: _path + ".age",
-          expected: "(number & ExclusiveMinimum<19> & Maximum<100>)",
-          value: input.age,
-        },
-        _errorFactory,
-      )) &&
-    ("number" === typeof input.authority ||
-      __typia_transform__assertGuard._assertGuard(
-        _exceptionable,
-        {
-          method: "typia.misc.assertClone",
-          path: _path + ".authority",
-          expected: "number",
-          value: input.authority,
-        },
-        _errorFactory,
-      )) &&
-    (("string" === typeof input.joined_at &&
-      (/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/.test(
-        input.joined_at,
-      ) ||
-        __typia_transform__assertGuard._assertGuard(
-          _exceptionable,
-          {
-            method: "typia.misc.assertClone",
-            path: _path + ".joined_at",
-            expected: 'string & Format<"date">',
-            value: input.joined_at,
-          },
-          _errorFactory,
-        ))) ||
-      __typia_transform__assertGuard._assertGuard(
-        _exceptionable,
-        {
-          method: "typia.misc.assertClone",
-          path: _path + ".joined_at",
-          expected: '(string & Format<"date">)',
-          value: input.joined_at,
-        },
-        _errorFactory,
-      ));
-  const _co0 = (input) => ({
-    id: input.id,
-    name: input.name,
-    limit: input.limit,
-    clerks: _cp0(input.clerks),
-  });
-  const _co1 = (input) => ({
-    name: input.name,
-    age: input.age,
-    authority: input.authority,
-    joined_at: input.joined_at,
-  });
-  const __is = (input) =>
-    "object" === typeof input && null !== input && _io0(input);
-  let _errorFactory;
-  const __assert = (input, errorFactory) => {
-    if (false === __is(input)) {
-      _errorFactory = errorFactory;
-      ((input, _path, _exceptionable = true) =>
-        ((("object" === typeof input && null !== input) ||
-          __typia_transform__assertGuard._assertGuard(
-            true,
-            {
-              method: "typia.misc.assertClone",
-              path: _path + "",
-              expected: "IDepartment",
-              value: input,
-            },
-            _errorFactory,
-          )) &&
-          _ao0(input, _path + "", true)) ||
-        __typia_transform__assertGuard._assertGuard(
-          true,
-          {
-            method: "typia.misc.assertClone",
-            path: _path + "",
-            expected: "IDepartment",
-            value: input,
-          },
-          _errorFactory,
-        ))(input, "$input", true);
-    }
-    return input;
-  };
-  const __clone = (input) => _co0(input);
-  return (input, errorFactory) => __clone(__assert(input, errorFactory));
-})()(department);
-console.log(cloned);
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/misc/assertClone.js"
+      filename="examples/bin/misc/assertClone.js"
+      showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
 ### `prune()` functions
+
 <Tabs items={[
   <code>typia</code>, 
   <code>TypeGuardError.ts</code>, 
   <code>IValidation.ts</code>
 ]}>
-    <Tabs.Tab>
+  <Tabs.Tab>
 ```typescript
 export function prune<T>(input: T): void;
 export function assertPrune<T>(input: T | unknown): T;
@@ -595,40 +96,19 @@ export function createAssertPrune<T>(): (input: T | unknown) => T;
 export function createIsPrune<T>(): (input: T | unknown) => T | null;
 export function createValidatePrune<T>(): (input: T | unknown) => IValidation<T>;
 ```
-    </Tabs.Tab>
-    <Tabs.Tab>
-```typescript
-export class TypeGuardError extends Error {
-  public readonly method: string;
-  public readonly path: string | undefined;
-  public readonly expected: string;
-  public readonly value: any;
-}
-```
-    </Tabs.Tab>
-    <Tabs.Tab>
-```typescript
-export type IValidation<T = unknown> =
-  | IValidation.ISuccess<T>
-  | IValidation.IFailure;
-export namespace IValidation {
-  export interface ISuccess<T = unknown> {
-    success: true;
-    data: T;
-  }
-  export interface IFailure {
-    success: false;
-    errors: IError[];
-    data: unknown;
-  }
-  export interface IError {
-    path: string;
-    expected: string;
-    value: any;
-  }
-}
-```
-    </Tabs.Tab>
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/src/TypeGuardError.ts"
+      filename="typia/TypeGuardError.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/openapi/refs/heads/master/src/structures/IValidation.ts"
+      filename="@samchon/openapi"
+      showLineNumbers />
+  </Tabs.Tab>
 </Tabs>
 
 Deep prune functions.
@@ -641,399 +121,16 @@ When you want to remove every extra properties that are not defined in the type 
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-```typescript copy filename="examples/src/assertPrune.ts" showLineNumbers {4}
-import typia from "typia";
-
-const department: IDepartment = typia.random<IDepartment>();
-const pruned: IDepartment = typia.misc.assertPrune(department);
-console.log(pruned);
-
-interface IDepartment {
-  /**
-   * @format uuid
-   */
-  id: string;
-
-  /**
-   * @minLength 3
-   */
-  name: string;
-
-  /**
-   * @type int
-   */
-  limit: number;
-
-  clerks: IClerk[];
-}
-interface IClerk {
-  name: string;
-
-  /**
-   * @exclusiveMinimum 19
-   * @maximum 100
-   */
-  age: number;
-
-  authority: number;
-
-  /**
-   * @format date
-   */
-  joined_at: string;
-}
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/misc/assertPrune.ts"
+      filename="examples/src/misc/assertPrune.ts"
+      showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-```javascript filename="examples/bin/assertPrune.js" showLineNumbers {67-334}
-import * as __typia_transform__randomFormatUuid from "typia/lib/internal/_randomFormatUuid.js";
-import * as __typia_transform__randomString from "typia/lib/internal/_randomString.js";
-import * as __typia_transform__randomInteger from "typia/lib/internal/_randomInteger.js";
-import * as __typia_transform__randomArray from "typia/lib/internal/_randomArray.js";
-import * as __typia_transform__randomNumber from "typia/lib/internal/_randomNumber.js";
-import * as __typia_transform__randomFormatDate from "typia/lib/internal/_randomFormatDate.js";
-import * as __typia_transform__assertGuard from "typia/lib/internal/_assertGuard.js";
-import typia from "typia";
-const department = (() => {
-  const _ro0 = (_recursive = false, _depth = 0) => ({
-    id: (
-      _generator?.uuid ?? __typia_transform__randomFormatUuid._randomFormatUuid
-    )(),
-    name: (_generator?.string ?? __typia_transform__randomString._randomString)(
-      {
-        type: "string",
-        minLength: 3,
-      },
-    ),
-    limit: (
-      _generator?.integer ?? __typia_transform__randomInteger._randomInteger
-    )({
-      type: "integer",
-    }),
-    clerks: (_generator?.array ?? __typia_transform__randomArray._randomArray)({
-      type: "array",
-      element: () => _ro1(_recursive, _recursive ? 1 + _depth : _depth),
-    }),
-  });
-  const _ro1 = (_recursive = false, _depth = 0) => ({
-    name: (_generator?.string ?? __typia_transform__randomString._randomString)(
-      {
-        type: "string",
-      },
-    ),
-    age: (_generator?.number ?? __typia_transform__randomNumber._randomNumber)({
-      type: "number",
-      exclusiveMinimum: true,
-      minimum: 19,
-      maximum: 100,
-    }),
-    authority: (
-      _generator?.number ?? __typia_transform__randomNumber._randomNumber
-    )({
-      type: "number",
-    }),
-    joined_at: (
-      _generator?.date ?? __typia_transform__randomFormatDate._randomFormatDate
-    )(),
-  });
-  let _generator;
-  return (generator) => {
-    _generator = generator;
-    return _ro0();
-  };
-})()();
-const pruned = (() => {
-  const _pp0 = (input) =>
-    input.forEach((elem) => {
-      if ("object" === typeof elem && null !== elem) _po1(elem);
-    });
-  const _io0 = (input) =>
-    "string" === typeof input.id &&
-    /^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
-      input.id,
-    ) &&
-    "string" === typeof input.name &&
-    3 <= input.name.length &&
-    "number" === typeof input.limit &&
-    Math.floor(input.limit) === input.limit &&
-    -2147483648 <= input.limit &&
-    input.limit <= 2147483647 &&
-    Array.isArray(input.clerks) &&
-    input.clerks.every(
-      (elem) => "object" === typeof elem && null !== elem && _io1(elem),
-    );
-  const _io1 = (input) =>
-    "string" === typeof input.name &&
-    "number" === typeof input.age &&
-    19 < input.age &&
-    input.age <= 100 &&
-    "number" === typeof input.authority &&
-    "string" === typeof input.joined_at &&
-    /^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/.test(input.joined_at);
-  const _ao0 = (input, _path, _exceptionable = true) =>
-    (("string" === typeof input.id &&
-      (/^(?:urn:uuid:)?[0-9a-f]{8}-(?:[0-9a-f]{4}-){3}[0-9a-f]{12}$/i.test(
-        input.id,
-      ) ||
-        __typia_transform__assertGuard._assertGuard(
-          _exceptionable,
-          {
-            method: "typia.misc.assertPrune",
-            path: _path + ".id",
-            expected: 'string & Format<"uuid">',
-            value: input.id,
-          },
-          _errorFactory,
-        ))) ||
-      __typia_transform__assertGuard._assertGuard(
-        _exceptionable,
-        {
-          method: "typia.misc.assertPrune",
-          path: _path + ".id",
-          expected: '(string & Format<"uuid">)',
-          value: input.id,
-        },
-        _errorFactory,
-      )) &&
-    (("string" === typeof input.name &&
-      (3 <= input.name.length ||
-        __typia_transform__assertGuard._assertGuard(
-          _exceptionable,
-          {
-            method: "typia.misc.assertPrune",
-            path: _path + ".name",
-            expected: "string & MinLength<3>",
-            value: input.name,
-          },
-          _errorFactory,
-        ))) ||
-      __typia_transform__assertGuard._assertGuard(
-        _exceptionable,
-        {
-          method: "typia.misc.assertPrune",
-          path: _path + ".name",
-          expected: "(string & MinLength<3>)",
-          value: input.name,
-        },
-        _errorFactory,
-      )) &&
-    (("number" === typeof input.limit &&
-      ((Math.floor(input.limit) === input.limit &&
-        -2147483648 <= input.limit &&
-        input.limit <= 2147483647) ||
-        __typia_transform__assertGuard._assertGuard(
-          _exceptionable,
-          {
-            method: "typia.misc.assertPrune",
-            path: _path + ".limit",
-            expected: 'number & Type<"int32">',
-            value: input.limit,
-          },
-          _errorFactory,
-        ))) ||
-      __typia_transform__assertGuard._assertGuard(
-        _exceptionable,
-        {
-          method: "typia.misc.assertPrune",
-          path: _path + ".limit",
-          expected: '(number & Type<"int32">)',
-          value: input.limit,
-        },
-        _errorFactory,
-      )) &&
-    (((Array.isArray(input.clerks) ||
-      __typia_transform__assertGuard._assertGuard(
-        _exceptionable,
-        {
-          method: "typia.misc.assertPrune",
-          path: _path + ".clerks",
-          expected: "Array<IClerk>",
-          value: input.clerks,
-        },
-        _errorFactory,
-      )) &&
-      input.clerks.every(
-        (elem, _index2) =>
-          ((("object" === typeof elem && null !== elem) ||
-            __typia_transform__assertGuard._assertGuard(
-              _exceptionable,
-              {
-                method: "typia.misc.assertPrune",
-                path: _path + ".clerks[" + _index2 + "]",
-                expected: "IClerk",
-                value: elem,
-              },
-              _errorFactory,
-            )) &&
-            _ao1(
-              elem,
-              _path + ".clerks[" + _index2 + "]",
-              true && _exceptionable,
-            )) ||
-          __typia_transform__assertGuard._assertGuard(
-            _exceptionable,
-            {
-              method: "typia.misc.assertPrune",
-              path: _path + ".clerks[" + _index2 + "]",
-              expected: "IClerk",
-              value: elem,
-            },
-            _errorFactory,
-          ),
-      )) ||
-      __typia_transform__assertGuard._assertGuard(
-        _exceptionable,
-        {
-          method: "typia.misc.assertPrune",
-          path: _path + ".clerks",
-          expected: "Array<IClerk>",
-          value: input.clerks,
-        },
-        _errorFactory,
-      ));
-  const _ao1 = (input, _path, _exceptionable = true) =>
-    ("string" === typeof input.name ||
-      __typia_transform__assertGuard._assertGuard(
-        _exceptionable,
-        {
-          method: "typia.misc.assertPrune",
-          path: _path + ".name",
-          expected: "string",
-          value: input.name,
-        },
-        _errorFactory,
-      )) &&
-    (("number" === typeof input.age &&
-      (19 < input.age ||
-        __typia_transform__assertGuard._assertGuard(
-          _exceptionable,
-          {
-            method: "typia.misc.assertPrune",
-            path: _path + ".age",
-            expected: "number & ExclusiveMinimum<19>",
-            value: input.age,
-          },
-          _errorFactory,
-        )) &&
-      (input.age <= 100 ||
-        __typia_transform__assertGuard._assertGuard(
-          _exceptionable,
-          {
-            method: "typia.misc.assertPrune",
-            path: _path + ".age",
-            expected: "number & Maximum<100>",
-            value: input.age,
-          },
-          _errorFactory,
-        ))) ||
-      __typia_transform__assertGuard._assertGuard(
-        _exceptionable,
-        {
-          method: "typia.misc.assertPrune",
-          path: _path + ".age",
-          expected: "(number & ExclusiveMinimum<19> & Maximum<100>)",
-          value: input.age,
-        },
-        _errorFactory,
-      )) &&
-    ("number" === typeof input.authority ||
-      __typia_transform__assertGuard._assertGuard(
-        _exceptionable,
-        {
-          method: "typia.misc.assertPrune",
-          path: _path + ".authority",
-          expected: "number",
-          value: input.authority,
-        },
-        _errorFactory,
-      )) &&
-    (("string" === typeof input.joined_at &&
-      (/^[0-9]{4}-(0[1-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/.test(
-        input.joined_at,
-      ) ||
-        __typia_transform__assertGuard._assertGuard(
-          _exceptionable,
-          {
-            method: "typia.misc.assertPrune",
-            path: _path + ".joined_at",
-            expected: 'string & Format<"date">',
-            value: input.joined_at,
-          },
-          _errorFactory,
-        ))) ||
-      __typia_transform__assertGuard._assertGuard(
-        _exceptionable,
-        {
-          method: "typia.misc.assertPrune",
-          path: _path + ".joined_at",
-          expected: '(string & Format<"date">)',
-          value: input.joined_at,
-        },
-        _errorFactory,
-      ));
-  const _po0 = (input) => {
-    if (Array.isArray(input.clerks)) _pp0(input.clerks);
-    for (const key of Object.keys(input)) {
-      if ("id" === key || "name" === key || "limit" === key || "clerks" === key)
-        continue;
-      delete input[key];
-    }
-  };
-  const _po1 = (input) => {
-    for (const key of Object.keys(input)) {
-      if (
-        "name" === key ||
-        "age" === key ||
-        "authority" === key ||
-        "joined_at" === key
-      )
-        continue;
-      delete input[key];
-    }
-  };
-  const __is = (input) =>
-    "object" === typeof input && null !== input && _io0(input);
-  let _errorFactory;
-  const __assert = (input, errorFactory) => {
-    if (false === __is(input)) {
-      _errorFactory = errorFactory;
-      ((input, _path, _exceptionable = true) =>
-        ((("object" === typeof input && null !== input) ||
-          __typia_transform__assertGuard._assertGuard(
-            true,
-            {
-              method: "typia.misc.assertPrune",
-              path: _path + "",
-              expected: "IDepartment",
-              value: input,
-            },
-            _errorFactory,
-          )) &&
-          _ao0(input, _path + "", true)) ||
-        __typia_transform__assertGuard._assertGuard(
-          true,
-          {
-            method: "typia.misc.assertPrune",
-            path: _path + "",
-            expected: "IDepartment",
-            value: input,
-          },
-          _errorFactory,
-        ))(input, "$input", true);
-    }
-    return input;
-  };
-  const __prune = (input) => {
-    if ("object" === typeof input && null !== input) _po0(input);
-  };
-  return (input, errorFactory) => {
-    input = __assert(input, errorFactory);
-    __prune(input);
-    return input;
-  };
-})()(department);
-console.log(pruned);
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/misc/assertPrune.js"
+      filename="examples/bin/misc/assertPrune.js"
+      showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
@@ -1052,25 +149,23 @@ When you call `typia.misc.literals<T>()` function with union literal type, it re
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-```typescript filename="examples/src/literals.ts" showLineNumbers
-import typia from "typia";
-
-typia.misc.literals<"A" | "B" | "C" | 1 | 2n>();
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/misc/literals.ts"
+      filename="examples/src/misc/literals.ts"
+      showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-```javascript filename="examples/bin/literals.js" showLineNumbers
-import typia from "typia";
-["A", "B", "C", 1, BigInt(2)];
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/misc/literals.js"
+      filename="examples/bin/misc/literals.js"
+      showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
-
-
-
 ## `notations` module
+
 ### `camel()` functions
+
 <Tabs items={[
   <code>typia</code>, 
   <code>TypeGuardError.ts</code>, 
@@ -1099,157 +194,22 @@ export namespace notations {
 ```
   </Tabs.Tab>
   <Tabs.Tab>
-```typescript
-export class TypeGuardError extends Error {
-  public readonly method: string;
-  public readonly path: string | undefined;
-  public readonly expected: string;
-  public readonly value: any;
-}
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/src/TypeGuardError.ts"
+      filename="typia/TypeGuardError.ts"
+      showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-```typescript
-export type IValidation<T> = IValidation.ISuccess<T> | IValidation.IFailure;
-export namespace IValidation {
-  export interface ISuccess<T> {
-    success: true;
-    data: T;
-  }
-  export interface IFailure {
-    success: false;
-    errors: IError[];
-    data: unknown;
-  }
-  export interface IError {
-    path: string;
-    expected: string;
-    value: any;
-  }
-}
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/openapi/refs/heads/master/src/structures/IValidation.ts"
+      filename="@samchon/openapi"
+      showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-```typescript
-/**
- * Camel case type.
- *
- * `CamelCase` type is a type that all keys of an object are camelized.
- *
- * It also erase every method properties like {@link Resolved} type.
- *
- * @template T Target type to be camelized
- * @author Jeongho Nam - https://github.com/samchon
- */
-export type CamelCase<T> = Equal<T, CamelizeMain<T>> extends true
-  ? T
-  : CamelizeMain<T>;
-
-/* -----------------------------------------------------------
-    OBJECT CONVERSION
------------------------------------------------------------ */
-type Equal<X, Y> = X extends Y ? (Y extends X ? true : false) : false;
-
-type CamelizeMain<T> = T extends [never]
-  ? never // special trick for (jsonable | null) type
-  : T extends { valueOf(): boolean | bigint | number | string }
-  ? ValueOf<T>
-  : T extends Function
-  ? never
-  : T extends object
-  ? CamelizeObject<T>
-  : T;
-
-type CamelizeObject<T extends object> = T extends Array<infer U>
-  ? IsTuple<T> extends true
-    ? CamelizeTuple<T>
-    : CamelizeMain<U>[]
-  : T extends Set<infer U>
-  ? Set<CamelizeMain<U>>
-  : T extends Map<infer K, infer V>
-  ? Map<CamelizeMain<K>, CamelizeMain<V>>
-  : T extends WeakSet<any> | WeakMap<any, any>
-  ? never
-  : T extends
-      | Date
-      | Uint8Array
-      | Uint8ClampedArray
-      | Uint16Array
-      | Uint32Array
-      | BigUint64Array
-      | Int8Array
-      | Int16Array
-      | Int32Array
-      | BigInt64Array
-      | Float32Array
-      | Float64Array
-      | ArrayBuffer
-      | SharedArrayBuffer
-      | DataView
-      | Blob
-      | File
-  ? T
-  : {
-      [Key in keyof T as CamelizeString<Key & string>]: CamelizeMain<T[Key]>;
-    };
-
-/* -----------------------------------------------------------
-    SPECIAL CASES
------------------------------------------------------------ */
-type IsTuple<T extends readonly any[] | { length: number }> = [T] extends [
-  never,
-]
-  ? false
-  : T extends readonly any[]
-  ? number extends T["length"]
-    ? false
-    : true
-  : false;
-type CamelizeTuple<T extends readonly any[]> = T extends []
-  ? []
-  : T extends [infer F]
-  ? [CamelizeMain<F>]
-  : T extends [infer F, ...infer Rest extends readonly any[]]
-  ? [CamelizeMain<F>, ...CamelizeTuple<Rest>]
-  : T extends [(infer F)?]
-  ? [CamelizeMain<F>?]
-  : T extends [(infer F)?, ...infer Rest extends readonly any[]]
-  ? [CamelizeMain<F>?, ...CamelizeTuple<Rest>]
-  : [];
-
-type ValueOf<Instance> = IsValueOf<Instance, Boolean> extends true
-  ? boolean
-  : IsValueOf<Instance, Number> extends true
-  ? number
-  : IsValueOf<Instance, String> extends true
-  ? string
-  : Instance;
-
-type IsValueOf<Instance, Object extends IValueOf<any>> = Instance extends Object
-  ? Object extends IValueOf<infer Primitive>
-    ? Instance extends Primitive
-      ? false
-      : true // not Primitive, but Object
-    : false // cannot be
-  : false;
-
-interface IValueOf<T> {
-  valueOf(): T;
-}
-
-/* -----------------------------------------------------------
-    STRING CONVERTER
------------------------------------------------------------ */
-type CamelizeString<Key extends string> = Key extends `_${infer R}`
-  ? `_${CamelizeString<R>}`
-  : Key extends `${infer F}${infer R}`
-  ? `${Lowercase<F>}${CamelizeStringRepeatedly<R>}`
-  : Key;
-type CamelizeStringRepeatedly<Key extends string> =
-  Key extends `${infer F}_${infer R}`
-    ? `${F}${Capitalize<CamelizeStringRepeatedly<R>>}`
-    : Key;
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/src/CamelCase.ts"
+      filename="typia/CamelCase.ts"
+      showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
@@ -1265,34 +225,21 @@ When you need type safe functions, you can utilize below them.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-```typescript filename="examples/src/camel.ts" showLineNumbers {}
-import typia from "typia";
-
-interface IPerson {
-  is_my_name_samchon?: boolean;
-  HelloTheNewWorld: string;
-  ToHTML: string;
-}
-typia.notations.createCamel<IPerson>();
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/notations/camel.ts"
+      filename="examples/src/notations/camel.ts"
+      showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-```javascript filename="examples/bin/camel.js" showLineNumbers
-import typia from "typia";
-(() => {
-  const $co0 = (input) => ({
-    isMyNameSamchon: input.is_my_name_samchon,
-    helloTheNewWorld: input.HelloTheNewWorld,
-    toHTML: input.ToHTML,
-  });
-  return (input) =>
-    "object" === typeof input && null !== input ? $co0(input) : input;
-})();
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/notations/camel.js"
+      filename="examples/bin/notations/camel.js"
+      showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
 ### `pascal()` functions
+
 <Tabs items={[
   <code>typia</code>, 
   <code>TypeGuardError.ts</code>, 
@@ -1323,157 +270,22 @@ export namespace notations {
 ```
   </Tabs.Tab>
   <Tabs.Tab>
-```typescript
-export class TypeGuardError extends Error {
-  public readonly method: string;
-  public readonly path: string | undefined;
-  public readonly expected: string;
-  public readonly value: any;
-}
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/src/TypeGuardError.ts"
+      filename="typia/TypeGuardError.ts"
+      showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-```typescript
-export type IValidation<T> = IValidation.ISuccess<T> | IValidation.IFailure;
-export namespace IValidation {
-  export interface ISuccess<T> {
-    success: true;
-    data: T;
-  }
-  export interface IFailure {
-    success: false;
-    errors: IError[];
-    data: unknown;
-  }
-  export interface IError {
-    path: string;
-    expected: string;
-    value: any;
-  }
-}
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/openapi/refs/heads/master/src/structures/IValidation.ts"
+      filename="@samchon/openapi"
+      showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-```typescript
-/**
- * Pascal case type.
- *
- * `PascalCase` type is a type that all keys of an object are pascalized.
- *
- * It also erase every method properties like {@link Resolved} type.
- *
- * @template T Target type to be pascalized
- * @author Jeongho Nam - https://github.com/samchon
- */
-export type PascalCase<T> = Equal<T, PascalizeMain<T>> extends true
-  ? T
-  : PascalizeMain<T>;
-
-/* -----------------------------------------------------------
-    OBJECT CONVERSION
------------------------------------------------------------ */
-type Equal<X, Y> = X extends Y ? (Y extends X ? true : false) : false;
-
-type PascalizeMain<T> = T extends [never]
-  ? never // special trick for (jsonable | null) type
-  : T extends { valueOf(): boolean | bigint | number | string }
-  ? ValueOf<T>
-  : T extends Function
-  ? never
-  : T extends object
-  ? PascalizeObject<T>
-  : T;
-
-type PascalizeObject<T extends object> = T extends Array<infer U>
-  ? IsTuple<T> extends true
-    ? PascalizeTuple<T>
-    : PascalizeMain<U>[]
-  : T extends Set<infer U>
-  ? Set<PascalizeMain<U>>
-  : T extends Map<infer K, infer V>
-  ? Map<PascalizeMain<K>, PascalizeMain<V>>
-  : T extends WeakSet<any> | WeakMap<any, any>
-  ? never
-  : T extends
-      | Date
-      | Uint8Array
-      | Uint8ClampedArray
-      | Uint16Array
-      | Uint32Array
-      | BigUint64Array
-      | Int8Array
-      | Int16Array
-      | Int32Array
-      | BigInt64Array
-      | Float32Array
-      | Float64Array
-      | ArrayBuffer
-      | SharedArrayBuffer
-      | DataView
-      | Blob
-      | File
-  ? T
-  : {
-      [Key in keyof T as PascalizeString<Key & string>]: PascalizeMain<T[Key]>;
-    };
-
-/* -----------------------------------------------------------
-    SPECIAL CASES
------------------------------------------------------------ */
-type IsTuple<T extends readonly any[] | { length: number }> = [T] extends [
-  never,
-]
-  ? false
-  : T extends readonly any[]
-  ? number extends T["length"]
-    ? false
-    : true
-  : false;
-type PascalizeTuple<T extends readonly any[]> = T extends []
-  ? []
-  : T extends [infer F]
-  ? [PascalizeMain<F>]
-  : T extends [infer F, ...infer Rest extends readonly any[]]
-  ? [PascalizeMain<F>, ...PascalizeTuple<Rest>]
-  : T extends [(infer F)?]
-  ? [PascalizeMain<F>?]
-  : T extends [(infer F)?, ...infer Rest extends readonly any[]]
-  ? [PascalizeMain<F>?, ...PascalizeTuple<Rest>]
-  : [];
-
-type ValueOf<Instance> = IsValueOf<Instance, Boolean> extends true
-  ? boolean
-  : IsValueOf<Instance, Number> extends true
-  ? number
-  : IsValueOf<Instance, String> extends true
-  ? string
-  : Instance;
-
-type IsValueOf<Instance, Object extends IValueOf<any>> = Instance extends Object
-  ? Object extends IValueOf<infer Primitive>
-    ? Instance extends Primitive
-      ? false
-      : true // not Primitive, but Object
-    : false // cannot be
-  : false;
-
-interface IValueOf<T> {
-  valueOf(): T;
-}
-
-/* -----------------------------------------------------------
-    STRING CONVERTER
------------------------------------------------------------ */
-type PascalizeString<Key extends string> = Key extends `_${infer R}`
-  ? `_${PascalizeString<R>}`
-  : Key extends `${infer F}${infer R}`
-  ? `${Uppercase<F>}${PascalizeStringRepeatedly<R>}`
-  : Key;
-type PascalizeStringRepeatedly<Key extends string> =
-  Key extends `${infer F}_${infer R}`
-    ? `${F}${Capitalize<PascalizeStringRepeatedly<R>>}`
-    : Key;
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/src/PascalCase.ts"
+      filename="typia/PascalCase.ts"
+      showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
@@ -1489,34 +301,21 @@ When you need type safe functions, you can utilize below them.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-```typescript filename="examples/src/pascal.ts" showLineNumbers {}
-import typia from "typia";
-
-interface IPerson {
-  is_my_name_samchon?: boolean;
-  helloTheNewWorld: string;
-  toHTML: string;
-}
-typia.notations.createPascal<IPerson>();
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/notations/pascal.ts"
+      filename="examples/src/notations/pascal.ts"
+      showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-```javascript filename="examples/bin/pascal.js" showLineNumbers
-import typia from "typia";
-(() => {
-  const $co0 = (input) => ({
-    IsMyNameSamchon: input.is_my_name_samchon,
-    HelloTheNewWorld: input.helloTheNewWorld,
-    ToHTML: input.toHTML,
-  });
-  return (input) =>
-    "object" === typeof input && null !== input ? $co0(input) : input;
-})();
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/notations/pascal.js"
+      filename="examples/bin/notations/pascal.js"
+      showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
 ### `snake()` functions
+
 <Tabs items={[
   <code>typia</code>, 
   <code>TypeGuardError.ts</code>, 
@@ -1545,197 +344,22 @@ export namespace notations {
 ```
   </Tabs.Tab>
   <Tabs.Tab>
-```typescript
-export class TypeGuardError extends Error {
-  public readonly method: string;
-  public readonly path: string | undefined;
-  public readonly expected: string;
-  public readonly value: any;
-}
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/src/TypeGuardError.ts"
+      filename="typia/TypeGuardError.ts"
+      showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-```typescript
-export type IValidation<T> = IValidation.ISuccess<T> | IValidation.IFailure;
-export namespace IValidation {
-  export interface ISuccess<T> {
-    success: true;
-    data: T;
-  }
-  export interface IFailure {
-    success: false;
-    errors: IError[];
-    data: unknown;
-  }
-  export interface IError {
-    path: string;
-    expected: string;
-    value: any;
-  }
-}
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/openapi/refs/heads/master/src/structures/IValidation.ts"
+      filename="@samchon/openapi"
+      showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-```typescript
-/**
- * Snake case type.
- *
- * `SnakeCase` type is a type that all keys of an object are converted to snake case.
- *
- * It also erase every method properties like {@link Resolved} type.
- *
- * @template T Target type to be snake cased
- * @author Jeongho Nam - https://github.com/samchon
- */
-export type SnakeCase<T> = Equal<T, SnakageMain<T>> extends true
-  ? T
-  : SnakageMain<T>;
-
-/* -----------------------------------------------------------
-    OBJECT CONVERSION
------------------------------------------------------------ */
-type Equal<X, Y> = X extends Y ? (Y extends X ? true : false) : false;
-
-type SnakageMain<T> = T extends [never]
-  ? never // special trick for (jsonable | null) type
-  : T extends { valueOf(): boolean | bigint | number | string }
-  ? ValueOf<T>
-  : T extends Function
-  ? never
-  : T extends object
-  ? SnakageObject<T>
-  : T;
-
-type SnakageObject<T extends object> = T extends Array<infer U>
-  ? IsTuple<T> extends true
-    ? SnakageTuple<T>
-    : SnakageMain<U>[]
-  : T extends Set<infer U>
-  ? Set<SnakageMain<U>>
-  : T extends Map<infer K, infer V>
-  ? Map<SnakageMain<K>, SnakageMain<V>>
-  : T extends WeakSet<any> | WeakMap<any, any>
-  ? never
-  : T extends
-      | Date
-      | Uint8Array
-      | Uint8ClampedArray
-      | Uint16Array
-      | Uint32Array
-      | BigUint64Array
-      | Int8Array
-      | Int16Array
-      | Int32Array
-      | BigInt64Array
-      | Float32Array
-      | Float64Array
-      | ArrayBuffer
-      | SharedArrayBuffer
-      | DataView
-      | Blob
-      | File
-  ? T
-  : {
-      [Key in keyof T as SnakageString<Key & string>]: SnakageMain<T[Key]>;
-    };
-
-/* -----------------------------------------------------------
-    SPECIAL CASES
------------------------------------------------------------ */
-type IsTuple<T extends readonly any[] | { length: number }> = [T] extends [
-  never,
-]
-  ? false
-  : T extends readonly any[]
-  ? number extends T["length"]
-    ? false
-    : true
-  : false;
-type SnakageTuple<T extends readonly any[]> = T extends []
-  ? []
-  : T extends [infer F]
-  ? [SnakageMain<F>]
-  : T extends [infer F, ...infer Rest extends readonly any[]]
-  ? [SnakageMain<F>, ...SnakageTuple<Rest>]
-  : T extends [(infer F)?]
-  ? [SnakageMain<F>?]
-  : T extends [(infer F)?, ...infer Rest extends readonly any[]]
-  ? [SnakageMain<F>?, ...SnakageTuple<Rest>]
-  : [];
-
-type ValueOf<Instance> = IsValueOf<Instance, Boolean> extends true
-  ? boolean
-  : IsValueOf<Instance, Number> extends true
-  ? number
-  : IsValueOf<Instance, String> extends true
-  ? string
-  : Instance;
-
-type IsValueOf<Instance, Object extends IValueOf<any>> = Instance extends Object
-  ? Object extends IValueOf<infer Primitive>
-    ? Instance extends Primitive
-      ? false
-      : true // not Primitive, but Object
-    : false // cannot be
-  : false;
-
-interface IValueOf<T> {
-  valueOf(): T;
-}
-
-/* -----------------------------------------------------------
-    STRING CONVERTER
------------------------------------------------------------ */
-type SnakageString<Key extends string> = Key extends `${infer _}`
-  ? SnakageStringRepeatedly<Key, "">
-  : Key;
-type SnakageStringRepeatedly<
-  S extends string,
-  Previous extends string,
-> = S extends `${infer First}${infer Second}${infer Rest}`
-  ? `${Underscore<Previous, First>}${Lowercase<First>}${Underscore<
-      First,
-      Second
-    >}${Lowercase<Second>}${SnakageStringRepeatedly<Rest, Second>}`
-  : S extends `${infer First}`
-  ? `${Underscore<Previous, First>}${Lowercase<First>}`
-  : "";
-type Underscore<First extends string, Second extends string> = First extends
-  | UpperAlphabetic
-  | ""
-  | "_"
-  ? ""
-  : Second extends UpperAlphabetic
-  ? "_"
-  : "";
-type UpperAlphabetic =
-  | "A"
-  | "B"
-  | "C"
-  | "D"
-  | "E"
-  | "F"
-  | "G"
-  | "H"
-  | "I"
-  | "J"
-  | "K"
-  | "L"
-  | "M"
-  | "N"
-  | "O"
-  | "P"
-  | "Q"
-  | "R"
-  | "S"
-  | "T"
-  | "U"
-  | "V"
-  | "W"
-  | "X"
-  | "Y"
-  | "Z";
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/src/SnakeCase.ts"
+      filename="typia/SnakeCase.ts"
+      showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
@@ -1751,34 +375,21 @@ When you need type safe functions, you can utilize below them.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-```typescript filename="examples/src/snake.ts" showLineNumbers {}
-import typia from "typia";
-
-interface IPerson {
-  isMyNameSamchon?: boolean;
-  HelloTheNewWorld: string;
-  ToHTML: string;
-}
-typia.notations.createSnake<IPerson>();
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/notations/snake.ts"
+      filename="examples/src/notations/snake.ts"
+      showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-```javascript filename="examples/bin/snake.js" showLineNumbers
-import typia from "typia";
-(() => {
-  const $co0 = (input) => ({
-    is_my_name_samchon: input.isMyNameSamchon,
-    hello_the_new_world: input.HelloTheNewWorld,
-    to_html: input.ToHTML,
-  });
-  return (input) =>
-    "object" === typeof input && null !== input ? $co0(input) : input;
-})();
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/notations/snake.js"
+      filename="examples/bin/notations/snake.js"
+      showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
 ## `http` module
+
 <br/>
 <Alert severity="success">
   <AlertTitle> 
@@ -1794,6 +405,7 @@ import typia from "typia";
 </Alert>
 
 ### `query()` functions
+
 <Tabs items={[
   <code>typia</code>, 
   <code>TypeGuardError.ts</code>, 
@@ -1827,157 +439,22 @@ type Query = string | URLSearchParams;
 ```
   </Tabs.Tab>
   <Tabs.Tab>
-```typescript
-export class TypeGuardError extends Error {
-  public readonly method: string;
-  public readonly path: string | undefined;
-  public readonly expected: string;
-  public readonly value: any;
-}
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/src/TypeGuardError.ts"
+      filename="typia/TypeGuardError.ts"
+      showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-```typescript
-export type IValidation<T> = IValidation.ISuccess<T> | IValidation.IFailure;
-export namespace IValidation {
-  export interface ISuccess<T> {
-    success: true;
-    data: T;
-  }
-  export interface IFailure {
-    success: false;
-    errors: IError[];
-    data: unknown;
-  }
-  export interface IError {
-    path: string;
-    expected: string;
-    value: any;
-  }
-}
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/openapi/refs/heads/master/src/structures/IValidation.ts"
+      filename="@samchon/openapi"
+      showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-```typescript
-/**
- * Resolved type erased every methods.
- *
- * `Resolved` is a type of TMP (Type Meta Programming) type which converts
- * its argument as a resolved type that erased every method properties.
- *
- * If the target argument is a built-in class which returns its origin primitive type
- * through the `valueOf()` method like the `String` or `Number`, its return type would
- * be the `string` or `number`. Otherwise, the built-in class does not have the
- * `valueOf()` method, the return type would be same with the target argument.
- *
- * Otherwise, the target argument is a type of custom class, all of its custom methods
- * would be erased and its prototype would be changed to the primitive `object`.
- * Therefore, return type of the TMP type finally be the resolved object.
- *
- * Before                  | After
- * ------------------------|----------------------------------------
- * `Boolean`               | `boolean`
- * `Number`                | `number`
- * `BigInt`                | `bigint`
- * `String`                | `string`
- * `Class`                 | `interface`
- * Native Class or Others  | No change
- *
- * @template T Target argument type.
- * @author Jeongho Nam - https://github.com/samchon
- * @author Kyungsu Kang - https://github.com/kakasoo
- */
-export type Resolved<T> = Equal<T, ResolvedMain<T>> extends true
-  ? T
-  : ResolvedMain<T>;
-
-type Equal<X, Y> = X extends Y ? (Y extends X ? true : false) : false;
-
-type ResolvedMain<T> = T extends [never]
-  ? never // (special trick for jsonable | null) type
-  : ValueOf<T> extends boolean | number | bigint | string
-  ? ValueOf<T>
-  : T extends Function
-  ? never
-  : T extends object
-  ? ResolvedObject<T>
-  : ValueOf<T>;
-
-type ResolvedObject<T extends object> = T extends Array<infer U>
-  ? IsTuple<T> extends true
-    ? ResolvedTuple<T>
-    : ResolvedMain<U>[]
-  : T extends Set<infer U>
-  ? Set<ResolvedMain<U>>
-  : T extends Map<infer K, infer V>
-  ? Map<ResolvedMain<K>, ResolvedMain<V>>
-  : T extends WeakSet<any> | WeakMap<any, any>
-  ? never
-  : T extends
-      | Date
-      | Uint8Array
-      | Uint8ClampedArray
-      | Uint16Array
-      | Uint32Array
-      | BigUint64Array
-      | Int8Array
-      | Int16Array
-      | Int32Array
-      | BigInt64Array
-      | Float32Array
-      | Float64Array
-      | ArrayBuffer
-      | SharedArrayBuffer
-      | DataView
-      | Blob
-      | File
-  ? T
-  : {
-      [P in keyof T]: ResolvedMain<T[P]>;
-    };
-
-type ResolvedTuple<T extends readonly any[]> = T extends []
-  ? []
-  : T extends [infer F]
-  ? [ResolvedMain<F>]
-  : T extends [infer F, ...infer Rest extends readonly any[]]
-  ? [ResolvedMain<F>, ...ResolvedTuple<Rest>]
-  : T extends [(infer F)?]
-  ? [ResolvedMain<F>?]
-  : T extends [(infer F)?, ...infer Rest extends readonly any[]]
-  ? [ResolvedMain<F>?, ...ResolvedTuple<Rest>]
-  : [];
-
-type IsTuple<T extends readonly any[] | { length: number }> = [T] extends [
-  never,
-]
-  ? false
-  : T extends readonly any[]
-  ? number extends T["length"]
-    ? false
-    : true
-  : false;
-
-type ValueOf<Instance> = IsValueOf<Instance, Boolean> extends true
-  ? boolean
-  : IsValueOf<Instance, Number> extends true
-  ? number
-  : IsValueOf<Instance, String> extends true
-  ? string
-  : Instance;
-
-type IsValueOf<Instance, Object extends IValueOf<any>> = Instance extends Object
-  ? Object extends IValueOf<infer Primitive>
-    ? Instance extends Primitive
-      ? false
-      : true // not Primitive, but Object
-    : false // cannot be
-  : false;
-
-interface IValueOf<T> {
-  valueOf(): T;
-}
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/src/Resolved.ts"
+      filename="typia/Resolved.ts"
+      showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
@@ -2000,66 +477,21 @@ Also, `typia.http.query<T>()` function does not perform validation about the dec
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-```typescript filename="examples/src/query.ts" showLineNumbers {}
-import typia from "typia";
-
-interface IQuery {
-  limit?: number;
-  enforce: boolean;
-  values?: string[];
-  atomic: string | null;
-  indexes: number[];
-}
-typia.http.createQuery<IQuery>();
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/http/query.ts"
+      filename="examples/src/http/query.ts"
+      showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-```javascript filename="examples/bin/query.js" showLineNumbers
-import * as __typia_transform__httpQueryParseURLSearchParams from "typia/lib/internal/_httpQueryParseURLSearchParams.js";
-import * as __typia_transform__httpQueryReadNumber from "typia/lib/internal/_httpQueryReadNumber.js";
-import * as __typia_transform__httpQueryReadBoolean from "typia/lib/internal/_httpQueryReadBoolean.js";
-import * as __typia_transform__httpQueryReadString from "typia/lib/internal/_httpQueryReadString.js";
-import * as __typia_transform__httpQueryReadArray from "typia/lib/internal/_httpQueryReadArray.js";
-import typia from "typia";
-(() => {
-  return (input) => {
-    input =
-      __typia_transform__httpQueryParseURLSearchParams._httpQueryParseURLSearchParams(
-        input,
-      );
-    const output = {
-      limit:
-        __typia_transform__httpQueryReadNumber._httpQueryReadNumber(
-          input.get("limit"),
-        ) ?? undefined,
-      enforce: __typia_transform__httpQueryReadBoolean._httpQueryReadBoolean(
-        input.get("enforce"),
-      ),
-      values: __typia_transform__httpQueryReadArray._httpQueryReadArray(
-        input
-          .getAll("values")
-          .map((elem) =>
-            __typia_transform__httpQueryReadString._httpQueryReadString(elem),
-          ),
-        undefined,
-      ),
-      atomic: __typia_transform__httpQueryReadString._httpQueryReadString(
-        input.get("atomic"),
-      ),
-      indexes: input
-        .getAll("indexes")
-        .map((elem) =>
-          __typia_transform__httpQueryReadNumber._httpQueryReadNumber(elem),
-        ),
-    };
-    return output;
-  };
-})();
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/http/query.js"
+      filename="examples/bin/query.js"
+      showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
 ### `headers()` functions
+
 <Tabs items={[
   <code>typia</code>, 
   <code>TypeGuardError.ts</code>, 
@@ -2095,157 +527,22 @@ type Headers = Record<string, string | string[] | undefined>;
 ```
   </Tabs.Tab>
   <Tabs.Tab>
-```typescript
-export class TypeGuardError extends Error {
-  public readonly method: string;
-  public readonly path: string | undefined;
-  public readonly expected: string;
-  public readonly value: any;
-}
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/src/TypeGuardError.ts"
+      filename="typia/TypeGuardError.ts"
+      showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-```typescript
-export type IValidation<T> = IValidation.ISuccess<T> | IValidation.IFailure;
-export namespace IValidation {
-  export interface ISuccess<T> {
-    success: true;
-    data: T;
-  }
-  export interface IFailure {
-    success: false;
-    errors: IError[];
-    data: unknown;
-  }
-  export interface IError {
-    path: string;
-    expected: string;
-    value: any;
-  }
-}
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/openapi/refs/heads/master/src/structures/IValidation.ts"
+      filename="@samchon/openapi"
+      showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-```typescript
-/**
- * Resolved type erased every methods.
- *
- * `Resolved` is a type of TMP (Type Meta Programming) type which converts
- * its argument as a resolved type that erased every method properties.
- *
- * If the target argument is a built-in class which returns its origin primitive type
- * through the `valueOf()` method like the `String` or `Number`, its return type would
- * be the `string` or `number`. Otherwise, the built-in class does not have the
- * `valueOf()` method, the return type would be same with the target argument.
- *
- * Otherwise, the target argument is a type of custom class, all of its custom methods
- * would be erased and its prototype would be changed to the primitive `object`.
- * Therefore, return type of the TMP type finally be the resolved object.
- *
- * Before                  | After
- * ------------------------|----------------------------------------
- * `Boolean`               | `boolean`
- * `Number`                | `number`
- * `BigInt`                | `bigint`
- * `String`                | `string`
- * `Class`                 | `interface`
- * Native Class or Others  | No change
- *
- * @template T Target argument type.
- * @author Jeongho Nam - https://github.com/samchon
- * @author Kyungsu Kang - https://github.com/kakasoo
- */
-export type Resolved<T> = Equal<T, ResolvedMain<T>> extends true
-  ? T
-  : ResolvedMain<T>;
-
-type Equal<X, Y> = X extends Y ? (Y extends X ? true : false) : false;
-
-type ResolvedMain<T> = T extends [never]
-  ? never // (special trick for jsonable | null) type
-  : ValueOf<T> extends boolean | number | bigint | string
-  ? ValueOf<T>
-  : T extends Function
-  ? never
-  : T extends object
-  ? ResolvedObject<T>
-  : ValueOf<T>;
-
-type ResolvedObject<T extends object> = T extends Array<infer U>
-  ? IsTuple<T> extends true
-    ? ResolvedTuple<T>
-    : ResolvedMain<U>[]
-  : T extends Set<infer U>
-  ? Set<ResolvedMain<U>>
-  : T extends Map<infer K, infer V>
-  ? Map<ResolvedMain<K>, ResolvedMain<V>>
-  : T extends WeakSet<any> | WeakMap<any, any>
-  ? never
-  : T extends
-      | Date
-      | Uint8Array
-      | Uint8ClampedArray
-      | Uint16Array
-      | Uint32Array
-      | BigUint64Array
-      | Int8Array
-      | Int16Array
-      | Int32Array
-      | BigInt64Array
-      | Float32Array
-      | Float64Array
-      | ArrayBuffer
-      | SharedArrayBuffer
-      | DataView
-      | Blob
-      | File
-  ? T
-  : {
-      [P in keyof T]: ResolvedMain<T[P]>;
-    };
-
-type ResolvedTuple<T extends readonly any[]> = T extends []
-  ? []
-  : T extends [infer F]
-  ? [ResolvedMain<F>]
-  : T extends [infer F, ...infer Rest extends readonly any[]]
-  ? [ResolvedMain<F>, ...ResolvedTuple<Rest>]
-  : T extends [(infer F)?]
-  ? [ResolvedMain<F>?]
-  : T extends [(infer F)?, ...infer Rest extends readonly any[]]
-  ? [ResolvedMain<F>?, ...ResolvedTuple<Rest>]
-  : [];
-
-type IsTuple<T extends readonly any[] | { length: number }> = [T] extends [
-  never,
-]
-  ? false
-  : T extends readonly any[]
-  ? number extends T["length"]
-    ? false
-    : true
-  : false;
-
-type ValueOf<Instance> = IsValueOf<Instance, Boolean> extends true
-  ? boolean
-  : IsValueOf<Instance, Number> extends true
-  ? number
-  : IsValueOf<Instance, String> extends true
-  ? string
-  : Instance;
-
-type IsValueOf<Instance, Object extends IValueOf<any>> = Instance extends Object
-  ? Object extends IValueOf<infer Primitive>
-    ? Instance extends Primitive
-      ? false
-      : true // not Primitive, but Object
-    : false // cannot be
-  : false;
-
-interface IValueOf<T> {
-  valueOf(): T;
-}
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/src/Resolved.ts"
+      filename="typia/Resolved.ts"
+      showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
@@ -2263,24 +560,24 @@ By the way, as HTTP headers are not enough to express complex data structures, `
   6. By the way, union type never be not allowed
   7. Property set-cookie must be array type
   8. Those properties cannot be array type
-    - age
-    - authorization
-    - content-length
-    - content-type
-    - etag
-    - expires
-    - from
-    - host
-    - if-modified-since
-    - if-unmodified-since
-    - last-modified
-    - location
-    - max-forwards
-    - proxy-authorization
-    - referer
-    - retry-after
-    - server
-    - user-agent
+     - age
+     - authorization
+     - content-length
+     - content-type
+     - etag
+     - expires
+     - from
+     - host
+     - if-modified-since
+     - if-unmodified-since
+     - last-modified
+     - location
+     - max-forwards
+     - proxy-authorization
+     - referer
+     - retry-after
+     - server
+     - user-agent
 
 Also, `typia.http.headers<t>()` function does not perform validation about the decoded value. Therefore, if you can't sure that input data is following the `T` type, it would better to call one of below functions instead.
 
@@ -2290,63 +587,21 @@ Also, `typia.http.headers<t>()` function does not perform validation about the d
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-
-```typescript filename="examples/src/headers.ts" showLineNumbers {}
-import typia from "typia";
-
-interface IHeaders {
-  "x-Category": "x" | "y" | "z";
-  "x-MEMO"?: string;
-  "x-nAmE"?: string;
-  "x-Values": number[];
-  "x-FlAgS": boolean[];
-  "X-Descriptions": string[];
-}
-typia.http.createHeaders<IHeaders>();
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/http/headers.ts"
+      filename="examples/src/http/headers.ts"
+      showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-```javascript filename="examples/bin/headers.js" showLineNumbers
-import * as __typia_transform__httpHeaderReadNumber from "typia/lib/internal/_httpHeaderReadNumber.js";
-import * as __typia_transform__httpHeaderReadBoolean from "typia/lib/internal/_httpHeaderReadBoolean.js";
-import typia from "typia";
-(() => {
-  return (input) => {
-    const output = {
-      "x-Category": input["x-category"],
-      "x-MEMO": input["x-memo"],
-      "x-nAmE": input["x-name"],
-      "x-Values": Array.isArray(input["x-values"])
-        ? input["x-values"].map(
-            __typia_transform__httpHeaderReadNumber._httpHeaderReadNumber,
-          )
-        : (input["x-values"]
-            ?.split(", ")
-            ?.map(
-              __typia_transform__httpHeaderReadNumber._httpHeaderReadNumber,
-            ) ?? []),
-      "x-FlAgS": Array.isArray(input["x-flags"])
-        ? input["x-flags"].map(
-            __typia_transform__httpHeaderReadBoolean._httpHeaderReadBoolean,
-          )
-        : (input["x-flags"]
-            ?.split(", ")
-            ?.map(
-              __typia_transform__httpHeaderReadBoolean._httpHeaderReadBoolean,
-            ) ?? []),
-      "X-Descriptions": Array.isArray(input["x-descriptions"])
-        ? input["x-descriptions"].map((str) => str.trim())
-        : (input["x-descriptions"]?.split(", ")?.map((str) => str.trim()) ??
-          []),
-    };
-    return output;
-  };
-})();
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/http/headers.js"
+      filename="examples/bin/http/headers.js"
+      showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
 ### `parameter()` functions
+
 <Tabs items={[
   <code>typia</code>, 
   <code>TypeGuardError.ts</code>, 
@@ -2362,14 +617,10 @@ export namespace http {
 ```
   </Tabs.Tab>
   <Tabs.Tab>
-```typescript
-export class TypeGuardError extends Error {
-  public readonly method: string;
-  public readonly path: string | undefined;
-  public readonly expected: string;
-  public readonly value: any;
-}
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/src/TypeGuardError.ts"
+      filename="typia/TypeGuardError.ts"
+      showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
@@ -2381,101 +632,15 @@ Also, `typia.http.parameter<T>()` performs type assertion to the decoded value b
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-```typescript filename="examples/src/parameter.ts" showLineNumbers {}
-import typia, { tags } from "typia";
-
-typia.http.createParameter<string & tags.Format<"uuid">>();
-typia.http.createParameter<number & tags.Type<"uint32">>();
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/http/parameter.ts"
+      filename="examples/src/http/parameter.ts"
+      showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-```javascript filename="examples/bin/parameter.js" showLineNumbers
-import * as __typia_transform__isFormatUuid from "typia/lib/internal/_isFormatUuid.js";
-import * as __typia_transform__assertGuard from "typia/lib/internal/_assertGuard.js";
-import * as __typia_transform__httpParameterReadString from "typia/lib/internal/_httpParameterReadString.js";
-import * as __typia_transform__isTypeUint32 from "typia/lib/internal/_isTypeUint32.js";
-import * as __typia_transform__httpParameterReadNumber from "typia/lib/internal/_httpParameterReadNumber.js";
-import typia from "typia";
-(input) => {
-  const assert = (() => {
-    const __is = (input) =>
-      "string" === typeof input &&
-      __typia_transform__isFormatUuid._isFormatUuid(input);
-    let _errorFactory;
-    return (input, errorFactory) => {
-      if (false === __is(input)) {
-        _errorFactory = errorFactory;
-        ((input, _path, _exceptionable = true) =>
-          ("string" === typeof input &&
-            (__typia_transform__isFormatUuid._isFormatUuid(input) ||
-              __typia_transform__assertGuard._assertGuard(
-                true,
-                {
-                  method: "typia.http.createParameter",
-                  path: _path + "",
-                  expected: 'string & Format<"uuid">',
-                  value: input,
-                },
-                _errorFactory,
-              ))) ||
-          __typia_transform__assertGuard._assertGuard(
-            true,
-            {
-              method: "typia.http.createParameter",
-              path: _path + "",
-              expected: '(string & Format<"uuid">)',
-              value: input,
-            },
-            _errorFactory,
-          ))(input, "$input", true);
-      }
-      return input;
-    };
-  })();
-  const value =
-    __typia_transform__httpParameterReadString._httpParameterReadString(input);
-  return assert(value);
-};
-(input) => {
-  const assert = (() => {
-    const __is = (input) =>
-      "number" === typeof input &&
-      __typia_transform__isTypeUint32._isTypeUint32(input);
-    let _errorFactory;
-    return (input, errorFactory) => {
-      if (false === __is(input)) {
-        _errorFactory = errorFactory;
-        ((input, _path, _exceptionable = true) =>
-          ("number" === typeof input &&
-            (__typia_transform__isTypeUint32._isTypeUint32(input) ||
-              __typia_transform__assertGuard._assertGuard(
-                true,
-                {
-                  method: "typia.http.createParameter",
-                  path: _path + "",
-                  expected: 'number & Type<"uint32">',
-                  value: input,
-                },
-                _errorFactory,
-              ))) ||
-          __typia_transform__assertGuard._assertGuard(
-            true,
-            {
-              method: "typia.http.createParameter",
-              path: _path + "",
-              expected: '(number & Type<"uint32">)',
-              value: input,
-            },
-            _errorFactory,
-          ))(input, "$input", true);
-      }
-      return input;
-    };
-  })();
-  const value =
-    __typia_transform__httpParameterReadNumber._httpParameterReadNumber(input);
-  return assert(value);
-};
-```
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/http/parameter.js"
+      filename="examples/bin/http/parameter.js"
+      showLineNumbers />
   </Tabs.Tab>
 </Tabs>

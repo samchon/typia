@@ -3,15 +3,11 @@ title: Guide Documents > Large Language Model > parameters() function
 ---
 import { Callout, Tabs } from "nextra/components";
 
-import ILlmApplicationSnippet from "../../../src/snippets/ILlmApplicationSnippet.mdx";
-import ILlmFunctionSnippet from "../../../src/snippets/ILlmFunctionSnippet.mdx";
-import ILlmSchemaSnippet from "../../../src/snippets/ILlmSchemaSnippet.mdx";
-
-import LlmParametersExampleSnippet from "../../../src/snippets/LlmParametersExampleSnippet.mdx";
-import LlmParametersJavaScriptSnippet from "../../../src/snippets/LlmParametersJavaScriptSnippet.mdx";
+import RemoteSource from "../../../src/components/RemoteSource";
 import ValidatorSupportMatrixSnippet from "../../../src/snippets/ValidatorSupportMatrixSnippet.mdx";
 
 ## `parameters()` function
+
 <Tabs items={[
     <code>typia</code>,
     <code>ILlmApplication</code>,
@@ -29,15 +25,6 @@ export namespace llm {
   >(
     options?: Partial<Pick<ILlmApplication.IOptions<Model>, "separate">>,
   ): ILlmApplication<Model>;
-
-  // +VALIDATE FUNCTION EMBEDDED
-  export function applicationOfValidate<
-    App extends Record<string, any>,
-    Model extends ILlmSchema.Model,
-    Config extends Partial<ILlmSchema.ModelConfig[Model]> = {},
-  >(
-    options?: Partial<Pick<ILlmApplicationOfValidate.IOptions<Model>, "separate">>,
-  ): ILlmApplicationOfValidate<Model>;
 
   // STRUCTURED OUTPUT
   export function parameters<
@@ -63,13 +50,22 @@ export namespace llm {
 ```
   </Tabs.Tab>
   <Tabs.Tab>
-    <ILlmApplicationSnippet />
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/openapi/refs/heads/master/src/structures/ILlmApplication.ts"
+      filename="@samchon/openapi"
+      showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <ILlmFunctionSnippet />
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/openapi/refs/heads/master/src/structures/ILlmFunction.ts"
+      filename="@samchon/openapi"
+      showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <ILlmSchemaSnippet />
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/openapi/refs/heads/master/src/structures/ILlmSchema.ts"
+      filename="@samchon/openapi"
+      showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
@@ -103,19 +99,23 @@ Structured output is another feature of LLM. The "structured output" means that 
 
 <Tabs items={["TypeScript Source Code", "Compiled JavaScript"]}>
   <Tabs.Tab>
-    <LlmParametersExampleSnippet />
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/llm/parameters.ts"
+      filename="example/src/llm/parameters.ts"
+      showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <LlmParametersJavaScriptSnippet />
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/llm/parameters.js"
+      filename="example/bin/llm/parameters.js"
+      showLineNumbers />
   </Tabs.Tab>
 </Tabs>
 
 [📖 Playground Link](https://typia.io/playground/?script=JYWwDg9gTgLgBAbzgSQMIAsCGMDiYYDKAxugKYiZwC+cAZlBCHAEQACAzpiCRAHYD0EMKV6YwwZgG4AUKEiw4MAJ7jMAGkSLMAc3bU6DJs2Wqp0uLN4xSUWpiKkUAWXIAjG4nNxymYABsALjh2GChgXm04ADItXQA6ADFoChgAHmYff2YAPhk4OFEQUiCQsIi8uB1igoBXEHcoCvQIV1dgUnYS0PDtAG0AXQqAKwhw0gATAH1sLrLImJgddkTk7HTx7FIcmSppIj4QuDAgtCxcfGIyCjjkAAVMKC5Sayg9AF5FFWBMOL8-EDiYAeTxe7FSyBc9RsGmYJGw2nwOQAFABKGT7XjsCB+Ui-CDaJFgNFAA)
 
-
-
-
 ## Structured Output
+
 ```typescript filename="src/examples/llm.parameters.ts" copy showLineNumbers {4-10, 36}
 import OpenAI from "openai";
 import typia, { tags } from "typia";
@@ -175,10 +175,8 @@ You can utilize the `typia.llm.parameters<Parameters, Model>()` function to gene
 
 Just configure output mode as JSON schema, and deliver the `typia.llm.parameters<Parameters, Model>()` function returned value to the LLM provider like OpenAI (ChatGPT). Then, the LLM provider will automatically transform the output conversation into a structured data format of the `Parameters` type.
 
-
-
-
 ## Validation Feedback
+
 ```typescript filename="src/examples/llm.parameters.ts" copy showLineNumbers {4-10, 13, 32-49, 55, 60}
 import OpenAI from "openai";
 import typia, { IValidation, tags } from "typia";
@@ -274,7 +272,6 @@ The key concept of validation feedback strategy is, let LLM structured output to
 
 For reference, the [`typia.validate<T>()`](/docs/validators/validate) function creates validation logic by analyzing TypeScript source codes and types in the compilation level. Therefore, it is accurate and detailed than any other validator libraries. This is exactly what is needed for function calling, and I can confidentelly say that `typia` is the best library for LLM structured output.
 
-
 <ValidatorSupportMatrixSnippet />
 
 Additionally, this validation feedback strategy is useful for some LLM providers do not supporting restriction properties of JSON schema like OpenAI ([`IChatGptSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IChatGptSchema.ts)) and Gemini ([`IGeminiSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IGeminiSchema.ts)). For example, OpenAI and Gemini do not support `format` property of JSON schema, so that cannot understand the `UUID` like type. Even though `typia.llm.application<App, Model>()` function is writing the restriction information to the `description` property of JSON schema, but LLM provider does not reflect it perfectly.
@@ -288,10 +285,8 @@ In that case, if you give validation feedback from `ILlmFunction.validate()` fun
     - `number`: `minimum`, `maximum`, `exclusiveMinimum`, `exclusiveMaximum`, `multipleOf`
     - `array`: `minItems`, `maxItems`, `uniqueItems`, `items`
 
-
-
-
 ## Restrictions
+
 `typia.llm.parameters<Parameters, Model>()` follows the same restrictions [`typia.llm.schema<T, Model>()`](./schema) function. Also, it has only one additional restriction; the keyworded argument.
 
 In the LLM function calling and structured output, the parameters must be a keyworded object type with static keys without any dynamic keys. Also, the object type must not be nullable or optional.
