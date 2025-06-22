@@ -1,8 +1,8 @@
-```javascript filename="example/bin/llm.application.js" showLineNumbers
-import * as __typia_transform__validateReport from "typia/lib/internal/_validateReport.js";
+import typia from "typia";
 import * as __typia_transform__isFormatUri from "typia/lib/internal/_isFormatUri.js";
 import * as __typia_transform__isFormatUuid from "typia/lib/internal/_isFormatUuid.js";
-import typia from "typia";
+import * as __typia_transform__validateReport from "typia/lib/internal/_validateReport.js";
+
 const app = {
   model: "chatgpt",
   options: {
@@ -12,111 +12,6 @@ const app = {
   },
   functions: [
     {
-      name: "index",
-      parameters: {
-        type: "object",
-        properties: {},
-        additionalProperties: false,
-        required: [],
-        $defs: {},
-      },
-      output: {
-        description: "List of every articles",
-        type: "array",
-        items: {
-          description:
-            "Article entity.\n\n`IBbsArticle` is an entity representing an article in the BBS (Bulletin Board System).",
-          type: "object",
-          properties: {
-            id: {
-              title: "Primary Key",
-              description: "Primary Key.\n\n\n@format uuid",
-              type: "string",
-            },
-            created_at: {
-              title: "Creation time of the article",
-              description:
-                "Creation time of the article.\n\n\n@format date-time",
-              type: "string",
-            },
-            updated_at: {
-              title: "Last updated time of the article",
-              description:
-                "Last updated time of the article.\n\n\n@format date-time",
-              type: "string",
-            },
-            title: {
-              title: "Title of the article",
-              description:
-                "Title of the article.\n\nRepresentative title of the article.",
-              type: "string",
-            },
-            body: {
-              title: "Content body",
-              description:
-                "Content body.\n\nContent body of the article writtn in the markdown format.",
-              type: "string",
-            },
-            thumbnail: {
-              title: "Thumbnail image URI",
-              description:
-                "Thumbnail image URI.\n\nThumbnail image URI which can represent the article.\n\nIf configured as `null`, it means that no thumbnail image in the article.",
-              anyOf: [
-                {
-                  type: "null",
-                },
-                {
-                  type: "string",
-                  description: "@format uri\n@contentMediaType image/*",
-                },
-              ],
-            },
-          },
-          required: [
-            "id",
-            "created_at",
-            "updated_at",
-            "title",
-            "body",
-            "thumbnail",
-          ],
-        },
-      },
-      description:
-        "Get all articles.\n\nList up every articles archived in the BBS DB.",
-      validate: (() => {
-        const __is = (input) => true;
-        let errors;
-        let _report;
-        return (input) => {
-          if (false === __is(input)) {
-            errors = [];
-            _report = __typia_transform__validateReport._validateReport(errors);
-            ((input, _path, _exceptionable = true) => true)(
-              input,
-              "$input",
-              true,
-            );
-            const success = 0 === errors.length;
-            return success
-              ? {
-                  success,
-                  data: input,
-                }
-              : {
-                  success,
-                  errors,
-                  data: input,
-                };
-          }
-          return {
-            success: true,
-            data: input,
-          };
-        };
-      })(),
-    },
-    {
       name: "create",
       parameters: {
         description: " Properties of create function",
@@ -124,7 +19,7 @@ const app = {
         properties: {
           input: {
             description:
-              "Information of the article to create.\n\n------------------------------\n\nDescription of the current {@link IBbsArticle.ICreate} type:\n\n> Information of the article to create.\n\n------------------------------\n\nDescription of the parent {@link IBbsArticle} type:\n\n> Article entity.\n> \n> `IBbsArticle` is an entity representing an article in the BBS (Bulletin Board System).",
+              "Information of the article to create\n\n------------------------------\n\nDescription of the current {@link IBbsArticle.ICreate} type:\n\n> Information of the article to create.\n\n------------------------------\n\nDescription of the parent {@link IBbsArticle} type:\n\n> Article entity.\n> \n> `IBbsArticle` is an entity representing an article in the BBS (Bulletin Board System).",
             type: "object",
             properties: {
               title: {
@@ -163,7 +58,7 @@ const app = {
       },
       output: {
         description:
-          "Article entity.\n\n`IBbsArticle` is an entity representing an article in the BBS (Bulletin Board System).",
+          "Description of the current {@link IBbsArticle} type:\n\n> Article entity.\n> \n> `IBbsArticle` is an entity representing an article in the BBS (Bulletin Board System).",
         type: "object",
         properties: {
           id: {
@@ -329,7 +224,7 @@ const app = {
           },
           input: {
             description:
-              "Make all properties in T optional\n\n------------------------------\n\nDescription of the current {@link PartialIBbsArticle.ICreate} type:\n\n> Make all properties in T optional",
+              "New content to update.\n\n------------------------------\n\nDescription of the current {@link PartialIBbsArticle.ICreate} type:\n\n> Make all properties in T optional",
             type: "object",
             properties: {
               title: {
@@ -562,5 +457,5 @@ const app = {
     },
   ],
 };
-console.log(app);
-```
+const func = app.functions.find((func) => func.name === "create");
+console.log(func?.description);
