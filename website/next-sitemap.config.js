@@ -2,4 +2,5 @@
 module.exports = {
   siteUrl: "https://typia.io",
   generateRobotsTxt: true,
+  outDir: "./out",
 };
