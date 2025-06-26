@@ -1,10 +1,10 @@
-.next
+.next/
+_pagefind/
 node_modules/
 out/
-raw/
-
 public/api/
 public/compiler/
 public/robots.txt
 public/sitemap*.xml
+src/raw/
 typedoc-json/
