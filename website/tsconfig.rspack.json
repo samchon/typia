@@ -20,12 +20,5 @@
     "jsx": "preserve",
     "downlevelIteration": true,
   },
-  "include": [
-    "next-env.d.ts",
-    "raw",
-    "src",
-  ],
-  "exclude": [
-    "node_modules"
-  ]
+  "include": ["src/compiler"],
 }
