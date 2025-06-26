@@ -4,9 +4,7 @@ out/
 raw/
 
 public/api/
-public/compilers/
+public/compiler/
 public/robots.txt
 public/sitemap*.xml
 typedoc-json/
-
-package-lock.json

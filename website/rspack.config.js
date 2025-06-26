@@ -1,10 +1,10 @@
 const path = require("path");
-const rspack = require('@rspack/core');
+const rspack = require("@rspack/core");
 
 module.exports = {
-  entry: ["./src/compilers/index.ts"],
+  entry: ["./src/compiler/index.ts"],
   output: {
-    path: path.join(__dirname, "public", "compilers"),
+    path: path.join(__dirname, "public", "compiler"),
     filename: "index.js",
     chunkFormat: false,
   },

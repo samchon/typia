@@ -3,10 +3,9 @@ bin/
 lib/
 node_modules/
 
-packages/typescript-json/src/
-package-lock.json
 bun.lockb
 bun.lock
+package-lock.json
 
 *.log
 *.tgz

@@ -51,7 +51,7 @@ namespace ConsoleViewer {
   }
   export interface IMessage {
     type: "error" | "info" | "log" | "warn";
-    value: any;
+    value: unknown;
   }
 }
 
