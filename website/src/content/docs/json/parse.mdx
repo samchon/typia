@@ -1,0 +1,130 @@
+---
+title: Guide Documents > JSON < parse() functions
+---
+import { Tabs } from "nextra/components";
+
+import RemoteSource from "../../../components/RemoteSource";
+
+## `parse()` functions
+
+<Tabs items={[
+  <code>typia</code>, 
+  <code>TypeGuardError.ts</code>, 
+  <code>IValidation.ts</code>,
+  <code>Primitive.ts</code>
+]}>
+  <Tabs.Tab>
+```typescript copy
+export namespace json {
+  export function isParse<T>(input: string): Primitive<T> | null;
+  export function assertParse<T>(input: string): Primitive<T>;
+  export function validateParse<T>(input: string): IValidation<Primitive<T>>;
+}
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/src/TypeGuardError.ts"
+      filename="typia/TypeGuardError.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/openapi/refs/heads/master/src/structures/IValidation.ts"
+      filename="@samchon/openapi"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/src/Primitive.ts"
+      filename="typia/Primitive.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+Type safe JSON parser.
+
+Unlike native `JSON.parse()` function which returns any typed instance without type checking, `typia.json.assertParse<T>()` function validates instance type after the parsing. If the parsed value is not following the promised type `T`, it throws `TypeGuardError` with the first type error info.
+
+If you want to know every type error infos detaily, you can use `typia.json.validateParse<T>()` function instead. Otherwise, you just only want to know whether the parsed value is following the type `T` or not, just call `typia.json.isParse<T>()` function.
+
+  - `typia.json.isParse<T>()`: `JSON.parse()` + [`typia.is<T>()`](../validators/is)
+  - `typia.json.assertParse<T>()`: `JSON.parse()` + [`typia.assert<T>()`](../validators/assert)
+  - `typia.json.validateParse<T>()`: `JSON.parse()` + [`typia.validate<T>()`](../validators/validate)
+
+Look at the below code, then you may understand how the `typia.json.assertParse<T>()` function works.
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+  <Tabs.Tab>
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/json/assertParse.ts"
+      filename="examples/src/json/assertParse.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/json/assertParse.js"
+      filename="examples/bin/json/assertParse.js"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+## Reusable functions
+
+<Tabs items={[
+  <code>typia</code>, 
+  <code>TypeGuardError.ts</code>, 
+  <code>IValidation.ts</code>,
+  <code>Primitive.ts</code>
+]}>
+  <Tabs.Tab>
+```typescript copy
+export namespace json {
+  export function createIsParse<T>(): (input: string) => Primitive<T> | null;
+  export function createAssertParse<T>(): (input: string) => Primitive<T>;
+  export function createValidateParse<T>(): (
+    input: string,
+  ) => IValidation<Primitive<T>>;
+}
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/src/TypeGuardError.ts"
+      filename="typia/TypeGuardError.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/openapi/refs/heads/master/src/structures/IValidation.ts"
+      filename="@samchon/openapi"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/src/Primitive.ts"
+      filename="typia/Primitive.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+Reusable `typia.json.isParse<T>()` function generators.
+
+If you repeat to call `typia.json.isParse<T>()` function on the same type, size of JavaScript files would be larger because of duplicated AOT compilation. To prevent it, you can generate reusable function through `typia.createIsParse<T>()` function.
+
+Just look at the code below, then you may understand how to use it.
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+  <Tabs.Tab>
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/json/createIsParse.ts"
+      filename="examples/src/json/createIsParse.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/json/createIsParse.js"
+      filename="examples/bin/json/createIsParse.js"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>

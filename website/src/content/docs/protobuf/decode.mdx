@@ -1,0 +1,163 @@
+---
+title: Guide Documents > Protobuf > decode() functions
+---
+import { Tabs } from 'nextra/components'
+import Alert from '@mui/material/Alert';
+import AlertTitle from '@mui/material/AlertTitle';
+
+import RemoteSource from "../../../components/RemoteSource";
+
+## `decode()` functions
+
+<Tabs items={[
+  <code>typia</code>, 
+  <code>TypeGuardError.ts</code>, 
+  <code>IValidation.ts</code>,
+  <code>Resolved.ts</code>,
+]}>
+  <Tabs.Tab>
+```typescript
+export namespace protobuf {
+  export function decode<T>(buffer: Uint8Array): Resolved<T>;
+  export function isDecode<T>(buffer: Uint8Array): Resolved<T> | null;
+  export function assertDecode<T>(buffer: Uint8Array): Resolved<T>;
+  export function validateDecode<T>(
+    buffer: Uint8Array,
+  ): IValidation<Resolved<T>>;
+}
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/src/TypeGuardError.ts"
+      filename="typia/TypeGuardError.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/openapi/refs/heads/master/src/structures/IValidation.ts"
+      filename="@samchon/openapi"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/src/Resolved.ts"
+      filename="typia/Resolved.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+Protocol Buffer Decoder.
+
+You can easily convert a Protocol Buffer's binary data to a JavaScript object, without any extra Protocol Buffer [Message Schema](./message) definition. `typia.protobuf.decode<T>()` function analyzes your type `T`, and generates a Protocol Buffer Message Schema internally.And then, it converts the binary data to a JavaScript object.
+
+By the way, as Protocol Buffer handles binary data directly, there's no way when `input` binary data was not encoded from the `T` typed value. In that case, unexpected behavior or internal error would be occurred. Therefore, I recommend you to encode binary data of Protocol Buffer from type safe encode functions like below, Use `typia.protobuf.encode<T>()` function only when you can trust it.
+
+  - [`typia.protobuf.isEncode<T>()`](./encode)
+  - [`typia.protobuf.assertEncode<T>()`](./encode)
+  - [`typia.protobuf.validateEncode<T>()`](./encode)
+
+For reference, `typia` provides type safe decorators like below, but they are just for additional type validation like `number & Minimum<7>` or `string & Format<"uuid">` cases, that are represented by [Special Tags](../validators/tags). Thus, I repeat that, you've to ensure type safety when using decoder function.
+
+  - `typia.protobuf.isDecode<T>()`: [`typia.is<T>()`](../validators/is) + `typia.protobuf.decode<T>()`
+  - `typia.protobuf.assertDecode<T>()`: [`typia.assert<T>()`](../validators/assert) + `typia.protobuf.decode<T>()`
+  - `typia.protobuf.validateDecode<T>()`: [`typia.validate<T>()`](../validators/validate) + `typia.protobuf.decode<T>()`
+
+
+<br/>
+<Alert severity="success">
+  <AlertTitle> 
+    **AOT compilation** 
+  </AlertTitle>
+
+`typia.protobuf.decode<T>()` and other similar functions are still much faster than any other competitive libraries, even though they include type checking process. This is the power of AOT compilation, writing optimal dedicated code by analyzing TypeScript type, in the compilation level.
+
+</Alert>
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+  <Tabs.Tab>
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/protobuf/decode.ts"
+      filename="examples/src/protobuf/decode.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/protobuf/decode.js"
+      filename="examples/bin/protobuf/decode.js"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+## Reusable functions
+
+<Tabs items={[
+  <code>typia</code>, 
+  <code>TypeGuardError.ts</code>, 
+  <code>IValidation.ts</code>,
+  <code>Resolved.ts</code>,
+]}>
+  <Tabs.Tab>
+```typescript
+export namespace protobuf {
+  export function createDecode<T>(): (buffer: Uint8Array) => Resolved<T>;
+  export function createIsDecode<T>: (buffer: Uint8Array) => Resolved<T> | null;
+  export function createAssertDecode<T>(): (buffer: Uint8Array) => Resolved<T>;
+  export function createValidateDecode<T>(): (
+      buffer: Uint8Array
+  ) => IValidation<Resolved<T>>;
+}
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/src/TypeGuardError.ts"
+      filename="typia/TypeGuardError.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/openapi/refs/heads/master/src/structures/IValidation.ts"
+      filename="@samchon/openapi"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/src/Resolved.ts"
+      filename="typia/Resolved.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+Reusable `typia.protobuf.decode<T>()` function generators.
+
+If you repeat to call `typia.protobuf.decode<T>()` function on the same type, size of JavaScript files would be larger because of duplicated AOT compilation. To prevent it, you can generate reusable function through `typia.protobuf.createDecode<T>()` function.
+
+Just look at the code below, then you may understand how to use it.
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+  <Tabs.Tab>
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/protobuf/createDecode.ts"
+      filename="examples/src/protobuf/createDecode.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/protobuf/createDecode.js"
+      filename="examples/bin/protobuf/createDecode.js"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+## References
+
+Protocol Buffer supports special numeric types like `int32` or `uint64` that are not supported in TypeScript. Also, types of Protocol Buffer cannot fully meet TypeScript type specs either, as expression power of TypeScript types are much stronger than Protocol Buffer.
+
+To know how to define special numeric types like `uint64`, and to understand which TypeScript types are not supported in Protocol Buffer specs, it would better to read below documents. I recommend you to read them before using `typia.protobuf.decode<T>()` related functions.
+
+  - [Typia Guide Documents > Protocol Buffer > Message Schema](./message)
+    - [`message()` function](./message#message-function)
+    - [Type Tags](./message#type-tags)
+    - [Comment Tags](./message#comment-tags)
+    - [Restrictions](./message#restrictions)

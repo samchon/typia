@@ -1,0 +1,169 @@
+---
+title: Guide Documents > Large Language Model > Documentation Strategy
+---
+import { Callout, Tabs } from "nextra/components";
+
+import RemoteSource from "../../../components/RemoteSource";
+
+## Description Comment
+
+<Tabs items={[
+  "TypeScript Source Code", 
+  "Compiled JavaScript File",
+  "Console Output"
+]}>
+  <Tabs.Tab>
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/llm/application-description.ts"
+      filename="example/src/llm/application-description.ts"
+      showLineNumbers
+      highlight="11, 15-17" />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/llm/application-description.js"
+      filename="example/bin/llm/application-description.js"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+```bash filename="Terminal"
+Create a new article.
+
+Writes a new article and archives it into the DB.
+```
+  </Tabs.Tab>
+</Tabs>
+
+Here is the example code utilizing the `typia.llm.application<App, Model>()` function.
+
+As you can see, above example code is writing detailed descriptions for every functions and their parameter/return types. Such detailed descriptions are very important to teach the purpose of the function to the LLM (Language Large Model), and LLM actually determines which function to call by the description. Therefore, don’t forget to writing detailed descriptions. It’s very import feature for the LLM function calling.
+
+Also, `ILlmFunction` type which has only `description` property about the comment, but `ILlmSchema` has two descriptive properties; `description` and `title`. The `title` property of the `ILlmSchema` can be filled by two ways. The first way is closing the first line of the description comment with a period (`.`). By the way, this way's `description` property would be the entire description comment even including the first line. 
+
+If you don't want that, you can adapt the second way that writing `@title {string}` comment tag. In that case, the `title` value would not be contained in the `description` value. For reference, it is possible to fill the `description` property of the `ILlmSchema` by the comment tag `@description`, but you have to take care of the indentation like below.
+
+<RemoteSource 
+  url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/llm/IMember.ts"
+  filename="examples/src/llm/IMember.ts"
+  showLineNumbers />
+
+## Namespace Strategy
+
+<Tabs items={[
+  "TypeScript Source Code", 
+  "Compiled JavaScript File",
+  "Console Output"
+]}>
+  <Tabs.Tab>
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/llm/application-namespace.ts"
+      filename="example/src/llm/application-namespace.ts"
+      showLineNumbers
+      highlight="11, 13-18, 35-38, 65-70" />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/llm/application-namespace.js"
+      filename="example/bin/llm/application-namespace.js"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+```bash filename="Terminal"
+Information of the article to create.
+
+------------------------------
+
+Description of the current {@link IBbsArticle.ICreate} type:
+
+Information of the article to create.
+
+> Description of the parent {@link IBbsArticle} type: Article entity.
+> 
+> `IBbsArticle` is an entity representing an article in the BBS (Bulletin Board System).
+```
+  </Tabs.Tab>
+</Tabs>
+
+`typia.llm.application<App, Model>()` copies the parent namespaced type description comment to the children types. `typia` calls this comment writing strategy as namespace documentation, and it is recommended for the efficient documentation.
+
+As you can see from the above example, `BbsArticleController` has many CRUD functions about the `IBbsArticle` namespaced type. By the way, the above `IBbsArticle.ICreate` and `IBbsArticle.IUpdate` types are not repeating same description comments about the `IBbsArticle` type. Instead, just writing the short description comment about them, and just compose the LLM function calling application schema.
+
+In that case, the `IBbsArticle` type's description comment would be copied to the `IBbsArticle.ICreate` and `IBbsArticle.IUpdate` types like above "Console Output" case. It's a good strategy to avoid repeating same description comments, and also to deliver enough information to the LLM function calling.
+
+## Function Hiding
+
+<Tabs items={[
+    "TypeScript Source Code",
+    "Compiled JavaScript File",
+  ]}>
+  <Tabs.Tab>
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/llm/application-hidden.ts"
+      filename="example/src/llm/application-hidden.ts"
+      showLineNumbers
+      highlight="36, 52, 72" />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/llm/application-hidden.js"
+      filename="example/bin/llm/application-hidden.js"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+Hiding some functions by comment tag.
+
+If you write `@hidden`, `@human` or `@internal` tag onto a function description comment, the function would not participate in the LLM (Large Language Model) function calling application composition. `ILlmFunction` schema does not be generated in the `ILlmApplication.functions` collection.
+
+It's a good feature to hide some internal functions, so that avoiding the LLM function calling.
+
+## Specialization
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+  <Tabs.Tab>
+    <RemoteSource
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/llm/schema-special.ts"
+      filename="example/src/llm/schema-special.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <RemoteSource
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/llm/schema-special.js"
+      filename="example/bin/llm/schema-special.js"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+You can utilize [type tags](../validators/tags/#type-tags) (or [validator's comment tags](../validators/tags/#comment-tags)) to constructing special fields of JSON schema. 
+
+If you write any comment on a property, it would fill the `IJsonSchema.description` value. Also, there're special comment tags only for JSON schema definition that are different with [validator's comment tags](../validators/tags/#comment-tags) like below.
+
+  - `@deprecated`
+  - `@hidden`
+  - `@internal`
+  - `@title {string}`
+
+Let's see how those [type tags](../validators/tags/#type-tags), comment tags and description comments are working with example code.
+
+## Customization
+
+If what you want is not just filling regular properties of LLM schema specification, but to adding custom properties into the JSON schema definition, you can do it through the `tags.TagBase.schema` property type or `tags.JsonSchemaPlugin` type. 
+
+For reference, the custom property must be started with `x-` prefix. It's a rule of LLM schema.
+
+<Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
+  <Tabs.Tab>
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/llm/schema-custom.ts"
+      filename="example/src/llm/schema-custom.ts"
+      showLineNumbers
+      highlight="12-14, 18, 22-23" />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/llm/schema-custom.js"
+      filename="example/bin/llm/schema-custom.js"
+      showLineNumbers
+      highlight="7, 11" />
+  </Tabs.Tab>
+</Tabs>
