@@ -25,7 +25,7 @@ cp.execSync(`npx embed-typescript external ${input} ${output}`, {
 console.log(" Building compiler worker program");
 //-------------------------------------------------------
 cp.execSync("npx rspack", {
-  stdio: "ignore",
+  stdio: "inherit",
   cwd: path.resolve(__dirname, ".."),
 });
 //-------------------------------------------------------
