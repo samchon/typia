@@ -3,6 +3,7 @@ title: Guide Documents > JSON > Schema
 ---
 import { Tabs } from "nextra/components";
 
+import LocalSource from "../../../components/LocalSource";
 import RemoteSource from "../../../components/RemoteSource";
 
 ## `schemas()` function
@@ -24,8 +25,8 @@ export namespace json {
 ```
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/src/schemas/json/IJsonSchemaCollection.ts"
+    <LocalSource 
+      path="src/schemas/json/IJsonSchemaCollection.ts"
       filename="typia/IJsonSchemaCollection.ts"
       showLineNumbers />
   </Tabs.Tab>
@@ -59,14 +60,14 @@ If you call the `typia.json.schemas()` with specialization of target `Schemas`, 
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/json/schemas.ts"
+    <LocalSource 
+      path="examples/src/json/schemas.ts"
       filename="examples/src/json/schemas.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/json/schemas.js"
+    <LocalSource 
+      path="examples/bin/json/schemas.js"
       filename="examples/bin/json/schemas.js"
       showLineNumbers />
   </Tabs.Tab>
@@ -87,14 +88,14 @@ Let's see how those [type tags](../validators/tags/#type-tags), comment tags and
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/json/schemas-comment-tags.ts"
+    <LocalSource 
+      path="examples/src/json/schemas-comment-tags.ts"
       filename="examples/src/json/schemas-comment-tags.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/json/schemas-comment-tags.js"
+    <LocalSource 
+      path="examples/bin/json/schemas-comment-tags.js"
       filename="examples/bin/json/schemas-comment-tags.js"
       showLineNumbers />
   </Tabs.Tab>
@@ -108,14 +109,14 @@ For reference, the custom property must be started with `x-` prefix. It's a rule
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/json/schemas-type-tags.ts"
+    <LocalSource 
+      path="examples/src/json/schemas-type-tags.ts"
       filename="examples/src/schema-type-tags.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/json/schemas-type-tags.js"
+    <LocalSource 
+      path="examples/bin/json/schemas-type-tags.js"
       filename="examples/bin/json/schemas-type-tags.js"
       showLineNumbers />
   </Tabs.Tab>

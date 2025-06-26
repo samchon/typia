@@ -5,6 +5,7 @@ import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import { Tabs } from "nextra/components";
 
+import LocalSource from "../../../components/LocalSource";
 import RemoteSource from "../../../components/RemoteSource";
 
 ## `assert()` function
@@ -20,8 +21,8 @@ export function assert<T>(input: unknown): T;
 ```
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/src/TypeGuardError.ts"
+    <LocalSource 
+      path="src/TypeGuardError.ts"
       filename="@samchon/typia"
       showLineNumbers />
   </Tabs.Tab>
@@ -55,14 +56,14 @@ Yeah, `typia` needs only pure TypeScript type. As `typia` is a compiler library,
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/validators/assert.ts" 
+    <LocalSource 
+      path="examples/src/validators/assert.ts" 
       filename="examples/src/validators/assert.ts" 
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/validators/assert.js" 
+    <LocalSource 
+      path="examples/bin/validators/assert.js" 
       filename="examples/bin/validators/assert.js" 
       showLineNumbers />
   </Tabs.Tab>
@@ -81,9 +82,9 @@ export function assertEquals<T>(input: unknown): T;
 ```
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/src/TypeGuardError.ts"
-      filename="@samchon/typia"
+    <LocalSource 
+      path="src/TypeGuardError.ts"
+      filename="typia/TypeGuardError.ts"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
@@ -101,14 +102,14 @@ In the below example case, as `sex` property is not defined in the `IMember` typ
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/validators/assertEquals.ts" 
+    <LocalSource 
+      path="examples/src/validators/assertEquals.ts" 
       filename="examples/src/validators/assertEquals.ts" 
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/validators/assertEquals.js" 
+    <LocalSource 
+      path="examples/bin/validators/assertEquals.js" 
       filename="examples/bin/validators/assertEquals.js" 
       showLineNumbers />
   </Tabs.Tab>
@@ -130,9 +131,9 @@ export function assertGuardEquals<T>(input: unknown): asserts input is T;
 ```
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/src/TypeGuardError.ts"
-      filename="@samchon/typia"
+    <LocalSource 
+      path="src/TypeGuardError.ts"
+      filename="typia/TypeGuardError.ts"
       showLineNumbers />
   </Tabs.Tab>
 </Tabs>
@@ -147,8 +148,8 @@ Such similarities and differences of `typia.assertGuard<T>()` and [`typia.assert
 
 Look at the below code, then you may understand what the "Assertion Guard" means.
 
-<RemoteSource 
-  url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/validators/assertGuard.ts" 
+<LocalSource 
+  path="examples/src/validators/assertGuard.ts" 
   filename="examples/src/validators/validatorassertGuard.ts" 
   showLineNumbers />
 
@@ -169,9 +170,9 @@ export function createAssertGuardEquals<T>(): AssertionGuard<T>;
 ```
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/src/TypeGuardError.ts"
-      filename="@samchon/typia"
+    <LocalSource 
+      path="src/TypeGuardError.ts"
+      filename="typia/TypeGuardError.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
@@ -189,14 +190,14 @@ Just look at the code below, then you may understand how to use it.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/validators/createAssert.ts" 
+    <LocalSource 
+      path="examples/src/validators/createAssert.ts" 
       filename="examples/src/validators/createAssert.ts" 
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/validators/createAssert.js" 
+    <LocalSource 
+      path="examples/bin/validators/createAssert.js" 
       filename="examples/bin/validators/createAssert.js" 
       showLineNumbers />
   </Tabs.Tab>
@@ -211,8 +212,8 @@ Be careful when using `typia.createAssertGuard<T>()` or `typia.createAssertGuard
 
 When calling those functions, you've to declare the variable type explicit on the caller variable. If you don't do it, so that the caller variables come the implicit function type, TypeScript compiler throws an error like below. This is a special limitation of TypeScript compiler about the "Assertion Guard".
 
-<RemoteSource 
-  url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/validators/createAssertGuard.ts" 
+<LocalSource 
+  path="examples/src/validators/createAssertGuard.ts" 
   filename="examples/src/validators/createAssertGuard.ts" 
   showLineNumbers />
 
@@ -245,14 +246,14 @@ Therefore, the `instanceof` statement does not be used only for the user-defined
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/validators/is-map.ts" 
+    <LocalSource 
+      path="examples/src/validators/is-map.ts" 
       filename="examples/src/validators/is-map.ts" 
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/validators/is-map.js" 
+    <LocalSource 
+      path="examples/bin/validators/is-map.js" 
       filename="examples/bin/validators/is-map.js" 
       showLineNumbers />
   </Tabs.Tab>
@@ -274,14 +275,14 @@ If you want to know about such special tags detaily, read below article:
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/validators/assert-custom-tags.ts" 
+    <LocalSource 
+      path="examples/src/validators/assert-custom-tags.ts" 
       filename="examples/src/validators/assert-custom-tags.ts" 
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/validators/assert-custom-tags.js" 
+    <LocalSource 
+      path="examples/bin/validators/assert-custom-tags.js" 
       filename="examples/bin/validators/assert-custom-tags.js" 
       showLineNumbers />
   </Tabs.Tab>
