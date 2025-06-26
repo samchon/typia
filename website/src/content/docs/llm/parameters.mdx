@@ -3,6 +3,7 @@ title: Guide Documents > Large Language Model > parameters() function
 ---
 import { Callout, Tabs } from "nextra/components";
 
+import LocalSource from "../../../components/LocalSource";
 import RemoteSource from "../../../components/RemoteSource";
 import ValidatorSupportMatrixSnippet from "../../../snippets/ValidatorSupportMatrixSnippet.mdx";
 
@@ -99,14 +100,14 @@ Structured output is another feature of LLM. The "structured output" means that 
 
 <Tabs items={["TypeScript Source Code", "Compiled JavaScript"]}>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/llm/parameters.ts"
+    <LocalSource 
+      path="examples/src/llm/parameters.ts"
       filename="example/src/llm/parameters.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/llm/parameters.js"
+    <LocalSource 
+      path="examples/bin/llm/parameters.js"
       filename="example/bin/llm/parameters.js"
       showLineNumbers />
   </Tabs.Tab>

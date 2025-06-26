@@ -3,6 +3,7 @@ title: Guide Documents > Large Language Model > schema() function
 ---
 import { Callout, Tabs } from "nextra/components";
 
+import LocalSource from "../../../components/LocalSource";
 import RemoteSource from "../../../components/RemoteSource";
 
 ## `schema()` function
@@ -98,14 +99,14 @@ Structured output is another feature of LLM. The "structured output" means that 
 
 <Tabs items={["TypeScript Source Code", "Compiled JavaScript"]}>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/llm/schema.ts"
+    <LocalSource 
+      path="examples/src/llm/schema.ts"
       filename="example/src/llm/schema.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/llm/schema.js"
+    <LocalSource 
+      path="examples/bin/llm/schema.js"
       filename="example/bin/llm/schema.js"
       showLineNumbers />
   </Tabs.Tab>
@@ -126,14 +127,14 @@ Let's see how those [type tags](../validators/tags/#type-tags), comment tags and
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/llm/schema-special.ts"
+    <LocalSource 
+      path="examples/src/llm/schema-special.ts"
       filename="example/src/llm/schema-special.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/llm/schema-special.js"
+    <LocalSource 
+      path="examples/bin/llm/schema-special.js"
       filename="example/bin/llm/schema-special.js"
       showLineNumbers />
   </Tabs.Tab>
@@ -147,15 +148,15 @@ For reference, the custom property must be started with `x-` prefix. It's a rule
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/llm/schema-custom.ts"
+    <LocalSource 
+      path="examples/src/llm/schema-custom.ts"
       filename="example/src/llm/schema-custom.ts"
       showLineNumbers
       highlight="12-14, 18, 22-23" />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/llm/schema-custom.js"
+    <LocalSource 
+      path="examples/bin/llm/schema-custom.js"
       filename="example/bin/llm/schema-custom.js"
       showLineNumbers
       highlight="7, 11" />
@@ -205,14 +206,14 @@ For reference, if the recursive type comes from the array type, it would be zero
 
 <Tabs items={["TypeScript Source Code", "Compiled JavaScript File"]}>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/llm/schema-recursive-gemini.ts"
+    <LocalSource 
+      path="examples/src/llm/schema-recursive-gemini.ts"
       filename="example/src/llm/schema-recursive-gemini.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/llm/schema-recursive-gemini.js"
+    <LocalSource 
+      path="examples/bin/llm/schema-recursive-gemini.js"
       filename="example/bin/llm/schema-recursive-gemini.js"
       showLineNumbers />
   </Tabs.Tab>
