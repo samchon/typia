@@ -5,6 +5,7 @@ on:
       - master
     paths:
       - .github/workflows/website.yml
+      - 'examples/**'
       - 'website/**'
       - 'website/package.json'
 jobs:
