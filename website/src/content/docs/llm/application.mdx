@@ -1,0 +1,277 @@
+---
+title: Guide Documents > Large Language Model > application() function
+---
+import { Callout, Tabs } from "nextra/components";
+
+import RemoteSource from "../../../components/RemoteSource";
+import ValidationFeedbackExampleSnippet from "../../../snippets/ValidationFeedbackExampleSnippet.mdx";
+import ValidatorSupportMatrixSnippet from "../../../snippets/ValidatorSupportMatrixSnippet.mdx";
+
+## `application()` function
+
+<Tabs items={[
+    <code>typia</code>,
+    <code>ILlmApplication</code>,
+    <code>ILlmFunction</code>,
+    <code>ILlmSchema</code>,
+  ]}>
+  <Tabs.Tab>
+```typescript filename="typia" showLineNumbers {2-9}
+export namespace llm {
+  // LLM FUNCTION CALLING APPLICATION SCHEMA
+  export function application<
+    App extends Record<string, any>,
+    Model extends ILlmSchema.Model,
+    Config extends Partial<ILlmSchema.ModelConfig[Model]> = {},
+  >(
+    options?: Partial<Pick<ILlmApplication.IOptions<Model>, "separate">>,
+  ): ILlmApplication<Model>;
+
+  // STRUCTURED OUTPUT
+  export function parameters<
+    Parameters extends Record<string, any>,
+    Model extends ILlmSchema.Model,
+    Config extends Partial<ILlmSchema.ModelConfig[Model]> = {},
+  >(): ILlmSchema.ModelParameters[Model];
+
+  // TYPE SCHEMA
+  export function schema<
+    T,
+    Model extends ILlmSchema.Model,
+    Config extends Partial<ILlmSchema.ModelConfig[Model]> = {},
+  >(
+    ...$defs: Extract<
+      ILlmSchema.ModelSchema[Model],
+      { $ref: string }
+    > extends never
+      ? []
+      : [Record<string, ILlmSchema.ModelSchema[Model]>]
+  ): ILlmSchema.ModelSchema[Model];
+}
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/openapi/refs/heads/master/src/structures/ILlmApplication.ts"
+      filename="@samchon/openapi"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/openapi/refs/heads/master/src/structures/ILlmFunction.ts"
+      filename="@samchon/openapi"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/openapi/refs/heads/master/src/structures/ILlmSchema.ts"
+      filename="@samchon/openapi"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+LLM function calling application schema from a native TypeScript class or interface type.
+
+`typia.llm.application<App, Model>()` is a function composing LLM (Large Language Model) calling application schema from a native TypeScript class or interface type. The function returns an `ILlmApplication` instance, which is a data structure representing a collection of LLM function calling schemas. 
+
+If you put LLM function schema instances registered in the `ILlmApplication.functions` to the LLM provider like `OpenAI ChatGPT`, the LLM will select a proper function to call with parameter values of the target function in the conversations with the user. This is the "LLM Function Calling".
+
+You can specify the LLM provide model by the second `Model` template argument. It's because detailed specification of the function schema is different by the LLM provider model. Here is the list of LLM schema definitions of each model. Determine one of them carefully reading the LLM schema definitions.
+
+If you've determined, let's make A.I. Chatbot super-easily with `typia.llm.application<App, Model>()` function.
+
+  - Supported schemas
+    - [`IChatGptSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IChatGptSchema.ts): OpenAI ChatGPT
+    - [`IClaudeSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IClaudeSchema.ts): Anthropic Claude
+    - [`IGeminiSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IGeminiSchema.ts): Google Gemini
+    - [`ILlamaSchema`](https://github.com/samchon/openapi/blob/master/src/structures/ILlamaSchema.ts): Meta Llama
+  - Midldle layer schemas
+    - [`ILlmSchemaV3`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3.ts): middle layer based on OpenAPI v3.0 specification
+    - [`ILlmSchemaV3_1`](https://github.com/samchon/openapi/blob/master/src/structures/ILlmSchemaV3_1.ts): middle layer based on OpenAPI v3.1 specification
+
+<Callout type="info">
+**LLM Function Calling** and **Structured Output**
+
+LLM selects proper function and fill arguments.
+
+In nowadays, most LLM (Large Language Model) like OpenAI are supporting "function calling" feature. The "LLM function calling" means that LLM automatically selects a proper function and fills parameter values from conversation with the user (may by chatting text).
+
+Structured output is another feature of LLM. The "structured output" means that LLM automatically transforms the output conversation into a structured data format like JSON.
+
+- https://platform.openai.com/docs/guides/function-calling
+- https://platform.openai.com/docs/guides/structured-outputs
+</Callout>
+
+<Tabs items={[
+    "TypeScript Source Code",
+    "Compiled JavaScript",
+    <code>BbsArticleService</code>,
+    <code>IBbsArticle</code>,
+  ]}>
+  <Tabs.Tab>
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/llm/application.ts"
+      filename="example/src/llm/application.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/llm/application.js"
+      filename="example/bin/llm/application.js"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/llm/BbsArticleService.ts"
+      filename="examples/src/llm/BbsArticleService.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/llm/IBbsArticle.ts"
+      filename="examples/src/llm/IBbsArticle.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+> [💻 Playground Link](https://typia.io/playground/?script=JYWwDg9gTgLgBAbzgSQDIBsQEExncAYwEMZgIA7OAXzgDMoIQ4AiAAQGciQCALCgeghgApuSJhgzANwAoUJFhwYATwlEANIiVEA5u2p0GTZirXSZMghXbxxYAFwoM2XPmKkKAHma8SOsDDMAHxwALxKqsBEAHTomNF2biRk5J4ycHAAQgBG7FiwhOjCAMrCUABuhMLq6Sy+MP6BMkEAFACUslbk7BBFsRA6LXYdFsDkMGW0RATCWbn5pARFpRVViLX8AFSbtXCbcADiwrZxcEQFS8Ls0bs7GXtwqMA2cACuYHDC5WXKZxdF+nOvGA3wAJnAxkoeLNMplinAACKZG73O4ZfasKDHV5QbqPZ7wCC0T7fKC-c6LAG3fi1Mag4QAD3ajmQOTy-2EAG0ALqyOAbba3OAAYSxJFmRDg5GEAHc-pThCj0UKAOpQYATQFS2XywoS8jgoE8EFXCHwMYwCBQ2ZIpV7IWsMDnLhwMAMMD6AAK7rKpFNRLgBDFEzor3IBA85AdWJgOLxADlZehfkHhOLDRzqbVU+KWm6hOxHAhdnAtmjUShyLRoCBkhQ4AGYNDdZclFacxMS3safcIeQwK8YCy2Qs9dFkKK0xM+dQ2sP5hy+QLy-sAKpgUHis6UClj25C9ebzXbltFOAyjU8bVyroTcZ2ldwR3Opj5j1wb1CX3Af3E95H2ZaDDCMUgdJ0oBdMYB3gRMbwoO94EtN4N3FLMMn-XM30LdZezLLt9gAFXOHRjlPYQAHJ9AQVh8HIABrFARw5aJgFBKg7XRHt7lYxwbHVcgdDgAAybQ9GiAAxGsSG8V5XlY4Il1wwVeweWDA3g0REKtDCJg47sSygwd53ZBVx0PcUZyoOc4HKCBWMU0tlPROAAFEIPYfUyIfIU3KIDzAR3DlDEYa1EWRfcK2fCDX3dL0fQKX9PncwDgMjNCkr84Q81iosSzwlTCOI0jd0uSjEBosYGNZBdTNY9j8K4jIeLgPixkEkSYF0a5JKgWsYBkuTQQU2orMcWz7JkKgLHy-ZR1bTSNWUFE7n2AADaqTL1VaIQCz5xkWuAsTdK4FoEk8SrPSEmxhOE4BaTJXjiY5IUyCBznBYplBsYQQDaZaaQtSZplmDa5rPRk71BfRQeYidg1mYsMny5zvVAc5fgAaWEJb0ua1qzo6rqJKk-rmFk+Sggc5GHknOtKFIEBZkbZsLsVdKO2EUEAH0SF4mB+Pa0TupJ7wAIAWgZ4Rhv5JGnIeVA-PgHTOaUUAmeJa6vPS5Xud5lr+ba4SheJ3rpOYcXJeGqaxEZ9gnRmRiar1HDHMfZAqxJlIGw1lmgqQjmHy4xkFHNcYgYduGpwRvK5ecgiNTPZmJWY-D8LgAAlYRjo88Zkm+VWYETn3k9MhqS1IQvhD5gWHNl8tnOFDTxjgbIIFBHGCrTxuw+b1v2+90LWfPdUYBgSgrubWsoDo0EIBlShq1NmA9M2RqW7b5Rq7a2vXbTgieFeEBsjEYB0AhWsSLgVd0+QFe94Po+T7PtHL+v5Bz2NXhAyISgjqxHPEK+1Lp3AqKBiRdFoMAHQOIVZ+TgKtcgj10CrU0BqOAjMf76CbCQKUVomyH2PkQU+59dCzAniXPcBU174MfkQ9A9guxwAAD5SiQYwlhLR8aC06mJHqfUZLqmCEbHh1xu4IQALKcyiARVQwhvAv2EFsYIIwMhTRlrvCs7tF59S9knMibZkIAW8hWAA8uQZMoVIFPXBG+b8poLynGyLMHWgdajB2gIhWRKBzIhnCJ6XcRB0CeEjuKSmk0gA)
+
+## Validation Feedback
+
+<ValidationFeedbackExampleSnippet />
+
+Is LLM Function Calling perfect? No, absolutely not.
+
+LLM (Large Language Model) service vendor like OpenAI takes a lot of type level mistakes when composing the arguments of function calling or structured output. Even though target schema is super simple like `Array<string>` type, LLM often fills it just by a `string` typed value.
+
+In my experience, OpenAI `gpt-4o-mini` (`8b` parameters) is taking about 70% of type level mistakes when filling the arguments of function calling to Shopping Mall service. To overcome the imperfection of such LLM function calling, `typia.llm.application<App, Model>()` function embeds [`typia.validate<T>()`](/docs/validators/validate) function for the validation feedback strategy.
+
+The key concept of validation feedback strategy is, let LLM function calling to construct invalid typed arguments first, and informing detailed type errors to the LLM, so that induce LLM to emend the wrong typed arguments at the next turn. In this way, I could uprise the success rate of function calling from 30% to 99% just by one step validation feedback. Even though the LLM is still occurs type error, it always has been caught at the next turn.
+
+For reference, the embedded [`typia.validate<T>()`](/docs/validators/validate) function creates validation logic by analyzing TypeScript source codes and types in the compilation level. Therefore, it is accurate and detailed than any other validator libraries. This is exactly what is needed for function calling, and I can confidentelly say that `typia` is the best library for LLM function calling.
+
+<ValidatorSupportMatrixSnippet />
+
+Additionally, this validation feedback strategy is useful for some LLM providers do not supporting restriction properties of JSON schema like OpenAI ([`IChatGptSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IChatGptSchema.ts)) and Gemini ([`IGeminiSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IGeminiSchema.ts)). For example, OpenAI and Gemini do not support `format` property of JSON schema, so that cannot understand the `UUID` like type. Even though `typia.llm.application<App, Model>()` function is writing the restriction information to the `description` property of JSON schema, but LLM provider does not reflect it perfectly.
+
+Also, some LLM providers which have not specified the JSON schema version like Claude ([`IClaudeSchema`](https://github.com/samchon/openapi/blob/master/src/structures/IClaudeSchema.ts)) and Llama ([`ILlamaSchema`](https://github.com/samchon/openapi/blob/master/src/structures/ILlamaSchema.ts)), they tend to fail a lot of function calling about the restriction properties. In fact, Llama does not support function calling formally, so you have to detour it by prompt template, and its success rate is lower than others.
+
+In that case, if you give validation feedback from `ILlmFunction.validate()` function to the LLM agent, the LLM agent will be able to understand the restriction information exactly and fill the arguments properly.
+
+  - Restriction properties of JSON schema
+    - `string`: `minLength`, `maxLength`, `pattern`, `format`, `contentMediaType`
+    - `number`: `minimum`, `maximum`, `exclusiveMinimum`, `exclusiveMaximum`, `multipleOf`
+    - `array`: `minItems`, `maxItems`, `uniqueItems`, `items`
+
+## Parameters' Separation
+
+Parameter values from both LLM and Human sides.
+
+When composing parameter arguments through the LLM (Large Language Model) function calling, there can be a case that some parameters (or nested properties) must be composed not by LLM, but by Human. File uploading feature, or sensitive information like secret key (password) cases are the representative examples.
+
+In that case, you can configure the LLM function calling schemas to exclude such Human side parameters (or nested properties) by `ILlmApplication.options.separate` property. Instead, you have to merge both Human and LLM composed parameters into one by calling the `HttpLlm.mergeParameters()` before the LLM function call execution.
+
+Here is the example separating the parameter schemas.
+
+<Tabs items={[
+    "TypeScript Source Code",
+    "Compiled JavaScript",
+    <code>BbsArticleService</code>,
+    <code>IBbsArticle</code>,
+  ]}>
+  <Tabs.Tab>
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/llm/application-separate.ts"
+      filename="example/src/llm/application-separate.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/llm/application-separate.js"
+      filename="example/bin/llm/application-separate.js"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/llm/BbsArticleService.ts"
+      filename="examples/src/llm/BbsArticleService.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+  <Tabs.Tab>
+    <RemoteSource 
+      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/llm/IBbsArticle.ts"
+      filename="examples/src/llm/IBbsArticle.ts"
+      showLineNumbers />
+  </Tabs.Tab>
+</Tabs>
+
+> [💻 Playground Link](https://typia.io/playground/?script=JYWwDg9gTgLgBAbzgYQDYEMCuATApgFQE8xdkALXAYwGtcoAaOASTSzwGVKKR1GmAZVCACCYMKmCV0MYBAB2cAL5wAZlAgg4AIgACAZ3Qgu8gPQQSc9GGBaA3AChQkWHBjFgvRK-QBzPUtV1TS03a3Q7e3tKeT14KzAALmZBETEJKRl5AB4tSgwcXC0APjgAXld3dAA6VCEq+PTpWTks+zg4ACEAIz1hWElUXHY6ADdJXHo27Ty2QvsigAoEKb1cMHQoaVwkhb0uXB4klnyOfZ4ASjKiqfbWAqIScipaKCrgPXYYKGA5H12z9CXABkQLge241WichguGhAFlcNgPA9cHAAISlcqYOR4FQ-RGTRTnBxQvQQQY1CB-eLEyI-GFQFToSio7q9fp5IajcaIKYmABU-Ju-LgAHFcHFanANjJOXoqsLhXB+O94JgwHBcCM6IRpRzBv4NlxgNrsHAfq4KJ0Ouw4AARDoK9pwIXOkU6KASzBQOT+FWxOAQFSa7VQXUyga4PTCkxTH54AAeC3ORzZfVlgwA2gBdBxwPmCpXIT1baVwOS4ADueozuCd7VdDbgAHVvjDDeWqzXI9KcXrjdr-MB4PSIJbUQ76y6lTp1ptNGB1GB-AAFJd0GRRwPByglmGqbGUTJyGeemDe31wAByVdQut3uC2ZojnJjUwfWwWi-MeiSy2dcACo2brMHIKjQDwx7buO3acq4Y4fjCNwNrGAE-GAmAwKmPTppGVQsHuuB5koKbMGm+pEW0BbASKACqYDYKW6AKC+FKKiB9GMe2vawYMcCVsOZCdtWUIwtCU40XAs4bIYcDfsucBruYG7AFuQZwOqXGoioh7HjOc6yehmHXl2omwvAMBjppWxvu01kwl+S6-ryAFAchLpwPgGw+BKvG4AA5P4CA6BIcjUGROEUW82CKFOKHIcA2BJLE3y-HAoIwL48oAGIQdIOSYJgiXFHmyFuQBHk3iJ8hiRZVkMVscUuqhzpGVhEXsrW+GcVsxFEkkIwQIlpXtOVTYAKKbKsPGsXW7ETVNW7MX5gQaDBk7zR50nznJTmKeu-RqcGdDoNNOlyEezS2Zqi2OT+f5lYWFUil5UA+XEFGBYgIU-OFTDkV1iWxe5-Ite0iXJV8Pw+Ol3h+FUuVQJBBVFdgJVTP1cCDcN9iKJE5UirhcHmcOhBOq6IoAAb-ZFtaU+ahoKCTbhwJ6i5RiTaXLbN5oKDAVodDacALB0mC1BKFodBAGxmuwhCxAc5zk7G9J0EyLIdUTfG4AmYnYP4NOdXhBGPvu-6AU9TZrqAGy6gA0rgZPXRDYJQ2lGVZQjeUwCjxVFCNFuScWpvNK4oCoup-OorNEktYhiIAPrSJDqUwx78OI8jWhaQAtDIICFP7VGjZbHn8KdaoNTCZr5xHwZR35sdTPZifJ67qew5lGfezkue1+jeOWAXejrBrhta6i5tjR5TBgd7oeR1aPOWXA8dN+0OvOCO0Jq8yqIm6W5sl8BTb4MOfGL9HUUgyDcAAEprJ6qzQk02phzAF-10v1-PWD7+DCnaGAdj632QDVcycAugQGwE7Z6oDwHQkgdA3Ul8VqVjbDABQFoG48CgNQbAEBKwKHAkjaQTVQbISgTAwBvxgGB1vvgMgmAQBdEsMAVA5oeA+TgLRO+TByEMKYSwthHCbbcN4UwfiZBJBCSkAoNmT8IENxjjfZ6zAdzyDxD4b0iJpT+EpnIMWqBKaMGHHAAuzF-D82kOWMc-NmGsPQOwzhvhUTYO-l1EGf97HCKcagBI7k4AAB9yxGMCSE3Ybs05wxyj3LQ3obAlHTvKMBO94SImRMQXAOQxG4AFMUWk7Q8b5hASBWeJDIILy-lfWs8ENJVzmm6JUAB5OQd4YJ4nFmaeSKktwCSlF0VELdsDr01AmLeFQSDMB6vucoK4IzoFQFkA+MIi6KCAA)
+
+## Restrictions
+
+`typia.llm.application<App, Model>()` follows the same restrictions of below.
+
+About the function parameters type, it follows the restriction of both [`typia.llm.parameters<Params, Models>()`](./parameters) and [`typia.llm.schema<T, Model>()`](./schema) functions. Therefore, the parameters must be a keyworded object type with static keys without any dynamic keys. Also, the object type must not be nullable or optional.
+
+About the return value type, it follows the restriction of [`typia.llm.schema<T, Model>()`](./schema) function. By the way, if the return type is union type with `undefined`, it would be compilation error, due to OpenAPI (JSON schema) specification does not support the undefindable union type.
+
+  - [`typia.llm.parameters<Params, Models>()`](./parameters)
+  - [`typia.llm.schema<T, Model>()`](./schema)
+
+<Tabs items={["TypeScript Source Code", "Console Output"]}>
+  <Tabs.Tab>
+```typescript filename="example/src/llm/application.violation.ts" showLineNumbers
+import { ILlmApplication } from "@samchon/openapi";
+import typia, { tags } from "typia";
+
+const app: ILlmApplication<"chatgpt"> = typia.llm.application<
+  BbsArticleController,
+  "chatgpt"
+>();
+
+console.log(app);
+
+interface BbsArticleController {
+  /**
+   * Create a new article.
+   *
+   * Writes a new article and archives it into the DB.
+   *
+   * @param props Properties of create function
+   * @returns Newly created article
+   */
+  create(props: {
+    /**
+     * Information of the article to create
+     */
+    input: IBbsArticle.ICreate;
+  }): Promise<IBbsArticle | undefined>;
+
+  erase(id: string & tags.Format<"uuid">): Promise<void>;
+}
+```
+  </Tabs.Tab>
+  <Tabs.Tab>
+```bash filename="Terminal"
+src/examples/llm.application.violation.ts:4:41 - error TS(typia.llm.application): unsupported type detected    
+
+- BbsArticleController.create: unknown
+  - LLM application's function ("create")'s return type must not be union type with undefined.    
+
+- BbsArticleController.erase: unknown
+  - LLM application's function ("erase")'s parameter must be an object type.
+
+4 const app: ILlmApplication<"chatgpt"> = typia.llm.application<
+                                          ~~~~~~~~~~~~~~~~~~~~~~
+5   BbsArticleController,
+  ~~~~~~~~~~~~~~~~~~~~~~~
+6   "chatgpt"
+  ~~~~~~~~~~~
+7 >();
+  ~~~
+
+
+Found 1 error in src/examples/llm.application.violation.ts:4
+```
+  </Tabs.Tab>
+</Tabs>
