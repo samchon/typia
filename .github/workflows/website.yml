@@ -8,6 +8,12 @@ on:
       - 'examples/**'
       - 'website/**'
       - 'website/package.json'
+  pull_request:
+    paths:
+      - .github/workflows/website.yml
+      - 'examples/**'
+      - 'website/**'
+      - 'website/package.json'
 jobs:
   deploy:
     runs-on: ubuntu-latest
