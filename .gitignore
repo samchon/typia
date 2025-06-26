@@ -5,6 +5,7 @@ node_modules/
 
 bun.lockb
 bun.lock
+package-lock.json
 
 *.log
 *.tgz

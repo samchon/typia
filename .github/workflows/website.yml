@@ -32,7 +32,6 @@ jobs:
       - name: Build
         working-directory: website
         run: |
-          npm cache clean --force
           npm install
           npm run build
       - name: Deploy
