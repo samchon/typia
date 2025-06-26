@@ -9,6 +9,7 @@
     "postbuild": "npm run build:pagefind && npm run build:sitemap",
     "build:compiler": "node build/compiler",
     "build:typedoc": "node build/typedoc",
+    "build:pagefind": "pagefind --site .next/server/app --output-path out/_pagefind",
     "build:sitemap": "node build/sitemap",
     "deploy": "node build/deploy",
     "dev": "next dev"
