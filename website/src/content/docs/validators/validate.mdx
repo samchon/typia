@@ -5,6 +5,7 @@ import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import { Tabs } from "nextra/components";
 
+import LocalSource from "../../../components/LocalSource";
 import RemoteSource from "../../../components/RemoteSource";
 
 ## `validate()` function
@@ -59,14 +60,14 @@ Yeah, `typia` needs only pure TypeScript type. As `typia` is a compiler library,
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/validators/validate.ts" 
+    <LocalSource 
+      path="examples/src/validators/validate.ts" 
       filename="examples/src/validators/validate.ts" 
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/validators/validate.js" 
+    <LocalSource 
+      path="examples/bin/validators/validate.js" 
       filename="examples/bin/validators/validate.js" 
       showLineNumbers />
   </Tabs.Tab>
@@ -109,14 +110,14 @@ In the below example case, as `id` property is different with its type definitio
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/validators/validateEquals.ts" 
+    <LocalSource 
+      path="examples/src/validators/validateEquals.ts" 
       filename="examples/src/validators/validateEquals.ts" 
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/validators/validateEquals.js" 
+    <LocalSource 
+      path="examples/bin/validators/validateEquals.js" 
       filename="examples/bin/validators/validateEquals.js" 
       showLineNumbers />
   </Tabs.Tab>
@@ -150,14 +151,14 @@ Just look at the code below, then you may understand how to use it.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/validators/createValidate.ts" 
+    <LocalSource 
+      path="examples/src/validators/createValidate.ts" 
       filename="examples/src/validators/createValidate.ts" 
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/validators/createValidate.js" 
+    <LocalSource 
+      path="examples/bin/validators/createValidate.js" 
       filename="examples/bin/validators/createValidate.js" 
       showLineNumbers />
   </Tabs.Tab>
@@ -218,14 +219,14 @@ Therefore, the `instanceof` statement does not be used only for the user-defined
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/validators/validate-map.ts" 
+    <LocalSource 
+      path="examples/src/validators/validate-map.ts" 
       filename="examples/src/validators/validate-map.ts" 
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/validators/validate-map.js" 
+    <LocalSource 
+      path="examples/bin/validators/validate-map.js" 
       filename="examples/bin/validators/validate-map.js" 
       showLineNumbers />
   </Tabs.Tab>
@@ -291,14 +292,14 @@ If you want to know about such special tags detaily, read below article:
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/validators/validate-custom-tags.ts" 
+    <LocalSource 
+      path="examples/src/validators/validate-custom-tags.ts" 
       filename="examples/src/validators/validate-custom-tags.ts" 
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/validators/validate-custom-tags.js" 
+    <LocalSource 
+      path="examples/bin/validators/validate-custom-tags.js" 
       filename="examples/bin/validators/validate-custom-tags.js" 
       showLineNumbers />
   </Tabs.Tab>

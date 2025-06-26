@@ -5,7 +5,7 @@ import { Tabs } from 'nextra/components'
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 
-import { RemoteSource } from "../../../components/RemoteSource";
+import LocalSource from '../../../components/LocalSource';
 
 ## `is()` function
 
@@ -37,14 +37,14 @@ Yeah, `typia` needs only pure TypeScript type. As `typia` is a compiler library,
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/validators/is.ts" 
+    <LocalSource 
+      path="examples/src/validators/is.ts" 
       filename="examples/src/validators/is.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/validators/is.js" 
+    <LocalSource 
+      path="examples/bin/validators/is.js" 
       filename="examples/bin/validators/is.js"
       showLineNumbers />
   </Tabs.Tab>
@@ -65,14 +65,14 @@ If you want to prohibit those superfluous properties, you can use `typia.equals<
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/validators/equals.ts" 
+    <LocalSource 
+      path="examples/src/validators/equals.ts" 
       filename="examples/src/validators/equals.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/validators/equals.js" 
+    <LocalSource 
+      path="examples/bin/validators/equals.js" 
       filename="examples/bin/validators/equals.js"
       showLineNumbers />
   </Tabs.Tab>
@@ -93,14 +93,14 @@ Just look at the code below, then you may understand how to use it.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/validators/createIs.ts" 
+    <LocalSource 
+      path="examples/src/validators/createIs.ts" 
       filename="examples/src/validators/createIs.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/validators/createIs.js" 
+    <LocalSource 
+      path="examples/bin/validators/createIs.js" 
       filename="examples/bin/validators/createIs.js"
       showLineNumbers />
   </Tabs.Tab>
@@ -119,8 +119,8 @@ export function createEquals<T>(): (input: unknown) => input is T;
 
 When target `input` value is following the type `T`, therefore `true` value be returned, `typia.is<T>()` function automatically casts the `input` value to the type `T`. Therefore, you can utilize the `typia.is<T>()` function for safe type casting tool like below:
 
-<RemoteSource 
-  url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/validators/is-cast.ts" 
+<LocalSource 
+  path="examples/src/validators/is-cast.ts" 
   filename="examples/src/validators/is-cast.ts"
   showLineNumbers />
 
@@ -151,14 +151,14 @@ Therefore, the `instanceof` statement does not be used only for the user-defined
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/validators/is-map.ts" 
+    <LocalSource 
+      path="examples/src/validators/is-map.ts" 
       filename="examples/src/validators/is-map.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/validators/is-map.js" 
+    <LocalSource 
+      path="examples/bin/validators/is-map.js" 
       filename="examples/bin/validators/is-map.js"
       showLineNumbers />
   </Tabs.Tab>
@@ -180,14 +180,14 @@ If you want to know about such special tags detaily, read below article:
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/validators/is-custom-tags.ts" 
+    <LocalSource 
+      path="examples/src/validators/is-custom-tags.ts" 
       filename="examples/src/validators/is-custom-tags.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/validators/is-custom-tags.js" 
+    <LocalSource 
+      path="examples/bin/validators/is-custom-tags.js" 
       filename="examples/bin/validators/is-custom-tags.js"
       showLineNumbers />
   </Tabs.Tab>

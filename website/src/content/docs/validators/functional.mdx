@@ -5,7 +5,7 @@ import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import { Tabs } from "nextra/components";
 
-import RemoteSource from "../../../components/RemoteSource";
+import LocalSource from "../../../components/LocalSource";
 
 ## `assertFunction()`
 
@@ -27,8 +27,8 @@ export namespace functional {
 ```
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/src/TypeGuardError.ts" 
+    <LocalSource 
+      path="src/TypeGuardError.ts" 
       filename="typia/TypeGuardError.ts" 
       showLineNumbers />
   </Tabs.Tab>
@@ -49,14 +49,14 @@ Also, if what you want is not just finding the first type error through assertio
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/functional/assertFunction.ts" 
+    <LocalSource 
+      path="examples/src/functional/assertFunction.ts" 
       filename="examples/src/functional/assertFunction.ts" 
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/functional/assertFunction.js" 
+    <LocalSource 
+      path="examples/bin/functional/assertFunction.js" 
       filename="examples/bin/functional/assertFunction.js" 
       showLineNumbers />
   </Tabs.Tab>
@@ -100,14 +100,14 @@ Also, if what you want is not just type checking, but want to know the detailed 
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/functional/isFunction.ts" 
+    <LocalSource 
+      path="examples/src/functional/isFunction.ts" 
       filename="examples/src/functional/isFunction.ts" 
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/functional/isFunction.js" 
+    <LocalSource 
+      path="examples/bin/functional/isFunction.js" 
       filename="examples/bin/functional/isFunction.js" 
       showLineNumbers />
   </Tabs.Tab>
@@ -128,14 +128,14 @@ Also, if what you want is not retrieving every type errors, but just finding the
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/functional/validateFunction.ts" 
+    <LocalSource 
+      path="examples/src/functional/validateFunction.ts" 
       filename="examples/src/functional/validateFunction.ts" 
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/functional/validateFunction.js" 
+    <LocalSource 
+      path="examples/bin/functional/validateFunction.js" 
       filename="examples/bin/functional/validateFunction.js" 
       showLineNumbers />
   </Tabs.Tab>

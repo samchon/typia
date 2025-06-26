@@ -5,6 +5,7 @@ import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import { Tabs } from "nextra/components";
 
+import LocalSource from "../../../components/LocalSource";
 import RemoteSource from "../../../components/RemoteSource";
 
 ## `stringify()` functions
@@ -25,8 +26,8 @@ export namespace json {
 ```
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/src/TypeGuardError.ts"
+    <LocalSource 
+      path="src/TypeGuardError.ts"
       filename="typia/TypeGuardError.ts"
       showLineNumbers />
   </Tabs.Tab>
@@ -60,14 +61,14 @@ Instead, `typia` supports type safe JSON serialization functions like `typia.jso
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/json/isStringify.ts"
+    <LocalSource 
+      path="examples/src/json/isStringify.ts"
       filename="examples/src/json/isStringify.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/json/isStringify.js"
+    <LocalSource 
+      path="examples/bin/json/isStringify.js"
       filename="examples/bin/json/isStringify.js"
       showLineNumbers />
   </Tabs.Tab>
@@ -93,8 +94,8 @@ export namespace json {
 ```
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/src/TypeGuardError.ts"
+    <LocalSource 
+      path="src/TypeGuardError.ts"
       filename="typia/TypeGuardError.ts"
       showLineNumbers />
   </Tabs.Tab>
@@ -114,14 +115,14 @@ Just look at the code below, then you may understand how to use it.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/json/createAssertStringify.ts"
+    <LocalSource 
+      path="examples/src/json/createAssertStringify.ts"
       filename="examples/src/json/createAssertStringify.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/json/createAssertStringify.js"
+    <LocalSource 
+      path="examples/bin/json/createAssertStringify.js"
       filename="examples/bin/json/createAssertStringify.js"
       showLineNumbers />
   </Tabs.Tab>

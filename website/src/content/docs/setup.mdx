@@ -3,7 +3,7 @@ title: Guide Documents > Setup
 ---
 import { Callout, Tabs } from "nextra/components";
 
-import RemoteSource from "../../components/RemoteSource";
+import LocalSource from "../../components/LocalSource";
 
 ## Summary
 
@@ -60,14 +60,14 @@ This is the transform mode performing AOT (Ahead of Time) compilation.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/validators/is.ts" 
+    <LocalSource 
+      path="examples/src/validators/is.ts" 
       filename="examples/src/validators/is.ts" 
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/validators/is.js" 
+    <LocalSource 
+      path="examples/bin/validators/is.js" 
       filename="examples/bin/validators/is.js" 
       showLineNumbers />
   </Tabs.Tab>

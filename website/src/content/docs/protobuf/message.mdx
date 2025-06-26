@@ -5,7 +5,7 @@ import Alert from "@mui/material/Alert";
 import AlertTitle from "@mui/material/AlertTitle";
 import { Tabs } from "nextra/components";
 
-import RemoteSource from "../../../components/RemoteSource";
+import LocalSource from "../../../components/LocalSource";
 
 ## `message()` function
 
@@ -27,14 +27,14 @@ With this `message()` function, you can share `*.proto` files with other languag
 
 <Tabs items={["TypeScript Source Code", "Compiled JavaScript File"]}>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/protobuf/message.ts"
+    <LocalSource 
+      path="examples/src/protobuf/message.ts"
       filename="examples/src/protobuf/message.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/protobuf/message.js"
+    <LocalSource 
+      path="examples/bin/protobuf/message.js"
       filename="examples/bin/protobuf.message.js"
       showLineNumbers />
   </Tabs.Tab>
@@ -59,14 +59,14 @@ When you take a mistake that choosing different target type, TypeScript compiler
 
 <Tabs items={["TypeScript Source Code", "Compiled JavaScript File"]}>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/protobuf/message-type-tag.ts"
+    <LocalSource 
+      path="examples/src/protobuf/message-type-tag.ts"
       filename="examples/src/protobuf/message-type-tag.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/protobuf/message-type-tag.js"
+    <LocalSource 
+      path="examples/bin/protobuf/message-type-tag.js"
       filename="examples/bin/protobuf/message-type-tag.js"
       showLineNumbers />
   </Tabs.Tab>
@@ -96,14 +96,14 @@ Second, to support [Prisma](../utilization/prisma). If a comment is created in t
 
 <Tabs items={["TypeScript Source Code", "Compiled JavaScript File"]}>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/protobuf/message-comment-tag.ts"
+    <LocalSource 
+      path="examples/src/protobuf/message-comment-tag.ts"
       filename="examples/src/protobuf/message-comment-tag.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/protobuf/message-comment-tag.js"
+    <LocalSource 
+      path="examples/bin/protobuf/message-comment-tag.js"
       filename="examples/bin/protobuf.message-comment-tag.js"
       showLineNumbers />
   </Tabs.Tab>

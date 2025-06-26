@@ -5,6 +5,7 @@ import { Tabs } from 'nextra/components'
 import Alert from '@mui/material/Alert';
 import AlertTitle from '@mui/material/AlertTitle';
 
+import LocalSource from '../../../components/LocalSource';
 import RemoteSource from "../../../components/RemoteSource";
 
 ## `encode()` functions
@@ -26,8 +27,8 @@ export namespace protobuf {
 ```
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/src/TypeGuardError.ts"
+    <LocalSource 
+      path="src/TypeGuardError.ts"
       filename="typia/TypeGuardError.ts"
       showLineNumbers />
   </Tabs.Tab>
@@ -38,8 +39,8 @@ export namespace protobuf {
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/src/Resolved.ts"
+    <LocalSource 
+      path="src/Resolved.ts"
       filename="typia/Resolved.ts"
       showLineNumbers />
   </Tabs.Tab>
@@ -67,14 +68,14 @@ By the way, `typia.protobuf.encode<T>()` function does not validate the `input` 
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/protobuf/encode.ts"
+    <LocalSource 
+      path="examples/src/protobuf/encode.ts"
       filename="examples/src/protobuf/encode.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/protobuf/encode.js"
+    <LocalSource 
+      path="examples/bin/protobuf/encode.js"
       filename="examples/bin/protobuf/encode.js"
       showLineNumbers />
   </Tabs.Tab>
@@ -99,8 +100,8 @@ export namespace protobuf {
 ```
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/src/TypeGuardError.ts"
+    <LocalSource 
+      path="src/TypeGuardError.ts"
       filename="typia/TypeGuardError.ts"
       showLineNumbers />
   </Tabs.Tab>
@@ -111,8 +112,8 @@ export namespace protobuf {
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/src/Resolved.ts"
+    <LocalSource 
+      path="src/Resolved.ts"
       filename="typia/Resolved.ts"
       showLineNumbers />
   </Tabs.Tab>
@@ -126,14 +127,14 @@ Just look at the code below, then you may understand how to use it.
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/protobuf/createEncode.ts"
+    <LocalSource 
+      path="examples/src/protobuf/createEncode.ts"
       filename="examples/src/protobuf/createEncode.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/protobuf/createEncode.js"
+    <LocalSource 
+      path="examples/bin/protobuf/createEncode.js"
       filename="examples/bin/protobuf/createEncode.js"
       showLineNumbers />
   </Tabs.Tab>

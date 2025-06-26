@@ -3,7 +3,7 @@ title: Guide Documents > random() function
 ---
 import { Tabs } from "nextra/components";
 
-import RemoteSource from "../../components/RemoteSource";
+import LocalSource from "../../components/LocalSource";
 
 ## `random()` function
 
@@ -19,20 +19,20 @@ export function random<T>(g?: IRandomGenerator): Resolved<T>;
 ```
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/src/IRandomGenerator.ts" 
+    <LocalSource 
+      path="src/IRandomGenerator.ts" 
       filename="typia/IRandomGenerator.ts" 
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/src/typings/Customizable.ts" 
+    <LocalSource 
+      path="src/typings/Customizable.ts" 
       filename="typia/Customizable.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/src/Resolved.ts" 
+    <LocalSource 
+      path="src/Resolved.ts" 
       filename="typia/Resolved.ts"
       showLineNumbers />
   </Tabs.Tab>
@@ -44,14 +44,14 @@ When you call the `typia.random<T>()` function, `typia` will analyze your type `
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/random/random.ts" 
+    <LocalSource 
+      path="examples/src/random/random.ts" 
       filename="examples/src/random/random.ts" 
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/random/random.js" 
+    <LocalSource 
+      path="examples/bin/random/random.js" 
       filename="examples/bin/random/random.js" 
       showLineNumbers />
   </Tabs.Tab>
@@ -71,20 +71,20 @@ export function createRandom<T>(): (g?: IRandomGenerator) => Resolved<T>;
 ```
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/src/IRandomGenerator.ts" 
+    <LocalSource 
+      path="src/IRandomGenerator.ts" 
       filename="typia/IRandomGenerator.ts" 
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/src/typings/Customizable.ts" 
+    <LocalSource 
+      path="src/typings/Customizable.ts" 
       filename="typia/Customizable.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/src/Resolved.ts" 
+    <LocalSource 
+      path="src/Resolved.ts" 
       filename="typia/Resolved.ts"
       showLineNumbers />
   </Tabs.Tab>
@@ -102,20 +102,20 @@ For reference, whether you choose [Type Tags](./validators/tags#type-tags) or [C
   'Compiled JavaScript File'
 ]}>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/random/random-tag.ts" 
+    <LocalSource 
+      path="examples/src/random/random-tag.ts" 
       filename="examples/src/random/random-tag.ts" 
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/random/random-comment-tag.ts" 
+    <LocalSource 
+      path="examples/src/random/random-comment-tag.ts" 
       filename="examples/src/random/random-comment-tag.ts" 
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/random/random-tag.js" 
+    <LocalSource 
+      path="examples/bin/random/random-tag.js" 
       filename="examples/bin/random/random-tag.js" 
       showLineNumbers />
   </Tabs.Tab>
@@ -135,20 +135,20 @@ export function random<T>(g?: IRandomGenerator): Resolved<T>;
 ```
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/src/IRandomGenerator.ts" 
+    <LocalSource 
+      path="src/IRandomGenerator.ts" 
       filename="typia/IRandomGenerator.ts" 
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/src/typings/Customizable.ts" 
+    <LocalSource 
+      path="src/typings/Customizable.ts" 
       filename="typia/Customizable.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/src/Resolved.ts" 
+    <LocalSource 
+      path="src/Resolved.ts" 
       filename="typia/Resolved.ts"
       showLineNumbers />
   </Tabs.Tab>
@@ -164,14 +164,14 @@ For reference, when defining custom type tag, `typia` enforces user to define `v
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/random/random-custom.ts" 
+    <LocalSource 
+      path="examples/src/random/random-custom.ts" 
       filename="examples/src/random/random-custom.ts" 
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/random/random-custom.js" 
+    <LocalSource 
+      path="examples/bin/random/random-custom.js" 
       filename="examples/bin/random/random-custom.js" 
       showLineNumbers />
   </Tabs.Tab>

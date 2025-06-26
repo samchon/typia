@@ -3,7 +3,7 @@ title: Guide Documents > Large Language Model > Documentation Strategy
 ---
 import { Callout, Tabs } from "nextra/components";
 
-import RemoteSource from "../../../components/RemoteSource";
+import LocalSource from "../../../components/LocalSource";
 
 ## Description Comment
 
@@ -13,15 +13,15 @@ import RemoteSource from "../../../components/RemoteSource";
   "Console Output"
 ]}>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/llm/application-description.ts"
+    <LocalSource 
+      path="examples/src/llm/application-description.ts"
       filename="example/src/llm/application-description.ts"
       showLineNumbers
       highlight="11, 15-17" />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/llm/application-description.js"
+    <LocalSource 
+      path="examples/bin/llm/application-description.js"
       filename="example/bin/llm/application-description.js"
       showLineNumbers />
   </Tabs.Tab>
@@ -42,8 +42,8 @@ Also, `ILlmFunction` type which has only `description` property about the commen
 
 If you don't want that, you can adapt the second way that writing `@title {string}` comment tag. In that case, the `title` value would not be contained in the `description` value. For reference, it is possible to fill the `description` property of the `ILlmSchema` by the comment tag `@description`, but you have to take care of the indentation like below.
 
-<RemoteSource 
-  url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/llm/IMember.ts"
+<LocalSource 
+  path="examples/src/llm/IMember.ts"
   filename="examples/src/llm/IMember.ts"
   showLineNumbers />
 
@@ -55,15 +55,15 @@ If you don't want that, you can adapt the second way that writing `@title {strin
   "Console Output"
 ]}>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/llm/application-namespace.ts"
+    <LocalSource 
+      path="examples/src/llm/application-namespace.ts"
       filename="example/src/llm/application-namespace.ts"
       showLineNumbers
       highlight="11, 13-18, 35-38, 65-70" />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/llm/application-namespace.js"
+    <LocalSource 
+      path="examples/bin/llm/application-namespace.js"
       filename="example/bin/llm/application-namespace.js"
       showLineNumbers />
   </Tabs.Tab>
@@ -97,15 +97,15 @@ In that case, the `IBbsArticle` type's description comment would be copied to th
     "Compiled JavaScript File",
   ]}>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/llm/application-hidden.ts"
+    <LocalSource 
+      path="examples/src/llm/application-hidden.ts"
       filename="example/src/llm/application-hidden.ts"
       showLineNumbers
       highlight="36, 52, 72" />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/llm/application-hidden.js"
+    <LocalSource 
+      path="examples/bin/llm/application-hidden.js"
       filename="example/bin/llm/application-hidden.js"
       showLineNumbers />
   </Tabs.Tab>
@@ -121,14 +121,14 @@ It's a good feature to hide some internal functions, so that avoiding the LLM fu
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-    <RemoteSource
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/llm/schema-special.ts"
+    <LocalSource
+      path="examples/src/llm/schema-special.ts"
       filename="example/src/llm/schema-special.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/llm/schema-special.js"
+    <LocalSource
+      path="examples/bin/llm/schema-special.js"
       filename="example/bin/llm/schema-special.js"
       showLineNumbers />
   </Tabs.Tab>
@@ -153,15 +153,15 @@ For reference, the custom property must be started with `x-` prefix. It's a rule
 
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/src/llm/schema-custom.ts"
+    <LocalSource 
+      path="examples/src/llm/schema-custom.ts"
       filename="example/src/llm/schema-custom.ts"
       showLineNumbers
       highlight="12-14, 18, 22-23" />
   </Tabs.Tab>
   <Tabs.Tab>
-    <RemoteSource 
-      url="https://raw.githubusercontent.com/samchon/typia/refs/heads/master/examples/bin/llm/schema-custom.js"
+    <LocalSource 
+      path="examples/bin/llm/schema-custom.js"
       filename="example/bin/llm/schema-custom.js"
       showLineNumbers
       highlight="7, 11" />
