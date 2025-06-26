@@ -205,7 +205,7 @@ const Playground = () => {
             }}
           >
             <OutputViewer
-              language={target}
+              language={output?.type === "error" ? "json" : target}
               width="100%"
               height="60%"
               value={

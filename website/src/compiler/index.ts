@@ -59,19 +59,19 @@ const main = async (): Promise<void> => {
       return result.type === "success"
         ? {
             type: "success",
-            target: "javascript",
+            target: "typescript",
             value: result.typescript["src/index.ts"],
           }
         : result.type === "failure"
           ? {
               type: "failure",
-              target: "javascript",
+              target: "typescript",
               value: result.typescript["src/index.ts"],
               diagnostics: result.diagnostics,
             }
           : {
               type: "error",
-              target: "javascript",
+              target: "typescript",
               value: result.error,
             };
     },
