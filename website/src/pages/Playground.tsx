@@ -7,7 +7,6 @@ import prettierEsTreePlugin from "prettier/plugins/estree";
 import prettierTsPlugin from "prettier/plugins/typescript";
 import { format } from "prettier/standalone";
 import React, { useEffect, useState } from "react";
-import ts from "typescript";
 import { Button } from "@mui/material";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import { version } from "../../../package.json";
@@ -17,18 +16,12 @@ import OutputViewer from "../components/playground/OutputViewer";
 import SourceEditor from "../components/playground/SourceEditor";
 import Splitter from "../components/playground/Splitter";
 import ConsoleViewer from "../components/playground/ConsoleViewer";
-import { ICompilerService } from "../compilers/ICompilerService";
+import { ICompilerService } from "../compiler/ICompilerService";
 import { Singleton } from "tstl";
 import { WorkerConnector } from "tgrid";
-import { COMPILER_OPTIONS } from "../compilers/COMPILER_OPTIONS";
-import { SCRIPT } from "../../raw/SCRIPT";
-import { RAW } from "../../raw/RAW";
-
-const createCompilerService = new Singleton(async () => {
-  const connector = new WorkerConnector(null, null);
-  await connector.connect("/compilers/index.js");
-  return connector.getDriver<ICompilerService>();
-});
+import { COMPILER_OPTIONS } from "../compiler/COMPILER_OPTIONS";
+import { PLAYGROUND_DEFAULT_SCRIPT } from "../components/playground/PLAYGROUND_DEFAULT_SCRIPT";
+import external from "../raw/external.json";
 
 const Playground = () => {
   const [source, setSource] = useState<string | null>(null);
@@ -47,18 +40,22 @@ const Playground = () => {
     );
     if (params.script) {
       const normalized = decompressFromEncodedURIComponent(params.script);
-      handleChange(normalized ?? SCRIPT);
-    } else handleChange(SCRIPT);
+      handleChange(normalized ?? PLAYGROUND_DEFAULT_SCRIPT);
+    } else handleChange(PLAYGROUND_DEFAULT_SCRIPT);
   }, []);
 
   const handleChange = async (code: string | undefined) => {
     setSource(code ?? "");
     const service = await createCompilerService.get();
-    const output: ICompilerService.IOutput = await service.compile(
-      target,
-      code ?? "",
-    );
-    if (code?.length && output.success && code !== SCRIPT)
+    const output: ICompilerService.IOutput =
+      target === "javascript"
+        ? await service.compile(code ?? "")
+        : await service.transform(code ?? "");
+    if (
+      code?.length &&
+      output.type === "success" &&
+      code !== PLAYGROUND_DEFAULT_SCRIPT
+    )
       window.history.replaceState(
         null,
         "Typia Playground",
@@ -72,17 +69,17 @@ const Playground = () => {
   const handleTarget = async (target: "typescript" | "javascript") => {
     setTarget(target);
     const service = await createCompilerService.get();
-    const output: ICompilerService.IOutput = await service.compile(
-      target,
-      source ?? "",
-    );
+    const output: ICompilerService.IOutput =
+      target === "javascript"
+        ? await service.compile(source ?? "")
+        : await service.transform(source ?? "");
     setBeautifiedOutput(output);
   };
 
   const setBeautifiedOutput = (output: ICompilerService.IOutput) => {
-    if (output.success === false) return setOutput(output);
+    if (output.type === "error") return setOutput(output);
     format(
-      output.content,
+      output.value,
       output.target === "javascript"
         ? {
             parser: "babel",
@@ -93,10 +90,10 @@ const Playground = () => {
             plugins: [prettierTsPlugin, prettierEsTreePlugin],
           },
     )
-      .then((content) => {
+      .then((value) => {
         setOutput({
           ...output,
-          content,
+          value,
         });
       })
       .catch(() => setOutput(output));
@@ -107,17 +104,17 @@ const Playground = () => {
     const compiled: ICompilerService.IOutput = await service.bundle(
       source ?? "",
     );
-    if (compiled.success === false)
+    if (compiled.type === "error")
       return setConsoleBox({
         messages: [
           {
             type: "error",
-            value: compiled.error,
+            value: compiled.value,
           },
         ],
       });
 
-    const func: Function = new Function("console", compiled.content);
+    const func: Function = new Function("console", compiled.value);
     const messages: ConsoleViewer.IMessage[] = [];
     func({
       error: (...args: any[]) => {
@@ -149,7 +146,10 @@ const Playground = () => {
         {source !== null && (
           <SourceEditor
             options={COMPILER_OPTIONS}
-            imports={RAW}
+            imports={Object.entries(external).map(([Key, value]) => [
+              `file:///${Key}`,
+              value,
+            ])}
             script={source}
             setScript={handleChange}
           />
@@ -208,43 +208,10 @@ const Playground = () => {
               language={target}
               width="100%"
               height="60%"
-              content={
-                output === null
-                  ? ""
-                  : output.success === true
-                    ? output.diagnostics.length
-                      ? output.diagnostics
-                          .map((diag) => {
-                            const file: string = "main.ts";
-                            const category: string =
-                              diag.category === ts.DiagnosticCategory.Warning
-                                ? "warning"
-                                : diag.category === ts.DiagnosticCategory.Error
-                                  ? "error"
-                                  : diag.category ===
-                                      ts.DiagnosticCategory.Suggestion
-                                    ? "suggestion"
-                                    : diag.category ===
-                                        ts.DiagnosticCategory.Message
-                                      ? "message"
-                                      : "unknown";
-                            const [line, pos] = diag.file
-                              ? (() => {
-                                  const lines: string[] = diag
-                                    .file!.text.substring(0, diag.start)
-                                    .split("\n");
-                                  if (lines.length === 0) return [0, 0];
-                                  return [
-                                    lines.length,
-                                    lines.at(-1)!.length + 1,
-                                  ];
-                                })()
-                              : [0, 0];
-                            return `${file}:${line}:${pos} - ${category} TS${diag.code}: ${diag.messageText}`;
-                          })
-                          .join("\n\n")
-                      : output.content
-                    : JSON.stringify(output.error, null, 2)
+              value={
+                output?.type === "error"
+                  ? JSON.stringify(output.value, null, 2)
+                  : (output?.value ?? "")
               }
             />
             <div
@@ -299,5 +266,11 @@ const Playground = () => {
     </div>
   );
 };
+
+const createCompilerService = new Singleton(async () => {
+  const connector = new WorkerConnector(null, null);
+  await connector.connect("/compiler/index.js");
+  return connector.getDriver<ICompilerService>();
+});
 
 export default Playground;
