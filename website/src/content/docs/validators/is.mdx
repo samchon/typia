@@ -38,13 +38,13 @@ Yeah, `typia` needs only pure TypeScript type. As `typia` is a compiler library,
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
     <LocalSource 
-      path="examples/src/validators/is.ts" 
+      path="website/examples/src/validators/is.ts" 
       filename="examples/src/validators/is.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource 
-      path="examples/bin/validators/is.js" 
+      path="website/examples/bin/validators/is.js" 
       filename="examples/bin/validators/is.js"
       showLineNumbers />
   </Tabs.Tab>
@@ -66,13 +66,13 @@ If you want to prohibit those superfluous properties, you can use `typia.equals<
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
     <LocalSource 
-      path="examples/src/validators/equals.ts" 
+      path="website/examples/src/validators/equals.ts" 
       filename="examples/src/validators/equals.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource 
-      path="examples/bin/validators/equals.js" 
+      path="website/examples/bin/validators/equals.js" 
       filename="examples/bin/validators/equals.js"
       showLineNumbers />
   </Tabs.Tab>
@@ -94,13 +94,13 @@ Just look at the code below, then you may understand how to use it.
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
     <LocalSource 
-      path="examples/src/validators/createIs.ts" 
+      path="website/examples/src/validators/createIs.ts" 
       filename="examples/src/validators/createIs.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource 
-      path="examples/bin/validators/createIs.js" 
+      path="website/examples/bin/validators/createIs.js" 
       filename="examples/bin/validators/createIs.js"
       showLineNumbers />
   </Tabs.Tab>
@@ -120,7 +120,7 @@ export function createEquals<T>(): (input: unknown) => input is T;
 When target `input` value is following the type `T`, therefore `true` value be returned, `typia.is<T>()` function automatically casts the `input` value to the type `T`. Therefore, you can utilize the `typia.is<T>()` function for safe type casting tool like below:
 
 <LocalSource 
-  path="examples/src/validators/is-cast.ts" 
+  path="website/examples/src/validators/is-cast.ts" 
   filename="examples/src/validators/is-cast.ts"
   showLineNumbers />
 
@@ -152,13 +152,13 @@ Therefore, the `instanceof` statement does not be used only for the user-defined
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
     <LocalSource 
-      path="examples/src/validators/is-map.ts" 
+      path="website/examples/src/validators/is-map.ts" 
       filename="examples/src/validators/is-map.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource 
-      path="examples/bin/validators/is-map.js" 
+      path="website/examples/bin/validators/is-map.js" 
       filename="examples/bin/validators/is-map.js"
       showLineNumbers />
   </Tabs.Tab>
@@ -181,13 +181,13 @@ If you want to know about such special tags detaily, read below article:
 <Tabs items={['TypeScript Source Code', 'Compiled JavaScript File']}>
   <Tabs.Tab>
     <LocalSource 
-      path="examples/src/validators/is-custom-tags.ts" 
+      path="website/examples/src/validators/is-custom-tags.ts" 
       filename="examples/src/validators/is-custom-tags.ts"
       showLineNumbers />
   </Tabs.Tab>
   <Tabs.Tab>
     <LocalSource 
-      path="examples/bin/validators/is-custom-tags.js" 
+      path="website/examples/bin/validators/is-custom-tags.js" 
       filename="examples/bin/validators/is-custom-tags.js"
       showLineNumbers />
   </Tabs.Tab>
