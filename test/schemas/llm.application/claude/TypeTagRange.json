@@ -1,7 +1,7 @@
 {
   "model": "claude",
   "options": {
-    "reference": false,
+    "reference": true,
     "separate": null
   },
   "functions": [
@@ -11,81 +11,86 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link TypeTagRange}",
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "array",
-                "items": {
-                  "description": "Current Type: {@link TypeTagRange.Type}",
-                  "type": "object",
-                  "properties": {
-                    "greater": {
-                      "type": "integer",
-                      "exclusiveMinimum": 3
-                    },
-                    "greater_equal": {
-                      "type": "integer",
-                      "minimum": 3
-                    },
-                    "less": {
-                      "type": "integer",
-                      "exclusiveMaximum": 7
-                    },
-                    "less_equal": {
-                      "type": "integer",
-                      "maximum": 7
-                    },
-                    "greater_less": {
-                      "type": "integer",
-                      "exclusiveMinimum": 3,
-                      "exclusiveMaximum": 7
-                    },
-                    "greater_equal_less": {
-                      "type": "integer",
-                      "minimum": 3,
-                      "exclusiveMaximum": 7
-                    },
-                    "greater_less_equal": {
-                      "type": "integer",
-                      "exclusiveMinimum": 3,
-                      "maximum": 7
-                    },
-                    "greater_equal_less_equal": {
-                      "type": "integer",
-                      "minimum": 3,
-                      "maximum": 7
-                    },
-                    "equal": {
-                      "type": "integer",
-                      "minimum": 10,
-                      "maximum": 10
-                    }
-                  },
-                  "required": [
-                    "greater",
-                    "greater_equal",
-                    "less",
-                    "less_equal",
-                    "greater_less",
-                    "greater_equal_less",
-                    "greater_less_equal",
-                    "greater_equal_less_equal",
-                    "equal"
-                  ]
-                }
-              }
-            },
-            "required": [
-              "value"
-            ]
+            "$ref": "#/$defs/TypeTagRange"
           }
         },
         "required": [
           "first"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "TypeTagRange": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/TypeTagRange.Type"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "TypeTagRange.Type": {
+            "type": "object",
+            "properties": {
+              "greater": {
+                "type": "integer",
+                "exclusiveMinimum": 3
+              },
+              "greater_equal": {
+                "type": "integer",
+                "minimum": 3
+              },
+              "less": {
+                "type": "integer",
+                "exclusiveMaximum": 7
+              },
+              "less_equal": {
+                "type": "integer",
+                "maximum": 7
+              },
+              "greater_less": {
+                "type": "integer",
+                "exclusiveMinimum": 3,
+                "exclusiveMaximum": 7
+              },
+              "greater_equal_less": {
+                "type": "integer",
+                "minimum": 3,
+                "exclusiveMaximum": 7
+              },
+              "greater_less_equal": {
+                "type": "integer",
+                "exclusiveMinimum": 3,
+                "maximum": 7
+              },
+              "greater_equal_less_equal": {
+                "type": "integer",
+                "minimum": 3,
+                "maximum": 7
+              },
+              "equal": {
+                "type": "integer",
+                "minimum": 10,
+                "maximum": 10
+              }
+            },
+            "required": [
+              "greater",
+              "greater_equal",
+              "less",
+              "less_equal",
+              "greater_less",
+              "greater_equal_less",
+              "greater_less_equal",
+              "greater_equal_less_equal",
+              "equal"
+            ]
+          }
+        }
       }
     },
     {
@@ -94,74 +99,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link TypeTagRange}",
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "array",
-                "items": {
-                  "description": "Current Type: {@link TypeTagRange.Type}",
-                  "type": "object",
-                  "properties": {
-                    "greater": {
-                      "type": "integer",
-                      "exclusiveMinimum": 3
-                    },
-                    "greater_equal": {
-                      "type": "integer",
-                      "minimum": 3
-                    },
-                    "less": {
-                      "type": "integer",
-                      "exclusiveMaximum": 7
-                    },
-                    "less_equal": {
-                      "type": "integer",
-                      "maximum": 7
-                    },
-                    "greater_less": {
-                      "type": "integer",
-                      "exclusiveMinimum": 3,
-                      "exclusiveMaximum": 7
-                    },
-                    "greater_equal_less": {
-                      "type": "integer",
-                      "minimum": 3,
-                      "exclusiveMaximum": 7
-                    },
-                    "greater_less_equal": {
-                      "type": "integer",
-                      "exclusiveMinimum": 3,
-                      "maximum": 7
-                    },
-                    "greater_equal_less_equal": {
-                      "type": "integer",
-                      "minimum": 3,
-                      "maximum": 7
-                    },
-                    "equal": {
-                      "type": "integer",
-                      "minimum": 10,
-                      "maximum": 10
-                    }
-                  },
-                  "required": [
-                    "greater",
-                    "greater_equal",
-                    "less",
-                    "less_equal",
-                    "greater_less",
-                    "greater_equal_less",
-                    "greater_less_equal",
-                    "greater_equal_less_equal",
-                    "equal"
-                  ]
-                }
-              }
-            },
-            "required": [
-              "value"
-            ]
+            "$ref": "#/$defs/TypeTagRange"
           },
           "second": {
             "oneOf": [
@@ -169,74 +107,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "description": "Current Type: {@link TypeTagRange.Type}",
-                      "type": "object",
-                      "properties": {
-                        "greater": {
-                          "type": "integer",
-                          "exclusiveMinimum": 3
-                        },
-                        "greater_equal": {
-                          "type": "integer",
-                          "minimum": 3
-                        },
-                        "less": {
-                          "type": "integer",
-                          "exclusiveMaximum": 7
-                        },
-                        "less_equal": {
-                          "type": "integer",
-                          "maximum": 7
-                        },
-                        "greater_less": {
-                          "type": "integer",
-                          "exclusiveMinimum": 3,
-                          "exclusiveMaximum": 7
-                        },
-                        "greater_equal_less": {
-                          "type": "integer",
-                          "minimum": 3,
-                          "exclusiveMaximum": 7
-                        },
-                        "greater_less_equal": {
-                          "type": "integer",
-                          "exclusiveMinimum": 3,
-                          "maximum": 7
-                        },
-                        "greater_equal_less_equal": {
-                          "type": "integer",
-                          "minimum": 3,
-                          "maximum": 7
-                        },
-                        "equal": {
-                          "type": "integer",
-                          "minimum": 10,
-                          "maximum": 10
-                        }
-                      },
-                      "required": [
-                        "greater",
-                        "greater_equal",
-                        "less",
-                        "less_equal",
-                        "greater_less",
-                        "greater_equal_less",
-                        "greater_less_equal",
-                        "greater_equal_less_equal",
-                        "equal"
-                      ]
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "description": "Current Type: {@link TypeTagRange}"
+                "$ref": "#/$defs/TypeTagRange"
               }
             ]
           }
@@ -246,77 +117,82 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "TypeTagRange": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/TypeTagRange.Type"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "TypeTagRange.Type": {
+            "type": "object",
+            "properties": {
+              "greater": {
+                "type": "integer",
+                "exclusiveMinimum": 3
+              },
+              "greater_equal": {
+                "type": "integer",
+                "minimum": 3
+              },
+              "less": {
+                "type": "integer",
+                "exclusiveMaximum": 7
+              },
+              "less_equal": {
+                "type": "integer",
+                "maximum": 7
+              },
+              "greater_less": {
+                "type": "integer",
+                "exclusiveMinimum": 3,
+                "exclusiveMaximum": 7
+              },
+              "greater_equal_less": {
+                "type": "integer",
+                "minimum": 3,
+                "exclusiveMaximum": 7
+              },
+              "greater_less_equal": {
+                "type": "integer",
+                "exclusiveMinimum": 3,
+                "maximum": 7
+              },
+              "greater_equal_less_equal": {
+                "type": "integer",
+                "minimum": 3,
+                "maximum": 7
+              },
+              "equal": {
+                "type": "integer",
+                "minimum": 10,
+                "maximum": 10
+              }
+            },
+            "required": [
+              "greater",
+              "greater_equal",
+              "less",
+              "less_equal",
+              "greater_less",
+              "greater_equal_less",
+              "greater_less_equal",
+              "greater_equal_less_equal",
+              "equal"
+            ]
+          }
+        }
       },
       "output": {
-        "description": "Current Type: {@link TypeTagRange}",
-        "type": "object",
-        "properties": {
-          "value": {
-            "type": "array",
-            "items": {
-              "description": "Current Type: {@link TypeTagRange.Type}",
-              "type": "object",
-              "properties": {
-                "greater": {
-                  "type": "integer",
-                  "exclusiveMinimum": 3
-                },
-                "greater_equal": {
-                  "type": "integer",
-                  "minimum": 3
-                },
-                "less": {
-                  "type": "integer",
-                  "exclusiveMaximum": 7
-                },
-                "less_equal": {
-                  "type": "integer",
-                  "maximum": 7
-                },
-                "greater_less": {
-                  "type": "integer",
-                  "exclusiveMinimum": 3,
-                  "exclusiveMaximum": 7
-                },
-                "greater_equal_less": {
-                  "type": "integer",
-                  "minimum": 3,
-                  "exclusiveMaximum": 7
-                },
-                "greater_less_equal": {
-                  "type": "integer",
-                  "exclusiveMinimum": 3,
-                  "maximum": 7
-                },
-                "greater_equal_less_equal": {
-                  "type": "integer",
-                  "minimum": 3,
-                  "maximum": 7
-                },
-                "equal": {
-                  "type": "integer",
-                  "minimum": 10,
-                  "maximum": 10
-                }
-              },
-              "required": [
-                "greater",
-                "greater_equal",
-                "less",
-                "less_equal",
-                "greater_less",
-                "greater_equal_less",
-                "greater_less_equal",
-                "greater_equal_less_equal",
-                "equal"
-              ]
-            }
-          }
-        },
-        "required": [
-          "value"
-        ]
+        "$ref": "#/$defs/TypeTagRange"
       }
     },
     {
@@ -330,74 +206,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "description": "Current Type: {@link TypeTagRange.Type}",
-                      "type": "object",
-                      "properties": {
-                        "greater": {
-                          "type": "integer",
-                          "exclusiveMinimum": 3
-                        },
-                        "greater_equal": {
-                          "type": "integer",
-                          "minimum": 3
-                        },
-                        "less": {
-                          "type": "integer",
-                          "exclusiveMaximum": 7
-                        },
-                        "less_equal": {
-                          "type": "integer",
-                          "maximum": 7
-                        },
-                        "greater_less": {
-                          "type": "integer",
-                          "exclusiveMinimum": 3,
-                          "exclusiveMaximum": 7
-                        },
-                        "greater_equal_less": {
-                          "type": "integer",
-                          "minimum": 3,
-                          "exclusiveMaximum": 7
-                        },
-                        "greater_less_equal": {
-                          "type": "integer",
-                          "exclusiveMinimum": 3,
-                          "maximum": 7
-                        },
-                        "greater_equal_less_equal": {
-                          "type": "integer",
-                          "minimum": 3,
-                          "maximum": 7
-                        },
-                        "equal": {
-                          "type": "integer",
-                          "minimum": 10,
-                          "maximum": 10
-                        }
-                      },
-                      "required": [
-                        "greater",
-                        "greater_equal",
-                        "less",
-                        "less_equal",
-                        "greater_less",
-                        "greater_equal_less",
-                        "greater_less_equal",
-                        "greater_equal_less_equal",
-                        "equal"
-                      ]
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "description": "Current Type: {@link TypeTagRange}"
+                "$ref": "#/$defs/TypeTagRange"
               }
             ]
           },
@@ -407,74 +216,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "description": "Current Type: {@link TypeTagRange.Type}",
-                      "type": "object",
-                      "properties": {
-                        "greater": {
-                          "type": "integer",
-                          "exclusiveMinimum": 3
-                        },
-                        "greater_equal": {
-                          "type": "integer",
-                          "minimum": 3
-                        },
-                        "less": {
-                          "type": "integer",
-                          "exclusiveMaximum": 7
-                        },
-                        "less_equal": {
-                          "type": "integer",
-                          "maximum": 7
-                        },
-                        "greater_less": {
-                          "type": "integer",
-                          "exclusiveMinimum": 3,
-                          "exclusiveMaximum": 7
-                        },
-                        "greater_equal_less": {
-                          "type": "integer",
-                          "minimum": 3,
-                          "exclusiveMaximum": 7
-                        },
-                        "greater_less_equal": {
-                          "type": "integer",
-                          "exclusiveMinimum": 3,
-                          "maximum": 7
-                        },
-                        "greater_equal_less_equal": {
-                          "type": "integer",
-                          "minimum": 3,
-                          "maximum": 7
-                        },
-                        "equal": {
-                          "type": "integer",
-                          "minimum": 10,
-                          "maximum": 10
-                        }
-                      },
-                      "required": [
-                        "greater",
-                        "greater_equal",
-                        "less",
-                        "less_equal",
-                        "greater_less",
-                        "greater_equal_less",
-                        "greater_less_equal",
-                        "greater_equal_less_equal",
-                        "equal"
-                      ]
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "description": "Current Type: {@link TypeTagRange}"
+                "$ref": "#/$defs/TypeTagRange"
               }
             ]
           },
@@ -484,74 +226,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "description": "Current Type: {@link TypeTagRange.Type}",
-                      "type": "object",
-                      "properties": {
-                        "greater": {
-                          "type": "integer",
-                          "exclusiveMinimum": 3
-                        },
-                        "greater_equal": {
-                          "type": "integer",
-                          "minimum": 3
-                        },
-                        "less": {
-                          "type": "integer",
-                          "exclusiveMaximum": 7
-                        },
-                        "less_equal": {
-                          "type": "integer",
-                          "maximum": 7
-                        },
-                        "greater_less": {
-                          "type": "integer",
-                          "exclusiveMinimum": 3,
-                          "exclusiveMaximum": 7
-                        },
-                        "greater_equal_less": {
-                          "type": "integer",
-                          "minimum": 3,
-                          "exclusiveMaximum": 7
-                        },
-                        "greater_less_equal": {
-                          "type": "integer",
-                          "exclusiveMinimum": 3,
-                          "maximum": 7
-                        },
-                        "greater_equal_less_equal": {
-                          "type": "integer",
-                          "minimum": 3,
-                          "maximum": 7
-                        },
-                        "equal": {
-                          "type": "integer",
-                          "minimum": 10,
-                          "maximum": 10
-                        }
-                      },
-                      "required": [
-                        "greater",
-                        "greater_equal",
-                        "less",
-                        "less_equal",
-                        "greater_less",
-                        "greater_equal_less",
-                        "greater_less_equal",
-                        "greater_equal_less_equal",
-                        "equal"
-                      ]
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "description": "Current Type: {@link TypeTagRange}"
+                "$ref": "#/$defs/TypeTagRange"
               }
             ]
           }
@@ -561,7 +236,79 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "TypeTagRange": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/TypeTagRange.Type"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "TypeTagRange.Type": {
+            "type": "object",
+            "properties": {
+              "greater": {
+                "type": "integer",
+                "exclusiveMinimum": 3
+              },
+              "greater_equal": {
+                "type": "integer",
+                "minimum": 3
+              },
+              "less": {
+                "type": "integer",
+                "exclusiveMaximum": 7
+              },
+              "less_equal": {
+                "type": "integer",
+                "maximum": 7
+              },
+              "greater_less": {
+                "type": "integer",
+                "exclusiveMinimum": 3,
+                "exclusiveMaximum": 7
+              },
+              "greater_equal_less": {
+                "type": "integer",
+                "minimum": 3,
+                "exclusiveMaximum": 7
+              },
+              "greater_less_equal": {
+                "type": "integer",
+                "exclusiveMinimum": 3,
+                "maximum": 7
+              },
+              "greater_equal_less_equal": {
+                "type": "integer",
+                "minimum": 3,
+                "maximum": 7
+              },
+              "equal": {
+                "type": "integer",
+                "minimum": 10,
+                "maximum": 10
+              }
+            },
+            "required": [
+              "greater",
+              "greater_equal",
+              "less",
+              "less_equal",
+              "greater_less",
+              "greater_equal_less",
+              "greater_less_equal",
+              "greater_equal_less_equal",
+              "equal"
+            ]
+          }
+        }
       },
       "output": {
         "oneOf": [
@@ -569,74 +316,7 @@
             "type": "null"
           },
           {
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "array",
-                "items": {
-                  "description": "Current Type: {@link TypeTagRange.Type}",
-                  "type": "object",
-                  "properties": {
-                    "greater": {
-                      "type": "integer",
-                      "exclusiveMinimum": 3
-                    },
-                    "greater_equal": {
-                      "type": "integer",
-                      "minimum": 3
-                    },
-                    "less": {
-                      "type": "integer",
-                      "exclusiveMaximum": 7
-                    },
-                    "less_equal": {
-                      "type": "integer",
-                      "maximum": 7
-                    },
-                    "greater_less": {
-                      "type": "integer",
-                      "exclusiveMinimum": 3,
-                      "exclusiveMaximum": 7
-                    },
-                    "greater_equal_less": {
-                      "type": "integer",
-                      "minimum": 3,
-                      "exclusiveMaximum": 7
-                    },
-                    "greater_less_equal": {
-                      "type": "integer",
-                      "exclusiveMinimum": 3,
-                      "maximum": 7
-                    },
-                    "greater_equal_less_equal": {
-                      "type": "integer",
-                      "minimum": 3,
-                      "maximum": 7
-                    },
-                    "equal": {
-                      "type": "integer",
-                      "minimum": 10,
-                      "maximum": 10
-                    }
-                  },
-                  "required": [
-                    "greater",
-                    "greater_equal",
-                    "less",
-                    "less_equal",
-                    "greater_less",
-                    "greater_equal_less",
-                    "greater_less_equal",
-                    "greater_equal_less_equal",
-                    "equal"
-                  ]
-                }
-              }
-            },
-            "required": [
-              "value"
-            ],
-            "description": "Current Type: {@link TypeTagRange}"
+            "$ref": "#/$defs/TypeTagRange"
           }
         ]
       }

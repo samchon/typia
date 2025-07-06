@@ -1,8 +1,8 @@
 {
   "model": "3.1",
   "options": {
+    "reference": true,
     "constraint": true,
-    "reference": false,
     "separate": null
   },
   "functions": [
@@ -12,7 +12,15 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link ObjectLiteralProperty.ISomething}",
+            "$ref": "#/$defs/ObjectLiteralProperty.ISomething"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ObjectLiteralProperty.ISomething": {
             "type": "object",
             "properties": {
               "something-interesting-do-you-want?": {
@@ -27,12 +35,7 @@
               "or-something-crazy-do-you-want?"
             ]
           }
-        },
-        "required": [
-          "first"
-        ],
-        "additionalProperties": false,
-        "$defs": {}
+        }
       }
     },
     {
@@ -41,20 +44,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link ObjectLiteralProperty.ISomething}",
-            "type": "object",
-            "properties": {
-              "something-interesting-do-you-want?": {
-                "type": "string"
-              },
-              "or-something-crazy-do-you-want?": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "something-interesting-do-you-want?",
-              "or-something-crazy-do-you-want?"
-            ]
+            "$ref": "#/$defs/ObjectLiteralProperty.ISomething"
           },
           "second": {
             "oneOf": [
@@ -62,20 +52,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "something-interesting-do-you-want?": {
-                    "type": "string"
-                  },
-                  "or-something-crazy-do-you-want?": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "something-interesting-do-you-want?",
-                  "or-something-crazy-do-you-want?"
-                ],
-                "description": "Current Type: {@link ObjectLiteralProperty.ISomething}"
+                "$ref": "#/$defs/ObjectLiteralProperty.ISomething"
               }
             ]
           }
@@ -85,23 +62,26 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "ObjectLiteralProperty.ISomething": {
+            "type": "object",
+            "properties": {
+              "something-interesting-do-you-want?": {
+                "type": "string"
+              },
+              "or-something-crazy-do-you-want?": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "something-interesting-do-you-want?",
+              "or-something-crazy-do-you-want?"
+            ]
+          }
+        }
       },
       "output": {
-        "description": "Current Type: {@link ObjectLiteralProperty.ISomething}",
-        "type": "object",
-        "properties": {
-          "something-interesting-do-you-want?": {
-            "type": "string"
-          },
-          "or-something-crazy-do-you-want?": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "something-interesting-do-you-want?",
-          "or-something-crazy-do-you-want?"
-        ]
+        "$ref": "#/$defs/ObjectLiteralProperty.ISomething"
       }
     },
     {
@@ -115,20 +95,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "something-interesting-do-you-want?": {
-                    "type": "string"
-                  },
-                  "or-something-crazy-do-you-want?": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "something-interesting-do-you-want?",
-                  "or-something-crazy-do-you-want?"
-                ],
-                "description": "Current Type: {@link ObjectLiteralProperty.ISomething}"
+                "$ref": "#/$defs/ObjectLiteralProperty.ISomething"
               }
             ]
           },
@@ -138,20 +105,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "something-interesting-do-you-want?": {
-                    "type": "string"
-                  },
-                  "or-something-crazy-do-you-want?": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "something-interesting-do-you-want?",
-                  "or-something-crazy-do-you-want?"
-                ],
-                "description": "Current Type: {@link ObjectLiteralProperty.ISomething}"
+                "$ref": "#/$defs/ObjectLiteralProperty.ISomething"
               }
             ]
           },
@@ -161,20 +115,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "something-interesting-do-you-want?": {
-                    "type": "string"
-                  },
-                  "or-something-crazy-do-you-want?": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "something-interesting-do-you-want?",
-                  "or-something-crazy-do-you-want?"
-                ],
-                "description": "Current Type: {@link ObjectLiteralProperty.ISomething}"
+                "$ref": "#/$defs/ObjectLiteralProperty.ISomething"
               }
             ]
           }
@@ -184,14 +125,8 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "oneOf": [
-          {
-            "type": "null"
-          },
-          {
+        "$defs": {
+          "ObjectLiteralProperty.ISomething": {
             "type": "object",
             "properties": {
               "something-interesting-do-you-want?": {
@@ -204,8 +139,17 @@
             "required": [
               "something-interesting-do-you-want?",
               "or-something-crazy-do-you-want?"
-            ],
-            "description": "Current Type: {@link ObjectLiteralProperty.ISomething}"
+            ]
+          }
+        }
+      },
+      "output": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/ObjectLiteralProperty.ISomething"
           }
         ]
       }

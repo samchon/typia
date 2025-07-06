@@ -1,8 +1,8 @@
 {
   "model": "3.1",
   "options": {
+    "reference": true,
     "constraint": true,
-    "reference": false,
     "separate": null
   },
   "functions": [
@@ -12,116 +12,112 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link ObjectNullable}",
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "array",
-                "items": {
-                  "description": "Current Type: {@link ObjectNullable.IProduct}",
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string"
-                    },
-                    "manufacturer": {
-                      "description": "Current Type: {@link ObjectNullable.IManufacturer}",
-                      "type": "object",
-                      "properties": {
-                        "type": {
-                          "const": "manufacturer"
-                        },
-                        "name": {
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "type",
-                        "name"
-                      ]
-                    },
-                    "brand": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "type": {
-                              "const": "brand"
-                            },
-                            "name": {
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "type",
-                            "name"
-                          ],
-                          "description": "Current Type: {@link ObjectNullable.IBrand}"
-                        }
-                      ]
-                    },
-                    "similar": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "type": {
-                              "const": "brand"
-                            },
-                            "name": {
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "type",
-                            "name"
-                          ],
-                          "description": "Current Type: {@link ObjectNullable.IBrand}"
-                        },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "type": {
-                              "const": "manufacturer"
-                            },
-                            "name": {
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "type",
-                            "name"
-                          ],
-                          "description": "Current Type: {@link ObjectNullable.IManufacturer}"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "name",
-                    "manufacturer",
-                    "brand",
-                    "similar"
-                  ]
-                }
-              }
-            },
-            "required": [
-              "value"
-            ]
+            "$ref": "#/$defs/ObjectNullable"
           }
         },
         "required": [
           "first"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "ObjectNullable": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectNullable.IProduct"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "ObjectNullable.IProduct": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "manufacturer": {
+                "$ref": "#/$defs/ObjectNullable.IManufacturer"
+              },
+              "brand": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/$defs/ObjectNullable.IBrand"
+                  }
+                ],
+                "discriminator": {
+                  "propertyName": "type",
+                  "mapping": {
+                    "brand": "#/$defs/ObjectNullable.IBrand"
+                  }
+                }
+              },
+              "similar": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/$defs/ObjectNullable.IBrand"
+                  },
+                  {
+                    "$ref": "#/$defs/ObjectNullable.IManufacturer"
+                  }
+                ],
+                "discriminator": {
+                  "propertyName": "type",
+                  "mapping": {
+                    "brand": "#/$defs/ObjectNullable.IBrand",
+                    "manufacturer": "#/$defs/ObjectNullable.IManufacturer"
+                  }
+                }
+              }
+            },
+            "required": [
+              "name",
+              "manufacturer",
+              "brand",
+              "similar"
+            ]
+          },
+          "ObjectNullable.IManufacturer": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "manufacturer"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "type",
+              "name"
+            ]
+          },
+          "ObjectNullable.IBrand": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "brand"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "type",
+              "name"
+            ]
+          }
+        }
       }
     },
     {
@@ -130,109 +126,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link ObjectNullable}",
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "array",
-                "items": {
-                  "description": "Current Type: {@link ObjectNullable.IProduct}",
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string"
-                    },
-                    "manufacturer": {
-                      "description": "Current Type: {@link ObjectNullable.IManufacturer}",
-                      "type": "object",
-                      "properties": {
-                        "type": {
-                          "const": "manufacturer"
-                        },
-                        "name": {
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "type",
-                        "name"
-                      ]
-                    },
-                    "brand": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "type": {
-                              "const": "brand"
-                            },
-                            "name": {
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "type",
-                            "name"
-                          ],
-                          "description": "Current Type: {@link ObjectNullable.IBrand}"
-                        }
-                      ]
-                    },
-                    "similar": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "type": {
-                              "const": "brand"
-                            },
-                            "name": {
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "type",
-                            "name"
-                          ],
-                          "description": "Current Type: {@link ObjectNullable.IBrand}"
-                        },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "type": {
-                              "const": "manufacturer"
-                            },
-                            "name": {
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "type",
-                            "name"
-                          ],
-                          "description": "Current Type: {@link ObjectNullable.IManufacturer}"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "name",
-                    "manufacturer",
-                    "brand",
-                    "similar"
-                  ]
-                }
-              }
-            },
-            "required": [
-              "value"
-            ]
+            "$ref": "#/$defs/ObjectNullable"
           },
           "second": {
             "oneOf": [
@@ -240,109 +134,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "description": "Current Type: {@link ObjectNullable.IProduct}",
-                      "type": "object",
-                      "properties": {
-                        "name": {
-                          "type": "string"
-                        },
-                        "manufacturer": {
-                          "description": "Current Type: {@link ObjectNullable.IManufacturer}",
-                          "type": "object",
-                          "properties": {
-                            "type": {
-                              "const": "manufacturer"
-                            },
-                            "name": {
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "type",
-                            "name"
-                          ]
-                        },
-                        "brand": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "const": "brand"
-                                },
-                                "name": {
-                                  "type": "string"
-                                }
-                              },
-                              "required": [
-                                "type",
-                                "name"
-                              ],
-                              "description": "Current Type: {@link ObjectNullable.IBrand}"
-                            }
-                          ]
-                        },
-                        "similar": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "const": "brand"
-                                },
-                                "name": {
-                                  "type": "string"
-                                }
-                              },
-                              "required": [
-                                "type",
-                                "name"
-                              ],
-                              "description": "Current Type: {@link ObjectNullable.IBrand}"
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "const": "manufacturer"
-                                },
-                                "name": {
-                                  "type": "string"
-                                }
-                              },
-                              "required": [
-                                "type",
-                                "name"
-                              ],
-                              "description": "Current Type: {@link ObjectNullable.IManufacturer}"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "name",
-                        "manufacturer",
-                        "brand",
-                        "similar"
-                      ]
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "description": "Current Type: {@link ObjectNullable}"
+                "$ref": "#/$defs/ObjectNullable"
               }
             ]
           }
@@ -352,112 +144,108 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "description": "Current Type: {@link ObjectNullable}",
-        "type": "object",
-        "properties": {
-          "value": {
-            "type": "array",
-            "items": {
-              "description": "Current Type: {@link ObjectNullable.IProduct}",
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string"
-                },
-                "manufacturer": {
-                  "description": "Current Type: {@link ObjectNullable.IManufacturer}",
-                  "type": "object",
-                  "properties": {
-                    "type": {
-                      "const": "manufacturer"
-                    },
-                    "name": {
-                      "type": "string"
-                    }
+        "$defs": {
+          "ObjectNullable": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectNullable.IProduct"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "ObjectNullable.IProduct": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "manufacturer": {
+                "$ref": "#/$defs/ObjectNullable.IManufacturer"
+              },
+              "brand": {
+                "oneOf": [
+                  {
+                    "type": "null"
                   },
-                  "required": [
-                    "type",
-                    "name"
-                  ]
-                },
-                "brand": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "type": {
-                          "const": "brand"
-                        },
-                        "name": {
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "type",
-                        "name"
-                      ],
-                      "description": "Current Type: {@link ObjectNullable.IBrand}"
-                    }
-                  ]
-                },
-                "similar": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "type": {
-                          "const": "brand"
-                        },
-                        "name": {
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "type",
-                        "name"
-                      ],
-                      "description": "Current Type: {@link ObjectNullable.IBrand}"
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "type": {
-                          "const": "manufacturer"
-                        },
-                        "name": {
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "type",
-                        "name"
-                      ],
-                      "description": "Current Type: {@link ObjectNullable.IManufacturer}"
-                    }
-                  ]
+                  {
+                    "$ref": "#/$defs/ObjectNullable.IBrand"
+                  }
+                ],
+                "discriminator": {
+                  "propertyName": "type",
+                  "mapping": {
+                    "brand": "#/$defs/ObjectNullable.IBrand"
+                  }
                 }
               },
-              "required": [
-                "name",
-                "manufacturer",
-                "brand",
-                "similar"
-              ]
-            }
+              "similar": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/$defs/ObjectNullable.IBrand"
+                  },
+                  {
+                    "$ref": "#/$defs/ObjectNullable.IManufacturer"
+                  }
+                ],
+                "discriminator": {
+                  "propertyName": "type",
+                  "mapping": {
+                    "brand": "#/$defs/ObjectNullable.IBrand",
+                    "manufacturer": "#/$defs/ObjectNullable.IManufacturer"
+                  }
+                }
+              }
+            },
+            "required": [
+              "name",
+              "manufacturer",
+              "brand",
+              "similar"
+            ]
+          },
+          "ObjectNullable.IManufacturer": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "manufacturer"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "type",
+              "name"
+            ]
+          },
+          "ObjectNullable.IBrand": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "brand"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "type",
+              "name"
+            ]
           }
-        },
-        "required": [
-          "value"
-        ]
+        }
+      },
+      "output": {
+        "$ref": "#/$defs/ObjectNullable"
       }
     },
     {
@@ -471,109 +259,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "description": "Current Type: {@link ObjectNullable.IProduct}",
-                      "type": "object",
-                      "properties": {
-                        "name": {
-                          "type": "string"
-                        },
-                        "manufacturer": {
-                          "description": "Current Type: {@link ObjectNullable.IManufacturer}",
-                          "type": "object",
-                          "properties": {
-                            "type": {
-                              "const": "manufacturer"
-                            },
-                            "name": {
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "type",
-                            "name"
-                          ]
-                        },
-                        "brand": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "const": "brand"
-                                },
-                                "name": {
-                                  "type": "string"
-                                }
-                              },
-                              "required": [
-                                "type",
-                                "name"
-                              ],
-                              "description": "Current Type: {@link ObjectNullable.IBrand}"
-                            }
-                          ]
-                        },
-                        "similar": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "const": "brand"
-                                },
-                                "name": {
-                                  "type": "string"
-                                }
-                              },
-                              "required": [
-                                "type",
-                                "name"
-                              ],
-                              "description": "Current Type: {@link ObjectNullable.IBrand}"
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "const": "manufacturer"
-                                },
-                                "name": {
-                                  "type": "string"
-                                }
-                              },
-                              "required": [
-                                "type",
-                                "name"
-                              ],
-                              "description": "Current Type: {@link ObjectNullable.IManufacturer}"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "name",
-                        "manufacturer",
-                        "brand",
-                        "similar"
-                      ]
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "description": "Current Type: {@link ObjectNullable}"
+                "$ref": "#/$defs/ObjectNullable"
               }
             ]
           },
@@ -583,109 +269,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "description": "Current Type: {@link ObjectNullable.IProduct}",
-                      "type": "object",
-                      "properties": {
-                        "name": {
-                          "type": "string"
-                        },
-                        "manufacturer": {
-                          "description": "Current Type: {@link ObjectNullable.IManufacturer}",
-                          "type": "object",
-                          "properties": {
-                            "type": {
-                              "const": "manufacturer"
-                            },
-                            "name": {
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "type",
-                            "name"
-                          ]
-                        },
-                        "brand": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "const": "brand"
-                                },
-                                "name": {
-                                  "type": "string"
-                                }
-                              },
-                              "required": [
-                                "type",
-                                "name"
-                              ],
-                              "description": "Current Type: {@link ObjectNullable.IBrand}"
-                            }
-                          ]
-                        },
-                        "similar": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "const": "brand"
-                                },
-                                "name": {
-                                  "type": "string"
-                                }
-                              },
-                              "required": [
-                                "type",
-                                "name"
-                              ],
-                              "description": "Current Type: {@link ObjectNullable.IBrand}"
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "const": "manufacturer"
-                                },
-                                "name": {
-                                  "type": "string"
-                                }
-                              },
-                              "required": [
-                                "type",
-                                "name"
-                              ],
-                              "description": "Current Type: {@link ObjectNullable.IManufacturer}"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "name",
-                        "manufacturer",
-                        "brand",
-                        "similar"
-                      ]
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "description": "Current Type: {@link ObjectNullable}"
+                "$ref": "#/$defs/ObjectNullable"
               }
             ]
           },
@@ -695,109 +279,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "description": "Current Type: {@link ObjectNullable.IProduct}",
-                      "type": "object",
-                      "properties": {
-                        "name": {
-                          "type": "string"
-                        },
-                        "manufacturer": {
-                          "description": "Current Type: {@link ObjectNullable.IManufacturer}",
-                          "type": "object",
-                          "properties": {
-                            "type": {
-                              "const": "manufacturer"
-                            },
-                            "name": {
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "type",
-                            "name"
-                          ]
-                        },
-                        "brand": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "const": "brand"
-                                },
-                                "name": {
-                                  "type": "string"
-                                }
-                              },
-                              "required": [
-                                "type",
-                                "name"
-                              ],
-                              "description": "Current Type: {@link ObjectNullable.IBrand}"
-                            }
-                          ]
-                        },
-                        "similar": {
-                          "oneOf": [
-                            {
-                              "type": "null"
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "const": "brand"
-                                },
-                                "name": {
-                                  "type": "string"
-                                }
-                              },
-                              "required": [
-                                "type",
-                                "name"
-                              ],
-                              "description": "Current Type: {@link ObjectNullable.IBrand}"
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "type": {
-                                  "const": "manufacturer"
-                                },
-                                "name": {
-                                  "type": "string"
-                                }
-                              },
-                              "required": [
-                                "type",
-                                "name"
-                              ],
-                              "description": "Current Type: {@link ObjectNullable.IManufacturer}"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "name",
-                        "manufacturer",
-                        "brand",
-                        "similar"
-                      ]
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "description": "Current Type: {@link ObjectNullable}"
+                "$ref": "#/$defs/ObjectNullable"
               }
             ]
           }
@@ -807,7 +289,105 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "ObjectNullable": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectNullable.IProduct"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "ObjectNullable.IProduct": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "manufacturer": {
+                "$ref": "#/$defs/ObjectNullable.IManufacturer"
+              },
+              "brand": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/$defs/ObjectNullable.IBrand"
+                  }
+                ],
+                "discriminator": {
+                  "propertyName": "type",
+                  "mapping": {
+                    "brand": "#/$defs/ObjectNullable.IBrand"
+                  }
+                }
+              },
+              "similar": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/$defs/ObjectNullable.IBrand"
+                  },
+                  {
+                    "$ref": "#/$defs/ObjectNullable.IManufacturer"
+                  }
+                ],
+                "discriminator": {
+                  "propertyName": "type",
+                  "mapping": {
+                    "brand": "#/$defs/ObjectNullable.IBrand",
+                    "manufacturer": "#/$defs/ObjectNullable.IManufacturer"
+                  }
+                }
+              }
+            },
+            "required": [
+              "name",
+              "manufacturer",
+              "brand",
+              "similar"
+            ]
+          },
+          "ObjectNullable.IManufacturer": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "manufacturer"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "type",
+              "name"
+            ]
+          },
+          "ObjectNullable.IBrand": {
+            "type": "object",
+            "properties": {
+              "type": {
+                "const": "brand"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "type",
+              "name"
+            ]
+          }
+        }
       },
       "output": {
         "oneOf": [
@@ -815,109 +395,7 @@
             "type": "null"
           },
           {
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "array",
-                "items": {
-                  "description": "Current Type: {@link ObjectNullable.IProduct}",
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string"
-                    },
-                    "manufacturer": {
-                      "description": "Current Type: {@link ObjectNullable.IManufacturer}",
-                      "type": "object",
-                      "properties": {
-                        "type": {
-                          "const": "manufacturer"
-                        },
-                        "name": {
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "type",
-                        "name"
-                      ]
-                    },
-                    "brand": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "type": {
-                              "const": "brand"
-                            },
-                            "name": {
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "type",
-                            "name"
-                          ],
-                          "description": "Current Type: {@link ObjectNullable.IBrand}"
-                        }
-                      ]
-                    },
-                    "similar": {
-                      "oneOf": [
-                        {
-                          "type": "null"
-                        },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "type": {
-                              "const": "brand"
-                            },
-                            "name": {
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "type",
-                            "name"
-                          ],
-                          "description": "Current Type: {@link ObjectNullable.IBrand}"
-                        },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "type": {
-                              "const": "manufacturer"
-                            },
-                            "name": {
-                              "type": "string"
-                            }
-                          },
-                          "required": [
-                            "type",
-                            "name"
-                          ],
-                          "description": "Current Type: {@link ObjectNullable.IManufacturer}"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "name",
-                    "manufacturer",
-                    "brand",
-                    "similar"
-                  ]
-                }
-              }
-            },
-            "required": [
-              "value"
-            ],
-            "description": "Current Type: {@link ObjectNullable}"
+            "$ref": "#/$defs/ObjectNullable"
           }
         ]
       }

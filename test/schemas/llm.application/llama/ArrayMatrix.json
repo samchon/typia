@@ -1,7 +1,7 @@
 {
   "model": "llama",
   "options": {
-    "reference": false,
+    "reference": true,
     "separate": null
   },
   "functions": [
@@ -11,7 +11,15 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link ArrayMatrix}",
+            "$ref": "#/$defs/ArrayMatrix"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ArrayMatrix": {
             "type": "array",
             "items": {
               "type": "array",
@@ -23,12 +31,7 @@
               }
             }
           }
-        },
-        "required": [
-          "first"
-        ],
-        "additionalProperties": false,
-        "$defs": {}
+        }
       }
     },
     {
@@ -37,17 +40,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link ArrayMatrix}",
-            "type": "array",
-            "items": {
-              "type": "array",
-              "items": {
-                "type": "array",
-                "items": {
-                  "type": "number"
-                }
-              }
-            }
+            "$ref": "#/$defs/ArrayMatrix"
           },
           "second": {
             "oneOf": [
@@ -55,17 +48,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "type": "array",
-                  "items": {
-                    "type": "array",
-                    "items": {
-                      "type": "number"
-                    }
-                  }
-                },
-                "description": "Current Type: {@link ArrayMatrix}"
+                "$ref": "#/$defs/ArrayMatrix"
               }
             ]
           }
@@ -75,20 +58,23 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "description": "Current Type: {@link ArrayMatrix}",
-        "type": "array",
-        "items": {
-          "type": "array",
-          "items": {
+        "$defs": {
+          "ArrayMatrix": {
             "type": "array",
             "items": {
-              "type": "number"
+              "type": "array",
+              "items": {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              }
             }
           }
         }
+      },
+      "output": {
+        "$ref": "#/$defs/ArrayMatrix"
       }
     },
     {
@@ -102,17 +88,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "type": "array",
-                  "items": {
-                    "type": "array",
-                    "items": {
-                      "type": "number"
-                    }
-                  }
-                },
-                "description": "Current Type: {@link ArrayMatrix}"
+                "$ref": "#/$defs/ArrayMatrix"
               }
             ]
           },
@@ -122,17 +98,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "type": "array",
-                  "items": {
-                    "type": "array",
-                    "items": {
-                      "type": "number"
-                    }
-                  }
-                },
-                "description": "Current Type: {@link ArrayMatrix}"
+                "$ref": "#/$defs/ArrayMatrix"
               }
             ]
           },
@@ -142,17 +108,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "type": "array",
-                  "items": {
-                    "type": "array",
-                    "items": {
-                      "type": "number"
-                    }
-                  }
-                },
-                "description": "Current Type: {@link ArrayMatrix}"
+                "$ref": "#/$defs/ArrayMatrix"
               }
             ]
           }
@@ -162,14 +118,8 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "oneOf": [
-          {
-            "type": "null"
-          },
-          {
+        "$defs": {
+          "ArrayMatrix": {
             "type": "array",
             "items": {
               "type": "array",
@@ -179,8 +129,17 @@
                   "type": "number"
                 }
               }
-            },
-            "description": "Current Type: {@link ArrayMatrix}"
+            }
+          }
+        }
+      },
+      "output": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/ArrayMatrix"
           }
         ]
       }

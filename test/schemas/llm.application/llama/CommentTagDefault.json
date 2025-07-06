@@ -1,7 +1,7 @@
 {
   "model": "llama",
   "options": {
-    "reference": false,
+    "reference": true,
     "separate": null
   },
   "functions": [
@@ -11,7 +11,15 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link CommentTagDefault}",
+            "$ref": "#/$defs/CommentTagDefault"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "CommentTagDefault": {
             "type": "object",
             "properties": {
               "boolean": {
@@ -131,12 +139,7 @@
               "boolean_and_number_and_template"
             ]
           }
-        },
-        "required": [
-          "first"
-        ],
-        "additionalProperties": false,
-        "$defs": {}
+        }
       }
     },
     {
@@ -145,125 +148,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link CommentTagDefault}",
-            "type": "object",
-            "properties": {
-              "boolean": {
-                "title": "Default tag on `boolean` typed value",
-                "description": "Default tag on `boolean` typed value.",
-                "type": "boolean"
-              },
-              "number": {
-                "title": "Default tag on `number` typed value",
-                "description": "Default tag on `number` typed value.",
-                "type": "number"
-              },
-              "string": {
-                "title": "Default tag on `string` typed value",
-                "description": "Default tag on `string` typed value.",
-                "type": "string"
-              },
-              "text": {
-                "title": "Default tag on `string` typed value with long characters",
-                "description": "Default tag on `string` typed value with long characters.",
-                "type": "string"
-              },
-              "boolean_and_number_and_string": {
-                "title": "Default value on union typed property",
-                "description": "Default value on union typed property.",
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "number"
-                  },
-                  {
-                    "type": "boolean"
-                  }
-                ]
-              },
-              "union_but_boolean": {
-                "title": "Default value on union typed property",
-                "description": "Default value on union typed property.",
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "number"
-                  },
-                  {
-                    "type": "boolean"
-                  }
-                ]
-              },
-              "union_but_number": {
-                "title": "Default value on union typed property",
-                "description": "Default value on union typed property.",
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "number"
-                  },
-                  {
-                    "type": "boolean"
-                  }
-                ]
-              },
-              "union_but_string": {
-                "title": "Default value on union typed property",
-                "description": "Default value on union typed property.",
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "number"
-                  },
-                  {
-                    "type": "boolean"
-                  }
-                ]
-              },
-              "vulnerable_range": {
-                "title": "Default value on union typed property",
-                "description": "Default value on union typed property.",
-                "type": "number",
-                "minimum": 3,
-                "maximum": 5
-              },
-              "boolean_and_number_and_template": {
-                "title": "Default value on union typed property",
-                "description": "Default value on union typed property.",
-                "oneOf": [
-                  {
-                    "type": "string",
-                    "pattern": "^(prefix_(.*))"
-                  },
-                  {
-                    "type": "number"
-                  },
-                  {
-                    "type": "boolean"
-                  }
-                ]
-              }
-            },
-            "required": [
-              "boolean",
-              "number",
-              "string",
-              "text",
-              "boolean_and_number_and_string",
-              "union_but_boolean",
-              "union_but_number",
-              "union_but_string",
-              "vulnerable_range",
-              "boolean_and_number_and_template"
-            ]
+            "$ref": "#/$defs/CommentTagDefault"
           },
           "second": {
             "oneOf": [
@@ -271,125 +156,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "boolean": {
-                    "title": "Default tag on `boolean` typed value",
-                    "description": "Default tag on `boolean` typed value.",
-                    "type": "boolean"
-                  },
-                  "number": {
-                    "title": "Default tag on `number` typed value",
-                    "description": "Default tag on `number` typed value.",
-                    "type": "number"
-                  },
-                  "string": {
-                    "title": "Default tag on `string` typed value",
-                    "description": "Default tag on `string` typed value.",
-                    "type": "string"
-                  },
-                  "text": {
-                    "title": "Default tag on `string` typed value with long characters",
-                    "description": "Default tag on `string` typed value with long characters.",
-                    "type": "string"
-                  },
-                  "boolean_and_number_and_string": {
-                    "title": "Default value on union typed property",
-                    "description": "Default value on union typed property.",
-                    "oneOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "number"
-                      },
-                      {
-                        "type": "boolean"
-                      }
-                    ]
-                  },
-                  "union_but_boolean": {
-                    "title": "Default value on union typed property",
-                    "description": "Default value on union typed property.",
-                    "oneOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "number"
-                      },
-                      {
-                        "type": "boolean"
-                      }
-                    ]
-                  },
-                  "union_but_number": {
-                    "title": "Default value on union typed property",
-                    "description": "Default value on union typed property.",
-                    "oneOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "number"
-                      },
-                      {
-                        "type": "boolean"
-                      }
-                    ]
-                  },
-                  "union_but_string": {
-                    "title": "Default value on union typed property",
-                    "description": "Default value on union typed property.",
-                    "oneOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "number"
-                      },
-                      {
-                        "type": "boolean"
-                      }
-                    ]
-                  },
-                  "vulnerable_range": {
-                    "title": "Default value on union typed property",
-                    "description": "Default value on union typed property.",
-                    "type": "number",
-                    "minimum": 3,
-                    "maximum": 5
-                  },
-                  "boolean_and_number_and_template": {
-                    "title": "Default value on union typed property",
-                    "description": "Default value on union typed property.",
-                    "oneOf": [
-                      {
-                        "type": "string",
-                        "pattern": "^(prefix_(.*))"
-                      },
-                      {
-                        "type": "number"
-                      },
-                      {
-                        "type": "boolean"
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "boolean",
-                  "number",
-                  "string",
-                  "text",
-                  "boolean_and_number_and_string",
-                  "union_but_boolean",
-                  "union_but_number",
-                  "union_but_string",
-                  "vulnerable_range",
-                  "boolean_and_number_and_template"
-                ],
-                "description": "Current Type: {@link CommentTagDefault}"
+                "$ref": "#/$defs/CommentTagDefault"
               }
             ]
           }
@@ -399,128 +166,131 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "description": "Current Type: {@link CommentTagDefault}",
-        "type": "object",
-        "properties": {
-          "boolean": {
-            "title": "Default tag on `boolean` typed value",
-            "description": "Default tag on `boolean` typed value.",
-            "type": "boolean"
-          },
-          "number": {
-            "title": "Default tag on `number` typed value",
-            "description": "Default tag on `number` typed value.",
-            "type": "number"
-          },
-          "string": {
-            "title": "Default tag on `string` typed value",
-            "description": "Default tag on `string` typed value.",
-            "type": "string"
-          },
-          "text": {
-            "title": "Default tag on `string` typed value with long characters",
-            "description": "Default tag on `string` typed value with long characters.",
-            "type": "string"
-          },
-          "boolean_and_number_and_string": {
-            "title": "Default value on union typed property",
-            "description": "Default value on union typed property.",
-            "oneOf": [
-              {
+        "$defs": {
+          "CommentTagDefault": {
+            "type": "object",
+            "properties": {
+              "boolean": {
+                "title": "Default tag on `boolean` typed value",
+                "description": "Default tag on `boolean` typed value.",
+                "type": "boolean"
+              },
+              "number": {
+                "title": "Default tag on `number` typed value",
+                "description": "Default tag on `number` typed value.",
+                "type": "number"
+              },
+              "string": {
+                "title": "Default tag on `string` typed value",
+                "description": "Default tag on `string` typed value.",
                 "type": "string"
               },
-              {
-                "type": "number"
-              },
-              {
-                "type": "boolean"
-              }
-            ]
-          },
-          "union_but_boolean": {
-            "title": "Default value on union typed property",
-            "description": "Default value on union typed property.",
-            "oneOf": [
-              {
+              "text": {
+                "title": "Default tag on `string` typed value with long characters",
+                "description": "Default tag on `string` typed value with long characters.",
                 "type": "string"
               },
-              {
-                "type": "number"
+              "boolean_and_number_and_string": {
+                "title": "Default value on union typed property",
+                "description": "Default value on union typed property.",
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  }
+                ]
               },
-              {
-                "type": "boolean"
+              "union_but_boolean": {
+                "title": "Default value on union typed property",
+                "description": "Default value on union typed property.",
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  }
+                ]
+              },
+              "union_but_number": {
+                "title": "Default value on union typed property",
+                "description": "Default value on union typed property.",
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  }
+                ]
+              },
+              "union_but_string": {
+                "title": "Default value on union typed property",
+                "description": "Default value on union typed property.",
+                "oneOf": [
+                  {
+                    "type": "string"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  }
+                ]
+              },
+              "vulnerable_range": {
+                "title": "Default value on union typed property",
+                "description": "Default value on union typed property.",
+                "type": "number",
+                "minimum": 3,
+                "maximum": 5
+              },
+              "boolean_and_number_and_template": {
+                "title": "Default value on union typed property",
+                "description": "Default value on union typed property.",
+                "oneOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^(prefix_(.*))"
+                  },
+                  {
+                    "type": "number"
+                  },
+                  {
+                    "type": "boolean"
+                  }
+                ]
               }
-            ]
-          },
-          "union_but_number": {
-            "title": "Default value on union typed property",
-            "description": "Default value on union typed property.",
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              },
-              {
-                "type": "boolean"
-              }
-            ]
-          },
-          "union_but_string": {
-            "title": "Default value on union typed property",
-            "description": "Default value on union typed property.",
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              },
-              {
-                "type": "boolean"
-              }
-            ]
-          },
-          "vulnerable_range": {
-            "title": "Default value on union typed property",
-            "description": "Default value on union typed property.",
-            "type": "number",
-            "minimum": 3,
-            "maximum": 5
-          },
-          "boolean_and_number_and_template": {
-            "title": "Default value on union typed property",
-            "description": "Default value on union typed property.",
-            "oneOf": [
-              {
-                "type": "string",
-                "pattern": "^(prefix_(.*))"
-              },
-              {
-                "type": "number"
-              },
-              {
-                "type": "boolean"
-              }
+            },
+            "required": [
+              "boolean",
+              "number",
+              "string",
+              "text",
+              "boolean_and_number_and_string",
+              "union_but_boolean",
+              "union_but_number",
+              "union_but_string",
+              "vulnerable_range",
+              "boolean_and_number_and_template"
             ]
           }
-        },
-        "required": [
-          "boolean",
-          "number",
-          "string",
-          "text",
-          "boolean_and_number_and_string",
-          "union_but_boolean",
-          "union_but_number",
-          "union_but_string",
-          "vulnerable_range",
-          "boolean_and_number_and_template"
-        ]
+        }
+      },
+      "output": {
+        "$ref": "#/$defs/CommentTagDefault"
       }
     },
     {
@@ -534,125 +304,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "boolean": {
-                    "title": "Default tag on `boolean` typed value",
-                    "description": "Default tag on `boolean` typed value.",
-                    "type": "boolean"
-                  },
-                  "number": {
-                    "title": "Default tag on `number` typed value",
-                    "description": "Default tag on `number` typed value.",
-                    "type": "number"
-                  },
-                  "string": {
-                    "title": "Default tag on `string` typed value",
-                    "description": "Default tag on `string` typed value.",
-                    "type": "string"
-                  },
-                  "text": {
-                    "title": "Default tag on `string` typed value with long characters",
-                    "description": "Default tag on `string` typed value with long characters.",
-                    "type": "string"
-                  },
-                  "boolean_and_number_and_string": {
-                    "title": "Default value on union typed property",
-                    "description": "Default value on union typed property.",
-                    "oneOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "number"
-                      },
-                      {
-                        "type": "boolean"
-                      }
-                    ]
-                  },
-                  "union_but_boolean": {
-                    "title": "Default value on union typed property",
-                    "description": "Default value on union typed property.",
-                    "oneOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "number"
-                      },
-                      {
-                        "type": "boolean"
-                      }
-                    ]
-                  },
-                  "union_but_number": {
-                    "title": "Default value on union typed property",
-                    "description": "Default value on union typed property.",
-                    "oneOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "number"
-                      },
-                      {
-                        "type": "boolean"
-                      }
-                    ]
-                  },
-                  "union_but_string": {
-                    "title": "Default value on union typed property",
-                    "description": "Default value on union typed property.",
-                    "oneOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "number"
-                      },
-                      {
-                        "type": "boolean"
-                      }
-                    ]
-                  },
-                  "vulnerable_range": {
-                    "title": "Default value on union typed property",
-                    "description": "Default value on union typed property.",
-                    "type": "number",
-                    "minimum": 3,
-                    "maximum": 5
-                  },
-                  "boolean_and_number_and_template": {
-                    "title": "Default value on union typed property",
-                    "description": "Default value on union typed property.",
-                    "oneOf": [
-                      {
-                        "type": "string",
-                        "pattern": "^(prefix_(.*))"
-                      },
-                      {
-                        "type": "number"
-                      },
-                      {
-                        "type": "boolean"
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "boolean",
-                  "number",
-                  "string",
-                  "text",
-                  "boolean_and_number_and_string",
-                  "union_but_boolean",
-                  "union_but_number",
-                  "union_but_string",
-                  "vulnerable_range",
-                  "boolean_and_number_and_template"
-                ],
-                "description": "Current Type: {@link CommentTagDefault}"
+                "$ref": "#/$defs/CommentTagDefault"
               }
             ]
           },
@@ -662,125 +314,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "boolean": {
-                    "title": "Default tag on `boolean` typed value",
-                    "description": "Default tag on `boolean` typed value.",
-                    "type": "boolean"
-                  },
-                  "number": {
-                    "title": "Default tag on `number` typed value",
-                    "description": "Default tag on `number` typed value.",
-                    "type": "number"
-                  },
-                  "string": {
-                    "title": "Default tag on `string` typed value",
-                    "description": "Default tag on `string` typed value.",
-                    "type": "string"
-                  },
-                  "text": {
-                    "title": "Default tag on `string` typed value with long characters",
-                    "description": "Default tag on `string` typed value with long characters.",
-                    "type": "string"
-                  },
-                  "boolean_and_number_and_string": {
-                    "title": "Default value on union typed property",
-                    "description": "Default value on union typed property.",
-                    "oneOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "number"
-                      },
-                      {
-                        "type": "boolean"
-                      }
-                    ]
-                  },
-                  "union_but_boolean": {
-                    "title": "Default value on union typed property",
-                    "description": "Default value on union typed property.",
-                    "oneOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "number"
-                      },
-                      {
-                        "type": "boolean"
-                      }
-                    ]
-                  },
-                  "union_but_number": {
-                    "title": "Default value on union typed property",
-                    "description": "Default value on union typed property.",
-                    "oneOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "number"
-                      },
-                      {
-                        "type": "boolean"
-                      }
-                    ]
-                  },
-                  "union_but_string": {
-                    "title": "Default value on union typed property",
-                    "description": "Default value on union typed property.",
-                    "oneOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "number"
-                      },
-                      {
-                        "type": "boolean"
-                      }
-                    ]
-                  },
-                  "vulnerable_range": {
-                    "title": "Default value on union typed property",
-                    "description": "Default value on union typed property.",
-                    "type": "number",
-                    "minimum": 3,
-                    "maximum": 5
-                  },
-                  "boolean_and_number_and_template": {
-                    "title": "Default value on union typed property",
-                    "description": "Default value on union typed property.",
-                    "oneOf": [
-                      {
-                        "type": "string",
-                        "pattern": "^(prefix_(.*))"
-                      },
-                      {
-                        "type": "number"
-                      },
-                      {
-                        "type": "boolean"
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "boolean",
-                  "number",
-                  "string",
-                  "text",
-                  "boolean_and_number_and_string",
-                  "union_but_boolean",
-                  "union_but_number",
-                  "union_but_string",
-                  "vulnerable_range",
-                  "boolean_and_number_and_template"
-                ],
-                "description": "Current Type: {@link CommentTagDefault}"
+                "$ref": "#/$defs/CommentTagDefault"
               }
             ]
           },
@@ -790,125 +324,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "boolean": {
-                    "title": "Default tag on `boolean` typed value",
-                    "description": "Default tag on `boolean` typed value.",
-                    "type": "boolean"
-                  },
-                  "number": {
-                    "title": "Default tag on `number` typed value",
-                    "description": "Default tag on `number` typed value.",
-                    "type": "number"
-                  },
-                  "string": {
-                    "title": "Default tag on `string` typed value",
-                    "description": "Default tag on `string` typed value.",
-                    "type": "string"
-                  },
-                  "text": {
-                    "title": "Default tag on `string` typed value with long characters",
-                    "description": "Default tag on `string` typed value with long characters.",
-                    "type": "string"
-                  },
-                  "boolean_and_number_and_string": {
-                    "title": "Default value on union typed property",
-                    "description": "Default value on union typed property.",
-                    "oneOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "number"
-                      },
-                      {
-                        "type": "boolean"
-                      }
-                    ]
-                  },
-                  "union_but_boolean": {
-                    "title": "Default value on union typed property",
-                    "description": "Default value on union typed property.",
-                    "oneOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "number"
-                      },
-                      {
-                        "type": "boolean"
-                      }
-                    ]
-                  },
-                  "union_but_number": {
-                    "title": "Default value on union typed property",
-                    "description": "Default value on union typed property.",
-                    "oneOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "number"
-                      },
-                      {
-                        "type": "boolean"
-                      }
-                    ]
-                  },
-                  "union_but_string": {
-                    "title": "Default value on union typed property",
-                    "description": "Default value on union typed property.",
-                    "oneOf": [
-                      {
-                        "type": "string"
-                      },
-                      {
-                        "type": "number"
-                      },
-                      {
-                        "type": "boolean"
-                      }
-                    ]
-                  },
-                  "vulnerable_range": {
-                    "title": "Default value on union typed property",
-                    "description": "Default value on union typed property.",
-                    "type": "number",
-                    "minimum": 3,
-                    "maximum": 5
-                  },
-                  "boolean_and_number_and_template": {
-                    "title": "Default value on union typed property",
-                    "description": "Default value on union typed property.",
-                    "oneOf": [
-                      {
-                        "type": "string",
-                        "pattern": "^(prefix_(.*))"
-                      },
-                      {
-                        "type": "number"
-                      },
-                      {
-                        "type": "boolean"
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "boolean",
-                  "number",
-                  "string",
-                  "text",
-                  "boolean_and_number_and_string",
-                  "union_but_boolean",
-                  "union_but_number",
-                  "union_but_string",
-                  "vulnerable_range",
-                  "boolean_and_number_and_template"
-                ],
-                "description": "Current Type: {@link CommentTagDefault}"
+                "$ref": "#/$defs/CommentTagDefault"
               }
             ]
           }
@@ -918,14 +334,8 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "oneOf": [
-          {
-            "type": "null"
-          },
-          {
+        "$defs": {
+          "CommentTagDefault": {
             "type": "object",
             "properties": {
               "boolean": {
@@ -1043,8 +453,17 @@
               "union_but_string",
               "vulnerable_range",
               "boolean_and_number_and_template"
-            ],
-            "description": "Current Type: {@link CommentTagDefault}"
+            ]
+          }
+        }
+      },
+      "output": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/CommentTagDefault"
           }
         ]
       }

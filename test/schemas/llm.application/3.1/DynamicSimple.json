@@ -1,8 +1,8 @@
 {
   "model": "3.1",
   "options": {
+    "reference": true,
     "constraint": true,
-    "reference": false,
     "separate": null
   },
   "functions": [
@@ -12,7 +12,15 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link DynamicSimple}",
+            "$ref": "#/$defs/DynamicSimple"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "DynamicSimple": {
             "type": "object",
             "properties": {
               "value": {
@@ -28,12 +36,7 @@
               "value"
             ]
           }
-        },
-        "required": [
-          "first"
-        ],
-        "additionalProperties": false,
-        "$defs": {}
+        }
       }
     },
     {
@@ -42,21 +45,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link DynamicSimple}",
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "object",
-                "properties": {},
-                "required": [],
-                "additionalProperties": {
-                  "type": "number"
-                }
-              }
-            },
-            "required": [
-              "value"
-            ]
+            "$ref": "#/$defs/DynamicSimple"
           },
           "second": {
             "oneOf": [
@@ -64,21 +53,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "object",
-                    "properties": {},
-                    "required": [],
-                    "additionalProperties": {
-                      "type": "number"
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "description": "Current Type: {@link DynamicSimple}"
+                "$ref": "#/$defs/DynamicSimple"
               }
             ]
           }
@@ -88,24 +63,27 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "DynamicSimple": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "object",
+                "properties": {},
+                "required": [],
+                "additionalProperties": {
+                  "type": "number"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          }
+        }
       },
       "output": {
-        "description": "Current Type: {@link DynamicSimple}",
-        "type": "object",
-        "properties": {
-          "value": {
-            "type": "object",
-            "properties": {},
-            "required": [],
-            "additionalProperties": {
-              "type": "number"
-            }
-          }
-        },
-        "required": [
-          "value"
-        ]
+        "$ref": "#/$defs/DynamicSimple"
       }
     },
     {
@@ -119,21 +97,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "object",
-                    "properties": {},
-                    "required": [],
-                    "additionalProperties": {
-                      "type": "number"
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "description": "Current Type: {@link DynamicSimple}"
+                "$ref": "#/$defs/DynamicSimple"
               }
             ]
           },
@@ -143,21 +107,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "object",
-                    "properties": {},
-                    "required": [],
-                    "additionalProperties": {
-                      "type": "number"
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "description": "Current Type: {@link DynamicSimple}"
+                "$ref": "#/$defs/DynamicSimple"
               }
             ]
           },
@@ -167,21 +117,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "object",
-                    "properties": {},
-                    "required": [],
-                    "additionalProperties": {
-                      "type": "number"
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "description": "Current Type: {@link DynamicSimple}"
+                "$ref": "#/$defs/DynamicSimple"
               }
             ]
           }
@@ -191,14 +127,8 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "oneOf": [
-          {
-            "type": "null"
-          },
-          {
+        "$defs": {
+          "DynamicSimple": {
             "type": "object",
             "properties": {
               "value": {
@@ -212,8 +142,17 @@
             },
             "required": [
               "value"
-            ],
-            "description": "Current Type: {@link DynamicSimple}"
+            ]
+          }
+        }
+      },
+      "output": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/DynamicSimple"
           }
         ]
       }

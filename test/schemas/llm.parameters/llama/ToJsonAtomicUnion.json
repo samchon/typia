@@ -2,24 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "description": "Current Type: {@link ToJsonAtomicUnion}",
-      "type": "array",
-      "items": {
-        "oneOf": [
-          {
-            "type": "null"
-          },
-          {
-            "type": "string"
-          },
-          {
-            "type": "number"
-          },
-          {
-            "type": "boolean"
-          }
-        ]
-      }
+      "$ref": "#/$defs/ToJsonAtomicUnion"
     },
     "nullable": {
       "oneOf": [
@@ -27,46 +10,12 @@
           "type": "null"
         },
         {
-          "type": "array",
-          "items": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              },
-              {
-                "type": "boolean"
-              }
-            ]
-          },
-          "description": "Current Type: {@link ToJsonAtomicUnion}"
+          "$ref": "#/$defs/ToJsonAtomicUnion"
         }
       ]
     },
     "optional": {
-      "description": "Current Type: {@link ToJsonAtomicUnion}",
-      "type": "array",
-      "items": {
-        "oneOf": [
-          {
-            "type": "null"
-          },
-          {
-            "type": "string"
-          },
-          {
-            "type": "number"
-          },
-          {
-            "type": "boolean"
-          }
-        ]
-      }
+      "$ref": "#/$defs/ToJsonAtomicUnion"
     },
     "faint": {
       "oneOf": [
@@ -74,48 +23,14 @@
           "type": "null"
         },
         {
-          "type": "array",
-          "items": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              },
-              {
-                "type": "boolean"
-              }
-            ]
-          },
-          "description": "Current Type: {@link ToJsonAtomicUnion}"
+          "$ref": "#/$defs/ToJsonAtomicUnion"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
-        "description": "Current Type: {@link ToJsonAtomicUnion}",
-        "type": "array",
-        "items": {
-          "oneOf": [
-            {
-              "type": "null"
-            },
-            {
-              "type": "string"
-            },
-            {
-              "type": "number"
-            },
-            {
-              "type": "boolean"
-            }
-          ]
-        }
+        "$ref": "#/$defs/ToJsonAtomicUnion"
       }
     }
   },
@@ -125,5 +40,25 @@
     "array"
   ],
   "additionalProperties": false,
-  "$defs": {}
+  "$defs": {
+    "ToJsonAtomicUnion": {
+      "type": "array",
+      "items": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "boolean"
+          }
+        ]
+      }
+    }
+  }
 }

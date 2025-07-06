@@ -2,25 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "description": "Current Type: {@link AtomicUnion}",
-      "type": "array",
-      "items": {
-        "description": "Current Type: {@link AtomicUnion.Union}",
-        "oneOf": [
-          {
-            "type": "null"
-          },
-          {
-            "type": "string"
-          },
-          {
-            "type": "number"
-          },
-          {
-            "type": "boolean"
-          }
-        ]
-      }
+      "$ref": "#/$defs/AtomicUnion"
     },
     "nullable": {
       "oneOf": [
@@ -28,48 +10,12 @@
           "type": "null"
         },
         {
-          "type": "array",
-          "items": {
-            "description": "Current Type: {@link AtomicUnion.Union}",
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              },
-              {
-                "type": "boolean"
-              }
-            ]
-          },
-          "description": "Current Type: {@link AtomicUnion}"
+          "$ref": "#/$defs/AtomicUnion"
         }
       ]
     },
     "optional": {
-      "description": "Current Type: {@link AtomicUnion}",
-      "type": "array",
-      "items": {
-        "description": "Current Type: {@link AtomicUnion.Union}",
-        "oneOf": [
-          {
-            "type": "null"
-          },
-          {
-            "type": "string"
-          },
-          {
-            "type": "number"
-          },
-          {
-            "type": "boolean"
-          }
-        ]
-      }
+      "$ref": "#/$defs/AtomicUnion"
     },
     "faint": {
       "oneOf": [
@@ -77,50 +23,14 @@
           "type": "null"
         },
         {
-          "type": "array",
-          "items": {
-            "description": "Current Type: {@link AtomicUnion.Union}",
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              },
-              {
-                "type": "boolean"
-              }
-            ]
-          },
-          "description": "Current Type: {@link AtomicUnion}"
+          "$ref": "#/$defs/AtomicUnion"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
-        "description": "Current Type: {@link AtomicUnion}",
-        "type": "array",
-        "items": {
-          "description": "Current Type: {@link AtomicUnion.Union}",
-          "oneOf": [
-            {
-              "type": "null"
-            },
-            {
-              "type": "string"
-            },
-            {
-              "type": "number"
-            },
-            {
-              "type": "boolean"
-            }
-          ]
-        }
+        "$ref": "#/$defs/AtomicUnion"
       }
     }
   },
@@ -130,5 +40,28 @@
     "array"
   ],
   "additionalProperties": false,
-  "$defs": {}
+  "$defs": {
+    "AtomicUnion": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/AtomicUnion.Union"
+      }
+    },
+    "AtomicUnion.Union": {
+      "oneOf": [
+        {
+          "type": "null"
+        },
+        {
+          "type": "string"
+        },
+        {
+          "type": "number"
+        },
+        {
+          "type": "boolean"
+        }
+      ]
+    }
+  }
 }

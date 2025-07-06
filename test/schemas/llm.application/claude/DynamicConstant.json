@@ -1,7 +1,7 @@
 {
   "model": "claude",
   "options": {
-    "reference": false,
+    "reference": true,
     "separate": null
   },
   "functions": [
@@ -11,7 +11,15 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link DynamicConstant}",
+            "$ref": "#/$defs/DynamicConstant"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "DynamicConstant": {
             "type": "object",
             "properties": {
               "value": {
@@ -42,12 +50,7 @@
               "value"
             ]
           }
-        },
-        "required": [
-          "first"
-        ],
-        "additionalProperties": false,
-        "$defs": {}
+        }
       }
     },
     {
@@ -56,36 +59,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link DynamicConstant}",
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "object",
-                "properties": {
-                  "a": {
-                    "type": "number"
-                  },
-                  "b": {
-                    "type": "number"
-                  },
-                  "c": {
-                    "type": "number"
-                  },
-                  "d": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "a",
-                  "b",
-                  "c",
-                  "d"
-                ]
-              }
-            },
-            "required": [
-              "value"
-            ]
+            "$ref": "#/$defs/DynamicConstant"
           },
           "second": {
             "oneOf": [
@@ -93,36 +67,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "object",
-                    "properties": {
-                      "a": {
-                        "type": "number"
-                      },
-                      "b": {
-                        "type": "number"
-                      },
-                      "c": {
-                        "type": "number"
-                      },
-                      "d": {
-                        "type": "number"
-                      }
-                    },
-                    "required": [
-                      "a",
-                      "b",
-                      "c",
-                      "d"
-                    ]
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "description": "Current Type: {@link DynamicConstant}"
+                "$ref": "#/$defs/DynamicConstant"
               }
             ]
           }
@@ -132,39 +77,42 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "description": "Current Type: {@link DynamicConstant}",
-        "type": "object",
-        "properties": {
-          "value": {
+        "$defs": {
+          "DynamicConstant": {
             "type": "object",
             "properties": {
-              "a": {
-                "type": "number"
-              },
-              "b": {
-                "type": "number"
-              },
-              "c": {
-                "type": "number"
-              },
-              "d": {
-                "type": "number"
+              "value": {
+                "type": "object",
+                "properties": {
+                  "a": {
+                    "type": "number"
+                  },
+                  "b": {
+                    "type": "number"
+                  },
+                  "c": {
+                    "type": "number"
+                  },
+                  "d": {
+                    "type": "number"
+                  }
+                },
+                "required": [
+                  "a",
+                  "b",
+                  "c",
+                  "d"
+                ]
               }
             },
             "required": [
-              "a",
-              "b",
-              "c",
-              "d"
+              "value"
             ]
           }
-        },
-        "required": [
-          "value"
-        ]
+        }
+      },
+      "output": {
+        "$ref": "#/$defs/DynamicConstant"
       }
     },
     {
@@ -178,36 +126,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "object",
-                    "properties": {
-                      "a": {
-                        "type": "number"
-                      },
-                      "b": {
-                        "type": "number"
-                      },
-                      "c": {
-                        "type": "number"
-                      },
-                      "d": {
-                        "type": "number"
-                      }
-                    },
-                    "required": [
-                      "a",
-                      "b",
-                      "c",
-                      "d"
-                    ]
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "description": "Current Type: {@link DynamicConstant}"
+                "$ref": "#/$defs/DynamicConstant"
               }
             ]
           },
@@ -217,36 +136,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "object",
-                    "properties": {
-                      "a": {
-                        "type": "number"
-                      },
-                      "b": {
-                        "type": "number"
-                      },
-                      "c": {
-                        "type": "number"
-                      },
-                      "d": {
-                        "type": "number"
-                      }
-                    },
-                    "required": [
-                      "a",
-                      "b",
-                      "c",
-                      "d"
-                    ]
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "description": "Current Type: {@link DynamicConstant}"
+                "$ref": "#/$defs/DynamicConstant"
               }
             ]
           },
@@ -256,36 +146,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "object",
-                    "properties": {
-                      "a": {
-                        "type": "number"
-                      },
-                      "b": {
-                        "type": "number"
-                      },
-                      "c": {
-                        "type": "number"
-                      },
-                      "d": {
-                        "type": "number"
-                      }
-                    },
-                    "required": [
-                      "a",
-                      "b",
-                      "c",
-                      "d"
-                    ]
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "description": "Current Type: {@link DynamicConstant}"
+                "$ref": "#/$defs/DynamicConstant"
               }
             ]
           }
@@ -295,14 +156,8 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "oneOf": [
-          {
-            "type": "null"
-          },
-          {
+        "$defs": {
+          "DynamicConstant": {
             "type": "object",
             "properties": {
               "value": {
@@ -331,8 +186,17 @@
             },
             "required": [
               "value"
-            ],
-            "description": "Current Type: {@link DynamicConstant}"
+            ]
+          }
+        }
+      },
+      "output": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/DynamicConstant"
           }
         ]
       }

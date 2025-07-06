@@ -1,7 +1,7 @@
 {
   "model": "claude",
   "options": {
-    "reference": false,
+    "reference": true,
     "separate": null
   },
   "functions": [
@@ -11,7 +11,15 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link DynamicTemplate}",
+            "$ref": "#/$defs/DynamicTemplate"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "DynamicTemplate": {
             "type": "object",
             "properties": {},
             "required": [],
@@ -29,12 +37,7 @@
               ]
             }
           }
-        },
-        "required": [
-          "first"
-        ],
-        "additionalProperties": false,
-        "$defs": {}
+        }
       }
     },
     {
@@ -43,23 +46,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link DynamicTemplate}",
-            "type": "object",
-            "properties": {},
-            "required": [],
-            "additionalProperties": {
-              "oneOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "number"
-                },
-                {
-                  "type": "boolean"
-                }
-              ]
-            }
+            "$ref": "#/$defs/DynamicTemplate"
           },
           "second": {
             "oneOf": [
@@ -67,23 +54,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {},
-                "required": [],
-                "description": "Current Type: {@link DynamicTemplate}",
-                "additionalProperties": {
-                  "oneOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "number"
-                    },
-                    {
-                      "type": "boolean"
-                    }
-                  ]
-                }
+                "$ref": "#/$defs/DynamicTemplate"
               }
             ]
           }
@@ -93,26 +64,29 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "DynamicTemplate": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "additionalProperties": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "boolean"
+                }
+              ]
+            }
+          }
+        }
       },
       "output": {
-        "description": "Current Type: {@link DynamicTemplate}",
-        "type": "object",
-        "properties": {},
-        "required": [],
-        "additionalProperties": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "number"
-            },
-            {
-              "type": "boolean"
-            }
-          ]
-        }
+        "$ref": "#/$defs/DynamicTemplate"
       }
     },
     {
@@ -126,23 +100,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {},
-                "required": [],
-                "description": "Current Type: {@link DynamicTemplate}",
-                "additionalProperties": {
-                  "oneOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "number"
-                    },
-                    {
-                      "type": "boolean"
-                    }
-                  ]
-                }
+                "$ref": "#/$defs/DynamicTemplate"
               }
             ]
           },
@@ -152,23 +110,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {},
-                "required": [],
-                "description": "Current Type: {@link DynamicTemplate}",
-                "additionalProperties": {
-                  "oneOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "number"
-                    },
-                    {
-                      "type": "boolean"
-                    }
-                  ]
-                }
+                "$ref": "#/$defs/DynamicTemplate"
               }
             ]
           },
@@ -178,23 +120,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {},
-                "required": [],
-                "description": "Current Type: {@link DynamicTemplate}",
-                "additionalProperties": {
-                  "oneOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "number"
-                    },
-                    {
-                      "type": "boolean"
-                    }
-                  ]
-                }
+                "$ref": "#/$defs/DynamicTemplate"
               }
             ]
           }
@@ -204,18 +130,11 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "oneOf": [
-          {
-            "type": "null"
-          },
-          {
+        "$defs": {
+          "DynamicTemplate": {
             "type": "object",
             "properties": {},
             "required": [],
-            "description": "Current Type: {@link DynamicTemplate}",
             "additionalProperties": {
               "oneOf": [
                 {
@@ -229,6 +148,16 @@
                 }
               ]
             }
+          }
+        }
+      },
+      "output": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/DynamicTemplate"
           }
         ]
       }

@@ -2,55 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "description": "Current Type: {@link CommentTagArrayUnion}",
-      "type": "array",
-      "items": {
-        "description": "Current Type: {@link CommentTagArrayUnion.Type}",
-        "type": "object",
-        "properties": {
-          "items": {
-            "description": "@minItems 3\n@maxItems 3",
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "minItems": {
-            "description": "@minItems 3",
-            "type": "array",
-            "items": {
-              "type": "number"
-            }
-          },
-          "maxItems": {
-            "description": "@maxItems 7",
-            "type": "array",
-            "items": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "number"
-                }
-              ]
-            }
-          },
-          "both": {
-            "description": "@minItems 3\n@maxItems 7",
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          }
-        },
-        "required": [
-          "items",
-          "minItems",
-          "maxItems",
-          "both"
-        ]
-      }
+      "$ref": "#/$defs/CommentTagArrayUnion"
     },
     "nullable": {
       "anyOf": [
@@ -58,108 +10,12 @@
           "type": "null"
         },
         {
-          "type": "array",
-          "items": {
-            "description": "Current Type: {@link CommentTagArrayUnion.Type}",
-            "type": "object",
-            "properties": {
-              "items": {
-                "description": "@minItems 3\n@maxItems 3",
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "minItems": {
-                "description": "@minItems 3",
-                "type": "array",
-                "items": {
-                  "type": "number"
-                }
-              },
-              "maxItems": {
-                "description": "@maxItems 7",
-                "type": "array",
-                "items": {
-                  "anyOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "number"
-                    }
-                  ]
-                }
-              },
-              "both": {
-                "description": "@minItems 3\n@maxItems 7",
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              }
-            },
-            "required": [
-              "items",
-              "minItems",
-              "maxItems",
-              "both"
-            ]
-          },
-          "description": "Current Type: {@link CommentTagArrayUnion}"
+          "$ref": "#/$defs/CommentTagArrayUnion"
         }
       ]
     },
     "optional": {
-      "description": "Current Type: {@link CommentTagArrayUnion}",
-      "type": "array",
-      "items": {
-        "description": "Current Type: {@link CommentTagArrayUnion.Type}",
-        "type": "object",
-        "properties": {
-          "items": {
-            "description": "@minItems 3\n@maxItems 3",
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "minItems": {
-            "description": "@minItems 3",
-            "type": "array",
-            "items": {
-              "type": "number"
-            }
-          },
-          "maxItems": {
-            "description": "@maxItems 7",
-            "type": "array",
-            "items": {
-              "anyOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "number"
-                }
-              ]
-            }
-          },
-          "both": {
-            "description": "@minItems 3\n@maxItems 7",
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          }
-        },
-        "required": [
-          "items",
-          "minItems",
-          "maxItems",
-          "both"
-        ]
-      }
+      "$ref": "#/$defs/CommentTagArrayUnion"
     },
     "faint": {
       "anyOf": [
@@ -167,110 +23,14 @@
           "type": "null"
         },
         {
-          "type": "array",
-          "items": {
-            "description": "Current Type: {@link CommentTagArrayUnion.Type}",
-            "type": "object",
-            "properties": {
-              "items": {
-                "description": "@minItems 3\n@maxItems 3",
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "minItems": {
-                "description": "@minItems 3",
-                "type": "array",
-                "items": {
-                  "type": "number"
-                }
-              },
-              "maxItems": {
-                "description": "@maxItems 7",
-                "type": "array",
-                "items": {
-                  "anyOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "number"
-                    }
-                  ]
-                }
-              },
-              "both": {
-                "description": "@minItems 3\n@maxItems 7",
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              }
-            },
-            "required": [
-              "items",
-              "minItems",
-              "maxItems",
-              "both"
-            ]
-          },
-          "description": "Current Type: {@link CommentTagArrayUnion}"
+          "$ref": "#/$defs/CommentTagArrayUnion"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
-        "description": "Current Type: {@link CommentTagArrayUnion}",
-        "type": "array",
-        "items": {
-          "description": "Current Type: {@link CommentTagArrayUnion.Type}",
-          "type": "object",
-          "properties": {
-            "items": {
-              "description": "@minItems 3\n@maxItems 3",
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            "minItems": {
-              "description": "@minItems 3",
-              "type": "array",
-              "items": {
-                "type": "number"
-              }
-            },
-            "maxItems": {
-              "description": "@maxItems 7",
-              "type": "array",
-              "items": {
-                "anyOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "number"
-                  }
-                ]
-              }
-            },
-            "both": {
-              "description": "@minItems 3\n@maxItems 7",
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            }
-          },
-          "required": [
-            "items",
-            "minItems",
-            "maxItems",
-            "both"
-          ]
-        }
+        "$ref": "#/$defs/CommentTagArrayUnion"
       }
     }
   },
@@ -280,5 +40,58 @@
     "array"
   ],
   "additionalProperties": false,
-  "$defs": {}
+  "$defs": {
+    "CommentTagArrayUnion": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/CommentTagArrayUnion.Type"
+      }
+    },
+    "CommentTagArrayUnion.Type": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "description": "@minItems 3\n@maxItems 3",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        "minItems": {
+          "description": "@minItems 3",
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        "maxItems": {
+          "description": "@maxItems 7",
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "number"
+              }
+            ]
+          }
+        },
+        "both": {
+          "description": "@minItems 3\n@maxItems 7",
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "items",
+        "minItems",
+        "maxItems",
+        "both"
+      ]
+    }
+  }
 }

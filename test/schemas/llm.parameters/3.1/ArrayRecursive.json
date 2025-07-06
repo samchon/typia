@@ -60,20 +60,7 @@
           "type": "number"
         },
         "created_at": {
-          "description": "Current Type: {@link ArrayRecursive.ITimestamp}",
-          "type": "object",
-          "properties": {
-            "time": {
-              "type": "number"
-            },
-            "zone": {
-              "type": "number"
-            }
-          },
-          "required": [
-            "time",
-            "zone"
-          ]
+          "$ref": "#/$defs/ArrayRecursive.ITimestamp"
         }
       },
       "required": [
@@ -82,6 +69,21 @@
         "code",
         "sequence",
         "created_at"
+      ]
+    },
+    "ArrayRecursive.ITimestamp": {
+      "type": "object",
+      "properties": {
+        "time": {
+          "type": "number"
+        },
+        "zone": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "time",
+        "zone"
       ]
     }
   }

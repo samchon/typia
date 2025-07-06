@@ -2,17 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "description": "Current Type: {@link ArrayMatrix}",
-      "type": "array",
-      "items": {
-        "type": "array",
-        "items": {
-          "type": "array",
-          "items": {
-            "type": "number"
-          }
-        }
-      }
+      "$ref": "#/$defs/ArrayMatrix"
     },
     "nullable": {
       "oneOf": [
@@ -20,32 +10,12 @@
           "type": "null"
         },
         {
-          "type": "array",
-          "items": {
-            "type": "array",
-            "items": {
-              "type": "array",
-              "items": {
-                "type": "number"
-              }
-            }
-          },
-          "description": "Current Type: {@link ArrayMatrix}"
+          "$ref": "#/$defs/ArrayMatrix"
         }
       ]
     },
     "optional": {
-      "description": "Current Type: {@link ArrayMatrix}",
-      "type": "array",
-      "items": {
-        "type": "array",
-        "items": {
-          "type": "array",
-          "items": {
-            "type": "number"
-          }
-        }
-      }
+      "$ref": "#/$defs/ArrayMatrix"
     },
     "faint": {
       "oneOf": [
@@ -53,34 +23,14 @@
           "type": "null"
         },
         {
-          "type": "array",
-          "items": {
-            "type": "array",
-            "items": {
-              "type": "array",
-              "items": {
-                "type": "number"
-              }
-            }
-          },
-          "description": "Current Type: {@link ArrayMatrix}"
+          "$ref": "#/$defs/ArrayMatrix"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
-        "description": "Current Type: {@link ArrayMatrix}",
-        "type": "array",
-        "items": {
-          "type": "array",
-          "items": {
-            "type": "array",
-            "items": {
-              "type": "number"
-            }
-          }
-        }
+        "$ref": "#/$defs/ArrayMatrix"
       }
     }
   },
@@ -90,5 +40,18 @@
     "array"
   ],
   "additionalProperties": false,
-  "$defs": {}
+  "$defs": {
+    "ArrayMatrix": {
+      "type": "array",
+      "items": {
+        "type": "array",
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        }
+      }
+    }
+  }
 }

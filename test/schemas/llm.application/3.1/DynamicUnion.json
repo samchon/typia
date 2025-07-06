@@ -1,8 +1,8 @@
 {
   "model": "3.1",
   "options": {
+    "reference": true,
     "constraint": true,
-    "reference": false,
     "separate": null
   },
   "functions": [
@@ -12,7 +12,15 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link DynamicUnion}",
+            "$ref": "#/$defs/DynamicUnion"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "DynamicUnion": {
             "type": "object",
             "properties": {},
             "required": [],
@@ -27,12 +35,7 @@
               ]
             }
           }
-        },
-        "required": [
-          "first"
-        ],
-        "additionalProperties": false,
-        "$defs": {}
+        }
       }
     },
     {
@@ -41,20 +44,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link DynamicUnion}",
-            "type": "object",
-            "properties": {},
-            "required": [],
-            "additionalProperties": {
-              "oneOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "number"
-                }
-              ]
-            }
+            "$ref": "#/$defs/DynamicUnion"
           },
           "second": {
             "oneOf": [
@@ -62,20 +52,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {},
-                "required": [],
-                "description": "Current Type: {@link DynamicUnion}",
-                "additionalProperties": {
-                  "oneOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "number"
-                    }
-                  ]
-                }
+                "$ref": "#/$defs/DynamicUnion"
               }
             ]
           }
@@ -85,23 +62,26 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "DynamicUnion": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "additionalProperties": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                }
+              ]
+            }
+          }
+        }
       },
       "output": {
-        "description": "Current Type: {@link DynamicUnion}",
-        "type": "object",
-        "properties": {},
-        "required": [],
-        "additionalProperties": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "number"
-            }
-          ]
-        }
+        "$ref": "#/$defs/DynamicUnion"
       }
     },
     {
@@ -115,20 +95,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {},
-                "required": [],
-                "description": "Current Type: {@link DynamicUnion}",
-                "additionalProperties": {
-                  "oneOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "number"
-                    }
-                  ]
-                }
+                "$ref": "#/$defs/DynamicUnion"
               }
             ]
           },
@@ -138,20 +105,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {},
-                "required": [],
-                "description": "Current Type: {@link DynamicUnion}",
-                "additionalProperties": {
-                  "oneOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "number"
-                    }
-                  ]
-                }
+                "$ref": "#/$defs/DynamicUnion"
               }
             ]
           },
@@ -161,20 +115,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {},
-                "required": [],
-                "description": "Current Type: {@link DynamicUnion}",
-                "additionalProperties": {
-                  "oneOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "number"
-                    }
-                  ]
-                }
+                "$ref": "#/$defs/DynamicUnion"
               }
             ]
           }
@@ -184,18 +125,11 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "oneOf": [
-          {
-            "type": "null"
-          },
-          {
+        "$defs": {
+          "DynamicUnion": {
             "type": "object",
             "properties": {},
             "required": [],
-            "description": "Current Type: {@link DynamicUnion}",
             "additionalProperties": {
               "oneOf": [
                 {
@@ -206,6 +140,16 @@
                 }
               ]
             }
+          }
+        }
+      },
+      "output": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/DynamicUnion"
           }
         ]
       }

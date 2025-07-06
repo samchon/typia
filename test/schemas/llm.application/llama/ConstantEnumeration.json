@@ -1,7 +1,7 @@
 {
   "model": "llama",
   "options": {
-    "reference": false,
+    "reference": true,
     "separate": null
   },
   "functions": [
@@ -11,35 +11,40 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link ConstantEnumeration}",
-            "type": "array",
-            "items": {
-              "description": "Current Type: {@link ConstantEnumeration.Enumeration}",
-              "oneOf": [
-                {
-                  "const": 0
-                },
-                {
-                  "const": 1
-                },
-                {
-                  "const": 2
-                },
-                {
-                  "const": "Three"
-                },
-                {
-                  "const": "Four"
-                }
-              ]
-            }
+            "$ref": "#/$defs/ConstantEnumeration"
           }
         },
         "required": [
           "first"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "ConstantEnumeration": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ConstantEnumeration.Enumeration"
+            }
+          },
+          "ConstantEnumeration.Enumeration": {
+            "oneOf": [
+              {
+                "const": 0
+              },
+              {
+                "const": 1
+              },
+              {
+                "const": 2
+              },
+              {
+                "const": "Three"
+              },
+              {
+                "const": "Four"
+              }
+            ]
+          }
+        }
       }
     },
     {
@@ -48,28 +53,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link ConstantEnumeration}",
-            "type": "array",
-            "items": {
-              "description": "Current Type: {@link ConstantEnumeration.Enumeration}",
-              "oneOf": [
-                {
-                  "const": 0
-                },
-                {
-                  "const": 1
-                },
-                {
-                  "const": 2
-                },
-                {
-                  "const": "Three"
-                },
-                {
-                  "const": "Four"
-                }
-              ]
-            }
+            "$ref": "#/$defs/ConstantEnumeration"
           },
           "second": {
             "oneOf": [
@@ -77,28 +61,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "description": "Current Type: {@link ConstantEnumeration.Enumeration}",
-                  "oneOf": [
-                    {
-                      "const": 0
-                    },
-                    {
-                      "const": 1
-                    },
-                    {
-                      "const": 2
-                    },
-                    {
-                      "const": "Three"
-                    },
-                    {
-                      "const": "Four"
-                    }
-                  ]
-                },
-                "description": "Current Type: {@link ConstantEnumeration}"
+                "$ref": "#/$defs/ConstantEnumeration"
               }
             ]
           }
@@ -108,31 +71,36 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "ConstantEnumeration": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ConstantEnumeration.Enumeration"
+            }
+          },
+          "ConstantEnumeration.Enumeration": {
+            "oneOf": [
+              {
+                "const": 0
+              },
+              {
+                "const": 1
+              },
+              {
+                "const": 2
+              },
+              {
+                "const": "Three"
+              },
+              {
+                "const": "Four"
+              }
+            ]
+          }
+        }
       },
       "output": {
-        "description": "Current Type: {@link ConstantEnumeration}",
-        "type": "array",
-        "items": {
-          "description": "Current Type: {@link ConstantEnumeration.Enumeration}",
-          "oneOf": [
-            {
-              "const": 0
-            },
-            {
-              "const": 1
-            },
-            {
-              "const": 2
-            },
-            {
-              "const": "Three"
-            },
-            {
-              "const": "Four"
-            }
-          ]
-        }
+        "$ref": "#/$defs/ConstantEnumeration"
       }
     },
     {
@@ -146,28 +114,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "description": "Current Type: {@link ConstantEnumeration.Enumeration}",
-                  "oneOf": [
-                    {
-                      "const": 0
-                    },
-                    {
-                      "const": 1
-                    },
-                    {
-                      "const": 2
-                    },
-                    {
-                      "const": "Three"
-                    },
-                    {
-                      "const": "Four"
-                    }
-                  ]
-                },
-                "description": "Current Type: {@link ConstantEnumeration}"
+                "$ref": "#/$defs/ConstantEnumeration"
               }
             ]
           },
@@ -177,28 +124,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "description": "Current Type: {@link ConstantEnumeration.Enumeration}",
-                  "oneOf": [
-                    {
-                      "const": 0
-                    },
-                    {
-                      "const": 1
-                    },
-                    {
-                      "const": 2
-                    },
-                    {
-                      "const": "Three"
-                    },
-                    {
-                      "const": "Four"
-                    }
-                  ]
-                },
-                "description": "Current Type: {@link ConstantEnumeration}"
+                "$ref": "#/$defs/ConstantEnumeration"
               }
             ]
           },
@@ -208,28 +134,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "description": "Current Type: {@link ConstantEnumeration.Enumeration}",
-                  "oneOf": [
-                    {
-                      "const": 0
-                    },
-                    {
-                      "const": 1
-                    },
-                    {
-                      "const": 2
-                    },
-                    {
-                      "const": "Three"
-                    },
-                    {
-                      "const": "Four"
-                    }
-                  ]
-                },
-                "description": "Current Type: {@link ConstantEnumeration}"
+                "$ref": "#/$defs/ConstantEnumeration"
               }
             ]
           }
@@ -239,7 +144,33 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "ConstantEnumeration": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ConstantEnumeration.Enumeration"
+            }
+          },
+          "ConstantEnumeration.Enumeration": {
+            "oneOf": [
+              {
+                "const": 0
+              },
+              {
+                "const": 1
+              },
+              {
+                "const": 2
+              },
+              {
+                "const": "Three"
+              },
+              {
+                "const": "Four"
+              }
+            ]
+          }
+        }
       },
       "output": {
         "oneOf": [
@@ -247,28 +178,7 @@
             "type": "null"
           },
           {
-            "type": "array",
-            "items": {
-              "description": "Current Type: {@link ConstantEnumeration.Enumeration}",
-              "oneOf": [
-                {
-                  "const": 0
-                },
-                {
-                  "const": 1
-                },
-                {
-                  "const": 2
-                },
-                {
-                  "const": "Three"
-                },
-                {
-                  "const": "Four"
-                }
-              ]
-            },
-            "description": "Current Type: {@link ConstantEnumeration}"
+            "$ref": "#/$defs/ConstantEnumeration"
           }
         ]
       }

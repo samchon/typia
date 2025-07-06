@@ -1,12 +1,1 @@
-{
-  "description": "Current Type: {@link ObjectGenericAlias.Alias}",
-  "type": "object",
-  "properties": {
-    "value": {
-      "type": "string"
-    }
-  },
-  "required": [
-    "value"
-  ]
-}
+{}

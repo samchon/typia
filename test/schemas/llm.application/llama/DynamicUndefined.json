@@ -1,7 +1,7 @@
 {
   "model": "llama",
   "options": {
-    "reference": false,
+    "reference": true,
     "separate": null
   },
   "functions": [
@@ -11,17 +11,20 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link DynamicUndefined}",
-            "type": "object",
-            "properties": {},
-            "required": []
+            "$ref": "#/$defs/DynamicUndefined"
           }
         },
         "required": [
           "first"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "DynamicUndefined": {
+            "type": "object",
+            "properties": {},
+            "required": []
+          }
+        }
       }
     },
     {
@@ -30,10 +33,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link DynamicUndefined}",
-            "type": "object",
-            "properties": {},
-            "required": []
+            "$ref": "#/$defs/DynamicUndefined"
           },
           "second": {
             "oneOf": [
@@ -41,10 +41,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {},
-                "required": [],
-                "description": "Current Type: {@link DynamicUndefined}"
+                "$ref": "#/$defs/DynamicUndefined"
               }
             ]
           }
@@ -54,13 +51,16 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "DynamicUndefined": {
+            "type": "object",
+            "properties": {},
+            "required": []
+          }
+        }
       },
       "output": {
-        "description": "Current Type: {@link DynamicUndefined}",
-        "type": "object",
-        "properties": {},
-        "required": []
+        "$ref": "#/$defs/DynamicUndefined"
       }
     },
     {
@@ -74,10 +74,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {},
-                "required": [],
-                "description": "Current Type: {@link DynamicUndefined}"
+                "$ref": "#/$defs/DynamicUndefined"
               }
             ]
           },
@@ -87,10 +84,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {},
-                "required": [],
-                "description": "Current Type: {@link DynamicUndefined}"
+                "$ref": "#/$defs/DynamicUndefined"
               }
             ]
           },
@@ -100,10 +94,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {},
-                "required": [],
-                "description": "Current Type: {@link DynamicUndefined}"
+                "$ref": "#/$defs/DynamicUndefined"
               }
             ]
           }
@@ -113,7 +104,13 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "DynamicUndefined": {
+            "type": "object",
+            "properties": {},
+            "required": []
+          }
+        }
       },
       "output": {
         "oneOf": [
@@ -121,10 +118,7 @@
             "type": "null"
           },
           {
-            "type": "object",
-            "properties": {},
-            "required": [],
-            "description": "Current Type: {@link DynamicUndefined}"
+            "$ref": "#/$defs/DynamicUndefined"
           }
         ]
       }

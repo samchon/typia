@@ -1,8 +1,8 @@
 {
   "model": "3.1",
   "options": {
+    "reference": true,
     "constraint": true,
-    "reference": false,
     "separate": null
   },
   "functions": [
@@ -12,91 +12,96 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link TemplateConstant}",
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "array",
-                "items": {
-                  "description": "Current Type: {@link TemplateConstant.Type}",
-                  "type": "object",
-                  "properties": {
-                    "prefix": {
-                      "oneOf": [
-                        {
-                          "const": "prefix_A"
-                        },
-                        {
-                          "const": "prefix_B"
-                        },
-                        {
-                          "const": "prefix_C"
-                        }
-                      ]
-                    },
-                    "postfix": {
-                      "oneOf": [
-                        {
-                          "const": "1_postfix"
-                        },
-                        {
-                          "const": "2_postfix"
-                        },
-                        {
-                          "const": "3_postfix"
-                        }
-                      ]
-                    },
-                    "combined": {
-                      "oneOf": [
-                        {
-                          "const": "the_1_value_with_label_A"
-                        },
-                        {
-                          "const": "the_1_value_with_label_B"
-                        },
-                        {
-                          "const": "the_1_value_with_label_C"
-                        },
-                        {
-                          "const": "the_2_value_with_label_A"
-                        },
-                        {
-                          "const": "the_2_value_with_label_B"
-                        },
-                        {
-                          "const": "the_2_value_with_label_C"
-                        },
-                        {
-                          "const": "the_3_value_with_label_A"
-                        },
-                        {
-                          "const": "the_3_value_with_label_B"
-                        },
-                        {
-                          "const": "the_3_value_with_label_C"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "prefix",
-                    "postfix",
-                    "combined"
-                  ]
-                }
-              }
-            },
-            "required": [
-              "value"
-            ]
+            "$ref": "#/$defs/TemplateConstant"
           }
         },
         "required": [
           "first"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "TemplateConstant": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/TemplateConstant.Type"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "TemplateConstant.Type": {
+            "type": "object",
+            "properties": {
+              "prefix": {
+                "oneOf": [
+                  {
+                    "const": "prefix_A"
+                  },
+                  {
+                    "const": "prefix_B"
+                  },
+                  {
+                    "const": "prefix_C"
+                  }
+                ]
+              },
+              "postfix": {
+                "oneOf": [
+                  {
+                    "const": "1_postfix"
+                  },
+                  {
+                    "const": "2_postfix"
+                  },
+                  {
+                    "const": "3_postfix"
+                  }
+                ]
+              },
+              "combined": {
+                "oneOf": [
+                  {
+                    "const": "the_1_value_with_label_A"
+                  },
+                  {
+                    "const": "the_1_value_with_label_B"
+                  },
+                  {
+                    "const": "the_1_value_with_label_C"
+                  },
+                  {
+                    "const": "the_2_value_with_label_A"
+                  },
+                  {
+                    "const": "the_2_value_with_label_B"
+                  },
+                  {
+                    "const": "the_2_value_with_label_C"
+                  },
+                  {
+                    "const": "the_3_value_with_label_A"
+                  },
+                  {
+                    "const": "the_3_value_with_label_B"
+                  },
+                  {
+                    "const": "the_3_value_with_label_C"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "prefix",
+              "postfix",
+              "combined"
+            ]
+          }
+        }
       }
     },
     {
@@ -105,84 +110,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link TemplateConstant}",
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "array",
-                "items": {
-                  "description": "Current Type: {@link TemplateConstant.Type}",
-                  "type": "object",
-                  "properties": {
-                    "prefix": {
-                      "oneOf": [
-                        {
-                          "const": "prefix_A"
-                        },
-                        {
-                          "const": "prefix_B"
-                        },
-                        {
-                          "const": "prefix_C"
-                        }
-                      ]
-                    },
-                    "postfix": {
-                      "oneOf": [
-                        {
-                          "const": "1_postfix"
-                        },
-                        {
-                          "const": "2_postfix"
-                        },
-                        {
-                          "const": "3_postfix"
-                        }
-                      ]
-                    },
-                    "combined": {
-                      "oneOf": [
-                        {
-                          "const": "the_1_value_with_label_A"
-                        },
-                        {
-                          "const": "the_1_value_with_label_B"
-                        },
-                        {
-                          "const": "the_1_value_with_label_C"
-                        },
-                        {
-                          "const": "the_2_value_with_label_A"
-                        },
-                        {
-                          "const": "the_2_value_with_label_B"
-                        },
-                        {
-                          "const": "the_2_value_with_label_C"
-                        },
-                        {
-                          "const": "the_3_value_with_label_A"
-                        },
-                        {
-                          "const": "the_3_value_with_label_B"
-                        },
-                        {
-                          "const": "the_3_value_with_label_C"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "prefix",
-                    "postfix",
-                    "combined"
-                  ]
-                }
-              }
-            },
-            "required": [
-              "value"
-            ]
+            "$ref": "#/$defs/TemplateConstant"
           },
           "second": {
             "oneOf": [
@@ -190,84 +118,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "description": "Current Type: {@link TemplateConstant.Type}",
-                      "type": "object",
-                      "properties": {
-                        "prefix": {
-                          "oneOf": [
-                            {
-                              "const": "prefix_A"
-                            },
-                            {
-                              "const": "prefix_B"
-                            },
-                            {
-                              "const": "prefix_C"
-                            }
-                          ]
-                        },
-                        "postfix": {
-                          "oneOf": [
-                            {
-                              "const": "1_postfix"
-                            },
-                            {
-                              "const": "2_postfix"
-                            },
-                            {
-                              "const": "3_postfix"
-                            }
-                          ]
-                        },
-                        "combined": {
-                          "oneOf": [
-                            {
-                              "const": "the_1_value_with_label_A"
-                            },
-                            {
-                              "const": "the_1_value_with_label_B"
-                            },
-                            {
-                              "const": "the_1_value_with_label_C"
-                            },
-                            {
-                              "const": "the_2_value_with_label_A"
-                            },
-                            {
-                              "const": "the_2_value_with_label_B"
-                            },
-                            {
-                              "const": "the_2_value_with_label_C"
-                            },
-                            {
-                              "const": "the_3_value_with_label_A"
-                            },
-                            {
-                              "const": "the_3_value_with_label_B"
-                            },
-                            {
-                              "const": "the_3_value_with_label_C"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "prefix",
-                        "postfix",
-                        "combined"
-                      ]
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "description": "Current Type: {@link TemplateConstant}"
+                "$ref": "#/$defs/TemplateConstant"
               }
             ]
           }
@@ -277,87 +128,92 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "TemplateConstant": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/TemplateConstant.Type"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "TemplateConstant.Type": {
+            "type": "object",
+            "properties": {
+              "prefix": {
+                "oneOf": [
+                  {
+                    "const": "prefix_A"
+                  },
+                  {
+                    "const": "prefix_B"
+                  },
+                  {
+                    "const": "prefix_C"
+                  }
+                ]
+              },
+              "postfix": {
+                "oneOf": [
+                  {
+                    "const": "1_postfix"
+                  },
+                  {
+                    "const": "2_postfix"
+                  },
+                  {
+                    "const": "3_postfix"
+                  }
+                ]
+              },
+              "combined": {
+                "oneOf": [
+                  {
+                    "const": "the_1_value_with_label_A"
+                  },
+                  {
+                    "const": "the_1_value_with_label_B"
+                  },
+                  {
+                    "const": "the_1_value_with_label_C"
+                  },
+                  {
+                    "const": "the_2_value_with_label_A"
+                  },
+                  {
+                    "const": "the_2_value_with_label_B"
+                  },
+                  {
+                    "const": "the_2_value_with_label_C"
+                  },
+                  {
+                    "const": "the_3_value_with_label_A"
+                  },
+                  {
+                    "const": "the_3_value_with_label_B"
+                  },
+                  {
+                    "const": "the_3_value_with_label_C"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "prefix",
+              "postfix",
+              "combined"
+            ]
+          }
+        }
       },
       "output": {
-        "description": "Current Type: {@link TemplateConstant}",
-        "type": "object",
-        "properties": {
-          "value": {
-            "type": "array",
-            "items": {
-              "description": "Current Type: {@link TemplateConstant.Type}",
-              "type": "object",
-              "properties": {
-                "prefix": {
-                  "oneOf": [
-                    {
-                      "const": "prefix_A"
-                    },
-                    {
-                      "const": "prefix_B"
-                    },
-                    {
-                      "const": "prefix_C"
-                    }
-                  ]
-                },
-                "postfix": {
-                  "oneOf": [
-                    {
-                      "const": "1_postfix"
-                    },
-                    {
-                      "const": "2_postfix"
-                    },
-                    {
-                      "const": "3_postfix"
-                    }
-                  ]
-                },
-                "combined": {
-                  "oneOf": [
-                    {
-                      "const": "the_1_value_with_label_A"
-                    },
-                    {
-                      "const": "the_1_value_with_label_B"
-                    },
-                    {
-                      "const": "the_1_value_with_label_C"
-                    },
-                    {
-                      "const": "the_2_value_with_label_A"
-                    },
-                    {
-                      "const": "the_2_value_with_label_B"
-                    },
-                    {
-                      "const": "the_2_value_with_label_C"
-                    },
-                    {
-                      "const": "the_3_value_with_label_A"
-                    },
-                    {
-                      "const": "the_3_value_with_label_B"
-                    },
-                    {
-                      "const": "the_3_value_with_label_C"
-                    }
-                  ]
-                }
-              },
-              "required": [
-                "prefix",
-                "postfix",
-                "combined"
-              ]
-            }
-          }
-        },
-        "required": [
-          "value"
-        ]
+        "$ref": "#/$defs/TemplateConstant"
       }
     },
     {
@@ -371,84 +227,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "description": "Current Type: {@link TemplateConstant.Type}",
-                      "type": "object",
-                      "properties": {
-                        "prefix": {
-                          "oneOf": [
-                            {
-                              "const": "prefix_A"
-                            },
-                            {
-                              "const": "prefix_B"
-                            },
-                            {
-                              "const": "prefix_C"
-                            }
-                          ]
-                        },
-                        "postfix": {
-                          "oneOf": [
-                            {
-                              "const": "1_postfix"
-                            },
-                            {
-                              "const": "2_postfix"
-                            },
-                            {
-                              "const": "3_postfix"
-                            }
-                          ]
-                        },
-                        "combined": {
-                          "oneOf": [
-                            {
-                              "const": "the_1_value_with_label_A"
-                            },
-                            {
-                              "const": "the_1_value_with_label_B"
-                            },
-                            {
-                              "const": "the_1_value_with_label_C"
-                            },
-                            {
-                              "const": "the_2_value_with_label_A"
-                            },
-                            {
-                              "const": "the_2_value_with_label_B"
-                            },
-                            {
-                              "const": "the_2_value_with_label_C"
-                            },
-                            {
-                              "const": "the_3_value_with_label_A"
-                            },
-                            {
-                              "const": "the_3_value_with_label_B"
-                            },
-                            {
-                              "const": "the_3_value_with_label_C"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "prefix",
-                        "postfix",
-                        "combined"
-                      ]
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "description": "Current Type: {@link TemplateConstant}"
+                "$ref": "#/$defs/TemplateConstant"
               }
             ]
           },
@@ -458,84 +237,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "description": "Current Type: {@link TemplateConstant.Type}",
-                      "type": "object",
-                      "properties": {
-                        "prefix": {
-                          "oneOf": [
-                            {
-                              "const": "prefix_A"
-                            },
-                            {
-                              "const": "prefix_B"
-                            },
-                            {
-                              "const": "prefix_C"
-                            }
-                          ]
-                        },
-                        "postfix": {
-                          "oneOf": [
-                            {
-                              "const": "1_postfix"
-                            },
-                            {
-                              "const": "2_postfix"
-                            },
-                            {
-                              "const": "3_postfix"
-                            }
-                          ]
-                        },
-                        "combined": {
-                          "oneOf": [
-                            {
-                              "const": "the_1_value_with_label_A"
-                            },
-                            {
-                              "const": "the_1_value_with_label_B"
-                            },
-                            {
-                              "const": "the_1_value_with_label_C"
-                            },
-                            {
-                              "const": "the_2_value_with_label_A"
-                            },
-                            {
-                              "const": "the_2_value_with_label_B"
-                            },
-                            {
-                              "const": "the_2_value_with_label_C"
-                            },
-                            {
-                              "const": "the_3_value_with_label_A"
-                            },
-                            {
-                              "const": "the_3_value_with_label_B"
-                            },
-                            {
-                              "const": "the_3_value_with_label_C"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "prefix",
-                        "postfix",
-                        "combined"
-                      ]
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "description": "Current Type: {@link TemplateConstant}"
+                "$ref": "#/$defs/TemplateConstant"
               }
             ]
           },
@@ -545,84 +247,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "description": "Current Type: {@link TemplateConstant.Type}",
-                      "type": "object",
-                      "properties": {
-                        "prefix": {
-                          "oneOf": [
-                            {
-                              "const": "prefix_A"
-                            },
-                            {
-                              "const": "prefix_B"
-                            },
-                            {
-                              "const": "prefix_C"
-                            }
-                          ]
-                        },
-                        "postfix": {
-                          "oneOf": [
-                            {
-                              "const": "1_postfix"
-                            },
-                            {
-                              "const": "2_postfix"
-                            },
-                            {
-                              "const": "3_postfix"
-                            }
-                          ]
-                        },
-                        "combined": {
-                          "oneOf": [
-                            {
-                              "const": "the_1_value_with_label_A"
-                            },
-                            {
-                              "const": "the_1_value_with_label_B"
-                            },
-                            {
-                              "const": "the_1_value_with_label_C"
-                            },
-                            {
-                              "const": "the_2_value_with_label_A"
-                            },
-                            {
-                              "const": "the_2_value_with_label_B"
-                            },
-                            {
-                              "const": "the_2_value_with_label_C"
-                            },
-                            {
-                              "const": "the_3_value_with_label_A"
-                            },
-                            {
-                              "const": "the_3_value_with_label_B"
-                            },
-                            {
-                              "const": "the_3_value_with_label_C"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "prefix",
-                        "postfix",
-                        "combined"
-                      ]
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "description": "Current Type: {@link TemplateConstant}"
+                "$ref": "#/$defs/TemplateConstant"
               }
             ]
           }
@@ -632,7 +257,89 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "TemplateConstant": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/TemplateConstant.Type"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "TemplateConstant.Type": {
+            "type": "object",
+            "properties": {
+              "prefix": {
+                "oneOf": [
+                  {
+                    "const": "prefix_A"
+                  },
+                  {
+                    "const": "prefix_B"
+                  },
+                  {
+                    "const": "prefix_C"
+                  }
+                ]
+              },
+              "postfix": {
+                "oneOf": [
+                  {
+                    "const": "1_postfix"
+                  },
+                  {
+                    "const": "2_postfix"
+                  },
+                  {
+                    "const": "3_postfix"
+                  }
+                ]
+              },
+              "combined": {
+                "oneOf": [
+                  {
+                    "const": "the_1_value_with_label_A"
+                  },
+                  {
+                    "const": "the_1_value_with_label_B"
+                  },
+                  {
+                    "const": "the_1_value_with_label_C"
+                  },
+                  {
+                    "const": "the_2_value_with_label_A"
+                  },
+                  {
+                    "const": "the_2_value_with_label_B"
+                  },
+                  {
+                    "const": "the_2_value_with_label_C"
+                  },
+                  {
+                    "const": "the_3_value_with_label_A"
+                  },
+                  {
+                    "const": "the_3_value_with_label_B"
+                  },
+                  {
+                    "const": "the_3_value_with_label_C"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "prefix",
+              "postfix",
+              "combined"
+            ]
+          }
+        }
       },
       "output": {
         "oneOf": [
@@ -640,84 +347,7 @@
             "type": "null"
           },
           {
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "array",
-                "items": {
-                  "description": "Current Type: {@link TemplateConstant.Type}",
-                  "type": "object",
-                  "properties": {
-                    "prefix": {
-                      "oneOf": [
-                        {
-                          "const": "prefix_A"
-                        },
-                        {
-                          "const": "prefix_B"
-                        },
-                        {
-                          "const": "prefix_C"
-                        }
-                      ]
-                    },
-                    "postfix": {
-                      "oneOf": [
-                        {
-                          "const": "1_postfix"
-                        },
-                        {
-                          "const": "2_postfix"
-                        },
-                        {
-                          "const": "3_postfix"
-                        }
-                      ]
-                    },
-                    "combined": {
-                      "oneOf": [
-                        {
-                          "const": "the_1_value_with_label_A"
-                        },
-                        {
-                          "const": "the_1_value_with_label_B"
-                        },
-                        {
-                          "const": "the_1_value_with_label_C"
-                        },
-                        {
-                          "const": "the_2_value_with_label_A"
-                        },
-                        {
-                          "const": "the_2_value_with_label_B"
-                        },
-                        {
-                          "const": "the_2_value_with_label_C"
-                        },
-                        {
-                          "const": "the_3_value_with_label_A"
-                        },
-                        {
-                          "const": "the_3_value_with_label_B"
-                        },
-                        {
-                          "const": "the_3_value_with_label_C"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "prefix",
-                    "postfix",
-                    "combined"
-                  ]
-                }
-              }
-            },
-            "required": [
-              "value"
-            ],
-            "description": "Current Type: {@link TemplateConstant}"
+            "$ref": "#/$defs/TemplateConstant"
           }
         ]
       }

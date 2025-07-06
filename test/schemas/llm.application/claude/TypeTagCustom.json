@@ -1,7 +1,7 @@
 {
   "model": "claude",
   "options": {
-    "reference": false,
+    "reference": true,
     "separate": null
   },
   "functions": [
@@ -11,7 +11,15 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link TypeTagCustom}",
+            "$ref": "#/$defs/TypeTagCustom"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "TypeTagCustom": {
             "type": "object",
             "properties": {
               "id": {
@@ -38,12 +46,7 @@
               "powerOf"
             ]
           }
-        },
-        "required": [
-          "first"
-        ],
-        "additionalProperties": false,
-        "$defs": {}
+        }
       }
     },
     {
@@ -52,32 +55,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link TypeTagCustom}",
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string",
-                "format": "uuid"
-              },
-              "dollar": {
-                "x-typia-monetary": "dollar",
-                "type": "string"
-              },
-              "postfix": {
-                "x-typia-postfix": "abcd",
-                "type": "string"
-              },
-              "powerOf": {
-                "x-typia-powerOf": 2,
-                "type": "number"
-              }
-            },
-            "required": [
-              "id",
-              "dollar",
-              "postfix",
-              "powerOf"
-            ]
+            "$ref": "#/$defs/TypeTagCustom"
           },
           "second": {
             "oneOf": [
@@ -85,32 +63,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string",
-                    "format": "uuid"
-                  },
-                  "dollar": {
-                    "x-typia-monetary": "dollar",
-                    "type": "string"
-                  },
-                  "postfix": {
-                    "x-typia-postfix": "abcd",
-                    "type": "string"
-                  },
-                  "powerOf": {
-                    "x-typia-powerOf": 2,
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "id",
-                  "dollar",
-                  "postfix",
-                  "powerOf"
-                ],
-                "description": "Current Type: {@link TypeTagCustom}"
+                "$ref": "#/$defs/TypeTagCustom"
               }
             ]
           }
@@ -120,35 +73,38 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "TypeTagCustom": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "dollar": {
+                "x-typia-monetary": "dollar",
+                "type": "string"
+              },
+              "postfix": {
+                "x-typia-postfix": "abcd",
+                "type": "string"
+              },
+              "powerOf": {
+                "x-typia-powerOf": 2,
+                "type": "number"
+              }
+            },
+            "required": [
+              "id",
+              "dollar",
+              "postfix",
+              "powerOf"
+            ]
+          }
+        }
       },
       "output": {
-        "description": "Current Type: {@link TypeTagCustom}",
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "format": "uuid"
-          },
-          "dollar": {
-            "x-typia-monetary": "dollar",
-            "type": "string"
-          },
-          "postfix": {
-            "x-typia-postfix": "abcd",
-            "type": "string"
-          },
-          "powerOf": {
-            "x-typia-powerOf": 2,
-            "type": "number"
-          }
-        },
-        "required": [
-          "id",
-          "dollar",
-          "postfix",
-          "powerOf"
-        ]
+        "$ref": "#/$defs/TypeTagCustom"
       }
     },
     {
@@ -162,32 +118,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string",
-                    "format": "uuid"
-                  },
-                  "dollar": {
-                    "x-typia-monetary": "dollar",
-                    "type": "string"
-                  },
-                  "postfix": {
-                    "x-typia-postfix": "abcd",
-                    "type": "string"
-                  },
-                  "powerOf": {
-                    "x-typia-powerOf": 2,
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "id",
-                  "dollar",
-                  "postfix",
-                  "powerOf"
-                ],
-                "description": "Current Type: {@link TypeTagCustom}"
+                "$ref": "#/$defs/TypeTagCustom"
               }
             ]
           },
@@ -197,32 +128,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string",
-                    "format": "uuid"
-                  },
-                  "dollar": {
-                    "x-typia-monetary": "dollar",
-                    "type": "string"
-                  },
-                  "postfix": {
-                    "x-typia-postfix": "abcd",
-                    "type": "string"
-                  },
-                  "powerOf": {
-                    "x-typia-powerOf": 2,
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "id",
-                  "dollar",
-                  "postfix",
-                  "powerOf"
-                ],
-                "description": "Current Type: {@link TypeTagCustom}"
+                "$ref": "#/$defs/TypeTagCustom"
               }
             ]
           },
@@ -232,32 +138,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string",
-                    "format": "uuid"
-                  },
-                  "dollar": {
-                    "x-typia-monetary": "dollar",
-                    "type": "string"
-                  },
-                  "postfix": {
-                    "x-typia-postfix": "abcd",
-                    "type": "string"
-                  },
-                  "powerOf": {
-                    "x-typia-powerOf": 2,
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "id",
-                  "dollar",
-                  "postfix",
-                  "powerOf"
-                ],
-                "description": "Current Type: {@link TypeTagCustom}"
+                "$ref": "#/$defs/TypeTagCustom"
               }
             ]
           }
@@ -267,14 +148,8 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "oneOf": [
-          {
-            "type": "null"
-          },
-          {
+        "$defs": {
+          "TypeTagCustom": {
             "type": "object",
             "properties": {
               "id": {
@@ -299,8 +174,17 @@
               "dollar",
               "postfix",
               "powerOf"
-            ],
-            "description": "Current Type: {@link TypeTagCustom}"
+            ]
+          }
+        }
+      },
+      "output": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/TypeTagCustom"
           }
         ]
       }

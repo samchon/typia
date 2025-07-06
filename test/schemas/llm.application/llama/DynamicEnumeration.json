@@ -1,7 +1,7 @@
 {
   "model": "llama",
   "options": {
-    "reference": false,
+    "reference": true,
     "separate": null
   },
   "functions": [
@@ -11,7 +11,15 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link DynamicEnumeration}",
+            "$ref": "#/$defs/DynamicEnumeration"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "DynamicEnumeration": {
             "type": "object",
             "properties": {
               "value": {
@@ -55,12 +63,7 @@
               "value"
             ]
           }
-        },
-        "required": [
-          "first"
-        ],
-        "additionalProperties": false,
-        "$defs": {}
+        }
       }
     },
     {
@@ -69,49 +72,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link DynamicEnumeration}",
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "object",
-                "properties": {
-                  "ar": {
-                    "type": "string"
-                  },
-                  "zh-Hans": {
-                    "type": "string"
-                  },
-                  "zh-Hant": {
-                    "type": "string"
-                  },
-                  "en": {
-                    "type": "string"
-                  },
-                  "fr": {
-                    "type": "string"
-                  },
-                  "de": {
-                    "type": "string"
-                  },
-                  "ja": {
-                    "type": "string"
-                  },
-                  "ko": {
-                    "type": "string"
-                  },
-                  "pt": {
-                    "type": "string"
-                  },
-                  "ru": {
-                    "type": "string"
-                  }
-                },
-                "required": []
-              }
-            },
-            "required": [
-              "value"
-            ]
+            "$ref": "#/$defs/DynamicEnumeration"
           },
           "second": {
             "oneOf": [
@@ -119,49 +80,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "object",
-                    "properties": {
-                      "ar": {
-                        "type": "string"
-                      },
-                      "zh-Hans": {
-                        "type": "string"
-                      },
-                      "zh-Hant": {
-                        "type": "string"
-                      },
-                      "en": {
-                        "type": "string"
-                      },
-                      "fr": {
-                        "type": "string"
-                      },
-                      "de": {
-                        "type": "string"
-                      },
-                      "ja": {
-                        "type": "string"
-                      },
-                      "ko": {
-                        "type": "string"
-                      },
-                      "pt": {
-                        "type": "string"
-                      },
-                      "ru": {
-                        "type": "string"
-                      }
-                    },
-                    "required": []
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "description": "Current Type: {@link DynamicEnumeration}"
+                "$ref": "#/$defs/DynamicEnumeration"
               }
             ]
           }
@@ -171,52 +90,55 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "description": "Current Type: {@link DynamicEnumeration}",
-        "type": "object",
-        "properties": {
-          "value": {
+        "$defs": {
+          "DynamicEnumeration": {
             "type": "object",
             "properties": {
-              "ar": {
-                "type": "string"
-              },
-              "zh-Hans": {
-                "type": "string"
-              },
-              "zh-Hant": {
-                "type": "string"
-              },
-              "en": {
-                "type": "string"
-              },
-              "fr": {
-                "type": "string"
-              },
-              "de": {
-                "type": "string"
-              },
-              "ja": {
-                "type": "string"
-              },
-              "ko": {
-                "type": "string"
-              },
-              "pt": {
-                "type": "string"
-              },
-              "ru": {
-                "type": "string"
+              "value": {
+                "type": "object",
+                "properties": {
+                  "ar": {
+                    "type": "string"
+                  },
+                  "zh-Hans": {
+                    "type": "string"
+                  },
+                  "zh-Hant": {
+                    "type": "string"
+                  },
+                  "en": {
+                    "type": "string"
+                  },
+                  "fr": {
+                    "type": "string"
+                  },
+                  "de": {
+                    "type": "string"
+                  },
+                  "ja": {
+                    "type": "string"
+                  },
+                  "ko": {
+                    "type": "string"
+                  },
+                  "pt": {
+                    "type": "string"
+                  },
+                  "ru": {
+                    "type": "string"
+                  }
+                },
+                "required": []
               }
             },
-            "required": []
+            "required": [
+              "value"
+            ]
           }
-        },
-        "required": [
-          "value"
-        ]
+        }
+      },
+      "output": {
+        "$ref": "#/$defs/DynamicEnumeration"
       }
     },
     {
@@ -230,49 +152,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "object",
-                    "properties": {
-                      "ar": {
-                        "type": "string"
-                      },
-                      "zh-Hans": {
-                        "type": "string"
-                      },
-                      "zh-Hant": {
-                        "type": "string"
-                      },
-                      "en": {
-                        "type": "string"
-                      },
-                      "fr": {
-                        "type": "string"
-                      },
-                      "de": {
-                        "type": "string"
-                      },
-                      "ja": {
-                        "type": "string"
-                      },
-                      "ko": {
-                        "type": "string"
-                      },
-                      "pt": {
-                        "type": "string"
-                      },
-                      "ru": {
-                        "type": "string"
-                      }
-                    },
-                    "required": []
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "description": "Current Type: {@link DynamicEnumeration}"
+                "$ref": "#/$defs/DynamicEnumeration"
               }
             ]
           },
@@ -282,49 +162,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "object",
-                    "properties": {
-                      "ar": {
-                        "type": "string"
-                      },
-                      "zh-Hans": {
-                        "type": "string"
-                      },
-                      "zh-Hant": {
-                        "type": "string"
-                      },
-                      "en": {
-                        "type": "string"
-                      },
-                      "fr": {
-                        "type": "string"
-                      },
-                      "de": {
-                        "type": "string"
-                      },
-                      "ja": {
-                        "type": "string"
-                      },
-                      "ko": {
-                        "type": "string"
-                      },
-                      "pt": {
-                        "type": "string"
-                      },
-                      "ru": {
-                        "type": "string"
-                      }
-                    },
-                    "required": []
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "description": "Current Type: {@link DynamicEnumeration}"
+                "$ref": "#/$defs/DynamicEnumeration"
               }
             ]
           },
@@ -334,49 +172,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "object",
-                    "properties": {
-                      "ar": {
-                        "type": "string"
-                      },
-                      "zh-Hans": {
-                        "type": "string"
-                      },
-                      "zh-Hant": {
-                        "type": "string"
-                      },
-                      "en": {
-                        "type": "string"
-                      },
-                      "fr": {
-                        "type": "string"
-                      },
-                      "de": {
-                        "type": "string"
-                      },
-                      "ja": {
-                        "type": "string"
-                      },
-                      "ko": {
-                        "type": "string"
-                      },
-                      "pt": {
-                        "type": "string"
-                      },
-                      "ru": {
-                        "type": "string"
-                      }
-                    },
-                    "required": []
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "description": "Current Type: {@link DynamicEnumeration}"
+                "$ref": "#/$defs/DynamicEnumeration"
               }
             ]
           }
@@ -386,14 +182,8 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "oneOf": [
-          {
-            "type": "null"
-          },
-          {
+        "$defs": {
+          "DynamicEnumeration": {
             "type": "object",
             "properties": {
               "value": {
@@ -435,8 +225,17 @@
             },
             "required": [
               "value"
-            ],
-            "description": "Current Type: {@link DynamicEnumeration}"
+            ]
+          }
+        }
+      },
+      "output": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/DynamicEnumeration"
           }
         ]
       }

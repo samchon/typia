@@ -1,7 +1,7 @@
 {
   "model": "chatgpt",
   "options": {
-    "reference": false,
+    "reference": true,
     "strict": false,
     "separate": null
   },
@@ -12,65 +12,70 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link CommentTagType}",
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "array",
-                "items": {
-                  "description": "Current Type: {@link CommentTagType.Type}",
-                  "type": "object",
-                  "properties": {
-                    "int": {
-                      "title": "Integer value",
-                      "description": "Integer value.",
-                      "type": "integer"
-                    },
-                    "uint": {
-                      "title": "Unsigned integer value",
-                      "description": "Unsigned integer value.\n\n\n@minimum 0",
-                      "type": "integer"
-                    },
-                    "int32": {
-                      "type": "integer"
-                    },
-                    "uint32": {
-                      "description": "@minimum 0",
-                      "type": "integer"
-                    },
-                    "int64": {
-                      "type": "integer"
-                    },
-                    "uint64": {
-                      "description": "@minimum 0",
-                      "type": "integer"
-                    },
-                    "float": {
-                      "type": "number"
-                    }
-                  },
-                  "required": [
-                    "int",
-                    "uint",
-                    "int32",
-                    "uint32",
-                    "int64",
-                    "uint64",
-                    "float"
-                  ]
-                }
-              }
-            },
-            "required": [
-              "value"
-            ]
+            "$ref": "#/$defs/CommentTagType"
           }
         },
         "required": [
           "first"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "CommentTagType": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/CommentTagType.Type"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "CommentTagType.Type": {
+            "type": "object",
+            "properties": {
+              "int": {
+                "title": "Integer value",
+                "description": "Integer value.",
+                "type": "integer"
+              },
+              "uint": {
+                "title": "Unsigned integer value",
+                "description": "Unsigned integer value.\n\n\n@minimum 0",
+                "type": "integer"
+              },
+              "int32": {
+                "type": "integer"
+              },
+              "uint32": {
+                "description": "@minimum 0",
+                "type": "integer"
+              },
+              "int64": {
+                "type": "integer"
+              },
+              "uint64": {
+                "description": "@minimum 0",
+                "type": "integer"
+              },
+              "float": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "int",
+              "uint",
+              "int32",
+              "uint32",
+              "int64",
+              "uint64",
+              "float"
+            ]
+          }
+        }
       }
     },
     {
@@ -79,58 +84,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link CommentTagType}",
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "array",
-                "items": {
-                  "description": "Current Type: {@link CommentTagType.Type}",
-                  "type": "object",
-                  "properties": {
-                    "int": {
-                      "title": "Integer value",
-                      "description": "Integer value.",
-                      "type": "integer"
-                    },
-                    "uint": {
-                      "title": "Unsigned integer value",
-                      "description": "Unsigned integer value.\n\n\n@minimum 0",
-                      "type": "integer"
-                    },
-                    "int32": {
-                      "type": "integer"
-                    },
-                    "uint32": {
-                      "description": "@minimum 0",
-                      "type": "integer"
-                    },
-                    "int64": {
-                      "type": "integer"
-                    },
-                    "uint64": {
-                      "description": "@minimum 0",
-                      "type": "integer"
-                    },
-                    "float": {
-                      "type": "number"
-                    }
-                  },
-                  "required": [
-                    "int",
-                    "uint",
-                    "int32",
-                    "uint32",
-                    "int64",
-                    "uint64",
-                    "float"
-                  ]
-                }
-              }
-            },
-            "required": [
-              "value"
-            ]
+            "$ref": "#/$defs/CommentTagType"
           },
           "second": {
             "anyOf": [
@@ -138,58 +92,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "description": "Current Type: {@link CommentTagType.Type}",
-                      "type": "object",
-                      "properties": {
-                        "int": {
-                          "title": "Integer value",
-                          "description": "Integer value.",
-                          "type": "integer"
-                        },
-                        "uint": {
-                          "title": "Unsigned integer value",
-                          "description": "Unsigned integer value.\n\n\n@minimum 0",
-                          "type": "integer"
-                        },
-                        "int32": {
-                          "type": "integer"
-                        },
-                        "uint32": {
-                          "description": "@minimum 0",
-                          "type": "integer"
-                        },
-                        "int64": {
-                          "type": "integer"
-                        },
-                        "uint64": {
-                          "description": "@minimum 0",
-                          "type": "integer"
-                        },
-                        "float": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "int",
-                        "uint",
-                        "int32",
-                        "uint32",
-                        "int64",
-                        "uint64",
-                        "float"
-                      ]
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "description": "Current Type: {@link CommentTagType}"
+                "$ref": "#/$defs/CommentTagType"
               }
             ]
           }
@@ -199,61 +102,66 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "CommentTagType": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/CommentTagType.Type"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "CommentTagType.Type": {
+            "type": "object",
+            "properties": {
+              "int": {
+                "title": "Integer value",
+                "description": "Integer value.",
+                "type": "integer"
+              },
+              "uint": {
+                "title": "Unsigned integer value",
+                "description": "Unsigned integer value.\n\n\n@minimum 0",
+                "type": "integer"
+              },
+              "int32": {
+                "type": "integer"
+              },
+              "uint32": {
+                "description": "@minimum 0",
+                "type": "integer"
+              },
+              "int64": {
+                "type": "integer"
+              },
+              "uint64": {
+                "description": "@minimum 0",
+                "type": "integer"
+              },
+              "float": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "int",
+              "uint",
+              "int32",
+              "uint32",
+              "int64",
+              "uint64",
+              "float"
+            ]
+          }
+        }
       },
       "output": {
-        "description": "Current Type: {@link CommentTagType}",
-        "type": "object",
-        "properties": {
-          "value": {
-            "type": "array",
-            "items": {
-              "description": "Current Type: {@link CommentTagType.Type}",
-              "type": "object",
-              "properties": {
-                "int": {
-                  "title": "Integer value",
-                  "description": "Integer value.",
-                  "type": "integer"
-                },
-                "uint": {
-                  "title": "Unsigned integer value",
-                  "description": "Unsigned integer value.\n\n\n@minimum 0",
-                  "type": "integer"
-                },
-                "int32": {
-                  "type": "integer"
-                },
-                "uint32": {
-                  "description": "@minimum 0",
-                  "type": "integer"
-                },
-                "int64": {
-                  "type": "integer"
-                },
-                "uint64": {
-                  "description": "@minimum 0",
-                  "type": "integer"
-                },
-                "float": {
-                  "type": "number"
-                }
-              },
-              "required": [
-                "int",
-                "uint",
-                "int32",
-                "uint32",
-                "int64",
-                "uint64",
-                "float"
-              ]
-            }
-          }
-        },
-        "required": [
-          "value"
-        ]
+        "$ref": "#/$defs/CommentTagType"
       }
     },
     {
@@ -267,58 +175,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "description": "Current Type: {@link CommentTagType.Type}",
-                      "type": "object",
-                      "properties": {
-                        "int": {
-                          "title": "Integer value",
-                          "description": "Integer value.",
-                          "type": "integer"
-                        },
-                        "uint": {
-                          "title": "Unsigned integer value",
-                          "description": "Unsigned integer value.\n\n\n@minimum 0",
-                          "type": "integer"
-                        },
-                        "int32": {
-                          "type": "integer"
-                        },
-                        "uint32": {
-                          "description": "@minimum 0",
-                          "type": "integer"
-                        },
-                        "int64": {
-                          "type": "integer"
-                        },
-                        "uint64": {
-                          "description": "@minimum 0",
-                          "type": "integer"
-                        },
-                        "float": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "int",
-                        "uint",
-                        "int32",
-                        "uint32",
-                        "int64",
-                        "uint64",
-                        "float"
-                      ]
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "description": "Current Type: {@link CommentTagType}"
+                "$ref": "#/$defs/CommentTagType"
               }
             ]
           },
@@ -328,58 +185,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "description": "Current Type: {@link CommentTagType.Type}",
-                      "type": "object",
-                      "properties": {
-                        "int": {
-                          "title": "Integer value",
-                          "description": "Integer value.",
-                          "type": "integer"
-                        },
-                        "uint": {
-                          "title": "Unsigned integer value",
-                          "description": "Unsigned integer value.\n\n\n@minimum 0",
-                          "type": "integer"
-                        },
-                        "int32": {
-                          "type": "integer"
-                        },
-                        "uint32": {
-                          "description": "@minimum 0",
-                          "type": "integer"
-                        },
-                        "int64": {
-                          "type": "integer"
-                        },
-                        "uint64": {
-                          "description": "@minimum 0",
-                          "type": "integer"
-                        },
-                        "float": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "int",
-                        "uint",
-                        "int32",
-                        "uint32",
-                        "int64",
-                        "uint64",
-                        "float"
-                      ]
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "description": "Current Type: {@link CommentTagType}"
+                "$ref": "#/$defs/CommentTagType"
               }
             ]
           },
@@ -389,58 +195,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "description": "Current Type: {@link CommentTagType.Type}",
-                      "type": "object",
-                      "properties": {
-                        "int": {
-                          "title": "Integer value",
-                          "description": "Integer value.",
-                          "type": "integer"
-                        },
-                        "uint": {
-                          "title": "Unsigned integer value",
-                          "description": "Unsigned integer value.\n\n\n@minimum 0",
-                          "type": "integer"
-                        },
-                        "int32": {
-                          "type": "integer"
-                        },
-                        "uint32": {
-                          "description": "@minimum 0",
-                          "type": "integer"
-                        },
-                        "int64": {
-                          "type": "integer"
-                        },
-                        "uint64": {
-                          "description": "@minimum 0",
-                          "type": "integer"
-                        },
-                        "float": {
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "int",
-                        "uint",
-                        "int32",
-                        "uint32",
-                        "int64",
-                        "uint64",
-                        "float"
-                      ]
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "description": "Current Type: {@link CommentTagType}"
+                "$ref": "#/$defs/CommentTagType"
               }
             ]
           }
@@ -450,7 +205,63 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "CommentTagType": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/CommentTagType.Type"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "CommentTagType.Type": {
+            "type": "object",
+            "properties": {
+              "int": {
+                "title": "Integer value",
+                "description": "Integer value.",
+                "type": "integer"
+              },
+              "uint": {
+                "title": "Unsigned integer value",
+                "description": "Unsigned integer value.\n\n\n@minimum 0",
+                "type": "integer"
+              },
+              "int32": {
+                "type": "integer"
+              },
+              "uint32": {
+                "description": "@minimum 0",
+                "type": "integer"
+              },
+              "int64": {
+                "type": "integer"
+              },
+              "uint64": {
+                "description": "@minimum 0",
+                "type": "integer"
+              },
+              "float": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "int",
+              "uint",
+              "int32",
+              "uint32",
+              "int64",
+              "uint64",
+              "float"
+            ]
+          }
+        }
       },
       "output": {
         "anyOf": [
@@ -458,58 +269,7 @@
             "type": "null"
           },
           {
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "array",
-                "items": {
-                  "description": "Current Type: {@link CommentTagType.Type}",
-                  "type": "object",
-                  "properties": {
-                    "int": {
-                      "title": "Integer value",
-                      "description": "Integer value.",
-                      "type": "integer"
-                    },
-                    "uint": {
-                      "title": "Unsigned integer value",
-                      "description": "Unsigned integer value.\n\n\n@minimum 0",
-                      "type": "integer"
-                    },
-                    "int32": {
-                      "type": "integer"
-                    },
-                    "uint32": {
-                      "description": "@minimum 0",
-                      "type": "integer"
-                    },
-                    "int64": {
-                      "type": "integer"
-                    },
-                    "uint64": {
-                      "description": "@minimum 0",
-                      "type": "integer"
-                    },
-                    "float": {
-                      "type": "number"
-                    }
-                  },
-                  "required": [
-                    "int",
-                    "uint",
-                    "int32",
-                    "uint32",
-                    "int64",
-                    "uint64",
-                    "float"
-                  ]
-                }
-              }
-            },
-            "required": [
-              "value"
-            ],
-            "description": "Current Type: {@link CommentTagType}"
+            "$ref": "#/$defs/CommentTagType"
           }
         ]
       }

@@ -1,7 +1,7 @@
 {
   "model": "chatgpt",
   "options": {
-    "reference": false,
+    "reference": true,
     "strict": false,
     "separate": null
   },
@@ -12,8 +12,17 @@
         "type": "object",
         "properties": {
           "first": {
+            "$ref": "#/$defs/ObjectDescription"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ObjectDescription": {
             "title": "This is the title of object type",
-            "description": "Description of the current {@link ObjectDescription} type:\n\n> An interface designed to test JSON schema's object description.",
+            "description": "An interface designed to test JSON schema's object description.",
             "type": "object",
             "properties": {
               "id": {
@@ -53,12 +62,7 @@
               "newLine"
             ]
           }
-        },
-        "required": [
-          "first"
-        ],
-        "additionalProperties": false,
-        "$defs": {}
+        }
       }
     },
     {
@@ -67,46 +71,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "title": "This is the title of object type",
-            "description": "Description of the current {@link ObjectDescription} type:\n\n> An interface designed to test JSON schema's object description.",
-            "type": "object",
-            "properties": {
-              "id": {
-                "title": "Primary Key",
-                "description": "Primary Key.\n\n\n@format uuid",
-                "type": "string"
-              },
-              "deprecated": {
-                "title": "Deprecated property",
-                "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON schema.",
-                "type": "boolean",
-                "deprecated": true
-              },
-              "title": {
-                "title": "This is the title",
-                "description": "Title tag can replace the first line of the comment.",
-                "type": "string"
-              },
-              "descriptions": {
-                "title": "Description property",
-                "description": "Description property.\n\nIf you write first line and the first line ends with \".\" character,\nit would be considered as the title. By the way, description does\nnot exclusive the title, so that full content be written.",
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              "newLine": {
-                "description": "New line before dot character\n\nIf dot character (\".\") being used before the first new line, it would not\nbe considered as title in the JSON schema.",
-                "type": "number"
-              }
-            },
-            "required": [
-              "id",
-              "deprecated",
-              "title",
-              "descriptions",
-              "newLine"
-            ]
+            "$ref": "#/$defs/ObjectDescription"
           },
           "second": {
             "anyOf": [
@@ -114,46 +79,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "title": "Primary Key",
-                    "description": "Primary Key.\n\n\n@format uuid",
-                    "type": "string"
-                  },
-                  "deprecated": {
-                    "title": "Deprecated property",
-                    "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON schema.",
-                    "type": "boolean",
-                    "deprecated": true
-                  },
-                  "title": {
-                    "title": "This is the title",
-                    "description": "Title tag can replace the first line of the comment.",
-                    "type": "string"
-                  },
-                  "descriptions": {
-                    "title": "Description property",
-                    "description": "Description property.\n\nIf you write first line and the first line ends with \".\" character,\nit would be considered as the title. By the way, description does\nnot exclusive the title, so that full content be written.",
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    }
-                  },
-                  "newLine": {
-                    "description": "New line before dot character\n\nIf dot character (\".\") being used before the first new line, it would not\nbe considered as title in the JSON schema.",
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "id",
-                  "deprecated",
-                  "title",
-                  "descriptions",
-                  "newLine"
-                ],
-                "title": "This is the title of object type",
-                "description": "Description of the current {@link ObjectDescription} type:\n\n> An interface designed to test JSON schema's object description."
+                "$ref": "#/$defs/ObjectDescription"
               }
             ]
           }
@@ -163,49 +89,53 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "ObjectDescription": {
+            "title": "This is the title of object type",
+            "description": "An interface designed to test JSON schema's object description.",
+            "type": "object",
+            "properties": {
+              "id": {
+                "title": "Primary Key",
+                "description": "Primary Key.\n\n\n@format uuid",
+                "type": "string"
+              },
+              "deprecated": {
+                "title": "Deprecated property",
+                "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON schema.",
+                "type": "boolean",
+                "deprecated": true
+              },
+              "title": {
+                "title": "This is the title",
+                "description": "Title tag can replace the first line of the comment.",
+                "type": "string"
+              },
+              "descriptions": {
+                "title": "Description property",
+                "description": "Description property.\n\nIf you write first line and the first line ends with \".\" character,\nit would be considered as the title. By the way, description does\nnot exclusive the title, so that full content be written.",
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "newLine": {
+                "description": "New line before dot character\n\nIf dot character (\".\") being used before the first new line, it would not\nbe considered as title in the JSON schema.",
+                "type": "number"
+              }
+            },
+            "required": [
+              "id",
+              "deprecated",
+              "title",
+              "descriptions",
+              "newLine"
+            ]
+          }
+        }
       },
       "output": {
-        "title": "This is the title of object type",
-        "description": "Description of the current {@link ObjectDescription} type:\n\n> An interface designed to test JSON schema's object description.",
-        "type": "object",
-        "properties": {
-          "id": {
-            "title": "Primary Key",
-            "description": "Primary Key.\n\n\n@format uuid",
-            "type": "string"
-          },
-          "deprecated": {
-            "title": "Deprecated property",
-            "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON schema.",
-            "type": "boolean",
-            "deprecated": true
-          },
-          "title": {
-            "title": "This is the title",
-            "description": "Title tag can replace the first line of the comment.",
-            "type": "string"
-          },
-          "descriptions": {
-            "title": "Description property",
-            "description": "Description property.\n\nIf you write first line and the first line ends with \".\" character,\nit would be considered as the title. By the way, description does\nnot exclusive the title, so that full content be written.",
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          "newLine": {
-            "description": "New line before dot character\n\nIf dot character (\".\") being used before the first new line, it would not\nbe considered as title in the JSON schema.",
-            "type": "number"
-          }
-        },
-        "required": [
-          "id",
-          "deprecated",
-          "title",
-          "descriptions",
-          "newLine"
-        ]
+        "$ref": "#/$defs/ObjectDescription"
       }
     },
     {
@@ -219,46 +149,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "title": "Primary Key",
-                    "description": "Primary Key.\n\n\n@format uuid",
-                    "type": "string"
-                  },
-                  "deprecated": {
-                    "title": "Deprecated property",
-                    "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON schema.",
-                    "type": "boolean",
-                    "deprecated": true
-                  },
-                  "title": {
-                    "title": "This is the title",
-                    "description": "Title tag can replace the first line of the comment.",
-                    "type": "string"
-                  },
-                  "descriptions": {
-                    "title": "Description property",
-                    "description": "Description property.\n\nIf you write first line and the first line ends with \".\" character,\nit would be considered as the title. By the way, description does\nnot exclusive the title, so that full content be written.",
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    }
-                  },
-                  "newLine": {
-                    "description": "New line before dot character\n\nIf dot character (\".\") being used before the first new line, it would not\nbe considered as title in the JSON schema.",
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "id",
-                  "deprecated",
-                  "title",
-                  "descriptions",
-                  "newLine"
-                ],
-                "title": "This is the title of object type",
-                "description": "Description of the current {@link ObjectDescription} type:\n\n> An interface designed to test JSON schema's object description."
+                "$ref": "#/$defs/ObjectDescription"
               }
             ]
           },
@@ -268,46 +159,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "title": "Primary Key",
-                    "description": "Primary Key.\n\n\n@format uuid",
-                    "type": "string"
-                  },
-                  "deprecated": {
-                    "title": "Deprecated property",
-                    "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON schema.",
-                    "type": "boolean",
-                    "deprecated": true
-                  },
-                  "title": {
-                    "title": "This is the title",
-                    "description": "Title tag can replace the first line of the comment.",
-                    "type": "string"
-                  },
-                  "descriptions": {
-                    "title": "Description property",
-                    "description": "Description property.\n\nIf you write first line and the first line ends with \".\" character,\nit would be considered as the title. By the way, description does\nnot exclusive the title, so that full content be written.",
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    }
-                  },
-                  "newLine": {
-                    "description": "New line before dot character\n\nIf dot character (\".\") being used before the first new line, it would not\nbe considered as title in the JSON schema.",
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "id",
-                  "deprecated",
-                  "title",
-                  "descriptions",
-                  "newLine"
-                ],
-                "title": "This is the title of object type",
-                "description": "Description of the current {@link ObjectDescription} type:\n\n> An interface designed to test JSON schema's object description."
+                "$ref": "#/$defs/ObjectDescription"
               }
             ]
           },
@@ -317,46 +169,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "title": "Primary Key",
-                    "description": "Primary Key.\n\n\n@format uuid",
-                    "type": "string"
-                  },
-                  "deprecated": {
-                    "title": "Deprecated property",
-                    "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON schema.",
-                    "type": "boolean",
-                    "deprecated": true
-                  },
-                  "title": {
-                    "title": "This is the title",
-                    "description": "Title tag can replace the first line of the comment.",
-                    "type": "string"
-                  },
-                  "descriptions": {
-                    "title": "Description property",
-                    "description": "Description property.\n\nIf you write first line and the first line ends with \".\" character,\nit would be considered as the title. By the way, description does\nnot exclusive the title, so that full content be written.",
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    }
-                  },
-                  "newLine": {
-                    "description": "New line before dot character\n\nIf dot character (\".\") being used before the first new line, it would not\nbe considered as title in the JSON schema.",
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "id",
-                  "deprecated",
-                  "title",
-                  "descriptions",
-                  "newLine"
-                ],
-                "title": "This is the title of object type",
-                "description": "Description of the current {@link ObjectDescription} type:\n\n> An interface designed to test JSON schema's object description."
+                "$ref": "#/$defs/ObjectDescription"
               }
             ]
           }
@@ -366,14 +179,10 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "anyOf": [
-          {
-            "type": "null"
-          },
-          {
+        "$defs": {
+          "ObjectDescription": {
+            "title": "This is the title of object type",
+            "description": "An interface designed to test JSON schema's object description.",
             "type": "object",
             "properties": {
               "id": {
@@ -411,9 +220,17 @@
               "title",
               "descriptions",
               "newLine"
-            ],
-            "title": "This is the title of object type",
-            "description": "Description of the current {@link ObjectDescription} type:\n\n> An interface designed to test JSON schema's object description."
+            ]
+          }
+        }
+      },
+      "output": {
+        "anyOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/ObjectDescription"
           }
         ]
       }

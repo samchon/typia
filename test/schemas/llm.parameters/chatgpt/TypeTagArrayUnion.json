@@ -2,60 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "description": "Current Type: {@link TypeTagArrayUnion}",
-      "type": "array",
-      "items": {
-        "description": "Current Type: {@link TypeTagArrayUnion.Type}",
-        "type": "object",
-        "properties": {
-          "items": {
-            "description": "@minItems 3\n@maxItems 3",
-            "type": "array",
-            "items": {
-              "description": "@format uuid",
-              "type": "string"
-            }
-          },
-          "minItems": {
-            "description": "@minItems 3",
-            "type": "array",
-            "items": {
-              "description": "@minimum 3",
-              "type": "number"
-            }
-          },
-          "maxItems": {
-            "description": "@maxItems 7",
-            "type": "array",
-            "items": {
-              "anyOf": [
-                {
-                  "type": "string",
-                  "description": "@maxLength 7"
-                },
-                {
-                  "type": "number",
-                  "description": "@maximum 7"
-                }
-              ]
-            }
-          },
-          "both": {
-            "description": "@minItems 3\n@maxItems 7",
-            "type": "array",
-            "items": {
-              "description": "@format uuid",
-              "type": "string"
-            }
-          }
-        },
-        "required": [
-          "items",
-          "minItems",
-          "maxItems",
-          "both"
-        ]
-      }
+      "$ref": "#/$defs/TypeTagArrayUnion"
     },
     "nullable": {
       "anyOf": [
@@ -63,118 +10,12 @@
           "type": "null"
         },
         {
-          "type": "array",
-          "items": {
-            "description": "Current Type: {@link TypeTagArrayUnion.Type}",
-            "type": "object",
-            "properties": {
-              "items": {
-                "description": "@minItems 3\n@maxItems 3",
-                "type": "array",
-                "items": {
-                  "description": "@format uuid",
-                  "type": "string"
-                }
-              },
-              "minItems": {
-                "description": "@minItems 3",
-                "type": "array",
-                "items": {
-                  "description": "@minimum 3",
-                  "type": "number"
-                }
-              },
-              "maxItems": {
-                "description": "@maxItems 7",
-                "type": "array",
-                "items": {
-                  "anyOf": [
-                    {
-                      "type": "string",
-                      "description": "@maxLength 7"
-                    },
-                    {
-                      "type": "number",
-                      "description": "@maximum 7"
-                    }
-                  ]
-                }
-              },
-              "both": {
-                "description": "@minItems 3\n@maxItems 7",
-                "type": "array",
-                "items": {
-                  "description": "@format uuid",
-                  "type": "string"
-                }
-              }
-            },
-            "required": [
-              "items",
-              "minItems",
-              "maxItems",
-              "both"
-            ]
-          },
-          "description": "Current Type: {@link TypeTagArrayUnion}"
+          "$ref": "#/$defs/TypeTagArrayUnion"
         }
       ]
     },
     "optional": {
-      "description": "Current Type: {@link TypeTagArrayUnion}",
-      "type": "array",
-      "items": {
-        "description": "Current Type: {@link TypeTagArrayUnion.Type}",
-        "type": "object",
-        "properties": {
-          "items": {
-            "description": "@minItems 3\n@maxItems 3",
-            "type": "array",
-            "items": {
-              "description": "@format uuid",
-              "type": "string"
-            }
-          },
-          "minItems": {
-            "description": "@minItems 3",
-            "type": "array",
-            "items": {
-              "description": "@minimum 3",
-              "type": "number"
-            }
-          },
-          "maxItems": {
-            "description": "@maxItems 7",
-            "type": "array",
-            "items": {
-              "anyOf": [
-                {
-                  "type": "string",
-                  "description": "@maxLength 7"
-                },
-                {
-                  "type": "number",
-                  "description": "@maximum 7"
-                }
-              ]
-            }
-          },
-          "both": {
-            "description": "@minItems 3\n@maxItems 7",
-            "type": "array",
-            "items": {
-              "description": "@format uuid",
-              "type": "string"
-            }
-          }
-        },
-        "required": [
-          "items",
-          "minItems",
-          "maxItems",
-          "both"
-        ]
-      }
+      "$ref": "#/$defs/TypeTagArrayUnion"
     },
     "faint": {
       "anyOf": [
@@ -182,120 +23,14 @@
           "type": "null"
         },
         {
-          "type": "array",
-          "items": {
-            "description": "Current Type: {@link TypeTagArrayUnion.Type}",
-            "type": "object",
-            "properties": {
-              "items": {
-                "description": "@minItems 3\n@maxItems 3",
-                "type": "array",
-                "items": {
-                  "description": "@format uuid",
-                  "type": "string"
-                }
-              },
-              "minItems": {
-                "description": "@minItems 3",
-                "type": "array",
-                "items": {
-                  "description": "@minimum 3",
-                  "type": "number"
-                }
-              },
-              "maxItems": {
-                "description": "@maxItems 7",
-                "type": "array",
-                "items": {
-                  "anyOf": [
-                    {
-                      "type": "string",
-                      "description": "@maxLength 7"
-                    },
-                    {
-                      "type": "number",
-                      "description": "@maximum 7"
-                    }
-                  ]
-                }
-              },
-              "both": {
-                "description": "@minItems 3\n@maxItems 7",
-                "type": "array",
-                "items": {
-                  "description": "@format uuid",
-                  "type": "string"
-                }
-              }
-            },
-            "required": [
-              "items",
-              "minItems",
-              "maxItems",
-              "both"
-            ]
-          },
-          "description": "Current Type: {@link TypeTagArrayUnion}"
+          "$ref": "#/$defs/TypeTagArrayUnion"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
-        "description": "Current Type: {@link TypeTagArrayUnion}",
-        "type": "array",
-        "items": {
-          "description": "Current Type: {@link TypeTagArrayUnion.Type}",
-          "type": "object",
-          "properties": {
-            "items": {
-              "description": "@minItems 3\n@maxItems 3",
-              "type": "array",
-              "items": {
-                "description": "@format uuid",
-                "type": "string"
-              }
-            },
-            "minItems": {
-              "description": "@minItems 3",
-              "type": "array",
-              "items": {
-                "description": "@minimum 3",
-                "type": "number"
-              }
-            },
-            "maxItems": {
-              "description": "@maxItems 7",
-              "type": "array",
-              "items": {
-                "anyOf": [
-                  {
-                    "type": "string",
-                    "description": "@maxLength 7"
-                  },
-                  {
-                    "type": "number",
-                    "description": "@maximum 7"
-                  }
-                ]
-              }
-            },
-            "both": {
-              "description": "@minItems 3\n@maxItems 7",
-              "type": "array",
-              "items": {
-                "description": "@format uuid",
-                "type": "string"
-              }
-            }
-          },
-          "required": [
-            "items",
-            "minItems",
-            "maxItems",
-            "both"
-          ]
-        }
+        "$ref": "#/$defs/TypeTagArrayUnion"
       }
     }
   },
@@ -305,5 +40,63 @@
     "array"
   ],
   "additionalProperties": false,
-  "$defs": {}
+  "$defs": {
+    "TypeTagArrayUnion": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/TypeTagArrayUnion.Type"
+      }
+    },
+    "TypeTagArrayUnion.Type": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "description": "@minItems 3\n@maxItems 3",
+          "type": "array",
+          "items": {
+            "description": "@format uuid",
+            "type": "string"
+          }
+        },
+        "minItems": {
+          "description": "@minItems 3",
+          "type": "array",
+          "items": {
+            "description": "@minimum 3",
+            "type": "number"
+          }
+        },
+        "maxItems": {
+          "description": "@maxItems 7",
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "type": "string",
+                "description": "@maxLength 7"
+              },
+              {
+                "type": "number",
+                "description": "@maximum 7"
+              }
+            ]
+          }
+        },
+        "both": {
+          "description": "@minItems 3\n@maxItems 7",
+          "type": "array",
+          "items": {
+            "description": "@format uuid",
+            "type": "string"
+          }
+        }
+      },
+      "required": [
+        "items",
+        "minItems",
+        "maxItems",
+        "both"
+      ]
+    }
+  }
 }

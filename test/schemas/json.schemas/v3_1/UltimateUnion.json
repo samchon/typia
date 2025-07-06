@@ -109,7 +109,7 @@
           }
         ],
         "title": "Type schema info",
-        "description": "Type schema info.\n\n`OpenApi.IJsonSchema` is a type schema info of the OpenAPI.\n\n`OpenApi.IJsonSchema` basically follows the JSON schema definition of\nOpenAPI v3.1, but a little bit shrunk to remove ambiguous and duplicated\nexpressions of OpenAPI v3.1 for the convenience and clarity.\n\n- Decompose mixed type: {@link OpenApiV3_1.IJsonSchema.IMixed}\n- Resolve nullable property: {@link OpenApiV3_1.IJsonSchema.__ISignificant.nullable}\n- Array type utilizes only single {@link OpenAPI.IJsonSchema.IArray.items}\n- Tuple type utilizes only {@link OpenApi.IJsonSchema.ITuple.prefixItems}\n- Merge {@link OpenApiV3_1.IJsonSchema.IAllOf} to {@link OpenApi.IJsonSchema.IObject}\n- Merge {@link OpenApiV3_1.IJsonSchema.IAnyOf} to {@link OpenApi.IJsonSchema.IOneOf}\n- Merge {@link OpenApiV3_1.IJsonSchema.IRecursiveReference} to {@link OpenApi.IJsonSchema.IReference}"
+        "description": "Type schema info.\n\n`OpenApi.IJsonSchema` is a type schema info of the OpenAPI.\n\n`OpenApi.IJsonSchema` basically follows the JSON schema definition of\nOpenAPI v3.1, but a little bit shrunk to remove ambiguous and duplicated\nexpressions of OpenAPI v3.1 for the convenience and clarity.\n\n- Decompose mixed type: {@link OpenApiV3_1.IJsonSchema.IMixed}\n- Resolve nullable property:\n  {@link OpenApiV3_1.IJsonSchema.__ISignificant.nullable}\n- Array type utilizes only single {@link OpenAPI.IJsonSchema.IArray.items}\n- Tuple type utilizes only {@link OpenApi.IJsonSchema.ITuple.prefixItems}\n- Merge {@link OpenApiV3_1.IJsonSchema.IAllOf} to\n  {@link OpenApi.IJsonSchema.IObject}\n- Merge {@link OpenApiV3_1.IJsonSchema.IAnyOf} to\n  {@link OpenApi.IJsonSchema.IOneOf}\n- Merge {@link OpenApiV3_1.IJsonSchema.IRecursiveReference} to\n  {@link OpenApi.IJsonSchema.IReference}"
       },
       "OpenApi.IJsonSchema.IConstant": {
         "type": "object",
@@ -423,7 +423,7 @@
           "items": {
             "$ref": "#/components/schemas/OpenApi.IJsonSchema",
             "title": "Items type info",
-            "description": "Items type info.\n\nThe `items` means the type of the array elements. In other words, it is\nthe type schema info of the `T` in the TypeScript array type `Array<T>`."
+            "description": "Items type info.\n\nThe `items` means the type of the array elements. In other words, it is\nthe type schema info of the `T` in the TypeScript array type\n`Array<T>`."
           },
           "uniqueItems": {
             "type": "boolean",
@@ -484,7 +484,7 @@
           "type": {
             "const": "array",
             "title": "Discriminator value of the type",
-            "description": "Discriminator value of the type.\n\nNote that, the tuple type cannot be distinguished with\n{@link IArray} type just by this `discriminator` property.\n\nTo check whether the type is tuple or array, you have to check\nthe existence of {@link IArray.items} or {@link ITuple.prefixItems}\nproperties."
+            "description": "Discriminator value of the type.\n\nNote that, the tuple type cannot be distinguished with {@link IArray}\ntype just by this `discriminator` property.\n\nTo check whether the type is tuple or array, you have to check the\nexistence of {@link IArray.items} or {@link ITuple.prefixItems}\nproperties."
           },
           "prefixItems": {
             "type": "array",
@@ -537,7 +537,7 @@
               }
             ],
             "title": "Additional items",
-            "description": "Additional items.\n\nThe `additionalItems` means the type schema info of the additional items\nafter the {@link prefixItems}. In the TypeScript, if there's a type\n`[T1, T2, ...TO[]]`, the `...TO[]` is represented by the `additionalItems`.\n\nBy the way, if you configure the `additionalItems` as `true`, it means\nthe additional items are not restricted. They can be any type, so that\nit is equivalent to the TypeScript type `[T1, T2, ...any[]]`.\n\nOtherwise configure the `additionalItems` as the {@link IJsonSchema},\nit means the additional items must follow the type schema info.\nTherefore, it is equivalent to the TypeScript type `[T1, T2, ...TO[]]`."
+            "description": "Additional items.\n\nThe `additionalItems` means the type schema info of the additional\nitems after the {@link prefixItems}. In the TypeScript, if there's a\ntype `[T1, T2, ...TO[]]`, the `...TO[]` is represented by the\n`additionalItems`.\n\nBy the way, if you configure the `additionalItems` as `true`, it means\nthe additional items are not restricted. They can be any type, so that\nit is equivalent to the TypeScript type `[T1, T2, ...any[]]`.\n\nOtherwise configure the `additionalItems` as the {@link IJsonSchema}, it\nmeans the additional items must follow the type schema info. Therefore,\nit is equivalent to the TypeScript type `[T1, T2, ...TO[]]`."
           },
           "uniqueItems": {
             "type": "boolean",
@@ -593,7 +593,7 @@
           "properties": {
             "$ref": "#/components/schemas/RecordstringOpenApi.IJsonSchema",
             "title": "Properties of the object",
-            "description": "Properties of the object.\n\nThe `properties` means a list of key-value pairs of the object's\nregular properties. The key is the name of the regular property,\nand the value is the type schema info.\n\nIf you need additional properties that is represented by dynamic key,\nyou can use the {@link additionalProperties} instead."
+            "description": "Properties of the object.\n\nThe `properties` means a list of key-value pairs of the object's\nregular properties. The key is the name of the regular property, and\nthe value is the type schema info.\n\nIf you need additional properties that is represented by dynamic key,\nyou can use the {@link additionalProperties} instead."
           },
           "additionalProperties": {
             "oneOf": [
@@ -646,7 +646,7 @@
               "type": "string"
             },
             "title": "List of key values of the required properties",
-            "description": "List of key values of the required properties.\n\nThe `required` means a list of the key values of the required\n{@link properties}. If some property key is not listed in the `required`\nlist, it means that property is optional. Otherwise some property key\nexists in the `required` list, it means that the property must be filled.\n\nBelow is an example of the {@link properties} and `required`.\n\n```typescript\ninterface SomeObject {\n  id: string;\n  email: string;\n  name?: string;\n}\n```\n\nAs you can see, `id` and `email` {@link properties} are {@link required},\nso that they are listed in the `required` list.\n\n```json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"id\": { \"type\": \"string\" },\n    \"email\": { \"type\": \"string\" },\n    \"name\": { \"type\": \"string\" }\n  },\n  \"required\": [\"id\", \"email\"]\n}\n```"
+            "description": "List of key values of the required properties.\n\nThe `required` means a list of the key values of the required\n{@link properties}. If some property key is not listed in the `required`\nlist, it means that property is optional. Otherwise some property key\nexists in the `required` list, it means that the property must be\nfilled.\n\nBelow is an example of the {@link properties} and `required`.\n\n```typescript\ninterface SomeObject {\n  id: string;\n  email: string;\n  name?: string;\n}\n```\n\nAs you can see, `id` and `email` {@link properties} are {@link required},\nso that they are listed in the `required` list.\n\n```json\n{\n  \"type\": \"object\",\n  \"properties\": {\n    \"id\": { \"type\": \"string\" },\n    \"email\": { \"type\": \"string\" },\n    \"name\": { \"type\": \"string\" }\n  },\n  \"required\": [\"id\", \"email\"]\n}\n```"
           },
           "type": {
             "const": "object",
@@ -799,7 +799,7 @@
         "required": [
           "oneOf"
         ],
-        "description": "Union type.\n\n`IOneOf` represents an union type of the TypeScript (`A | B | C`).\n\nFor reference, even though your Swagger (or OpenAPI) document has\ndefined `anyOf` instead of the `oneOf`, {@link OpenApi} forcibly\nconverts it to `oneOf` type."
+        "description": "Union type.\n\n`IOneOf` represents an union type of the TypeScript (`A | B | C`).\n\nFor reference, even though your Swagger (or OpenAPI) document has defined\n`anyOf` instead of the `oneOf`, {@link OpenApi} forcibly converts it to\n`oneOf` type."
       },
       "OpenApi.IJsonSchema.IUnknown": {
         "type": "object",
@@ -890,7 +890,7 @@
           "mapping": {
             "$ref": "#/components/schemas/Recordstringstring",
             "title": "Mapping of the discriminator value to the schema name",
-            "description": "Mapping of the discriminator value to the schema name.\n\nThis property is valid only for {@link IReference} typed\n{@link IOneOf.oneof} elements. Therefore, `key` of `mapping` is\nthe discriminator value, and `value` of `mapping` is the\nschema name like `#/components/schemas/SomeObject`."
+            "description": "Mapping of the discriminator value to the schema name.\n\nThis property is valid only for {@link IReference} typed\n{@link IOneOf.oneof} elements. Therefore, `key` of `mapping` is the\ndiscriminator value, and `value` of `mapping` is the schema name like\n`#/components/schemas/SomeObject`."
           }
         },
         "required": [

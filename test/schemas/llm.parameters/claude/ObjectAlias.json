@@ -2,77 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "description": "Current Type: {@link ObjectAlias}",
-      "type": "array",
-      "items": {
-        "description": "Current Type: {@link ObjectAlias.IMember}",
-        "type": "object",
-        "properties": {
-          "id": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ]
-          },
-          "email": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "sex": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "const": 1
-              },
-              {
-                "const": 2
-              },
-              {
-                "const": "male"
-              },
-              {
-                "const": "female"
-              }
-            ]
-          },
-          "age": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "number"
-              }
-            ]
-          },
-          "dead": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "boolean"
-              }
-            ]
-          }
-        },
-        "required": [
-          "id",
-          "email",
-          "name",
-          "sex",
-          "age",
-          "dead"
-        ]
-      }
+      "$ref": "#/$defs/ObjectAlias"
     },
     "nullable": {
       "oneOf": [
@@ -80,152 +10,12 @@
           "type": "null"
         },
         {
-          "type": "array",
-          "items": {
-            "description": "Current Type: {@link ObjectAlias.IMember}",
-            "type": "object",
-            "properties": {
-              "id": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string"
-                  }
-                ]
-              },
-              "email": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "sex": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "const": 1
-                  },
-                  {
-                    "const": 2
-                  },
-                  {
-                    "const": "male"
-                  },
-                  {
-                    "const": "female"
-                  }
-                ]
-              },
-              "age": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "number"
-                  }
-                ]
-              },
-              "dead": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "boolean"
-                  }
-                ]
-              }
-            },
-            "required": [
-              "id",
-              "email",
-              "name",
-              "sex",
-              "age",
-              "dead"
-            ]
-          },
-          "description": "Current Type: {@link ObjectAlias}"
+          "$ref": "#/$defs/ObjectAlias"
         }
       ]
     },
     "optional": {
-      "description": "Current Type: {@link ObjectAlias}",
-      "type": "array",
-      "items": {
-        "description": "Current Type: {@link ObjectAlias.IMember}",
-        "type": "object",
-        "properties": {
-          "id": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string"
-              }
-            ]
-          },
-          "email": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "sex": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "const": 1
-              },
-              {
-                "const": 2
-              },
-              {
-                "const": "male"
-              },
-              {
-                "const": "female"
-              }
-            ]
-          },
-          "age": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "number"
-              }
-            ]
-          },
-          "dead": {
-            "oneOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "boolean"
-              }
-            ]
-          }
-        },
-        "required": [
-          "id",
-          "email",
-          "name",
-          "sex",
-          "age",
-          "dead"
-        ]
-      }
+      "$ref": "#/$defs/ObjectAlias"
     },
     "faint": {
       "oneOf": [
@@ -233,154 +23,14 @@
           "type": "null"
         },
         {
-          "type": "array",
-          "items": {
-            "description": "Current Type: {@link ObjectAlias.IMember}",
-            "type": "object",
-            "properties": {
-              "id": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "string"
-                  }
-                ]
-              },
-              "email": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "sex": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "const": 1
-                  },
-                  {
-                    "const": 2
-                  },
-                  {
-                    "const": "male"
-                  },
-                  {
-                    "const": "female"
-                  }
-                ]
-              },
-              "age": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "number"
-                  }
-                ]
-              },
-              "dead": {
-                "oneOf": [
-                  {
-                    "type": "null"
-                  },
-                  {
-                    "type": "boolean"
-                  }
-                ]
-              }
-            },
-            "required": [
-              "id",
-              "email",
-              "name",
-              "sex",
-              "age",
-              "dead"
-            ]
-          },
-          "description": "Current Type: {@link ObjectAlias}"
+          "$ref": "#/$defs/ObjectAlias"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
-        "description": "Current Type: {@link ObjectAlias}",
-        "type": "array",
-        "items": {
-          "description": "Current Type: {@link ObjectAlias.IMember}",
-          "type": "object",
-          "properties": {
-            "id": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "type": "string"
-                }
-              ]
-            },
-            "email": {
-              "type": "string"
-            },
-            "name": {
-              "type": "string"
-            },
-            "sex": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "const": 1
-                },
-                {
-                  "const": 2
-                },
-                {
-                  "const": "male"
-                },
-                {
-                  "const": "female"
-                }
-              ]
-            },
-            "age": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "type": "number"
-                }
-              ]
-            },
-            "dead": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "type": "boolean"
-                }
-              ]
-            }
-          },
-          "required": [
-            "id",
-            "email",
-            "name",
-            "sex",
-            "age",
-            "dead"
-          ]
-        }
+        "$ref": "#/$defs/ObjectAlias"
       }
     }
   },
@@ -390,5 +40,80 @@
     "array"
   ],
   "additionalProperties": false,
-  "$defs": {}
+  "$defs": {
+    "ObjectAlias": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ObjectAlias.IMember"
+      }
+    },
+    "ObjectAlias.IMember": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string"
+            }
+          ]
+        },
+        "email": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "sex": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "const": 1
+            },
+            {
+              "const": 2
+            },
+            {
+              "const": "male"
+            },
+            {
+              "const": "female"
+            }
+          ]
+        },
+        "age": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "dead": {
+          "oneOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "boolean"
+            }
+          ]
+        }
+      },
+      "required": [
+        "id",
+        "email",
+        "name",
+        "sex",
+        "age",
+        "dead"
+      ]
+    }
+  }
 }

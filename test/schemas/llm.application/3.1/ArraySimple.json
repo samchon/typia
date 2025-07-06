@@ -1,8 +1,8 @@
 {
   "model": "3.1",
   "options": {
+    "reference": true,
     "constraint": true,
-    "reference": false,
     "separate": null
   },
   "functions": [
@@ -12,55 +12,62 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link ArraySimple}",
-            "type": "array",
-            "items": {
-              "description": "Current Type: {@link ArraySimple.IPerson}",
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string"
-                },
-                "email": {
-                  "type": "string"
-                },
-                "hobbies": {
-                  "type": "array",
-                  "items": {
-                    "description": "Current Type: {@link ArraySimple.IHobby}",
-                    "type": "object",
-                    "properties": {
-                      "name": {
-                        "type": "string"
-                      },
-                      "body": {
-                        "type": "string"
-                      },
-                      "rank": {
-                        "type": "number"
-                      }
-                    },
-                    "required": [
-                      "name",
-                      "body",
-                      "rank"
-                    ]
-                  }
-                }
-              },
-              "required": [
-                "name",
-                "email",
-                "hobbies"
-              ]
-            }
+            "$ref": "#/$defs/ArraySimple"
           }
         },
         "required": [
           "first"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "ArraySimple": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ArraySimple.IPerson"
+            }
+          },
+          "ArraySimple.IPerson": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "hobbies": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ArraySimple.IHobby"
+                }
+              }
+            },
+            "required": [
+              "name",
+              "email",
+              "hobbies"
+            ]
+          },
+          "ArraySimple.IHobby": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "body": {
+                "type": "string"
+              },
+              "rank": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "name",
+              "body",
+              "rank"
+            ]
+          }
+        }
       }
     },
     {
@@ -69,48 +76,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link ArraySimple}",
-            "type": "array",
-            "items": {
-              "description": "Current Type: {@link ArraySimple.IPerson}",
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string"
-                },
-                "email": {
-                  "type": "string"
-                },
-                "hobbies": {
-                  "type": "array",
-                  "items": {
-                    "description": "Current Type: {@link ArraySimple.IHobby}",
-                    "type": "object",
-                    "properties": {
-                      "name": {
-                        "type": "string"
-                      },
-                      "body": {
-                        "type": "string"
-                      },
-                      "rank": {
-                        "type": "number"
-                      }
-                    },
-                    "required": [
-                      "name",
-                      "body",
-                      "rank"
-                    ]
-                  }
-                }
-              },
-              "required": [
-                "name",
-                "email",
-                "hobbies"
-              ]
-            }
+            "$ref": "#/$defs/ArraySimple"
           },
           "second": {
             "oneOf": [
@@ -118,48 +84,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "description": "Current Type: {@link ArraySimple.IPerson}",
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string"
-                    },
-                    "email": {
-                      "type": "string"
-                    },
-                    "hobbies": {
-                      "type": "array",
-                      "items": {
-                        "description": "Current Type: {@link ArraySimple.IHobby}",
-                        "type": "object",
-                        "properties": {
-                          "name": {
-                            "type": "string"
-                          },
-                          "body": {
-                            "type": "string"
-                          },
-                          "rank": {
-                            "type": "number"
-                          }
-                        },
-                        "required": [
-                          "name",
-                          "body",
-                          "rank"
-                        ]
-                      }
-                    }
-                  },
-                  "required": [
-                    "name",
-                    "email",
-                    "hobbies"
-                  ]
-                },
-                "description": "Current Type: {@link ArraySimple}"
+                "$ref": "#/$defs/ArraySimple"
               }
             ]
           }
@@ -169,51 +94,58 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "description": "Current Type: {@link ArraySimple}",
-        "type": "array",
-        "items": {
-          "description": "Current Type: {@link ArraySimple.IPerson}",
-          "type": "object",
-          "properties": {
-            "name": {
-              "type": "string"
-            },
-            "email": {
-              "type": "string"
-            },
-            "hobbies": {
-              "type": "array",
-              "items": {
-                "description": "Current Type: {@link ArraySimple.IHobby}",
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "body": {
-                    "type": "string"
-                  },
-                  "rank": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "name",
-                  "body",
-                  "rank"
-                ]
-              }
+        "$defs": {
+          "ArraySimple": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ArraySimple.IPerson"
             }
           },
-          "required": [
-            "name",
-            "email",
-            "hobbies"
-          ]
+          "ArraySimple.IPerson": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "hobbies": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ArraySimple.IHobby"
+                }
+              }
+            },
+            "required": [
+              "name",
+              "email",
+              "hobbies"
+            ]
+          },
+          "ArraySimple.IHobby": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "body": {
+                "type": "string"
+              },
+              "rank": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "name",
+              "body",
+              "rank"
+            ]
+          }
         }
+      },
+      "output": {
+        "$ref": "#/$defs/ArraySimple"
       }
     },
     {
@@ -227,48 +159,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "description": "Current Type: {@link ArraySimple.IPerson}",
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string"
-                    },
-                    "email": {
-                      "type": "string"
-                    },
-                    "hobbies": {
-                      "type": "array",
-                      "items": {
-                        "description": "Current Type: {@link ArraySimple.IHobby}",
-                        "type": "object",
-                        "properties": {
-                          "name": {
-                            "type": "string"
-                          },
-                          "body": {
-                            "type": "string"
-                          },
-                          "rank": {
-                            "type": "number"
-                          }
-                        },
-                        "required": [
-                          "name",
-                          "body",
-                          "rank"
-                        ]
-                      }
-                    }
-                  },
-                  "required": [
-                    "name",
-                    "email",
-                    "hobbies"
-                  ]
-                },
-                "description": "Current Type: {@link ArraySimple}"
+                "$ref": "#/$defs/ArraySimple"
               }
             ]
           },
@@ -278,48 +169,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "description": "Current Type: {@link ArraySimple.IPerson}",
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string"
-                    },
-                    "email": {
-                      "type": "string"
-                    },
-                    "hobbies": {
-                      "type": "array",
-                      "items": {
-                        "description": "Current Type: {@link ArraySimple.IHobby}",
-                        "type": "object",
-                        "properties": {
-                          "name": {
-                            "type": "string"
-                          },
-                          "body": {
-                            "type": "string"
-                          },
-                          "rank": {
-                            "type": "number"
-                          }
-                        },
-                        "required": [
-                          "name",
-                          "body",
-                          "rank"
-                        ]
-                      }
-                    }
-                  },
-                  "required": [
-                    "name",
-                    "email",
-                    "hobbies"
-                  ]
-                },
-                "description": "Current Type: {@link ArraySimple}"
+                "$ref": "#/$defs/ArraySimple"
               }
             ]
           },
@@ -329,48 +179,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "description": "Current Type: {@link ArraySimple.IPerson}",
-                  "type": "object",
-                  "properties": {
-                    "name": {
-                      "type": "string"
-                    },
-                    "email": {
-                      "type": "string"
-                    },
-                    "hobbies": {
-                      "type": "array",
-                      "items": {
-                        "description": "Current Type: {@link ArraySimple.IHobby}",
-                        "type": "object",
-                        "properties": {
-                          "name": {
-                            "type": "string"
-                          },
-                          "body": {
-                            "type": "string"
-                          },
-                          "rank": {
-                            "type": "number"
-                          }
-                        },
-                        "required": [
-                          "name",
-                          "body",
-                          "rank"
-                        ]
-                      }
-                    }
-                  },
-                  "required": [
-                    "name",
-                    "email",
-                    "hobbies"
-                  ]
-                },
-                "description": "Current Type: {@link ArraySimple}"
+                "$ref": "#/$defs/ArraySimple"
               }
             ]
           }
@@ -380,7 +189,55 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "ArraySimple": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ArraySimple.IPerson"
+            }
+          },
+          "ArraySimple.IPerson": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "hobbies": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ArraySimple.IHobby"
+                }
+              }
+            },
+            "required": [
+              "name",
+              "email",
+              "hobbies"
+            ]
+          },
+          "ArraySimple.IHobby": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "body": {
+                "type": "string"
+              },
+              "rank": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "name",
+              "body",
+              "rank"
+            ]
+          }
+        }
       },
       "output": {
         "oneOf": [
@@ -388,48 +245,7 @@
             "type": "null"
           },
           {
-            "type": "array",
-            "items": {
-              "description": "Current Type: {@link ArraySimple.IPerson}",
-              "type": "object",
-              "properties": {
-                "name": {
-                  "type": "string"
-                },
-                "email": {
-                  "type": "string"
-                },
-                "hobbies": {
-                  "type": "array",
-                  "items": {
-                    "description": "Current Type: {@link ArraySimple.IHobby}",
-                    "type": "object",
-                    "properties": {
-                      "name": {
-                        "type": "string"
-                      },
-                      "body": {
-                        "type": "string"
-                      },
-                      "rank": {
-                        "type": "number"
-                      }
-                    },
-                    "required": [
-                      "name",
-                      "body",
-                      "rank"
-                    ]
-                  }
-                }
-              },
-              "required": [
-                "name",
-                "email",
-                "hobbies"
-              ]
-            },
-            "description": "Current Type: {@link ArraySimple}"
+            "$ref": "#/$defs/ArraySimple"
           }
         ]
       }

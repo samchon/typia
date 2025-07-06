@@ -2,20 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "description": "Current Type: {@link ClassMethod.Animal}",
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "age": {
-          "type": "number"
-        }
-      },
-      "required": [
-        "name",
-        "age"
-      ]
+      "$ref": "#/$defs/ClassMethod.Animal"
     },
     "nullable": {
       "anyOf": [
@@ -23,38 +10,12 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {
-            "name": {
-              "type": "string"
-            },
-            "age": {
-              "type": "number"
-            }
-          },
-          "required": [
-            "name",
-            "age"
-          ],
-          "description": "Current Type: {@link ClassMethod.Animal}"
+          "$ref": "#/$defs/ClassMethod.Animal"
         }
       ]
     },
     "optional": {
-      "description": "Current Type: {@link ClassMethod.Animal}",
-      "type": "object",
-      "properties": {
-        "name": {
-          "type": "string"
-        },
-        "age": {
-          "type": "number"
-        }
-      },
-      "required": [
-        "name",
-        "age"
-      ]
+      "$ref": "#/$defs/ClassMethod.Animal"
     },
     "faint": {
       "anyOf": [
@@ -62,40 +23,14 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {
-            "name": {
-              "type": "string"
-            },
-            "age": {
-              "type": "number"
-            }
-          },
-          "required": [
-            "name",
-            "age"
-          ],
-          "description": "Current Type: {@link ClassMethod.Animal}"
+          "$ref": "#/$defs/ClassMethod.Animal"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
-        "description": "Current Type: {@link ClassMethod.Animal}",
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "age": {
-            "type": "number"
-          }
-        },
-        "required": [
-          "name",
-          "age"
-        ]
+        "$ref": "#/$defs/ClassMethod.Animal"
       }
     }
   },
@@ -105,5 +40,21 @@
     "array"
   ],
   "additionalProperties": false,
-  "$defs": {}
+  "$defs": {
+    "ClassMethod.Animal": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "age": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "name",
+        "age"
+      ]
+    }
+  }
 }

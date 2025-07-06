@@ -2,16 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "description": "Current Type: {@link ObjectGenericAlias.Alias}",
-      "type": "object",
-      "properties": {
-        "value": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "value"
-      ]
+      "$ref": "#/$defs/ObjectGenericAlias.Alias"
     },
     "nullable": {
       "oneOf": [
@@ -19,30 +10,12 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {
-            "value": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "value"
-          ],
-          "description": "Current Type: {@link ObjectGenericAlias.Alias}"
+          "$ref": "#/$defs/ObjectGenericAlias.Alias"
         }
       ]
     },
     "optional": {
-      "description": "Current Type: {@link ObjectGenericAlias.Alias}",
-      "type": "object",
-      "properties": {
-        "value": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "value"
-      ]
+      "$ref": "#/$defs/ObjectGenericAlias.Alias"
     },
     "faint": {
       "oneOf": [
@@ -50,32 +23,14 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {
-            "value": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "value"
-          ],
-          "description": "Current Type: {@link ObjectGenericAlias.Alias}"
+          "$ref": "#/$defs/ObjectGenericAlias.Alias"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
-        "description": "Current Type: {@link ObjectGenericAlias.Alias}",
-        "type": "object",
-        "properties": {
-          "value": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "value"
-        ]
+        "$ref": "#/$defs/ObjectGenericAlias.Alias"
       }
     }
   },
@@ -85,5 +40,17 @@
     "array"
   ],
   "additionalProperties": false,
-  "$defs": {}
+  "$defs": {
+    "ObjectGenericAlias.Alias": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "value"
+      ]
+    }
+  }
 }

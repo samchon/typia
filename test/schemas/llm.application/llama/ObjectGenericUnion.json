@@ -1,7 +1,7 @@
 {
   "model": "llama",
   "options": {
-    "reference": false,
+    "reference": true,
     "separate": null
   },
   "functions": [
@@ -11,369 +11,234 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link ObjectGenericUnion}",
-            "type": "object",
-            "properties": {
-              "value": {
-                "description": "Current Type: {@link ObjectGenericUnion.ISaleEntireArticle}",
-                "oneOf": [
-                  {
-                    "type": "object",
-                    "properties": {
-                      "writer": {
-                        "type": "string"
-                      },
-                      "answer": {
-                        "oneOf": [
-                          {
-                            "type": "null"
-                          },
-                          {
-                            "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "string"
-                              },
-                              "hit": {
-                                "type": "number"
-                              },
-                              "contents": {
-                                "type": "array",
-                                "items": {
-                                  "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
-                                  "type": "object",
-                                  "properties": {
-                                    "id": {
-                                      "type": "string"
-                                    },
-                                    "created_at": {
-                                      "type": "string"
-                                    },
-                                    "title": {
-                                      "type": "string"
-                                    },
-                                    "body": {
-                                      "type": "string"
-                                    },
-                                    "files": {
-                                      "type": "array",
-                                      "items": {
-                                        "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
-                                        "type": "object",
-                                        "properties": {
-                                          "name": {
-                                            "type": "string"
-                                          },
-                                          "extension": {
-                                            "oneOf": [
-                                              {
-                                                "type": "null"
-                                              },
-                                              {
-                                                "type": "string"
-                                              }
-                                            ]
-                                          },
-                                          "url": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "required": [
-                                          "name",
-                                          "extension",
-                                          "url"
-                                        ]
-                                      }
-                                    }
-                                  },
-                                  "required": [
-                                    "id",
-                                    "created_at",
-                                    "title",
-                                    "body",
-                                    "files"
-                                  ]
-                                }
-                              },
-                              "created_at": {
-                                "type": "string"
-                              }
-                            },
-                            "required": [
-                              "id",
-                              "hit",
-                              "contents",
-                              "created_at"
-                            ],
-                            "description": "Current Type: {@link ObjectGenericUnion.ISaleAnswer}"
-                          }
-                        ]
-                      },
-                      "id": {
-                        "type": "string"
-                      },
-                      "hit": {
-                        "type": "number"
-                      },
-                      "contents": {
-                        "type": "array",
-                        "items": {
-                          "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "type": "string"
-                            },
-                            "created_at": {
-                              "type": "string"
-                            },
-                            "title": {
-                              "type": "string"
-                            },
-                            "body": {
-                              "type": "string"
-                            },
-                            "files": {
-                              "type": "array",
-                              "items": {
-                                "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
-                                "type": "object",
-                                "properties": {
-                                  "name": {
-                                    "type": "string"
-                                  },
-                                  "extension": {
-                                    "oneOf": [
-                                      {
-                                        "type": "null"
-                                      },
-                                      {
-                                        "type": "string"
-                                      }
-                                    ]
-                                  },
-                                  "url": {
-                                    "type": "string"
-                                  }
-                                },
-                                "required": [
-                                  "name",
-                                  "extension",
-                                  "url"
-                                ]
-                              }
-                            }
-                          },
-                          "required": [
-                            "id",
-                            "created_at",
-                            "title",
-                            "body",
-                            "files"
-                          ]
-                        }
-                      },
-                      "created_at": {
-                        "type": "string"
-                      }
-                    },
-                    "required": [
-                      "writer",
-                      "answer",
-                      "id",
-                      "hit",
-                      "contents",
-                      "created_at"
-                    ],
-                    "description": "Current Type: {@link ObjectGenericUnion.ISaleQuestion}"
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "writer": {
-                        "type": "string"
-                      },
-                      "answer": {
-                        "oneOf": [
-                          {
-                            "type": "null"
-                          },
-                          {
-                            "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "string"
-                              },
-                              "hit": {
-                                "type": "number"
-                              },
-                              "contents": {
-                                "type": "array",
-                                "items": {
-                                  "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
-                                  "type": "object",
-                                  "properties": {
-                                    "id": {
-                                      "type": "string"
-                                    },
-                                    "created_at": {
-                                      "type": "string"
-                                    },
-                                    "title": {
-                                      "type": "string"
-                                    },
-                                    "body": {
-                                      "type": "string"
-                                    },
-                                    "files": {
-                                      "type": "array",
-                                      "items": {
-                                        "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
-                                        "type": "object",
-                                        "properties": {
-                                          "name": {
-                                            "type": "string"
-                                          },
-                                          "extension": {
-                                            "oneOf": [
-                                              {
-                                                "type": "null"
-                                              },
-                                              {
-                                                "type": "string"
-                                              }
-                                            ]
-                                          },
-                                          "url": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "required": [
-                                          "name",
-                                          "extension",
-                                          "url"
-                                        ]
-                                      }
-                                    }
-                                  },
-                                  "required": [
-                                    "id",
-                                    "created_at",
-                                    "title",
-                                    "body",
-                                    "files"
-                                  ]
-                                }
-                              },
-                              "created_at": {
-                                "type": "string"
-                              }
-                            },
-                            "required": [
-                              "id",
-                              "hit",
-                              "contents",
-                              "created_at"
-                            ],
-                            "description": "Current Type: {@link ObjectGenericUnion.ISaleAnswer}"
-                          }
-                        ]
-                      },
-                      "id": {
-                        "type": "string"
-                      },
-                      "hit": {
-                        "type": "number"
-                      },
-                      "contents": {
-                        "type": "array",
-                        "items": {
-                          "description": "Current Type: {@link ObjectGenericUnion.ISaleReview.IContent}",
-                          "type": "object",
-                          "properties": {
-                            "score": {
-                              "type": "number"
-                            },
-                            "id": {
-                              "type": "string"
-                            },
-                            "created_at": {
-                              "type": "string"
-                            },
-                            "title": {
-                              "type": "string"
-                            },
-                            "body": {
-                              "type": "string"
-                            },
-                            "files": {
-                              "type": "array",
-                              "items": {
-                                "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
-                                "type": "object",
-                                "properties": {
-                                  "name": {
-                                    "type": "string"
-                                  },
-                                  "extension": {
-                                    "oneOf": [
-                                      {
-                                        "type": "null"
-                                      },
-                                      {
-                                        "type": "string"
-                                      }
-                                    ]
-                                  },
-                                  "url": {
-                                    "type": "string"
-                                  }
-                                },
-                                "required": [
-                                  "name",
-                                  "extension",
-                                  "url"
-                                ]
-                              }
-                            }
-                          },
-                          "required": [
-                            "score",
-                            "id",
-                            "created_at",
-                            "title",
-                            "body",
-                            "files"
-                          ]
-                        }
-                      },
-                      "created_at": {
-                        "type": "string"
-                      }
-                    },
-                    "required": [
-                      "writer",
-                      "answer",
-                      "id",
-                      "hit",
-                      "contents",
-                      "created_at"
-                    ],
-                    "description": "Current Type: {@link ObjectGenericUnion.ISaleReview}"
-                  }
-                ]
-              }
-            },
-            "required": [
-              "value"
-            ]
+            "$ref": "#/$defs/ObjectGenericUnion"
           }
         },
         "required": [
           "first"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "ObjectGenericUnion": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "$ref": "#/$defs/ObjectGenericUnion.ISaleEntireArticle"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "ObjectGenericUnion.ISaleEntireArticle": {
+            "oneOf": [
+              {
+                "$ref": "#/$defs/ObjectGenericUnion.ISaleQuestion"
+              },
+              {
+                "$ref": "#/$defs/ObjectGenericUnion.ISaleReview"
+              }
+            ]
+          },
+          "ObjectGenericUnion.ISaleQuestion": {
+            "type": "object",
+            "properties": {
+              "writer": {
+                "type": "string"
+              },
+              "answer": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/$defs/ObjectGenericUnion.ISaleAnswer"
+                  }
+                ]
+              },
+              "id": {
+                "type": "string"
+              },
+              "hit": {
+                "type": "number"
+              },
+              "contents": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectGenericUnion.ISaleArticle.IContent"
+                }
+              },
+              "created_at": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "writer",
+              "answer",
+              "id",
+              "hit",
+              "contents",
+              "created_at"
+            ]
+          },
+          "ObjectGenericUnion.ISaleAnswer": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "hit": {
+                "type": "number"
+              },
+              "contents": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectGenericUnion.ISaleArticle.IContent"
+                }
+              },
+              "created_at": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "hit",
+              "contents",
+              "created_at"
+            ]
+          },
+          "ObjectGenericUnion.ISaleArticle.IContent": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "created_at": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "body": {
+                "type": "string"
+              },
+              "files": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectGenericUnion.IAttachmentFile"
+                }
+              }
+            },
+            "required": [
+              "id",
+              "created_at",
+              "title",
+              "body",
+              "files"
+            ]
+          },
+          "ObjectGenericUnion.IAttachmentFile": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "extension": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              },
+              "url": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "extension",
+              "url"
+            ]
+          },
+          "ObjectGenericUnion.ISaleReview": {
+            "type": "object",
+            "properties": {
+              "writer": {
+                "type": "string"
+              },
+              "answer": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/$defs/ObjectGenericUnion.ISaleAnswer"
+                  }
+                ]
+              },
+              "id": {
+                "type": "string"
+              },
+              "hit": {
+                "type": "number"
+              },
+              "contents": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectGenericUnion.ISaleReview.IContent"
+                }
+              },
+              "created_at": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "writer",
+              "answer",
+              "id",
+              "hit",
+              "contents",
+              "created_at"
+            ]
+          },
+          "ObjectGenericUnion.ISaleReview.IContent": {
+            "type": "object",
+            "properties": {
+              "score": {
+                "type": "number"
+              },
+              "id": {
+                "type": "string"
+              },
+              "created_at": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "body": {
+                "type": "string"
+              },
+              "files": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectGenericUnion.IAttachmentFile"
+                }
+              }
+            },
+            "required": [
+              "score",
+              "id",
+              "created_at",
+              "title",
+              "body",
+              "files"
+            ]
+          }
+        }
       }
     },
     {
@@ -382,362 +247,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link ObjectGenericUnion}",
-            "type": "object",
-            "properties": {
-              "value": {
-                "description": "Current Type: {@link ObjectGenericUnion.ISaleEntireArticle}",
-                "oneOf": [
-                  {
-                    "type": "object",
-                    "properties": {
-                      "writer": {
-                        "type": "string"
-                      },
-                      "answer": {
-                        "oneOf": [
-                          {
-                            "type": "null"
-                          },
-                          {
-                            "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "string"
-                              },
-                              "hit": {
-                                "type": "number"
-                              },
-                              "contents": {
-                                "type": "array",
-                                "items": {
-                                  "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
-                                  "type": "object",
-                                  "properties": {
-                                    "id": {
-                                      "type": "string"
-                                    },
-                                    "created_at": {
-                                      "type": "string"
-                                    },
-                                    "title": {
-                                      "type": "string"
-                                    },
-                                    "body": {
-                                      "type": "string"
-                                    },
-                                    "files": {
-                                      "type": "array",
-                                      "items": {
-                                        "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
-                                        "type": "object",
-                                        "properties": {
-                                          "name": {
-                                            "type": "string"
-                                          },
-                                          "extension": {
-                                            "oneOf": [
-                                              {
-                                                "type": "null"
-                                              },
-                                              {
-                                                "type": "string"
-                                              }
-                                            ]
-                                          },
-                                          "url": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "required": [
-                                          "name",
-                                          "extension",
-                                          "url"
-                                        ]
-                                      }
-                                    }
-                                  },
-                                  "required": [
-                                    "id",
-                                    "created_at",
-                                    "title",
-                                    "body",
-                                    "files"
-                                  ]
-                                }
-                              },
-                              "created_at": {
-                                "type": "string"
-                              }
-                            },
-                            "required": [
-                              "id",
-                              "hit",
-                              "contents",
-                              "created_at"
-                            ],
-                            "description": "Current Type: {@link ObjectGenericUnion.ISaleAnswer}"
-                          }
-                        ]
-                      },
-                      "id": {
-                        "type": "string"
-                      },
-                      "hit": {
-                        "type": "number"
-                      },
-                      "contents": {
-                        "type": "array",
-                        "items": {
-                          "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "type": "string"
-                            },
-                            "created_at": {
-                              "type": "string"
-                            },
-                            "title": {
-                              "type": "string"
-                            },
-                            "body": {
-                              "type": "string"
-                            },
-                            "files": {
-                              "type": "array",
-                              "items": {
-                                "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
-                                "type": "object",
-                                "properties": {
-                                  "name": {
-                                    "type": "string"
-                                  },
-                                  "extension": {
-                                    "oneOf": [
-                                      {
-                                        "type": "null"
-                                      },
-                                      {
-                                        "type": "string"
-                                      }
-                                    ]
-                                  },
-                                  "url": {
-                                    "type": "string"
-                                  }
-                                },
-                                "required": [
-                                  "name",
-                                  "extension",
-                                  "url"
-                                ]
-                              }
-                            }
-                          },
-                          "required": [
-                            "id",
-                            "created_at",
-                            "title",
-                            "body",
-                            "files"
-                          ]
-                        }
-                      },
-                      "created_at": {
-                        "type": "string"
-                      }
-                    },
-                    "required": [
-                      "writer",
-                      "answer",
-                      "id",
-                      "hit",
-                      "contents",
-                      "created_at"
-                    ],
-                    "description": "Current Type: {@link ObjectGenericUnion.ISaleQuestion}"
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "writer": {
-                        "type": "string"
-                      },
-                      "answer": {
-                        "oneOf": [
-                          {
-                            "type": "null"
-                          },
-                          {
-                            "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "string"
-                              },
-                              "hit": {
-                                "type": "number"
-                              },
-                              "contents": {
-                                "type": "array",
-                                "items": {
-                                  "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
-                                  "type": "object",
-                                  "properties": {
-                                    "id": {
-                                      "type": "string"
-                                    },
-                                    "created_at": {
-                                      "type": "string"
-                                    },
-                                    "title": {
-                                      "type": "string"
-                                    },
-                                    "body": {
-                                      "type": "string"
-                                    },
-                                    "files": {
-                                      "type": "array",
-                                      "items": {
-                                        "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
-                                        "type": "object",
-                                        "properties": {
-                                          "name": {
-                                            "type": "string"
-                                          },
-                                          "extension": {
-                                            "oneOf": [
-                                              {
-                                                "type": "null"
-                                              },
-                                              {
-                                                "type": "string"
-                                              }
-                                            ]
-                                          },
-                                          "url": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "required": [
-                                          "name",
-                                          "extension",
-                                          "url"
-                                        ]
-                                      }
-                                    }
-                                  },
-                                  "required": [
-                                    "id",
-                                    "created_at",
-                                    "title",
-                                    "body",
-                                    "files"
-                                  ]
-                                }
-                              },
-                              "created_at": {
-                                "type": "string"
-                              }
-                            },
-                            "required": [
-                              "id",
-                              "hit",
-                              "contents",
-                              "created_at"
-                            ],
-                            "description": "Current Type: {@link ObjectGenericUnion.ISaleAnswer}"
-                          }
-                        ]
-                      },
-                      "id": {
-                        "type": "string"
-                      },
-                      "hit": {
-                        "type": "number"
-                      },
-                      "contents": {
-                        "type": "array",
-                        "items": {
-                          "description": "Current Type: {@link ObjectGenericUnion.ISaleReview.IContent}",
-                          "type": "object",
-                          "properties": {
-                            "score": {
-                              "type": "number"
-                            },
-                            "id": {
-                              "type": "string"
-                            },
-                            "created_at": {
-                              "type": "string"
-                            },
-                            "title": {
-                              "type": "string"
-                            },
-                            "body": {
-                              "type": "string"
-                            },
-                            "files": {
-                              "type": "array",
-                              "items": {
-                                "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
-                                "type": "object",
-                                "properties": {
-                                  "name": {
-                                    "type": "string"
-                                  },
-                                  "extension": {
-                                    "oneOf": [
-                                      {
-                                        "type": "null"
-                                      },
-                                      {
-                                        "type": "string"
-                                      }
-                                    ]
-                                  },
-                                  "url": {
-                                    "type": "string"
-                                  }
-                                },
-                                "required": [
-                                  "name",
-                                  "extension",
-                                  "url"
-                                ]
-                              }
-                            }
-                          },
-                          "required": [
-                            "score",
-                            "id",
-                            "created_at",
-                            "title",
-                            "body",
-                            "files"
-                          ]
-                        }
-                      },
-                      "created_at": {
-                        "type": "string"
-                      }
-                    },
-                    "required": [
-                      "writer",
-                      "answer",
-                      "id",
-                      "hit",
-                      "contents",
-                      "created_at"
-                    ],
-                    "description": "Current Type: {@link ObjectGenericUnion.ISaleReview}"
-                  }
-                ]
-              }
-            },
-            "required": [
-              "value"
-            ]
+            "$ref": "#/$defs/ObjectGenericUnion"
           },
           "second": {
             "oneOf": [
@@ -745,362 +255,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "description": "Current Type: {@link ObjectGenericUnion.ISaleEntireArticle}",
-                    "oneOf": [
-                      {
-                        "type": "object",
-                        "properties": {
-                          "writer": {
-                            "type": "string"
-                          },
-                          "answer": {
-                            "oneOf": [
-                              {
-                                "type": "null"
-                              },
-                              {
-                                "type": "object",
-                                "properties": {
-                                  "id": {
-                                    "type": "string"
-                                  },
-                                  "hit": {
-                                    "type": "number"
-                                  },
-                                  "contents": {
-                                    "type": "array",
-                                    "items": {
-                                      "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
-                                      "type": "object",
-                                      "properties": {
-                                        "id": {
-                                          "type": "string"
-                                        },
-                                        "created_at": {
-                                          "type": "string"
-                                        },
-                                        "title": {
-                                          "type": "string"
-                                        },
-                                        "body": {
-                                          "type": "string"
-                                        },
-                                        "files": {
-                                          "type": "array",
-                                          "items": {
-                                            "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
-                                            "type": "object",
-                                            "properties": {
-                                              "name": {
-                                                "type": "string"
-                                              },
-                                              "extension": {
-                                                "oneOf": [
-                                                  {
-                                                    "type": "null"
-                                                  },
-                                                  {
-                                                    "type": "string"
-                                                  }
-                                                ]
-                                              },
-                                              "url": {
-                                                "type": "string"
-                                              }
-                                            },
-                                            "required": [
-                                              "name",
-                                              "extension",
-                                              "url"
-                                            ]
-                                          }
-                                        }
-                                      },
-                                      "required": [
-                                        "id",
-                                        "created_at",
-                                        "title",
-                                        "body",
-                                        "files"
-                                      ]
-                                    }
-                                  },
-                                  "created_at": {
-                                    "type": "string"
-                                  }
-                                },
-                                "required": [
-                                  "id",
-                                  "hit",
-                                  "contents",
-                                  "created_at"
-                                ],
-                                "description": "Current Type: {@link ObjectGenericUnion.ISaleAnswer}"
-                              }
-                            ]
-                          },
-                          "id": {
-                            "type": "string"
-                          },
-                          "hit": {
-                            "type": "number"
-                          },
-                          "contents": {
-                            "type": "array",
-                            "items": {
-                              "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
-                              "type": "object",
-                              "properties": {
-                                "id": {
-                                  "type": "string"
-                                },
-                                "created_at": {
-                                  "type": "string"
-                                },
-                                "title": {
-                                  "type": "string"
-                                },
-                                "body": {
-                                  "type": "string"
-                                },
-                                "files": {
-                                  "type": "array",
-                                  "items": {
-                                    "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
-                                    "type": "object",
-                                    "properties": {
-                                      "name": {
-                                        "type": "string"
-                                      },
-                                      "extension": {
-                                        "oneOf": [
-                                          {
-                                            "type": "null"
-                                          },
-                                          {
-                                            "type": "string"
-                                          }
-                                        ]
-                                      },
-                                      "url": {
-                                        "type": "string"
-                                      }
-                                    },
-                                    "required": [
-                                      "name",
-                                      "extension",
-                                      "url"
-                                    ]
-                                  }
-                                }
-                              },
-                              "required": [
-                                "id",
-                                "created_at",
-                                "title",
-                                "body",
-                                "files"
-                              ]
-                            }
-                          },
-                          "created_at": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "writer",
-                          "answer",
-                          "id",
-                          "hit",
-                          "contents",
-                          "created_at"
-                        ],
-                        "description": "Current Type: {@link ObjectGenericUnion.ISaleQuestion}"
-                      },
-                      {
-                        "type": "object",
-                        "properties": {
-                          "writer": {
-                            "type": "string"
-                          },
-                          "answer": {
-                            "oneOf": [
-                              {
-                                "type": "null"
-                              },
-                              {
-                                "type": "object",
-                                "properties": {
-                                  "id": {
-                                    "type": "string"
-                                  },
-                                  "hit": {
-                                    "type": "number"
-                                  },
-                                  "contents": {
-                                    "type": "array",
-                                    "items": {
-                                      "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
-                                      "type": "object",
-                                      "properties": {
-                                        "id": {
-                                          "type": "string"
-                                        },
-                                        "created_at": {
-                                          "type": "string"
-                                        },
-                                        "title": {
-                                          "type": "string"
-                                        },
-                                        "body": {
-                                          "type": "string"
-                                        },
-                                        "files": {
-                                          "type": "array",
-                                          "items": {
-                                            "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
-                                            "type": "object",
-                                            "properties": {
-                                              "name": {
-                                                "type": "string"
-                                              },
-                                              "extension": {
-                                                "oneOf": [
-                                                  {
-                                                    "type": "null"
-                                                  },
-                                                  {
-                                                    "type": "string"
-                                                  }
-                                                ]
-                                              },
-                                              "url": {
-                                                "type": "string"
-                                              }
-                                            },
-                                            "required": [
-                                              "name",
-                                              "extension",
-                                              "url"
-                                            ]
-                                          }
-                                        }
-                                      },
-                                      "required": [
-                                        "id",
-                                        "created_at",
-                                        "title",
-                                        "body",
-                                        "files"
-                                      ]
-                                    }
-                                  },
-                                  "created_at": {
-                                    "type": "string"
-                                  }
-                                },
-                                "required": [
-                                  "id",
-                                  "hit",
-                                  "contents",
-                                  "created_at"
-                                ],
-                                "description": "Current Type: {@link ObjectGenericUnion.ISaleAnswer}"
-                              }
-                            ]
-                          },
-                          "id": {
-                            "type": "string"
-                          },
-                          "hit": {
-                            "type": "number"
-                          },
-                          "contents": {
-                            "type": "array",
-                            "items": {
-                              "description": "Current Type: {@link ObjectGenericUnion.ISaleReview.IContent}",
-                              "type": "object",
-                              "properties": {
-                                "score": {
-                                  "type": "number"
-                                },
-                                "id": {
-                                  "type": "string"
-                                },
-                                "created_at": {
-                                  "type": "string"
-                                },
-                                "title": {
-                                  "type": "string"
-                                },
-                                "body": {
-                                  "type": "string"
-                                },
-                                "files": {
-                                  "type": "array",
-                                  "items": {
-                                    "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
-                                    "type": "object",
-                                    "properties": {
-                                      "name": {
-                                        "type": "string"
-                                      },
-                                      "extension": {
-                                        "oneOf": [
-                                          {
-                                            "type": "null"
-                                          },
-                                          {
-                                            "type": "string"
-                                          }
-                                        ]
-                                      },
-                                      "url": {
-                                        "type": "string"
-                                      }
-                                    },
-                                    "required": [
-                                      "name",
-                                      "extension",
-                                      "url"
-                                    ]
-                                  }
-                                }
-                              },
-                              "required": [
-                                "score",
-                                "id",
-                                "created_at",
-                                "title",
-                                "body",
-                                "files"
-                              ]
-                            }
-                          },
-                          "created_at": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "writer",
-                          "answer",
-                          "id",
-                          "hit",
-                          "contents",
-                          "created_at"
-                        ],
-                        "description": "Current Type: {@link ObjectGenericUnion.ISaleReview}"
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "description": "Current Type: {@link ObjectGenericUnion}"
+                "$ref": "#/$defs/ObjectGenericUnion"
               }
             ]
           }
@@ -1110,365 +265,230 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "description": "Current Type: {@link ObjectGenericUnion}",
-        "type": "object",
-        "properties": {
-          "value": {
-            "description": "Current Type: {@link ObjectGenericUnion.ISaleEntireArticle}",
+        "$defs": {
+          "ObjectGenericUnion": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "$ref": "#/$defs/ObjectGenericUnion.ISaleEntireArticle"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "ObjectGenericUnion.ISaleEntireArticle": {
             "oneOf": [
               {
-                "type": "object",
-                "properties": {
-                  "writer": {
-                    "type": "string"
-                  },
-                  "answer": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "object",
-                        "properties": {
-                          "id": {
-                            "type": "string"
-                          },
-                          "hit": {
-                            "type": "number"
-                          },
-                          "contents": {
-                            "type": "array",
-                            "items": {
-                              "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
-                              "type": "object",
-                              "properties": {
-                                "id": {
-                                  "type": "string"
-                                },
-                                "created_at": {
-                                  "type": "string"
-                                },
-                                "title": {
-                                  "type": "string"
-                                },
-                                "body": {
-                                  "type": "string"
-                                },
-                                "files": {
-                                  "type": "array",
-                                  "items": {
-                                    "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
-                                    "type": "object",
-                                    "properties": {
-                                      "name": {
-                                        "type": "string"
-                                      },
-                                      "extension": {
-                                        "oneOf": [
-                                          {
-                                            "type": "null"
-                                          },
-                                          {
-                                            "type": "string"
-                                          }
-                                        ]
-                                      },
-                                      "url": {
-                                        "type": "string"
-                                      }
-                                    },
-                                    "required": [
-                                      "name",
-                                      "extension",
-                                      "url"
-                                    ]
-                                  }
-                                }
-                              },
-                              "required": [
-                                "id",
-                                "created_at",
-                                "title",
-                                "body",
-                                "files"
-                              ]
-                            }
-                          },
-                          "created_at": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "id",
-                          "hit",
-                          "contents",
-                          "created_at"
-                        ],
-                        "description": "Current Type: {@link ObjectGenericUnion.ISaleAnswer}"
-                      }
-                    ]
-                  },
-                  "id": {
-                    "type": "string"
-                  },
-                  "hit": {
-                    "type": "number"
-                  },
-                  "contents": {
-                    "type": "array",
-                    "items": {
-                      "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "string"
-                        },
-                        "created_at": {
-                          "type": "string"
-                        },
-                        "title": {
-                          "type": "string"
-                        },
-                        "body": {
-                          "type": "string"
-                        },
-                        "files": {
-                          "type": "array",
-                          "items": {
-                            "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
-                            "type": "object",
-                            "properties": {
-                              "name": {
-                                "type": "string"
-                              },
-                              "extension": {
-                                "oneOf": [
-                                  {
-                                    "type": "null"
-                                  },
-                                  {
-                                    "type": "string"
-                                  }
-                                ]
-                              },
-                              "url": {
-                                "type": "string"
-                              }
-                            },
-                            "required": [
-                              "name",
-                              "extension",
-                              "url"
-                            ]
-                          }
-                        }
-                      },
-                      "required": [
-                        "id",
-                        "created_at",
-                        "title",
-                        "body",
-                        "files"
-                      ]
-                    }
-                  },
-                  "created_at": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "writer",
-                  "answer",
-                  "id",
-                  "hit",
-                  "contents",
-                  "created_at"
-                ],
-                "description": "Current Type: {@link ObjectGenericUnion.ISaleQuestion}"
+                "$ref": "#/$defs/ObjectGenericUnion.ISaleQuestion"
               },
               {
-                "type": "object",
-                "properties": {
-                  "writer": {
-                    "type": "string"
-                  },
-                  "answer": {
-                    "oneOf": [
-                      {
-                        "type": "null"
-                      },
-                      {
-                        "type": "object",
-                        "properties": {
-                          "id": {
-                            "type": "string"
-                          },
-                          "hit": {
-                            "type": "number"
-                          },
-                          "contents": {
-                            "type": "array",
-                            "items": {
-                              "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
-                              "type": "object",
-                              "properties": {
-                                "id": {
-                                  "type": "string"
-                                },
-                                "created_at": {
-                                  "type": "string"
-                                },
-                                "title": {
-                                  "type": "string"
-                                },
-                                "body": {
-                                  "type": "string"
-                                },
-                                "files": {
-                                  "type": "array",
-                                  "items": {
-                                    "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
-                                    "type": "object",
-                                    "properties": {
-                                      "name": {
-                                        "type": "string"
-                                      },
-                                      "extension": {
-                                        "oneOf": [
-                                          {
-                                            "type": "null"
-                                          },
-                                          {
-                                            "type": "string"
-                                          }
-                                        ]
-                                      },
-                                      "url": {
-                                        "type": "string"
-                                      }
-                                    },
-                                    "required": [
-                                      "name",
-                                      "extension",
-                                      "url"
-                                    ]
-                                  }
-                                }
-                              },
-                              "required": [
-                                "id",
-                                "created_at",
-                                "title",
-                                "body",
-                                "files"
-                              ]
-                            }
-                          },
-                          "created_at": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "id",
-                          "hit",
-                          "contents",
-                          "created_at"
-                        ],
-                        "description": "Current Type: {@link ObjectGenericUnion.ISaleAnswer}"
-                      }
-                    ]
-                  },
-                  "id": {
-                    "type": "string"
-                  },
-                  "hit": {
-                    "type": "number"
-                  },
-                  "contents": {
-                    "type": "array",
-                    "items": {
-                      "description": "Current Type: {@link ObjectGenericUnion.ISaleReview.IContent}",
-                      "type": "object",
-                      "properties": {
-                        "score": {
-                          "type": "number"
-                        },
-                        "id": {
-                          "type": "string"
-                        },
-                        "created_at": {
-                          "type": "string"
-                        },
-                        "title": {
-                          "type": "string"
-                        },
-                        "body": {
-                          "type": "string"
-                        },
-                        "files": {
-                          "type": "array",
-                          "items": {
-                            "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
-                            "type": "object",
-                            "properties": {
-                              "name": {
-                                "type": "string"
-                              },
-                              "extension": {
-                                "oneOf": [
-                                  {
-                                    "type": "null"
-                                  },
-                                  {
-                                    "type": "string"
-                                  }
-                                ]
-                              },
-                              "url": {
-                                "type": "string"
-                              }
-                            },
-                            "required": [
-                              "name",
-                              "extension",
-                              "url"
-                            ]
-                          }
-                        }
-                      },
-                      "required": [
-                        "score",
-                        "id",
-                        "created_at",
-                        "title",
-                        "body",
-                        "files"
-                      ]
-                    }
-                  },
-                  "created_at": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "writer",
-                  "answer",
-                  "id",
-                  "hit",
-                  "contents",
-                  "created_at"
-                ],
-                "description": "Current Type: {@link ObjectGenericUnion.ISaleReview}"
+                "$ref": "#/$defs/ObjectGenericUnion.ISaleReview"
               }
             ]
+          },
+          "ObjectGenericUnion.ISaleQuestion": {
+            "type": "object",
+            "properties": {
+              "writer": {
+                "type": "string"
+              },
+              "answer": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/$defs/ObjectGenericUnion.ISaleAnswer"
+                  }
+                ]
+              },
+              "id": {
+                "type": "string"
+              },
+              "hit": {
+                "type": "number"
+              },
+              "contents": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectGenericUnion.ISaleArticle.IContent"
+                }
+              },
+              "created_at": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "writer",
+              "answer",
+              "id",
+              "hit",
+              "contents",
+              "created_at"
+            ]
+          },
+          "ObjectGenericUnion.ISaleAnswer": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "hit": {
+                "type": "number"
+              },
+              "contents": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectGenericUnion.ISaleArticle.IContent"
+                }
+              },
+              "created_at": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "hit",
+              "contents",
+              "created_at"
+            ]
+          },
+          "ObjectGenericUnion.ISaleArticle.IContent": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "created_at": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "body": {
+                "type": "string"
+              },
+              "files": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectGenericUnion.IAttachmentFile"
+                }
+              }
+            },
+            "required": [
+              "id",
+              "created_at",
+              "title",
+              "body",
+              "files"
+            ]
+          },
+          "ObjectGenericUnion.IAttachmentFile": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "extension": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              },
+              "url": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "extension",
+              "url"
+            ]
+          },
+          "ObjectGenericUnion.ISaleReview": {
+            "type": "object",
+            "properties": {
+              "writer": {
+                "type": "string"
+              },
+              "answer": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/$defs/ObjectGenericUnion.ISaleAnswer"
+                  }
+                ]
+              },
+              "id": {
+                "type": "string"
+              },
+              "hit": {
+                "type": "number"
+              },
+              "contents": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectGenericUnion.ISaleReview.IContent"
+                }
+              },
+              "created_at": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "writer",
+              "answer",
+              "id",
+              "hit",
+              "contents",
+              "created_at"
+            ]
+          },
+          "ObjectGenericUnion.ISaleReview.IContent": {
+            "type": "object",
+            "properties": {
+              "score": {
+                "type": "number"
+              },
+              "id": {
+                "type": "string"
+              },
+              "created_at": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "body": {
+                "type": "string"
+              },
+              "files": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectGenericUnion.IAttachmentFile"
+                }
+              }
+            },
+            "required": [
+              "score",
+              "id",
+              "created_at",
+              "title",
+              "body",
+              "files"
+            ]
           }
-        },
-        "required": [
-          "value"
-        ]
+        }
+      },
+      "output": {
+        "$ref": "#/$defs/ObjectGenericUnion"
       }
     },
     {
@@ -1482,362 +502,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "description": "Current Type: {@link ObjectGenericUnion.ISaleEntireArticle}",
-                    "oneOf": [
-                      {
-                        "type": "object",
-                        "properties": {
-                          "writer": {
-                            "type": "string"
-                          },
-                          "answer": {
-                            "oneOf": [
-                              {
-                                "type": "null"
-                              },
-                              {
-                                "type": "object",
-                                "properties": {
-                                  "id": {
-                                    "type": "string"
-                                  },
-                                  "hit": {
-                                    "type": "number"
-                                  },
-                                  "contents": {
-                                    "type": "array",
-                                    "items": {
-                                      "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
-                                      "type": "object",
-                                      "properties": {
-                                        "id": {
-                                          "type": "string"
-                                        },
-                                        "created_at": {
-                                          "type": "string"
-                                        },
-                                        "title": {
-                                          "type": "string"
-                                        },
-                                        "body": {
-                                          "type": "string"
-                                        },
-                                        "files": {
-                                          "type": "array",
-                                          "items": {
-                                            "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
-                                            "type": "object",
-                                            "properties": {
-                                              "name": {
-                                                "type": "string"
-                                              },
-                                              "extension": {
-                                                "oneOf": [
-                                                  {
-                                                    "type": "null"
-                                                  },
-                                                  {
-                                                    "type": "string"
-                                                  }
-                                                ]
-                                              },
-                                              "url": {
-                                                "type": "string"
-                                              }
-                                            },
-                                            "required": [
-                                              "name",
-                                              "extension",
-                                              "url"
-                                            ]
-                                          }
-                                        }
-                                      },
-                                      "required": [
-                                        "id",
-                                        "created_at",
-                                        "title",
-                                        "body",
-                                        "files"
-                                      ]
-                                    }
-                                  },
-                                  "created_at": {
-                                    "type": "string"
-                                  }
-                                },
-                                "required": [
-                                  "id",
-                                  "hit",
-                                  "contents",
-                                  "created_at"
-                                ],
-                                "description": "Current Type: {@link ObjectGenericUnion.ISaleAnswer}"
-                              }
-                            ]
-                          },
-                          "id": {
-                            "type": "string"
-                          },
-                          "hit": {
-                            "type": "number"
-                          },
-                          "contents": {
-                            "type": "array",
-                            "items": {
-                              "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
-                              "type": "object",
-                              "properties": {
-                                "id": {
-                                  "type": "string"
-                                },
-                                "created_at": {
-                                  "type": "string"
-                                },
-                                "title": {
-                                  "type": "string"
-                                },
-                                "body": {
-                                  "type": "string"
-                                },
-                                "files": {
-                                  "type": "array",
-                                  "items": {
-                                    "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
-                                    "type": "object",
-                                    "properties": {
-                                      "name": {
-                                        "type": "string"
-                                      },
-                                      "extension": {
-                                        "oneOf": [
-                                          {
-                                            "type": "null"
-                                          },
-                                          {
-                                            "type": "string"
-                                          }
-                                        ]
-                                      },
-                                      "url": {
-                                        "type": "string"
-                                      }
-                                    },
-                                    "required": [
-                                      "name",
-                                      "extension",
-                                      "url"
-                                    ]
-                                  }
-                                }
-                              },
-                              "required": [
-                                "id",
-                                "created_at",
-                                "title",
-                                "body",
-                                "files"
-                              ]
-                            }
-                          },
-                          "created_at": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "writer",
-                          "answer",
-                          "id",
-                          "hit",
-                          "contents",
-                          "created_at"
-                        ],
-                        "description": "Current Type: {@link ObjectGenericUnion.ISaleQuestion}"
-                      },
-                      {
-                        "type": "object",
-                        "properties": {
-                          "writer": {
-                            "type": "string"
-                          },
-                          "answer": {
-                            "oneOf": [
-                              {
-                                "type": "null"
-                              },
-                              {
-                                "type": "object",
-                                "properties": {
-                                  "id": {
-                                    "type": "string"
-                                  },
-                                  "hit": {
-                                    "type": "number"
-                                  },
-                                  "contents": {
-                                    "type": "array",
-                                    "items": {
-                                      "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
-                                      "type": "object",
-                                      "properties": {
-                                        "id": {
-                                          "type": "string"
-                                        },
-                                        "created_at": {
-                                          "type": "string"
-                                        },
-                                        "title": {
-                                          "type": "string"
-                                        },
-                                        "body": {
-                                          "type": "string"
-                                        },
-                                        "files": {
-                                          "type": "array",
-                                          "items": {
-                                            "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
-                                            "type": "object",
-                                            "properties": {
-                                              "name": {
-                                                "type": "string"
-                                              },
-                                              "extension": {
-                                                "oneOf": [
-                                                  {
-                                                    "type": "null"
-                                                  },
-                                                  {
-                                                    "type": "string"
-                                                  }
-                                                ]
-                                              },
-                                              "url": {
-                                                "type": "string"
-                                              }
-                                            },
-                                            "required": [
-                                              "name",
-                                              "extension",
-                                              "url"
-                                            ]
-                                          }
-                                        }
-                                      },
-                                      "required": [
-                                        "id",
-                                        "created_at",
-                                        "title",
-                                        "body",
-                                        "files"
-                                      ]
-                                    }
-                                  },
-                                  "created_at": {
-                                    "type": "string"
-                                  }
-                                },
-                                "required": [
-                                  "id",
-                                  "hit",
-                                  "contents",
-                                  "created_at"
-                                ],
-                                "description": "Current Type: {@link ObjectGenericUnion.ISaleAnswer}"
-                              }
-                            ]
-                          },
-                          "id": {
-                            "type": "string"
-                          },
-                          "hit": {
-                            "type": "number"
-                          },
-                          "contents": {
-                            "type": "array",
-                            "items": {
-                              "description": "Current Type: {@link ObjectGenericUnion.ISaleReview.IContent}",
-                              "type": "object",
-                              "properties": {
-                                "score": {
-                                  "type": "number"
-                                },
-                                "id": {
-                                  "type": "string"
-                                },
-                                "created_at": {
-                                  "type": "string"
-                                },
-                                "title": {
-                                  "type": "string"
-                                },
-                                "body": {
-                                  "type": "string"
-                                },
-                                "files": {
-                                  "type": "array",
-                                  "items": {
-                                    "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
-                                    "type": "object",
-                                    "properties": {
-                                      "name": {
-                                        "type": "string"
-                                      },
-                                      "extension": {
-                                        "oneOf": [
-                                          {
-                                            "type": "null"
-                                          },
-                                          {
-                                            "type": "string"
-                                          }
-                                        ]
-                                      },
-                                      "url": {
-                                        "type": "string"
-                                      }
-                                    },
-                                    "required": [
-                                      "name",
-                                      "extension",
-                                      "url"
-                                    ]
-                                  }
-                                }
-                              },
-                              "required": [
-                                "score",
-                                "id",
-                                "created_at",
-                                "title",
-                                "body",
-                                "files"
-                              ]
-                            }
-                          },
-                          "created_at": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "writer",
-                          "answer",
-                          "id",
-                          "hit",
-                          "contents",
-                          "created_at"
-                        ],
-                        "description": "Current Type: {@link ObjectGenericUnion.ISaleReview}"
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "description": "Current Type: {@link ObjectGenericUnion}"
+                "$ref": "#/$defs/ObjectGenericUnion"
               }
             ]
           },
@@ -1847,362 +512,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "description": "Current Type: {@link ObjectGenericUnion.ISaleEntireArticle}",
-                    "oneOf": [
-                      {
-                        "type": "object",
-                        "properties": {
-                          "writer": {
-                            "type": "string"
-                          },
-                          "answer": {
-                            "oneOf": [
-                              {
-                                "type": "null"
-                              },
-                              {
-                                "type": "object",
-                                "properties": {
-                                  "id": {
-                                    "type": "string"
-                                  },
-                                  "hit": {
-                                    "type": "number"
-                                  },
-                                  "contents": {
-                                    "type": "array",
-                                    "items": {
-                                      "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
-                                      "type": "object",
-                                      "properties": {
-                                        "id": {
-                                          "type": "string"
-                                        },
-                                        "created_at": {
-                                          "type": "string"
-                                        },
-                                        "title": {
-                                          "type": "string"
-                                        },
-                                        "body": {
-                                          "type": "string"
-                                        },
-                                        "files": {
-                                          "type": "array",
-                                          "items": {
-                                            "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
-                                            "type": "object",
-                                            "properties": {
-                                              "name": {
-                                                "type": "string"
-                                              },
-                                              "extension": {
-                                                "oneOf": [
-                                                  {
-                                                    "type": "null"
-                                                  },
-                                                  {
-                                                    "type": "string"
-                                                  }
-                                                ]
-                                              },
-                                              "url": {
-                                                "type": "string"
-                                              }
-                                            },
-                                            "required": [
-                                              "name",
-                                              "extension",
-                                              "url"
-                                            ]
-                                          }
-                                        }
-                                      },
-                                      "required": [
-                                        "id",
-                                        "created_at",
-                                        "title",
-                                        "body",
-                                        "files"
-                                      ]
-                                    }
-                                  },
-                                  "created_at": {
-                                    "type": "string"
-                                  }
-                                },
-                                "required": [
-                                  "id",
-                                  "hit",
-                                  "contents",
-                                  "created_at"
-                                ],
-                                "description": "Current Type: {@link ObjectGenericUnion.ISaleAnswer}"
-                              }
-                            ]
-                          },
-                          "id": {
-                            "type": "string"
-                          },
-                          "hit": {
-                            "type": "number"
-                          },
-                          "contents": {
-                            "type": "array",
-                            "items": {
-                              "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
-                              "type": "object",
-                              "properties": {
-                                "id": {
-                                  "type": "string"
-                                },
-                                "created_at": {
-                                  "type": "string"
-                                },
-                                "title": {
-                                  "type": "string"
-                                },
-                                "body": {
-                                  "type": "string"
-                                },
-                                "files": {
-                                  "type": "array",
-                                  "items": {
-                                    "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
-                                    "type": "object",
-                                    "properties": {
-                                      "name": {
-                                        "type": "string"
-                                      },
-                                      "extension": {
-                                        "oneOf": [
-                                          {
-                                            "type": "null"
-                                          },
-                                          {
-                                            "type": "string"
-                                          }
-                                        ]
-                                      },
-                                      "url": {
-                                        "type": "string"
-                                      }
-                                    },
-                                    "required": [
-                                      "name",
-                                      "extension",
-                                      "url"
-                                    ]
-                                  }
-                                }
-                              },
-                              "required": [
-                                "id",
-                                "created_at",
-                                "title",
-                                "body",
-                                "files"
-                              ]
-                            }
-                          },
-                          "created_at": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "writer",
-                          "answer",
-                          "id",
-                          "hit",
-                          "contents",
-                          "created_at"
-                        ],
-                        "description": "Current Type: {@link ObjectGenericUnion.ISaleQuestion}"
-                      },
-                      {
-                        "type": "object",
-                        "properties": {
-                          "writer": {
-                            "type": "string"
-                          },
-                          "answer": {
-                            "oneOf": [
-                              {
-                                "type": "null"
-                              },
-                              {
-                                "type": "object",
-                                "properties": {
-                                  "id": {
-                                    "type": "string"
-                                  },
-                                  "hit": {
-                                    "type": "number"
-                                  },
-                                  "contents": {
-                                    "type": "array",
-                                    "items": {
-                                      "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
-                                      "type": "object",
-                                      "properties": {
-                                        "id": {
-                                          "type": "string"
-                                        },
-                                        "created_at": {
-                                          "type": "string"
-                                        },
-                                        "title": {
-                                          "type": "string"
-                                        },
-                                        "body": {
-                                          "type": "string"
-                                        },
-                                        "files": {
-                                          "type": "array",
-                                          "items": {
-                                            "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
-                                            "type": "object",
-                                            "properties": {
-                                              "name": {
-                                                "type": "string"
-                                              },
-                                              "extension": {
-                                                "oneOf": [
-                                                  {
-                                                    "type": "null"
-                                                  },
-                                                  {
-                                                    "type": "string"
-                                                  }
-                                                ]
-                                              },
-                                              "url": {
-                                                "type": "string"
-                                              }
-                                            },
-                                            "required": [
-                                              "name",
-                                              "extension",
-                                              "url"
-                                            ]
-                                          }
-                                        }
-                                      },
-                                      "required": [
-                                        "id",
-                                        "created_at",
-                                        "title",
-                                        "body",
-                                        "files"
-                                      ]
-                                    }
-                                  },
-                                  "created_at": {
-                                    "type": "string"
-                                  }
-                                },
-                                "required": [
-                                  "id",
-                                  "hit",
-                                  "contents",
-                                  "created_at"
-                                ],
-                                "description": "Current Type: {@link ObjectGenericUnion.ISaleAnswer}"
-                              }
-                            ]
-                          },
-                          "id": {
-                            "type": "string"
-                          },
-                          "hit": {
-                            "type": "number"
-                          },
-                          "contents": {
-                            "type": "array",
-                            "items": {
-                              "description": "Current Type: {@link ObjectGenericUnion.ISaleReview.IContent}",
-                              "type": "object",
-                              "properties": {
-                                "score": {
-                                  "type": "number"
-                                },
-                                "id": {
-                                  "type": "string"
-                                },
-                                "created_at": {
-                                  "type": "string"
-                                },
-                                "title": {
-                                  "type": "string"
-                                },
-                                "body": {
-                                  "type": "string"
-                                },
-                                "files": {
-                                  "type": "array",
-                                  "items": {
-                                    "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
-                                    "type": "object",
-                                    "properties": {
-                                      "name": {
-                                        "type": "string"
-                                      },
-                                      "extension": {
-                                        "oneOf": [
-                                          {
-                                            "type": "null"
-                                          },
-                                          {
-                                            "type": "string"
-                                          }
-                                        ]
-                                      },
-                                      "url": {
-                                        "type": "string"
-                                      }
-                                    },
-                                    "required": [
-                                      "name",
-                                      "extension",
-                                      "url"
-                                    ]
-                                  }
-                                }
-                              },
-                              "required": [
-                                "score",
-                                "id",
-                                "created_at",
-                                "title",
-                                "body",
-                                "files"
-                              ]
-                            }
-                          },
-                          "created_at": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "writer",
-                          "answer",
-                          "id",
-                          "hit",
-                          "contents",
-                          "created_at"
-                        ],
-                        "description": "Current Type: {@link ObjectGenericUnion.ISaleReview}"
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "description": "Current Type: {@link ObjectGenericUnion}"
+                "$ref": "#/$defs/ObjectGenericUnion"
               }
             ]
           },
@@ -2212,362 +522,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "description": "Current Type: {@link ObjectGenericUnion.ISaleEntireArticle}",
-                    "oneOf": [
-                      {
-                        "type": "object",
-                        "properties": {
-                          "writer": {
-                            "type": "string"
-                          },
-                          "answer": {
-                            "oneOf": [
-                              {
-                                "type": "null"
-                              },
-                              {
-                                "type": "object",
-                                "properties": {
-                                  "id": {
-                                    "type": "string"
-                                  },
-                                  "hit": {
-                                    "type": "number"
-                                  },
-                                  "contents": {
-                                    "type": "array",
-                                    "items": {
-                                      "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
-                                      "type": "object",
-                                      "properties": {
-                                        "id": {
-                                          "type": "string"
-                                        },
-                                        "created_at": {
-                                          "type": "string"
-                                        },
-                                        "title": {
-                                          "type": "string"
-                                        },
-                                        "body": {
-                                          "type": "string"
-                                        },
-                                        "files": {
-                                          "type": "array",
-                                          "items": {
-                                            "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
-                                            "type": "object",
-                                            "properties": {
-                                              "name": {
-                                                "type": "string"
-                                              },
-                                              "extension": {
-                                                "oneOf": [
-                                                  {
-                                                    "type": "null"
-                                                  },
-                                                  {
-                                                    "type": "string"
-                                                  }
-                                                ]
-                                              },
-                                              "url": {
-                                                "type": "string"
-                                              }
-                                            },
-                                            "required": [
-                                              "name",
-                                              "extension",
-                                              "url"
-                                            ]
-                                          }
-                                        }
-                                      },
-                                      "required": [
-                                        "id",
-                                        "created_at",
-                                        "title",
-                                        "body",
-                                        "files"
-                                      ]
-                                    }
-                                  },
-                                  "created_at": {
-                                    "type": "string"
-                                  }
-                                },
-                                "required": [
-                                  "id",
-                                  "hit",
-                                  "contents",
-                                  "created_at"
-                                ],
-                                "description": "Current Type: {@link ObjectGenericUnion.ISaleAnswer}"
-                              }
-                            ]
-                          },
-                          "id": {
-                            "type": "string"
-                          },
-                          "hit": {
-                            "type": "number"
-                          },
-                          "contents": {
-                            "type": "array",
-                            "items": {
-                              "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
-                              "type": "object",
-                              "properties": {
-                                "id": {
-                                  "type": "string"
-                                },
-                                "created_at": {
-                                  "type": "string"
-                                },
-                                "title": {
-                                  "type": "string"
-                                },
-                                "body": {
-                                  "type": "string"
-                                },
-                                "files": {
-                                  "type": "array",
-                                  "items": {
-                                    "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
-                                    "type": "object",
-                                    "properties": {
-                                      "name": {
-                                        "type": "string"
-                                      },
-                                      "extension": {
-                                        "oneOf": [
-                                          {
-                                            "type": "null"
-                                          },
-                                          {
-                                            "type": "string"
-                                          }
-                                        ]
-                                      },
-                                      "url": {
-                                        "type": "string"
-                                      }
-                                    },
-                                    "required": [
-                                      "name",
-                                      "extension",
-                                      "url"
-                                    ]
-                                  }
-                                }
-                              },
-                              "required": [
-                                "id",
-                                "created_at",
-                                "title",
-                                "body",
-                                "files"
-                              ]
-                            }
-                          },
-                          "created_at": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "writer",
-                          "answer",
-                          "id",
-                          "hit",
-                          "contents",
-                          "created_at"
-                        ],
-                        "description": "Current Type: {@link ObjectGenericUnion.ISaleQuestion}"
-                      },
-                      {
-                        "type": "object",
-                        "properties": {
-                          "writer": {
-                            "type": "string"
-                          },
-                          "answer": {
-                            "oneOf": [
-                              {
-                                "type": "null"
-                              },
-                              {
-                                "type": "object",
-                                "properties": {
-                                  "id": {
-                                    "type": "string"
-                                  },
-                                  "hit": {
-                                    "type": "number"
-                                  },
-                                  "contents": {
-                                    "type": "array",
-                                    "items": {
-                                      "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
-                                      "type": "object",
-                                      "properties": {
-                                        "id": {
-                                          "type": "string"
-                                        },
-                                        "created_at": {
-                                          "type": "string"
-                                        },
-                                        "title": {
-                                          "type": "string"
-                                        },
-                                        "body": {
-                                          "type": "string"
-                                        },
-                                        "files": {
-                                          "type": "array",
-                                          "items": {
-                                            "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
-                                            "type": "object",
-                                            "properties": {
-                                              "name": {
-                                                "type": "string"
-                                              },
-                                              "extension": {
-                                                "oneOf": [
-                                                  {
-                                                    "type": "null"
-                                                  },
-                                                  {
-                                                    "type": "string"
-                                                  }
-                                                ]
-                                              },
-                                              "url": {
-                                                "type": "string"
-                                              }
-                                            },
-                                            "required": [
-                                              "name",
-                                              "extension",
-                                              "url"
-                                            ]
-                                          }
-                                        }
-                                      },
-                                      "required": [
-                                        "id",
-                                        "created_at",
-                                        "title",
-                                        "body",
-                                        "files"
-                                      ]
-                                    }
-                                  },
-                                  "created_at": {
-                                    "type": "string"
-                                  }
-                                },
-                                "required": [
-                                  "id",
-                                  "hit",
-                                  "contents",
-                                  "created_at"
-                                ],
-                                "description": "Current Type: {@link ObjectGenericUnion.ISaleAnswer}"
-                              }
-                            ]
-                          },
-                          "id": {
-                            "type": "string"
-                          },
-                          "hit": {
-                            "type": "number"
-                          },
-                          "contents": {
-                            "type": "array",
-                            "items": {
-                              "description": "Current Type: {@link ObjectGenericUnion.ISaleReview.IContent}",
-                              "type": "object",
-                              "properties": {
-                                "score": {
-                                  "type": "number"
-                                },
-                                "id": {
-                                  "type": "string"
-                                },
-                                "created_at": {
-                                  "type": "string"
-                                },
-                                "title": {
-                                  "type": "string"
-                                },
-                                "body": {
-                                  "type": "string"
-                                },
-                                "files": {
-                                  "type": "array",
-                                  "items": {
-                                    "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
-                                    "type": "object",
-                                    "properties": {
-                                      "name": {
-                                        "type": "string"
-                                      },
-                                      "extension": {
-                                        "oneOf": [
-                                          {
-                                            "type": "null"
-                                          },
-                                          {
-                                            "type": "string"
-                                          }
-                                        ]
-                                      },
-                                      "url": {
-                                        "type": "string"
-                                      }
-                                    },
-                                    "required": [
-                                      "name",
-                                      "extension",
-                                      "url"
-                                    ]
-                                  }
-                                }
-                              },
-                              "required": [
-                                "score",
-                                "id",
-                                "created_at",
-                                "title",
-                                "body",
-                                "files"
-                              ]
-                            }
-                          },
-                          "created_at": {
-                            "type": "string"
-                          }
-                        },
-                        "required": [
-                          "writer",
-                          "answer",
-                          "id",
-                          "hit",
-                          "contents",
-                          "created_at"
-                        ],
-                        "description": "Current Type: {@link ObjectGenericUnion.ISaleReview}"
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "description": "Current Type: {@link ObjectGenericUnion}"
+                "$ref": "#/$defs/ObjectGenericUnion"
               }
             ]
           }
@@ -2577,7 +532,227 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "ObjectGenericUnion": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "$ref": "#/$defs/ObjectGenericUnion.ISaleEntireArticle"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "ObjectGenericUnion.ISaleEntireArticle": {
+            "oneOf": [
+              {
+                "$ref": "#/$defs/ObjectGenericUnion.ISaleQuestion"
+              },
+              {
+                "$ref": "#/$defs/ObjectGenericUnion.ISaleReview"
+              }
+            ]
+          },
+          "ObjectGenericUnion.ISaleQuestion": {
+            "type": "object",
+            "properties": {
+              "writer": {
+                "type": "string"
+              },
+              "answer": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/$defs/ObjectGenericUnion.ISaleAnswer"
+                  }
+                ]
+              },
+              "id": {
+                "type": "string"
+              },
+              "hit": {
+                "type": "number"
+              },
+              "contents": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectGenericUnion.ISaleArticle.IContent"
+                }
+              },
+              "created_at": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "writer",
+              "answer",
+              "id",
+              "hit",
+              "contents",
+              "created_at"
+            ]
+          },
+          "ObjectGenericUnion.ISaleAnswer": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "hit": {
+                "type": "number"
+              },
+              "contents": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectGenericUnion.ISaleArticle.IContent"
+                }
+              },
+              "created_at": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "hit",
+              "contents",
+              "created_at"
+            ]
+          },
+          "ObjectGenericUnion.ISaleArticle.IContent": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "created_at": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "body": {
+                "type": "string"
+              },
+              "files": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectGenericUnion.IAttachmentFile"
+                }
+              }
+            },
+            "required": [
+              "id",
+              "created_at",
+              "title",
+              "body",
+              "files"
+            ]
+          },
+          "ObjectGenericUnion.IAttachmentFile": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "extension": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "type": "string"
+                  }
+                ]
+              },
+              "url": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "name",
+              "extension",
+              "url"
+            ]
+          },
+          "ObjectGenericUnion.ISaleReview": {
+            "type": "object",
+            "properties": {
+              "writer": {
+                "type": "string"
+              },
+              "answer": {
+                "oneOf": [
+                  {
+                    "type": "null"
+                  },
+                  {
+                    "$ref": "#/$defs/ObjectGenericUnion.ISaleAnswer"
+                  }
+                ]
+              },
+              "id": {
+                "type": "string"
+              },
+              "hit": {
+                "type": "number"
+              },
+              "contents": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectGenericUnion.ISaleReview.IContent"
+                }
+              },
+              "created_at": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "writer",
+              "answer",
+              "id",
+              "hit",
+              "contents",
+              "created_at"
+            ]
+          },
+          "ObjectGenericUnion.ISaleReview.IContent": {
+            "type": "object",
+            "properties": {
+              "score": {
+                "type": "number"
+              },
+              "id": {
+                "type": "string"
+              },
+              "created_at": {
+                "type": "string"
+              },
+              "title": {
+                "type": "string"
+              },
+              "body": {
+                "type": "string"
+              },
+              "files": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectGenericUnion.IAttachmentFile"
+                }
+              }
+            },
+            "required": [
+              "score",
+              "id",
+              "created_at",
+              "title",
+              "body",
+              "files"
+            ]
+          }
+        }
       },
       "output": {
         "oneOf": [
@@ -2585,362 +760,7 @@
             "type": "null"
           },
           {
-            "type": "object",
-            "properties": {
-              "value": {
-                "description": "Current Type: {@link ObjectGenericUnion.ISaleEntireArticle}",
-                "oneOf": [
-                  {
-                    "type": "object",
-                    "properties": {
-                      "writer": {
-                        "type": "string"
-                      },
-                      "answer": {
-                        "oneOf": [
-                          {
-                            "type": "null"
-                          },
-                          {
-                            "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "string"
-                              },
-                              "hit": {
-                                "type": "number"
-                              },
-                              "contents": {
-                                "type": "array",
-                                "items": {
-                                  "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
-                                  "type": "object",
-                                  "properties": {
-                                    "id": {
-                                      "type": "string"
-                                    },
-                                    "created_at": {
-                                      "type": "string"
-                                    },
-                                    "title": {
-                                      "type": "string"
-                                    },
-                                    "body": {
-                                      "type": "string"
-                                    },
-                                    "files": {
-                                      "type": "array",
-                                      "items": {
-                                        "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
-                                        "type": "object",
-                                        "properties": {
-                                          "name": {
-                                            "type": "string"
-                                          },
-                                          "extension": {
-                                            "oneOf": [
-                                              {
-                                                "type": "null"
-                                              },
-                                              {
-                                                "type": "string"
-                                              }
-                                            ]
-                                          },
-                                          "url": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "required": [
-                                          "name",
-                                          "extension",
-                                          "url"
-                                        ]
-                                      }
-                                    }
-                                  },
-                                  "required": [
-                                    "id",
-                                    "created_at",
-                                    "title",
-                                    "body",
-                                    "files"
-                                  ]
-                                }
-                              },
-                              "created_at": {
-                                "type": "string"
-                              }
-                            },
-                            "required": [
-                              "id",
-                              "hit",
-                              "contents",
-                              "created_at"
-                            ],
-                            "description": "Current Type: {@link ObjectGenericUnion.ISaleAnswer}"
-                          }
-                        ]
-                      },
-                      "id": {
-                        "type": "string"
-                      },
-                      "hit": {
-                        "type": "number"
-                      },
-                      "contents": {
-                        "type": "array",
-                        "items": {
-                          "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
-                          "type": "object",
-                          "properties": {
-                            "id": {
-                              "type": "string"
-                            },
-                            "created_at": {
-                              "type": "string"
-                            },
-                            "title": {
-                              "type": "string"
-                            },
-                            "body": {
-                              "type": "string"
-                            },
-                            "files": {
-                              "type": "array",
-                              "items": {
-                                "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
-                                "type": "object",
-                                "properties": {
-                                  "name": {
-                                    "type": "string"
-                                  },
-                                  "extension": {
-                                    "oneOf": [
-                                      {
-                                        "type": "null"
-                                      },
-                                      {
-                                        "type": "string"
-                                      }
-                                    ]
-                                  },
-                                  "url": {
-                                    "type": "string"
-                                  }
-                                },
-                                "required": [
-                                  "name",
-                                  "extension",
-                                  "url"
-                                ]
-                              }
-                            }
-                          },
-                          "required": [
-                            "id",
-                            "created_at",
-                            "title",
-                            "body",
-                            "files"
-                          ]
-                        }
-                      },
-                      "created_at": {
-                        "type": "string"
-                      }
-                    },
-                    "required": [
-                      "writer",
-                      "answer",
-                      "id",
-                      "hit",
-                      "contents",
-                      "created_at"
-                    ],
-                    "description": "Current Type: {@link ObjectGenericUnion.ISaleQuestion}"
-                  },
-                  {
-                    "type": "object",
-                    "properties": {
-                      "writer": {
-                        "type": "string"
-                      },
-                      "answer": {
-                        "oneOf": [
-                          {
-                            "type": "null"
-                          },
-                          {
-                            "type": "object",
-                            "properties": {
-                              "id": {
-                                "type": "string"
-                              },
-                              "hit": {
-                                "type": "number"
-                              },
-                              "contents": {
-                                "type": "array",
-                                "items": {
-                                  "description": "Current Type: {@link ObjectGenericUnion.ISaleArticle.IContent}",
-                                  "type": "object",
-                                  "properties": {
-                                    "id": {
-                                      "type": "string"
-                                    },
-                                    "created_at": {
-                                      "type": "string"
-                                    },
-                                    "title": {
-                                      "type": "string"
-                                    },
-                                    "body": {
-                                      "type": "string"
-                                    },
-                                    "files": {
-                                      "type": "array",
-                                      "items": {
-                                        "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
-                                        "type": "object",
-                                        "properties": {
-                                          "name": {
-                                            "type": "string"
-                                          },
-                                          "extension": {
-                                            "oneOf": [
-                                              {
-                                                "type": "null"
-                                              },
-                                              {
-                                                "type": "string"
-                                              }
-                                            ]
-                                          },
-                                          "url": {
-                                            "type": "string"
-                                          }
-                                        },
-                                        "required": [
-                                          "name",
-                                          "extension",
-                                          "url"
-                                        ]
-                                      }
-                                    }
-                                  },
-                                  "required": [
-                                    "id",
-                                    "created_at",
-                                    "title",
-                                    "body",
-                                    "files"
-                                  ]
-                                }
-                              },
-                              "created_at": {
-                                "type": "string"
-                              }
-                            },
-                            "required": [
-                              "id",
-                              "hit",
-                              "contents",
-                              "created_at"
-                            ],
-                            "description": "Current Type: {@link ObjectGenericUnion.ISaleAnswer}"
-                          }
-                        ]
-                      },
-                      "id": {
-                        "type": "string"
-                      },
-                      "hit": {
-                        "type": "number"
-                      },
-                      "contents": {
-                        "type": "array",
-                        "items": {
-                          "description": "Current Type: {@link ObjectGenericUnion.ISaleReview.IContent}",
-                          "type": "object",
-                          "properties": {
-                            "score": {
-                              "type": "number"
-                            },
-                            "id": {
-                              "type": "string"
-                            },
-                            "created_at": {
-                              "type": "string"
-                            },
-                            "title": {
-                              "type": "string"
-                            },
-                            "body": {
-                              "type": "string"
-                            },
-                            "files": {
-                              "type": "array",
-                              "items": {
-                                "description": "Current Type: {@link ObjectGenericUnion.IAttachmentFile}",
-                                "type": "object",
-                                "properties": {
-                                  "name": {
-                                    "type": "string"
-                                  },
-                                  "extension": {
-                                    "oneOf": [
-                                      {
-                                        "type": "null"
-                                      },
-                                      {
-                                        "type": "string"
-                                      }
-                                    ]
-                                  },
-                                  "url": {
-                                    "type": "string"
-                                  }
-                                },
-                                "required": [
-                                  "name",
-                                  "extension",
-                                  "url"
-                                ]
-                              }
-                            }
-                          },
-                          "required": [
-                            "score",
-                            "id",
-                            "created_at",
-                            "title",
-                            "body",
-                            "files"
-                          ]
-                        }
-                      },
-                      "created_at": {
-                        "type": "string"
-                      }
-                    },
-                    "required": [
-                      "writer",
-                      "answer",
-                      "id",
-                      "hit",
-                      "contents",
-                      "created_at"
-                    ],
-                    "description": "Current Type: {@link ObjectGenericUnion.ISaleReview}"
-                  }
-                ]
-              }
-            },
-            "required": [
-              "value"
-            ],
-            "description": "Current Type: {@link ObjectGenericUnion}"
+            "$ref": "#/$defs/ObjectGenericUnion"
           }
         ]
       }

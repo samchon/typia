@@ -2,11 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "description": "Current Type: {@link ArrayRecursiveUnionImplicit}",
-      "type": "array",
-      "items": {
-        "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IBucket"
-      }
+      "$ref": "#/$defs/ArrayRecursiveUnionImplicit"
     },
     "nullable": {
       "oneOf": [
@@ -14,20 +10,12 @@
           "type": "null"
         },
         {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IBucket"
-          },
-          "description": "Current Type: {@link ArrayRecursiveUnionImplicit}"
+          "$ref": "#/$defs/ArrayRecursiveUnionImplicit"
         }
       ]
     },
     "optional": {
-      "description": "Current Type: {@link ArrayRecursiveUnionImplicit}",
-      "type": "array",
-      "items": {
-        "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IBucket"
-      }
+      "$ref": "#/$defs/ArrayRecursiveUnionImplicit"
     },
     "faint": {
       "oneOf": [
@@ -35,22 +23,14 @@
           "type": "null"
         },
         {
-          "type": "array",
-          "items": {
-            "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IBucket"
-          },
-          "description": "Current Type: {@link ArrayRecursiveUnionImplicit}"
+          "$ref": "#/$defs/ArrayRecursiveUnionImplicit"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
-        "description": "Current Type: {@link ArrayRecursiveUnionImplicit}",
-        "type": "array",
-        "items": {
-          "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IBucket"
-        }
+        "$ref": "#/$defs/ArrayRecursiveUnionImplicit"
       }
     }
   },
@@ -61,6 +41,12 @@
   ],
   "additionalProperties": false,
   "$defs": {
+    "ArrayRecursiveUnionImplicit": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IBucket"
+      }
+    },
     "ArrayRecursiveUnionImplicit.IBucket": {
       "oneOf": [
         {
@@ -70,96 +56,13 @@
           "$ref": "#/$defs/ArrayRecursiveUnionImplicit.ISharedDirectory"
         },
         {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "number"
-            },
-            "name": {
-              "type": "string"
-            },
-            "path": {
-              "type": "string"
-            },
-            "width": {
-              "type": "number"
-            },
-            "height": {
-              "type": "number"
-            },
-            "url": {
-              "type": "string"
-            },
-            "size": {
-              "type": "number"
-            }
-          },
-          "required": [
-            "id",
-            "name",
-            "path",
-            "width",
-            "height",
-            "url",
-            "size"
-          ],
-          "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IImageFile}"
+          "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IImageFile"
         },
         {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "number"
-            },
-            "name": {
-              "type": "string"
-            },
-            "path": {
-              "type": "string"
-            },
-            "size": {
-              "type": "number"
-            },
-            "content": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "id",
-            "name",
-            "path",
-            "size",
-            "content"
-          ],
-          "description": "Current Type: {@link ArrayRecursiveUnionImplicit.ITextFile}"
+          "$ref": "#/$defs/ArrayRecursiveUnionImplicit.ITextFile"
         },
         {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "number"
-            },
-            "name": {
-              "type": "string"
-            },
-            "path": {
-              "type": "string"
-            },
-            "size": {
-              "type": "number"
-            },
-            "count": {
-              "type": "number"
-            }
-          },
-          "required": [
-            "id",
-            "name",
-            "path",
-            "size",
-            "count"
-          ],
-          "description": "Current Type: {@link ArrayRecursiveUnionImplicit.IZipFile}"
+          "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IZipFile"
         },
         {
           "$ref": "#/$defs/ArrayRecursiveUnionImplicit.IShortcut"
@@ -227,6 +130,95 @@
         "name",
         "path",
         "children"
+      ]
+    },
+    "ArrayRecursiveUnionImplicit.IImageFile": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "width": {
+          "type": "number"
+        },
+        "height": {
+          "type": "number"
+        },
+        "url": {
+          "type": "string"
+        },
+        "size": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "path",
+        "width",
+        "height",
+        "url",
+        "size"
+      ]
+    },
+    "ArrayRecursiveUnionImplicit.ITextFile": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "size": {
+          "type": "number"
+        },
+        "content": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "path",
+        "size",
+        "content"
+      ]
+    },
+    "ArrayRecursiveUnionImplicit.IZipFile": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "number"
+        },
+        "name": {
+          "type": "string"
+        },
+        "path": {
+          "type": "string"
+        },
+        "size": {
+          "type": "number"
+        },
+        "count": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "id",
+        "name",
+        "path",
+        "size",
+        "count"
       ]
     },
     "ArrayRecursiveUnionImplicit.IShortcut": {

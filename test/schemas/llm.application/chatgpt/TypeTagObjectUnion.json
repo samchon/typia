@@ -1,7 +1,7 @@
 {
   "model": "chatgpt",
   "options": {
-    "reference": false,
+    "reference": true,
     "strict": false,
     "separate": null
   },
@@ -12,46 +12,55 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link TypeTagObjectUnion}",
-            "type": "array",
-            "items": {
-              "description": "Current Type: {@link TypeTagObjectUnion.Type}",
-              "anyOf": [
-                {
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "description": "@minimum 3",
-                      "type": "number"
-                    }
-                  },
-                  "required": [
-                    "value"
-                  ],
-                  "description": "Current Type: {@link TypeTagObjectUnion.Numeric}"
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "description": "@minLength 3\n@maxLength 7",
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "value"
-                  ],
-                  "description": "Current Type: {@link TypeTagObjectUnion.Literal}"
-                }
-              ]
-            }
+            "$ref": "#/$defs/TypeTagObjectUnion"
           }
         },
         "required": [
           "first"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "TypeTagObjectUnion": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/TypeTagObjectUnion.Type"
+            }
+          },
+          "TypeTagObjectUnion.Type": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/TypeTagObjectUnion.Numeric"
+              },
+              {
+                "$ref": "#/$defs/TypeTagObjectUnion.Literal"
+              }
+            ]
+          },
+          "TypeTagObjectUnion.Numeric": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "description": "@minimum 3",
+                "type": "number"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "TypeTagObjectUnion.Literal": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "description": "@minLength 3\n@maxLength 7",
+                "type": "string"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          }
+        }
       }
     },
     {
@@ -60,39 +69,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link TypeTagObjectUnion}",
-            "type": "array",
-            "items": {
-              "description": "Current Type: {@link TypeTagObjectUnion.Type}",
-              "anyOf": [
-                {
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "description": "@minimum 3",
-                      "type": "number"
-                    }
-                  },
-                  "required": [
-                    "value"
-                  ],
-                  "description": "Current Type: {@link TypeTagObjectUnion.Numeric}"
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "description": "@minLength 3\n@maxLength 7",
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "value"
-                  ],
-                  "description": "Current Type: {@link TypeTagObjectUnion.Literal}"
-                }
-              ]
-            }
+            "$ref": "#/$defs/TypeTagObjectUnion"
           },
           "second": {
             "anyOf": [
@@ -100,39 +77,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "description": "Current Type: {@link TypeTagObjectUnion.Type}",
-                  "anyOf": [
-                    {
-                      "type": "object",
-                      "properties": {
-                        "value": {
-                          "description": "@minimum 3",
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "value"
-                      ],
-                      "description": "Current Type: {@link TypeTagObjectUnion.Numeric}"
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "value": {
-                          "description": "@minLength 3\n@maxLength 7",
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "value"
-                      ],
-                      "description": "Current Type: {@link TypeTagObjectUnion.Literal}"
-                    }
-                  ]
-                },
-                "description": "Current Type: {@link TypeTagObjectUnion}"
+                "$ref": "#/$defs/TypeTagObjectUnion"
               }
             ]
           }
@@ -142,42 +87,51 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "TypeTagObjectUnion": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/TypeTagObjectUnion.Type"
+            }
+          },
+          "TypeTagObjectUnion.Type": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/TypeTagObjectUnion.Numeric"
+              },
+              {
+                "$ref": "#/$defs/TypeTagObjectUnion.Literal"
+              }
+            ]
+          },
+          "TypeTagObjectUnion.Numeric": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "description": "@minimum 3",
+                "type": "number"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "TypeTagObjectUnion.Literal": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "description": "@minLength 3\n@maxLength 7",
+                "type": "string"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          }
+        }
       },
       "output": {
-        "description": "Current Type: {@link TypeTagObjectUnion}",
-        "type": "array",
-        "items": {
-          "description": "Current Type: {@link TypeTagObjectUnion.Type}",
-          "anyOf": [
-            {
-              "type": "object",
-              "properties": {
-                "value": {
-                  "description": "@minimum 3",
-                  "type": "number"
-                }
-              },
-              "required": [
-                "value"
-              ],
-              "description": "Current Type: {@link TypeTagObjectUnion.Numeric}"
-            },
-            {
-              "type": "object",
-              "properties": {
-                "value": {
-                  "description": "@minLength 3\n@maxLength 7",
-                  "type": "string"
-                }
-              },
-              "required": [
-                "value"
-              ],
-              "description": "Current Type: {@link TypeTagObjectUnion.Literal}"
-            }
-          ]
-        }
+        "$ref": "#/$defs/TypeTagObjectUnion"
       }
     },
     {
@@ -191,39 +145,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "description": "Current Type: {@link TypeTagObjectUnion.Type}",
-                  "anyOf": [
-                    {
-                      "type": "object",
-                      "properties": {
-                        "value": {
-                          "description": "@minimum 3",
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "value"
-                      ],
-                      "description": "Current Type: {@link TypeTagObjectUnion.Numeric}"
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "value": {
-                          "description": "@minLength 3\n@maxLength 7",
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "value"
-                      ],
-                      "description": "Current Type: {@link TypeTagObjectUnion.Literal}"
-                    }
-                  ]
-                },
-                "description": "Current Type: {@link TypeTagObjectUnion}"
+                "$ref": "#/$defs/TypeTagObjectUnion"
               }
             ]
           },
@@ -233,39 +155,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "description": "Current Type: {@link TypeTagObjectUnion.Type}",
-                  "anyOf": [
-                    {
-                      "type": "object",
-                      "properties": {
-                        "value": {
-                          "description": "@minimum 3",
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "value"
-                      ],
-                      "description": "Current Type: {@link TypeTagObjectUnion.Numeric}"
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "value": {
-                          "description": "@minLength 3\n@maxLength 7",
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "value"
-                      ],
-                      "description": "Current Type: {@link TypeTagObjectUnion.Literal}"
-                    }
-                  ]
-                },
-                "description": "Current Type: {@link TypeTagObjectUnion}"
+                "$ref": "#/$defs/TypeTagObjectUnion"
               }
             ]
           },
@@ -275,39 +165,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "description": "Current Type: {@link TypeTagObjectUnion.Type}",
-                  "anyOf": [
-                    {
-                      "type": "object",
-                      "properties": {
-                        "value": {
-                          "description": "@minimum 3",
-                          "type": "number"
-                        }
-                      },
-                      "required": [
-                        "value"
-                      ],
-                      "description": "Current Type: {@link TypeTagObjectUnion.Numeric}"
-                    },
-                    {
-                      "type": "object",
-                      "properties": {
-                        "value": {
-                          "description": "@minLength 3\n@maxLength 7",
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "value"
-                      ],
-                      "description": "Current Type: {@link TypeTagObjectUnion.Literal}"
-                    }
-                  ]
-                },
-                "description": "Current Type: {@link TypeTagObjectUnion}"
+                "$ref": "#/$defs/TypeTagObjectUnion"
               }
             ]
           }
@@ -317,7 +175,48 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "TypeTagObjectUnion": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/TypeTagObjectUnion.Type"
+            }
+          },
+          "TypeTagObjectUnion.Type": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/TypeTagObjectUnion.Numeric"
+              },
+              {
+                "$ref": "#/$defs/TypeTagObjectUnion.Literal"
+              }
+            ]
+          },
+          "TypeTagObjectUnion.Numeric": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "description": "@minimum 3",
+                "type": "number"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "TypeTagObjectUnion.Literal": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "description": "@minLength 3\n@maxLength 7",
+                "type": "string"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          }
+        }
       },
       "output": {
         "anyOf": [
@@ -325,39 +224,7 @@
             "type": "null"
           },
           {
-            "type": "array",
-            "items": {
-              "description": "Current Type: {@link TypeTagObjectUnion.Type}",
-              "anyOf": [
-                {
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "description": "@minimum 3",
-                      "type": "number"
-                    }
-                  },
-                  "required": [
-                    "value"
-                  ],
-                  "description": "Current Type: {@link TypeTagObjectUnion.Numeric}"
-                },
-                {
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "description": "@minLength 3\n@maxLength 7",
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "value"
-                  ],
-                  "description": "Current Type: {@link TypeTagObjectUnion.Literal}"
-                }
-              ]
-            },
-            "description": "Current Type: {@link TypeTagObjectUnion}"
+            "$ref": "#/$defs/TypeTagObjectUnion"
           }
         ]
       }

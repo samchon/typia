@@ -2,31 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "description": "Current Type: {@link ArrayUnion}",
-      "type": "array",
-      "items": {
-        "description": "Current Type: {@link ArrayUnion.IUnion}",
-        "oneOf": [
-          {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          {
-            "type": "array",
-            "items": {
-              "type": "number"
-            }
-          },
-          {
-            "type": "array",
-            "items": {
-              "type": "boolean"
-            }
-          }
-        ]
-      }
+      "$ref": "#/$defs/ArrayUnion"
     },
     "nullable": {
       "oneOf": [
@@ -34,60 +10,12 @@
           "type": "null"
         },
         {
-          "type": "array",
-          "items": {
-            "description": "Current Type: {@link ArrayUnion.IUnion}",
-            "oneOf": [
-              {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              {
-                "type": "array",
-                "items": {
-                  "type": "number"
-                }
-              },
-              {
-                "type": "array",
-                "items": {
-                  "type": "boolean"
-                }
-              }
-            ]
-          },
-          "description": "Current Type: {@link ArrayUnion}"
+          "$ref": "#/$defs/ArrayUnion"
         }
       ]
     },
     "optional": {
-      "description": "Current Type: {@link ArrayUnion}",
-      "type": "array",
-      "items": {
-        "description": "Current Type: {@link ArrayUnion.IUnion}",
-        "oneOf": [
-          {
-            "type": "array",
-            "items": {
-              "type": "string"
-            }
-          },
-          {
-            "type": "array",
-            "items": {
-              "type": "number"
-            }
-          },
-          {
-            "type": "array",
-            "items": {
-              "type": "boolean"
-            }
-          }
-        ]
-      }
+      "$ref": "#/$defs/ArrayUnion"
     },
     "faint": {
       "oneOf": [
@@ -95,62 +23,14 @@
           "type": "null"
         },
         {
-          "type": "array",
-          "items": {
-            "description": "Current Type: {@link ArrayUnion.IUnion}",
-            "oneOf": [
-              {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                }
-              },
-              {
-                "type": "array",
-                "items": {
-                  "type": "number"
-                }
-              },
-              {
-                "type": "array",
-                "items": {
-                  "type": "boolean"
-                }
-              }
-            ]
-          },
-          "description": "Current Type: {@link ArrayUnion}"
+          "$ref": "#/$defs/ArrayUnion"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
-        "description": "Current Type: {@link ArrayUnion}",
-        "type": "array",
-        "items": {
-          "description": "Current Type: {@link ArrayUnion.IUnion}",
-          "oneOf": [
-            {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            {
-              "type": "array",
-              "items": {
-                "type": "number"
-              }
-            },
-            {
-              "type": "array",
-              "items": {
-                "type": "boolean"
-              }
-            }
-          ]
-        }
+        "$ref": "#/$defs/ArrayUnion"
       }
     }
   },
@@ -160,5 +40,34 @@
     "array"
   ],
   "additionalProperties": false,
-  "$defs": {}
+  "$defs": {
+    "ArrayUnion": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ArrayUnion.IUnion"
+      }
+    },
+    "ArrayUnion.IUnion": {
+      "oneOf": [
+        {
+          "type": "array",
+          "items": {
+            "type": "string"
+          }
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "number"
+          }
+        },
+        {
+          "type": "array",
+          "items": {
+            "type": "boolean"
+          }
+        }
+      ]
+    }
+  }
 }
