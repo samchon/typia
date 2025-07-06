@@ -2,72 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "description": "Current Type: {@link TypeTagArray}",
-      "type": "object",
-      "properties": {
-        "value": {
-          "type": "array",
-          "items": {
-            "description": "Current Type: {@link TypeTagArray.Type}",
-            "type": "object",
-            "properties": {
-              "items": {
-                "type": "array",
-                "items": {
-                  "type": "string",
-                  "format": "uuid"
-                },
-                "minItems": 3,
-                "maxItems": 3
-              },
-              "minItems": {
-                "type": "array",
-                "items": {
-                  "type": "number",
-                  "minimum": 3
-                },
-                "minItems": 3
-              },
-              "both": {
-                "type": "array",
-                "items": {
-                  "type": "string",
-                  "format": "uuid"
-                },
-                "minItems": 3,
-                "maxItems": 7
-              },
-              "equal": {
-                "type": "array",
-                "items": {
-                  "type": "number",
-                  "minimum": 10,
-                  "maximum": 10
-                },
-                "minItems": 10,
-                "maxItems": 10
-              },
-              "unique": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                },
-                "uniqueItems": true
-              }
-            },
-            "required": [
-              "items",
-              "minItems",
-              "both",
-              "equal",
-              "unique"
-            ]
-          }
-        }
-      },
-      "required": [
-        "value"
-      ]
+      "$ref": "#/$defs/TypeTagArray"
     },
     "nullable": {
       "oneOf": [
@@ -75,142 +10,12 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {
-            "value": {
-              "type": "array",
-              "items": {
-                "description": "Current Type: {@link TypeTagArray.Type}",
-                "type": "object",
-                "properties": {
-                  "items": {
-                    "type": "array",
-                    "items": {
-                      "type": "string",
-                      "format": "uuid"
-                    },
-                    "minItems": 3,
-                    "maxItems": 3
-                  },
-                  "minItems": {
-                    "type": "array",
-                    "items": {
-                      "type": "number",
-                      "minimum": 3
-                    },
-                    "minItems": 3
-                  },
-                  "both": {
-                    "type": "array",
-                    "items": {
-                      "type": "string",
-                      "format": "uuid"
-                    },
-                    "minItems": 3,
-                    "maxItems": 7
-                  },
-                  "equal": {
-                    "type": "array",
-                    "items": {
-                      "type": "number",
-                      "minimum": 10,
-                      "maximum": 10
-                    },
-                    "minItems": 10,
-                    "maxItems": 10
-                  },
-                  "unique": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
-                    "uniqueItems": true
-                  }
-                },
-                "required": [
-                  "items",
-                  "minItems",
-                  "both",
-                  "equal",
-                  "unique"
-                ]
-              }
-            }
-          },
-          "required": [
-            "value"
-          ],
-          "description": "Current Type: {@link TypeTagArray}"
+          "$ref": "#/$defs/TypeTagArray"
         }
       ]
     },
     "optional": {
-      "description": "Current Type: {@link TypeTagArray}",
-      "type": "object",
-      "properties": {
-        "value": {
-          "type": "array",
-          "items": {
-            "description": "Current Type: {@link TypeTagArray.Type}",
-            "type": "object",
-            "properties": {
-              "items": {
-                "type": "array",
-                "items": {
-                  "type": "string",
-                  "format": "uuid"
-                },
-                "minItems": 3,
-                "maxItems": 3
-              },
-              "minItems": {
-                "type": "array",
-                "items": {
-                  "type": "number",
-                  "minimum": 3
-                },
-                "minItems": 3
-              },
-              "both": {
-                "type": "array",
-                "items": {
-                  "type": "string",
-                  "format": "uuid"
-                },
-                "minItems": 3,
-                "maxItems": 7
-              },
-              "equal": {
-                "type": "array",
-                "items": {
-                  "type": "number",
-                  "minimum": 10,
-                  "maximum": 10
-                },
-                "minItems": 10,
-                "maxItems": 10
-              },
-              "unique": {
-                "type": "array",
-                "items": {
-                  "type": "string"
-                },
-                "uniqueItems": true
-              }
-            },
-            "required": [
-              "items",
-              "minItems",
-              "both",
-              "equal",
-              "unique"
-            ]
-          }
-        }
-      },
-      "required": [
-        "value"
-      ]
+      "$ref": "#/$defs/TypeTagArray"
     },
     "faint": {
       "oneOf": [
@@ -218,144 +23,14 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {
-            "value": {
-              "type": "array",
-              "items": {
-                "description": "Current Type: {@link TypeTagArray.Type}",
-                "type": "object",
-                "properties": {
-                  "items": {
-                    "type": "array",
-                    "items": {
-                      "type": "string",
-                      "format": "uuid"
-                    },
-                    "minItems": 3,
-                    "maxItems": 3
-                  },
-                  "minItems": {
-                    "type": "array",
-                    "items": {
-                      "type": "number",
-                      "minimum": 3
-                    },
-                    "minItems": 3
-                  },
-                  "both": {
-                    "type": "array",
-                    "items": {
-                      "type": "string",
-                      "format": "uuid"
-                    },
-                    "minItems": 3,
-                    "maxItems": 7
-                  },
-                  "equal": {
-                    "type": "array",
-                    "items": {
-                      "type": "number",
-                      "minimum": 10,
-                      "maximum": 10
-                    },
-                    "minItems": 10,
-                    "maxItems": 10
-                  },
-                  "unique": {
-                    "type": "array",
-                    "items": {
-                      "type": "string"
-                    },
-                    "uniqueItems": true
-                  }
-                },
-                "required": [
-                  "items",
-                  "minItems",
-                  "both",
-                  "equal",
-                  "unique"
-                ]
-              }
-            }
-          },
-          "required": [
-            "value"
-          ],
-          "description": "Current Type: {@link TypeTagArray}"
+          "$ref": "#/$defs/TypeTagArray"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
-        "description": "Current Type: {@link TypeTagArray}",
-        "type": "object",
-        "properties": {
-          "value": {
-            "type": "array",
-            "items": {
-              "description": "Current Type: {@link TypeTagArray.Type}",
-              "type": "object",
-              "properties": {
-                "items": {
-                  "type": "array",
-                  "items": {
-                    "type": "string",
-                    "format": "uuid"
-                  },
-                  "minItems": 3,
-                  "maxItems": 3
-                },
-                "minItems": {
-                  "type": "array",
-                  "items": {
-                    "type": "number",
-                    "minimum": 3
-                  },
-                  "minItems": 3
-                },
-                "both": {
-                  "type": "array",
-                  "items": {
-                    "type": "string",
-                    "format": "uuid"
-                  },
-                  "minItems": 3,
-                  "maxItems": 7
-                },
-                "equal": {
-                  "type": "array",
-                  "items": {
-                    "type": "number",
-                    "minimum": 10,
-                    "maximum": 10
-                  },
-                  "minItems": 10,
-                  "maxItems": 10
-                },
-                "unique": {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  },
-                  "uniqueItems": true
-                }
-              },
-              "required": [
-                "items",
-                "minItems",
-                "both",
-                "equal",
-                "unique"
-              ]
-            }
-          }
-        },
-        "required": [
-          "value"
-        ]
+        "$ref": "#/$defs/TypeTagArray"
       }
     }
   },
@@ -365,5 +40,75 @@
     "array"
   ],
   "additionalProperties": false,
-  "$defs": {}
+  "$defs": {
+    "TypeTagArray": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/TypeTagArray.Type"
+          }
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "TypeTagArray.Type": {
+      "type": "object",
+      "properties": {
+        "items": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "minItems": 3,
+          "maxItems": 3
+        },
+        "minItems": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "minimum": 3
+          },
+          "minItems": 3
+        },
+        "both": {
+          "type": "array",
+          "items": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "minItems": 3,
+          "maxItems": 7
+        },
+        "equal": {
+          "type": "array",
+          "items": {
+            "type": "number",
+            "minimum": 10,
+            "maximum": 10
+          },
+          "minItems": 10,
+          "maxItems": 10
+        },
+        "unique": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "uniqueItems": true
+        }
+      },
+      "required": [
+        "items",
+        "minItems",
+        "both",
+        "equal",
+        "unique"
+      ]
+    }
+  }
 }

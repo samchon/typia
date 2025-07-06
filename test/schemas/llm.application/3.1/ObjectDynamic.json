@@ -1,8 +1,8 @@
 {
   "model": "3.1",
   "options": {
+    "reference": true,
     "constraint": true,
-    "reference": false,
     "separate": null
   },
   "functions": [
@@ -12,7 +12,15 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link ObjectDynamic}",
+            "$ref": "#/$defs/ObjectDynamic"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ObjectDynamic": {
             "type": "object",
             "properties": {},
             "required": [],
@@ -30,12 +38,7 @@
               ]
             }
           }
-        },
-        "required": [
-          "first"
-        ],
-        "additionalProperties": false,
-        "$defs": {}
+        }
       }
     },
     {
@@ -44,23 +47,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link ObjectDynamic}",
-            "type": "object",
-            "properties": {},
-            "required": [],
-            "additionalProperties": {
-              "oneOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "number"
-                },
-                {
-                  "type": "boolean"
-                }
-              ]
-            }
+            "$ref": "#/$defs/ObjectDynamic"
           },
           "second": {
             "oneOf": [
@@ -68,23 +55,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {},
-                "required": [],
-                "description": "Current Type: {@link ObjectDynamic}",
-                "additionalProperties": {
-                  "oneOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "number"
-                    },
-                    {
-                      "type": "boolean"
-                    }
-                  ]
-                }
+                "$ref": "#/$defs/ObjectDynamic"
               }
             ]
           }
@@ -94,26 +65,29 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "ObjectDynamic": {
+            "type": "object",
+            "properties": {},
+            "required": [],
+            "additionalProperties": {
+              "oneOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "boolean"
+                }
+              ]
+            }
+          }
+        }
       },
       "output": {
-        "description": "Current Type: {@link ObjectDynamic}",
-        "type": "object",
-        "properties": {},
-        "required": [],
-        "additionalProperties": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "number"
-            },
-            {
-              "type": "boolean"
-            }
-          ]
-        }
+        "$ref": "#/$defs/ObjectDynamic"
       }
     },
     {
@@ -127,23 +101,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {},
-                "required": [],
-                "description": "Current Type: {@link ObjectDynamic}",
-                "additionalProperties": {
-                  "oneOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "number"
-                    },
-                    {
-                      "type": "boolean"
-                    }
-                  ]
-                }
+                "$ref": "#/$defs/ObjectDynamic"
               }
             ]
           },
@@ -153,23 +111,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {},
-                "required": [],
-                "description": "Current Type: {@link ObjectDynamic}",
-                "additionalProperties": {
-                  "oneOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "number"
-                    },
-                    {
-                      "type": "boolean"
-                    }
-                  ]
-                }
+                "$ref": "#/$defs/ObjectDynamic"
               }
             ]
           },
@@ -179,23 +121,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {},
-                "required": [],
-                "description": "Current Type: {@link ObjectDynamic}",
-                "additionalProperties": {
-                  "oneOf": [
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "number"
-                    },
-                    {
-                      "type": "boolean"
-                    }
-                  ]
-                }
+                "$ref": "#/$defs/ObjectDynamic"
               }
             ]
           }
@@ -205,18 +131,11 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "oneOf": [
-          {
-            "type": "null"
-          },
-          {
+        "$defs": {
+          "ObjectDynamic": {
             "type": "object",
             "properties": {},
             "required": [],
-            "description": "Current Type: {@link ObjectDynamic}",
             "additionalProperties": {
               "oneOf": [
                 {
@@ -230,6 +149,16 @@
                 }
               ]
             }
+          }
+        }
+      },
+      "output": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/ObjectDynamic"
           }
         ]
       }

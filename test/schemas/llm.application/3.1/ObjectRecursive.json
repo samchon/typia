@@ -1,8 +1,8 @@
 {
   "model": "3.1",
   "options": {
+    "reference": true,
     "constraint": true,
-    "reference": false,
     "separate": null
   },
   "functions": [
@@ -46,20 +46,7 @@
                 "type": "number"
               },
               "created_at": {
-                "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
-                "type": "object",
-                "properties": {
-                  "time": {
-                    "type": "number"
-                  },
-                  "zone": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "time",
-                  "zone"
-                ]
+                "$ref": "#/$defs/ObjectRecursive.ITimestamp"
               }
             },
             "required": [
@@ -69,6 +56,21 @@
               "name",
               "sequence",
               "created_at"
+            ]
+          },
+          "ObjectRecursive.ITimestamp": {
+            "type": "object",
+            "properties": {
+              "time": {
+                "type": "number"
+              },
+              "zone": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "time",
+              "zone"
             ]
           }
         }
@@ -125,20 +127,7 @@
                 "type": "number"
               },
               "created_at": {
-                "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
-                "type": "object",
-                "properties": {
-                  "time": {
-                    "type": "number"
-                  },
-                  "zone": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "time",
-                  "zone"
-                ]
+                "$ref": "#/$defs/ObjectRecursive.ITimestamp"
               }
             },
             "required": [
@@ -148,6 +137,21 @@
               "name",
               "sequence",
               "created_at"
+            ]
+          },
+          "ObjectRecursive.ITimestamp": {
+            "type": "object",
+            "properties": {
+              "time": {
+                "type": "number"
+              },
+              "zone": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "time",
+              "zone"
             ]
           }
         }
@@ -224,20 +228,7 @@
                 "type": "number"
               },
               "created_at": {
-                "description": "Current Type: {@link ObjectRecursive.ITimestamp}",
-                "type": "object",
-                "properties": {
-                  "time": {
-                    "type": "number"
-                  },
-                  "zone": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "time",
-                  "zone"
-                ]
+                "$ref": "#/$defs/ObjectRecursive.ITimestamp"
               }
             },
             "required": [
@@ -247,6 +238,21 @@
               "name",
               "sequence",
               "created_at"
+            ]
+          },
+          "ObjectRecursive.ITimestamp": {
+            "type": "object",
+            "properties": {
+              "time": {
+                "type": "number"
+              },
+              "zone": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "time",
+              "zone"
             ]
           }
         }

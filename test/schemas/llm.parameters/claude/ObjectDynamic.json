@@ -2,23 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "description": "Current Type: {@link ObjectDynamic}",
-      "type": "object",
-      "properties": {},
-      "required": [],
-      "additionalProperties": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "number"
-          },
-          {
-            "type": "boolean"
-          }
-        ]
-      }
+      "$ref": "#/$defs/ObjectDynamic"
     },
     "nullable": {
       "oneOf": [
@@ -26,44 +10,12 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {},
-          "required": [],
-          "description": "Current Type: {@link ObjectDynamic}",
-          "additionalProperties": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              },
-              {
-                "type": "boolean"
-              }
-            ]
-          }
+          "$ref": "#/$defs/ObjectDynamic"
         }
       ]
     },
     "optional": {
-      "description": "Current Type: {@link ObjectDynamic}",
-      "type": "object",
-      "properties": {},
-      "required": [],
-      "additionalProperties": {
-        "oneOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "number"
-          },
-          {
-            "type": "boolean"
-          }
-        ]
-      }
+      "$ref": "#/$defs/ObjectDynamic"
     },
     "faint": {
       "oneOf": [
@@ -71,46 +23,14 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {},
-          "required": [],
-          "description": "Current Type: {@link ObjectDynamic}",
-          "additionalProperties": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              },
-              {
-                "type": "boolean"
-              }
-            ]
-          }
+          "$ref": "#/$defs/ObjectDynamic"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
-        "description": "Current Type: {@link ObjectDynamic}",
-        "type": "object",
-        "properties": {},
-        "required": [],
-        "additionalProperties": {
-          "oneOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "number"
-            },
-            {
-              "type": "boolean"
-            }
-          ]
-        }
+        "$ref": "#/$defs/ObjectDynamic"
       }
     }
   },
@@ -120,5 +40,24 @@
     "array"
   ],
   "additionalProperties": false,
-  "$defs": {}
+  "$defs": {
+    "ObjectDynamic": {
+      "type": "object",
+      "properties": {},
+      "required": [],
+      "additionalProperties": {
+        "oneOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          },
+          {
+            "type": "boolean"
+          }
+        ]
+      }
+    }
+  }
 }

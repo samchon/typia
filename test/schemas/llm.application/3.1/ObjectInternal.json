@@ -1,8 +1,8 @@
 {
   "model": "3.1",
   "options": {
+    "reference": true,
     "constraint": true,
-    "reference": false,
     "separate": null
   },
   "functions": [
@@ -12,7 +12,15 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link ObjectInternal}",
+            "$ref": "#/$defs/ObjectInternal"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ObjectInternal": {
             "type": "object",
             "properties": {
               "id": {
@@ -27,12 +35,7 @@
               "name"
             ]
           }
-        },
-        "required": [
-          "first"
-        ],
-        "additionalProperties": false,
-        "$defs": {}
+        }
       }
     },
     {
@@ -41,20 +44,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link ObjectInternal}",
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id",
-              "name"
-            ]
+            "$ref": "#/$defs/ObjectInternal"
           },
           "second": {
             "oneOf": [
@@ -62,20 +52,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "name": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "id",
-                  "name"
-                ],
-                "description": "Current Type: {@link ObjectInternal}"
+                "$ref": "#/$defs/ObjectInternal"
               }
             ]
           }
@@ -85,23 +62,26 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "ObjectInternal": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name"
+            ]
+          }
+        }
       },
       "output": {
-        "description": "Current Type: {@link ObjectInternal}",
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "id",
-          "name"
-        ]
+        "$ref": "#/$defs/ObjectInternal"
       }
     },
     {
@@ -115,20 +95,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "name": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "id",
-                  "name"
-                ],
-                "description": "Current Type: {@link ObjectInternal}"
+                "$ref": "#/$defs/ObjectInternal"
               }
             ]
           },
@@ -138,20 +105,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "name": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "id",
-                  "name"
-                ],
-                "description": "Current Type: {@link ObjectInternal}"
+                "$ref": "#/$defs/ObjectInternal"
               }
             ]
           },
@@ -161,20 +115,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "name": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "id",
-                  "name"
-                ],
-                "description": "Current Type: {@link ObjectInternal}"
+                "$ref": "#/$defs/ObjectInternal"
               }
             ]
           }
@@ -184,14 +125,8 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "oneOf": [
-          {
-            "type": "null"
-          },
-          {
+        "$defs": {
+          "ObjectInternal": {
             "type": "object",
             "properties": {
               "id": {
@@ -204,8 +139,17 @@
             "required": [
               "id",
               "name"
-            ],
-            "description": "Current Type: {@link ObjectInternal}"
+            ]
+          }
+        }
+      },
+      "output": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/ObjectInternal"
           }
         ]
       }

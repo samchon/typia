@@ -1,7 +1,7 @@
 {
   "model": "chatgpt",
   "options": {
-    "reference": false,
+    "reference": true,
     "strict": false,
     "separate": null
   },
@@ -12,89 +12,15 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link ObjectPrimitive.IArticle}",
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "extension": {
-                "type": "string",
-                "enum": [
-                  "txt",
-                  "md",
-                  "html"
-                ]
-              },
-              "title": {
-                "type": "string"
-              },
-              "body": {
-                "type": "string"
-              },
-              "files": {
-                "type": "array",
-                "items": {
-                  "description": "Current Type: {@link ObjectPrimitive.IFile}",
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "extension": {
-                      "type": "string"
-                    },
-                    "url": {
-                      "type": "string"
-                    },
-                    "created_at": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "name",
-                    "extension",
-                    "url",
-                    "created_at"
-                  ]
-                }
-              },
-              "secret": {
-                "type": "boolean"
-              },
-              "created_at": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id",
-              "extension",
-              "title",
-              "body",
-              "files",
-              "secret",
-              "created_at"
-            ]
+            "$ref": "#/$defs/ObjectPrimitive.IArticle"
           }
         },
         "required": [
           "first"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      }
-    },
-    {
-      "name": "reduce",
-      "parameters": {
-        "type": "object",
-        "properties": {
-          "first": {
-            "description": "Current Type: {@link ObjectPrimitive.IArticle}",
+        "$defs": {
+          "ObjectPrimitive.IArticle": {
             "type": "object",
             "properties": {
               "id": {
@@ -117,32 +43,7 @@
               "files": {
                 "type": "array",
                 "items": {
-                  "description": "Current Type: {@link ObjectPrimitive.IFile}",
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "extension": {
-                      "type": "string"
-                    },
-                    "url": {
-                      "type": "string"
-                    },
-                    "created_at": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "name",
-                    "extension",
-                    "url",
-                    "created_at"
-                  ]
+                  "$ref": "#/$defs/ObjectPrimitive.IFile"
                 }
               },
               "secret": {
@@ -162,79 +63,51 @@
               "created_at"
             ]
           },
+          "ObjectPrimitive.IFile": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "extension": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "created_at": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "extension",
+              "url",
+              "created_at"
+            ]
+          }
+        }
+      }
+    },
+    {
+      "name": "reduce",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "first": {
+            "$ref": "#/$defs/ObjectPrimitive.IArticle"
+          },
           "second": {
             "anyOf": [
               {
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "extension": {
-                    "type": "string",
-                    "enum": [
-                      "txt",
-                      "md",
-                      "html"
-                    ]
-                  },
-                  "title": {
-                    "type": "string"
-                  },
-                  "body": {
-                    "type": "string"
-                  },
-                  "files": {
-                    "type": "array",
-                    "items": {
-                      "description": "Current Type: {@link ObjectPrimitive.IFile}",
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "string"
-                        },
-                        "name": {
-                          "type": "string"
-                        },
-                        "extension": {
-                          "type": "string"
-                        },
-                        "url": {
-                          "type": "string"
-                        },
-                        "created_at": {
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "id",
-                        "name",
-                        "extension",
-                        "url",
-                        "created_at"
-                      ]
-                    }
-                  },
-                  "secret": {
-                    "type": "boolean"
-                  },
-                  "created_at": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "id",
-                  "extension",
-                  "title",
-                  "body",
-                  "files",
-                  "secret",
-                  "created_at"
-                ],
-                "description": "Current Type: {@link ObjectPrimitive.IArticle}"
+                "$ref": "#/$defs/ObjectPrimitive.IArticle"
               }
             ]
           }
@@ -244,76 +117,81 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "description": "Current Type: {@link ObjectPrimitive.IArticle}",
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "extension": {
-            "type": "string",
-            "enum": [
-              "txt",
-              "md",
-              "html"
-            ]
-          },
-          "title": {
-            "type": "string"
-          },
-          "body": {
-            "type": "string"
-          },
-          "files": {
-            "type": "array",
-            "items": {
-              "description": "Current Type: {@link ObjectPrimitive.IFile}",
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string"
-                },
-                "extension": {
-                  "type": "string"
-                },
-                "url": {
-                  "type": "string"
-                },
-                "created_at": {
-                  "type": "string"
+        "$defs": {
+          "ObjectPrimitive.IArticle": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "extension": {
+                "type": "string",
+                "enum": [
+                  "txt",
+                  "md",
+                  "html"
+                ]
+              },
+              "title": {
+                "type": "string"
+              },
+              "body": {
+                "type": "string"
+              },
+              "files": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectPrimitive.IFile"
                 }
               },
-              "required": [
-                "id",
-                "name",
-                "extension",
-                "url",
-                "created_at"
-              ]
-            }
+              "secret": {
+                "type": "boolean"
+              },
+              "created_at": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "extension",
+              "title",
+              "body",
+              "files",
+              "secret",
+              "created_at"
+            ]
           },
-          "secret": {
-            "type": "boolean"
-          },
-          "created_at": {
-            "type": "string"
+          "ObjectPrimitive.IFile": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "extension": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "created_at": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "extension",
+              "url",
+              "created_at"
+            ]
           }
-        },
-        "required": [
-          "id",
-          "extension",
-          "title",
-          "body",
-          "files",
-          "secret",
-          "created_at"
-        ]
+        }
+      },
+      "output": {
+        "$ref": "#/$defs/ObjectPrimitive.IArticle"
       }
     },
     {
@@ -327,73 +205,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "extension": {
-                    "type": "string",
-                    "enum": [
-                      "txt",
-                      "md",
-                      "html"
-                    ]
-                  },
-                  "title": {
-                    "type": "string"
-                  },
-                  "body": {
-                    "type": "string"
-                  },
-                  "files": {
-                    "type": "array",
-                    "items": {
-                      "description": "Current Type: {@link ObjectPrimitive.IFile}",
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "string"
-                        },
-                        "name": {
-                          "type": "string"
-                        },
-                        "extension": {
-                          "type": "string"
-                        },
-                        "url": {
-                          "type": "string"
-                        },
-                        "created_at": {
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "id",
-                        "name",
-                        "extension",
-                        "url",
-                        "created_at"
-                      ]
-                    }
-                  },
-                  "secret": {
-                    "type": "boolean"
-                  },
-                  "created_at": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "id",
-                  "extension",
-                  "title",
-                  "body",
-                  "files",
-                  "secret",
-                  "created_at"
-                ],
-                "description": "Current Type: {@link ObjectPrimitive.IArticle}"
+                "$ref": "#/$defs/ObjectPrimitive.IArticle"
               }
             ]
           },
@@ -403,73 +215,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "extension": {
-                    "type": "string",
-                    "enum": [
-                      "txt",
-                      "md",
-                      "html"
-                    ]
-                  },
-                  "title": {
-                    "type": "string"
-                  },
-                  "body": {
-                    "type": "string"
-                  },
-                  "files": {
-                    "type": "array",
-                    "items": {
-                      "description": "Current Type: {@link ObjectPrimitive.IFile}",
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "string"
-                        },
-                        "name": {
-                          "type": "string"
-                        },
-                        "extension": {
-                          "type": "string"
-                        },
-                        "url": {
-                          "type": "string"
-                        },
-                        "created_at": {
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "id",
-                        "name",
-                        "extension",
-                        "url",
-                        "created_at"
-                      ]
-                    }
-                  },
-                  "secret": {
-                    "type": "boolean"
-                  },
-                  "created_at": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "id",
-                  "extension",
-                  "title",
-                  "body",
-                  "files",
-                  "secret",
-                  "created_at"
-                ],
-                "description": "Current Type: {@link ObjectPrimitive.IArticle}"
+                "$ref": "#/$defs/ObjectPrimitive.IArticle"
               }
             ]
           },
@@ -479,73 +225,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "extension": {
-                    "type": "string",
-                    "enum": [
-                      "txt",
-                      "md",
-                      "html"
-                    ]
-                  },
-                  "title": {
-                    "type": "string"
-                  },
-                  "body": {
-                    "type": "string"
-                  },
-                  "files": {
-                    "type": "array",
-                    "items": {
-                      "description": "Current Type: {@link ObjectPrimitive.IFile}",
-                      "type": "object",
-                      "properties": {
-                        "id": {
-                          "type": "string"
-                        },
-                        "name": {
-                          "type": "string"
-                        },
-                        "extension": {
-                          "type": "string"
-                        },
-                        "url": {
-                          "type": "string"
-                        },
-                        "created_at": {
-                          "type": "string"
-                        }
-                      },
-                      "required": [
-                        "id",
-                        "name",
-                        "extension",
-                        "url",
-                        "created_at"
-                      ]
-                    }
-                  },
-                  "secret": {
-                    "type": "boolean"
-                  },
-                  "created_at": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "id",
-                  "extension",
-                  "title",
-                  "body",
-                  "files",
-                  "secret",
-                  "created_at"
-                ],
-                "description": "Current Type: {@link ObjectPrimitive.IArticle}"
+                "$ref": "#/$defs/ObjectPrimitive.IArticle"
               }
             ]
           }
@@ -555,14 +235,8 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "anyOf": [
-          {
-            "type": "null"
-          },
-          {
+        "$defs": {
+          "ObjectPrimitive.IArticle": {
             "type": "object",
             "properties": {
               "id": {
@@ -585,32 +259,7 @@
               "files": {
                 "type": "array",
                 "items": {
-                  "description": "Current Type: {@link ObjectPrimitive.IFile}",
-                  "type": "object",
-                  "properties": {
-                    "id": {
-                      "type": "string"
-                    },
-                    "name": {
-                      "type": "string"
-                    },
-                    "extension": {
-                      "type": "string"
-                    },
-                    "url": {
-                      "type": "string"
-                    },
-                    "created_at": {
-                      "type": "string"
-                    }
-                  },
-                  "required": [
-                    "id",
-                    "name",
-                    "extension",
-                    "url",
-                    "created_at"
-                  ]
+                  "$ref": "#/$defs/ObjectPrimitive.IFile"
                 }
               },
               "secret": {
@@ -628,8 +277,44 @@
               "files",
               "secret",
               "created_at"
-            ],
-            "description": "Current Type: {@link ObjectPrimitive.IArticle}"
+            ]
+          },
+          "ObjectPrimitive.IFile": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "extension": {
+                "type": "string"
+              },
+              "url": {
+                "type": "string"
+              },
+              "created_at": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "id",
+              "name",
+              "extension",
+              "url",
+              "created_at"
+            ]
+          }
+        }
+      },
+      "output": {
+        "anyOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/ObjectPrimitive.IArticle"
           }
         ]
       }

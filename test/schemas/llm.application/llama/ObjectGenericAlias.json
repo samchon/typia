@@ -1,7 +1,7 @@
 {
   "model": "llama",
   "options": {
-    "reference": false,
+    "reference": true,
     "separate": null
   },
   "functions": [
@@ -11,7 +11,15 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link ObjectGenericAlias.Alias}",
+            "$ref": "#/$defs/ObjectGenericAlias.Alias"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ObjectGenericAlias.Alias": {
             "type": "object",
             "properties": {
               "value": {
@@ -22,12 +30,7 @@
               "value"
             ]
           }
-        },
-        "required": [
-          "first"
-        ],
-        "additionalProperties": false,
-        "$defs": {}
+        }
       }
     },
     {
@@ -36,16 +39,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link ObjectGenericAlias.Alias}",
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "value"
-            ]
+            "$ref": "#/$defs/ObjectGenericAlias.Alias"
           },
           "second": {
             "oneOf": [
@@ -53,16 +47,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "description": "Current Type: {@link ObjectGenericAlias.Alias}"
+                "$ref": "#/$defs/ObjectGenericAlias.Alias"
               }
             ]
           }
@@ -72,19 +57,22 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "ObjectGenericAlias.Alias": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          }
+        }
       },
       "output": {
-        "description": "Current Type: {@link ObjectGenericAlias.Alias}",
-        "type": "object",
-        "properties": {
-          "value": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "value"
-        ]
+        "$ref": "#/$defs/ObjectGenericAlias.Alias"
       }
     },
     {
@@ -98,16 +86,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "description": "Current Type: {@link ObjectGenericAlias.Alias}"
+                "$ref": "#/$defs/ObjectGenericAlias.Alias"
               }
             ]
           },
@@ -117,16 +96,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "description": "Current Type: {@link ObjectGenericAlias.Alias}"
+                "$ref": "#/$defs/ObjectGenericAlias.Alias"
               }
             ]
           },
@@ -136,16 +106,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "description": "Current Type: {@link ObjectGenericAlias.Alias}"
+                "$ref": "#/$defs/ObjectGenericAlias.Alias"
               }
             ]
           }
@@ -155,14 +116,8 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "oneOf": [
-          {
-            "type": "null"
-          },
-          {
+        "$defs": {
+          "ObjectGenericAlias.Alias": {
             "type": "object",
             "properties": {
               "value": {
@@ -171,8 +126,17 @@
             },
             "required": [
               "value"
-            ],
-            "description": "Current Type: {@link ObjectGenericAlias.Alias}"
+            ]
+          }
+        }
+      },
+      "output": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/ObjectGenericAlias.Alias"
           }
         ]
       }

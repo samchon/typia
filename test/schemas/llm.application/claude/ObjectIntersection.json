@@ -1,7 +1,7 @@
 {
   "model": "claude",
   "options": {
-    "reference": false,
+    "reference": true,
     "separate": null
   },
   "functions": [
@@ -11,7 +11,15 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link ObjectIntersection}",
+            "$ref": "#/$defs/ObjectIntersection"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ObjectIntersection": {
             "type": "object",
             "properties": {
               "email": {
@@ -30,12 +38,7 @@
               "vulnerable"
             ]
           }
-        },
-        "required": [
-          "first"
-        ],
-        "additionalProperties": false,
-        "$defs": {}
+        }
       }
     },
     {
@@ -44,24 +47,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link ObjectIntersection}",
-            "type": "object",
-            "properties": {
-              "email": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "vulnerable": {
-                "type": "boolean"
-              }
-            },
-            "required": [
-              "email",
-              "name",
-              "vulnerable"
-            ]
+            "$ref": "#/$defs/ObjectIntersection"
           },
           "second": {
             "oneOf": [
@@ -69,24 +55,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "email": {
-                    "type": "string"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "vulnerable": {
-                    "type": "boolean"
-                  }
-                },
-                "required": [
-                  "email",
-                  "name",
-                  "vulnerable"
-                ],
-                "description": "Current Type: {@link ObjectIntersection}"
+                "$ref": "#/$defs/ObjectIntersection"
               }
             ]
           }
@@ -96,27 +65,30 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "ObjectIntersection": {
+            "type": "object",
+            "properties": {
+              "email": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "vulnerable": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "email",
+              "name",
+              "vulnerable"
+            ]
+          }
+        }
       },
       "output": {
-        "description": "Current Type: {@link ObjectIntersection}",
-        "type": "object",
-        "properties": {
-          "email": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "vulnerable": {
-            "type": "boolean"
-          }
-        },
-        "required": [
-          "email",
-          "name",
-          "vulnerable"
-        ]
+        "$ref": "#/$defs/ObjectIntersection"
       }
     },
     {
@@ -130,24 +102,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "email": {
-                    "type": "string"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "vulnerable": {
-                    "type": "boolean"
-                  }
-                },
-                "required": [
-                  "email",
-                  "name",
-                  "vulnerable"
-                ],
-                "description": "Current Type: {@link ObjectIntersection}"
+                "$ref": "#/$defs/ObjectIntersection"
               }
             ]
           },
@@ -157,24 +112,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "email": {
-                    "type": "string"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "vulnerable": {
-                    "type": "boolean"
-                  }
-                },
-                "required": [
-                  "email",
-                  "name",
-                  "vulnerable"
-                ],
-                "description": "Current Type: {@link ObjectIntersection}"
+                "$ref": "#/$defs/ObjectIntersection"
               }
             ]
           },
@@ -184,24 +122,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "email": {
-                    "type": "string"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "vulnerable": {
-                    "type": "boolean"
-                  }
-                },
-                "required": [
-                  "email",
-                  "name",
-                  "vulnerable"
-                ],
-                "description": "Current Type: {@link ObjectIntersection}"
+                "$ref": "#/$defs/ObjectIntersection"
               }
             ]
           }
@@ -211,14 +132,8 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "oneOf": [
-          {
-            "type": "null"
-          },
-          {
+        "$defs": {
+          "ObjectIntersection": {
             "type": "object",
             "properties": {
               "email": {
@@ -235,8 +150,17 @@
               "email",
               "name",
               "vulnerable"
-            ],
-            "description": "Current Type: {@link ObjectIntersection}"
+            ]
+          }
+        }
+      },
+      "output": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/ObjectIntersection"
           }
         ]
       }

@@ -2,37 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "description": "Current Type: {@link TypeTagAtomicUnion}",
-      "type": "object",
-      "properties": {
-        "value": {
-          "type": "array",
-          "items": {
-            "description": "Current Type: {@link TypeTagAtomicUnion.Type}",
-            "type": "object",
-            "properties": {
-              "value": {
-                "anyOf": [
-                  {
-                    "type": "string",
-                    "description": "@minLength 3\n@maxLength 7"
-                  },
-                  {
-                    "type": "number",
-                    "description": "@minimum 3"
-                  }
-                ]
-              }
-            },
-            "required": [
-              "value"
-            ]
-          }
-        }
-      },
-      "required": [
-        "value"
-      ]
+      "$ref": "#/$defs/TypeTagAtomicUnion"
     },
     "nullable": {
       "anyOf": [
@@ -40,72 +10,12 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {
-            "value": {
-              "type": "array",
-              "items": {
-                "description": "Current Type: {@link TypeTagAtomicUnion.Type}",
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "anyOf": [
-                      {
-                        "type": "string",
-                        "description": "@minLength 3\n@maxLength 7"
-                      },
-                      {
-                        "type": "number",
-                        "description": "@minimum 3"
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "value"
-                ]
-              }
-            }
-          },
-          "required": [
-            "value"
-          ],
-          "description": "Current Type: {@link TypeTagAtomicUnion}"
+          "$ref": "#/$defs/TypeTagAtomicUnion"
         }
       ]
     },
     "optional": {
-      "description": "Current Type: {@link TypeTagAtomicUnion}",
-      "type": "object",
-      "properties": {
-        "value": {
-          "type": "array",
-          "items": {
-            "description": "Current Type: {@link TypeTagAtomicUnion.Type}",
-            "type": "object",
-            "properties": {
-              "value": {
-                "anyOf": [
-                  {
-                    "type": "string",
-                    "description": "@minLength 3\n@maxLength 7"
-                  },
-                  {
-                    "type": "number",
-                    "description": "@minimum 3"
-                  }
-                ]
-              }
-            },
-            "required": [
-              "value"
-            ]
-          }
-        }
-      },
-      "required": [
-        "value"
-      ]
+      "$ref": "#/$defs/TypeTagAtomicUnion"
     },
     "faint": {
       "anyOf": [
@@ -113,74 +23,14 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {
-            "value": {
-              "type": "array",
-              "items": {
-                "description": "Current Type: {@link TypeTagAtomicUnion.Type}",
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "anyOf": [
-                      {
-                        "type": "string",
-                        "description": "@minLength 3\n@maxLength 7"
-                      },
-                      {
-                        "type": "number",
-                        "description": "@minimum 3"
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "value"
-                ]
-              }
-            }
-          },
-          "required": [
-            "value"
-          ],
-          "description": "Current Type: {@link TypeTagAtomicUnion}"
+          "$ref": "#/$defs/TypeTagAtomicUnion"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
-        "description": "Current Type: {@link TypeTagAtomicUnion}",
-        "type": "object",
-        "properties": {
-          "value": {
-            "type": "array",
-            "items": {
-              "description": "Current Type: {@link TypeTagAtomicUnion.Type}",
-              "type": "object",
-              "properties": {
-                "value": {
-                  "anyOf": [
-                    {
-                      "type": "string",
-                      "description": "@minLength 3\n@maxLength 7"
-                    },
-                    {
-                      "type": "number",
-                      "description": "@minimum 3"
-                    }
-                  ]
-                }
-              },
-              "required": [
-                "value"
-              ]
-            }
-          }
-        },
-        "required": [
-          "value"
-        ]
+        "$ref": "#/$defs/TypeTagAtomicUnion"
       }
     }
   },
@@ -190,5 +40,40 @@
     "array"
   ],
   "additionalProperties": false,
-  "$defs": {}
+  "$defs": {
+    "TypeTagAtomicUnion": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/TypeTagAtomicUnion.Type"
+          }
+        }
+      },
+      "required": [
+        "value"
+      ]
+    },
+    "TypeTagAtomicUnion.Type": {
+      "type": "object",
+      "properties": {
+        "value": {
+          "anyOf": [
+            {
+              "type": "string",
+              "description": "@minLength 3\n@maxLength 7"
+            },
+            {
+              "type": "number",
+              "description": "@minimum 3"
+            }
+          ]
+        }
+      },
+      "required": [
+        "value"
+      ]
+    }
+  }
 }

@@ -1,16 +1,1 @@
-{
-  "description": "Current Type: {@link DynamicUnion}",
-  "type": "object",
-  "properties": {},
-  "required": [],
-  "additionalProperties": {
-    "oneOf": [
-      {
-        "type": "string"
-      },
-      {
-        "type": "number"
-      }
-    ]
-  }
-}
+{}

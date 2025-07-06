@@ -2,33 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "description": "Current Type: {@link DynamicComposite}",
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "id",
-        "name"
-      ],
-      "additionalProperties": {
-        "oneOf": [
-          {
-            "type": "number"
-          },
-          {
-            "type": "string"
-          },
-          {
-            "type": "boolean"
-          }
-        ]
-      }
+      "$ref": "#/$defs/DynamicComposite"
     },
     "nullable": {
       "oneOf": [
@@ -36,64 +10,12 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "string"
-            },
-            "name": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "id",
-            "name"
-          ],
-          "description": "Current Type: {@link DynamicComposite}",
-          "additionalProperties": {
-            "oneOf": [
-              {
-                "type": "number"
-              },
-              {
-                "type": "string"
-              },
-              {
-                "type": "boolean"
-              }
-            ]
-          }
+          "$ref": "#/$defs/DynamicComposite"
         }
       ]
     },
     "optional": {
-      "description": "Current Type: {@link DynamicComposite}",
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "id",
-        "name"
-      ],
-      "additionalProperties": {
-        "oneOf": [
-          {
-            "type": "number"
-          },
-          {
-            "type": "string"
-          },
-          {
-            "type": "boolean"
-          }
-        ]
-      }
+      "$ref": "#/$defs/DynamicComposite"
     },
     "faint": {
       "oneOf": [
@@ -101,66 +23,14 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "string"
-            },
-            "name": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "id",
-            "name"
-          ],
-          "description": "Current Type: {@link DynamicComposite}",
-          "additionalProperties": {
-            "oneOf": [
-              {
-                "type": "number"
-              },
-              {
-                "type": "string"
-              },
-              {
-                "type": "boolean"
-              }
-            ]
-          }
+          "$ref": "#/$defs/DynamicComposite"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
-        "description": "Current Type: {@link DynamicComposite}",
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "id",
-          "name"
-        ],
-        "additionalProperties": {
-          "oneOf": [
-            {
-              "type": "number"
-            },
-            {
-              "type": "string"
-            },
-            {
-              "type": "boolean"
-            }
-          ]
-        }
+        "$ref": "#/$defs/DynamicComposite"
       }
     }
   },
@@ -170,5 +40,34 @@
     "array"
   ],
   "additionalProperties": false,
-  "$defs": {}
+  "$defs": {
+    "DynamicComposite": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ],
+      "additionalProperties": {
+        "oneOf": [
+          {
+            "type": "number"
+          },
+          {
+            "type": "string"
+          },
+          {
+            "type": "boolean"
+          }
+        ]
+      }
+    }
+  }
 }

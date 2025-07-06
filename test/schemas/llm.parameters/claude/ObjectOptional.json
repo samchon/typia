@@ -2,23 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "description": "Current Type: {@link ObjectOptional}",
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
-        },
-        "sequence": {
-          "type": "number"
-        }
-      },
-      "required": []
+      "$ref": "#/$defs/ObjectOptional"
     },
     "nullable": {
       "oneOf": [
@@ -26,44 +10,12 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "string"
-            },
-            "name": {
-              "type": "string"
-            },
-            "email": {
-              "type": "string"
-            },
-            "sequence": {
-              "type": "number"
-            }
-          },
-          "required": [],
-          "description": "Current Type: {@link ObjectOptional}"
+          "$ref": "#/$defs/ObjectOptional"
         }
       ]
     },
     "optional": {
-      "description": "Current Type: {@link ObjectOptional}",
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "email": {
-          "type": "string"
-        },
-        "sequence": {
-          "type": "number"
-        }
-      },
-      "required": []
+      "$ref": "#/$defs/ObjectOptional"
     },
     "faint": {
       "oneOf": [
@@ -71,46 +23,14 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "string"
-            },
-            "name": {
-              "type": "string"
-            },
-            "email": {
-              "type": "string"
-            },
-            "sequence": {
-              "type": "number"
-            }
-          },
-          "required": [],
-          "description": "Current Type: {@link ObjectOptional}"
+          "$ref": "#/$defs/ObjectOptional"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
-        "description": "Current Type: {@link ObjectOptional}",
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          },
-          "sequence": {
-            "type": "number"
-          }
-        },
-        "required": []
+        "$ref": "#/$defs/ObjectOptional"
       }
     }
   },
@@ -120,5 +40,24 @@
     "array"
   ],
   "additionalProperties": false,
-  "$defs": {}
+  "$defs": {
+    "ObjectOptional": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        },
+        "email": {
+          "type": "string"
+        },
+        "sequence": {
+          "type": "number"
+        }
+      },
+      "required": []
+    }
+  }
 }

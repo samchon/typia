@@ -1,8 +1,8 @@
 {
   "model": "3.1",
   "options": {
+    "reference": true,
     "constraint": true,
-    "reference": false,
     "separate": null
   },
   "functions": [
@@ -12,38 +12,43 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link ArrayUnion}",
-            "type": "array",
-            "items": {
-              "description": "Current Type: {@link ArrayUnion.IUnion}",
-              "oneOf": [
-                {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                {
-                  "type": "array",
-                  "items": {
-                    "type": "number"
-                  }
-                },
-                {
-                  "type": "array",
-                  "items": {
-                    "type": "boolean"
-                  }
-                }
-              ]
-            }
+            "$ref": "#/$defs/ArrayUnion"
           }
         },
         "required": [
           "first"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "ArrayUnion": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ArrayUnion.IUnion"
+            }
+          },
+          "ArrayUnion.IUnion": {
+            "oneOf": [
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "boolean"
+                }
+              }
+            ]
+          }
+        }
       }
     },
     {
@@ -52,31 +57,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link ArrayUnion}",
-            "type": "array",
-            "items": {
-              "description": "Current Type: {@link ArrayUnion.IUnion}",
-              "oneOf": [
-                {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                {
-                  "type": "array",
-                  "items": {
-                    "type": "number"
-                  }
-                },
-                {
-                  "type": "array",
-                  "items": {
-                    "type": "boolean"
-                  }
-                }
-              ]
-            }
+            "$ref": "#/$defs/ArrayUnion"
           },
           "second": {
             "oneOf": [
@@ -84,31 +65,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "description": "Current Type: {@link ArrayUnion.IUnion}",
-                  "oneOf": [
-                    {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "type": "number"
-                      }
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "type": "boolean"
-                      }
-                    }
-                  ]
-                },
-                "description": "Current Type: {@link ArrayUnion}"
+                "$ref": "#/$defs/ArrayUnion"
               }
             ]
           }
@@ -118,34 +75,39 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "ArrayUnion": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ArrayUnion.IUnion"
+            }
+          },
+          "ArrayUnion.IUnion": {
+            "oneOf": [
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "boolean"
+                }
+              }
+            ]
+          }
+        }
       },
       "output": {
-        "description": "Current Type: {@link ArrayUnion}",
-        "type": "array",
-        "items": {
-          "description": "Current Type: {@link ArrayUnion.IUnion}",
-          "oneOf": [
-            {
-              "type": "array",
-              "items": {
-                "type": "string"
-              }
-            },
-            {
-              "type": "array",
-              "items": {
-                "type": "number"
-              }
-            },
-            {
-              "type": "array",
-              "items": {
-                "type": "boolean"
-              }
-            }
-          ]
-        }
+        "$ref": "#/$defs/ArrayUnion"
       }
     },
     {
@@ -159,31 +121,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "description": "Current Type: {@link ArrayUnion.IUnion}",
-                  "oneOf": [
-                    {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "type": "number"
-                      }
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "type": "boolean"
-                      }
-                    }
-                  ]
-                },
-                "description": "Current Type: {@link ArrayUnion}"
+                "$ref": "#/$defs/ArrayUnion"
               }
             ]
           },
@@ -193,31 +131,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "description": "Current Type: {@link ArrayUnion.IUnion}",
-                  "oneOf": [
-                    {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "type": "number"
-                      }
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "type": "boolean"
-                      }
-                    }
-                  ]
-                },
-                "description": "Current Type: {@link ArrayUnion}"
+                "$ref": "#/$defs/ArrayUnion"
               }
             ]
           },
@@ -227,31 +141,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "description": "Current Type: {@link ArrayUnion.IUnion}",
-                  "oneOf": [
-                    {
-                      "type": "array",
-                      "items": {
-                        "type": "string"
-                      }
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "type": "number"
-                      }
-                    },
-                    {
-                      "type": "array",
-                      "items": {
-                        "type": "boolean"
-                      }
-                    }
-                  ]
-                },
-                "description": "Current Type: {@link ArrayUnion}"
+                "$ref": "#/$defs/ArrayUnion"
               }
             ]
           }
@@ -261,7 +151,36 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "ArrayUnion": {
+            "type": "array",
+            "items": {
+              "$ref": "#/$defs/ArrayUnion.IUnion"
+            }
+          },
+          "ArrayUnion.IUnion": {
+            "oneOf": [
+              {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "number"
+                }
+              },
+              {
+                "type": "array",
+                "items": {
+                  "type": "boolean"
+                }
+              }
+            ]
+          }
+        }
       },
       "output": {
         "oneOf": [
@@ -269,31 +188,7 @@
             "type": "null"
           },
           {
-            "type": "array",
-            "items": {
-              "description": "Current Type: {@link ArrayUnion.IUnion}",
-              "oneOf": [
-                {
-                  "type": "array",
-                  "items": {
-                    "type": "string"
-                  }
-                },
-                {
-                  "type": "array",
-                  "items": {
-                    "type": "number"
-                  }
-                },
-                {
-                  "type": "array",
-                  "items": {
-                    "type": "boolean"
-                  }
-                }
-              ]
-            },
-            "description": "Current Type: {@link ArrayUnion}"
+            "$ref": "#/$defs/ArrayUnion"
           }
         ]
       }

@@ -2,20 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "description": "Current Type: {@link ObjectLiteralProperty.ISomething}",
-      "type": "object",
-      "properties": {
-        "something-interesting-do-you-want?": {
-          "type": "string"
-        },
-        "or-something-crazy-do-you-want?": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "something-interesting-do-you-want?",
-        "or-something-crazy-do-you-want?"
-      ]
+      "$ref": "#/$defs/ObjectLiteralProperty.ISomething"
     },
     "nullable": {
       "oneOf": [
@@ -23,38 +10,12 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {
-            "something-interesting-do-you-want?": {
-              "type": "string"
-            },
-            "or-something-crazy-do-you-want?": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "something-interesting-do-you-want?",
-            "or-something-crazy-do-you-want?"
-          ],
-          "description": "Current Type: {@link ObjectLiteralProperty.ISomething}"
+          "$ref": "#/$defs/ObjectLiteralProperty.ISomething"
         }
       ]
     },
     "optional": {
-      "description": "Current Type: {@link ObjectLiteralProperty.ISomething}",
-      "type": "object",
-      "properties": {
-        "something-interesting-do-you-want?": {
-          "type": "string"
-        },
-        "or-something-crazy-do-you-want?": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "something-interesting-do-you-want?",
-        "or-something-crazy-do-you-want?"
-      ]
+      "$ref": "#/$defs/ObjectLiteralProperty.ISomething"
     },
     "faint": {
       "oneOf": [
@@ -62,40 +23,14 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {
-            "something-interesting-do-you-want?": {
-              "type": "string"
-            },
-            "or-something-crazy-do-you-want?": {
-              "type": "string"
-            }
-          },
-          "required": [
-            "something-interesting-do-you-want?",
-            "or-something-crazy-do-you-want?"
-          ],
-          "description": "Current Type: {@link ObjectLiteralProperty.ISomething}"
+          "$ref": "#/$defs/ObjectLiteralProperty.ISomething"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
-        "description": "Current Type: {@link ObjectLiteralProperty.ISomething}",
-        "type": "object",
-        "properties": {
-          "something-interesting-do-you-want?": {
-            "type": "string"
-          },
-          "or-something-crazy-do-you-want?": {
-            "type": "string"
-          }
-        },
-        "required": [
-          "something-interesting-do-you-want?",
-          "or-something-crazy-do-you-want?"
-        ]
+        "$ref": "#/$defs/ObjectLiteralProperty.ISomething"
       }
     }
   },
@@ -105,5 +40,21 @@
     "array"
   ],
   "additionalProperties": false,
-  "$defs": {}
+  "$defs": {
+    "ObjectLiteralProperty.ISomething": {
+      "type": "object",
+      "properties": {
+        "something-interesting-do-you-want?": {
+          "type": "string"
+        },
+        "or-something-crazy-do-you-want?": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "something-interesting-do-you-want?",
+        "or-something-crazy-do-you-want?"
+      ]
+    }
+  }
 }

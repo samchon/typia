@@ -1,7 +1,7 @@
 {
   "model": "claude",
   "options": {
-    "reference": false,
+    "reference": true,
     "separate": null
   },
   "functions": [
@@ -11,7 +11,15 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link TypeTagMatrix}",
+            "$ref": "#/$defs/TypeTagMatrix"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "TypeTagMatrix": {
             "type": "object",
             "properties": {
               "matrix": {
@@ -33,12 +41,7 @@
               "matrix"
             ]
           }
-        },
-        "required": [
-          "first"
-        ],
-        "additionalProperties": false,
-        "$defs": {}
+        }
       }
     },
     {
@@ -47,27 +50,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link TypeTagMatrix}",
-            "type": "object",
-            "properties": {
-              "matrix": {
-                "type": "array",
-                "items": {
-                  "type": "array",
-                  "items": {
-                    "type": "string",
-                    "format": "uuid"
-                  },
-                  "minItems": 4,
-                  "maxItems": 4
-                },
-                "minItems": 3,
-                "maxItems": 3
-              }
-            },
-            "required": [
-              "matrix"
-            ]
+            "$ref": "#/$defs/TypeTagMatrix"
           },
           "second": {
             "oneOf": [
@@ -75,27 +58,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "matrix": {
-                    "type": "array",
-                    "items": {
-                      "type": "array",
-                      "items": {
-                        "type": "string",
-                        "format": "uuid"
-                      },
-                      "minItems": 4,
-                      "maxItems": 4
-                    },
-                    "minItems": 3,
-                    "maxItems": 3
-                  }
-                },
-                "required": [
-                  "matrix"
-                ],
-                "description": "Current Type: {@link TypeTagMatrix}"
+                "$ref": "#/$defs/TypeTagMatrix"
               }
             ]
           }
@@ -105,30 +68,33 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "TypeTagMatrix": {
+            "type": "object",
+            "properties": {
+              "matrix": {
+                "type": "array",
+                "items": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "minItems": 4,
+                  "maxItems": 4
+                },
+                "minItems": 3,
+                "maxItems": 3
+              }
+            },
+            "required": [
+              "matrix"
+            ]
+          }
+        }
       },
       "output": {
-        "description": "Current Type: {@link TypeTagMatrix}",
-        "type": "object",
-        "properties": {
-          "matrix": {
-            "type": "array",
-            "items": {
-              "type": "array",
-              "items": {
-                "type": "string",
-                "format": "uuid"
-              },
-              "minItems": 4,
-              "maxItems": 4
-            },
-            "minItems": 3,
-            "maxItems": 3
-          }
-        },
-        "required": [
-          "matrix"
-        ]
+        "$ref": "#/$defs/TypeTagMatrix"
       }
     },
     {
@@ -142,27 +108,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "matrix": {
-                    "type": "array",
-                    "items": {
-                      "type": "array",
-                      "items": {
-                        "type": "string",
-                        "format": "uuid"
-                      },
-                      "minItems": 4,
-                      "maxItems": 4
-                    },
-                    "minItems": 3,
-                    "maxItems": 3
-                  }
-                },
-                "required": [
-                  "matrix"
-                ],
-                "description": "Current Type: {@link TypeTagMatrix}"
+                "$ref": "#/$defs/TypeTagMatrix"
               }
             ]
           },
@@ -172,27 +118,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "matrix": {
-                    "type": "array",
-                    "items": {
-                      "type": "array",
-                      "items": {
-                        "type": "string",
-                        "format": "uuid"
-                      },
-                      "minItems": 4,
-                      "maxItems": 4
-                    },
-                    "minItems": 3,
-                    "maxItems": 3
-                  }
-                },
-                "required": [
-                  "matrix"
-                ],
-                "description": "Current Type: {@link TypeTagMatrix}"
+                "$ref": "#/$defs/TypeTagMatrix"
               }
             ]
           },
@@ -202,27 +128,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "matrix": {
-                    "type": "array",
-                    "items": {
-                      "type": "array",
-                      "items": {
-                        "type": "string",
-                        "format": "uuid"
-                      },
-                      "minItems": 4,
-                      "maxItems": 4
-                    },
-                    "minItems": 3,
-                    "maxItems": 3
-                  }
-                },
-                "required": [
-                  "matrix"
-                ],
-                "description": "Current Type: {@link TypeTagMatrix}"
+                "$ref": "#/$defs/TypeTagMatrix"
               }
             ]
           }
@@ -232,14 +138,8 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "oneOf": [
-          {
-            "type": "null"
-          },
-          {
+        "$defs": {
+          "TypeTagMatrix": {
             "type": "object",
             "properties": {
               "matrix": {
@@ -259,8 +159,17 @@
             },
             "required": [
               "matrix"
-            ],
-            "description": "Current Type: {@link TypeTagMatrix}"
+            ]
+          }
+        }
+      },
+      "output": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/TypeTagMatrix"
           }
         ]
       }

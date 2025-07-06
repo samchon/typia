@@ -2,20 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "description": "Current Type: {@link DynamicUnion}",
-      "type": "object",
-      "properties": {},
-      "required": [],
-      "additionalProperties": {
-        "anyOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "number"
-          }
-        ]
-      }
+      "$ref": "#/$defs/DynamicUnion"
     },
     "nullable": {
       "anyOf": [
@@ -23,38 +10,12 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {},
-          "required": [],
-          "description": "Current Type: {@link DynamicUnion}",
-          "additionalProperties": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              }
-            ]
-          }
+          "$ref": "#/$defs/DynamicUnion"
         }
       ]
     },
     "optional": {
-      "description": "Current Type: {@link DynamicUnion}",
-      "type": "object",
-      "properties": {},
-      "required": [],
-      "additionalProperties": {
-        "anyOf": [
-          {
-            "type": "string"
-          },
-          {
-            "type": "number"
-          }
-        ]
-      }
+      "$ref": "#/$defs/DynamicUnion"
     },
     "faint": {
       "anyOf": [
@@ -62,40 +23,14 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {},
-          "required": [],
-          "description": "Current Type: {@link DynamicUnion}",
-          "additionalProperties": {
-            "anyOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              }
-            ]
-          }
+          "$ref": "#/$defs/DynamicUnion"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
-        "description": "Current Type: {@link DynamicUnion}",
-        "type": "object",
-        "properties": {},
-        "required": [],
-        "additionalProperties": {
-          "anyOf": [
-            {
-              "type": "string"
-            },
-            {
-              "type": "number"
-            }
-          ]
-        }
+        "$ref": "#/$defs/DynamicUnion"
       }
     }
   },
@@ -105,5 +40,21 @@
     "array"
   ],
   "additionalProperties": false,
-  "$defs": {}
+  "$defs": {
+    "DynamicUnion": {
+      "type": "object",
+      "properties": {},
+      "required": [],
+      "additionalProperties": {
+        "anyOf": [
+          {
+            "type": "string"
+          },
+          {
+            "type": "number"
+          }
+        ]
+      }
+    }
+  }
 }

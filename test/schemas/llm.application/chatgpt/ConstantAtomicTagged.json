@@ -1,7 +1,7 @@
 {
   "model": "chatgpt",
   "options": {
-    "reference": false,
+    "reference": true,
     "strict": false,
     "separate": null
   },
@@ -12,7 +12,15 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link ConstantAtomicTagged}",
+            "$ref": "#/$defs/ConstantAtomicTagged"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ConstantAtomicTagged": {
             "type": "object",
             "properties": {
               "id": {
@@ -42,12 +50,7 @@
               "age"
             ]
           }
-        },
-        "required": [
-          "first"
-        ],
-        "additionalProperties": false,
-        "$defs": {}
+        }
       }
     },
     {
@@ -56,35 +59,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link ConstantAtomicTagged}",
-            "type": "object",
-            "properties": {
-              "id": {
-                "description": "@format uuid",
-                "type": "string",
-                "enum": [
-                  "latest"
-                ]
-              },
-              "age": {
-                "anyOf": [
-                  {
-                    "type": "integer",
-                    "description": "@minimum 0\n@maximum 100"
-                  },
-                  {
-                    "type": "number",
-                    "enum": [
-                      -1
-                    ]
-                  }
-                ]
-              }
-            },
-            "required": [
-              "id",
-              "age"
-            ]
+            "$ref": "#/$defs/ConstantAtomicTagged"
           },
           "second": {
             "anyOf": [
@@ -92,35 +67,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "description": "@format uuid",
-                    "type": "string",
-                    "enum": [
-                      "latest"
-                    ]
-                  },
-                  "age": {
-                    "anyOf": [
-                      {
-                        "type": "integer",
-                        "description": "@minimum 0\n@maximum 100"
-                      },
-                      {
-                        "type": "number",
-                        "enum": [
-                          -1
-                        ]
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "id",
-                  "age"
-                ],
-                "description": "Current Type: {@link ConstantAtomicTagged}"
+                "$ref": "#/$defs/ConstantAtomicTagged"
               }
             ]
           }
@@ -130,38 +77,41 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "description": "Current Type: {@link ConstantAtomicTagged}",
-        "type": "object",
-        "properties": {
-          "id": {
-            "description": "@format uuid",
-            "type": "string",
-            "enum": [
-              "latest"
-            ]
-          },
-          "age": {
-            "anyOf": [
-              {
-                "type": "integer",
-                "description": "@minimum 0\n@maximum 100"
-              },
-              {
-                "type": "number",
+        "$defs": {
+          "ConstantAtomicTagged": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "description": "@format uuid",
+                "type": "string",
                 "enum": [
-                  -1
+                  "latest"
+                ]
+              },
+              "age": {
+                "anyOf": [
+                  {
+                    "type": "integer",
+                    "description": "@minimum 0\n@maximum 100"
+                  },
+                  {
+                    "type": "number",
+                    "enum": [
+                      -1
+                    ]
+                  }
                 ]
               }
+            },
+            "required": [
+              "id",
+              "age"
             ]
           }
-        },
-        "required": [
-          "id",
-          "age"
-        ]
+        }
+      },
+      "output": {
+        "$ref": "#/$defs/ConstantAtomicTagged"
       }
     },
     {
@@ -175,35 +125,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "description": "@format uuid",
-                    "type": "string",
-                    "enum": [
-                      "latest"
-                    ]
-                  },
-                  "age": {
-                    "anyOf": [
-                      {
-                        "type": "integer",
-                        "description": "@minimum 0\n@maximum 100"
-                      },
-                      {
-                        "type": "number",
-                        "enum": [
-                          -1
-                        ]
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "id",
-                  "age"
-                ],
-                "description": "Current Type: {@link ConstantAtomicTagged}"
+                "$ref": "#/$defs/ConstantAtomicTagged"
               }
             ]
           },
@@ -213,35 +135,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "description": "@format uuid",
-                    "type": "string",
-                    "enum": [
-                      "latest"
-                    ]
-                  },
-                  "age": {
-                    "anyOf": [
-                      {
-                        "type": "integer",
-                        "description": "@minimum 0\n@maximum 100"
-                      },
-                      {
-                        "type": "number",
-                        "enum": [
-                          -1
-                        ]
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "id",
-                  "age"
-                ],
-                "description": "Current Type: {@link ConstantAtomicTagged}"
+                "$ref": "#/$defs/ConstantAtomicTagged"
               }
             ]
           },
@@ -251,35 +145,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "description": "@format uuid",
-                    "type": "string",
-                    "enum": [
-                      "latest"
-                    ]
-                  },
-                  "age": {
-                    "anyOf": [
-                      {
-                        "type": "integer",
-                        "description": "@minimum 0\n@maximum 100"
-                      },
-                      {
-                        "type": "number",
-                        "enum": [
-                          -1
-                        ]
-                      }
-                    ]
-                  }
-                },
-                "required": [
-                  "id",
-                  "age"
-                ],
-                "description": "Current Type: {@link ConstantAtomicTagged}"
+                "$ref": "#/$defs/ConstantAtomicTagged"
               }
             ]
           }
@@ -289,14 +155,8 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "anyOf": [
-          {
-            "type": "null"
-          },
-          {
+        "$defs": {
+          "ConstantAtomicTagged": {
             "type": "object",
             "properties": {
               "id": {
@@ -324,8 +184,17 @@
             "required": [
               "id",
               "age"
-            ],
-            "description": "Current Type: {@link ConstantAtomicTagged}"
+            ]
+          }
+        }
+      },
+      "output": {
+        "anyOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/ConstantAtomicTagged"
           }
         ]
       }

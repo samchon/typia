@@ -75,7 +75,7 @@ export class TypeGuardError<T = any> extends Error {
    * - `"invalid"` - String value
    * - `{ name: "John", age: 18, sex: 1 }` - Object value
    */
-  public readonly value: any;
+  public readonly value: unknown;
 
   /**
    * Phantom property for type safety purposes.
@@ -167,7 +167,7 @@ export namespace TypeGuardError {
     /**
      * The actual value that failed assertion.
      */
-    value: any;
+    value: unknown;
 
     /**
      * Custom error message (optional).

@@ -2,22 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "description": "Current Type: {@link ConstantAtomicAbsorbed}",
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "default": "something"
-        },
-        "age": {
-          "type": "number",
-          "default": 20
-        }
-      },
-      "required": [
-        "id",
-        "age"
-      ]
+      "$ref": "#/$defs/ConstantAtomicAbsorbed"
     },
     "nullable": {
       "oneOf": [
@@ -25,42 +10,12 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "string",
-              "default": "something"
-            },
-            "age": {
-              "type": "number",
-              "default": 20
-            }
-          },
-          "required": [
-            "id",
-            "age"
-          ],
-          "description": "Current Type: {@link ConstantAtomicAbsorbed}"
+          "$ref": "#/$defs/ConstantAtomicAbsorbed"
         }
       ]
     },
     "optional": {
-      "description": "Current Type: {@link ConstantAtomicAbsorbed}",
-      "type": "object",
-      "properties": {
-        "id": {
-          "type": "string",
-          "default": "something"
-        },
-        "age": {
-          "type": "number",
-          "default": 20
-        }
-      },
-      "required": [
-        "id",
-        "age"
-      ]
+      "$ref": "#/$defs/ConstantAtomicAbsorbed"
     },
     "faint": {
       "oneOf": [
@@ -68,44 +23,14 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {
-            "id": {
-              "type": "string",
-              "default": "something"
-            },
-            "age": {
-              "type": "number",
-              "default": 20
-            }
-          },
-          "required": [
-            "id",
-            "age"
-          ],
-          "description": "Current Type: {@link ConstantAtomicAbsorbed}"
+          "$ref": "#/$defs/ConstantAtomicAbsorbed"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
-        "description": "Current Type: {@link ConstantAtomicAbsorbed}",
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "default": "something"
-          },
-          "age": {
-            "type": "number",
-            "default": 20
-          }
-        },
-        "required": [
-          "id",
-          "age"
-        ]
+        "$ref": "#/$defs/ConstantAtomicAbsorbed"
       }
     }
   },
@@ -115,5 +40,23 @@
     "array"
   ],
   "additionalProperties": false,
-  "$defs": {}
+  "$defs": {
+    "ConstantAtomicAbsorbed": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string",
+          "default": "something"
+        },
+        "age": {
+          "type": "number",
+          "default": 20
+        }
+      },
+      "required": [
+        "id",
+        "age"
+      ]
+    }
+  }
 }

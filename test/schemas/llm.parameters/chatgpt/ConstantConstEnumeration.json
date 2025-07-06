@@ -2,28 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "description": "Current Type: {@link ConstantConstEnumeration}",
-      "type": "array",
-      "items": {
-        "description": "Current Type: {@link ConstantConstEnumeration.Enumeration}",
-        "anyOf": [
-          {
-            "type": "number",
-            "enum": [
-              0,
-              1,
-              2
-            ]
-          },
-          {
-            "type": "string",
-            "enum": [
-              "Three",
-              "Four"
-            ]
-          }
-        ]
-      }
+      "$ref": "#/$defs/ConstantConstEnumeration"
     },
     "nullable": {
       "anyOf": [
@@ -31,54 +10,12 @@
           "type": "null"
         },
         {
-          "type": "array",
-          "items": {
-            "description": "Current Type: {@link ConstantConstEnumeration.Enumeration}",
-            "anyOf": [
-              {
-                "type": "number",
-                "enum": [
-                  0,
-                  1,
-                  2
-                ]
-              },
-              {
-                "type": "string",
-                "enum": [
-                  "Three",
-                  "Four"
-                ]
-              }
-            ]
-          },
-          "description": "Current Type: {@link ConstantConstEnumeration}"
+          "$ref": "#/$defs/ConstantConstEnumeration"
         }
       ]
     },
     "optional": {
-      "description": "Current Type: {@link ConstantConstEnumeration}",
-      "type": "array",
-      "items": {
-        "description": "Current Type: {@link ConstantConstEnumeration.Enumeration}",
-        "anyOf": [
-          {
-            "type": "number",
-            "enum": [
-              0,
-              1,
-              2
-            ]
-          },
-          {
-            "type": "string",
-            "enum": [
-              "Three",
-              "Four"
-            ]
-          }
-        ]
-      }
+      "$ref": "#/$defs/ConstantConstEnumeration"
     },
     "faint": {
       "anyOf": [
@@ -86,56 +23,14 @@
           "type": "null"
         },
         {
-          "type": "array",
-          "items": {
-            "description": "Current Type: {@link ConstantConstEnumeration.Enumeration}",
-            "anyOf": [
-              {
-                "type": "number",
-                "enum": [
-                  0,
-                  1,
-                  2
-                ]
-              },
-              {
-                "type": "string",
-                "enum": [
-                  "Three",
-                  "Four"
-                ]
-              }
-            ]
-          },
-          "description": "Current Type: {@link ConstantConstEnumeration}"
+          "$ref": "#/$defs/ConstantConstEnumeration"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
-        "description": "Current Type: {@link ConstantConstEnumeration}",
-        "type": "array",
-        "items": {
-          "description": "Current Type: {@link ConstantConstEnumeration.Enumeration}",
-          "anyOf": [
-            {
-              "type": "number",
-              "enum": [
-                0,
-                1,
-                2
-              ]
-            },
-            {
-              "type": "string",
-              "enum": [
-                "Three",
-                "Four"
-              ]
-            }
-          ]
-        }
+        "$ref": "#/$defs/ConstantConstEnumeration"
       }
     }
   },
@@ -145,5 +40,31 @@
     "array"
   ],
   "additionalProperties": false,
-  "$defs": {}
+  "$defs": {
+    "ConstantConstEnumeration": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ConstantConstEnumeration.Enumeration"
+      }
+    },
+    "ConstantConstEnumeration.Enumeration": {
+      "anyOf": [
+        {
+          "type": "number",
+          "enum": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "type": "string",
+          "enum": [
+            "Three",
+            "Four"
+          ]
+        }
+      ]
+    }
+  }
 }

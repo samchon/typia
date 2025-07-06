@@ -1,7 +1,7 @@
 {
   "model": "chatgpt",
   "options": {
-    "reference": false,
+    "reference": true,
     "strict": false,
     "separate": null
   },
@@ -12,109 +12,130 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link ObjectUnionNonPredictable}",
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "array",
-                "items": {
-                  "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperObjectUnionNonPredictable.IUnion}",
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "description": "Current Type: {@link IPointerObjectUnionNonPredictable.IUnion}",
-                      "type": "object",
-                      "properties": {
-                        "value": {
-                          "description": "Current Type: {@link ObjectUnionNonPredictable.IUnion}",
-                          "anyOf": [
-                            {
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "description": "Current Type: {@link IPointerboolean}",
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "boolean"
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ]
-                                }
-                              },
-                              "required": [
-                                "value"
-                              ],
-                              "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperboolean}"
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "description": "Current Type: {@link IPointernumber}",
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "number"
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ]
-                                }
-                              },
-                              "required": [
-                                "value"
-                              ],
-                              "description": "Current Type: {@link ObjectUnionNonPredictable.IWrappernumber}"
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "description": "Current Type: {@link IPointerstring}",
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "string"
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ]
-                                }
-                              },
-                              "required": [
-                                "value"
-                              ],
-                              "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperstring}"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "value"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "value"
-                  ]
-                }
-              }
-            },
-            "required": [
-              "value"
-            ]
+            "$ref": "#/$defs/ObjectUnionNonPredictable"
           }
         },
         "required": [
           "first"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "ObjectUnionNonPredictable": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectUnionNonPredictable.IWrapperObjectUnionNonPredictable.IUnion"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "ObjectUnionNonPredictable.IWrapperObjectUnionNonPredictable.IUnion": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "$ref": "#/$defs/IPointerObjectUnionNonPredictable.IUnion"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "IPointerObjectUnionNonPredictable.IUnion": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "$ref": "#/$defs/ObjectUnionNonPredictable.IUnion"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "ObjectUnionNonPredictable.IUnion": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/ObjectUnionNonPredictable.IWrapperboolean"
+              },
+              {
+                "$ref": "#/$defs/ObjectUnionNonPredictable.IWrappernumber"
+              },
+              {
+                "$ref": "#/$defs/ObjectUnionNonPredictable.IWrapperstring"
+              }
+            ]
+          },
+          "ObjectUnionNonPredictable.IWrapperboolean": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "$ref": "#/$defs/IPointerboolean"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "IPointerboolean": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "ObjectUnionNonPredictable.IWrappernumber": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "$ref": "#/$defs/IPointernumber"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "IPointernumber": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "ObjectUnionNonPredictable.IWrapperstring": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "$ref": "#/$defs/IPointerstring"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "IPointerstring": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          }
+        }
       }
     },
     {
@@ -123,102 +144,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link ObjectUnionNonPredictable}",
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "array",
-                "items": {
-                  "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperObjectUnionNonPredictable.IUnion}",
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "description": "Current Type: {@link IPointerObjectUnionNonPredictable.IUnion}",
-                      "type": "object",
-                      "properties": {
-                        "value": {
-                          "description": "Current Type: {@link ObjectUnionNonPredictable.IUnion}",
-                          "anyOf": [
-                            {
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "description": "Current Type: {@link IPointerboolean}",
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "boolean"
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ]
-                                }
-                              },
-                              "required": [
-                                "value"
-                              ],
-                              "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperboolean}"
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "description": "Current Type: {@link IPointernumber}",
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "number"
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ]
-                                }
-                              },
-                              "required": [
-                                "value"
-                              ],
-                              "description": "Current Type: {@link ObjectUnionNonPredictable.IWrappernumber}"
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "description": "Current Type: {@link IPointerstring}",
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "string"
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ]
-                                }
-                              },
-                              "required": [
-                                "value"
-                              ],
-                              "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperstring}"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "value"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "value"
-                  ]
-                }
-              }
-            },
-            "required": [
-              "value"
-            ]
+            "$ref": "#/$defs/ObjectUnionNonPredictable"
           },
           "second": {
             "anyOf": [
@@ -226,102 +152,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperObjectUnionNonPredictable.IUnion}",
-                      "type": "object",
-                      "properties": {
-                        "value": {
-                          "description": "Current Type: {@link IPointerObjectUnionNonPredictable.IUnion}",
-                          "type": "object",
-                          "properties": {
-                            "value": {
-                              "description": "Current Type: {@link ObjectUnionNonPredictable.IUnion}",
-                              "anyOf": [
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "description": "Current Type: {@link IPointerboolean}",
-                                      "type": "object",
-                                      "properties": {
-                                        "value": {
-                                          "type": "boolean"
-                                        }
-                                      },
-                                      "required": [
-                                        "value"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ],
-                                  "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperboolean}"
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "description": "Current Type: {@link IPointernumber}",
-                                      "type": "object",
-                                      "properties": {
-                                        "value": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "value"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ],
-                                  "description": "Current Type: {@link ObjectUnionNonPredictable.IWrappernumber}"
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "description": "Current Type: {@link IPointerstring}",
-                                      "type": "object",
-                                      "properties": {
-                                        "value": {
-                                          "type": "string"
-                                        }
-                                      },
-                                      "required": [
-                                        "value"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ],
-                                  "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperstring}"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "value"
-                          ]
-                        }
-                      },
-                      "required": [
-                        "value"
-                      ]
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "description": "Current Type: {@link ObjectUnionNonPredictable}"
+                "$ref": "#/$defs/ObjectUnionNonPredictable"
               }
             ]
           }
@@ -331,105 +162,126 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "ObjectUnionNonPredictable": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectUnionNonPredictable.IWrapperObjectUnionNonPredictable.IUnion"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "ObjectUnionNonPredictable.IWrapperObjectUnionNonPredictable.IUnion": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "$ref": "#/$defs/IPointerObjectUnionNonPredictable.IUnion"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "IPointerObjectUnionNonPredictable.IUnion": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "$ref": "#/$defs/ObjectUnionNonPredictable.IUnion"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "ObjectUnionNonPredictable.IUnion": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/ObjectUnionNonPredictable.IWrapperboolean"
+              },
+              {
+                "$ref": "#/$defs/ObjectUnionNonPredictable.IWrappernumber"
+              },
+              {
+                "$ref": "#/$defs/ObjectUnionNonPredictable.IWrapperstring"
+              }
+            ]
+          },
+          "ObjectUnionNonPredictable.IWrapperboolean": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "$ref": "#/$defs/IPointerboolean"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "IPointerboolean": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "ObjectUnionNonPredictable.IWrappernumber": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "$ref": "#/$defs/IPointernumber"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "IPointernumber": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "ObjectUnionNonPredictable.IWrapperstring": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "$ref": "#/$defs/IPointerstring"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "IPointerstring": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          }
+        }
       },
       "output": {
-        "description": "Current Type: {@link ObjectUnionNonPredictable}",
-        "type": "object",
-        "properties": {
-          "value": {
-            "type": "array",
-            "items": {
-              "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperObjectUnionNonPredictable.IUnion}",
-              "type": "object",
-              "properties": {
-                "value": {
-                  "description": "Current Type: {@link IPointerObjectUnionNonPredictable.IUnion}",
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "description": "Current Type: {@link ObjectUnionNonPredictable.IUnion}",
-                      "anyOf": [
-                        {
-                          "type": "object",
-                          "properties": {
-                            "value": {
-                              "description": "Current Type: {@link IPointerboolean}",
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "type": "boolean"
-                                }
-                              },
-                              "required": [
-                                "value"
-                              ]
-                            }
-                          },
-                          "required": [
-                            "value"
-                          ],
-                          "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperboolean}"
-                        },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "value": {
-                              "description": "Current Type: {@link IPointernumber}",
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "type": "number"
-                                }
-                              },
-                              "required": [
-                                "value"
-                              ]
-                            }
-                          },
-                          "required": [
-                            "value"
-                          ],
-                          "description": "Current Type: {@link ObjectUnionNonPredictable.IWrappernumber}"
-                        },
-                        {
-                          "type": "object",
-                          "properties": {
-                            "value": {
-                              "description": "Current Type: {@link IPointerstring}",
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "type": "string"
-                                }
-                              },
-                              "required": [
-                                "value"
-                              ]
-                            }
-                          },
-                          "required": [
-                            "value"
-                          ],
-                          "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperstring}"
-                        }
-                      ]
-                    }
-                  },
-                  "required": [
-                    "value"
-                  ]
-                }
-              },
-              "required": [
-                "value"
-              ]
-            }
-          }
-        },
-        "required": [
-          "value"
-        ]
+        "$ref": "#/$defs/ObjectUnionNonPredictable"
       }
     },
     {
@@ -443,102 +295,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperObjectUnionNonPredictable.IUnion}",
-                      "type": "object",
-                      "properties": {
-                        "value": {
-                          "description": "Current Type: {@link IPointerObjectUnionNonPredictable.IUnion}",
-                          "type": "object",
-                          "properties": {
-                            "value": {
-                              "description": "Current Type: {@link ObjectUnionNonPredictable.IUnion}",
-                              "anyOf": [
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "description": "Current Type: {@link IPointerboolean}",
-                                      "type": "object",
-                                      "properties": {
-                                        "value": {
-                                          "type": "boolean"
-                                        }
-                                      },
-                                      "required": [
-                                        "value"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ],
-                                  "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperboolean}"
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "description": "Current Type: {@link IPointernumber}",
-                                      "type": "object",
-                                      "properties": {
-                                        "value": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "value"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ],
-                                  "description": "Current Type: {@link ObjectUnionNonPredictable.IWrappernumber}"
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "description": "Current Type: {@link IPointerstring}",
-                                      "type": "object",
-                                      "properties": {
-                                        "value": {
-                                          "type": "string"
-                                        }
-                                      },
-                                      "required": [
-                                        "value"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ],
-                                  "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperstring}"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "value"
-                          ]
-                        }
-                      },
-                      "required": [
-                        "value"
-                      ]
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "description": "Current Type: {@link ObjectUnionNonPredictable}"
+                "$ref": "#/$defs/ObjectUnionNonPredictable"
               }
             ]
           },
@@ -548,102 +305,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperObjectUnionNonPredictable.IUnion}",
-                      "type": "object",
-                      "properties": {
-                        "value": {
-                          "description": "Current Type: {@link IPointerObjectUnionNonPredictable.IUnion}",
-                          "type": "object",
-                          "properties": {
-                            "value": {
-                              "description": "Current Type: {@link ObjectUnionNonPredictable.IUnion}",
-                              "anyOf": [
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "description": "Current Type: {@link IPointerboolean}",
-                                      "type": "object",
-                                      "properties": {
-                                        "value": {
-                                          "type": "boolean"
-                                        }
-                                      },
-                                      "required": [
-                                        "value"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ],
-                                  "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperboolean}"
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "description": "Current Type: {@link IPointernumber}",
-                                      "type": "object",
-                                      "properties": {
-                                        "value": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "value"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ],
-                                  "description": "Current Type: {@link ObjectUnionNonPredictable.IWrappernumber}"
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "description": "Current Type: {@link IPointerstring}",
-                                      "type": "object",
-                                      "properties": {
-                                        "value": {
-                                          "type": "string"
-                                        }
-                                      },
-                                      "required": [
-                                        "value"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ],
-                                  "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperstring}"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "value"
-                          ]
-                        }
-                      },
-                      "required": [
-                        "value"
-                      ]
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "description": "Current Type: {@link ObjectUnionNonPredictable}"
+                "$ref": "#/$defs/ObjectUnionNonPredictable"
               }
             ]
           },
@@ -653,102 +315,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperObjectUnionNonPredictable.IUnion}",
-                      "type": "object",
-                      "properties": {
-                        "value": {
-                          "description": "Current Type: {@link IPointerObjectUnionNonPredictable.IUnion}",
-                          "type": "object",
-                          "properties": {
-                            "value": {
-                              "description": "Current Type: {@link ObjectUnionNonPredictable.IUnion}",
-                              "anyOf": [
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "description": "Current Type: {@link IPointerboolean}",
-                                      "type": "object",
-                                      "properties": {
-                                        "value": {
-                                          "type": "boolean"
-                                        }
-                                      },
-                                      "required": [
-                                        "value"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ],
-                                  "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperboolean}"
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "description": "Current Type: {@link IPointernumber}",
-                                      "type": "object",
-                                      "properties": {
-                                        "value": {
-                                          "type": "number"
-                                        }
-                                      },
-                                      "required": [
-                                        "value"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ],
-                                  "description": "Current Type: {@link ObjectUnionNonPredictable.IWrappernumber}"
-                                },
-                                {
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "description": "Current Type: {@link IPointerstring}",
-                                      "type": "object",
-                                      "properties": {
-                                        "value": {
-                                          "type": "string"
-                                        }
-                                      },
-                                      "required": [
-                                        "value"
-                                      ]
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ],
-                                  "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperstring}"
-                                }
-                              ]
-                            }
-                          },
-                          "required": [
-                            "value"
-                          ]
-                        }
-                      },
-                      "required": [
-                        "value"
-                      ]
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "description": "Current Type: {@link ObjectUnionNonPredictable}"
+                "$ref": "#/$defs/ObjectUnionNonPredictable"
               }
             ]
           }
@@ -758,7 +325,123 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "ObjectUnionNonPredictable": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/ObjectUnionNonPredictable.IWrapperObjectUnionNonPredictable.IUnion"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "ObjectUnionNonPredictable.IWrapperObjectUnionNonPredictable.IUnion": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "$ref": "#/$defs/IPointerObjectUnionNonPredictable.IUnion"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "IPointerObjectUnionNonPredictable.IUnion": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "$ref": "#/$defs/ObjectUnionNonPredictable.IUnion"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "ObjectUnionNonPredictable.IUnion": {
+            "anyOf": [
+              {
+                "$ref": "#/$defs/ObjectUnionNonPredictable.IWrapperboolean"
+              },
+              {
+                "$ref": "#/$defs/ObjectUnionNonPredictable.IWrappernumber"
+              },
+              {
+                "$ref": "#/$defs/ObjectUnionNonPredictable.IWrapperstring"
+              }
+            ]
+          },
+          "ObjectUnionNonPredictable.IWrapperboolean": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "$ref": "#/$defs/IPointerboolean"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "IPointerboolean": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "boolean"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "ObjectUnionNonPredictable.IWrappernumber": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "$ref": "#/$defs/IPointernumber"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "IPointernumber": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "ObjectUnionNonPredictable.IWrapperstring": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "$ref": "#/$defs/IPointerstring"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "IPointerstring": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "value"
+            ]
+          }
+        }
       },
       "output": {
         "anyOf": [
@@ -766,102 +449,7 @@
             "type": "null"
           },
           {
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "array",
-                "items": {
-                  "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperObjectUnionNonPredictable.IUnion}",
-                  "type": "object",
-                  "properties": {
-                    "value": {
-                      "description": "Current Type: {@link IPointerObjectUnionNonPredictable.IUnion}",
-                      "type": "object",
-                      "properties": {
-                        "value": {
-                          "description": "Current Type: {@link ObjectUnionNonPredictable.IUnion}",
-                          "anyOf": [
-                            {
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "description": "Current Type: {@link IPointerboolean}",
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "boolean"
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ]
-                                }
-                              },
-                              "required": [
-                                "value"
-                              ],
-                              "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperboolean}"
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "description": "Current Type: {@link IPointernumber}",
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "number"
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ]
-                                }
-                              },
-                              "required": [
-                                "value"
-                              ],
-                              "description": "Current Type: {@link ObjectUnionNonPredictable.IWrappernumber}"
-                            },
-                            {
-                              "type": "object",
-                              "properties": {
-                                "value": {
-                                  "description": "Current Type: {@link IPointerstring}",
-                                  "type": "object",
-                                  "properties": {
-                                    "value": {
-                                      "type": "string"
-                                    }
-                                  },
-                                  "required": [
-                                    "value"
-                                  ]
-                                }
-                              },
-                              "required": [
-                                "value"
-                              ],
-                              "description": "Current Type: {@link ObjectUnionNonPredictable.IWrapperstring}"
-                            }
-                          ]
-                        }
-                      },
-                      "required": [
-                        "value"
-                      ]
-                    }
-                  },
-                  "required": [
-                    "value"
-                  ]
-                }
-              }
-            },
-            "required": [
-              "value"
-            ],
-            "description": "Current Type: {@link ObjectUnionNonPredictable}"
+            "$ref": "#/$defs/ObjectUnionNonPredictable"
           }
         ]
       }

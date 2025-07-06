@@ -1,7 +1,7 @@
 {
   "model": "chatgpt",
   "options": {
-    "reference": false,
+    "reference": true,
     "strict": false,
     "separate": null
   },
@@ -12,7 +12,15 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link TemplateAtomic}",
+            "$ref": "#/$defs/TemplateAtomic"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "TemplateAtomic": {
             "type": "object",
             "properties": {
               "prefix": {
@@ -62,12 +70,7 @@
               "email"
             ]
           }
-        },
-        "required": [
-          "first"
-        ],
-        "additionalProperties": false,
-        "$defs": {}
+        }
       }
     },
     {
@@ -76,55 +79,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link TemplateAtomic}",
-            "type": "object",
-            "properties": {
-              "prefix": {
-                "description": "@pattern ^(prefix_(.*))",
-                "type": "string"
-              },
-              "postfix": {
-                "description": "@pattern ((.*)_postfix)$",
-                "type": "string"
-              },
-              "middle_string": {
-                "description": "@pattern ^(the_(.*)_value)$",
-                "type": "string"
-              },
-              "middle_string_empty": {
-                "description": "@pattern ^(the_(.*)_value)$",
-                "type": "string"
-              },
-              "middle_numeric": {
-                "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$",
-                "type": "string"
-              },
-              "middle_boolean": {
-                "type": "string",
-                "enum": [
-                  "the_false_value",
-                  "the_true_value"
-                ]
-              },
-              "ipv4": {
-                "description": "@pattern ^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
-                "type": "string"
-              },
-              "email": {
-                "description": "@pattern ((.*)@(.*)\\.(.*))",
-                "type": "string"
-              }
-            },
-            "required": [
-              "prefix",
-              "postfix",
-              "middle_string",
-              "middle_string_empty",
-              "middle_numeric",
-              "middle_boolean",
-              "ipv4",
-              "email"
-            ]
+            "$ref": "#/$defs/TemplateAtomic"
           },
           "second": {
             "anyOf": [
@@ -132,55 +87,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "prefix": {
-                    "description": "@pattern ^(prefix_(.*))",
-                    "type": "string"
-                  },
-                  "postfix": {
-                    "description": "@pattern ((.*)_postfix)$",
-                    "type": "string"
-                  },
-                  "middle_string": {
-                    "description": "@pattern ^(the_(.*)_value)$",
-                    "type": "string"
-                  },
-                  "middle_string_empty": {
-                    "description": "@pattern ^(the_(.*)_value)$",
-                    "type": "string"
-                  },
-                  "middle_numeric": {
-                    "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$",
-                    "type": "string"
-                  },
-                  "middle_boolean": {
-                    "type": "string",
-                    "enum": [
-                      "the_false_value",
-                      "the_true_value"
-                    ]
-                  },
-                  "ipv4": {
-                    "description": "@pattern ^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
-                    "type": "string"
-                  },
-                  "email": {
-                    "description": "@pattern ((.*)@(.*)\\.(.*))",
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "prefix",
-                  "postfix",
-                  "middle_string",
-                  "middle_string_empty",
-                  "middle_numeric",
-                  "middle_boolean",
-                  "ipv4",
-                  "email"
-                ],
-                "description": "Current Type: {@link TemplateAtomic}"
+                "$ref": "#/$defs/TemplateAtomic"
               }
             ]
           }
@@ -190,58 +97,61 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "TemplateAtomic": {
+            "type": "object",
+            "properties": {
+              "prefix": {
+                "description": "@pattern ^(prefix_(.*))",
+                "type": "string"
+              },
+              "postfix": {
+                "description": "@pattern ((.*)_postfix)$",
+                "type": "string"
+              },
+              "middle_string": {
+                "description": "@pattern ^(the_(.*)_value)$",
+                "type": "string"
+              },
+              "middle_string_empty": {
+                "description": "@pattern ^(the_(.*)_value)$",
+                "type": "string"
+              },
+              "middle_numeric": {
+                "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$",
+                "type": "string"
+              },
+              "middle_boolean": {
+                "type": "string",
+                "enum": [
+                  "the_false_value",
+                  "the_true_value"
+                ]
+              },
+              "ipv4": {
+                "description": "@pattern ^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
+                "type": "string"
+              },
+              "email": {
+                "description": "@pattern ((.*)@(.*)\\.(.*))",
+                "type": "string"
+              }
+            },
+            "required": [
+              "prefix",
+              "postfix",
+              "middle_string",
+              "middle_string_empty",
+              "middle_numeric",
+              "middle_boolean",
+              "ipv4",
+              "email"
+            ]
+          }
+        }
       },
       "output": {
-        "description": "Current Type: {@link TemplateAtomic}",
-        "type": "object",
-        "properties": {
-          "prefix": {
-            "description": "@pattern ^(prefix_(.*))",
-            "type": "string"
-          },
-          "postfix": {
-            "description": "@pattern ((.*)_postfix)$",
-            "type": "string"
-          },
-          "middle_string": {
-            "description": "@pattern ^(the_(.*)_value)$",
-            "type": "string"
-          },
-          "middle_string_empty": {
-            "description": "@pattern ^(the_(.*)_value)$",
-            "type": "string"
-          },
-          "middle_numeric": {
-            "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$",
-            "type": "string"
-          },
-          "middle_boolean": {
-            "type": "string",
-            "enum": [
-              "the_false_value",
-              "the_true_value"
-            ]
-          },
-          "ipv4": {
-            "description": "@pattern ^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
-            "type": "string"
-          },
-          "email": {
-            "description": "@pattern ((.*)@(.*)\\.(.*))",
-            "type": "string"
-          }
-        },
-        "required": [
-          "prefix",
-          "postfix",
-          "middle_string",
-          "middle_string_empty",
-          "middle_numeric",
-          "middle_boolean",
-          "ipv4",
-          "email"
-        ]
+        "$ref": "#/$defs/TemplateAtomic"
       }
     },
     {
@@ -255,55 +165,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "prefix": {
-                    "description": "@pattern ^(prefix_(.*))",
-                    "type": "string"
-                  },
-                  "postfix": {
-                    "description": "@pattern ((.*)_postfix)$",
-                    "type": "string"
-                  },
-                  "middle_string": {
-                    "description": "@pattern ^(the_(.*)_value)$",
-                    "type": "string"
-                  },
-                  "middle_string_empty": {
-                    "description": "@pattern ^(the_(.*)_value)$",
-                    "type": "string"
-                  },
-                  "middle_numeric": {
-                    "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$",
-                    "type": "string"
-                  },
-                  "middle_boolean": {
-                    "type": "string",
-                    "enum": [
-                      "the_false_value",
-                      "the_true_value"
-                    ]
-                  },
-                  "ipv4": {
-                    "description": "@pattern ^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
-                    "type": "string"
-                  },
-                  "email": {
-                    "description": "@pattern ((.*)@(.*)\\.(.*))",
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "prefix",
-                  "postfix",
-                  "middle_string",
-                  "middle_string_empty",
-                  "middle_numeric",
-                  "middle_boolean",
-                  "ipv4",
-                  "email"
-                ],
-                "description": "Current Type: {@link TemplateAtomic}"
+                "$ref": "#/$defs/TemplateAtomic"
               }
             ]
           },
@@ -313,55 +175,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "prefix": {
-                    "description": "@pattern ^(prefix_(.*))",
-                    "type": "string"
-                  },
-                  "postfix": {
-                    "description": "@pattern ((.*)_postfix)$",
-                    "type": "string"
-                  },
-                  "middle_string": {
-                    "description": "@pattern ^(the_(.*)_value)$",
-                    "type": "string"
-                  },
-                  "middle_string_empty": {
-                    "description": "@pattern ^(the_(.*)_value)$",
-                    "type": "string"
-                  },
-                  "middle_numeric": {
-                    "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$",
-                    "type": "string"
-                  },
-                  "middle_boolean": {
-                    "type": "string",
-                    "enum": [
-                      "the_false_value",
-                      "the_true_value"
-                    ]
-                  },
-                  "ipv4": {
-                    "description": "@pattern ^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
-                    "type": "string"
-                  },
-                  "email": {
-                    "description": "@pattern ((.*)@(.*)\\.(.*))",
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "prefix",
-                  "postfix",
-                  "middle_string",
-                  "middle_string_empty",
-                  "middle_numeric",
-                  "middle_boolean",
-                  "ipv4",
-                  "email"
-                ],
-                "description": "Current Type: {@link TemplateAtomic}"
+                "$ref": "#/$defs/TemplateAtomic"
               }
             ]
           },
@@ -371,55 +185,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "prefix": {
-                    "description": "@pattern ^(prefix_(.*))",
-                    "type": "string"
-                  },
-                  "postfix": {
-                    "description": "@pattern ((.*)_postfix)$",
-                    "type": "string"
-                  },
-                  "middle_string": {
-                    "description": "@pattern ^(the_(.*)_value)$",
-                    "type": "string"
-                  },
-                  "middle_string_empty": {
-                    "description": "@pattern ^(the_(.*)_value)$",
-                    "type": "string"
-                  },
-                  "middle_numeric": {
-                    "description": "@pattern ^(the_[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?_value)$",
-                    "type": "string"
-                  },
-                  "middle_boolean": {
-                    "type": "string",
-                    "enum": [
-                      "the_false_value",
-                      "the_true_value"
-                    ]
-                  },
-                  "ipv4": {
-                    "description": "@pattern ^([+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?\\.[+-]?\\d+(?:\\.\\d+)?(?:[eE][+-]?\\d+)?)$",
-                    "type": "string"
-                  },
-                  "email": {
-                    "description": "@pattern ((.*)@(.*)\\.(.*))",
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "prefix",
-                  "postfix",
-                  "middle_string",
-                  "middle_string_empty",
-                  "middle_numeric",
-                  "middle_boolean",
-                  "ipv4",
-                  "email"
-                ],
-                "description": "Current Type: {@link TemplateAtomic}"
+                "$ref": "#/$defs/TemplateAtomic"
               }
             ]
           }
@@ -429,14 +195,8 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "anyOf": [
-          {
-            "type": "null"
-          },
-          {
+        "$defs": {
+          "TemplateAtomic": {
             "type": "object",
             "properties": {
               "prefix": {
@@ -484,8 +244,17 @@
               "middle_boolean",
               "ipv4",
               "email"
-            ],
-            "description": "Current Type: {@link TemplateAtomic}"
+            ]
+          }
+        }
+      },
+      "output": {
+        "anyOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/TemplateAtomic"
           }
         ]
       }

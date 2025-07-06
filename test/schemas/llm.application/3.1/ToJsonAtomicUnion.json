@@ -1,8 +1,8 @@
 {
   "model": "3.1",
   "options": {
+    "reference": true,
     "constraint": true,
-    "reference": false,
     "separate": null
   },
   "functions": [
@@ -12,7 +12,15 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link ToJsonAtomicUnion}",
+            "$ref": "#/$defs/ToJsonAtomicUnion"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ToJsonAtomicUnion": {
             "type": "array",
             "items": {
               "oneOf": [
@@ -31,12 +39,7 @@
               ]
             }
           }
-        },
-        "required": [
-          "first"
-        ],
-        "additionalProperties": false,
-        "$defs": {}
+        }
       }
     },
     {
@@ -45,24 +48,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link ToJsonAtomicUnion}",
-            "type": "array",
-            "items": {
-              "oneOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "number"
-                },
-                {
-                  "type": "boolean"
-                }
-              ]
-            }
+            "$ref": "#/$defs/ToJsonAtomicUnion"
           },
           "second": {
             "oneOf": [
@@ -70,24 +56,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "number"
-                    },
-                    {
-                      "type": "boolean"
-                    }
-                  ]
-                },
-                "description": "Current Type: {@link ToJsonAtomicUnion}"
+                "$ref": "#/$defs/ToJsonAtomicUnion"
               }
             ]
           }
@@ -97,27 +66,30 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "ToJsonAtomicUnion": {
+            "type": "array",
+            "items": {
+              "oneOf": [
+                {
+                  "type": "null"
+                },
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "number"
+                },
+                {
+                  "type": "boolean"
+                }
+              ]
+            }
+          }
+        }
       },
       "output": {
-        "description": "Current Type: {@link ToJsonAtomicUnion}",
-        "type": "array",
-        "items": {
-          "oneOf": [
-            {
-              "type": "null"
-            },
-            {
-              "type": "string"
-            },
-            {
-              "type": "number"
-            },
-            {
-              "type": "boolean"
-            }
-          ]
-        }
+        "$ref": "#/$defs/ToJsonAtomicUnion"
       }
     },
     {
@@ -131,24 +103,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "number"
-                    },
-                    {
-                      "type": "boolean"
-                    }
-                  ]
-                },
-                "description": "Current Type: {@link ToJsonAtomicUnion}"
+                "$ref": "#/$defs/ToJsonAtomicUnion"
               }
             ]
           },
@@ -158,24 +113,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "number"
-                    },
-                    {
-                      "type": "boolean"
-                    }
-                  ]
-                },
-                "description": "Current Type: {@link ToJsonAtomicUnion}"
+                "$ref": "#/$defs/ToJsonAtomicUnion"
               }
             ]
           },
@@ -185,24 +123,7 @@
                 "type": "null"
               },
               {
-                "type": "array",
-                "items": {
-                  "oneOf": [
-                    {
-                      "type": "null"
-                    },
-                    {
-                      "type": "string"
-                    },
-                    {
-                      "type": "number"
-                    },
-                    {
-                      "type": "boolean"
-                    }
-                  ]
-                },
-                "description": "Current Type: {@link ToJsonAtomicUnion}"
+                "$ref": "#/$defs/ToJsonAtomicUnion"
               }
             ]
           }
@@ -212,14 +133,8 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "oneOf": [
-          {
-            "type": "null"
-          },
-          {
+        "$defs": {
+          "ToJsonAtomicUnion": {
             "type": "array",
             "items": {
               "oneOf": [
@@ -236,8 +151,17 @@
                   "type": "boolean"
                 }
               ]
-            },
-            "description": "Current Type: {@link ToJsonAtomicUnion}"
+            }
+          }
+        }
+      },
+      "output": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/ToJsonAtomicUnion"
           }
         ]
       }

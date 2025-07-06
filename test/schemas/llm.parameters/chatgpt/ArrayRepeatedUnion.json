@@ -27,96 +27,7 @@
         {
           "type": "array",
           "items": {
-            "description": "Current Type: {@link ArrayRepeatedUnion.IBox3D}",
-            "type": "object",
-            "properties": {
-              "scale": {
-                "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
-                "type": "object",
-                "properties": {
-                  "x": {
-                    "type": "number"
-                  },
-                  "y": {
-                    "type": "number"
-                  },
-                  "z": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "x",
-                  "y",
-                  "z"
-                ]
-              },
-              "position": {
-                "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
-                "type": "object",
-                "properties": {
-                  "x": {
-                    "type": "number"
-                  },
-                  "y": {
-                    "type": "number"
-                  },
-                  "z": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "x",
-                  "y",
-                  "z"
-                ]
-              },
-              "rotate": {
-                "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
-                "type": "object",
-                "properties": {
-                  "x": {
-                    "type": "number"
-                  },
-                  "y": {
-                    "type": "number"
-                  },
-                  "z": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "x",
-                  "y",
-                  "z"
-                ]
-              },
-              "pivot": {
-                "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
-                "type": "object",
-                "properties": {
-                  "x": {
-                    "type": "number"
-                  },
-                  "y": {
-                    "type": "number"
-                  },
-                  "z": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "x",
-                  "y",
-                  "z"
-                ]
-              }
-            },
-            "required": [
-              "scale",
-              "position",
-              "rotate",
-              "pivot"
-            ]
+            "$ref": "#/$defs/ArrayRepeatedUnion.IBox3D"
           }
         }
       ]
@@ -141,96 +52,7 @@
         {
           "type": "array",
           "items": {
-            "description": "Current Type: {@link ArrayRepeatedUnion.IBox3D}",
-            "type": "object",
-            "properties": {
-              "scale": {
-                "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
-                "type": "object",
-                "properties": {
-                  "x": {
-                    "type": "number"
-                  },
-                  "y": {
-                    "type": "number"
-                  },
-                  "z": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "x",
-                  "y",
-                  "z"
-                ]
-              },
-              "position": {
-                "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
-                "type": "object",
-                "properties": {
-                  "x": {
-                    "type": "number"
-                  },
-                  "y": {
-                    "type": "number"
-                  },
-                  "z": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "x",
-                  "y",
-                  "z"
-                ]
-              },
-              "rotate": {
-                "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
-                "type": "object",
-                "properties": {
-                  "x": {
-                    "type": "number"
-                  },
-                  "y": {
-                    "type": "number"
-                  },
-                  "z": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "x",
-                  "y",
-                  "z"
-                ]
-              },
-              "pivot": {
-                "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
-                "type": "object",
-                "properties": {
-                  "x": {
-                    "type": "number"
-                  },
-                  "y": {
-                    "type": "number"
-                  },
-                  "z": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "x",
-                  "y",
-                  "z"
-                ]
-              }
-            },
-            "required": [
-              "scale",
-              "position",
-              "rotate",
-              "pivot"
-            ]
+            "$ref": "#/$defs/ArrayRepeatedUnion.IBox3D"
           }
         }
       ]
@@ -258,96 +80,7 @@
         {
           "type": "array",
           "items": {
-            "description": "Current Type: {@link ArrayRepeatedUnion.IBox3D}",
-            "type": "object",
-            "properties": {
-              "scale": {
-                "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
-                "type": "object",
-                "properties": {
-                  "x": {
-                    "type": "number"
-                  },
-                  "y": {
-                    "type": "number"
-                  },
-                  "z": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "x",
-                  "y",
-                  "z"
-                ]
-              },
-              "position": {
-                "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
-                "type": "object",
-                "properties": {
-                  "x": {
-                    "type": "number"
-                  },
-                  "y": {
-                    "type": "number"
-                  },
-                  "z": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "x",
-                  "y",
-                  "z"
-                ]
-              },
-              "rotate": {
-                "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
-                "type": "object",
-                "properties": {
-                  "x": {
-                    "type": "number"
-                  },
-                  "y": {
-                    "type": "number"
-                  },
-                  "z": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "x",
-                  "y",
-                  "z"
-                ]
-              },
-              "pivot": {
-                "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
-                "type": "object",
-                "properties": {
-                  "x": {
-                    "type": "number"
-                  },
-                  "y": {
-                    "type": "number"
-                  },
-                  "z": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "x",
-                  "y",
-                  "z"
-                ]
-              }
-            },
-            "required": [
-              "scale",
-              "position",
-              "rotate",
-              "pivot"
-            ]
+            "$ref": "#/$defs/ArrayRepeatedUnion.IBox3D"
           }
         }
       ]
@@ -386,96 +119,7 @@
         {
           "type": "array",
           "items": {
-            "description": "Current Type: {@link ArrayRepeatedUnion.IBox3D}",
-            "type": "object",
-            "properties": {
-              "scale": {
-                "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
-                "type": "object",
-                "properties": {
-                  "x": {
-                    "type": "number"
-                  },
-                  "y": {
-                    "type": "number"
-                  },
-                  "z": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "x",
-                  "y",
-                  "z"
-                ]
-              },
-              "position": {
-                "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
-                "type": "object",
-                "properties": {
-                  "x": {
-                    "type": "number"
-                  },
-                  "y": {
-                    "type": "number"
-                  },
-                  "z": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "x",
-                  "y",
-                  "z"
-                ]
-              },
-              "rotate": {
-                "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
-                "type": "object",
-                "properties": {
-                  "x": {
-                    "type": "number"
-                  },
-                  "y": {
-                    "type": "number"
-                  },
-                  "z": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "x",
-                  "y",
-                  "z"
-                ]
-              },
-              "pivot": {
-                "description": "Current Type: {@link ArrayRepeatedUnion.IPoint3D}",
-                "type": "object",
-                "properties": {
-                  "x": {
-                    "type": "number"
-                  },
-                  "y": {
-                    "type": "number"
-                  },
-                  "z": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "x",
-                  "y",
-                  "z"
-                ]
-              }
-            },
-            "required": [
-              "scale",
-              "position",
-              "rotate",
-              "pivot"
-            ]
+            "$ref": "#/$defs/ArrayRepeatedUnion.IBox3D"
           }
         }
       ]
@@ -485,6 +129,48 @@
       "items": {
         "$ref": "#/$defs/ArrayRepeatedUnion"
       }
+    },
+    "ArrayRepeatedUnion.IBox3D": {
+      "type": "object",
+      "properties": {
+        "scale": {
+          "$ref": "#/$defs/ArrayRepeatedUnion.IPoint3D"
+        },
+        "position": {
+          "$ref": "#/$defs/ArrayRepeatedUnion.IPoint3D"
+        },
+        "rotate": {
+          "$ref": "#/$defs/ArrayRepeatedUnion.IPoint3D"
+        },
+        "pivot": {
+          "$ref": "#/$defs/ArrayRepeatedUnion.IPoint3D"
+        }
+      },
+      "required": [
+        "scale",
+        "position",
+        "rotate",
+        "pivot"
+      ]
+    },
+    "ArrayRepeatedUnion.IPoint3D": {
+      "type": "object",
+      "properties": {
+        "x": {
+          "type": "number"
+        },
+        "y": {
+          "type": "number"
+        },
+        "z": {
+          "type": "number"
+        }
+      },
+      "required": [
+        "x",
+        "y",
+        "z"
+      ]
     }
   }
 }

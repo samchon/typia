@@ -2,71 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "description": "Current Type: {@link ObjectDate}",
-      "type": "object",
-      "properties": {
-        "classDate": {
-          "anyOf": [
-            {
-              "type": "null"
-            },
-            {
-              "type": "string",
-              "description": "@format date-time"
-            }
-          ]
-        },
-        "date": {
-          "anyOf": [
-            {
-              "type": "null"
-            },
-            {
-              "type": "string",
-              "description": "@format date"
-            }
-          ]
-        },
-        "datetime": {
-          "anyOf": [
-            {
-              "type": "null"
-            },
-            {
-              "type": "string",
-              "description": "@format date-time"
-            }
-          ]
-        },
-        "time": {
-          "anyOf": [
-            {
-              "type": "null"
-            },
-            {
-              "type": "string",
-              "description": "@format time"
-            }
-          ]
-        },
-        "duration": {
-          "anyOf": [
-            {
-              "type": "null"
-            },
-            {
-              "type": "string",
-              "description": "@format duration"
-            }
-          ]
-        }
-      },
-      "required": [
-        "date",
-        "datetime",
-        "time",
-        "duration"
-      ]
+      "$ref": "#/$defs/ObjectDate"
     },
     "nullable": {
       "anyOf": [
@@ -74,140 +10,12 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {
-            "classDate": {
-              "anyOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "type": "string",
-                  "description": "@format date-time"
-                }
-              ]
-            },
-            "date": {
-              "anyOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "type": "string",
-                  "description": "@format date"
-                }
-              ]
-            },
-            "datetime": {
-              "anyOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "type": "string",
-                  "description": "@format date-time"
-                }
-              ]
-            },
-            "time": {
-              "anyOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "type": "string",
-                  "description": "@format time"
-                }
-              ]
-            },
-            "duration": {
-              "anyOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "type": "string",
-                  "description": "@format duration"
-                }
-              ]
-            }
-          },
-          "required": [
-            "date",
-            "datetime",
-            "time",
-            "duration"
-          ],
-          "description": "Current Type: {@link ObjectDate}"
+          "$ref": "#/$defs/ObjectDate"
         }
       ]
     },
     "optional": {
-      "description": "Current Type: {@link ObjectDate}",
-      "type": "object",
-      "properties": {
-        "classDate": {
-          "anyOf": [
-            {
-              "type": "null"
-            },
-            {
-              "type": "string",
-              "description": "@format date-time"
-            }
-          ]
-        },
-        "date": {
-          "anyOf": [
-            {
-              "type": "null"
-            },
-            {
-              "type": "string",
-              "description": "@format date"
-            }
-          ]
-        },
-        "datetime": {
-          "anyOf": [
-            {
-              "type": "null"
-            },
-            {
-              "type": "string",
-              "description": "@format date-time"
-            }
-          ]
-        },
-        "time": {
-          "anyOf": [
-            {
-              "type": "null"
-            },
-            {
-              "type": "string",
-              "description": "@format time"
-            }
-          ]
-        },
-        "duration": {
-          "anyOf": [
-            {
-              "type": "null"
-            },
-            {
-              "type": "string",
-              "description": "@format duration"
-            }
-          ]
-        }
-      },
-      "required": [
-        "date",
-        "datetime",
-        "time",
-        "duration"
-      ]
+      "$ref": "#/$defs/ObjectDate"
     },
     "faint": {
       "anyOf": [
@@ -215,142 +23,14 @@
           "type": "null"
         },
         {
-          "type": "object",
-          "properties": {
-            "classDate": {
-              "anyOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "type": "string",
-                  "description": "@format date-time"
-                }
-              ]
-            },
-            "date": {
-              "anyOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "type": "string",
-                  "description": "@format date"
-                }
-              ]
-            },
-            "datetime": {
-              "anyOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "type": "string",
-                  "description": "@format date-time"
-                }
-              ]
-            },
-            "time": {
-              "anyOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "type": "string",
-                  "description": "@format time"
-                }
-              ]
-            },
-            "duration": {
-              "anyOf": [
-                {
-                  "type": "null"
-                },
-                {
-                  "type": "string",
-                  "description": "@format duration"
-                }
-              ]
-            }
-          },
-          "required": [
-            "date",
-            "datetime",
-            "time",
-            "duration"
-          ],
-          "description": "Current Type: {@link ObjectDate}"
+          "$ref": "#/$defs/ObjectDate"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
-        "description": "Current Type: {@link ObjectDate}",
-        "type": "object",
-        "properties": {
-          "classDate": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string",
-                "description": "@format date-time"
-              }
-            ]
-          },
-          "date": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string",
-                "description": "@format date"
-              }
-            ]
-          },
-          "datetime": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string",
-                "description": "@format date-time"
-              }
-            ]
-          },
-          "time": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string",
-                "description": "@format time"
-              }
-            ]
-          },
-          "duration": {
-            "anyOf": [
-              {
-                "type": "null"
-              },
-              {
-                "type": "string",
-                "description": "@format duration"
-              }
-            ]
-          }
-        },
-        "required": [
-          "date",
-          "datetime",
-          "time",
-          "duration"
-        ]
+        "$ref": "#/$defs/ObjectDate"
       }
     }
   },
@@ -360,5 +40,72 @@
     "array"
   ],
   "additionalProperties": false,
-  "$defs": {}
+  "$defs": {
+    "ObjectDate": {
+      "type": "object",
+      "properties": {
+        "classDate": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "description": "@format date-time"
+            }
+          ]
+        },
+        "date": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "description": "@format date"
+            }
+          ]
+        },
+        "datetime": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "description": "@format date-time"
+            }
+          ]
+        },
+        "time": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "description": "@format time"
+            }
+          ]
+        },
+        "duration": {
+          "anyOf": [
+            {
+              "type": "null"
+            },
+            {
+              "type": "string",
+              "description": "@format duration"
+            }
+          ]
+        }
+      },
+      "required": [
+        "date",
+        "datetime",
+        "time",
+        "duration"
+      ]
+    }
+  }
 }

@@ -1,8 +1,8 @@
 {
   "model": "3.0",
   "options": {
-    "constraint": true,
     "recursive": 3,
+    "constraint": true,
     "separate": null
   },
   "functions": [

@@ -2,51 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "description": "Current Type: {@link ObjectUndefined}",
-      "type": "array",
-      "items": {
-        "description": "Current Type: {@link ObjectUndefined.ILecture}",
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "professor": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              }
-            ]
-          },
-          "classroom": {
-            "description": "Current Type: {@link ObjectUndefined.IClassroom}",
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id",
-              "name"
-            ]
-          },
-          "grade": {
-            "type": "number"
-          },
-          "unknown": {}
-        },
-        "required": [
-          "name",
-          "unknown"
-        ]
-      }
+      "$ref": "#/$defs/ObjectUndefined"
     },
     "nullable": {
       "oneOf": [
@@ -54,100 +10,12 @@
           "type": "null"
         },
         {
-          "type": "array",
-          "items": {
-            "description": "Current Type: {@link ObjectUndefined.ILecture}",
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "professor": {
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "number"
-                  }
-                ]
-              },
-              "classroom": {
-                "description": "Current Type: {@link ObjectUndefined.IClassroom}",
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "name": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "id",
-                  "name"
-                ]
-              },
-              "grade": {
-                "type": "number"
-              },
-              "unknown": {}
-            },
-            "required": [
-              "name",
-              "unknown"
-            ]
-          },
-          "description": "Current Type: {@link ObjectUndefined}"
+          "$ref": "#/$defs/ObjectUndefined"
         }
       ]
     },
     "optional": {
-      "description": "Current Type: {@link ObjectUndefined}",
-      "type": "array",
-      "items": {
-        "description": "Current Type: {@link ObjectUndefined.ILecture}",
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "professor": {
-            "oneOf": [
-              {
-                "type": "string"
-              },
-              {
-                "type": "number"
-              }
-            ]
-          },
-          "classroom": {
-            "description": "Current Type: {@link ObjectUndefined.IClassroom}",
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              }
-            },
-            "required": [
-              "id",
-              "name"
-            ]
-          },
-          "grade": {
-            "type": "number"
-          },
-          "unknown": {}
-        },
-        "required": [
-          "name",
-          "unknown"
-        ]
-      }
+      "$ref": "#/$defs/ObjectUndefined"
     },
     "faint": {
       "oneOf": [
@@ -155,102 +23,14 @@
           "type": "null"
         },
         {
-          "type": "array",
-          "items": {
-            "description": "Current Type: {@link ObjectUndefined.ILecture}",
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "professor": {
-                "oneOf": [
-                  {
-                    "type": "string"
-                  },
-                  {
-                    "type": "number"
-                  }
-                ]
-              },
-              "classroom": {
-                "description": "Current Type: {@link ObjectUndefined.IClassroom}",
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "name": {
-                    "type": "string"
-                  }
-                },
-                "required": [
-                  "id",
-                  "name"
-                ]
-              },
-              "grade": {
-                "type": "number"
-              },
-              "unknown": {}
-            },
-            "required": [
-              "name",
-              "unknown"
-            ]
-          },
-          "description": "Current Type: {@link ObjectUndefined}"
+          "$ref": "#/$defs/ObjectUndefined"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
-        "description": "Current Type: {@link ObjectUndefined}",
-        "type": "array",
-        "items": {
-          "description": "Current Type: {@link ObjectUndefined.ILecture}",
-          "type": "object",
-          "properties": {
-            "name": {
-              "type": "string"
-            },
-            "professor": {
-              "oneOf": [
-                {
-                  "type": "string"
-                },
-                {
-                  "type": "number"
-                }
-              ]
-            },
-            "classroom": {
-              "description": "Current Type: {@link ObjectUndefined.IClassroom}",
-              "type": "object",
-              "properties": {
-                "id": {
-                  "type": "string"
-                },
-                "name": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "id",
-                "name"
-              ]
-            },
-            "grade": {
-              "type": "number"
-            },
-            "unknown": {}
-          },
-          "required": [
-            "name",
-            "unknown"
-          ]
-        }
+        "$ref": "#/$defs/ObjectUndefined"
       }
     }
   },
@@ -260,5 +40,56 @@
     "array"
   ],
   "additionalProperties": false,
-  "$defs": {}
+  "$defs": {
+    "ObjectUndefined": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ObjectUndefined.ILecture"
+      }
+    },
+    "ObjectUndefined.ILecture": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "professor": {
+          "oneOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "number"
+            }
+          ]
+        },
+        "classroom": {
+          "$ref": "#/$defs/ObjectUndefined.IClassroom"
+        },
+        "grade": {
+          "type": "number"
+        },
+        "unknown": {}
+      },
+      "required": [
+        "name",
+        "unknown"
+      ]
+    },
+    "ObjectUndefined.IClassroom": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "name": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "name"
+      ]
+    }
+  }
 }

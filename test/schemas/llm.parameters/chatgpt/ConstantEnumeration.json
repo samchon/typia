@@ -2,28 +2,7 @@
   "type": "object",
   "properties": {
     "regular": {
-      "description": "Current Type: {@link ConstantEnumeration}",
-      "type": "array",
-      "items": {
-        "description": "Current Type: {@link ConstantEnumeration.Enumeration}",
-        "anyOf": [
-          {
-            "type": "number",
-            "enum": [
-              0,
-              1,
-              2
-            ]
-          },
-          {
-            "type": "string",
-            "enum": [
-              "Three",
-              "Four"
-            ]
-          }
-        ]
-      }
+      "$ref": "#/$defs/ConstantEnumeration"
     },
     "nullable": {
       "anyOf": [
@@ -31,54 +10,12 @@
           "type": "null"
         },
         {
-          "type": "array",
-          "items": {
-            "description": "Current Type: {@link ConstantEnumeration.Enumeration}",
-            "anyOf": [
-              {
-                "type": "number",
-                "enum": [
-                  0,
-                  1,
-                  2
-                ]
-              },
-              {
-                "type": "string",
-                "enum": [
-                  "Three",
-                  "Four"
-                ]
-              }
-            ]
-          },
-          "description": "Current Type: {@link ConstantEnumeration}"
+          "$ref": "#/$defs/ConstantEnumeration"
         }
       ]
     },
     "optional": {
-      "description": "Current Type: {@link ConstantEnumeration}",
-      "type": "array",
-      "items": {
-        "description": "Current Type: {@link ConstantEnumeration.Enumeration}",
-        "anyOf": [
-          {
-            "type": "number",
-            "enum": [
-              0,
-              1,
-              2
-            ]
-          },
-          {
-            "type": "string",
-            "enum": [
-              "Three",
-              "Four"
-            ]
-          }
-        ]
-      }
+      "$ref": "#/$defs/ConstantEnumeration"
     },
     "faint": {
       "anyOf": [
@@ -86,56 +23,14 @@
           "type": "null"
         },
         {
-          "type": "array",
-          "items": {
-            "description": "Current Type: {@link ConstantEnumeration.Enumeration}",
-            "anyOf": [
-              {
-                "type": "number",
-                "enum": [
-                  0,
-                  1,
-                  2
-                ]
-              },
-              {
-                "type": "string",
-                "enum": [
-                  "Three",
-                  "Four"
-                ]
-              }
-            ]
-          },
-          "description": "Current Type: {@link ConstantEnumeration}"
+          "$ref": "#/$defs/ConstantEnumeration"
         }
       ]
     },
     "array": {
       "type": "array",
       "items": {
-        "description": "Current Type: {@link ConstantEnumeration}",
-        "type": "array",
-        "items": {
-          "description": "Current Type: {@link ConstantEnumeration.Enumeration}",
-          "anyOf": [
-            {
-              "type": "number",
-              "enum": [
-                0,
-                1,
-                2
-              ]
-            },
-            {
-              "type": "string",
-              "enum": [
-                "Three",
-                "Four"
-              ]
-            }
-          ]
-        }
+        "$ref": "#/$defs/ConstantEnumeration"
       }
     }
   },
@@ -145,5 +40,31 @@
     "array"
   ],
   "additionalProperties": false,
-  "$defs": {}
+  "$defs": {
+    "ConstantEnumeration": {
+      "type": "array",
+      "items": {
+        "$ref": "#/$defs/ConstantEnumeration.Enumeration"
+      }
+    },
+    "ConstantEnumeration.Enumeration": {
+      "anyOf": [
+        {
+          "type": "number",
+          "enum": [
+            0,
+            1,
+            2
+          ]
+        },
+        {
+          "type": "string",
+          "enum": [
+            "Three",
+            "Four"
+          ]
+        }
+      ]
+    }
+  }
 }

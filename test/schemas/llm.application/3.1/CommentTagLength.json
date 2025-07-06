@@ -1,8 +1,8 @@
 {
   "model": "3.1",
   "options": {
+    "reference": true,
     "constraint": true,
-    "reference": false,
     "separate": null
   },
   "functions": [
@@ -12,59 +12,64 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link CommentTagLength}",
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "array",
-                "items": {
-                  "description": "Current Type: {@link CommentTagLength.Type}",
-                  "type": "object",
-                  "properties": {
-                    "fixed": {
-                      "type": "string",
-                      "minLength": 5,
-                      "maxLength": 5
-                    },
-                    "minimum": {
-                      "type": "string",
-                      "minLength": 3
-                    },
-                    "maximum": {
-                      "type": "string",
-                      "maxLength": 7
-                    },
-                    "minimum_and_maximum": {
-                      "type": "string",
-                      "minLength": 3,
-                      "maxLength": 7
-                    },
-                    "equal": {
-                      "type": "string",
-                      "minLength": 10,
-                      "maxLength": 19
-                    }
-                  },
-                  "required": [
-                    "fixed",
-                    "minimum",
-                    "maximum",
-                    "minimum_and_maximum",
-                    "equal"
-                  ]
-                }
-              }
-            },
-            "required": [
-              "value"
-            ]
+            "$ref": "#/$defs/CommentTagLength"
           }
         },
         "required": [
           "first"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "CommentTagLength": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/CommentTagLength.Type"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "CommentTagLength.Type": {
+            "type": "object",
+            "properties": {
+              "fixed": {
+                "type": "string",
+                "minLength": 5,
+                "maxLength": 5
+              },
+              "minimum": {
+                "type": "string",
+                "minLength": 3
+              },
+              "maximum": {
+                "type": "string",
+                "maxLength": 7
+              },
+              "minimum_and_maximum": {
+                "type": "string",
+                "minLength": 3,
+                "maxLength": 7
+              },
+              "equal": {
+                "type": "string",
+                "minLength": 10,
+                "maxLength": 19
+              }
+            },
+            "required": [
+              "fixed",
+              "minimum",
+              "maximum",
+              "minimum_and_maximum",
+              "equal"
+            ]
+          }
+        }
       }
     },
     {
@@ -73,52 +78,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link CommentTagLength}",
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "array",
-                "items": {
-                  "description": "Current Type: {@link CommentTagLength.Type}",
-                  "type": "object",
-                  "properties": {
-                    "fixed": {
-                      "type": "string",
-                      "minLength": 5,
-                      "maxLength": 5
-                    },
-                    "minimum": {
-                      "type": "string",
-                      "minLength": 3
-                    },
-                    "maximum": {
-                      "type": "string",
-                      "maxLength": 7
-                    },
-                    "minimum_and_maximum": {
-                      "type": "string",
-                      "minLength": 3,
-                      "maxLength": 7
-                    },
-                    "equal": {
-                      "type": "string",
-                      "minLength": 10,
-                      "maxLength": 19
-                    }
-                  },
-                  "required": [
-                    "fixed",
-                    "minimum",
-                    "maximum",
-                    "minimum_and_maximum",
-                    "equal"
-                  ]
-                }
-              }
-            },
-            "required": [
-              "value"
-            ]
+            "$ref": "#/$defs/CommentTagLength"
           },
           "second": {
             "oneOf": [
@@ -126,52 +86,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "description": "Current Type: {@link CommentTagLength.Type}",
-                      "type": "object",
-                      "properties": {
-                        "fixed": {
-                          "type": "string",
-                          "minLength": 5,
-                          "maxLength": 5
-                        },
-                        "minimum": {
-                          "type": "string",
-                          "minLength": 3
-                        },
-                        "maximum": {
-                          "type": "string",
-                          "maxLength": 7
-                        },
-                        "minimum_and_maximum": {
-                          "type": "string",
-                          "minLength": 3,
-                          "maxLength": 7
-                        },
-                        "equal": {
-                          "type": "string",
-                          "minLength": 10,
-                          "maxLength": 19
-                        }
-                      },
-                      "required": [
-                        "fixed",
-                        "minimum",
-                        "maximum",
-                        "minimum_and_maximum",
-                        "equal"
-                      ]
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "description": "Current Type: {@link CommentTagLength}"
+                "$ref": "#/$defs/CommentTagLength"
               }
             ]
           }
@@ -181,55 +96,60 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "CommentTagLength": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/CommentTagLength.Type"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "CommentTagLength.Type": {
+            "type": "object",
+            "properties": {
+              "fixed": {
+                "type": "string",
+                "minLength": 5,
+                "maxLength": 5
+              },
+              "minimum": {
+                "type": "string",
+                "minLength": 3
+              },
+              "maximum": {
+                "type": "string",
+                "maxLength": 7
+              },
+              "minimum_and_maximum": {
+                "type": "string",
+                "minLength": 3,
+                "maxLength": 7
+              },
+              "equal": {
+                "type": "string",
+                "minLength": 10,
+                "maxLength": 19
+              }
+            },
+            "required": [
+              "fixed",
+              "minimum",
+              "maximum",
+              "minimum_and_maximum",
+              "equal"
+            ]
+          }
+        }
       },
       "output": {
-        "description": "Current Type: {@link CommentTagLength}",
-        "type": "object",
-        "properties": {
-          "value": {
-            "type": "array",
-            "items": {
-              "description": "Current Type: {@link CommentTagLength.Type}",
-              "type": "object",
-              "properties": {
-                "fixed": {
-                  "type": "string",
-                  "minLength": 5,
-                  "maxLength": 5
-                },
-                "minimum": {
-                  "type": "string",
-                  "minLength": 3
-                },
-                "maximum": {
-                  "type": "string",
-                  "maxLength": 7
-                },
-                "minimum_and_maximum": {
-                  "type": "string",
-                  "minLength": 3,
-                  "maxLength": 7
-                },
-                "equal": {
-                  "type": "string",
-                  "minLength": 10,
-                  "maxLength": 19
-                }
-              },
-              "required": [
-                "fixed",
-                "minimum",
-                "maximum",
-                "minimum_and_maximum",
-                "equal"
-              ]
-            }
-          }
-        },
-        "required": [
-          "value"
-        ]
+        "$ref": "#/$defs/CommentTagLength"
       }
     },
     {
@@ -243,52 +163,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "description": "Current Type: {@link CommentTagLength.Type}",
-                      "type": "object",
-                      "properties": {
-                        "fixed": {
-                          "type": "string",
-                          "minLength": 5,
-                          "maxLength": 5
-                        },
-                        "minimum": {
-                          "type": "string",
-                          "minLength": 3
-                        },
-                        "maximum": {
-                          "type": "string",
-                          "maxLength": 7
-                        },
-                        "minimum_and_maximum": {
-                          "type": "string",
-                          "minLength": 3,
-                          "maxLength": 7
-                        },
-                        "equal": {
-                          "type": "string",
-                          "minLength": 10,
-                          "maxLength": 19
-                        }
-                      },
-                      "required": [
-                        "fixed",
-                        "minimum",
-                        "maximum",
-                        "minimum_and_maximum",
-                        "equal"
-                      ]
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "description": "Current Type: {@link CommentTagLength}"
+                "$ref": "#/$defs/CommentTagLength"
               }
             ]
           },
@@ -298,52 +173,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "description": "Current Type: {@link CommentTagLength.Type}",
-                      "type": "object",
-                      "properties": {
-                        "fixed": {
-                          "type": "string",
-                          "minLength": 5,
-                          "maxLength": 5
-                        },
-                        "minimum": {
-                          "type": "string",
-                          "minLength": 3
-                        },
-                        "maximum": {
-                          "type": "string",
-                          "maxLength": 7
-                        },
-                        "minimum_and_maximum": {
-                          "type": "string",
-                          "minLength": 3,
-                          "maxLength": 7
-                        },
-                        "equal": {
-                          "type": "string",
-                          "minLength": 10,
-                          "maxLength": 19
-                        }
-                      },
-                      "required": [
-                        "fixed",
-                        "minimum",
-                        "maximum",
-                        "minimum_and_maximum",
-                        "equal"
-                      ]
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "description": "Current Type: {@link CommentTagLength}"
+                "$ref": "#/$defs/CommentTagLength"
               }
             ]
           },
@@ -353,52 +183,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "value": {
-                    "type": "array",
-                    "items": {
-                      "description": "Current Type: {@link CommentTagLength.Type}",
-                      "type": "object",
-                      "properties": {
-                        "fixed": {
-                          "type": "string",
-                          "minLength": 5,
-                          "maxLength": 5
-                        },
-                        "minimum": {
-                          "type": "string",
-                          "minLength": 3
-                        },
-                        "maximum": {
-                          "type": "string",
-                          "maxLength": 7
-                        },
-                        "minimum_and_maximum": {
-                          "type": "string",
-                          "minLength": 3,
-                          "maxLength": 7
-                        },
-                        "equal": {
-                          "type": "string",
-                          "minLength": 10,
-                          "maxLength": 19
-                        }
-                      },
-                      "required": [
-                        "fixed",
-                        "minimum",
-                        "maximum",
-                        "minimum_and_maximum",
-                        "equal"
-                      ]
-                    }
-                  }
-                },
-                "required": [
-                  "value"
-                ],
-                "description": "Current Type: {@link CommentTagLength}"
+                "$ref": "#/$defs/CommentTagLength"
               }
             ]
           }
@@ -408,7 +193,57 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "CommentTagLength": {
+            "type": "object",
+            "properties": {
+              "value": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/$defs/CommentTagLength.Type"
+                }
+              }
+            },
+            "required": [
+              "value"
+            ]
+          },
+          "CommentTagLength.Type": {
+            "type": "object",
+            "properties": {
+              "fixed": {
+                "type": "string",
+                "minLength": 5,
+                "maxLength": 5
+              },
+              "minimum": {
+                "type": "string",
+                "minLength": 3
+              },
+              "maximum": {
+                "type": "string",
+                "maxLength": 7
+              },
+              "minimum_and_maximum": {
+                "type": "string",
+                "minLength": 3,
+                "maxLength": 7
+              },
+              "equal": {
+                "type": "string",
+                "minLength": 10,
+                "maxLength": 19
+              }
+            },
+            "required": [
+              "fixed",
+              "minimum",
+              "maximum",
+              "minimum_and_maximum",
+              "equal"
+            ]
+          }
+        }
       },
       "output": {
         "oneOf": [
@@ -416,52 +251,7 @@
             "type": "null"
           },
           {
-            "type": "object",
-            "properties": {
-              "value": {
-                "type": "array",
-                "items": {
-                  "description": "Current Type: {@link CommentTagLength.Type}",
-                  "type": "object",
-                  "properties": {
-                    "fixed": {
-                      "type": "string",
-                      "minLength": 5,
-                      "maxLength": 5
-                    },
-                    "minimum": {
-                      "type": "string",
-                      "minLength": 3
-                    },
-                    "maximum": {
-                      "type": "string",
-                      "maxLength": 7
-                    },
-                    "minimum_and_maximum": {
-                      "type": "string",
-                      "minLength": 3,
-                      "maxLength": 7
-                    },
-                    "equal": {
-                      "type": "string",
-                      "minLength": 10,
-                      "maxLength": 19
-                    }
-                  },
-                  "required": [
-                    "fixed",
-                    "minimum",
-                    "maximum",
-                    "minimum_and_maximum",
-                    "equal"
-                  ]
-                }
-              }
-            },
-            "required": [
-              "value"
-            ],
-            "description": "Current Type: {@link CommentTagLength}"
+            "$ref": "#/$defs/CommentTagLength"
           }
         ]
       }

@@ -1,7 +1,7 @@
 {
   "model": "llama",
   "options": {
-    "reference": false,
+    "reference": true,
     "separate": null
   },
   "functions": [
@@ -11,7 +11,15 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link ClassMethod.Animal}",
+            "$ref": "#/$defs/ClassMethod.Animal"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ClassMethod.Animal": {
             "type": "object",
             "properties": {
               "name": {
@@ -26,12 +34,7 @@
               "age"
             ]
           }
-        },
-        "required": [
-          "first"
-        ],
-        "additionalProperties": false,
-        "$defs": {}
+        }
       }
     },
     {
@@ -40,20 +43,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link ClassMethod.Animal}",
-            "type": "object",
-            "properties": {
-              "name": {
-                "type": "string"
-              },
-              "age": {
-                "type": "number"
-              }
-            },
-            "required": [
-              "name",
-              "age"
-            ]
+            "$ref": "#/$defs/ClassMethod.Animal"
           },
           "second": {
             "oneOf": [
@@ -61,20 +51,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "age": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "name",
-                  "age"
-                ],
-                "description": "Current Type: {@link ClassMethod.Animal}"
+                "$ref": "#/$defs/ClassMethod.Animal"
               }
             ]
           }
@@ -84,23 +61,26 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "ClassMethod.Animal": {
+            "type": "object",
+            "properties": {
+              "name": {
+                "type": "string"
+              },
+              "age": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "name",
+              "age"
+            ]
+          }
+        }
       },
       "output": {
-        "description": "Current Type: {@link ClassMethod.Animal}",
-        "type": "object",
-        "properties": {
-          "name": {
-            "type": "string"
-          },
-          "age": {
-            "type": "number"
-          }
-        },
-        "required": [
-          "name",
-          "age"
-        ]
+        "$ref": "#/$defs/ClassMethod.Animal"
       }
     },
     {
@@ -114,20 +94,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "age": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "name",
-                  "age"
-                ],
-                "description": "Current Type: {@link ClassMethod.Animal}"
+                "$ref": "#/$defs/ClassMethod.Animal"
               }
             ]
           },
@@ -137,20 +104,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "age": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "name",
-                  "age"
-                ],
-                "description": "Current Type: {@link ClassMethod.Animal}"
+                "$ref": "#/$defs/ClassMethod.Animal"
               }
             ]
           },
@@ -160,20 +114,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "name": {
-                    "type": "string"
-                  },
-                  "age": {
-                    "type": "number"
-                  }
-                },
-                "required": [
-                  "name",
-                  "age"
-                ],
-                "description": "Current Type: {@link ClassMethod.Animal}"
+                "$ref": "#/$defs/ClassMethod.Animal"
               }
             ]
           }
@@ -183,14 +124,8 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "oneOf": [
-          {
-            "type": "null"
-          },
-          {
+        "$defs": {
+          "ClassMethod.Animal": {
             "type": "object",
             "properties": {
               "name": {
@@ -203,8 +138,17 @@
             "required": [
               "name",
               "age"
-            ],
-            "description": "Current Type: {@link ClassMethod.Animal}"
+            ]
+          }
+        }
+      },
+      "output": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/ClassMethod.Animal"
           }
         ]
       }

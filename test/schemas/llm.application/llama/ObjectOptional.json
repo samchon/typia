@@ -1,7 +1,7 @@
 {
   "model": "llama",
   "options": {
-    "reference": false,
+    "reference": true,
     "separate": null
   },
   "functions": [
@@ -11,7 +11,15 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link ObjectOptional}",
+            "$ref": "#/$defs/ObjectOptional"
+          }
+        },
+        "required": [
+          "first"
+        ],
+        "additionalProperties": false,
+        "$defs": {
+          "ObjectOptional": {
             "type": "object",
             "properties": {
               "id": {
@@ -29,12 +37,7 @@
             },
             "required": []
           }
-        },
-        "required": [
-          "first"
-        ],
-        "additionalProperties": false,
-        "$defs": {}
+        }
       }
     },
     {
@@ -43,23 +46,7 @@
         "type": "object",
         "properties": {
           "first": {
-            "description": "Current Type: {@link ObjectOptional}",
-            "type": "object",
-            "properties": {
-              "id": {
-                "type": "string"
-              },
-              "name": {
-                "type": "string"
-              },
-              "email": {
-                "type": "string"
-              },
-              "sequence": {
-                "type": "number"
-              }
-            },
-            "required": []
+            "$ref": "#/$defs/ObjectOptional"
           },
           "second": {
             "oneOf": [
@@ -67,23 +54,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "email": {
-                    "type": "string"
-                  },
-                  "sequence": {
-                    "type": "number"
-                  }
-                },
-                "required": [],
-                "description": "Current Type: {@link ObjectOptional}"
+                "$ref": "#/$defs/ObjectOptional"
               }
             ]
           }
@@ -93,26 +64,29 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
+        "$defs": {
+          "ObjectOptional": {
+            "type": "object",
+            "properties": {
+              "id": {
+                "type": "string"
+              },
+              "name": {
+                "type": "string"
+              },
+              "email": {
+                "type": "string"
+              },
+              "sequence": {
+                "type": "number"
+              }
+            },
+            "required": []
+          }
+        }
       },
       "output": {
-        "description": "Current Type: {@link ObjectOptional}",
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string"
-          },
-          "name": {
-            "type": "string"
-          },
-          "email": {
-            "type": "string"
-          },
-          "sequence": {
-            "type": "number"
-          }
-        },
-        "required": []
+        "$ref": "#/$defs/ObjectOptional"
       }
     },
     {
@@ -126,23 +100,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "email": {
-                    "type": "string"
-                  },
-                  "sequence": {
-                    "type": "number"
-                  }
-                },
-                "required": [],
-                "description": "Current Type: {@link ObjectOptional}"
+                "$ref": "#/$defs/ObjectOptional"
               }
             ]
           },
@@ -152,23 +110,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "email": {
-                    "type": "string"
-                  },
-                  "sequence": {
-                    "type": "number"
-                  }
-                },
-                "required": [],
-                "description": "Current Type: {@link ObjectOptional}"
+                "$ref": "#/$defs/ObjectOptional"
               }
             ]
           },
@@ -178,23 +120,7 @@
                 "type": "null"
               },
               {
-                "type": "object",
-                "properties": {
-                  "id": {
-                    "type": "string"
-                  },
-                  "name": {
-                    "type": "string"
-                  },
-                  "email": {
-                    "type": "string"
-                  },
-                  "sequence": {
-                    "type": "number"
-                  }
-                },
-                "required": [],
-                "description": "Current Type: {@link ObjectOptional}"
+                "$ref": "#/$defs/ObjectOptional"
               }
             ]
           }
@@ -204,14 +130,8 @@
           "second"
         ],
         "additionalProperties": false,
-        "$defs": {}
-      },
-      "output": {
-        "oneOf": [
-          {
-            "type": "null"
-          },
-          {
+        "$defs": {
+          "ObjectOptional": {
             "type": "object",
             "properties": {
               "id": {
@@ -227,8 +147,17 @@
                 "type": "number"
               }
             },
-            "required": [],
-            "description": "Current Type: {@link ObjectOptional}"
+            "required": []
+          }
+        }
+      },
+      "output": {
+        "oneOf": [
+          {
+            "type": "null"
+          },
+          {
+            "$ref": "#/$defs/ObjectOptional"
           }
         ]
       }
