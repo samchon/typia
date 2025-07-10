@@ -4,7 +4,7 @@ interface IMember {
   /**
    * Primary Key.
    *
-   * Above "Primary Key" would be the title of LLM schema.
+   * This description would be the description of LLM schema.
    */
   id: string;
 
