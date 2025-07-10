@@ -49,7 +49,6 @@
           "deprecated": true
         },
         "description": {
-          "title": "Descripted property",
           "description": "Descripted property.",
           "type": "string"
         },

@@ -26,13 +26,11 @@
             "type": "object",
             "properties": {
               "id": {
-                "title": "Primary Key",
                 "description": "Primary Key.",
                 "type": "string",
                 "format": "uuid"
               },
               "deprecated": {
-                "title": "Deprecated property",
                 "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON schema.",
                 "type": "boolean",
                 "deprecated": true
@@ -43,7 +41,6 @@
                 "type": "string"
               },
               "descriptions": {
-                "title": "Description property",
                 "description": "Description property.\n\nIf you write first line and the first line ends with \".\" character,\nit would be considered as the title. By the way, description does\nnot exclusive the title, so that full content be written.",
                 "type": "array",
                 "items": {
@@ -97,13 +94,11 @@
             "type": "object",
             "properties": {
               "id": {
-                "title": "Primary Key",
                 "description": "Primary Key.",
                 "type": "string",
                 "format": "uuid"
               },
               "deprecated": {
-                "title": "Deprecated property",
                 "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON schema.",
                 "type": "boolean",
                 "deprecated": true
@@ -114,7 +109,6 @@
                 "type": "string"
               },
               "descriptions": {
-                "title": "Description property",
                 "description": "Description property.\n\nIf you write first line and the first line ends with \".\" character,\nit would be considered as the title. By the way, description does\nnot exclusive the title, so that full content be written.",
                 "type": "array",
                 "items": {
@@ -188,13 +182,11 @@
             "type": "object",
             "properties": {
               "id": {
-                "title": "Primary Key",
                 "description": "Primary Key.",
                 "type": "string",
                 "format": "uuid"
               },
               "deprecated": {
-                "title": "Deprecated property",
                 "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON schema.",
                 "type": "boolean",
                 "deprecated": true
@@ -205,7 +197,6 @@
                 "type": "string"
               },
               "descriptions": {
-                "title": "Description property",
                 "description": "Description property.\n\nIf you write first line and the first line ends with \".\" character,\nit would be considered as the title. By the way, description does\nnot exclusive the title, so that full content be written.",
                 "type": "array",
                 "items": {

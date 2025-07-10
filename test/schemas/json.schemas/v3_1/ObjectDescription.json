@@ -8,13 +8,11 @@
           "id": {
             "type": "string",
             "format": "uuid",
-            "title": "Primary Key",
             "description": "Primary Key."
           },
           "deprecated": {
             "type": "boolean",
             "deprecated": true,
-            "title": "Deprecated property",
             "description": "Deprecated property.\n\nIf `@deprecated` comment tag being utilized, the property will be marked\nas deprecated in the JSON schema."
           },
           "title": {
@@ -27,7 +25,6 @@
             "items": {
               "type": "string"
             },
-            "title": "Description property",
             "description": "Description property.\n\nIf you write first line and the first line ends with \".\" character,\nit would be considered as the title. By the way, description does\nnot exclusive the title, so that full content be written."
           },
           "newLine": {

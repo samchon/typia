@@ -11,13 +11,11 @@
             "properties": {
               "int": {
                 "type": "integer",
-                "title": "Integer value",
                 "description": "Integer value."
               },
               "uint": {
                 "type": "integer",
                 "minimum": 0,
-                "title": "Unsigned integer value",
                 "description": "Unsigned integer value."
               },
               "int32": {
@@ -68,13 +66,11 @@
             "properties": {
               "int": {
                 "type": "integer",
-                "title": "Integer value",
                 "description": "Integer value."
               },
               "uint": {
                 "type": "integer",
                 "minimum": 0,
-                "title": "Unsigned integer value",
                 "description": "Unsigned integer value."
               },
               "int32": {
@@ -125,13 +121,11 @@
             "properties": {
               "int": {
                 "type": "integer",
-                "title": "Integer value",
                 "description": "Integer value."
               },
               "uint": {
                 "type": "integer",
                 "minimum": 0,
-                "title": "Unsigned integer value",
                 "description": "Unsigned integer value."
               },
               "int32": {
@@ -182,13 +176,11 @@
             "properties": {
               "int": {
                 "type": "integer",
-                "title": "Integer value",
                 "description": "Integer value."
               },
               "uint": {
                 "type": "integer",
                 "minimum": 0,
-                "title": "Unsigned integer value",
                 "description": "Unsigned integer value."
               },
               "int32": {
@@ -241,13 +233,11 @@
               "properties": {
                 "int": {
                   "type": "integer",
-                  "title": "Integer value",
                   "description": "Integer value."
                 },
                 "uint": {
                   "type": "integer",
                   "minimum": 0,
-                  "title": "Unsigned integer value",
                   "description": "Unsigned integer value."
                 },
                 "int32": {

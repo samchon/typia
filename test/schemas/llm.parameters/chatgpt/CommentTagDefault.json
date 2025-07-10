@@ -45,27 +45,22 @@
       "type": "object",
       "properties": {
         "boolean": {
-          "title": "Default tag on `boolean` typed value",
           "description": "Default tag on `boolean` typed value.",
           "type": "boolean"
         },
         "number": {
-          "title": "Default tag on `number` typed value",
           "description": "Default tag on `number` typed value.",
           "type": "number"
         },
         "string": {
-          "title": "Default tag on `string` typed value",
           "description": "Default tag on `string` typed value.",
           "type": "string"
         },
         "text": {
-          "title": "Default tag on `string` typed value with long characters",
           "description": "Default tag on `string` typed value with long characters.",
           "type": "string"
         },
         "boolean_and_number_and_string": {
-          "title": "Default value on union typed property",
           "description": "Default value on union typed property.",
           "anyOf": [
             {
@@ -80,7 +75,6 @@
           ]
         },
         "union_but_boolean": {
-          "title": "Default value on union typed property",
           "description": "Default value on union typed property.",
           "anyOf": [
             {
@@ -95,7 +89,6 @@
           ]
         },
         "union_but_number": {
-          "title": "Default value on union typed property",
           "description": "Default value on union typed property.",
           "anyOf": [
             {
@@ -110,7 +103,6 @@
           ]
         },
         "union_but_string": {
-          "title": "Default value on union typed property",
           "description": "Default value on union typed property.",
           "anyOf": [
             {
@@ -125,12 +117,10 @@
           ]
         },
         "vulnerable_range": {
-          "title": "Default value on union typed property",
           "description": "Default value on union typed property.\n\n\n@minimum 3\n@maximum 5",
           "type": "number"
         },
         "boolean_and_number_and_template": {
-          "title": "Default value on union typed property",
           "description": "Default value on union typed property.",
           "anyOf": [
             {
