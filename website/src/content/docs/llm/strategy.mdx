@@ -36,11 +36,9 @@ Writes a new article and archives it into the DB.
 
 Here is the example code utilizing the `typia.llm.application<App, Model>()` function.
 
-As you can see, above example code is writing detailed descriptions for every functions and their parameter/return types. Such detailed descriptions are very important to teach the purpose of the function to the LLM (Language Large Model), and LLM actually determines which function to call by the description. Therefore, don’t forget to writing detailed descriptions. It’s very import feature for the LLM function calling.
+As you can see, above example code is writing detailed descriptions for every functions and their parameter/return types. Such detailed descriptions are very important to teach the purpose of the function to the LLM (Language Large Model), and LLM actually determines which function to call by the description. Therefore, don't forget to writing detailed descriptions. It's very import feature for the LLM function calling.
 
-Also, `ILlmFunction` type which has only `description` property about the comment, but `ILlmSchema` has two descriptive properties; `description` and `title`. The `title` property of the `ILlmSchema` can be filled by two ways. The first way is closing the first line of the description comment with a period (`.`). By the way, this way's `description` property would be the entire description comment even including the first line. 
-
-If you don't want that, you can adapt the second way that writing `@title {string}` comment tag. In that case, the `title` value would not be contained in the `description` value. For reference, it is possible to fill the `description` property of the `ILlmSchema` by the comment tag `@description`, but you have to take care of the indentation like below.
+Also, `ILlmFunction` type which has only `description` property about the comment, but `ILlmSchema` has two descriptive properties; `description` and `title`. The `title` property of the `ILlmSchema` can be filled by writing `@title {string}` comment tag. In that case, the `title` value would not be contained in the `description` value. For reference, it is possible to fill the `description` property of the `ILlmSchema` by the comment tag `@description`, but you have to take care of the indentation like below.
 
 <LocalSource 
   path="examples/src/llm/IMember.ts"
