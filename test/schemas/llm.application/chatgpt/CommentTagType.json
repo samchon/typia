@@ -38,12 +38,10 @@
             "type": "object",
             "properties": {
               "int": {
-                "title": "Integer value",
                 "description": "Integer value.",
                 "type": "integer"
               },
               "uint": {
-                "title": "Unsigned integer value",
                 "description": "Unsigned integer value.\n\n\n@minimum 0",
                 "type": "integer"
               },
@@ -121,12 +119,10 @@
             "type": "object",
             "properties": {
               "int": {
-                "title": "Integer value",
                 "description": "Integer value.",
                 "type": "integer"
               },
               "uint": {
-                "title": "Unsigned integer value",
                 "description": "Unsigned integer value.\n\n\n@minimum 0",
                 "type": "integer"
               },
@@ -224,12 +220,10 @@
             "type": "object",
             "properties": {
               "int": {
-                "title": "Integer value",
                 "description": "Integer value.",
                 "type": "integer"
               },
               "uint": {
-                "title": "Unsigned integer value",
                 "description": "Unsigned integer value.\n\n\n@minimum 0",
                 "type": "integer"
               },
