@@ -4,6 +4,7 @@ import fs from "fs";
 import { TestFeature } from "./internal/TestFeature";
 import { TestJsonSchemaGenerator } from "./internal/TestJsonSchemaGenerator";
 import { TestJsonSchemasGenerator } from "./internal/TestJsonSchemasGenerator";
+import { TestLlmApplicationEqualsGenerator } from "./internal/TestLlmApplicationEqualsGenerator";
 import { TestLlmApplicationGenerator } from "./internal/TestLlmApplicationGenerator";
 import { TestLlmParametersGenerator } from "./internal/TestLlmParametersGenerator";
 import { TestLlmSchemaGenerator } from "./internal/TestLlmSchemaGenerator";
@@ -187,6 +188,7 @@ async function main(): Promise<void> {
 
   // LLM SCHEMAS AGAIN
   await TestLlmApplicationGenerator.generate(structures);
+  await TestLlmApplicationEqualsGenerator.generate(structures);
   await TestLlmParametersGenerator.generate(structures);
   await TestLlmSchemaGenerator.generate(structures);
 
