@@ -87,7 +87,11 @@ export namespace LlmApplicationTransformer {
       method,
       node: props.expression.typeArguments[1],
     });
-    const config: Partial<ILlmSchema.IConfig> = LlmModelPredicator.getConfig({
+    const config: Partial<
+      ILlmSchema.IConfig & {
+        strict: boolean;
+      }
+    > = LlmModelPredicator.getConfig({
       context: props.context,
       method,
       model,
