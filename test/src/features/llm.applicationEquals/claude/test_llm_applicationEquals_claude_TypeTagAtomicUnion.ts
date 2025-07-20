@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_claude_TypeTagAtomicUnion = (): void =>
     typia.llm.application<
       TypeTagAtomicUnionApplication,
       "claude",
-      { equals:; true }
+      { equals: true }
     >(),
   );
 

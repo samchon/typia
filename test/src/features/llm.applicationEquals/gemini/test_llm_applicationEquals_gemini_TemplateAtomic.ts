@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_gemini_TemplateAtomic = (): void =>
     typia.llm.application<
       TemplateAtomicApplication,
       "gemini",
-      { equals:; true }
+      { equals: true }
     >(),
   );
 

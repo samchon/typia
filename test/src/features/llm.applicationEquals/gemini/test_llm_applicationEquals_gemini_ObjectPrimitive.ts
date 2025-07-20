@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_gemini_ObjectPrimitive = (): void =>
     typia.llm.application<
       ObjectPrimitiveApplication,
       "gemini",
-      { equals:; true }
+      { equals: true }
     >(),
   );
 

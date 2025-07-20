@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_gemini_ObjectIntersection = (): void =>
     typia.llm.application<
       ObjectIntersectionApplication,
       "gemini",
-      { equals:; true }
+      { equals: true }
     >(),
   );
 

@@ -8,7 +8,9 @@ export const test_llm_applicationEquals_gemini_ToJsonNull = (): void =>
     model: "gemini",
     name: "ToJsonNull",
     factory: ToJsonNull,
-  })(typia.llm.application<ToJsonNullApplication, "gemini", { equals:; true }>());
+  })(
+    typia.llm.application<ToJsonNullApplication, "gemini", { equals: true }>(),
+  );
 
 interface ToJsonNullApplication {
   insert(p: { first: ToJsonNull }): Promise<void>;

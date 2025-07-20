@@ -9,7 +9,7 @@ export const test_llm_applicationEquals_gemini_ClassMethod = (): void =>
     name: "ClassMethod",
     factory: ClassMethod,
   })(
-    typia.llm.application<ClassMethodApplication, "gemini", { equals:; true }>(),
+    typia.llm.application<ClassMethodApplication, "gemini", { equals: true }>(),
   );
 
 interface ClassMethodApplication {

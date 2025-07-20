@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_gemini_DynamicUndefined = (): void =>
     typia.llm.application<
       DynamicUndefinedApplication,
       "gemini",
-      { equals:; true }
+      { equals: true }
     >(),
   );
 

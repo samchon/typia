@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_gemini_ObjectRequired = (): void =>
     typia.llm.application<
       ObjectRequiredApplication,
       "gemini",
-      { equals:; true }
+      { equals: true }
     >(),
   );
 

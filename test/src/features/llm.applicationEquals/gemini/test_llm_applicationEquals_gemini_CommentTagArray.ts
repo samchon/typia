@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_gemini_CommentTagArray = (): void =>
     typia.llm.application<
       CommentTagArrayApplication,
       "gemini",
-      { equals:; true }
+      { equals: true }
     >(),
   );
 

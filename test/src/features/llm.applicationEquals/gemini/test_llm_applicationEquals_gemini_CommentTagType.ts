@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_gemini_CommentTagType = (): void =>
     typia.llm.application<
       CommentTagTypeApplication,
       "gemini",
-      { equals:; true }
+      { equals: true }
     >(),
   );
 

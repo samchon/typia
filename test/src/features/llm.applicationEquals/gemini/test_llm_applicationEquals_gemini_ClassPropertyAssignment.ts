@@ -13,7 +13,7 @@ export const test_llm_applicationEquals_gemini_ClassPropertyAssignment =
       typia.llm.application<
         ClassPropertyAssignmentApplication,
         "gemini",
-        { equals:; true }
+        { equals: true }
       >(),
     );
 

@@ -9,7 +9,11 @@ export const test_llm_applicationEquals_claude_TypeTagRange = (): void =>
     name: "TypeTagRange",
     factory: TypeTagRange,
   })(
-    typia.llm.application<TypeTagRangeApplication, "claude", { equals:; true }>(),
+    typia.llm.application<
+      TypeTagRangeApplication,
+      "claude",
+      { equals: true }
+    >(),
   );
 
 interface TypeTagRangeApplication {

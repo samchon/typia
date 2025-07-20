@@ -9,7 +9,7 @@ export const test_llm_applicationEquals_gemini_TypeTagType = (): void =>
     name: "TypeTagType",
     factory: TypeTagType,
   })(
-    typia.llm.application<TypeTagTypeApplication, "gemini", { equals:; true }>(),
+    typia.llm.application<TypeTagTypeApplication, "gemini", { equals: true }>(),
   );
 
 interface TypeTagTypeApplication {

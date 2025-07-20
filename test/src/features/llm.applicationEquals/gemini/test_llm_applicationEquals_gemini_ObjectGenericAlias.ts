@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_gemini_ObjectGenericAlias = (): void =>
     typia.llm.application<
       ObjectGenericAliasApplication,
       "gemini",
-      { equals:; true }
+      { equals: true }
     >(),
   );
 

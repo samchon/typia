@@ -13,7 +13,7 @@ export const test_llm_applicationEquals_gemini_ConstantAtomicAbsorbed =
       typia.llm.application<
         ConstantAtomicAbsorbedApplication,
         "gemini",
-        { equals:; true }
+        { equals: true }
       >(),
     );
 

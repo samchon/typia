@@ -13,7 +13,7 @@ export const test_llm_applicationEquals_gemini_ObjectPartialAndRequired =
       typia.llm.application<
         ObjectPartialAndRequiredApplication,
         "gemini",
-        { equals:; true }
+        { equals: true }
       >(),
     );
 

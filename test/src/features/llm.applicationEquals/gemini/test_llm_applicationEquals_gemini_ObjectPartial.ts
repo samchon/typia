@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_gemini_ObjectPartial = (): void =>
     typia.llm.application<
       ObjectPartialApplication,
       "gemini",
-      { equals:; true }
+      { equals: true }
     >(),
   );
 

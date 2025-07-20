@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_gemini_CommentTagLength = (): void =>
     typia.llm.application<
       CommentTagLengthApplication,
       "gemini",
-      { equals:; true }
+      { equals: true }
     >(),
   );
 
