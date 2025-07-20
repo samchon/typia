@@ -158,7 +158,7 @@ export namespace LlmApplicationProgrammer {
     metadata: Metadata;
     config?: Partial<
       ILlmSchema.ModelConfig[Model] & {
-        strict: boolean;
+        equal: boolean;
       }
     >;
     name?: string;
@@ -236,7 +236,7 @@ export namespace LlmApplicationProgrammer {
     config:
       | Partial<
           ILlmSchema.ModelConfig[Model] & {
-            strict: boolean;
+            equal: boolean;
           }
         >
       | undefined;
@@ -290,7 +290,7 @@ export namespace LlmApplicationProgrammer {
         parameter: props.parameter,
         name: props.function.name,
         className: props.className,
-        equal: props.config?.strict ?? false,
+        equal: props.config?.equal ?? false,
       }),
     };
   };
@@ -389,7 +389,7 @@ export namespace LlmApplicationProgrammer {
       ...props,
       type: props.parameter.tsType!,
       config: {
-        equals: false,
+        equals: props.equal,
       },
       name: props.className
         ? `Parameters<${props.className}[${JSON.stringify(props.name)}]>[0]`

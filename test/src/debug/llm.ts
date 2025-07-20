@@ -1,7 +1,3 @@
-import typia from "typia";
+import { test_llm_applicationEquals_gemini_ObjectSimple } from "../features/llm.applicationEquals/gemini/test_llm_applicationEquals_gemini_ObjectSimple";
 
-import { TypeTagRange } from "../structures/TypeTagRange";
-
-console.log(
-  JSON.stringify(typia.llm.schema<TypeTagRange, "gemini">(), null, 2),
-);
+test_llm_applicationEquals_gemini_ObjectSimple();
