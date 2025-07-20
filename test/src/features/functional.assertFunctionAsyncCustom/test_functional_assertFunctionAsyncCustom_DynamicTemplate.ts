@@ -5,8 +5,9 @@ import { _test_functional_assertFunctionAsync } from "../../internal/_test_funct
 import { DynamicTemplate } from "../../structures/DynamicTemplate";
 
 export const test_functional_assertFunctionAsyncCustom_DynamicTemplate =
-  _test_functional_assertFunctionAsync(CustomGuardError)("DynamicTemplate")(
-    DynamicTemplate,
-  )((p: (input: DynamicTemplate) => Promise<DynamicTemplate>) =>
-    typia.functional.assertFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertFunctionAsync(CustomGuardError)("DynamicTemplate")(
+      DynamicTemplate,
+    )((p: (input: DynamicTemplate) => Promise<DynamicTemplate>) =>
+      typia.functional.assertFunction(p, (p) => new CustomGuardError(p)),
+    );

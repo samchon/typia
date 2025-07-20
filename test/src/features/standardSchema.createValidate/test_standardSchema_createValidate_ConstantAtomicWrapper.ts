@@ -4,6 +4,9 @@ import { _test_standardSchema_validate } from "../../internal/_test_standardSche
 import { ConstantAtomicWrapper } from "../../structures/ConstantAtomicWrapper";
 
 export const test_standardSchema_createValidate_ConstantAtomicWrapper =
-  _test_standardSchema_validate("ConstantAtomicWrapper")<ConstantAtomicWrapper>(
-    ConstantAtomicWrapper,
-  )(typia.createValidate<ConstantAtomicWrapper>());
+  (): void =>
+    _test_standardSchema_validate(
+      "ConstantAtomicWrapper",
+    )<ConstantAtomicWrapper>(ConstantAtomicWrapper)(
+      typia.createValidate<ConstantAtomicWrapper>(),
+    );

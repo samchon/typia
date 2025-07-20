@@ -6,12 +6,11 @@ import { TestStructure } from "../helpers/TestStructure";
 export const _test_functional_validateEqualsFunctionAsync =
   (name: string) =>
   <T>(factory: TestStructure<T>) =>
-  (
+  async (
     validate: (
       p: (input: T) => Promise<T>,
     ) => (input: T) => Promise<IValidation<T>>,
-  ) =>
-  async () => {
+  ): Promise<void> => {
     const task =
       (replacer: string) => async (callback: (input: T) => [T, T]) => {
         // SUCCESS

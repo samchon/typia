@@ -5,9 +5,10 @@ import { _test_functional_assertParametersAsync } from "../../internal/_test_fun
 import { ObjectHttpUndefindable } from "../../structures/ObjectHttpUndefindable";
 
 export const test_functional_assertParametersAsync_ObjectHttpUndefindable =
-  _test_functional_assertParametersAsync(TypeGuardError)(
-    "ObjectHttpUndefindable",
-  )(ObjectHttpUndefindable)(
-    (p: (input: ObjectHttpUndefindable) => Promise<ObjectHttpUndefindable>) =>
-      typia.functional.assertParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertParametersAsync(TypeGuardError)(
+      "ObjectHttpUndefindable",
+    )(ObjectHttpUndefindable)(
+      (p: (input: ObjectHttpUndefindable) => Promise<ObjectHttpUndefindable>) =>
+        typia.functional.assertParameters(p),
+    );

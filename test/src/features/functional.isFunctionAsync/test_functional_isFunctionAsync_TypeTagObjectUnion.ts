@@ -4,7 +4,8 @@ import { _test_functional_isFunctionAsync } from "../../internal/_test_functiona
 import { TypeTagObjectUnion } from "../../structures/TypeTagObjectUnion";
 
 export const test_functional_isFunctionAsync_TypeTagObjectUnion =
-  _test_functional_isFunctionAsync("TypeTagObjectUnion")(TypeTagObjectUnion)(
-    (p: (input: TypeTagObjectUnion) => Promise<TypeTagObjectUnion>) =>
-      typia.functional.isFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_isFunctionAsync("TypeTagObjectUnion")(TypeTagObjectUnion)(
+      (p: (input: TypeTagObjectUnion) => Promise<TypeTagObjectUnion>) =>
+        typia.functional.isFunction(p),
+    );

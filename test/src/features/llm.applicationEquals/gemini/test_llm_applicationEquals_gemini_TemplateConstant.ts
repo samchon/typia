@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { TemplateConstant } from "../../../structures/TemplateConstant";
 
-export const test_llm_application_gemini_TemplateConstant =
+export const test_llm_applicationEquals_gemini_TemplateConstant = (): void =>
   _test_llm_applicationEquals({
     model: "gemini",
     name: "TemplateConstant",

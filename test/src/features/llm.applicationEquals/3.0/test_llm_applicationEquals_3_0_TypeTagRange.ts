@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { TypeTagRange } from "../../../structures/TypeTagRange";
 
-export const test_llm_application_3_0_TypeTagRange =
+export const test_llm_applicationEquals_3_0_TypeTagRange = (): void =>
   _test_llm_applicationEquals({
     model: "3.0",
     name: "TypeTagRange",

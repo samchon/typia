@@ -3,11 +3,12 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { ToJsonNull } from "../../../structures/ToJsonNull";
 
-export const test_llm_application_3_0_ToJsonNull = _test_llm_applicationEquals({
-  model: "3.0",
-  name: "ToJsonNull",
-  factory: ToJsonNull,
-})(typia.llm.application<ToJsonNullApplication, "3.0", { equal: true }>());
+export const test_llm_applicationEquals_3_0_ToJsonNull = (): void =>
+  _test_llm_applicationEquals({
+    model: "3.0",
+    name: "ToJsonNull",
+    factory: ToJsonNull,
+  })(typia.llm.application<ToJsonNullApplication, "3.0", { equal: true }>());
 
 interface ToJsonNullApplication {
   insert(p: { first: ToJsonNull }): Promise<void>;

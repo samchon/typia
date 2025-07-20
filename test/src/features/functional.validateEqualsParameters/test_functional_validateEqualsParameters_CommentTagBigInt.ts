@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsParameters } from "../../internal/_test_
 import { CommentTagBigInt } from "../../structures/CommentTagBigInt";
 
 export const test_functional_validateEqualsParameters_CommentTagBigInt =
-  _test_functional_validateEqualsParameters("CommentTagBigInt")(
-    CommentTagBigInt,
-  )((p: (input: CommentTagBigInt) => CommentTagBigInt) =>
-    typia.functional.validateEqualsParameters(p),
-  );
+  (): void =>
+    _test_functional_validateEqualsParameters("CommentTagBigInt")(
+      CommentTagBigInt,
+    )((p: (input: CommentTagBigInt) => CommentTagBigInt) =>
+      typia.functional.validateEqualsParameters(p),
+    );

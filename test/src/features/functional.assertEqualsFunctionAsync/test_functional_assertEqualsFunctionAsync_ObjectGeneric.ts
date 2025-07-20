@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsFunctionAsync } from "../../internal/_test
 import { ObjectGeneric } from "../../structures/ObjectGeneric";
 
 export const test_functional_assertEqualsFunctionAsync_ObjectGeneric =
-  _test_functional_assertEqualsFunctionAsync(TypeGuardError)("ObjectGeneric")(
-    ObjectGeneric,
-  )((p: (input: ObjectGeneric) => Promise<ObjectGeneric>) =>
-    typia.functional.assertEqualsFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsFunctionAsync(TypeGuardError)("ObjectGeneric")(
+      ObjectGeneric,
+    )((p: (input: ObjectGeneric) => Promise<ObjectGeneric>) =>
+      typia.functional.assertEqualsFunction(p),
+    );

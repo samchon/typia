@@ -17,7 +17,7 @@ export namespace TestProtobufMessageGenerator {
         `import { ${s.name} } from "../../structures/${s.name}";`,
         `import { _test_protobuf_message } from "../../internal/_test_protobuf_message";`,
         "",
-        `export const test_protobuf_message_${s.name} = _test_protobuf_message(`,
+        `export const test_protobuf_message_${s.name} = (): void => _test_protobuf_message(`,
         `  "${s.name}",`,
         `)(typia.protobuf.message<${s.name}>());`,
       ];

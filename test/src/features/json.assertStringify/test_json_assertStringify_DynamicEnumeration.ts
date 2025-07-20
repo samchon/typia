@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_json_assertStringify } from "../../internal/_test_json_assertStringify";
 import { DynamicEnumeration } from "../../structures/DynamicEnumeration";
 
-export const test_json_assertStringify_DynamicEnumeration =
+export const test_json_assertStringify_DynamicEnumeration = (): void =>
   _test_json_assertStringify(TypeGuardError)(
     "DynamicEnumeration",
   )<DynamicEnumeration>(DynamicEnumeration)((input) =>

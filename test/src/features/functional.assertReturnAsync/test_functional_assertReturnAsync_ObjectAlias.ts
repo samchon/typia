@@ -5,8 +5,9 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { ObjectAlias } from "../../structures/ObjectAlias";
 
 export const test_functional_assertReturnAsync_ObjectAlias =
-  _test_functional_assertReturnAsync(TypeGuardError)("ObjectAlias")(
-    ObjectAlias,
-  )((p: (input: ObjectAlias) => Promise<ObjectAlias>) =>
-    typia.functional.assertReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(TypeGuardError)("ObjectAlias")(
+      ObjectAlias,
+    )((p: (input: ObjectAlias) => Promise<ObjectAlias>) =>
+      typia.functional.assertReturn(p),
+    );

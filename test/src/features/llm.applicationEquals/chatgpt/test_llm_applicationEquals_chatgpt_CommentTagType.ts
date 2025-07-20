@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { CommentTagType } from "../../../structures/CommentTagType";
 
-export const test_llm_application_chatgpt_CommentTagType =
+export const test_llm_applicationEquals_chatgpt_CommentTagType = (): void =>
   _test_llm_applicationEquals({
     model: "chatgpt",
     name: "CommentTagType",

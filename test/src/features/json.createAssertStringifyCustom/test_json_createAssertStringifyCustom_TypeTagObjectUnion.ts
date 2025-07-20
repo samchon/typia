@@ -5,10 +5,11 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { TypeTagObjectUnion } from "../../structures/TypeTagObjectUnion";
 
 export const test_json_createAssertStringifyCustom_TypeTagObjectUnion =
-  _test_json_assertStringify(CustomGuardError)(
-    "TypeTagObjectUnion",
-  )<TypeTagObjectUnion>(TypeTagObjectUnion)(
-    typia.json.createAssertStringify<TypeTagObjectUnion>(
-      (p) => new CustomGuardError(p),
-    ),
-  );
+  (): void =>
+    _test_json_assertStringify(CustomGuardError)(
+      "TypeTagObjectUnion",
+    )<TypeTagObjectUnion>(TypeTagObjectUnion)(
+      typia.json.createAssertStringify<TypeTagObjectUnion>(
+        (p) => new CustomGuardError(p),
+      ),
+    );

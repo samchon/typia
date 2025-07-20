@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_functional_assertParameters } from "../../internal/_test_functional_assertParameters";
 import { ObjectInternal } from "../../structures/ObjectInternal";
 
-export const test_functional_assertParameters_ObjectInternal =
+export const test_functional_assertParameters_ObjectInternal = (): void =>
   _test_functional_assertParameters(TypeGuardError)("ObjectInternal")(
     ObjectInternal,
   )((p: (input: ObjectInternal) => ObjectInternal) =>

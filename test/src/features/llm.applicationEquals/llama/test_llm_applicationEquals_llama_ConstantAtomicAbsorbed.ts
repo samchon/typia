@@ -3,18 +3,19 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { ConstantAtomicAbsorbed } from "../../../structures/ConstantAtomicAbsorbed";
 
-export const test_llm_application_llama_ConstantAtomicAbsorbed =
-  _test_llm_applicationEquals({
-    model: "llama",
-    name: "ConstantAtomicAbsorbed",
-    factory: ConstantAtomicAbsorbed,
-  })(
-    typia.llm.application<
-      ConstantAtomicAbsorbedApplication,
-      "llama",
-      { equal: true }
-    >(),
-  );
+export const test_llm_applicationEquals_llama_ConstantAtomicAbsorbed =
+  (): void =>
+    _test_llm_applicationEquals({
+      model: "llama",
+      name: "ConstantAtomicAbsorbed",
+      factory: ConstantAtomicAbsorbed,
+    })(
+      typia.llm.application<
+        ConstantAtomicAbsorbedApplication,
+        "llama",
+        { equal: true }
+      >(),
+    );
 
 interface ConstantAtomicAbsorbedApplication {
   insert(p: { first: ConstantAtomicAbsorbed }): Promise<void>;

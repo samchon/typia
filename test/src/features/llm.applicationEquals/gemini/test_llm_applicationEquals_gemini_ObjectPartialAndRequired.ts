@@ -3,18 +3,19 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { ObjectPartialAndRequired } from "../../../structures/ObjectPartialAndRequired";
 
-export const test_llm_application_gemini_ObjectPartialAndRequired =
-  _test_llm_applicationEquals({
-    model: "gemini",
-    name: "ObjectPartialAndRequired",
-    factory: ObjectPartialAndRequired,
-  })(
-    typia.llm.application<
-      ObjectPartialAndRequiredApplication,
-      "gemini",
-      { equal: true }
-    >(),
-  );
+export const test_llm_applicationEquals_gemini_ObjectPartialAndRequired =
+  (): void =>
+    _test_llm_applicationEquals({
+      model: "gemini",
+      name: "ObjectPartialAndRequired",
+      factory: ObjectPartialAndRequired,
+    })(
+      typia.llm.application<
+        ObjectPartialAndRequiredApplication,
+        "gemini",
+        { equal: true }
+      >(),
+    );
 
 interface ObjectPartialAndRequiredApplication {
   insert(p: { first: ObjectPartialAndRequired }): Promise<void>;

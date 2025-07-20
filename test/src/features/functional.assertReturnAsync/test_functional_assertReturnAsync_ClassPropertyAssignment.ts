@@ -5,8 +5,11 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { ClassPropertyAssignment } from "../../structures/ClassPropertyAssignment";
 
 export const test_functional_assertReturnAsync_ClassPropertyAssignment =
-  _test_functional_assertReturnAsync(TypeGuardError)("ClassPropertyAssignment")(
-    ClassPropertyAssignment,
-  )((p: (input: ClassPropertyAssignment) => Promise<ClassPropertyAssignment>) =>
-    typia.functional.assertReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(TypeGuardError)(
+      "ClassPropertyAssignment",
+    )(ClassPropertyAssignment)(
+      (
+        p: (input: ClassPropertyAssignment) => Promise<ClassPropertyAssignment>,
+      ) => typia.functional.assertReturn(p),
+    );

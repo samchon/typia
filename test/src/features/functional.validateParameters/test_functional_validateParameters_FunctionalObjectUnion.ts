@@ -4,8 +4,9 @@ import { _test_functional_validateParameters } from "../../internal/_test_functi
 import { FunctionalObjectUnion } from "../../structures/FunctionalObjectUnion";
 
 export const test_functional_validateParameters_FunctionalObjectUnion =
-  _test_functional_validateParameters("FunctionalObjectUnion")(
-    FunctionalObjectUnion,
-  )((p: (input: FunctionalObjectUnion) => FunctionalObjectUnion) =>
-    typia.functional.validateParameters(p),
-  );
+  (): void =>
+    _test_functional_validateParameters("FunctionalObjectUnion")(
+      FunctionalObjectUnion,
+    )((p: (input: FunctionalObjectUnion) => FunctionalObjectUnion) =>
+      typia.functional.validateParameters(p),
+    );

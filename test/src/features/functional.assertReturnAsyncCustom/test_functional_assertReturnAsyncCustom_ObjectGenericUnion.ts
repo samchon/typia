@@ -5,8 +5,9 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { ObjectGenericUnion } from "../../structures/ObjectGenericUnion";
 
 export const test_functional_assertReturnAsyncCustom_ObjectGenericUnion =
-  _test_functional_assertReturnAsync(CustomGuardError)("ObjectGenericUnion")(
-    ObjectGenericUnion,
-  )((p: (input: ObjectGenericUnion) => Promise<ObjectGenericUnion>) =>
-    typia.functional.assertReturn(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(CustomGuardError)("ObjectGenericUnion")(
+      ObjectGenericUnion,
+    )((p: (input: ObjectGenericUnion) => Promise<ObjectGenericUnion>) =>
+      typia.functional.assertReturn(p, (p) => new CustomGuardError(p)),
+    );

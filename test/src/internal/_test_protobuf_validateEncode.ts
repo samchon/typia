@@ -10,8 +10,7 @@ export const _test_protobuf_validateEncode =
     message: string;
     encode: (input: T) => typia.IValidation<Uint8Array>;
     decode: (input: Uint8Array) => typia.Resolved<T>;
-  }) =>
-  () => {
+  }): void => {
     _test_protobuf_encode(name)(factory)({
       message: functor.message,
       decode: functor.decode,
@@ -21,7 +20,7 @@ export const _test_protobuf_validateEncode =
         typia.assertEquals(result);
         return result.data;
       },
-    })();
+    }) satisfies void;
 
     const wrong: ISpoiled[] = [];
     for (const spoil of factory.SPOILERS ?? []) {

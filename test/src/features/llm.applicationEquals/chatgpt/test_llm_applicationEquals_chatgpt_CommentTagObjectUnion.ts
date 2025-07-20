@@ -3,18 +3,19 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { CommentTagObjectUnion } from "../../../structures/CommentTagObjectUnion";
 
-export const test_llm_application_chatgpt_CommentTagObjectUnion =
-  _test_llm_applicationEquals({
-    model: "chatgpt",
-    name: "CommentTagObjectUnion",
-    factory: CommentTagObjectUnion,
-  })(
-    typia.llm.application<
-      CommentTagObjectUnionApplication,
-      "chatgpt",
-      { equal: true }
-    >(),
-  );
+export const test_llm_applicationEquals_chatgpt_CommentTagObjectUnion =
+  (): void =>
+    _test_llm_applicationEquals({
+      model: "chatgpt",
+      name: "CommentTagObjectUnion",
+      factory: CommentTagObjectUnion,
+    })(
+      typia.llm.application<
+        CommentTagObjectUnionApplication,
+        "chatgpt",
+        { equal: true }
+      >(),
+    );
 
 interface CommentTagObjectUnionApplication {
   insert(p: { first: CommentTagObjectUnion }): Promise<void>;

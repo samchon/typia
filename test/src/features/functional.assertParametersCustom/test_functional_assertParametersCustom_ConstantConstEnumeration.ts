@@ -5,9 +5,10 @@ import { _test_functional_assertParameters } from "../../internal/_test_function
 import { ConstantConstEnumeration } from "../../structures/ConstantConstEnumeration";
 
 export const test_functional_assertParametersCustom_ConstantConstEnumeration =
-  _test_functional_assertParameters(CustomGuardError)(
-    "ConstantConstEnumeration",
-  )(ConstantConstEnumeration)(
-    (p: (input: ConstantConstEnumeration) => ConstantConstEnumeration) =>
-      typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertParameters(CustomGuardError)(
+      "ConstantConstEnumeration",
+    )(ConstantConstEnumeration)(
+      (p: (input: ConstantConstEnumeration) => ConstantConstEnumeration) =>
+        typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
+    );

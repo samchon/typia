@@ -4,7 +4,8 @@ import { _test_functional_equalsReturnAsync } from "../../internal/_test_functio
 import { FunctionalValue } from "../../structures/FunctionalValue";
 
 export const test_functional_equalsReturnAsync_FunctionalValue =
-  _test_functional_equalsReturnAsync("FunctionalValue")(FunctionalValue)(
-    (p: (input: FunctionalValue) => Promise<FunctionalValue>) =>
-      typia.functional.equalsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_equalsReturnAsync("FunctionalValue")(FunctionalValue)(
+      (p: (input: FunctionalValue) => Promise<FunctionalValue>) =>
+        typia.functional.equalsReturn(p),
+    );

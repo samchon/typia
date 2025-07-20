@@ -4,7 +4,8 @@ import { _test_functional_equalsReturnAsync } from "../../internal/_test_functio
 import { AtomicUnion } from "../../structures/AtomicUnion";
 
 export const test_functional_equalsReturnAsync_AtomicUnion =
-  _test_functional_equalsReturnAsync("AtomicUnion")(AtomicUnion)(
-    (p: (input: AtomicUnion) => Promise<AtomicUnion>) =>
-      typia.functional.equalsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_equalsReturnAsync("AtomicUnion")(AtomicUnion)(
+      (p: (input: AtomicUnion) => Promise<AtomicUnion>) =>
+        typia.functional.equalsReturn(p),
+    );

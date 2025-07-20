@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsParametersAsync } from "../../internal/_
 import { CommentTagArrayUnion } from "../../structures/CommentTagArrayUnion";
 
 export const test_functional_validateEqualsParametersAsync_CommentTagArrayUnion =
-  _test_functional_validateEqualsParametersAsync("CommentTagArrayUnion")(
-    CommentTagArrayUnion,
-  )((p: (input: CommentTagArrayUnion) => Promise<CommentTagArrayUnion>) =>
-    typia.functional.validateEqualsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsParametersAsync("CommentTagArrayUnion")(
+      CommentTagArrayUnion,
+    )((p: (input: CommentTagArrayUnion) => Promise<CommentTagArrayUnion>) =>
+      typia.functional.validateEqualsParameters(p),
+    );

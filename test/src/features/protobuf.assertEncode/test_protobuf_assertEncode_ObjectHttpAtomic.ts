@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_protobuf_assertEncode } from "../../internal/_test_protobuf_assertEncode";
 import { ObjectHttpAtomic } from "../../structures/ObjectHttpAtomic";
 
-export const test_protobuf_assertEncode_ObjectHttpAtomic =
+export const test_protobuf_assertEncode_ObjectHttpAtomic = (): void =>
   _test_protobuf_assertEncode(TypeGuardError)(
     "ObjectHttpAtomic",
   )<ObjectHttpAtomic>(ObjectHttpAtomic)({

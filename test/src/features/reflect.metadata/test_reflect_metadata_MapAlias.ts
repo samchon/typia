@@ -3,6 +3,5 @@ import typia from "typia";
 import { _test_reflect_metadata } from "../../internal/_test_reflect_metadata";
 import { MapAlias } from "../../structures/MapAlias";
 
-export const test_reflect_metadata_MapAlias = _test_reflect_metadata(
-  "MapAlias",
-)(typia.reflect.metadata<[MapAlias]>());
+export const test_reflect_metadata_MapAlias = (): void =>
+  _test_reflect_metadata("MapAlias")(typia.reflect.metadata<[MapAlias]>());

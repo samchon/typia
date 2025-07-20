@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_protobuf_isDecode } from "../../internal/_test_protobuf_isDecode";
 import { CommentTagDefault } from "../../structures/CommentTagDefault";
 
-export const test_protobuf_createIsDecode_CommentTagDefault =
+export const test_protobuf_createIsDecode_CommentTagDefault = (): void =>
   _test_protobuf_isDecode("CommentTagDefault")<CommentTagDefault>(
     CommentTagDefault,
   )({

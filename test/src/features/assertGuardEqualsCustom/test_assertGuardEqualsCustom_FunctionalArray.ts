@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_assertGuardEquals } from "../../internal/_test_assertGuardEquals";
 import { FunctionalArray } from "../../structures/FunctionalArray";
 
-export const test_assertGuardEqualsCustom_FunctionalArray =
+export const test_assertGuardEqualsCustom_FunctionalArray = (): void =>
   _test_assertGuardEquals(CustomGuardError)("FunctionalArray")<FunctionalArray>(
     FunctionalArray,
   )((input) =>

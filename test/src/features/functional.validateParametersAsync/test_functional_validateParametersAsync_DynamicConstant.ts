@@ -4,7 +4,9 @@ import { _test_functional_validateParametersAsync } from "../../internal/_test_f
 import { DynamicConstant } from "../../structures/DynamicConstant";
 
 export const test_functional_validateParametersAsync_DynamicConstant =
-  _test_functional_validateParametersAsync("DynamicConstant")(DynamicConstant)(
-    (p: (input: DynamicConstant) => Promise<DynamicConstant>) =>
+  (): Promise<void> =>
+    _test_functional_validateParametersAsync("DynamicConstant")(
+      DynamicConstant,
+    )((p: (input: DynamicConstant) => Promise<DynamicConstant>) =>
       typia.functional.validateParameters(p),
-  );
+    );

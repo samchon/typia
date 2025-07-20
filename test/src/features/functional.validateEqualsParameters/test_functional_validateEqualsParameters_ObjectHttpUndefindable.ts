@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsParameters } from "../../internal/_test_
 import { ObjectHttpUndefindable } from "../../structures/ObjectHttpUndefindable";
 
 export const test_functional_validateEqualsParameters_ObjectHttpUndefindable =
-  _test_functional_validateEqualsParameters("ObjectHttpUndefindable")(
-    ObjectHttpUndefindable,
-  )((p: (input: ObjectHttpUndefindable) => ObjectHttpUndefindable) =>
-    typia.functional.validateEqualsParameters(p),
-  );
+  (): void =>
+    _test_functional_validateEqualsParameters("ObjectHttpUndefindable")(
+      ObjectHttpUndefindable,
+    )((p: (input: ObjectHttpUndefindable) => ObjectHttpUndefindable) =>
+      typia.functional.validateEqualsParameters(p),
+    );

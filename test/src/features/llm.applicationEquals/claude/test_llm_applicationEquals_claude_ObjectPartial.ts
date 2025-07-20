@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { ObjectPartial } from "../../../structures/ObjectPartial";
 
-export const test_llm_application_claude_ObjectPartial =
+export const test_llm_applicationEquals_claude_ObjectPartial = (): void =>
   _test_llm_applicationEquals({
     model: "claude",
     name: "ObjectPartial",

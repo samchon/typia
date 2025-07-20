@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { ObjectNullable } from "../../../structures/ObjectNullable";
 
-export const test_llm_application_llama_ObjectNullable =
+export const test_llm_applicationEquals_llama_ObjectNullable = (): void =>
   _test_llm_applicationEquals({
     model: "llama",
     name: "ObjectNullable",

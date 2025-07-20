@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { TypeTagLength } from "../../../structures/TypeTagLength";
 
-export const test_llm_application_llama_TypeTagLength =
+export const test_llm_applicationEquals_llama_TypeTagLength = (): void =>
   _test_llm_applicationEquals({
     model: "llama",
     name: "TypeTagLength",

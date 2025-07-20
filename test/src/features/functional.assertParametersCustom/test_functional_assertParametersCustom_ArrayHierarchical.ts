@@ -5,8 +5,9 @@ import { _test_functional_assertParameters } from "../../internal/_test_function
 import { ArrayHierarchical } from "../../structures/ArrayHierarchical";
 
 export const test_functional_assertParametersCustom_ArrayHierarchical =
-  _test_functional_assertParameters(CustomGuardError)("ArrayHierarchical")(
-    ArrayHierarchical,
-  )((p: (input: ArrayHierarchical) => ArrayHierarchical) =>
-    typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertParameters(CustomGuardError)("ArrayHierarchical")(
+      ArrayHierarchical,
+    )((p: (input: ArrayHierarchical) => ArrayHierarchical) =>
+      typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
+    );

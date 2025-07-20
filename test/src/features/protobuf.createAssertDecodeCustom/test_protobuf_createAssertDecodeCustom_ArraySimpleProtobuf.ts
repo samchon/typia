@@ -5,11 +5,12 @@ import { _test_protobuf_assertDecode } from "../../internal/_test_protobuf_asser
 import { ArraySimpleProtobuf } from "../../structures/ArraySimpleProtobuf";
 
 export const test_protobuf_createAssertDecodeCustom_ArraySimpleProtobuf =
-  _test_protobuf_assertDecode(CustomGuardError)(
-    "ArraySimpleProtobuf",
-  )<ArraySimpleProtobuf>(ArraySimpleProtobuf)({
-    decode: typia.protobuf.createAssertDecode<ArraySimpleProtobuf>(
-      (p) => new CustomGuardError(p),
-    ),
-    encode: typia.protobuf.createEncode<ArraySimpleProtobuf>(),
-  });
+  (): void =>
+    _test_protobuf_assertDecode(CustomGuardError)(
+      "ArraySimpleProtobuf",
+    )<ArraySimpleProtobuf>(ArraySimpleProtobuf)({
+      decode: typia.protobuf.createAssertDecode<ArraySimpleProtobuf>(
+        (p) => new CustomGuardError(p),
+      ),
+      encode: typia.protobuf.createEncode<ArraySimpleProtobuf>(),
+    });

@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_protobuf_assertEncode } from "../../internal/_test_protobuf_assertEncode";
 import { TemplateUnion } from "../../structures/TemplateUnion";
 
-export const test_protobuf_createAssertEncodeCustom_TemplateUnion =
+export const test_protobuf_createAssertEncodeCustom_TemplateUnion = (): void =>
   _test_protobuf_assertEncode(CustomGuardError)("TemplateUnion")<TemplateUnion>(
     TemplateUnion,
   )({

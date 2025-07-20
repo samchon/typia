@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 import { ObjectIntersection } from "../../../structures/ObjectIntersection";
 
-export const test_llm_parameters_gemini_ObjectIntersection =
+export const test_llm_parameters_gemini_ObjectIntersection = (): void =>
   _test_llm_parameters({
     model: "gemini",
     name: "ObjectIntersection",

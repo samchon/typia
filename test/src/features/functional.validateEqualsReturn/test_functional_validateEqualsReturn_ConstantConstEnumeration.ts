@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsReturn } from "../../internal/_test_func
 import { ConstantConstEnumeration } from "../../structures/ConstantConstEnumeration";
 
 export const test_functional_validateEqualsReturn_ConstantConstEnumeration =
-  _test_functional_validateEqualsReturn("ConstantConstEnumeration")(
-    ConstantConstEnumeration,
-  )((p: (input: ConstantConstEnumeration) => ConstantConstEnumeration) =>
-    typia.functional.validateEqualsReturn(p),
-  );
+  (): void =>
+    _test_functional_validateEqualsReturn("ConstantConstEnumeration")(
+      ConstantConstEnumeration,
+    )((p: (input: ConstantConstEnumeration) => ConstantConstEnumeration) =>
+      typia.functional.validateEqualsReturn(p),
+    );

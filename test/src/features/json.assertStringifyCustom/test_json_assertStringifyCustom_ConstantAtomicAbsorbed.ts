@@ -5,11 +5,12 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { ConstantAtomicAbsorbed } from "../../structures/ConstantAtomicAbsorbed";
 
 export const test_json_assertStringifyCustom_ConstantAtomicAbsorbed =
-  _test_json_assertStringify(CustomGuardError)(
-    "ConstantAtomicAbsorbed",
-  )<ConstantAtomicAbsorbed>(ConstantAtomicAbsorbed)((input) =>
-    typia.json.assertStringify<ConstantAtomicAbsorbed>(
-      input,
-      (p) => new CustomGuardError(p),
-    ),
-  );
+  (): void =>
+    _test_json_assertStringify(CustomGuardError)(
+      "ConstantAtomicAbsorbed",
+    )<ConstantAtomicAbsorbed>(ConstantAtomicAbsorbed)((input) =>
+      typia.json.assertStringify<ConstantAtomicAbsorbed>(
+        input,
+        (p) => new CustomGuardError(p),
+      ),
+    );

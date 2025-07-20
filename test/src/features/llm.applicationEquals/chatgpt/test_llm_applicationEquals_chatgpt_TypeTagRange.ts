@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { TypeTagRange } from "../../../structures/TypeTagRange";
 
-export const test_llm_application_chatgpt_TypeTagRange =
+export const test_llm_applicationEquals_chatgpt_TypeTagRange = (): void =>
   _test_llm_applicationEquals({
     model: "chatgpt",
     name: "TypeTagRange",

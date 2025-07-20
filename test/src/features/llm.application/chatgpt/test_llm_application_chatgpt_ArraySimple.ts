@@ -3,11 +3,12 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ArraySimple } from "../../../structures/ArraySimple";
 
-export const test_llm_application_chatgpt_ArraySimple = _test_llm_application({
-  model: "chatgpt",
-  name: "ArraySimple",
-  factory: ArraySimple,
-})(typia.llm.application<ArraySimpleApplication, "chatgpt">());
+export const test_llm_application_chatgpt_ArraySimple = (): void =>
+  _test_llm_application({
+    model: "chatgpt",
+    name: "ArraySimple",
+    factory: ArraySimple,
+  })(typia.llm.application<ArraySimpleApplication, "chatgpt">());
 
 interface ArraySimpleApplication {
   insert(p: { first: ArraySimple }): Promise<void>;

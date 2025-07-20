@@ -4,7 +4,9 @@ import { _test_functional_validateEqualsParameters } from "../../internal/_test_
 import { DynamicTemplate } from "../../structures/DynamicTemplate";
 
 export const test_functional_validateEqualsParameters_DynamicTemplate =
-  _test_functional_validateEqualsParameters("DynamicTemplate")(DynamicTemplate)(
-    (p: (input: DynamicTemplate) => DynamicTemplate) =>
+  (): void =>
+    _test_functional_validateEqualsParameters("DynamicTemplate")(
+      DynamicTemplate,
+    )((p: (input: DynamicTemplate) => DynamicTemplate) =>
       typia.functional.validateEqualsParameters(p),
-  );
+    );

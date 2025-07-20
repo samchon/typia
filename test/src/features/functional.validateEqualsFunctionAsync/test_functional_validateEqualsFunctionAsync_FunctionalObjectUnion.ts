@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsFunctionAsync } from "../../internal/_te
 import { FunctionalObjectUnion } from "../../structures/FunctionalObjectUnion";
 
 export const test_functional_validateEqualsFunctionAsync_FunctionalObjectUnion =
-  _test_functional_validateEqualsFunctionAsync("FunctionalObjectUnion")(
-    FunctionalObjectUnion,
-  )((p: (input: FunctionalObjectUnion) => Promise<FunctionalObjectUnion>) =>
-    typia.functional.validateEqualsFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsFunctionAsync("FunctionalObjectUnion")(
+      FunctionalObjectUnion,
+    )((p: (input: FunctionalObjectUnion) => Promise<FunctionalObjectUnion>) =>
+      typia.functional.validateEqualsFunction(p),
+    );

@@ -5,8 +5,10 @@ import { _test_functional_assertEqualsReturnAsync } from "../../internal/_test_f
 import { TypeTagTypeUnion } from "../../structures/TypeTagTypeUnion";
 
 export const test_functional_assertEqualsReturnAsync_TypeTagTypeUnion =
-  _test_functional_assertEqualsReturnAsync(TypeGuardError)("TypeTagTypeUnion")(
-    TypeTagTypeUnion,
-  )((p: (input: TypeTagTypeUnion) => Promise<TypeTagTypeUnion>) =>
-    typia.functional.assertEqualsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsReturnAsync(TypeGuardError)(
+      "TypeTagTypeUnion",
+    )(TypeTagTypeUnion)(
+      (p: (input: TypeTagTypeUnion) => Promise<TypeTagTypeUnion>) =>
+        typia.functional.assertEqualsReturn(p),
+    );

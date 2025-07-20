@@ -5,10 +5,11 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { CommentTagObjectUnion } from "../../structures/CommentTagObjectUnion";
 
 export const test_json_createAssertStringifyCustom_CommentTagObjectUnion =
-  _test_json_assertStringify(CustomGuardError)(
-    "CommentTagObjectUnion",
-  )<CommentTagObjectUnion>(CommentTagObjectUnion)(
-    typia.json.createAssertStringify<CommentTagObjectUnion>(
-      (p) => new CustomGuardError(p),
-    ),
-  );
+  (): void =>
+    _test_json_assertStringify(CustomGuardError)(
+      "CommentTagObjectUnion",
+    )<CommentTagObjectUnion>(CommentTagObjectUnion)(
+      typia.json.createAssertStringify<CommentTagObjectUnion>(
+        (p) => new CustomGuardError(p),
+      ),
+    );

@@ -5,9 +5,10 @@ import { _test_functional_assertEqualsReturnAsync } from "../../internal/_test_f
 import { ConstantAtomicUnion } from "../../structures/ConstantAtomicUnion";
 
 export const test_functional_assertEqualsReturnAsync_ConstantAtomicUnion =
-  _test_functional_assertEqualsReturnAsync(TypeGuardError)(
-    "ConstantAtomicUnion",
-  )(ConstantAtomicUnion)(
-    (p: (input: ConstantAtomicUnion) => Promise<ConstantAtomicUnion>) =>
-      typia.functional.assertEqualsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsReturnAsync(TypeGuardError)(
+      "ConstantAtomicUnion",
+    )(ConstantAtomicUnion)(
+      (p: (input: ConstantAtomicUnion) => Promise<ConstantAtomicUnion>) =>
+        typia.functional.assertEqualsReturn(p),
+    );

@@ -4,6 +4,7 @@ import { _test_standardSchema_validate } from "../../internal/_test_standardSche
 import { ConstantEnumeration } from "../../structures/ConstantEnumeration";
 
 export const test_standardSchema_createValidate_ConstantEnumeration =
-  _test_standardSchema_validate("ConstantEnumeration")<ConstantEnumeration>(
-    ConstantEnumeration,
-  )(typia.createValidate<ConstantEnumeration>());
+  (): void =>
+    _test_standardSchema_validate("ConstantEnumeration")<ConstantEnumeration>(
+      ConstantEnumeration,
+    )(typia.createValidate<ConstantEnumeration>());

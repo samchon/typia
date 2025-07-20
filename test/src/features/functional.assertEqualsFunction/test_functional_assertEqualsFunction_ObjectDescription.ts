@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsFunction } from "../../internal/_test_func
 import { ObjectDescription } from "../../structures/ObjectDescription";
 
 export const test_functional_assertEqualsFunction_ObjectDescription =
-  _test_functional_assertEqualsFunction(TypeGuardError)("ObjectDescription")(
-    ObjectDescription,
-  )((p: (input: ObjectDescription) => ObjectDescription) =>
-    typia.functional.assertEqualsFunction(p),
-  );
+  (): void =>
+    _test_functional_assertEqualsFunction(TypeGuardError)("ObjectDescription")(
+      ObjectDescription,
+    )((p: (input: ObjectDescription) => ObjectDescription) =>
+      typia.functional.assertEqualsFunction(p),
+    );

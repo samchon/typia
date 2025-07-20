@@ -5,8 +5,9 @@ import { _test_functional_assertParametersAsync } from "../../internal/_test_fun
 import { ArrayUnion } from "../../structures/ArrayUnion";
 
 export const test_functional_assertParametersAsync_ArrayUnion =
-  _test_functional_assertParametersAsync(TypeGuardError)("ArrayUnion")(
-    ArrayUnion,
-  )((p: (input: ArrayUnion) => Promise<ArrayUnion>) =>
-    typia.functional.assertParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertParametersAsync(TypeGuardError)("ArrayUnion")(
+      ArrayUnion,
+    )((p: (input: ArrayUnion) => Promise<ArrayUnion>) =>
+      typia.functional.assertParameters(p),
+    );

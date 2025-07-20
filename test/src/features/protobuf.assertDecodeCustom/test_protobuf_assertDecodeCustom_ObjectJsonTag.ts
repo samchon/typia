@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_protobuf_assertDecode } from "../../internal/_test_protobuf_assertDecode";
 import { ObjectJsonTag } from "../../structures/ObjectJsonTag";
 
-export const test_protobuf_assertDecodeCustom_ObjectJsonTag =
+export const test_protobuf_assertDecodeCustom_ObjectJsonTag = (): void =>
   _test_protobuf_assertDecode(CustomGuardError)("ObjectJsonTag")<ObjectJsonTag>(
     ObjectJsonTag,
   )({

@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsFunctionAsync } from "../../internal/_te
 import { ObjectPrimitive } from "../../structures/ObjectPrimitive";
 
 export const test_functional_validateEqualsFunctionAsync_ObjectPrimitive =
-  _test_functional_validateEqualsFunctionAsync("ObjectPrimitive")(
-    ObjectPrimitive,
-  )((p: (input: ObjectPrimitive) => Promise<ObjectPrimitive>) =>
-    typia.functional.validateEqualsFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsFunctionAsync("ObjectPrimitive")(
+      ObjectPrimitive,
+    )((p: (input: ObjectPrimitive) => Promise<ObjectPrimitive>) =>
+      typia.functional.validateEqualsFunction(p),
+    );

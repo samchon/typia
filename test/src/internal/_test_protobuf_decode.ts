@@ -9,8 +9,7 @@ export const _test_protobuf_decode =
   (functor: {
     decode: (input: Uint8Array) => typia.Resolved<T>;
     encode: (input: T) => Uint8Array;
-  }) =>
-  () => {
+  }): void => {
     const data: T = factory.generate();
     const encoded: Uint8Array = functor.encode(data);
     const decoded: typia.Resolved<T> = functor.decode(encoded);

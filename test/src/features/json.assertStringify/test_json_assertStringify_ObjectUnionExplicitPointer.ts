@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_json_assertStringify } from "../../internal/_test_json_assertStringify";
 import { ObjectUnionExplicitPointer } from "../../structures/ObjectUnionExplicitPointer";
 
-export const test_json_assertStringify_ObjectUnionExplicitPointer =
+export const test_json_assertStringify_ObjectUnionExplicitPointer = (): void =>
   _test_json_assertStringify(TypeGuardError)(
     "ObjectUnionExplicitPointer",
   )<ObjectUnionExplicitPointer>(ObjectUnionExplicitPointer)((input) =>

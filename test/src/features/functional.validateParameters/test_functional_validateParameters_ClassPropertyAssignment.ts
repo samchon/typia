@@ -4,8 +4,9 @@ import { _test_functional_validateParameters } from "../../internal/_test_functi
 import { ClassPropertyAssignment } from "../../structures/ClassPropertyAssignment";
 
 export const test_functional_validateParameters_ClassPropertyAssignment =
-  _test_functional_validateParameters("ClassPropertyAssignment")(
-    ClassPropertyAssignment,
-  )((p: (input: ClassPropertyAssignment) => ClassPropertyAssignment) =>
-    typia.functional.validateParameters(p),
-  );
+  (): void =>
+    _test_functional_validateParameters("ClassPropertyAssignment")(
+      ClassPropertyAssignment,
+    )((p: (input: ClassPropertyAssignment) => ClassPropertyAssignment) =>
+      typia.functional.validateParameters(p),
+    );

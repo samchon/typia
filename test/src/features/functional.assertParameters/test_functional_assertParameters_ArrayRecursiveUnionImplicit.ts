@@ -5,9 +5,11 @@ import { _test_functional_assertParameters } from "../../internal/_test_function
 import { ArrayRecursiveUnionImplicit } from "../../structures/ArrayRecursiveUnionImplicit";
 
 export const test_functional_assertParameters_ArrayRecursiveUnionImplicit =
-  _test_functional_assertParameters(TypeGuardError)(
-    "ArrayRecursiveUnionImplicit",
-  )(ArrayRecursiveUnionImplicit)(
-    (p: (input: ArrayRecursiveUnionImplicit) => ArrayRecursiveUnionImplicit) =>
-      typia.functional.assertParameters(p),
-  );
+  (): void =>
+    _test_functional_assertParameters(TypeGuardError)(
+      "ArrayRecursiveUnionImplicit",
+    )(ArrayRecursiveUnionImplicit)(
+      (
+        p: (input: ArrayRecursiveUnionImplicit) => ArrayRecursiveUnionImplicit,
+      ) => typia.functional.assertParameters(p),
+    );

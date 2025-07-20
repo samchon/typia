@@ -4,7 +4,8 @@ import { _test_functional_isParametersAsync } from "../../internal/_test_functio
 import { AtomicSimple } from "../../structures/AtomicSimple";
 
 export const test_functional_isParametersAsync_AtomicSimple =
-  _test_functional_isParametersAsync("AtomicSimple")(AtomicSimple)(
-    (p: (input: AtomicSimple) => Promise<AtomicSimple>) =>
-      typia.functional.isParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_isParametersAsync("AtomicSimple")(AtomicSimple)(
+      (p: (input: AtomicSimple) => Promise<AtomicSimple>) =>
+        typia.functional.isParameters(p),
+    );

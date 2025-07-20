@@ -4,7 +4,9 @@ import { _test_functional_validateEqualsParametersAsync } from "../../internal/_
 import { DynamicUnion } from "../../structures/DynamicUnion";
 
 export const test_functional_validateEqualsParametersAsync_DynamicUnion =
-  _test_functional_validateEqualsParametersAsync("DynamicUnion")(DynamicUnion)(
-    (p: (input: DynamicUnion) => Promise<DynamicUnion>) =>
+  (): Promise<void> =>
+    _test_functional_validateEqualsParametersAsync("DynamicUnion")(
+      DynamicUnion,
+    )((p: (input: DynamicUnion) => Promise<DynamicUnion>) =>
       typia.functional.validateEqualsParameters(p),
-  );
+    );

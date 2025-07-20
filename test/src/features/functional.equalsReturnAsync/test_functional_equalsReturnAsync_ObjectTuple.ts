@@ -4,7 +4,8 @@ import { _test_functional_equalsReturnAsync } from "../../internal/_test_functio
 import { ObjectTuple } from "../../structures/ObjectTuple";
 
 export const test_functional_equalsReturnAsync_ObjectTuple =
-  _test_functional_equalsReturnAsync("ObjectTuple")(ObjectTuple)(
-    (p: (input: ObjectTuple) => Promise<ObjectTuple>) =>
-      typia.functional.equalsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_equalsReturnAsync("ObjectTuple")(ObjectTuple)(
+      (p: (input: ObjectTuple) => Promise<ObjectTuple>) =>
+        typia.functional.equalsReturn(p),
+    );

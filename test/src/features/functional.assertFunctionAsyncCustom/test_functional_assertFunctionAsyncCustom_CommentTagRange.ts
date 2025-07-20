@@ -5,8 +5,9 @@ import { _test_functional_assertFunctionAsync } from "../../internal/_test_funct
 import { CommentTagRange } from "../../structures/CommentTagRange";
 
 export const test_functional_assertFunctionAsyncCustom_CommentTagRange =
-  _test_functional_assertFunctionAsync(CustomGuardError)("CommentTagRange")(
-    CommentTagRange,
-  )((p: (input: CommentTagRange) => Promise<CommentTagRange>) =>
-    typia.functional.assertFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertFunctionAsync(CustomGuardError)("CommentTagRange")(
+      CommentTagRange,
+    )((p: (input: CommentTagRange) => Promise<CommentTagRange>) =>
+      typia.functional.assertFunction(p, (p) => new CustomGuardError(p)),
+    );

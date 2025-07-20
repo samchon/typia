@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { ToJsonNull } from "../../../structures/ToJsonNull";
 
-export const test_llm_application_gemini_ToJsonNull =
+export const test_llm_applicationEquals_gemini_ToJsonNull = (): void =>
   _test_llm_applicationEquals({
     model: "gemini",
     name: "ToJsonNull",

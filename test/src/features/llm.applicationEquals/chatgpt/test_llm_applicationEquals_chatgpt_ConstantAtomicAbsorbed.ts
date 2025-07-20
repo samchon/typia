@@ -3,18 +3,19 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { ConstantAtomicAbsorbed } from "../../../structures/ConstantAtomicAbsorbed";
 
-export const test_llm_application_chatgpt_ConstantAtomicAbsorbed =
-  _test_llm_applicationEquals({
-    model: "chatgpt",
-    name: "ConstantAtomicAbsorbed",
-    factory: ConstantAtomicAbsorbed,
-  })(
-    typia.llm.application<
-      ConstantAtomicAbsorbedApplication,
-      "chatgpt",
-      { equal: true }
-    >(),
-  );
+export const test_llm_applicationEquals_chatgpt_ConstantAtomicAbsorbed =
+  (): void =>
+    _test_llm_applicationEquals({
+      model: "chatgpt",
+      name: "ConstantAtomicAbsorbed",
+      factory: ConstantAtomicAbsorbed,
+    })(
+      typia.llm.application<
+        ConstantAtomicAbsorbedApplication,
+        "chatgpt",
+        { equal: true }
+      >(),
+    );
 
 interface ConstantAtomicAbsorbedApplication {
   insert(p: { first: ConstantAtomicAbsorbed }): Promise<void>;

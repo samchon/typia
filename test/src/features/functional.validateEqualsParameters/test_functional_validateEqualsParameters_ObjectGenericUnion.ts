@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsParameters } from "../../internal/_test_
 import { ObjectGenericUnion } from "../../structures/ObjectGenericUnion";
 
 export const test_functional_validateEqualsParameters_ObjectGenericUnion =
-  _test_functional_validateEqualsParameters("ObjectGenericUnion")(
-    ObjectGenericUnion,
-  )((p: (input: ObjectGenericUnion) => ObjectGenericUnion) =>
-    typia.functional.validateEqualsParameters(p),
-  );
+  (): void =>
+    _test_functional_validateEqualsParameters("ObjectGenericUnion")(
+      ObjectGenericUnion,
+    )((p: (input: ObjectGenericUnion) => ObjectGenericUnion) =>
+      typia.functional.validateEqualsParameters(p),
+    );

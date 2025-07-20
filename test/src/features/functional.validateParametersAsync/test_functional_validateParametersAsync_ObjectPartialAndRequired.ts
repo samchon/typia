@@ -4,10 +4,13 @@ import { _test_functional_validateParametersAsync } from "../../internal/_test_f
 import { ObjectPartialAndRequired } from "../../structures/ObjectPartialAndRequired";
 
 export const test_functional_validateParametersAsync_ObjectPartialAndRequired =
-  _test_functional_validateParametersAsync("ObjectPartialAndRequired")(
-    ObjectPartialAndRequired,
-  )(
-    (
-      p: (input: ObjectPartialAndRequired) => Promise<ObjectPartialAndRequired>,
-    ) => typia.functional.validateParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateParametersAsync("ObjectPartialAndRequired")(
+      ObjectPartialAndRequired,
+    )(
+      (
+        p: (
+          input: ObjectPartialAndRequired,
+        ) => Promise<ObjectPartialAndRequired>,
+      ) => typia.functional.validateParameters(p),
+    );

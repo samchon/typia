@@ -4,7 +4,9 @@ import { _test_functional_validateEqualsFunctionAsync } from "../../internal/_te
 import { CommentTagNaN } from "../../structures/CommentTagNaN";
 
 export const test_functional_validateEqualsFunctionAsync_CommentTagNaN =
-  _test_functional_validateEqualsFunctionAsync("CommentTagNaN")(CommentTagNaN)(
-    (p: (input: CommentTagNaN) => Promise<CommentTagNaN>) =>
+  (): Promise<void> =>
+    _test_functional_validateEqualsFunctionAsync("CommentTagNaN")(
+      CommentTagNaN,
+    )((p: (input: CommentTagNaN) => Promise<CommentTagNaN>) =>
       typia.functional.validateEqualsFunction(p),
-  );
+    );

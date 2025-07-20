@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsParameters } from "../../internal/_test_
 import { ObjectPropertyNullable } from "../../structures/ObjectPropertyNullable";
 
 export const test_functional_validateEqualsParameters_ObjectPropertyNullable =
-  _test_functional_validateEqualsParameters("ObjectPropertyNullable")(
-    ObjectPropertyNullable,
-  )((p: (input: ObjectPropertyNullable) => ObjectPropertyNullable) =>
-    typia.functional.validateEqualsParameters(p),
-  );
+  (): void =>
+    _test_functional_validateEqualsParameters("ObjectPropertyNullable")(
+      ObjectPropertyNullable,
+    )((p: (input: ObjectPropertyNullable) => ObjectPropertyNullable) =>
+      typia.functional.validateEqualsParameters(p),
+    );

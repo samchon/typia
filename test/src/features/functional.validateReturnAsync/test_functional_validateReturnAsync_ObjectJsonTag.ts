@@ -4,7 +4,8 @@ import { _test_functional_validateReturnAsync } from "../../internal/_test_funct
 import { ObjectJsonTag } from "../../structures/ObjectJsonTag";
 
 export const test_functional_validateReturnAsync_ObjectJsonTag =
-  _test_functional_validateReturnAsync("ObjectJsonTag")(ObjectJsonTag)(
-    (p: (input: ObjectJsonTag) => Promise<ObjectJsonTag>) =>
-      typia.functional.validateReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateReturnAsync("ObjectJsonTag")(ObjectJsonTag)(
+      (p: (input: ObjectJsonTag) => Promise<ObjectJsonTag>) =>
+        typia.functional.validateReturn(p),
+    );

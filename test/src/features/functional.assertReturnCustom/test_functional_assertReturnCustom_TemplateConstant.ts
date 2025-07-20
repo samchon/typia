@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_functional_assertReturn } from "../../internal/_test_functional_assertReturn";
 import { TemplateConstant } from "../../structures/TemplateConstant";
 
-export const test_functional_assertReturnCustom_TemplateConstant =
+export const test_functional_assertReturnCustom_TemplateConstant = (): void =>
   _test_functional_assertReturn(CustomGuardError)("TemplateConstant")(
     TemplateConstant,
   )((p: (input: TemplateConstant) => TemplateConstant) =>

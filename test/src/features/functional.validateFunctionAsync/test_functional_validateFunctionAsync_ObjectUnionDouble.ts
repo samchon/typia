@@ -4,8 +4,9 @@ import { _test_functional_validateFunctionAsync } from "../../internal/_test_fun
 import { ObjectUnionDouble } from "../../structures/ObjectUnionDouble";
 
 export const test_functional_validateFunctionAsync_ObjectUnionDouble =
-  _test_functional_validateFunctionAsync("ObjectUnionDouble")(
-    ObjectUnionDouble,
-  )((p: (input: ObjectUnionDouble) => Promise<ObjectUnionDouble>) =>
-    typia.functional.validateFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateFunctionAsync("ObjectUnionDouble")(
+      ObjectUnionDouble,
+    )((p: (input: ObjectUnionDouble) => Promise<ObjectUnionDouble>) =>
+      typia.functional.validateFunction(p),
+    );

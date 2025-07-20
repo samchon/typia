@@ -4,8 +4,9 @@ import { _test_standardSchema_validate } from "../../internal/_test_standardSche
 import { ObjectUnionCompositePointer } from "../../structures/ObjectUnionCompositePointer";
 
 export const test_standardSchema_createValidate_ObjectUnionCompositePointer =
-  _test_standardSchema_validate(
-    "ObjectUnionCompositePointer",
-  )<ObjectUnionCompositePointer>(ObjectUnionCompositePointer)(
-    typia.createValidate<ObjectUnionCompositePointer>(),
-  );
+  (): void =>
+    _test_standardSchema_validate(
+      "ObjectUnionCompositePointer",
+    )<ObjectUnionCompositePointer>(ObjectUnionCompositePointer)(
+      typia.createValidate<ObjectUnionCompositePointer>(),
+    );

@@ -4,7 +4,8 @@ import { _test_functional_equalsFunctionAsync } from "../../internal/_test_funct
 import { TypeTagRange } from "../../structures/TypeTagRange";
 
 export const test_functional_equalsFunctionAsync_TypeTagRange =
-  _test_functional_equalsFunctionAsync("TypeTagRange")(TypeTagRange)(
-    (p: (input: TypeTagRange) => Promise<TypeTagRange>) =>
-      typia.functional.equalsFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_equalsFunctionAsync("TypeTagRange")(TypeTagRange)(
+      (p: (input: TypeTagRange) => Promise<TypeTagRange>) =>
+        typia.functional.equalsFunction(p),
+    );

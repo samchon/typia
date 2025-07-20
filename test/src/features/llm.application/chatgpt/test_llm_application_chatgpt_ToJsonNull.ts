@@ -3,11 +3,12 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ToJsonNull } from "../../../structures/ToJsonNull";
 
-export const test_llm_application_chatgpt_ToJsonNull = _test_llm_application({
-  model: "chatgpt",
-  name: "ToJsonNull",
-  factory: ToJsonNull,
-})(typia.llm.application<ToJsonNullApplication, "chatgpt">());
+export const test_llm_application_chatgpt_ToJsonNull = (): void =>
+  _test_llm_application({
+    model: "chatgpt",
+    name: "ToJsonNull",
+    factory: ToJsonNull,
+  })(typia.llm.application<ToJsonNullApplication, "chatgpt">());
 
 interface ToJsonNullApplication {
   insert(p: { first: ToJsonNull }): Promise<void>;

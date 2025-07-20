@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsParametersAsync } from "../../internal/_
 import { TupleHierarchical } from "../../structures/TupleHierarchical";
 
 export const test_functional_validateEqualsParametersAsync_TupleHierarchical =
-  _test_functional_validateEqualsParametersAsync("TupleHierarchical")(
-    TupleHierarchical,
-  )((p: (input: TupleHierarchical) => Promise<TupleHierarchical>) =>
-    typia.functional.validateEqualsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsParametersAsync("TupleHierarchical")(
+      TupleHierarchical,
+    )((p: (input: TupleHierarchical) => Promise<TupleHierarchical>) =>
+      typia.functional.validateEqualsParameters(p),
+    );

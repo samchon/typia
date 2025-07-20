@@ -4,8 +4,9 @@ import { _test_functional_equalsParametersAsync } from "../../internal/_test_fun
 import { ToJsonAtomicSimple } from "../../structures/ToJsonAtomicSimple";
 
 export const test_functional_equalsParametersAsync_ToJsonAtomicSimple =
-  _test_functional_equalsParametersAsync("ToJsonAtomicSimple")(
-    ToJsonAtomicSimple,
-  )((p: (input: ToJsonAtomicSimple) => Promise<ToJsonAtomicSimple>) =>
-    typia.functional.equalsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_equalsParametersAsync("ToJsonAtomicSimple")(
+      ToJsonAtomicSimple,
+    )((p: (input: ToJsonAtomicSimple) => Promise<ToJsonAtomicSimple>) =>
+      typia.functional.equalsParameters(p),
+    );

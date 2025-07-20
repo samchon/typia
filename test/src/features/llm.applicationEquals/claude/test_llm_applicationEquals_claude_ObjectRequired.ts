@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { ObjectRequired } from "../../../structures/ObjectRequired";
 
-export const test_llm_application_claude_ObjectRequired =
+export const test_llm_applicationEquals_claude_ObjectRequired = (): void =>
   _test_llm_applicationEquals({
     model: "claude",
     name: "ObjectRequired",

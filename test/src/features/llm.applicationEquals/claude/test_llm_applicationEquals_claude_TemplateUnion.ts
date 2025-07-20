@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { TemplateUnion } from "../../../structures/TemplateUnion";
 
-export const test_llm_application_claude_TemplateUnion =
+export const test_llm_applicationEquals_claude_TemplateUnion = (): void =>
   _test_llm_applicationEquals({
     model: "claude",
     name: "TemplateUnion",

@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsFunction } from "../../internal/_test_func
 import { FunctionalValue } from "../../structures/FunctionalValue";
 
 export const test_functional_assertEqualsFunctionCustom_FunctionalValue =
-  _test_functional_assertEqualsFunction(CustomGuardError)("FunctionalValue")(
-    FunctionalValue,
-  )((p: (input: FunctionalValue) => FunctionalValue) =>
-    typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertEqualsFunction(CustomGuardError)("FunctionalValue")(
+      FunctionalValue,
+    )((p: (input: FunctionalValue) => FunctionalValue) =>
+      typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
+    );

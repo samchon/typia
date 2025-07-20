@@ -5,9 +5,10 @@ import { _test_functional_assertEqualsFunction } from "../../internal/_test_func
 import { CommentTagAtomicUnion } from "../../structures/CommentTagAtomicUnion";
 
 export const test_functional_assertEqualsFunction_CommentTagAtomicUnion =
-  _test_functional_assertEqualsFunction(TypeGuardError)(
-    "CommentTagAtomicUnion",
-  )(CommentTagAtomicUnion)(
-    (p: (input: CommentTagAtomicUnion) => CommentTagAtomicUnion) =>
-      typia.functional.assertEqualsFunction(p),
-  );
+  (): void =>
+    _test_functional_assertEqualsFunction(TypeGuardError)(
+      "CommentTagAtomicUnion",
+    )(CommentTagAtomicUnion)(
+      (p: (input: CommentTagAtomicUnion) => CommentTagAtomicUnion) =>
+        typia.functional.assertEqualsFunction(p),
+    );

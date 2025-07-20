@@ -4,8 +4,9 @@ import { _test_functional_validateFunctionAsync } from "../../internal/_test_fun
 import { FunctionalProperty } from "../../structures/FunctionalProperty";
 
 export const test_functional_validateFunctionAsync_FunctionalProperty =
-  _test_functional_validateFunctionAsync("FunctionalProperty")(
-    FunctionalProperty,
-  )((p: (input: FunctionalProperty) => Promise<FunctionalProperty>) =>
-    typia.functional.validateFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateFunctionAsync("FunctionalProperty")(
+      FunctionalProperty,
+    )((p: (input: FunctionalProperty) => Promise<FunctionalProperty>) =>
+      typia.functional.validateFunction(p),
+    );

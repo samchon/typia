@@ -4,8 +4,9 @@ import { _test_functional_validateParametersAsync } from "../../internal/_test_f
 import { CommentTagPattern } from "../../structures/CommentTagPattern";
 
 export const test_functional_validateParametersAsync_CommentTagPattern =
-  _test_functional_validateParametersAsync("CommentTagPattern")(
-    CommentTagPattern,
-  )((p: (input: CommentTagPattern) => Promise<CommentTagPattern>) =>
-    typia.functional.validateParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateParametersAsync("CommentTagPattern")(
+      CommentTagPattern,
+    )((p: (input: CommentTagPattern) => Promise<CommentTagPattern>) =>
+      typia.functional.validateParameters(p),
+    );

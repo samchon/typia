@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { ObjectGenericUnion } from "../../../structures/ObjectGenericUnion";
 
-export const test_llm_application_claude_ObjectGenericUnion =
+export const test_llm_applicationEquals_claude_ObjectGenericUnion = (): void =>
   _test_llm_applicationEquals({
     model: "claude",
     name: "ObjectGenericUnion",

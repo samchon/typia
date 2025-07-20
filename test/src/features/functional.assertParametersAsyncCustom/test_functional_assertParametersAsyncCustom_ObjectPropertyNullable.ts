@@ -5,9 +5,10 @@ import { _test_functional_assertParametersAsync } from "../../internal/_test_fun
 import { ObjectPropertyNullable } from "../../structures/ObjectPropertyNullable";
 
 export const test_functional_assertParametersAsyncCustom_ObjectPropertyNullable =
-  _test_functional_assertParametersAsync(CustomGuardError)(
-    "ObjectPropertyNullable",
-  )(ObjectPropertyNullable)(
-    (p: (input: ObjectPropertyNullable) => Promise<ObjectPropertyNullable>) =>
-      typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertParametersAsync(CustomGuardError)(
+      "ObjectPropertyNullable",
+    )(ObjectPropertyNullable)(
+      (p: (input: ObjectPropertyNullable) => Promise<ObjectPropertyNullable>) =>
+        typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
+    );

@@ -4,8 +4,9 @@ import { _test_functional_isParametersAsync } from "../../internal/_test_functio
 import { ObjectUnionImplicit } from "../../structures/ObjectUnionImplicit";
 
 export const test_functional_isParametersAsync_ObjectUnionImplicit =
-  _test_functional_isParametersAsync("ObjectUnionImplicit")(
-    ObjectUnionImplicit,
-  )((p: (input: ObjectUnionImplicit) => Promise<ObjectUnionImplicit>) =>
-    typia.functional.isParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_isParametersAsync("ObjectUnionImplicit")(
+      ObjectUnionImplicit,
+    )((p: (input: ObjectUnionImplicit) => Promise<ObjectUnionImplicit>) =>
+      typia.functional.isParameters(p),
+    );

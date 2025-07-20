@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsParametersAsync } from "../../internal/_te
 import { ToJsonArray } from "../../structures/ToJsonArray";
 
 export const test_functional_assertEqualsParametersAsync_ToJsonArray =
-  _test_functional_assertEqualsParametersAsync(TypeGuardError)("ToJsonArray")(
-    ToJsonArray,
-  )((p: (input: ToJsonArray) => Promise<ToJsonArray>) =>
-    typia.functional.assertEqualsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsParametersAsync(TypeGuardError)("ToJsonArray")(
+      ToJsonArray,
+    )((p: (input: ToJsonArray) => Promise<ToJsonArray>) =>
+      typia.functional.assertEqualsParameters(p),
+    );

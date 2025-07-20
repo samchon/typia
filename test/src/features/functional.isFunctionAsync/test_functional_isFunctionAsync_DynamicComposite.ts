@@ -4,7 +4,8 @@ import { _test_functional_isFunctionAsync } from "../../internal/_test_functiona
 import { DynamicComposite } from "../../structures/DynamicComposite";
 
 export const test_functional_isFunctionAsync_DynamicComposite =
-  _test_functional_isFunctionAsync("DynamicComposite")(DynamicComposite)(
-    (p: (input: DynamicComposite) => Promise<DynamicComposite>) =>
-      typia.functional.isFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_isFunctionAsync("DynamicComposite")(DynamicComposite)(
+      (p: (input: DynamicComposite) => Promise<DynamicComposite>) =>
+        typia.functional.isFunction(p),
+    );

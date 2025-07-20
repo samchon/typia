@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_functional_assertFunction } from "../../internal/_test_functional_assertFunction";
 import { ToJsonDouble } from "../../structures/ToJsonDouble";
 
-export const test_functional_assertFunctionCustom_ToJsonDouble =
+export const test_functional_assertFunctionCustom_ToJsonDouble = (): void =>
   _test_functional_assertFunction(CustomGuardError)("ToJsonDouble")(
     ToJsonDouble,
   )((p: (input: ToJsonDouble) => ToJsonDouble) =>

@@ -5,9 +5,13 @@ import { _test_functional_assertEqualsFunction } from "../../internal/_test_func
 import { ObjectUnionComposite } from "../../structures/ObjectUnionComposite";
 
 export const test_functional_assertEqualsFunctionCustom_ObjectUnionComposite =
-  _test_functional_assertEqualsFunction(CustomGuardError)(
-    "ObjectUnionComposite",
-  )(ObjectUnionComposite)(
-    (p: (input: ObjectUnionComposite) => ObjectUnionComposite) =>
-      typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertEqualsFunction(CustomGuardError)(
+      "ObjectUnionComposite",
+    )(ObjectUnionComposite)(
+      (p: (input: ObjectUnionComposite) => ObjectUnionComposite) =>
+        typia.functional.assertEqualsFunction(
+          p,
+          (p) => new CustomGuardError(p),
+        ),
+    );

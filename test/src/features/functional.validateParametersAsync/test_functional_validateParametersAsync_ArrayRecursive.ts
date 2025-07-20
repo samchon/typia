@@ -4,7 +4,8 @@ import { _test_functional_validateParametersAsync } from "../../internal/_test_f
 import { ArrayRecursive } from "../../structures/ArrayRecursive";
 
 export const test_functional_validateParametersAsync_ArrayRecursive =
-  _test_functional_validateParametersAsync("ArrayRecursive")(ArrayRecursive)(
-    (p: (input: ArrayRecursive) => Promise<ArrayRecursive>) =>
-      typia.functional.validateParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateParametersAsync("ArrayRecursive")(ArrayRecursive)(
+      (p: (input: ArrayRecursive) => Promise<ArrayRecursive>) =>
+        typia.functional.validateParameters(p),
+    );

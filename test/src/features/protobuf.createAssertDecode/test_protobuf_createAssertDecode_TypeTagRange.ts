@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_protobuf_assertDecode } from "../../internal/_test_protobuf_assertDecode";
 import { TypeTagRange } from "../../structures/TypeTagRange";
 
-export const test_protobuf_createAssertDecode_TypeTagRange =
+export const test_protobuf_createAssertDecode_TypeTagRange = (): void =>
   _test_protobuf_assertDecode(TypeGuardError)("TypeTagRange")<TypeTagRange>(
     TypeTagRange,
   )({

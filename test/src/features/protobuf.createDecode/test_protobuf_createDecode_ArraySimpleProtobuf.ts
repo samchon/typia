@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_protobuf_decode } from "../../internal/_test_protobuf_decode";
 import { ArraySimpleProtobuf } from "../../structures/ArraySimpleProtobuf";
 
-export const test_protobuf_createDecode_ArraySimpleProtobuf =
+export const test_protobuf_createDecode_ArraySimpleProtobuf = (): void =>
   _test_protobuf_decode("ArraySimpleProtobuf")<ArraySimpleProtobuf>(
     ArraySimpleProtobuf,
   )({

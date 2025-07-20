@@ -5,8 +5,10 @@ import { _test_functional_assertParametersAsync } from "../../internal/_test_fun
 import { TupleHierarchical } from "../../structures/TupleHierarchical";
 
 export const test_functional_assertParametersAsyncCustom_TupleHierarchical =
-  _test_functional_assertParametersAsync(CustomGuardError)("TupleHierarchical")(
-    TupleHierarchical,
-  )((p: (input: TupleHierarchical) => Promise<TupleHierarchical>) =>
-    typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertParametersAsync(CustomGuardError)(
+      "TupleHierarchical",
+    )(TupleHierarchical)(
+      (p: (input: TupleHierarchical) => Promise<TupleHierarchical>) =>
+        typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
+    );

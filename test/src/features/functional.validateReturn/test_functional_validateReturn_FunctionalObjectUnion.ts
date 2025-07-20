@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_functional_validateReturn } from "../../internal/_test_functional_validateReturn";
 import { FunctionalObjectUnion } from "../../structures/FunctionalObjectUnion";
 
-export const test_functional_validateReturn_FunctionalObjectUnion =
+export const test_functional_validateReturn_FunctionalObjectUnion = (): void =>
   _test_functional_validateReturn("FunctionalObjectUnion")(
     FunctionalObjectUnion,
   )((p: (input: FunctionalObjectUnion) => FunctionalObjectUnion) =>

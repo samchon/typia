@@ -4,7 +4,9 @@ import { _test_functional_validateEqualsReturn } from "../../internal/_test_func
 import { ObjectDescription } from "../../structures/ObjectDescription";
 
 export const test_functional_validateEqualsReturn_ObjectDescription =
-  _test_functional_validateEqualsReturn("ObjectDescription")(ObjectDescription)(
-    (p: (input: ObjectDescription) => ObjectDescription) =>
+  (): void =>
+    _test_functional_validateEqualsReturn("ObjectDescription")(
+      ObjectDescription,
+    )((p: (input: ObjectDescription) => ObjectDescription) =>
       typia.functional.validateEqualsReturn(p),
-  );
+    );

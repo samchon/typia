@@ -4,8 +4,9 @@ import { _test_functional_validateFunctionAsync } from "../../internal/_test_fun
 import { ObjectHttpUndefindable } from "../../structures/ObjectHttpUndefindable";
 
 export const test_functional_validateFunctionAsync_ObjectHttpUndefindable =
-  _test_functional_validateFunctionAsync("ObjectHttpUndefindable")(
-    ObjectHttpUndefindable,
-  )((p: (input: ObjectHttpUndefindable) => Promise<ObjectHttpUndefindable>) =>
-    typia.functional.validateFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateFunctionAsync("ObjectHttpUndefindable")(
+      ObjectHttpUndefindable,
+    )((p: (input: ObjectHttpUndefindable) => Promise<ObjectHttpUndefindable>) =>
+      typia.functional.validateFunction(p),
+    );

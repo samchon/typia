@@ -4,11 +4,12 @@ import { _test_protobuf_validateEncode } from "../../internal/_test_protobuf_val
 import { ObjectUnionNonPredictable } from "../../structures/ObjectUnionNonPredictable";
 
 export const test_protobuf_validateEncode_ObjectUnionNonPredictable =
-  _test_protobuf_validateEncode(
-    "ObjectUnionNonPredictable",
-  )<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)({
-    encode: (input) =>
-      typia.protobuf.validateEncode<ObjectUnionNonPredictable>(input),
-    decode: typia.protobuf.createDecode<ObjectUnionNonPredictable>(),
-    message: typia.protobuf.message<ObjectUnionNonPredictable>(),
-  });
+  (): void =>
+    _test_protobuf_validateEncode(
+      "ObjectUnionNonPredictable",
+    )<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)({
+      encode: (input) =>
+        typia.protobuf.validateEncode<ObjectUnionNonPredictable>(input),
+      decode: typia.protobuf.createDecode<ObjectUnionNonPredictable>(),
+      message: typia.protobuf.message<ObjectUnionNonPredictable>(),
+    });

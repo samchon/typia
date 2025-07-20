@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_functional_assertFunction } from "../../internal/_test_functional_assertFunction";
 import { ConstantEnumeration } from "../../structures/ConstantEnumeration";
 
-export const test_functional_assertFunction_ConstantEnumeration =
+export const test_functional_assertFunction_ConstantEnumeration = (): void =>
   _test_functional_assertFunction(TypeGuardError)("ConstantEnumeration")(
     ConstantEnumeration,
   )((p: (input: ConstantEnumeration) => ConstantEnumeration) =>

@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsReturnAsync } from "../../internal/_test
 import { DynamicEnumeration } from "../../structures/DynamicEnumeration";
 
 export const test_functional_validateEqualsReturnAsync_DynamicEnumeration =
-  _test_functional_validateEqualsReturnAsync("DynamicEnumeration")(
-    DynamicEnumeration,
-  )((p: (input: DynamicEnumeration) => Promise<DynamicEnumeration>) =>
-    typia.functional.validateEqualsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsReturnAsync("DynamicEnumeration")(
+      DynamicEnumeration,
+    )((p: (input: DynamicEnumeration) => Promise<DynamicEnumeration>) =>
+      typia.functional.validateEqualsReturn(p),
+    );

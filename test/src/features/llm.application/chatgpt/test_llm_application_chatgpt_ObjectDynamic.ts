@@ -3,13 +3,12 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ObjectDynamic } from "../../../structures/ObjectDynamic";
 
-export const test_llm_application_chatgpt_ObjectDynamic = _test_llm_application(
-  {
+export const test_llm_application_chatgpt_ObjectDynamic = (): void =>
+  _test_llm_application({
     model: "chatgpt",
     name: "ObjectDynamic",
     factory: ObjectDynamic,
-  },
-)(typia.llm.application<ObjectDynamicApplication, "chatgpt">());
+  })(typia.llm.application<ObjectDynamicApplication, "chatgpt">());
 
 interface ObjectDynamicApplication {
   insert(p: { first: ObjectDynamic }): Promise<void>;

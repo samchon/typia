@@ -5,12 +5,13 @@ import { _test_protobuf_assertEncode } from "../../internal/_test_protobuf_asser
 import { ClassPropertyAssignment } from "../../structures/ClassPropertyAssignment";
 
 export const test_protobuf_createAssertEncodeCustom_ClassPropertyAssignment =
-  _test_protobuf_assertEncode(CustomGuardError)(
-    "ClassPropertyAssignment",
-  )<ClassPropertyAssignment>(ClassPropertyAssignment)({
-    encode: typia.protobuf.createAssertEncode<ClassPropertyAssignment>(
-      (p) => new CustomGuardError(p),
-    ),
-    decode: typia.protobuf.createDecode<ClassPropertyAssignment>(),
-    message: typia.protobuf.message<ClassPropertyAssignment>(),
-  });
+  (): void =>
+    _test_protobuf_assertEncode(CustomGuardError)(
+      "ClassPropertyAssignment",
+    )<ClassPropertyAssignment>(ClassPropertyAssignment)({
+      encode: typia.protobuf.createAssertEncode<ClassPropertyAssignment>(
+        (p) => new CustomGuardError(p),
+      ),
+      decode: typia.protobuf.createDecode<ClassPropertyAssignment>(),
+      message: typia.protobuf.message<ClassPropertyAssignment>(),
+    });

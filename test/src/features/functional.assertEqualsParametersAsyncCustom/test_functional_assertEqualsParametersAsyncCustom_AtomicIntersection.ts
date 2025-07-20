@@ -5,12 +5,13 @@ import { _test_functional_assertEqualsParametersAsync } from "../../internal/_te
 import { AtomicIntersection } from "../../structures/AtomicIntersection";
 
 export const test_functional_assertEqualsParametersAsyncCustom_AtomicIntersection =
-  _test_functional_assertEqualsParametersAsync(CustomGuardError)(
-    "AtomicIntersection",
-  )(AtomicIntersection)(
-    (p: (input: AtomicIntersection) => Promise<AtomicIntersection>) =>
-      typia.functional.assertEqualsParameters(
-        p,
-        (p) => new CustomGuardError(p),
-      ),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsParametersAsync(CustomGuardError)(
+      "AtomicIntersection",
+    )(AtomicIntersection)(
+      (p: (input: AtomicIntersection) => Promise<AtomicIntersection>) =>
+        typia.functional.assertEqualsParameters(
+          p,
+          (p) => new CustomGuardError(p),
+        ),
+    );

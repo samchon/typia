@@ -5,8 +5,10 @@ import { _test_functional_assertEqualsFunction } from "../../internal/_test_func
 import { ConstantIntersection } from "../../structures/ConstantIntersection";
 
 export const test_functional_assertEqualsFunction_ConstantIntersection =
-  _test_functional_assertEqualsFunction(TypeGuardError)("ConstantIntersection")(
-    ConstantIntersection,
-  )((p: (input: ConstantIntersection) => ConstantIntersection) =>
-    typia.functional.assertEqualsFunction(p),
-  );
+  (): void =>
+    _test_functional_assertEqualsFunction(TypeGuardError)(
+      "ConstantIntersection",
+    )(ConstantIntersection)(
+      (p: (input: ConstantIntersection) => ConstantIntersection) =>
+        typia.functional.assertEqualsFunction(p),
+    );

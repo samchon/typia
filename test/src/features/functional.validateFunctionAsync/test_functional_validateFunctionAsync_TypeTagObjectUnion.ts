@@ -4,8 +4,9 @@ import { _test_functional_validateFunctionAsync } from "../../internal/_test_fun
 import { TypeTagObjectUnion } from "../../structures/TypeTagObjectUnion";
 
 export const test_functional_validateFunctionAsync_TypeTagObjectUnion =
-  _test_functional_validateFunctionAsync("TypeTagObjectUnion")(
-    TypeTagObjectUnion,
-  )((p: (input: TypeTagObjectUnion) => Promise<TypeTagObjectUnion>) =>
-    typia.functional.validateFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateFunctionAsync("TypeTagObjectUnion")(
+      TypeTagObjectUnion,
+    )((p: (input: TypeTagObjectUnion) => Promise<TypeTagObjectUnion>) =>
+      typia.functional.validateFunction(p),
+    );

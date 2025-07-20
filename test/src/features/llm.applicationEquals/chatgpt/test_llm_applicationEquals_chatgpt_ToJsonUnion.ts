@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { ToJsonUnion } from "../../../structures/ToJsonUnion";
 
-export const test_llm_application_chatgpt_ToJsonUnion =
+export const test_llm_applicationEquals_chatgpt_ToJsonUnion = (): void =>
   _test_llm_applicationEquals({
     model: "chatgpt",
     name: "ToJsonUnion",

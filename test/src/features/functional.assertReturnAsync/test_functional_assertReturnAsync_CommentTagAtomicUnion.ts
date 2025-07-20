@@ -5,8 +5,9 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { CommentTagAtomicUnion } from "../../structures/CommentTagAtomicUnion";
 
 export const test_functional_assertReturnAsync_CommentTagAtomicUnion =
-  _test_functional_assertReturnAsync(TypeGuardError)("CommentTagAtomicUnion")(
-    CommentTagAtomicUnion,
-  )((p: (input: CommentTagAtomicUnion) => Promise<CommentTagAtomicUnion>) =>
-    typia.functional.assertReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(TypeGuardError)("CommentTagAtomicUnion")(
+      CommentTagAtomicUnion,
+    )((p: (input: CommentTagAtomicUnion) => Promise<CommentTagAtomicUnion>) =>
+      typia.functional.assertReturn(p),
+    );

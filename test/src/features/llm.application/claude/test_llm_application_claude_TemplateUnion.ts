@@ -3,11 +3,12 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { TemplateUnion } from "../../../structures/TemplateUnion";
 
-export const test_llm_application_claude_TemplateUnion = _test_llm_application({
-  model: "claude",
-  name: "TemplateUnion",
-  factory: TemplateUnion,
-})(typia.llm.application<TemplateUnionApplication, "claude">());
+export const test_llm_application_claude_TemplateUnion = (): void =>
+  _test_llm_application({
+    model: "claude",
+    name: "TemplateUnion",
+    factory: TemplateUnion,
+  })(typia.llm.application<TemplateUnionApplication, "claude">());
 
 interface TemplateUnionApplication {
   insert(p: { first: TemplateUnion }): Promise<void>;

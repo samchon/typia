@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { DynamicUndefined } from "../../../structures/DynamicUndefined";
 
-export const test_llm_application_claude_DynamicUndefined =
+export const test_llm_application_claude_DynamicUndefined = (): void =>
   _test_llm_application({
     model: "claude",
     name: "DynamicUndefined",

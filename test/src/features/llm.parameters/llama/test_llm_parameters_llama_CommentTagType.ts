@@ -3,10 +3,11 @@ import typia from "typia";
 import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 import { CommentTagType } from "../../../structures/CommentTagType";
 
-export const test_llm_parameters_llama_CommentTagType = _test_llm_parameters({
-  model: "llama",
-  name: "CommentTagType",
-})(typia.llm.parameters<CommentTagTypeParameters, "llama">());
+export const test_llm_parameters_llama_CommentTagType = (): void =>
+  _test_llm_parameters({
+    model: "llama",
+    name: "CommentTagType",
+  })(typia.llm.parameters<CommentTagTypeParameters, "llama">());
 
 interface CommentTagTypeParameters {
   regular: CommentTagType;

@@ -5,9 +5,10 @@ import { _test_functional_assertEqualsParametersAsync } from "../../internal/_te
 import { ArrayHierarchical } from "../../structures/ArrayHierarchical";
 
 export const test_functional_assertEqualsParametersAsync_ArrayHierarchical =
-  _test_functional_assertEqualsParametersAsync(TypeGuardError)(
-    "ArrayHierarchical",
-  )(ArrayHierarchical)(
-    (p: (input: ArrayHierarchical) => Promise<ArrayHierarchical>) =>
-      typia.functional.assertEqualsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsParametersAsync(TypeGuardError)(
+      "ArrayHierarchical",
+    )(ArrayHierarchical)(
+      (p: (input: ArrayHierarchical) => Promise<ArrayHierarchical>) =>
+        typia.functional.assertEqualsParameters(p),
+    );

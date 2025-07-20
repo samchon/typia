@@ -17,7 +17,7 @@ export namespace TestReflectMetadataGenerator {
         `import { ${s.name} } from "../../structures/${s.name}";`,
         `import { _test_reflect_metadata } from "../../internal/_test_reflect_metadata";`,
         "",
-        `export const test_reflect_metadata_${s.name} = `,
+        `export const test_reflect_metadata_${s.name} = (): void =>`,
         `  _test_reflect_metadata("${s.name}")(`,
         `    typia.reflect.metadata<[${s.name}]>()`,
         `  );`,

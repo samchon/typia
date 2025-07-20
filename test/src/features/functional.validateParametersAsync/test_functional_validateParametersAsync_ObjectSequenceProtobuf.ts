@@ -4,8 +4,9 @@ import { _test_functional_validateParametersAsync } from "../../internal/_test_f
 import { ObjectSequenceProtobuf } from "../../structures/ObjectSequenceProtobuf";
 
 export const test_functional_validateParametersAsync_ObjectSequenceProtobuf =
-  _test_functional_validateParametersAsync("ObjectSequenceProtobuf")(
-    ObjectSequenceProtobuf,
-  )((p: (input: ObjectSequenceProtobuf) => Promise<ObjectSequenceProtobuf>) =>
-    typia.functional.validateParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateParametersAsync("ObjectSequenceProtobuf")(
+      ObjectSequenceProtobuf,
+    )((p: (input: ObjectSequenceProtobuf) => Promise<ObjectSequenceProtobuf>) =>
+      typia.functional.validateParameters(p),
+    );

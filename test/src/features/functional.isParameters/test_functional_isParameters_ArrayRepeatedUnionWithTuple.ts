@@ -4,8 +4,11 @@ import { _test_functional_isParameters } from "../../internal/_test_functional_i
 import { ArrayRepeatedUnionWithTuple } from "../../structures/ArrayRepeatedUnionWithTuple";
 
 export const test_functional_isParameters_ArrayRepeatedUnionWithTuple =
-  _test_functional_isParameters("ArrayRepeatedUnionWithTuple")(
-    ArrayRepeatedUnionWithTuple,
-  )((p: (input: ArrayRepeatedUnionWithTuple) => ArrayRepeatedUnionWithTuple) =>
-    typia.functional.isParameters(p),
-  );
+  (): void =>
+    _test_functional_isParameters("ArrayRepeatedUnionWithTuple")(
+      ArrayRepeatedUnionWithTuple,
+    )(
+      (
+        p: (input: ArrayRepeatedUnionWithTuple) => ArrayRepeatedUnionWithTuple,
+      ) => typia.functional.isParameters(p),
+    );

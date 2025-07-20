@@ -3,18 +3,19 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { ArrayRecursiveUnionExplicitPointer } from "../../../structures/ArrayRecursiveUnionExplicitPointer";
 
-export const test_llm_application_chatgpt_ArrayRecursiveUnionExplicitPointer =
-  _test_llm_applicationEquals({
-    model: "chatgpt",
-    name: "ArrayRecursiveUnionExplicitPointer",
-    factory: ArrayRecursiveUnionExplicitPointer,
-  })(
-    typia.llm.application<
-      ArrayRecursiveUnionExplicitPointerApplication,
-      "chatgpt",
-      { equal: true }
-    >(),
-  );
+export const test_llm_applicationEquals_chatgpt_ArrayRecursiveUnionExplicitPointer =
+  (): void =>
+    _test_llm_applicationEquals({
+      model: "chatgpt",
+      name: "ArrayRecursiveUnionExplicitPointer",
+      factory: ArrayRecursiveUnionExplicitPointer,
+    })(
+      typia.llm.application<
+        ArrayRecursiveUnionExplicitPointerApplication,
+        "chatgpt",
+        { equal: true }
+      >(),
+    );
 
 interface ArrayRecursiveUnionExplicitPointerApplication {
   insert(p: { first: ArrayRecursiveUnionExplicitPointer }): Promise<void>;

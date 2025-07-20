@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_assertEquals } from "../../internal/_test_assertEquals";
 import { CommentTagInfinite } from "../../structures/CommentTagInfinite";
 
-export const test_createAssertEqualsCustom_CommentTagInfinite =
+export const test_createAssertEqualsCustom_CommentTagInfinite = (): void =>
   _test_assertEquals(CustomGuardError)(
     "CommentTagInfinite",
   )<CommentTagInfinite>(CommentTagInfinite)(

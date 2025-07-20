@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsFunction } from "../../internal/_test_func
 import { TupleRestArray } from "../../structures/TupleRestArray";
 
 export const test_functional_assertEqualsFunctionCustom_TupleRestArray =
-  _test_functional_assertEqualsFunction(CustomGuardError)("TupleRestArray")(
-    TupleRestArray,
-  )((p: (input: TupleRestArray) => TupleRestArray) =>
-    typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertEqualsFunction(CustomGuardError)("TupleRestArray")(
+      TupleRestArray,
+    )((p: (input: TupleRestArray) => TupleRestArray) =>
+      typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
+    );

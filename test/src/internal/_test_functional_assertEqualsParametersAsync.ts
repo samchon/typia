@@ -7,8 +7,9 @@ export const _test_functional_assertEqualsParametersAsync =
   (ErrorClass: Function) =>
   (name: string) =>
   <T>(factory: TestStructure<T>) =>
-  (assertEquals: (p: (input: T) => Promise<T>) => (input: T) => Promise<T>) =>
-  async () => {
+  async (
+    assertEquals: (p: (input: T) => Promise<T>) => (input: T) => Promise<T>,
+  ): Promise<void> => {
     const validate =
       (replacer: string) => async (callback: (input: T) => [T, T]) => {
         // EXACT TYPE

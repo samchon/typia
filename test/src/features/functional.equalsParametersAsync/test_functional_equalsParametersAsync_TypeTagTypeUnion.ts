@@ -4,7 +4,9 @@ import { _test_functional_equalsParametersAsync } from "../../internal/_test_fun
 import { TypeTagTypeUnion } from "../../structures/TypeTagTypeUnion";
 
 export const test_functional_equalsParametersAsync_TypeTagTypeUnion =
-  _test_functional_equalsParametersAsync("TypeTagTypeUnion")(TypeTagTypeUnion)(
-    (p: (input: TypeTagTypeUnion) => Promise<TypeTagTypeUnion>) =>
+  (): Promise<void> =>
+    _test_functional_equalsParametersAsync("TypeTagTypeUnion")(
+      TypeTagTypeUnion,
+    )((p: (input: TypeTagTypeUnion) => Promise<TypeTagTypeUnion>) =>
       typia.functional.equalsParameters(p),
-  );
+    );

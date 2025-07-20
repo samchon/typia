@@ -4,7 +4,8 @@ import { _test_functional_validateEqualsParametersAsync } from "../../internal/_
 import { ClassMethod } from "../../structures/ClassMethod";
 
 export const test_functional_validateEqualsParametersAsync_ClassMethod =
-  _test_functional_validateEqualsParametersAsync("ClassMethod")(ClassMethod)(
-    (p: (input: ClassMethod) => Promise<ClassMethod>) =>
-      typia.functional.validateEqualsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsParametersAsync("ClassMethod")(ClassMethod)(
+      (p: (input: ClassMethod) => Promise<ClassMethod>) =>
+        typia.functional.validateEqualsParameters(p),
+    );

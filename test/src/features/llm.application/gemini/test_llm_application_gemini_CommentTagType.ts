@@ -3,13 +3,12 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { CommentTagType } from "../../../structures/CommentTagType";
 
-export const test_llm_application_gemini_CommentTagType = _test_llm_application(
-  {
+export const test_llm_application_gemini_CommentTagType = (): void =>
+  _test_llm_application({
     model: "gemini",
     name: "CommentTagType",
     factory: CommentTagType,
-  },
-)(typia.llm.application<CommentTagTypeApplication, "gemini">());
+  })(typia.llm.application<CommentTagTypeApplication, "gemini">());
 
 interface CommentTagTypeApplication {
   insert(p: { first: CommentTagType }): Promise<void>;

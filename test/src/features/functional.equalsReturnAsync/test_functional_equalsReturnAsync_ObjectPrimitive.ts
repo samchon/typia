@@ -4,7 +4,8 @@ import { _test_functional_equalsReturnAsync } from "../../internal/_test_functio
 import { ObjectPrimitive } from "../../structures/ObjectPrimitive";
 
 export const test_functional_equalsReturnAsync_ObjectPrimitive =
-  _test_functional_equalsReturnAsync("ObjectPrimitive")(ObjectPrimitive)(
-    (p: (input: ObjectPrimitive) => Promise<ObjectPrimitive>) =>
-      typia.functional.equalsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_equalsReturnAsync("ObjectPrimitive")(ObjectPrimitive)(
+      (p: (input: ObjectPrimitive) => Promise<ObjectPrimitive>) =>
+        typia.functional.equalsReturn(p),
+    );

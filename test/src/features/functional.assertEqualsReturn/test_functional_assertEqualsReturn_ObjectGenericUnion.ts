@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_functional_assertEqualsReturn } from "../../internal/_test_functional_assertEqualsReturn";
 import { ObjectGenericUnion } from "../../structures/ObjectGenericUnion";
 
-export const test_functional_assertEqualsReturn_ObjectGenericUnion =
+export const test_functional_assertEqualsReturn_ObjectGenericUnion = (): void =>
   _test_functional_assertEqualsReturn(TypeGuardError)("ObjectGenericUnion")(
     ObjectGenericUnion,
   )((p: (input: ObjectGenericUnion) => ObjectGenericUnion) =>

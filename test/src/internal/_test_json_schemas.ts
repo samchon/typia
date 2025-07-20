@@ -5,7 +5,7 @@ import { primitive_equal_to } from "../helpers/primitive_equal_to";
 
 export const _test_json_schemas =
   (props: { version: string; name: string }) =>
-  <App extends IJsonSchemaCollection<any>>(app: App) => {
+  <App extends IJsonSchemaCollection<any>>(app: App): void => {
     const actual: IJsonSchemaCollection<any> = JSON.parse(
       fs.readFileSync(
         `${__dirname}/../../schemas/json.schemas/v${props.version.replace(".", "_")}/${props.name}.json`,

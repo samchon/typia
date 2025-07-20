@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsReturn } from "../../internal/_test_functi
 import { ConstantAtomicTagged } from "../../structures/ConstantAtomicTagged";
 
 export const test_functional_assertEqualsReturn_ConstantAtomicTagged =
-  _test_functional_assertEqualsReturn(TypeGuardError)("ConstantAtomicTagged")(
-    ConstantAtomicTagged,
-  )((p: (input: ConstantAtomicTagged) => ConstantAtomicTagged) =>
-    typia.functional.assertEqualsReturn(p),
-  );
+  (): void =>
+    _test_functional_assertEqualsReturn(TypeGuardError)("ConstantAtomicTagged")(
+      ConstantAtomicTagged,
+    )((p: (input: ConstantAtomicTagged) => ConstantAtomicTagged) =>
+      typia.functional.assertEqualsReturn(p),
+    );

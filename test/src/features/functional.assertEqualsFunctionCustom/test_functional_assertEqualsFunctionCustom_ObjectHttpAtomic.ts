@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsFunction } from "../../internal/_test_func
 import { ObjectHttpAtomic } from "../../structures/ObjectHttpAtomic";
 
 export const test_functional_assertEqualsFunctionCustom_ObjectHttpAtomic =
-  _test_functional_assertEqualsFunction(CustomGuardError)("ObjectHttpAtomic")(
-    ObjectHttpAtomic,
-  )((p: (input: ObjectHttpAtomic) => ObjectHttpAtomic) =>
-    typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertEqualsFunction(CustomGuardError)("ObjectHttpAtomic")(
+      ObjectHttpAtomic,
+    )((p: (input: ObjectHttpAtomic) => ObjectHttpAtomic) =>
+      typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
+    );

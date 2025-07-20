@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ObjectPrimitive } from "../../../structures/ObjectPrimitive";
 
-export const test_llm_application_gemini_ObjectPrimitive =
+export const test_llm_application_gemini_ObjectPrimitive = (): void =>
   _test_llm_application({
     model: "gemini",
     name: "ObjectPrimitive",

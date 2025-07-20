@@ -5,9 +5,10 @@ import { _test_protobuf_assertDecode } from "../../internal/_test_protobuf_asser
 import { ObjectSimpleProtobufOptional } from "../../structures/ObjectSimpleProtobufOptional";
 
 export const test_protobuf_createAssertDecode_ObjectSimpleProtobufOptional =
-  _test_protobuf_assertDecode(TypeGuardError)(
-    "ObjectSimpleProtobufOptional",
-  )<ObjectSimpleProtobufOptional>(ObjectSimpleProtobufOptional)({
-    decode: typia.protobuf.createAssertDecode<ObjectSimpleProtobufOptional>(),
-    encode: typia.protobuf.createEncode<ObjectSimpleProtobufOptional>(),
-  });
+  (): void =>
+    _test_protobuf_assertDecode(TypeGuardError)(
+      "ObjectSimpleProtobufOptional",
+    )<ObjectSimpleProtobufOptional>(ObjectSimpleProtobufOptional)({
+      decode: typia.protobuf.createAssertDecode<ObjectSimpleProtobufOptional>(),
+      encode: typia.protobuf.createEncode<ObjectSimpleProtobufOptional>(),
+    });

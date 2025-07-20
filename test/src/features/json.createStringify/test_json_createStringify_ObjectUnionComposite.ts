@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_json_stringify } from "../../internal/_test_json_stringify";
 import { ObjectUnionComposite } from "../../structures/ObjectUnionComposite";
 
-export const test_json_createStringify_ObjectUnionComposite =
+export const test_json_createStringify_ObjectUnionComposite = (): void =>
   _test_json_stringify("ObjectUnionComposite")<ObjectUnionComposite>(
     ObjectUnionComposite,
   )(typia.json.createStringify<ObjectUnionComposite>());

@@ -5,12 +5,13 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { ObjectUnionNonPredictable } from "../../structures/ObjectUnionNonPredictable";
 
 export const test_functional_assertReturnAsync_ObjectUnionNonPredictable =
-  _test_functional_assertReturnAsync(TypeGuardError)(
-    "ObjectUnionNonPredictable",
-  )(ObjectUnionNonPredictable)(
-    (
-      p: (
-        input: ObjectUnionNonPredictable,
-      ) => Promise<ObjectUnionNonPredictable>,
-    ) => typia.functional.assertReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(TypeGuardError)(
+      "ObjectUnionNonPredictable",
+    )(ObjectUnionNonPredictable)(
+      (
+        p: (
+          input: ObjectUnionNonPredictable,
+        ) => Promise<ObjectUnionNonPredictable>,
+      ) => typia.functional.assertReturn(p),
+    );

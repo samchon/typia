@@ -5,12 +5,13 @@ import { _test_functional_assertEqualsParameters } from "../../internal/_test_fu
 import { TypeTagObjectUnion } from "../../structures/TypeTagObjectUnion";
 
 export const test_functional_assertEqualsParametersCustom_TypeTagObjectUnion =
-  _test_functional_assertEqualsParameters(CustomGuardError)(
-    "TypeTagObjectUnion",
-  )(TypeTagObjectUnion)(
-    (p: (input: TypeTagObjectUnion) => TypeTagObjectUnion) =>
-      typia.functional.assertEqualsParameters(
-        p,
-        (p) => new CustomGuardError(p),
-      ),
-  );
+  (): void =>
+    _test_functional_assertEqualsParameters(CustomGuardError)(
+      "TypeTagObjectUnion",
+    )(TypeTagObjectUnion)(
+      (p: (input: TypeTagObjectUnion) => TypeTagObjectUnion) =>
+        typia.functional.assertEqualsParameters(
+          p,
+          (p) => new CustomGuardError(p),
+        ),
+    );

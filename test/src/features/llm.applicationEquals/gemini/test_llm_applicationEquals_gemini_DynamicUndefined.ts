@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { DynamicUndefined } from "../../../structures/DynamicUndefined";
 
-export const test_llm_application_gemini_DynamicUndefined =
+export const test_llm_applicationEquals_gemini_DynamicUndefined = (): void =>
   _test_llm_applicationEquals({
     model: "gemini",
     name: "DynamicUndefined",

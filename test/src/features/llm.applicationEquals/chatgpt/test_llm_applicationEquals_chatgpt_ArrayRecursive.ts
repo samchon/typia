@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { ArrayRecursive } from "../../../structures/ArrayRecursive";
 
-export const test_llm_application_chatgpt_ArrayRecursive =
+export const test_llm_applicationEquals_chatgpt_ArrayRecursive = (): void =>
   _test_llm_applicationEquals({
     model: "chatgpt",
     name: "ArrayRecursive",

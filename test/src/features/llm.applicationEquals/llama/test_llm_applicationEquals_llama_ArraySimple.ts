@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { ArraySimple } from "../../../structures/ArraySimple";
 
-export const test_llm_application_llama_ArraySimple =
+export const test_llm_applicationEquals_llama_ArraySimple = (): void =>
   _test_llm_applicationEquals({
     model: "llama",
     name: "ArraySimple",

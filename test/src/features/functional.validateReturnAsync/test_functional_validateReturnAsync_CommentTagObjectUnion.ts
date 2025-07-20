@@ -4,8 +4,9 @@ import { _test_functional_validateReturnAsync } from "../../internal/_test_funct
 import { CommentTagObjectUnion } from "../../structures/CommentTagObjectUnion";
 
 export const test_functional_validateReturnAsync_CommentTagObjectUnion =
-  _test_functional_validateReturnAsync("CommentTagObjectUnion")(
-    CommentTagObjectUnion,
-  )((p: (input: CommentTagObjectUnion) => Promise<CommentTagObjectUnion>) =>
-    typia.functional.validateReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateReturnAsync("CommentTagObjectUnion")(
+      CommentTagObjectUnion,
+    )((p: (input: CommentTagObjectUnion) => Promise<CommentTagObjectUnion>) =>
+      typia.functional.validateReturn(p),
+    );

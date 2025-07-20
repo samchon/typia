@@ -4,7 +4,8 @@ import { _test_functional_validateReturnAsync } from "../../internal/_test_funct
 import { ObjectInternal } from "../../structures/ObjectInternal";
 
 export const test_functional_validateReturnAsync_ObjectInternal =
-  _test_functional_validateReturnAsync("ObjectInternal")(ObjectInternal)(
-    (p: (input: ObjectInternal) => Promise<ObjectInternal>) =>
-      typia.functional.validateReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateReturnAsync("ObjectInternal")(ObjectInternal)(
+      (p: (input: ObjectInternal) => Promise<ObjectInternal>) =>
+        typia.functional.validateReturn(p),
+    );

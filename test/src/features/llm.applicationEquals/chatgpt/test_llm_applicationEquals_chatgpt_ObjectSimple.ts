@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { ObjectSimple } from "../../../structures/ObjectSimple";
 
-export const test_llm_application_chatgpt_ObjectSimple =
+export const test_llm_applicationEquals_chatgpt_ObjectSimple = (): void =>
   _test_llm_applicationEquals({
     model: "chatgpt",
     name: "ObjectSimple",

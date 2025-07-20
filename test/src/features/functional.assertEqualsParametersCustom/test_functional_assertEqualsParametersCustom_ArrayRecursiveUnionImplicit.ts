@@ -5,12 +5,15 @@ import { _test_functional_assertEqualsParameters } from "../../internal/_test_fu
 import { ArrayRecursiveUnionImplicit } from "../../structures/ArrayRecursiveUnionImplicit";
 
 export const test_functional_assertEqualsParametersCustom_ArrayRecursiveUnionImplicit =
-  _test_functional_assertEqualsParameters(CustomGuardError)(
-    "ArrayRecursiveUnionImplicit",
-  )(ArrayRecursiveUnionImplicit)(
-    (p: (input: ArrayRecursiveUnionImplicit) => ArrayRecursiveUnionImplicit) =>
-      typia.functional.assertEqualsParameters(
-        p,
-        (p) => new CustomGuardError(p),
-      ),
-  );
+  (): void =>
+    _test_functional_assertEqualsParameters(CustomGuardError)(
+      "ArrayRecursiveUnionImplicit",
+    )(ArrayRecursiveUnionImplicit)(
+      (
+        p: (input: ArrayRecursiveUnionImplicit) => ArrayRecursiveUnionImplicit,
+      ) =>
+        typia.functional.assertEqualsParameters(
+          p,
+          (p) => new CustomGuardError(p),
+        ),
+    );

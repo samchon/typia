@@ -5,8 +5,10 @@ import { _test_functional_assertEqualsParameters } from "../../internal/_test_fu
 import { AtomicIntersection } from "../../structures/AtomicIntersection";
 
 export const test_functional_assertEqualsParameters_AtomicIntersection =
-  _test_functional_assertEqualsParameters(TypeGuardError)("AtomicIntersection")(
-    AtomicIntersection,
-  )((p: (input: AtomicIntersection) => AtomicIntersection) =>
-    typia.functional.assertEqualsParameters(p),
-  );
+  (): void =>
+    _test_functional_assertEqualsParameters(TypeGuardError)(
+      "AtomicIntersection",
+    )(AtomicIntersection)(
+      (p: (input: AtomicIntersection) => AtomicIntersection) =>
+        typia.functional.assertEqualsParameters(p),
+    );

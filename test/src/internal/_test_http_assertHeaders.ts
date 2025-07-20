@@ -12,8 +12,7 @@ export const _test_http_assertHeaders =
     decode: (
       input: Record<string, string | string[] | undefined>,
     ) => typia.Resolved<T>,
-  ) =>
-  () => {
+  ): void => {
     const data: T = factory.generate();
     const encoded: Record<string, string | string[] | undefined> =
       headers_to_string(data);

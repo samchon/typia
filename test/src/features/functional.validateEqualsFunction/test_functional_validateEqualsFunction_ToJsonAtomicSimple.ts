@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsFunction } from "../../internal/_test_fu
 import { ToJsonAtomicSimple } from "../../structures/ToJsonAtomicSimple";
 
 export const test_functional_validateEqualsFunction_ToJsonAtomicSimple =
-  _test_functional_validateEqualsFunction("ToJsonAtomicSimple")(
-    ToJsonAtomicSimple,
-  )((p: (input: ToJsonAtomicSimple) => ToJsonAtomicSimple) =>
-    typia.functional.validateEqualsFunction(p),
-  );
+  (): void =>
+    _test_functional_validateEqualsFunction("ToJsonAtomicSimple")(
+      ToJsonAtomicSimple,
+    )((p: (input: ToJsonAtomicSimple) => ToJsonAtomicSimple) =>
+      typia.functional.validateEqualsFunction(p),
+    );

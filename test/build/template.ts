@@ -104,7 +104,7 @@ function script(
 
   method = method.replace("Async", "");
   const from: number = content.indexOf("export const");
-  const to: number = content.indexOf("(", from + 1);
+  const to: number = content.indexOf("(", content.indexOf("_test", from + 1));
   const replacer =
     feat.custom === true
       ? create === true

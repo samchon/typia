@@ -4,8 +4,9 @@ import { _test_functional_validateParametersAsync } from "../../internal/_test_f
 import { ArrayRepeatedNullable } from "../../structures/ArrayRepeatedNullable";
 
 export const test_functional_validateParametersAsync_ArrayRepeatedNullable =
-  _test_functional_validateParametersAsync("ArrayRepeatedNullable")(
-    ArrayRepeatedNullable,
-  )((p: (input: ArrayRepeatedNullable) => Promise<ArrayRepeatedNullable>) =>
-    typia.functional.validateParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateParametersAsync("ArrayRepeatedNullable")(
+      ArrayRepeatedNullable,
+    )((p: (input: ArrayRepeatedNullable) => Promise<ArrayRepeatedNullable>) =>
+      typia.functional.validateParameters(p),
+    );

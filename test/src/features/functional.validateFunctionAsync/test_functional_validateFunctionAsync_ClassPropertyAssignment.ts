@@ -4,8 +4,11 @@ import { _test_functional_validateFunctionAsync } from "../../internal/_test_fun
 import { ClassPropertyAssignment } from "../../structures/ClassPropertyAssignment";
 
 export const test_functional_validateFunctionAsync_ClassPropertyAssignment =
-  _test_functional_validateFunctionAsync("ClassPropertyAssignment")(
-    ClassPropertyAssignment,
-  )((p: (input: ClassPropertyAssignment) => Promise<ClassPropertyAssignment>) =>
-    typia.functional.validateFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateFunctionAsync("ClassPropertyAssignment")(
+      ClassPropertyAssignment,
+    )(
+      (
+        p: (input: ClassPropertyAssignment) => Promise<ClassPropertyAssignment>,
+      ) => typia.functional.validateFunction(p),
+    );

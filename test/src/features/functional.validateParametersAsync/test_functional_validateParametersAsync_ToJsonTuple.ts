@@ -4,7 +4,8 @@ import { _test_functional_validateParametersAsync } from "../../internal/_test_f
 import { ToJsonTuple } from "../../structures/ToJsonTuple";
 
 export const test_functional_validateParametersAsync_ToJsonTuple =
-  _test_functional_validateParametersAsync("ToJsonTuple")(ToJsonTuple)(
-    (p: (input: ToJsonTuple) => Promise<ToJsonTuple>) =>
-      typia.functional.validateParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateParametersAsync("ToJsonTuple")(ToJsonTuple)(
+      (p: (input: ToJsonTuple) => Promise<ToJsonTuple>) =>
+        typia.functional.validateParameters(p),
+    );

@@ -4,7 +4,8 @@ import { _test_functional_equalsReturnAsync } from "../../internal/_test_functio
 import { TypeTagTuple } from "../../structures/TypeTagTuple";
 
 export const test_functional_equalsReturnAsync_TypeTagTuple =
-  _test_functional_equalsReturnAsync("TypeTagTuple")(TypeTagTuple)(
-    (p: (input: TypeTagTuple) => Promise<TypeTagTuple>) =>
-      typia.functional.equalsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_equalsReturnAsync("TypeTagTuple")(TypeTagTuple)(
+      (p: (input: TypeTagTuple) => Promise<TypeTagTuple>) =>
+        typia.functional.equalsReturn(p),
+    );

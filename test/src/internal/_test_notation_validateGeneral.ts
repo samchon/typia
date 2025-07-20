@@ -9,8 +9,7 @@ export const _test_notation_validateGeneral =
   <U>(functor: {
     convert: (input: T) => IValidation<U>;
     assert: (input: U) => U;
-  }) =>
-  () => {
+  }): void => {
     _test_notation_general(name)(factory)({
       assert: functor.assert,
       convert: (input) => {
@@ -22,7 +21,7 @@ export const _test_notation_validateGeneral =
         typia.assertEquals<IValidation.ISuccess<unknown>>(res);
         return res.data;
       },
-    })();
+    }) satisfies void;
 
     const wrong: ISpoiled[] = [];
     for (const spoil of factory.SPOILERS ?? []) {

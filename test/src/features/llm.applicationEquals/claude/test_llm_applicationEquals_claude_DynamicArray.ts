@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { DynamicArray } from "../../../structures/DynamicArray";
 
-export const test_llm_application_claude_DynamicArray =
+export const test_llm_applicationEquals_claude_DynamicArray = (): void =>
   _test_llm_applicationEquals({
     model: "claude",
     name: "DynamicArray",

@@ -4,7 +4,8 @@ import { _test_functional_isParametersAsync } from "../../internal/_test_functio
 import { ObjectAlias } from "../../structures/ObjectAlias";
 
 export const test_functional_isParametersAsync_ObjectAlias =
-  _test_functional_isParametersAsync("ObjectAlias")(ObjectAlias)(
-    (p: (input: ObjectAlias) => Promise<ObjectAlias>) =>
-      typia.functional.isParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_isParametersAsync("ObjectAlias")(ObjectAlias)(
+      (p: (input: ObjectAlias) => Promise<ObjectAlias>) =>
+        typia.functional.isParameters(p),
+    );

@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { TypeTagFormat } from "../../../structures/TypeTagFormat";
 
-export const test_llm_application_gemini_TypeTagFormat =
+export const test_llm_applicationEquals_gemini_TypeTagFormat = (): void =>
   _test_llm_applicationEquals({
     model: "gemini",
     name: "TypeTagFormat",

@@ -5,8 +5,9 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { ObjectNullable } from "../../structures/ObjectNullable";
 
 export const test_functional_assertReturnAsync_ObjectNullable =
-  _test_functional_assertReturnAsync(TypeGuardError)("ObjectNullable")(
-    ObjectNullable,
-  )((p: (input: ObjectNullable) => Promise<ObjectNullable>) =>
-    typia.functional.assertReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(TypeGuardError)("ObjectNullable")(
+      ObjectNullable,
+    )((p: (input: ObjectNullable) => Promise<ObjectNullable>) =>
+      typia.functional.assertReturn(p),
+    );

@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { TypeTagFormat } from "../../../structures/TypeTagFormat";
 
-export const test_llm_application_claude_TypeTagFormat =
+export const test_llm_applicationEquals_claude_TypeTagFormat = (): void =>
   _test_llm_applicationEquals({
     model: "claude",
     name: "TypeTagFormat",

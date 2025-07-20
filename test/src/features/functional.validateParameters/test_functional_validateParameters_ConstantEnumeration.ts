@@ -4,8 +4,9 @@ import { _test_functional_validateParameters } from "../../internal/_test_functi
 import { ConstantEnumeration } from "../../structures/ConstantEnumeration";
 
 export const test_functional_validateParameters_ConstantEnumeration =
-  _test_functional_validateParameters("ConstantEnumeration")(
-    ConstantEnumeration,
-  )((p: (input: ConstantEnumeration) => ConstantEnumeration) =>
-    typia.functional.validateParameters(p),
-  );
+  (): void =>
+    _test_functional_validateParameters("ConstantEnumeration")(
+      ConstantEnumeration,
+    )((p: (input: ConstantEnumeration) => ConstantEnumeration) =>
+      typia.functional.validateParameters(p),
+    );

@@ -5,8 +5,9 @@ import { _test_functional_assertFunctionAsync } from "../../internal/_test_funct
 import { ArrayMatrix } from "../../structures/ArrayMatrix";
 
 export const test_functional_assertFunctionAsyncCustom_ArrayMatrix =
-  _test_functional_assertFunctionAsync(CustomGuardError)("ArrayMatrix")(
-    ArrayMatrix,
-  )((p: (input: ArrayMatrix) => Promise<ArrayMatrix>) =>
-    typia.functional.assertFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertFunctionAsync(CustomGuardError)("ArrayMatrix")(
+      ArrayMatrix,
+    )((p: (input: ArrayMatrix) => Promise<ArrayMatrix>) =>
+      typia.functional.assertFunction(p, (p) => new CustomGuardError(p)),
+    );

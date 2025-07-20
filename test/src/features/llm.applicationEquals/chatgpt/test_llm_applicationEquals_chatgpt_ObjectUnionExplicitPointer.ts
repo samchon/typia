@@ -3,18 +3,19 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { ObjectUnionExplicitPointer } from "../../../structures/ObjectUnionExplicitPointer";
 
-export const test_llm_application_chatgpt_ObjectUnionExplicitPointer =
-  _test_llm_applicationEquals({
-    model: "chatgpt",
-    name: "ObjectUnionExplicitPointer",
-    factory: ObjectUnionExplicitPointer,
-  })(
-    typia.llm.application<
-      ObjectUnionExplicitPointerApplication,
-      "chatgpt",
-      { equal: true }
-    >(),
-  );
+export const test_llm_applicationEquals_chatgpt_ObjectUnionExplicitPointer =
+  (): void =>
+    _test_llm_applicationEquals({
+      model: "chatgpt",
+      name: "ObjectUnionExplicitPointer",
+      factory: ObjectUnionExplicitPointer,
+    })(
+      typia.llm.application<
+        ObjectUnionExplicitPointerApplication,
+        "chatgpt",
+        { equal: true }
+      >(),
+    );
 
 interface ObjectUnionExplicitPointerApplication {
   insert(p: { first: ObjectUnionExplicitPointer }): Promise<void>;

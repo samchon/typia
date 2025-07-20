@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_json_isStringify } from "../../internal/_test_json_isStringify";
 import { TypeTagArrayUnion } from "../../structures/TypeTagArrayUnion";
 
-export const test_json_createIsStringify_TypeTagArrayUnion =
+export const test_json_createIsStringify_TypeTagArrayUnion = (): void =>
   _test_json_isStringify("TypeTagArrayUnion")<TypeTagArrayUnion>(
     TypeTagArrayUnion,
   )(typia.json.createIsStringify<TypeTagArrayUnion>());

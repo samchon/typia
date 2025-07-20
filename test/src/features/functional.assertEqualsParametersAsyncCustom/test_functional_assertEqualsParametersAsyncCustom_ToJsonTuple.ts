@@ -5,8 +5,12 @@ import { _test_functional_assertEqualsParametersAsync } from "../../internal/_te
 import { ToJsonTuple } from "../../structures/ToJsonTuple";
 
 export const test_functional_assertEqualsParametersAsyncCustom_ToJsonTuple =
-  _test_functional_assertEqualsParametersAsync(CustomGuardError)("ToJsonTuple")(
-    ToJsonTuple,
-  )((p: (input: ToJsonTuple) => Promise<ToJsonTuple>) =>
-    typia.functional.assertEqualsParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsParametersAsync(CustomGuardError)(
+      "ToJsonTuple",
+    )(ToJsonTuple)((p: (input: ToJsonTuple) => Promise<ToJsonTuple>) =>
+      typia.functional.assertEqualsParameters(
+        p,
+        (p) => new CustomGuardError(p),
+      ),
+    );

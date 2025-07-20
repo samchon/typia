@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_notation_validateGeneral } from "../../internal/_test_notation_validateGeneral";
 import { TupleHierarchical } from "../../structures/TupleHierarchical";
 
-export const test_notation_validateCamel_TupleHierarchical =
+export const test_notation_validateCamel_TupleHierarchical = (): void =>
   _test_notation_validateGeneral("TupleHierarchical")<TupleHierarchical>(
     TupleHierarchical,
   )<typia.CamelCase<TupleHierarchical>>({

@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { ObjectDate } from "../../../structures/ObjectDate";
 
-export const test_llm_application_llama_ObjectDate =
+export const test_llm_applicationEquals_llama_ObjectDate = (): void =>
   _test_llm_applicationEquals({
     model: "llama",
     name: "ObjectDate",

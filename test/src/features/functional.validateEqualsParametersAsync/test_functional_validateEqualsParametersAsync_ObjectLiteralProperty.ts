@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsParametersAsync } from "../../internal/_
 import { ObjectLiteralProperty } from "../../structures/ObjectLiteralProperty";
 
 export const test_functional_validateEqualsParametersAsync_ObjectLiteralProperty =
-  _test_functional_validateEqualsParametersAsync("ObjectLiteralProperty")(
-    ObjectLiteralProperty,
-  )((p: (input: ObjectLiteralProperty) => Promise<ObjectLiteralProperty>) =>
-    typia.functional.validateEqualsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsParametersAsync("ObjectLiteralProperty")(
+      ObjectLiteralProperty,
+    )((p: (input: ObjectLiteralProperty) => Promise<ObjectLiteralProperty>) =>
+      typia.functional.validateEqualsParameters(p),
+    );

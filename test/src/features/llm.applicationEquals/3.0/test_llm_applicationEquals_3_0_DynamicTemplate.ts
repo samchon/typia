@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { DynamicTemplate } from "../../../structures/DynamicTemplate";
 
-export const test_llm_application_3_0_DynamicTemplate =
+export const test_llm_applicationEquals_3_0_DynamicTemplate = (): void =>
   _test_llm_applicationEquals({
     model: "3.0",
     name: "DynamicTemplate",

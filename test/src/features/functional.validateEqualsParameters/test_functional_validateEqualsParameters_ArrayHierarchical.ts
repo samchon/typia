@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsParameters } from "../../internal/_test_
 import { ArrayHierarchical } from "../../structures/ArrayHierarchical";
 
 export const test_functional_validateEqualsParameters_ArrayHierarchical =
-  _test_functional_validateEqualsParameters("ArrayHierarchical")(
-    ArrayHierarchical,
-  )((p: (input: ArrayHierarchical) => ArrayHierarchical) =>
-    typia.functional.validateEqualsParameters(p),
-  );
+  (): void =>
+    _test_functional_validateEqualsParameters("ArrayHierarchical")(
+      ArrayHierarchical,
+    )((p: (input: ArrayHierarchical) => ArrayHierarchical) =>
+      typia.functional.validateEqualsParameters(p),
+    );

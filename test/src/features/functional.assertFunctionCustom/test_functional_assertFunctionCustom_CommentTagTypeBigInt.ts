@@ -5,8 +5,9 @@ import { _test_functional_assertFunction } from "../../internal/_test_functional
 import { CommentTagTypeBigInt } from "../../structures/CommentTagTypeBigInt";
 
 export const test_functional_assertFunctionCustom_CommentTagTypeBigInt =
-  _test_functional_assertFunction(CustomGuardError)("CommentTagTypeBigInt")(
-    CommentTagTypeBigInt,
-  )((p: (input: CommentTagTypeBigInt) => CommentTagTypeBigInt) =>
-    typia.functional.assertFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertFunction(CustomGuardError)("CommentTagTypeBigInt")(
+      CommentTagTypeBigInt,
+    )((p: (input: CommentTagTypeBigInt) => CommentTagTypeBigInt) =>
+      typia.functional.assertFunction(p, (p) => new CustomGuardError(p)),
+    );

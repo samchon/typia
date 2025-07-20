@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { ObjectRequired } from "../../../structures/ObjectRequired";
 
-export const test_llm_application_chatgpt_ObjectRequired =
+export const test_llm_applicationEquals_chatgpt_ObjectRequired = (): void =>
   _test_llm_applicationEquals({
     model: "chatgpt",
     name: "ObjectRequired",

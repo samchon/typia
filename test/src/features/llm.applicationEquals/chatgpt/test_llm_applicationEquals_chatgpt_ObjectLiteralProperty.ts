@@ -3,18 +3,19 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { ObjectLiteralProperty } from "../../../structures/ObjectLiteralProperty";
 
-export const test_llm_application_chatgpt_ObjectLiteralProperty =
-  _test_llm_applicationEquals({
-    model: "chatgpt",
-    name: "ObjectLiteralProperty",
-    factory: ObjectLiteralProperty,
-  })(
-    typia.llm.application<
-      ObjectLiteralPropertyApplication,
-      "chatgpt",
-      { equal: true }
-    >(),
-  );
+export const test_llm_applicationEquals_chatgpt_ObjectLiteralProperty =
+  (): void =>
+    _test_llm_applicationEquals({
+      model: "chatgpt",
+      name: "ObjectLiteralProperty",
+      factory: ObjectLiteralProperty,
+    })(
+      typia.llm.application<
+        ObjectLiteralPropertyApplication,
+        "chatgpt",
+        { equal: true }
+      >(),
+    );
 
 interface ObjectLiteralPropertyApplication {
   insert(p: { first: ObjectLiteralProperty }): Promise<void>;

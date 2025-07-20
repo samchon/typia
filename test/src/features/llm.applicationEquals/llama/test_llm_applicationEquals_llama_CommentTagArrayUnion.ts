@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { CommentTagArrayUnion } from "../../../structures/CommentTagArrayUnion";
 
-export const test_llm_application_llama_CommentTagArrayUnion =
+export const test_llm_applicationEquals_llama_CommentTagArrayUnion = (): void =>
   _test_llm_applicationEquals({
     model: "llama",
     name: "CommentTagArrayUnion",

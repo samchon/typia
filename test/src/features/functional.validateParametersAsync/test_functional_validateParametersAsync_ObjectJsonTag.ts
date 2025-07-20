@@ -4,7 +4,8 @@ import { _test_functional_validateParametersAsync } from "../../internal/_test_f
 import { ObjectJsonTag } from "../../structures/ObjectJsonTag";
 
 export const test_functional_validateParametersAsync_ObjectJsonTag =
-  _test_functional_validateParametersAsync("ObjectJsonTag")(ObjectJsonTag)(
-    (p: (input: ObjectJsonTag) => Promise<ObjectJsonTag>) =>
-      typia.functional.validateParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateParametersAsync("ObjectJsonTag")(ObjectJsonTag)(
+      (p: (input: ObjectJsonTag) => Promise<ObjectJsonTag>) =>
+        typia.functional.validateParameters(p),
+    );

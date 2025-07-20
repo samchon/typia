@@ -5,12 +5,13 @@ import { _test_functional_assertEqualsParametersAsync } from "../../internal/_te
 import { CommentTagAtomicUnion } from "../../structures/CommentTagAtomicUnion";
 
 export const test_functional_assertEqualsParametersAsyncCustom_CommentTagAtomicUnion =
-  _test_functional_assertEqualsParametersAsync(CustomGuardError)(
-    "CommentTagAtomicUnion",
-  )(CommentTagAtomicUnion)(
-    (p: (input: CommentTagAtomicUnion) => Promise<CommentTagAtomicUnion>) =>
-      typia.functional.assertEqualsParameters(
-        p,
-        (p) => new CustomGuardError(p),
-      ),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsParametersAsync(CustomGuardError)(
+      "CommentTagAtomicUnion",
+    )(CommentTagAtomicUnion)(
+      (p: (input: CommentTagAtomicUnion) => Promise<CommentTagAtomicUnion>) =>
+        typia.functional.assertEqualsParameters(
+          p,
+          (p) => new CustomGuardError(p),
+        ),
+    );

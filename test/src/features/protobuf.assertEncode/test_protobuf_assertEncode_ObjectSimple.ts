@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_protobuf_assertEncode } from "../../internal/_test_protobuf_assertEncode";
 import { ObjectSimple } from "../../structures/ObjectSimple";
 
-export const test_protobuf_assertEncode_ObjectSimple =
+export const test_protobuf_assertEncode_ObjectSimple = (): void =>
   _test_protobuf_assertEncode(TypeGuardError)("ObjectSimple")<ObjectSimple>(
     ObjectSimple,
   )({

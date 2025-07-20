@@ -5,8 +5,9 @@ import { _test_functional_assertFunctionAsync } from "../../internal/_test_funct
 import { ClassNonPublic } from "../../structures/ClassNonPublic";
 
 export const test_functional_assertFunctionAsyncCustom_ClassNonPublic =
-  _test_functional_assertFunctionAsync(CustomGuardError)("ClassNonPublic")(
-    ClassNonPublic,
-  )((p: (input: ClassNonPublic) => Promise<ClassNonPublic>) =>
-    typia.functional.assertFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertFunctionAsync(CustomGuardError)("ClassNonPublic")(
+      ClassNonPublic,
+    )((p: (input: ClassNonPublic) => Promise<ClassNonPublic>) =>
+      typia.functional.assertFunction(p, (p) => new CustomGuardError(p)),
+    );

@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { ArrayRecursive } from "../../../structures/ArrayRecursive";
 
-export const test_llm_application_3_0_ArrayRecursive =
+export const test_llm_applicationEquals_3_0_ArrayRecursive = (): void =>
   _test_llm_applicationEquals({
     model: "3.0",
     name: "ArrayRecursive",

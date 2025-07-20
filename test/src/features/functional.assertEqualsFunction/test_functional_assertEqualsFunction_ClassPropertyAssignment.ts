@@ -5,9 +5,10 @@ import { _test_functional_assertEqualsFunction } from "../../internal/_test_func
 import { ClassPropertyAssignment } from "../../structures/ClassPropertyAssignment";
 
 export const test_functional_assertEqualsFunction_ClassPropertyAssignment =
-  _test_functional_assertEqualsFunction(TypeGuardError)(
-    "ClassPropertyAssignment",
-  )(ClassPropertyAssignment)(
-    (p: (input: ClassPropertyAssignment) => ClassPropertyAssignment) =>
-      typia.functional.assertEqualsFunction(p),
-  );
+  (): void =>
+    _test_functional_assertEqualsFunction(TypeGuardError)(
+      "ClassPropertyAssignment",
+    )(ClassPropertyAssignment)(
+      (p: (input: ClassPropertyAssignment) => ClassPropertyAssignment) =>
+        typia.functional.assertEqualsFunction(p),
+    );

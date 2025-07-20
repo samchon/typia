@@ -5,10 +5,11 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { ObjectLiteralProperty } from "../../structures/ObjectLiteralProperty";
 
 export const test_json_createAssertStringifyCustom_ObjectLiteralProperty =
-  _test_json_assertStringify(CustomGuardError)(
-    "ObjectLiteralProperty",
-  )<ObjectLiteralProperty>(ObjectLiteralProperty)(
-    typia.json.createAssertStringify<ObjectLiteralProperty>(
-      (p) => new CustomGuardError(p),
-    ),
-  );
+  (): void =>
+    _test_json_assertStringify(CustomGuardError)(
+      "ObjectLiteralProperty",
+    )<ObjectLiteralProperty>(ObjectLiteralProperty)(
+      typia.json.createAssertStringify<ObjectLiteralProperty>(
+        (p) => new CustomGuardError(p),
+      ),
+    );

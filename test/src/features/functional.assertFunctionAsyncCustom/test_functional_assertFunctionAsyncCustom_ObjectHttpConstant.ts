@@ -5,8 +5,10 @@ import { _test_functional_assertFunctionAsync } from "../../internal/_test_funct
 import { ObjectHttpConstant } from "../../structures/ObjectHttpConstant";
 
 export const test_functional_assertFunctionAsyncCustom_ObjectHttpConstant =
-  _test_functional_assertFunctionAsync(CustomGuardError)("ObjectHttpConstant")(
-    ObjectHttpConstant,
-  )((p: (input: ObjectHttpConstant) => Promise<ObjectHttpConstant>) =>
-    typia.functional.assertFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertFunctionAsync(CustomGuardError)(
+      "ObjectHttpConstant",
+    )(ObjectHttpConstant)(
+      (p: (input: ObjectHttpConstant) => Promise<ObjectHttpConstant>) =>
+        typia.functional.assertFunction(p, (p) => new CustomGuardError(p)),
+    );

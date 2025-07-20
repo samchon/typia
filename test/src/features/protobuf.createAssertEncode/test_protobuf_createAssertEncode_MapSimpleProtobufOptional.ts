@@ -5,10 +5,11 @@ import { _test_protobuf_assertEncode } from "../../internal/_test_protobuf_asser
 import { MapSimpleProtobufOptional } from "../../structures/MapSimpleProtobufOptional";
 
 export const test_protobuf_createAssertEncode_MapSimpleProtobufOptional =
-  _test_protobuf_assertEncode(TypeGuardError)(
-    "MapSimpleProtobufOptional",
-  )<MapSimpleProtobufOptional>(MapSimpleProtobufOptional)({
-    encode: typia.protobuf.createAssertEncode<MapSimpleProtobufOptional>(),
-    decode: typia.protobuf.createDecode<MapSimpleProtobufOptional>(),
-    message: typia.protobuf.message<MapSimpleProtobufOptional>(),
-  });
+  (): void =>
+    _test_protobuf_assertEncode(TypeGuardError)(
+      "MapSimpleProtobufOptional",
+    )<MapSimpleProtobufOptional>(MapSimpleProtobufOptional)({
+      encode: typia.protobuf.createAssertEncode<MapSimpleProtobufOptional>(),
+      decode: typia.protobuf.createDecode<MapSimpleProtobufOptional>(),
+      message: typia.protobuf.message<MapSimpleProtobufOptional>(),
+    });

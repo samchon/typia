@@ -5,8 +5,9 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { DynamicJsonValue } from "../../structures/DynamicJsonValue";
 
 export const test_functional_assertReturnAsync_DynamicJsonValue =
-  _test_functional_assertReturnAsync(TypeGuardError)("DynamicJsonValue")(
-    DynamicJsonValue,
-  )((p: (input: DynamicJsonValue) => Promise<DynamicJsonValue>) =>
-    typia.functional.assertReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(TypeGuardError)("DynamicJsonValue")(
+      DynamicJsonValue,
+    )((p: (input: DynamicJsonValue) => Promise<DynamicJsonValue>) =>
+      typia.functional.assertReturn(p),
+    );

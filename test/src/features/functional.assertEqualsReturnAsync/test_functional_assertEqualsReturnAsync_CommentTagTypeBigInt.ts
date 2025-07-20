@@ -5,9 +5,10 @@ import { _test_functional_assertEqualsReturnAsync } from "../../internal/_test_f
 import { CommentTagTypeBigInt } from "../../structures/CommentTagTypeBigInt";
 
 export const test_functional_assertEqualsReturnAsync_CommentTagTypeBigInt =
-  _test_functional_assertEqualsReturnAsync(TypeGuardError)(
-    "CommentTagTypeBigInt",
-  )(CommentTagTypeBigInt)(
-    (p: (input: CommentTagTypeBigInt) => Promise<CommentTagTypeBigInt>) =>
-      typia.functional.assertEqualsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsReturnAsync(TypeGuardError)(
+      "CommentTagTypeBigInt",
+    )(CommentTagTypeBigInt)(
+      (p: (input: CommentTagTypeBigInt) => Promise<CommentTagTypeBigInt>) =>
+        typia.functional.assertEqualsReturn(p),
+    );

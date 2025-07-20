@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsParameters } from "../../internal/_test_
 import { ArrayAtomicAlias } from "../../structures/ArrayAtomicAlias";
 
 export const test_functional_validateEqualsParameters_ArrayAtomicAlias =
-  _test_functional_validateEqualsParameters("ArrayAtomicAlias")(
-    ArrayAtomicAlias,
-  )((p: (input: ArrayAtomicAlias) => ArrayAtomicAlias) =>
-    typia.functional.validateEqualsParameters(p),
-  );
+  (): void =>
+    _test_functional_validateEqualsParameters("ArrayAtomicAlias")(
+      ArrayAtomicAlias,
+    )((p: (input: ArrayAtomicAlias) => ArrayAtomicAlias) =>
+      typia.functional.validateEqualsParameters(p),
+    );

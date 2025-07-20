@@ -4,8 +4,9 @@ import { _test_functional_validateParametersAsync } from "../../internal/_test_f
 import { ObjectHttpAtomic } from "../../structures/ObjectHttpAtomic";
 
 export const test_functional_validateParametersAsync_ObjectHttpAtomic =
-  _test_functional_validateParametersAsync("ObjectHttpAtomic")(
-    ObjectHttpAtomic,
-  )((p: (input: ObjectHttpAtomic) => Promise<ObjectHttpAtomic>) =>
-    typia.functional.validateParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateParametersAsync("ObjectHttpAtomic")(
+      ObjectHttpAtomic,
+    )((p: (input: ObjectHttpAtomic) => Promise<ObjectHttpAtomic>) =>
+      typia.functional.validateParameters(p),
+    );

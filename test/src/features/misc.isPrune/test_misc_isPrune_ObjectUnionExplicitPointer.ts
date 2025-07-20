@@ -3,8 +3,7 @@ import typia from "typia";
 import { _test_misc_isPrune } from "../../internal/_test_misc_isPrune";
 import { ObjectUnionExplicitPointer } from "../../structures/ObjectUnionExplicitPointer";
 
-export const test_misc_isPrune_ObjectUnionExplicitPointer = _test_misc_isPrune(
-  "ObjectUnionExplicitPointer",
-)<ObjectUnionExplicitPointer>(ObjectUnionExplicitPointer)((input) =>
-  typia.misc.isPrune<ObjectUnionExplicitPointer>(input),
-);
+export const test_misc_isPrune_ObjectUnionExplicitPointer = (): void =>
+  _test_misc_isPrune("ObjectUnionExplicitPointer")<ObjectUnionExplicitPointer>(
+    ObjectUnionExplicitPointer,
+  )((input) => typia.misc.isPrune<ObjectUnionExplicitPointer>(input));

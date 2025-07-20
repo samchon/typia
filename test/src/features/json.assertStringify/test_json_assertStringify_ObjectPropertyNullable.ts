@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_json_assertStringify } from "../../internal/_test_json_assertStringify";
 import { ObjectPropertyNullable } from "../../structures/ObjectPropertyNullable";
 
-export const test_json_assertStringify_ObjectPropertyNullable =
+export const test_json_assertStringify_ObjectPropertyNullable = (): void =>
   _test_json_assertStringify(TypeGuardError)(
     "ObjectPropertyNullable",
   )<ObjectPropertyNullable>(ObjectPropertyNullable)((input) =>

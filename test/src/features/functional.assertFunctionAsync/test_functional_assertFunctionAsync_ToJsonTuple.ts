@@ -5,8 +5,9 @@ import { _test_functional_assertFunctionAsync } from "../../internal/_test_funct
 import { ToJsonTuple } from "../../structures/ToJsonTuple";
 
 export const test_functional_assertFunctionAsync_ToJsonTuple =
-  _test_functional_assertFunctionAsync(TypeGuardError)("ToJsonTuple")(
-    ToJsonTuple,
-  )((p: (input: ToJsonTuple) => Promise<ToJsonTuple>) =>
-    typia.functional.assertFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertFunctionAsync(TypeGuardError)("ToJsonTuple")(
+      ToJsonTuple,
+    )((p: (input: ToJsonTuple) => Promise<ToJsonTuple>) =>
+      typia.functional.assertFunction(p),
+    );

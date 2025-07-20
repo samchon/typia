@@ -5,7 +5,8 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { SetAlias } from "../../structures/SetAlias";
 
 export const test_functional_assertReturnAsyncCustom_SetAlias =
-  _test_functional_assertReturnAsync(CustomGuardError)("SetAlias")(SetAlias)(
-    (p: (input: SetAlias) => Promise<SetAlias>) =>
-      typia.functional.assertReturn(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(CustomGuardError)("SetAlias")(SetAlias)(
+      (p: (input: SetAlias) => Promise<SetAlias>) =>
+        typia.functional.assertReturn(p, (p) => new CustomGuardError(p)),
+    );

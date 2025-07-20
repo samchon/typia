@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsParametersAsync } from "../../internal/_te
 import { ObjectAlias } from "../../structures/ObjectAlias";
 
 export const test_functional_assertEqualsParametersAsync_ObjectAlias =
-  _test_functional_assertEqualsParametersAsync(TypeGuardError)("ObjectAlias")(
-    ObjectAlias,
-  )((p: (input: ObjectAlias) => Promise<ObjectAlias>) =>
-    typia.functional.assertEqualsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsParametersAsync(TypeGuardError)("ObjectAlias")(
+      ObjectAlias,
+    )((p: (input: ObjectAlias) => Promise<ObjectAlias>) =>
+      typia.functional.assertEqualsParameters(p),
+    );

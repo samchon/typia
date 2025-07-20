@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsReturn } from "../../internal/_test_func
 import { TypeTagObjectUnion } from "../../structures/TypeTagObjectUnion";
 
 export const test_functional_validateEqualsReturn_TypeTagObjectUnion =
-  _test_functional_validateEqualsReturn("TypeTagObjectUnion")(
-    TypeTagObjectUnion,
-  )((p: (input: TypeTagObjectUnion) => TypeTagObjectUnion) =>
-    typia.functional.validateEqualsReturn(p),
-  );
+  (): void =>
+    _test_functional_validateEqualsReturn("TypeTagObjectUnion")(
+      TypeTagObjectUnion,
+    )((p: (input: TypeTagObjectUnion) => TypeTagObjectUnion) =>
+      typia.functional.validateEqualsReturn(p),
+    );

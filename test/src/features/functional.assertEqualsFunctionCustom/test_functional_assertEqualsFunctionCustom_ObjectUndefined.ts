@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsFunction } from "../../internal/_test_func
 import { ObjectUndefined } from "../../structures/ObjectUndefined";
 
 export const test_functional_assertEqualsFunctionCustom_ObjectUndefined =
-  _test_functional_assertEqualsFunction(CustomGuardError)("ObjectUndefined")(
-    ObjectUndefined,
-  )((p: (input: ObjectUndefined) => ObjectUndefined) =>
-    typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertEqualsFunction(CustomGuardError)("ObjectUndefined")(
+      ObjectUndefined,
+    )((p: (input: ObjectUndefined) => ObjectUndefined) =>
+      typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
+    );

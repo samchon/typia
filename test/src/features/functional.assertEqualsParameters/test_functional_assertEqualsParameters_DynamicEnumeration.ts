@@ -5,8 +5,10 @@ import { _test_functional_assertEqualsParameters } from "../../internal/_test_fu
 import { DynamicEnumeration } from "../../structures/DynamicEnumeration";
 
 export const test_functional_assertEqualsParameters_DynamicEnumeration =
-  _test_functional_assertEqualsParameters(TypeGuardError)("DynamicEnumeration")(
-    DynamicEnumeration,
-  )((p: (input: DynamicEnumeration) => DynamicEnumeration) =>
-    typia.functional.assertEqualsParameters(p),
-  );
+  (): void =>
+    _test_functional_assertEqualsParameters(TypeGuardError)(
+      "DynamicEnumeration",
+    )(DynamicEnumeration)(
+      (p: (input: DynamicEnumeration) => DynamicEnumeration) =>
+        typia.functional.assertEqualsParameters(p),
+    );

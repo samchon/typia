@@ -5,8 +5,9 @@ import { _test_functional_assertParameters } from "../../internal/_test_function
 import { CommentTagArray } from "../../structures/CommentTagArray";
 
 export const test_functional_assertParametersCustom_CommentTagArray =
-  _test_functional_assertParameters(CustomGuardError)("CommentTagArray")(
-    CommentTagArray,
-  )((p: (input: CommentTagArray) => CommentTagArray) =>
-    typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertParameters(CustomGuardError)("CommentTagArray")(
+      CommentTagArray,
+    )((p: (input: CommentTagArray) => CommentTagArray) =>
+      typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
+    );

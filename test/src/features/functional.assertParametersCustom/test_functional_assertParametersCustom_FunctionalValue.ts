@@ -5,8 +5,9 @@ import { _test_functional_assertParameters } from "../../internal/_test_function
 import { FunctionalValue } from "../../structures/FunctionalValue";
 
 export const test_functional_assertParametersCustom_FunctionalValue =
-  _test_functional_assertParameters(CustomGuardError)("FunctionalValue")(
-    FunctionalValue,
-  )((p: (input: FunctionalValue) => FunctionalValue) =>
-    typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertParameters(CustomGuardError)("FunctionalValue")(
+      FunctionalValue,
+    )((p: (input: FunctionalValue) => FunctionalValue) =>
+      typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
+    );

@@ -4,7 +4,8 @@ import { _test_functional_equalsReturnAsync } from "../../internal/_test_functio
 import { TypeTagType } from "../../structures/TypeTagType";
 
 export const test_functional_equalsReturnAsync_TypeTagType =
-  _test_functional_equalsReturnAsync("TypeTagType")(TypeTagType)(
-    (p: (input: TypeTagType) => Promise<TypeTagType>) =>
-      typia.functional.equalsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_equalsReturnAsync("TypeTagType")(TypeTagType)(
+      (p: (input: TypeTagType) => Promise<TypeTagType>) =>
+        typia.functional.equalsReturn(p),
+    );

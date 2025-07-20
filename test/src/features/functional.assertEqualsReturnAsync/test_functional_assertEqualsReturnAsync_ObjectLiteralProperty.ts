@@ -5,9 +5,10 @@ import { _test_functional_assertEqualsReturnAsync } from "../../internal/_test_f
 import { ObjectLiteralProperty } from "../../structures/ObjectLiteralProperty";
 
 export const test_functional_assertEqualsReturnAsync_ObjectLiteralProperty =
-  _test_functional_assertEqualsReturnAsync(TypeGuardError)(
-    "ObjectLiteralProperty",
-  )(ObjectLiteralProperty)(
-    (p: (input: ObjectLiteralProperty) => Promise<ObjectLiteralProperty>) =>
-      typia.functional.assertEqualsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsReturnAsync(TypeGuardError)(
+      "ObjectLiteralProperty",
+    )(ObjectLiteralProperty)(
+      (p: (input: ObjectLiteralProperty) => Promise<ObjectLiteralProperty>) =>
+        typia.functional.assertEqualsReturn(p),
+    );

@@ -4,6 +4,9 @@ import { _test_standardSchema_validate } from "../../internal/_test_standardSche
 import { ObjectLiteralProperty } from "../../structures/ObjectLiteralProperty";
 
 export const test_standardSchema_createValidate_ObjectLiteralProperty =
-  _test_standardSchema_validate("ObjectLiteralProperty")<ObjectLiteralProperty>(
-    ObjectLiteralProperty,
-  )(typia.createValidate<ObjectLiteralProperty>());
+  (): void =>
+    _test_standardSchema_validate(
+      "ObjectLiteralProperty",
+    )<ObjectLiteralProperty>(ObjectLiteralProperty)(
+      typia.createValidate<ObjectLiteralProperty>(),
+    );

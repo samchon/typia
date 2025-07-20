@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { ObjectGenericArray } from "../../../structures/ObjectGenericArray";
 
-export const test_llm_application_chatgpt_ObjectGenericArray =
+export const test_llm_applicationEquals_chatgpt_ObjectGenericArray = (): void =>
   _test_llm_applicationEquals({
     model: "chatgpt",
     name: "ObjectGenericArray",

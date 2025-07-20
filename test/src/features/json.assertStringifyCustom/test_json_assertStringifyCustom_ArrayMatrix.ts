@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_json_assertStringify } from "../../internal/_test_json_assertStringify";
 import { ArrayMatrix } from "../../structures/ArrayMatrix";
 
-export const test_json_assertStringifyCustom_ArrayMatrix =
+export const test_json_assertStringifyCustom_ArrayMatrix = (): void =>
   _test_json_assertStringify(CustomGuardError)("ArrayMatrix")<ArrayMatrix>(
     ArrayMatrix,
   )((input) =>

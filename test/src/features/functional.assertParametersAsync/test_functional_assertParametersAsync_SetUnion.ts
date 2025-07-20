@@ -5,7 +5,9 @@ import { _test_functional_assertParametersAsync } from "../../internal/_test_fun
 import { SetUnion } from "../../structures/SetUnion";
 
 export const test_functional_assertParametersAsync_SetUnion =
-  _test_functional_assertParametersAsync(TypeGuardError)("SetUnion")(SetUnion)(
-    (p: (input: SetUnion) => Promise<SetUnion>) =>
+  (): Promise<void> =>
+    _test_functional_assertParametersAsync(TypeGuardError)("SetUnion")(
+      SetUnion,
+    )((p: (input: SetUnion) => Promise<SetUnion>) =>
       typia.functional.assertParameters(p),
-  );
+    );

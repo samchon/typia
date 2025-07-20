@@ -5,8 +5,9 @@ import { _test_functional_assertFunction } from "../../internal/_test_functional
 import { ObjectSequenceProtobuf } from "../../structures/ObjectSequenceProtobuf";
 
 export const test_functional_assertFunctionCustom_ObjectSequenceProtobuf =
-  _test_functional_assertFunction(CustomGuardError)("ObjectSequenceProtobuf")(
-    ObjectSequenceProtobuf,
-  )((p: (input: ObjectSequenceProtobuf) => ObjectSequenceProtobuf) =>
-    typia.functional.assertFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertFunction(CustomGuardError)("ObjectSequenceProtobuf")(
+      ObjectSequenceProtobuf,
+    )((p: (input: ObjectSequenceProtobuf) => ObjectSequenceProtobuf) =>
+      typia.functional.assertFunction(p, (p) => new CustomGuardError(p)),
+    );

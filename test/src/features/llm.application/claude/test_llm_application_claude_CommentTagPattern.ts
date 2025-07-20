@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { CommentTagPattern } from "../../../structures/CommentTagPattern";
 
-export const test_llm_application_claude_CommentTagPattern =
+export const test_llm_application_claude_CommentTagPattern = (): void =>
   _test_llm_application({
     model: "claude",
     name: "CommentTagPattern",

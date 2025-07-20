@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { ConstantAtomicTagged } from "../../../structures/ConstantAtomicTagged";
 
-export const test_llm_application_llama_ConstantAtomicTagged =
+export const test_llm_applicationEquals_llama_ConstantAtomicTagged = (): void =>
   _test_llm_applicationEquals({
     model: "llama",
     name: "ConstantAtomicTagged",

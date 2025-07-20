@@ -5,8 +5,9 @@ import { _test_functional_assertParametersAsync } from "../../internal/_test_fun
 import { FunctionalTuple } from "../../structures/FunctionalTuple";
 
 export const test_functional_assertParametersAsync_FunctionalTuple =
-  _test_functional_assertParametersAsync(TypeGuardError)("FunctionalTuple")(
-    FunctionalTuple,
-  )((p: (input: FunctionalTuple) => Promise<FunctionalTuple>) =>
-    typia.functional.assertParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertParametersAsync(TypeGuardError)("FunctionalTuple")(
+      FunctionalTuple,
+    )((p: (input: FunctionalTuple) => Promise<FunctionalTuple>) =>
+      typia.functional.assertParameters(p),
+    );

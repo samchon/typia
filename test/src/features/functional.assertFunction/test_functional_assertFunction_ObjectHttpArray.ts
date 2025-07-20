@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_functional_assertFunction } from "../../internal/_test_functional_assertFunction";
 import { ObjectHttpArray } from "../../structures/ObjectHttpArray";
 
-export const test_functional_assertFunction_ObjectHttpArray =
+export const test_functional_assertFunction_ObjectHttpArray = (): void =>
   _test_functional_assertFunction(TypeGuardError)("ObjectHttpArray")(
     ObjectHttpArray,
   )((p: (input: ObjectHttpArray) => ObjectHttpArray) =>

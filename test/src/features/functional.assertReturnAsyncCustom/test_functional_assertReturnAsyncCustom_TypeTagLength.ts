@@ -5,8 +5,9 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { TypeTagLength } from "../../structures/TypeTagLength";
 
 export const test_functional_assertReturnAsyncCustom_TypeTagLength =
-  _test_functional_assertReturnAsync(CustomGuardError)("TypeTagLength")(
-    TypeTagLength,
-  )((p: (input: TypeTagLength) => Promise<TypeTagLength>) =>
-    typia.functional.assertReturn(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(CustomGuardError)("TypeTagLength")(
+      TypeTagLength,
+    )((p: (input: TypeTagLength) => Promise<TypeTagLength>) =>
+      typia.functional.assertReturn(p, (p) => new CustomGuardError(p)),
+    );

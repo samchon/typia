@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsFunction } from "../../internal/_test_func
 import { TypeTagInfinite } from "../../structures/TypeTagInfinite";
 
 export const test_functional_assertEqualsFunctionCustom_TypeTagInfinite =
-  _test_functional_assertEqualsFunction(CustomGuardError)("TypeTagInfinite")(
-    TypeTagInfinite,
-  )((p: (input: TypeTagInfinite) => TypeTagInfinite) =>
-    typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertEqualsFunction(CustomGuardError)("TypeTagInfinite")(
+      TypeTagInfinite,
+    )((p: (input: TypeTagInfinite) => TypeTagInfinite) =>
+      typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
+    );

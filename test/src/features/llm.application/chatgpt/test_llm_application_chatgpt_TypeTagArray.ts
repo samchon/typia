@@ -3,11 +3,12 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { TypeTagArray } from "../../../structures/TypeTagArray";
 
-export const test_llm_application_chatgpt_TypeTagArray = _test_llm_application({
-  model: "chatgpt",
-  name: "TypeTagArray",
-  factory: TypeTagArray,
-})(typia.llm.application<TypeTagArrayApplication, "chatgpt">());
+export const test_llm_application_chatgpt_TypeTagArray = (): void =>
+  _test_llm_application({
+    model: "chatgpt",
+    name: "TypeTagArray",
+    factory: TypeTagArray,
+  })(typia.llm.application<TypeTagArrayApplication, "chatgpt">());
 
 interface TypeTagArrayApplication {
   insert(p: { first: TypeTagArray }): Promise<void>;

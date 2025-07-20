@@ -5,8 +5,9 @@ import { _test_functional_assertParametersAsync } from "../../internal/_test_fun
 import { NativeSimple } from "../../structures/NativeSimple";
 
 export const test_functional_assertParametersAsync_NativeSimple =
-  _test_functional_assertParametersAsync(TypeGuardError)("NativeSimple")(
-    NativeSimple,
-  )((p: (input: NativeSimple) => Promise<NativeSimple>) =>
-    typia.functional.assertParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertParametersAsync(TypeGuardError)("NativeSimple")(
+      NativeSimple,
+    )((p: (input: NativeSimple) => Promise<NativeSimple>) =>
+      typia.functional.assertParameters(p),
+    );

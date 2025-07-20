@@ -4,10 +4,13 @@ import { _test_functional_validateFunctionAsync } from "../../internal/_test_fun
 import { ArrayHierarchicalPointer } from "../../structures/ArrayHierarchicalPointer";
 
 export const test_functional_validateFunctionAsync_ArrayHierarchicalPointer =
-  _test_functional_validateFunctionAsync("ArrayHierarchicalPointer")(
-    ArrayHierarchicalPointer,
-  )(
-    (
-      p: (input: ArrayHierarchicalPointer) => Promise<ArrayHierarchicalPointer>,
-    ) => typia.functional.validateFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateFunctionAsync("ArrayHierarchicalPointer")(
+      ArrayHierarchicalPointer,
+    )(
+      (
+        p: (
+          input: ArrayHierarchicalPointer,
+        ) => Promise<ArrayHierarchicalPointer>,
+      ) => typia.functional.validateFunction(p),
+    );

@@ -4,7 +4,8 @@ import { _test_functional_isFunctionAsync } from "../../internal/_test_functiona
 import { ObjectHttpTypeTag } from "../../structures/ObjectHttpTypeTag";
 
 export const test_functional_isFunctionAsync_ObjectHttpTypeTag =
-  _test_functional_isFunctionAsync("ObjectHttpTypeTag")(ObjectHttpTypeTag)(
-    (p: (input: ObjectHttpTypeTag) => Promise<ObjectHttpTypeTag>) =>
-      typia.functional.isFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_isFunctionAsync("ObjectHttpTypeTag")(ObjectHttpTypeTag)(
+      (p: (input: ObjectHttpTypeTag) => Promise<ObjectHttpTypeTag>) =>
+        typia.functional.isFunction(p),
+    );

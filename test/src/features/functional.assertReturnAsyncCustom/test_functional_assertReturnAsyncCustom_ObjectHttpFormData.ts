@@ -5,8 +5,9 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { ObjectHttpFormData } from "../../structures/ObjectHttpFormData";
 
 export const test_functional_assertReturnAsyncCustom_ObjectHttpFormData =
-  _test_functional_assertReturnAsync(CustomGuardError)("ObjectHttpFormData")(
-    ObjectHttpFormData,
-  )((p: (input: ObjectHttpFormData) => Promise<ObjectHttpFormData>) =>
-    typia.functional.assertReturn(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(CustomGuardError)("ObjectHttpFormData")(
+      ObjectHttpFormData,
+    )((p: (input: ObjectHttpFormData) => Promise<ObjectHttpFormData>) =>
+      typia.functional.assertReturn(p, (p) => new CustomGuardError(p)),
+    );

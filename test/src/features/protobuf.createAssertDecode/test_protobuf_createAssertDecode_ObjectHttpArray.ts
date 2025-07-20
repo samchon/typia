@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_protobuf_assertDecode } from "../../internal/_test_protobuf_assertDecode";
 import { ObjectHttpArray } from "../../structures/ObjectHttpArray";
 
-export const test_protobuf_createAssertDecode_ObjectHttpArray =
+export const test_protobuf_createAssertDecode_ObjectHttpArray = (): void =>
   _test_protobuf_assertDecode(TypeGuardError)(
     "ObjectHttpArray",
   )<ObjectHttpArray>(ObjectHttpArray)({

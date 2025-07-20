@@ -4,8 +4,9 @@ import { _test_functional_equalsParametersAsync } from "../../internal/_test_fun
 import { ObjectIntersection } from "../../structures/ObjectIntersection";
 
 export const test_functional_equalsParametersAsync_ObjectIntersection =
-  _test_functional_equalsParametersAsync("ObjectIntersection")(
-    ObjectIntersection,
-  )((p: (input: ObjectIntersection) => Promise<ObjectIntersection>) =>
-    typia.functional.equalsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_equalsParametersAsync("ObjectIntersection")(
+      ObjectIntersection,
+    )((p: (input: ObjectIntersection) => Promise<ObjectIntersection>) =>
+      typia.functional.equalsParameters(p),
+    );

@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_functional_assertEqualsFunction } from "../../internal/_test_functional_assertEqualsFunction";
 import { TupleRestAtomic } from "../../structures/TupleRestAtomic";
 
-export const test_functional_assertEqualsFunction_TupleRestAtomic =
+export const test_functional_assertEqualsFunction_TupleRestAtomic = (): void =>
   _test_functional_assertEqualsFunction(TypeGuardError)("TupleRestAtomic")(
     TupleRestAtomic,
   )((p: (input: TupleRestAtomic) => TupleRestAtomic) =>

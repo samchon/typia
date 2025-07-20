@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsParametersAsync } from "../../internal/_
 import { ConstantAtomicTagged } from "../../structures/ConstantAtomicTagged";
 
 export const test_functional_validateEqualsParametersAsync_ConstantAtomicTagged =
-  _test_functional_validateEqualsParametersAsync("ConstantAtomicTagged")(
-    ConstantAtomicTagged,
-  )((p: (input: ConstantAtomicTagged) => Promise<ConstantAtomicTagged>) =>
-    typia.functional.validateEqualsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsParametersAsync("ConstantAtomicTagged")(
+      ConstantAtomicTagged,
+    )((p: (input: ConstantAtomicTagged) => Promise<ConstantAtomicTagged>) =>
+      typia.functional.validateEqualsParameters(p),
+    );

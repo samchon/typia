@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_functional_assertReturn } from "../../internal/_test_functional_assertReturn";
 import { ObjectHttpConstant } from "../../structures/ObjectHttpConstant";
 
-export const test_functional_assertReturn_ObjectHttpConstant =
+export const test_functional_assertReturn_ObjectHttpConstant = (): void =>
   _test_functional_assertReturn(TypeGuardError)("ObjectHttpConstant")(
     ObjectHttpConstant,
   )((p: (input: ObjectHttpConstant) => ObjectHttpConstant) =>

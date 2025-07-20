@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_functional_assertReturn } from "../../internal/_test_functional_assertReturn";
 import { TypeTagObjectUnion } from "../../structures/TypeTagObjectUnion";
 
-export const test_functional_assertReturnCustom_TypeTagObjectUnion =
+export const test_functional_assertReturnCustom_TypeTagObjectUnion = (): void =>
   _test_functional_assertReturn(CustomGuardError)("TypeTagObjectUnion")(
     TypeTagObjectUnion,
   )((p: (input: TypeTagObjectUnion) => TypeTagObjectUnion) =>

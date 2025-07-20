@@ -3,18 +3,19 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { ObjectUnionImplicit } from "../../../structures/ObjectUnionImplicit";
 
-export const test_llm_application_chatgpt_ObjectUnionImplicit =
-  _test_llm_applicationEquals({
-    model: "chatgpt",
-    name: "ObjectUnionImplicit",
-    factory: ObjectUnionImplicit,
-  })(
-    typia.llm.application<
-      ObjectUnionImplicitApplication,
-      "chatgpt",
-      { equal: true }
-    >(),
-  );
+export const test_llm_applicationEquals_chatgpt_ObjectUnionImplicit =
+  (): void =>
+    _test_llm_applicationEquals({
+      model: "chatgpt",
+      name: "ObjectUnionImplicit",
+      factory: ObjectUnionImplicit,
+    })(
+      typia.llm.application<
+        ObjectUnionImplicitApplication,
+        "chatgpt",
+        { equal: true }
+      >(),
+    );
 
 interface ObjectUnionImplicitApplication {
   insert(p: { first: ObjectUnionImplicit }): Promise<void>;

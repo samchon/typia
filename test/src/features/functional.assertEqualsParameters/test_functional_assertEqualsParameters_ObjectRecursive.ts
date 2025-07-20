@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsParameters } from "../../internal/_test_fu
 import { ObjectRecursive } from "../../structures/ObjectRecursive";
 
 export const test_functional_assertEqualsParameters_ObjectRecursive =
-  _test_functional_assertEqualsParameters(TypeGuardError)("ObjectRecursive")(
-    ObjectRecursive,
-  )((p: (input: ObjectRecursive) => ObjectRecursive) =>
-    typia.functional.assertEqualsParameters(p),
-  );
+  (): void =>
+    _test_functional_assertEqualsParameters(TypeGuardError)("ObjectRecursive")(
+      ObjectRecursive,
+    )((p: (input: ObjectRecursive) => ObjectRecursive) =>
+      typia.functional.assertEqualsParameters(p),
+    );

@@ -3,18 +3,19 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { ArrayRepeatedRequired } from "../../../structures/ArrayRepeatedRequired";
 
-export const test_llm_application_llama_ArrayRepeatedRequired =
-  _test_llm_applicationEquals({
-    model: "llama",
-    name: "ArrayRepeatedRequired",
-    factory: ArrayRepeatedRequired,
-  })(
-    typia.llm.application<
-      ArrayRepeatedRequiredApplication,
-      "llama",
-      { equal: true }
-    >(),
-  );
+export const test_llm_applicationEquals_llama_ArrayRepeatedRequired =
+  (): void =>
+    _test_llm_applicationEquals({
+      model: "llama",
+      name: "ArrayRepeatedRequired",
+      factory: ArrayRepeatedRequired,
+    })(
+      typia.llm.application<
+        ArrayRepeatedRequiredApplication,
+        "llama",
+        { equal: true }
+      >(),
+    );
 
 interface ArrayRepeatedRequiredApplication {
   insert(p: { first: ArrayRepeatedRequired }): Promise<void>;

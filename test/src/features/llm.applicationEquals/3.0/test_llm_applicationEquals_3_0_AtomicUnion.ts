@@ -3,13 +3,12 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { AtomicUnion } from "../../../structures/AtomicUnion";
 
-export const test_llm_application_3_0_AtomicUnion = _test_llm_applicationEquals(
-  {
+export const test_llm_applicationEquals_3_0_AtomicUnion = (): void =>
+  _test_llm_applicationEquals({
     model: "3.0",
     name: "AtomicUnion",
     factory: AtomicUnion,
-  },
-)(typia.llm.application<AtomicUnionApplication, "3.0", { equal: true }>());
+  })(typia.llm.application<AtomicUnionApplication, "3.0", { equal: true }>());
 
 interface AtomicUnionApplication {
   insert(p: { first: AtomicUnion }): Promise<void>;

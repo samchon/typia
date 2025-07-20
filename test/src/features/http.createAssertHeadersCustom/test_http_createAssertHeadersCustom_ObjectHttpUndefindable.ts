@@ -5,10 +5,11 @@ import { _test_http_assertHeaders } from "../../internal/_test_http_assertHeader
 import { ObjectHttpUndefindable } from "../../structures/ObjectHttpUndefindable";
 
 export const test_http_createAssertHeadersCustom_ObjectHttpUndefindable =
-  _test_http_assertHeaders(CustomGuardError)(
-    "ObjectHttpUndefindable",
-  )<ObjectHttpUndefindable>(ObjectHttpUndefindable)(
-    typia.http.createAssertHeaders<ObjectHttpUndefindable>(
-      (p) => new CustomGuardError(p),
-    ),
-  );
+  (): void =>
+    _test_http_assertHeaders(CustomGuardError)(
+      "ObjectHttpUndefindable",
+    )<ObjectHttpUndefindable>(ObjectHttpUndefindable)(
+      typia.http.createAssertHeaders<ObjectHttpUndefindable>(
+        (p) => new CustomGuardError(p),
+      ),
+    );

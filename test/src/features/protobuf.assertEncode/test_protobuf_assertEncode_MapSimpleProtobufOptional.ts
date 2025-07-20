@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_protobuf_assertEncode } from "../../internal/_test_protobuf_assertEncode";
 import { MapSimpleProtobufOptional } from "../../structures/MapSimpleProtobufOptional";
 
-export const test_protobuf_assertEncode_MapSimpleProtobufOptional =
+export const test_protobuf_assertEncode_MapSimpleProtobufOptional = (): void =>
   _test_protobuf_assertEncode(TypeGuardError)(
     "MapSimpleProtobufOptional",
   )<MapSimpleProtobufOptional>(MapSimpleProtobufOptional)({

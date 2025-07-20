@@ -5,12 +5,13 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { ObjectSimpleProtobufOptional } from "../../structures/ObjectSimpleProtobufOptional";
 
 export const test_functional_assertReturnAsync_ObjectSimpleProtobufOptional =
-  _test_functional_assertReturnAsync(TypeGuardError)(
-    "ObjectSimpleProtobufOptional",
-  )(ObjectSimpleProtobufOptional)(
-    (
-      p: (
-        input: ObjectSimpleProtobufOptional,
-      ) => Promise<ObjectSimpleProtobufOptional>,
-    ) => typia.functional.assertReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(TypeGuardError)(
+      "ObjectSimpleProtobufOptional",
+    )(ObjectSimpleProtobufOptional)(
+      (
+        p: (
+          input: ObjectSimpleProtobufOptional,
+        ) => Promise<ObjectSimpleProtobufOptional>,
+      ) => typia.functional.assertReturn(p),
+    );

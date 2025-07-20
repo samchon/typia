@@ -4,6 +4,7 @@ import { _test_json_validateStringify } from "../../internal/_test_json_validate
 import { ConstantIntersection } from "../../structures/ConstantIntersection";
 
 export const test_json_createValidateStringify_ConstantIntersection =
-  _test_json_validateStringify("ConstantIntersection")<ConstantIntersection>(
-    ConstantIntersection,
-  )(typia.json.createValidateStringify<ConstantIntersection>());
+  (): void =>
+    _test_json_validateStringify("ConstantIntersection")<ConstantIntersection>(
+      ConstantIntersection,
+    )(typia.json.createValidateStringify<ConstantIntersection>());

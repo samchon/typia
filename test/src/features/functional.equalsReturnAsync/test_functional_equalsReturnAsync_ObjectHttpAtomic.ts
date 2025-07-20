@@ -4,7 +4,8 @@ import { _test_functional_equalsReturnAsync } from "../../internal/_test_functio
 import { ObjectHttpAtomic } from "../../structures/ObjectHttpAtomic";
 
 export const test_functional_equalsReturnAsync_ObjectHttpAtomic =
-  _test_functional_equalsReturnAsync("ObjectHttpAtomic")(ObjectHttpAtomic)(
-    (p: (input: ObjectHttpAtomic) => Promise<ObjectHttpAtomic>) =>
-      typia.functional.equalsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_equalsReturnAsync("ObjectHttpAtomic")(ObjectHttpAtomic)(
+      (p: (input: ObjectHttpAtomic) => Promise<ObjectHttpAtomic>) =>
+        typia.functional.equalsReturn(p),
+    );

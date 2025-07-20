@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { TypeTagArrayUnion } from "../../../structures/TypeTagArrayUnion";
 
-export const test_llm_application_llama_TypeTagArrayUnion =
+export const test_llm_applicationEquals_llama_TypeTagArrayUnion = (): void =>
   _test_llm_applicationEquals({
     model: "llama",
     name: "TypeTagArrayUnion",

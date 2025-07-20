@@ -4,8 +4,9 @@ import { _test_functional_validateParameters } from "../../internal/_test_functi
 import { ArraySimpleProtobuf } from "../../structures/ArraySimpleProtobuf";
 
 export const test_functional_validateParameters_ArraySimpleProtobuf =
-  _test_functional_validateParameters("ArraySimpleProtobuf")(
-    ArraySimpleProtobuf,
-  )((p: (input: ArraySimpleProtobuf) => ArraySimpleProtobuf) =>
-    typia.functional.validateParameters(p),
-  );
+  (): void =>
+    _test_functional_validateParameters("ArraySimpleProtobuf")(
+      ArraySimpleProtobuf,
+    )((p: (input: ArraySimpleProtobuf) => ArraySimpleProtobuf) =>
+      typia.functional.validateParameters(p),
+    );

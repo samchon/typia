@@ -5,9 +5,11 @@ import { _test_functional_assertEqualsParameters } from "../../internal/_test_fu
 import { ObjectUnionCompositePointer } from "../../structures/ObjectUnionCompositePointer";
 
 export const test_functional_assertEqualsParameters_ObjectUnionCompositePointer =
-  _test_functional_assertEqualsParameters(TypeGuardError)(
-    "ObjectUnionCompositePointer",
-  )(ObjectUnionCompositePointer)(
-    (p: (input: ObjectUnionCompositePointer) => ObjectUnionCompositePointer) =>
-      typia.functional.assertEqualsParameters(p),
-  );
+  (): void =>
+    _test_functional_assertEqualsParameters(TypeGuardError)(
+      "ObjectUnionCompositePointer",
+    )(ObjectUnionCompositePointer)(
+      (
+        p: (input: ObjectUnionCompositePointer) => ObjectUnionCompositePointer,
+      ) => typia.functional.assertEqualsParameters(p),
+    );

@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { ArrayMatrix } from "../../../structures/ArrayMatrix";
 
-export const test_llm_application_chatgpt_ArrayMatrix =
+export const test_llm_applicationEquals_chatgpt_ArrayMatrix = (): void =>
   _test_llm_applicationEquals({
     model: "chatgpt",
     name: "ArrayMatrix",

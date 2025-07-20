@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { ArrayUnion } from "../../../structures/ArrayUnion";
 
-export const test_llm_application_chatgpt_ArrayUnion =
+export const test_llm_applicationEquals_chatgpt_ArrayUnion = (): void =>
   _test_llm_applicationEquals({
     model: "chatgpt",
     name: "ArrayUnion",

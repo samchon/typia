@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_assertGuardEquals } from "../../internal/_test_assertGuardEquals";
 import { TemplateUnion } from "../../structures/TemplateUnion";
 
-export const test_createAssertGuardEqualsCustom_TemplateUnion =
+export const test_createAssertGuardEqualsCustom_TemplateUnion = (): void =>
   _test_assertGuardEquals(CustomGuardError)("TemplateUnion")<TemplateUnion>(
     TemplateUnion,
   )(

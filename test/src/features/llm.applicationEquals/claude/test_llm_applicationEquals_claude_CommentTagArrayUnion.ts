@@ -3,18 +3,19 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { CommentTagArrayUnion } from "../../../structures/CommentTagArrayUnion";
 
-export const test_llm_application_claude_CommentTagArrayUnion =
-  _test_llm_applicationEquals({
-    model: "claude",
-    name: "CommentTagArrayUnion",
-    factory: CommentTagArrayUnion,
-  })(
-    typia.llm.application<
-      CommentTagArrayUnionApplication,
-      "claude",
-      { equal: true }
-    >(),
-  );
+export const test_llm_applicationEquals_claude_CommentTagArrayUnion =
+  (): void =>
+    _test_llm_applicationEquals({
+      model: "claude",
+      name: "CommentTagArrayUnion",
+      factory: CommentTagArrayUnion,
+    })(
+      typia.llm.application<
+        CommentTagArrayUnionApplication,
+        "claude",
+        { equal: true }
+      >(),
+    );
 
 interface CommentTagArrayUnionApplication {
   insert(p: { first: CommentTagArrayUnion }): Promise<void>;

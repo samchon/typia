@@ -4,7 +4,8 @@ import { _test_functional_validateEqualsReturnAsync } from "../../internal/_test
 import { TypeTagBigInt } from "../../structures/TypeTagBigInt";
 
 export const test_functional_validateEqualsReturnAsync_TypeTagBigInt =
-  _test_functional_validateEqualsReturnAsync("TypeTagBigInt")(TypeTagBigInt)(
-    (p: (input: TypeTagBigInt) => Promise<TypeTagBigInt>) =>
-      typia.functional.validateEqualsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsReturnAsync("TypeTagBigInt")(TypeTagBigInt)(
+      (p: (input: TypeTagBigInt) => Promise<TypeTagBigInt>) =>
+        typia.functional.validateEqualsReturn(p),
+    );

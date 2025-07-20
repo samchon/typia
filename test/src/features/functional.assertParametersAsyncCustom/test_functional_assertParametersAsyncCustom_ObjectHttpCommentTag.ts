@@ -5,9 +5,10 @@ import { _test_functional_assertParametersAsync } from "../../internal/_test_fun
 import { ObjectHttpCommentTag } from "../../structures/ObjectHttpCommentTag";
 
 export const test_functional_assertParametersAsyncCustom_ObjectHttpCommentTag =
-  _test_functional_assertParametersAsync(CustomGuardError)(
-    "ObjectHttpCommentTag",
-  )(ObjectHttpCommentTag)(
-    (p: (input: ObjectHttpCommentTag) => Promise<ObjectHttpCommentTag>) =>
-      typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertParametersAsync(CustomGuardError)(
+      "ObjectHttpCommentTag",
+    )(ObjectHttpCommentTag)(
+      (p: (input: ObjectHttpCommentTag) => Promise<ObjectHttpCommentTag>) =>
+        typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
+    );

@@ -5,8 +5,9 @@ import { _test_functional_assertParametersAsync } from "../../internal/_test_fun
 import { CommentTagLength } from "../../structures/CommentTagLength";
 
 export const test_functional_assertParametersAsync_CommentTagLength =
-  _test_functional_assertParametersAsync(TypeGuardError)("CommentTagLength")(
-    CommentTagLength,
-  )((p: (input: CommentTagLength) => Promise<CommentTagLength>) =>
-    typia.functional.assertParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertParametersAsync(TypeGuardError)("CommentTagLength")(
+      CommentTagLength,
+    )((p: (input: CommentTagLength) => Promise<CommentTagLength>) =>
+      typia.functional.assertParameters(p),
+    );

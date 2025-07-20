@@ -4,7 +4,8 @@ import { _test_functional_validateReturnAsync } from "../../internal/_test_funct
 import { NativeUnion } from "../../structures/NativeUnion";
 
 export const test_functional_validateReturnAsync_NativeUnion =
-  _test_functional_validateReturnAsync("NativeUnion")(NativeUnion)(
-    (p: (input: NativeUnion) => Promise<NativeUnion>) =>
-      typia.functional.validateReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateReturnAsync("NativeUnion")(NativeUnion)(
+      (p: (input: NativeUnion) => Promise<NativeUnion>) =>
+        typia.functional.validateReturn(p),
+    );

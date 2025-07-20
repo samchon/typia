@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_functional_assertEqualsReturn } from "../../internal/_test_functional_assertEqualsReturn";
 import { TypeTagObjectUnion } from "../../structures/TypeTagObjectUnion";
 
-export const test_functional_assertEqualsReturn_TypeTagObjectUnion =
+export const test_functional_assertEqualsReturn_TypeTagObjectUnion = (): void =>
   _test_functional_assertEqualsReturn(TypeGuardError)("TypeTagObjectUnion")(
     TypeTagObjectUnion,
   )((p: (input: TypeTagObjectUnion) => TypeTagObjectUnion) =>

@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsFunction } from "../../internal/_test_fu
 import { CommentTagRangeBigInt } from "../../structures/CommentTagRangeBigInt";
 
 export const test_functional_validateEqualsFunction_CommentTagRangeBigInt =
-  _test_functional_validateEqualsFunction("CommentTagRangeBigInt")(
-    CommentTagRangeBigInt,
-  )((p: (input: CommentTagRangeBigInt) => CommentTagRangeBigInt) =>
-    typia.functional.validateEqualsFunction(p),
-  );
+  (): void =>
+    _test_functional_validateEqualsFunction("CommentTagRangeBigInt")(
+      CommentTagRangeBigInt,
+    )((p: (input: CommentTagRangeBigInt) => CommentTagRangeBigInt) =>
+      typia.functional.validateEqualsFunction(p),
+    );

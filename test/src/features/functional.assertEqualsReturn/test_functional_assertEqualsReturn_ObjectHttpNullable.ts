@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_functional_assertEqualsReturn } from "../../internal/_test_functional_assertEqualsReturn";
 import { ObjectHttpNullable } from "../../structures/ObjectHttpNullable";
 
-export const test_functional_assertEqualsReturn_ObjectHttpNullable =
+export const test_functional_assertEqualsReturn_ObjectHttpNullable = (): void =>
   _test_functional_assertEqualsReturn(TypeGuardError)("ObjectHttpNullable")(
     ObjectHttpNullable,
   )((p: (input: ObjectHttpNullable) => ObjectHttpNullable) =>

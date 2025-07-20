@@ -3,18 +3,19 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { ArrayRepeatedRequired } from "../../../structures/ArrayRepeatedRequired";
 
-export const test_llm_application_chatgpt_ArrayRepeatedRequired =
-  _test_llm_applicationEquals({
-    model: "chatgpt",
-    name: "ArrayRepeatedRequired",
-    factory: ArrayRepeatedRequired,
-  })(
-    typia.llm.application<
-      ArrayRepeatedRequiredApplication,
-      "chatgpt",
-      { equal: true }
-    >(),
-  );
+export const test_llm_applicationEquals_chatgpt_ArrayRepeatedRequired =
+  (): void =>
+    _test_llm_applicationEquals({
+      model: "chatgpt",
+      name: "ArrayRepeatedRequired",
+      factory: ArrayRepeatedRequired,
+    })(
+      typia.llm.application<
+        ArrayRepeatedRequiredApplication,
+        "chatgpt",
+        { equal: true }
+      >(),
+    );
 
 interface ArrayRepeatedRequiredApplication {
   insert(p: { first: ArrayRepeatedRequired }): Promise<void>;

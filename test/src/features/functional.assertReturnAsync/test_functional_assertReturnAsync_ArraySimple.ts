@@ -5,8 +5,9 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { ArraySimple } from "../../structures/ArraySimple";
 
 export const test_functional_assertReturnAsync_ArraySimple =
-  _test_functional_assertReturnAsync(TypeGuardError)("ArraySimple")(
-    ArraySimple,
-  )((p: (input: ArraySimple) => Promise<ArraySimple>) =>
-    typia.functional.assertReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(TypeGuardError)("ArraySimple")(
+      ArraySimple,
+    )((p: (input: ArraySimple) => Promise<ArraySimple>) =>
+      typia.functional.assertReturn(p),
+    );

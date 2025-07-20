@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsParameters } from "../../internal/_test_
 import { FunctionalArrayUnion } from "../../structures/FunctionalArrayUnion";
 
 export const test_functional_validateEqualsParameters_FunctionalArrayUnion =
-  _test_functional_validateEqualsParameters("FunctionalArrayUnion")(
-    FunctionalArrayUnion,
-  )((p: (input: FunctionalArrayUnion) => FunctionalArrayUnion) =>
-    typia.functional.validateEqualsParameters(p),
-  );
+  (): void =>
+    _test_functional_validateEqualsParameters("FunctionalArrayUnion")(
+      FunctionalArrayUnion,
+    )((p: (input: FunctionalArrayUnion) => FunctionalArrayUnion) =>
+      typia.functional.validateEqualsParameters(p),
+    );

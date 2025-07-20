@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ObjectLiteralType } from "../../../structures/ObjectLiteralType";
 
-export const test_llm_application_claude_ObjectLiteralType =
+export const test_llm_application_claude_ObjectLiteralType = (): void =>
   _test_llm_application({
     model: "claude",
     name: "ObjectLiteralType",

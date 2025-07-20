@@ -5,9 +5,10 @@ import { _test_functional_assertEqualsReturnAsync } from "../../internal/_test_f
 import { FunctionalProperty } from "../../structures/FunctionalProperty";
 
 export const test_functional_assertEqualsReturnAsync_FunctionalProperty =
-  _test_functional_assertEqualsReturnAsync(TypeGuardError)(
-    "FunctionalProperty",
-  )(FunctionalProperty)(
-    (p: (input: FunctionalProperty) => Promise<FunctionalProperty>) =>
-      typia.functional.assertEqualsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsReturnAsync(TypeGuardError)(
+      "FunctionalProperty",
+    )(FunctionalProperty)(
+      (p: (input: FunctionalProperty) => Promise<FunctionalProperty>) =>
+        typia.functional.assertEqualsReturn(p),
+    );

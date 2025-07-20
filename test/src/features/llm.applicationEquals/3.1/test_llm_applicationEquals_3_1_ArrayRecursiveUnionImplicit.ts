@@ -3,18 +3,19 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { ArrayRecursiveUnionImplicit } from "../../../structures/ArrayRecursiveUnionImplicit";
 
-export const test_llm_application_3_1_ArrayRecursiveUnionImplicit =
-  _test_llm_applicationEquals({
-    model: "3.1",
-    name: "ArrayRecursiveUnionImplicit",
-    factory: ArrayRecursiveUnionImplicit,
-  })(
-    typia.llm.application<
-      ArrayRecursiveUnionImplicitApplication,
-      "3.1",
-      { equal: true }
-    >(),
-  );
+export const test_llm_applicationEquals_3_1_ArrayRecursiveUnionImplicit =
+  (): void =>
+    _test_llm_applicationEquals({
+      model: "3.1",
+      name: "ArrayRecursiveUnionImplicit",
+      factory: ArrayRecursiveUnionImplicit,
+    })(
+      typia.llm.application<
+        ArrayRecursiveUnionImplicitApplication,
+        "3.1",
+        { equal: true }
+      >(),
+    );
 
 interface ArrayRecursiveUnionImplicitApplication {
   insert(p: { first: ArrayRecursiveUnionImplicit }): Promise<void>;

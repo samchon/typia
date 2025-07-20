@@ -5,8 +5,9 @@ import { _test_functional_assertParameters } from "../../internal/_test_function
 import { ArrayRepeatedNullable } from "../../structures/ArrayRepeatedNullable";
 
 export const test_functional_assertParameters_ArrayRepeatedNullable =
-  _test_functional_assertParameters(TypeGuardError)("ArrayRepeatedNullable")(
-    ArrayRepeatedNullable,
-  )((p: (input: ArrayRepeatedNullable) => ArrayRepeatedNullable) =>
-    typia.functional.assertParameters(p),
-  );
+  (): void =>
+    _test_functional_assertParameters(TypeGuardError)("ArrayRepeatedNullable")(
+      ArrayRepeatedNullable,
+    )((p: (input: ArrayRepeatedNullable) => ArrayRepeatedNullable) =>
+      typia.functional.assertParameters(p),
+    );

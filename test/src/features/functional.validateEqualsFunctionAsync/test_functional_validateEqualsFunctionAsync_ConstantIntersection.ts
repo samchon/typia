@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsFunctionAsync } from "../../internal/_te
 import { ConstantIntersection } from "../../structures/ConstantIntersection";
 
 export const test_functional_validateEqualsFunctionAsync_ConstantIntersection =
-  _test_functional_validateEqualsFunctionAsync("ConstantIntersection")(
-    ConstantIntersection,
-  )((p: (input: ConstantIntersection) => Promise<ConstantIntersection>) =>
-    typia.functional.validateEqualsFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsFunctionAsync("ConstantIntersection")(
+      ConstantIntersection,
+    )((p: (input: ConstantIntersection) => Promise<ConstantIntersection>) =>
+      typia.functional.validateEqualsFunction(p),
+    );

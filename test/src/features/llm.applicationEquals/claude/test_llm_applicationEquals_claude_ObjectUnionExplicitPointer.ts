@@ -3,18 +3,19 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { ObjectUnionExplicitPointer } from "../../../structures/ObjectUnionExplicitPointer";
 
-export const test_llm_application_claude_ObjectUnionExplicitPointer =
-  _test_llm_applicationEquals({
-    model: "claude",
-    name: "ObjectUnionExplicitPointer",
-    factory: ObjectUnionExplicitPointer,
-  })(
-    typia.llm.application<
-      ObjectUnionExplicitPointerApplication,
-      "claude",
-      { equal: true }
-    >(),
-  );
+export const test_llm_applicationEquals_claude_ObjectUnionExplicitPointer =
+  (): void =>
+    _test_llm_applicationEquals({
+      model: "claude",
+      name: "ObjectUnionExplicitPointer",
+      factory: ObjectUnionExplicitPointer,
+    })(
+      typia.llm.application<
+        ObjectUnionExplicitPointerApplication,
+        "claude",
+        { equal: true }
+      >(),
+    );
 
 interface ObjectUnionExplicitPointerApplication {
   insert(p: { first: ObjectUnionExplicitPointer }): Promise<void>;

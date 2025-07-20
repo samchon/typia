@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsParametersAsync } from "../../internal/_
 import { TupleOptional } from "../../structures/TupleOptional";
 
 export const test_functional_validateEqualsParametersAsync_TupleOptional =
-  _test_functional_validateEqualsParametersAsync("TupleOptional")(
-    TupleOptional,
-  )((p: (input: TupleOptional) => Promise<TupleOptional>) =>
-    typia.functional.validateEqualsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsParametersAsync("TupleOptional")(
+      TupleOptional,
+    )((p: (input: TupleOptional) => Promise<TupleOptional>) =>
+      typia.functional.validateEqualsParameters(p),
+    );

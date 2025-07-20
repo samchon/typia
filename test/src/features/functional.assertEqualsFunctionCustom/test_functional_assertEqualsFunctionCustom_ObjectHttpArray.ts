@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsFunction } from "../../internal/_test_func
 import { ObjectHttpArray } from "../../structures/ObjectHttpArray";
 
 export const test_functional_assertEqualsFunctionCustom_ObjectHttpArray =
-  _test_functional_assertEqualsFunction(CustomGuardError)("ObjectHttpArray")(
-    ObjectHttpArray,
-  )((p: (input: ObjectHttpArray) => ObjectHttpArray) =>
-    typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertEqualsFunction(CustomGuardError)("ObjectHttpArray")(
+      ObjectHttpArray,
+    )((p: (input: ObjectHttpArray) => ObjectHttpArray) =>
+      typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
+    );

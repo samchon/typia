@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { DynamicComposite } from "../../../structures/DynamicComposite";
 
-export const test_llm_application_llama_DynamicComposite =
+export const test_llm_applicationEquals_llama_DynamicComposite = (): void =>
   _test_llm_applicationEquals({
     model: "llama",
     name: "DynamicComposite",

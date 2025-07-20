@@ -4,8 +4,9 @@ import { _test_functional_isParametersAsync } from "../../internal/_test_functio
 import { ObjectLiteralProperty } from "../../structures/ObjectLiteralProperty";
 
 export const test_functional_isParametersAsync_ObjectLiteralProperty =
-  _test_functional_isParametersAsync("ObjectLiteralProperty")(
-    ObjectLiteralProperty,
-  )((p: (input: ObjectLiteralProperty) => Promise<ObjectLiteralProperty>) =>
-    typia.functional.isParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_isParametersAsync("ObjectLiteralProperty")(
+      ObjectLiteralProperty,
+    )((p: (input: ObjectLiteralProperty) => Promise<ObjectLiteralProperty>) =>
+      typia.functional.isParameters(p),
+    );

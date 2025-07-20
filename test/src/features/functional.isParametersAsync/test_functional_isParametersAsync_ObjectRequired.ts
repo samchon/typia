@@ -4,7 +4,8 @@ import { _test_functional_isParametersAsync } from "../../internal/_test_functio
 import { ObjectRequired } from "../../structures/ObjectRequired";
 
 export const test_functional_isParametersAsync_ObjectRequired =
-  _test_functional_isParametersAsync("ObjectRequired")(ObjectRequired)(
-    (p: (input: ObjectRequired) => Promise<ObjectRequired>) =>
-      typia.functional.isParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_isParametersAsync("ObjectRequired")(ObjectRequired)(
+      (p: (input: ObjectRequired) => Promise<ObjectRequired>) =>
+        typia.functional.isParameters(p),
+    );

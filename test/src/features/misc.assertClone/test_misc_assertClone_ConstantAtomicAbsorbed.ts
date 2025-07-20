@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_misc_assertClone } from "../../internal/_test_misc_assertClone";
 import { ConstantAtomicAbsorbed } from "../../structures/ConstantAtomicAbsorbed";
 
-export const test_misc_assertClone_ConstantAtomicAbsorbed =
+export const test_misc_assertClone_ConstantAtomicAbsorbed = (): void =>
   _test_misc_assertClone(TypeGuardError)(
     "ConstantAtomicAbsorbed",
   )<ConstantAtomicAbsorbed>(ConstantAtomicAbsorbed)((input) =>

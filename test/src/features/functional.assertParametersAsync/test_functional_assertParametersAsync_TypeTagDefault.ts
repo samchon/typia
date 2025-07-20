@@ -5,8 +5,9 @@ import { _test_functional_assertParametersAsync } from "../../internal/_test_fun
 import { TypeTagDefault } from "../../structures/TypeTagDefault";
 
 export const test_functional_assertParametersAsync_TypeTagDefault =
-  _test_functional_assertParametersAsync(TypeGuardError)("TypeTagDefault")(
-    TypeTagDefault,
-  )((p: (input: TypeTagDefault) => Promise<TypeTagDefault>) =>
-    typia.functional.assertParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertParametersAsync(TypeGuardError)("TypeTagDefault")(
+      TypeTagDefault,
+    )((p: (input: TypeTagDefault) => Promise<TypeTagDefault>) =>
+      typia.functional.assertParameters(p),
+    );

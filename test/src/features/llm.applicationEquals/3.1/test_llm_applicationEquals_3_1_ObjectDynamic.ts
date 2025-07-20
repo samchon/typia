@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { ObjectDynamic } from "../../../structures/ObjectDynamic";
 
-export const test_llm_application_3_1_ObjectDynamic =
+export const test_llm_applicationEquals_3_1_ObjectDynamic = (): void =>
   _test_llm_applicationEquals({
     model: "3.1",
     name: "ObjectDynamic",

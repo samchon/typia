@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_protobuf_assertDecode } from "../../internal/_test_protobuf_assertDecode";
 import { ObjectGenericAlias } from "../../structures/ObjectGenericAlias";
 
-export const test_protobuf_assertDecode_ObjectGenericAlias =
+export const test_protobuf_assertDecode_ObjectGenericAlias = (): void =>
   _test_protobuf_assertDecode(TypeGuardError)(
     "ObjectGenericAlias",
   )<ObjectGenericAlias>(ObjectGenericAlias)({

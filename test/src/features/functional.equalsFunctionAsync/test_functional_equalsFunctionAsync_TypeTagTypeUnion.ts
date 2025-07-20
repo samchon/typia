@@ -4,7 +4,8 @@ import { _test_functional_equalsFunctionAsync } from "../../internal/_test_funct
 import { TypeTagTypeUnion } from "../../structures/TypeTagTypeUnion";
 
 export const test_functional_equalsFunctionAsync_TypeTagTypeUnion =
-  _test_functional_equalsFunctionAsync("TypeTagTypeUnion")(TypeTagTypeUnion)(
-    (p: (input: TypeTagTypeUnion) => Promise<TypeTagTypeUnion>) =>
-      typia.functional.equalsFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_equalsFunctionAsync("TypeTagTypeUnion")(TypeTagTypeUnion)(
+      (p: (input: TypeTagTypeUnion) => Promise<TypeTagTypeUnion>) =>
+        typia.functional.equalsFunction(p),
+    );

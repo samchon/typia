@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { TemplateAtomic } from "../../../structures/TemplateAtomic";
 
-export const test_llm_application_gemini_TemplateAtomic =
+export const test_llm_applicationEquals_gemini_TemplateAtomic = (): void =>
   _test_llm_applicationEquals({
     model: "gemini",
     name: "TemplateAtomic",

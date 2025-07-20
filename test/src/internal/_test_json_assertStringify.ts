@@ -7,8 +7,7 @@ export const _test_json_assertStringify =
   (ErrorClass: Function) =>
   (name: string) =>
   <T>(factory: TestStructure<T>) =>
-  (stringify: (input: T) => string) =>
-  () => {
+  (stringify: (input: T) => string): void => {
     const data: T = factory.generate();
     const optimized: string = stringify(data);
 

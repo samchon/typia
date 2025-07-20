@@ -3,11 +3,12 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ClassMethod } from "../../../structures/ClassMethod";
 
-export const test_llm_application_chatgpt_ClassMethod = _test_llm_application({
-  model: "chatgpt",
-  name: "ClassMethod",
-  factory: ClassMethod,
-})(typia.llm.application<ClassMethodApplication, "chatgpt">());
+export const test_llm_application_chatgpt_ClassMethod = (): void =>
+  _test_llm_application({
+    model: "chatgpt",
+    name: "ClassMethod",
+    factory: ClassMethod,
+  })(typia.llm.application<ClassMethodApplication, "chatgpt">());
 
 interface ClassMethodApplication {
   insert(p: { first: ClassMethod }): Promise<void>;

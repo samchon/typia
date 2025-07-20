@@ -5,9 +5,10 @@ import { _test_functional_assertEqualsReturnAsync } from "../../internal/_test_f
 import { CommentTagObjectUnion } from "../../structures/CommentTagObjectUnion";
 
 export const test_functional_assertEqualsReturnAsync_CommentTagObjectUnion =
-  _test_functional_assertEqualsReturnAsync(TypeGuardError)(
-    "CommentTagObjectUnion",
-  )(CommentTagObjectUnion)(
-    (p: (input: CommentTagObjectUnion) => Promise<CommentTagObjectUnion>) =>
-      typia.functional.assertEqualsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsReturnAsync(TypeGuardError)(
+      "CommentTagObjectUnion",
+    )(CommentTagObjectUnion)(
+      (p: (input: CommentTagObjectUnion) => Promise<CommentTagObjectUnion>) =>
+        typia.functional.assertEqualsReturn(p),
+    );

@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { ObjectUndefined } from "../../../structures/ObjectUndefined";
 
-export const test_llm_application_claude_ObjectUndefined =
+export const test_llm_applicationEquals_claude_ObjectUndefined = (): void =>
   _test_llm_applicationEquals({
     model: "claude",
     name: "ObjectUndefined",

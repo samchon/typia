@@ -5,12 +5,13 @@ import { _test_functional_assertEqualsParametersAsync } from "../../internal/_te
 import { TupleHierarchical } from "../../structures/TupleHierarchical";
 
 export const test_functional_assertEqualsParametersAsyncCustom_TupleHierarchical =
-  _test_functional_assertEqualsParametersAsync(CustomGuardError)(
-    "TupleHierarchical",
-  )(TupleHierarchical)(
-    (p: (input: TupleHierarchical) => Promise<TupleHierarchical>) =>
-      typia.functional.assertEqualsParameters(
-        p,
-        (p) => new CustomGuardError(p),
-      ),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsParametersAsync(CustomGuardError)(
+      "TupleHierarchical",
+    )(TupleHierarchical)(
+      (p: (input: TupleHierarchical) => Promise<TupleHierarchical>) =>
+        typia.functional.assertEqualsParameters(
+          p,
+          (p) => new CustomGuardError(p),
+        ),
+    );

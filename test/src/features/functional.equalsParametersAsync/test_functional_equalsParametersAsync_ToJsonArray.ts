@@ -4,7 +4,8 @@ import { _test_functional_equalsParametersAsync } from "../../internal/_test_fun
 import { ToJsonArray } from "../../structures/ToJsonArray";
 
 export const test_functional_equalsParametersAsync_ToJsonArray =
-  _test_functional_equalsParametersAsync("ToJsonArray")(ToJsonArray)(
-    (p: (input: ToJsonArray) => Promise<ToJsonArray>) =>
-      typia.functional.equalsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_equalsParametersAsync("ToJsonArray")(ToJsonArray)(
+      (p: (input: ToJsonArray) => Promise<ToJsonArray>) =>
+        typia.functional.equalsParameters(p),
+    );

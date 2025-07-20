@@ -4,7 +4,8 @@ import { _test_functional_validateParametersAsync } from "../../internal/_test_f
 import { ArrayAny } from "../../structures/ArrayAny";
 
 export const test_functional_validateParametersAsync_ArrayAny =
-  _test_functional_validateParametersAsync("ArrayAny")(ArrayAny)(
-    (p: (input: ArrayAny) => Promise<ArrayAny>) =>
-      typia.functional.validateParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateParametersAsync("ArrayAny")(ArrayAny)(
+      (p: (input: ArrayAny) => Promise<ArrayAny>) =>
+        typia.functional.validateParameters(p),
+    );

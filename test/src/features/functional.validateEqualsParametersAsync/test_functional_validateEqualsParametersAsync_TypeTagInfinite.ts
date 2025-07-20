@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsParametersAsync } from "../../internal/_
 import { TypeTagInfinite } from "../../structures/TypeTagInfinite";
 
 export const test_functional_validateEqualsParametersAsync_TypeTagInfinite =
-  _test_functional_validateEqualsParametersAsync("TypeTagInfinite")(
-    TypeTagInfinite,
-  )((p: (input: TypeTagInfinite) => Promise<TypeTagInfinite>) =>
-    typia.functional.validateEqualsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsParametersAsync("TypeTagInfinite")(
+      TypeTagInfinite,
+    )((p: (input: TypeTagInfinite) => Promise<TypeTagInfinite>) =>
+      typia.functional.validateEqualsParameters(p),
+    );

@@ -5,12 +5,13 @@ import { _test_functional_assertEqualsParameters } from "../../internal/_test_fu
 import { ObjectGenericArray } from "../../structures/ObjectGenericArray";
 
 export const test_functional_assertEqualsParametersCustom_ObjectGenericArray =
-  _test_functional_assertEqualsParameters(CustomGuardError)(
-    "ObjectGenericArray",
-  )(ObjectGenericArray)(
-    (p: (input: ObjectGenericArray) => ObjectGenericArray) =>
-      typia.functional.assertEqualsParameters(
-        p,
-        (p) => new CustomGuardError(p),
-      ),
-  );
+  (): void =>
+    _test_functional_assertEqualsParameters(CustomGuardError)(
+      "ObjectGenericArray",
+    )(ObjectGenericArray)(
+      (p: (input: ObjectGenericArray) => ObjectGenericArray) =>
+        typia.functional.assertEqualsParameters(
+          p,
+          (p) => new CustomGuardError(p),
+        ),
+    );

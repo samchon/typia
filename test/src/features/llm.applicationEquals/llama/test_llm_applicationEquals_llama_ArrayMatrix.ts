@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { ArrayMatrix } from "../../../structures/ArrayMatrix";
 
-export const test_llm_application_llama_ArrayMatrix =
+export const test_llm_applicationEquals_llama_ArrayMatrix = (): void =>
   _test_llm_applicationEquals({
     model: "llama",
     name: "ArrayMatrix",

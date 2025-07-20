@@ -4,7 +4,9 @@ import { _test_functional_equalsFunctionAsync } from "../../internal/_test_funct
 import { ArrayAtomicSimple } from "../../structures/ArrayAtomicSimple";
 
 export const test_functional_equalsFunctionAsync_ArrayAtomicSimple =
-  _test_functional_equalsFunctionAsync("ArrayAtomicSimple")(ArrayAtomicSimple)(
-    (p: (input: ArrayAtomicSimple) => Promise<ArrayAtomicSimple>) =>
+  (): Promise<void> =>
+    _test_functional_equalsFunctionAsync("ArrayAtomicSimple")(
+      ArrayAtomicSimple,
+    )((p: (input: ArrayAtomicSimple) => Promise<ArrayAtomicSimple>) =>
       typia.functional.equalsFunction(p),
-  );
+    );

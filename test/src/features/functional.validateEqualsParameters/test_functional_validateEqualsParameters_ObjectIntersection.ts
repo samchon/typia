@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsParameters } from "../../internal/_test_
 import { ObjectIntersection } from "../../structures/ObjectIntersection";
 
 export const test_functional_validateEqualsParameters_ObjectIntersection =
-  _test_functional_validateEqualsParameters("ObjectIntersection")(
-    ObjectIntersection,
-  )((p: (input: ObjectIntersection) => ObjectIntersection) =>
-    typia.functional.validateEqualsParameters(p),
-  );
+  (): void =>
+    _test_functional_validateEqualsParameters("ObjectIntersection")(
+      ObjectIntersection,
+    )((p: (input: ObjectIntersection) => ObjectIntersection) =>
+      typia.functional.validateEqualsParameters(p),
+    );

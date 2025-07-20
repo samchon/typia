@@ -4,8 +4,9 @@ import { _test_functional_validateReturnAsync } from "../../internal/_test_funct
 import { ObjectGenericUnion } from "../../structures/ObjectGenericUnion";
 
 export const test_functional_validateReturnAsync_ObjectGenericUnion =
-  _test_functional_validateReturnAsync("ObjectGenericUnion")(
-    ObjectGenericUnion,
-  )((p: (input: ObjectGenericUnion) => Promise<ObjectGenericUnion>) =>
-    typia.functional.validateReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateReturnAsync("ObjectGenericUnion")(
+      ObjectGenericUnion,
+    )((p: (input: ObjectGenericUnion) => Promise<ObjectGenericUnion>) =>
+      typia.functional.validateReturn(p),
+    );

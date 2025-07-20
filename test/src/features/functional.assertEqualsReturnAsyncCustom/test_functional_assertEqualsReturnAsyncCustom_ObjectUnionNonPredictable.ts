@@ -5,12 +5,14 @@ import { _test_functional_assertEqualsReturnAsync } from "../../internal/_test_f
 import { ObjectUnionNonPredictable } from "../../structures/ObjectUnionNonPredictable";
 
 export const test_functional_assertEqualsReturnAsyncCustom_ObjectUnionNonPredictable =
-  _test_functional_assertEqualsReturnAsync(CustomGuardError)(
-    "ObjectUnionNonPredictable",
-  )(ObjectUnionNonPredictable)(
-    (
-      p: (
-        input: ObjectUnionNonPredictable,
-      ) => Promise<ObjectUnionNonPredictable>,
-    ) => typia.functional.assertEqualsReturn(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsReturnAsync(CustomGuardError)(
+      "ObjectUnionNonPredictable",
+    )(ObjectUnionNonPredictable)(
+      (
+        p: (
+          input: ObjectUnionNonPredictable,
+        ) => Promise<ObjectUnionNonPredictable>,
+      ) =>
+        typia.functional.assertEqualsReturn(p, (p) => new CustomGuardError(p)),
+    );

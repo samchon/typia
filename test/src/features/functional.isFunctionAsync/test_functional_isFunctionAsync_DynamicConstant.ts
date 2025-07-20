@@ -4,7 +4,8 @@ import { _test_functional_isFunctionAsync } from "../../internal/_test_functiona
 import { DynamicConstant } from "../../structures/DynamicConstant";
 
 export const test_functional_isFunctionAsync_DynamicConstant =
-  _test_functional_isFunctionAsync("DynamicConstant")(DynamicConstant)(
-    (p: (input: DynamicConstant) => Promise<DynamicConstant>) =>
-      typia.functional.isFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_isFunctionAsync("DynamicConstant")(DynamicConstant)(
+      (p: (input: DynamicConstant) => Promise<DynamicConstant>) =>
+        typia.functional.isFunction(p),
+    );

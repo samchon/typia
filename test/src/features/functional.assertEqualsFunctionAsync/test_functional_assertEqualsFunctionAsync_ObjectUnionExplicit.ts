@@ -5,9 +5,10 @@ import { _test_functional_assertEqualsFunctionAsync } from "../../internal/_test
 import { ObjectUnionExplicit } from "../../structures/ObjectUnionExplicit";
 
 export const test_functional_assertEqualsFunctionAsync_ObjectUnionExplicit =
-  _test_functional_assertEqualsFunctionAsync(TypeGuardError)(
-    "ObjectUnionExplicit",
-  )(ObjectUnionExplicit)(
-    (p: (input: ObjectUnionExplicit) => Promise<ObjectUnionExplicit>) =>
-      typia.functional.assertEqualsFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsFunctionAsync(TypeGuardError)(
+      "ObjectUnionExplicit",
+    )(ObjectUnionExplicit)(
+      (p: (input: ObjectUnionExplicit) => Promise<ObjectUnionExplicit>) =>
+        typia.functional.assertEqualsFunction(p),
+    );

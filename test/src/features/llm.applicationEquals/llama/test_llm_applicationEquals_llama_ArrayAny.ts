@@ -3,11 +3,12 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { ArrayAny } from "../../../structures/ArrayAny";
 
-export const test_llm_application_llama_ArrayAny = _test_llm_applicationEquals({
-  model: "llama",
-  name: "ArrayAny",
-  factory: ArrayAny,
-})(typia.llm.application<ArrayAnyApplication, "llama", { equal: true }>());
+export const test_llm_applicationEquals_llama_ArrayAny = (): void =>
+  _test_llm_applicationEquals({
+    model: "llama",
+    name: "ArrayAny",
+    factory: ArrayAny,
+  })(typia.llm.application<ArrayAnyApplication, "llama", { equal: true }>());
 
 interface ArrayAnyApplication {
   insert(p: { first: ArrayAny }): Promise<void>;

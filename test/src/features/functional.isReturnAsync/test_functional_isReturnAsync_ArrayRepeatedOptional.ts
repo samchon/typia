@@ -4,8 +4,9 @@ import { _test_functional_isReturnAsync } from "../../internal/_test_functional_
 import { ArrayRepeatedOptional } from "../../structures/ArrayRepeatedOptional";
 
 export const test_functional_isReturnAsync_ArrayRepeatedOptional =
-  _test_functional_isReturnAsync("ArrayRepeatedOptional")(
-    ArrayRepeatedOptional,
-  )((p: (input: ArrayRepeatedOptional) => Promise<ArrayRepeatedOptional>) =>
-    typia.functional.isReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_isReturnAsync("ArrayRepeatedOptional")(
+      ArrayRepeatedOptional,
+    )((p: (input: ArrayRepeatedOptional) => Promise<ArrayRepeatedOptional>) =>
+      typia.functional.isReturn(p),
+    );

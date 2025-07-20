@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsFunctionAsync } from "../../internal/_test
 import { ObjectOptional } from "../../structures/ObjectOptional";
 
 export const test_functional_assertEqualsFunctionAsync_ObjectOptional =
-  _test_functional_assertEqualsFunctionAsync(TypeGuardError)("ObjectOptional")(
-    ObjectOptional,
-  )((p: (input: ObjectOptional) => Promise<ObjectOptional>) =>
-    typia.functional.assertEqualsFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsFunctionAsync(TypeGuardError)(
+      "ObjectOptional",
+    )(ObjectOptional)((p: (input: ObjectOptional) => Promise<ObjectOptional>) =>
+      typia.functional.assertEqualsFunction(p),
+    );

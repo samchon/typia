@@ -3,18 +3,19 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { ConstantAtomicUnion } from "../../../structures/ConstantAtomicUnion";
 
-export const test_llm_application_chatgpt_ConstantAtomicUnion =
-  _test_llm_applicationEquals({
-    model: "chatgpt",
-    name: "ConstantAtomicUnion",
-    factory: ConstantAtomicUnion,
-  })(
-    typia.llm.application<
-      ConstantAtomicUnionApplication,
-      "chatgpt",
-      { equal: true }
-    >(),
-  );
+export const test_llm_applicationEquals_chatgpt_ConstantAtomicUnion =
+  (): void =>
+    _test_llm_applicationEquals({
+      model: "chatgpt",
+      name: "ConstantAtomicUnion",
+      factory: ConstantAtomicUnion,
+    })(
+      typia.llm.application<
+        ConstantAtomicUnionApplication,
+        "chatgpt",
+        { equal: true }
+      >(),
+    );
 
 interface ConstantAtomicUnionApplication {
   insert(p: { first: ConstantAtomicUnion }): Promise<void>;

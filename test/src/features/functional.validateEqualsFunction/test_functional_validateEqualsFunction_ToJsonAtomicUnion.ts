@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsFunction } from "../../internal/_test_fu
 import { ToJsonAtomicUnion } from "../../structures/ToJsonAtomicUnion";
 
 export const test_functional_validateEqualsFunction_ToJsonAtomicUnion =
-  _test_functional_validateEqualsFunction("ToJsonAtomicUnion")(
-    ToJsonAtomicUnion,
-  )((p: (input: ToJsonAtomicUnion) => ToJsonAtomicUnion) =>
-    typia.functional.validateEqualsFunction(p),
-  );
+  (): void =>
+    _test_functional_validateEqualsFunction("ToJsonAtomicUnion")(
+      ToJsonAtomicUnion,
+    )((p: (input: ToJsonAtomicUnion) => ToJsonAtomicUnion) =>
+      typia.functional.validateEqualsFunction(p),
+    );

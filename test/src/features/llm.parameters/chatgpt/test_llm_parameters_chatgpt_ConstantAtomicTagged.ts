@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 import { ConstantAtomicTagged } from "../../../structures/ConstantAtomicTagged";
 
-export const test_llm_parameters_chatgpt_ConstantAtomicTagged =
+export const test_llm_parameters_chatgpt_ConstantAtomicTagged = (): void =>
   _test_llm_parameters({
     model: "chatgpt",
     name: "ConstantAtomicTagged",

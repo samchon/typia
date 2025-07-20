@@ -6,7 +6,7 @@ import { ${structure} } from "../../structures/${structure}";
 
 export const test_${method(
     create,
-  )}_${structure} = _test_random("${structure}")<${structure}>(
+  )}_${structure} = (): void => _test_random("${structure}")<${structure}>(
     ${structure}
 )({
   random: ${functor(create)(structure)},

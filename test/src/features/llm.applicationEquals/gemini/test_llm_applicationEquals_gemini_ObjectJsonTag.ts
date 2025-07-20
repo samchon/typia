@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { ObjectJsonTag } from "../../../structures/ObjectJsonTag";
 
-export const test_llm_application_gemini_ObjectJsonTag =
+export const test_llm_applicationEquals_gemini_ObjectJsonTag = (): void =>
   _test_llm_applicationEquals({
     model: "gemini",
     name: "ObjectJsonTag",

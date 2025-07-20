@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsFunction } from "../../internal/_test_func
 import { ArrayRecursive } from "../../structures/ArrayRecursive";
 
 export const test_functional_assertEqualsFunctionCustom_ArrayRecursive =
-  _test_functional_assertEqualsFunction(CustomGuardError)("ArrayRecursive")(
-    ArrayRecursive,
-  )((p: (input: ArrayRecursive) => ArrayRecursive) =>
-    typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertEqualsFunction(CustomGuardError)("ArrayRecursive")(
+      ArrayRecursive,
+    )((p: (input: ArrayRecursive) => ArrayRecursive) =>
+      typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
+    );

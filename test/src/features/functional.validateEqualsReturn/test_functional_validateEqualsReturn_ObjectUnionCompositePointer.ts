@@ -4,8 +4,11 @@ import { _test_functional_validateEqualsReturn } from "../../internal/_test_func
 import { ObjectUnionCompositePointer } from "../../structures/ObjectUnionCompositePointer";
 
 export const test_functional_validateEqualsReturn_ObjectUnionCompositePointer =
-  _test_functional_validateEqualsReturn("ObjectUnionCompositePointer")(
-    ObjectUnionCompositePointer,
-  )((p: (input: ObjectUnionCompositePointer) => ObjectUnionCompositePointer) =>
-    typia.functional.validateEqualsReturn(p),
-  );
+  (): void =>
+    _test_functional_validateEqualsReturn("ObjectUnionCompositePointer")(
+      ObjectUnionCompositePointer,
+    )(
+      (
+        p: (input: ObjectUnionCompositePointer) => ObjectUnionCompositePointer,
+      ) => typia.functional.validateEqualsReturn(p),
+    );

@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_functional_assertEqualsReturn } from "../../internal/_test_functional_assertEqualsReturn";
 import { ObjectGenericArray } from "../../structures/ObjectGenericArray";
 
-export const test_functional_assertEqualsReturn_ObjectGenericArray =
+export const test_functional_assertEqualsReturn_ObjectGenericArray = (): void =>
   _test_functional_assertEqualsReturn(TypeGuardError)("ObjectGenericArray")(
     ObjectGenericArray,
   )((p: (input: ObjectGenericArray) => ObjectGenericArray) =>

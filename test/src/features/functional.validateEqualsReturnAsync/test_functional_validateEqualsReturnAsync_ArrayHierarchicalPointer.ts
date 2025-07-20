@@ -4,10 +4,13 @@ import { _test_functional_validateEqualsReturnAsync } from "../../internal/_test
 import { ArrayHierarchicalPointer } from "../../structures/ArrayHierarchicalPointer";
 
 export const test_functional_validateEqualsReturnAsync_ArrayHierarchicalPointer =
-  _test_functional_validateEqualsReturnAsync("ArrayHierarchicalPointer")(
-    ArrayHierarchicalPointer,
-  )(
-    (
-      p: (input: ArrayHierarchicalPointer) => Promise<ArrayHierarchicalPointer>,
-    ) => typia.functional.validateEqualsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsReturnAsync("ArrayHierarchicalPointer")(
+      ArrayHierarchicalPointer,
+    )(
+      (
+        p: (
+          input: ArrayHierarchicalPointer,
+        ) => Promise<ArrayHierarchicalPointer>,
+      ) => typia.functional.validateEqualsReturn(p),
+    );

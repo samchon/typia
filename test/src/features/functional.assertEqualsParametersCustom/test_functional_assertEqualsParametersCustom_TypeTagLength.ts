@@ -5,8 +5,12 @@ import { _test_functional_assertEqualsParameters } from "../../internal/_test_fu
 import { TypeTagLength } from "../../structures/TypeTagLength";
 
 export const test_functional_assertEqualsParametersCustom_TypeTagLength =
-  _test_functional_assertEqualsParameters(CustomGuardError)("TypeTagLength")(
-    TypeTagLength,
-  )((p: (input: TypeTagLength) => TypeTagLength) =>
-    typia.functional.assertEqualsParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertEqualsParameters(CustomGuardError)("TypeTagLength")(
+      TypeTagLength,
+    )((p: (input: TypeTagLength) => TypeTagLength) =>
+      typia.functional.assertEqualsParameters(
+        p,
+        (p) => new CustomGuardError(p),
+      ),
+    );

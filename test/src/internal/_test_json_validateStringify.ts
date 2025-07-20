@@ -6,8 +6,7 @@ import { primitive_equal_to } from "../helpers/primitive_equal_to";
 export const _test_json_validateStringify =
   (name: string) =>
   <T>(factory: TestStructure<T>) =>
-  (stringify: (input: T) => typia.IValidation<string>) =>
-  () => {
+  (stringify: (input: T) => typia.IValidation<string>): void => {
     const input: T = factory.generate();
     const valid: typia.IValidation<string> = stringify(input);
     if (valid.success === false)

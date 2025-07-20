@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_functional_assertReturn } from "../../internal/_test_functional_assertReturn";
 import { DynamicSimple } from "../../structures/DynamicSimple";
 
-export const test_functional_assertReturnCustom_DynamicSimple =
+export const test_functional_assertReturnCustom_DynamicSimple = (): void =>
   _test_functional_assertReturn(CustomGuardError)("DynamicSimple")(
     DynamicSimple,
   )((p: (input: DynamicSimple) => DynamicSimple) =>

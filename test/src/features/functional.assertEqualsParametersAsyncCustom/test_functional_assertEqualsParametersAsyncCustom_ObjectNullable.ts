@@ -5,8 +5,12 @@ import { _test_functional_assertEqualsParametersAsync } from "../../internal/_te
 import { ObjectNullable } from "../../structures/ObjectNullable";
 
 export const test_functional_assertEqualsParametersAsyncCustom_ObjectNullable =
-  _test_functional_assertEqualsParametersAsync(CustomGuardError)(
-    "ObjectNullable",
-  )(ObjectNullable)((p: (input: ObjectNullable) => Promise<ObjectNullable>) =>
-    typia.functional.assertEqualsParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsParametersAsync(CustomGuardError)(
+      "ObjectNullable",
+    )(ObjectNullable)((p: (input: ObjectNullable) => Promise<ObjectNullable>) =>
+      typia.functional.assertEqualsParameters(
+        p,
+        (p) => new CustomGuardError(p),
+      ),
+    );

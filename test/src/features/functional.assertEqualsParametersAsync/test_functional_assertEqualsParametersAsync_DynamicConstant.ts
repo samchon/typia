@@ -5,9 +5,10 @@ import { _test_functional_assertEqualsParametersAsync } from "../../internal/_te
 import { DynamicConstant } from "../../structures/DynamicConstant";
 
 export const test_functional_assertEqualsParametersAsync_DynamicConstant =
-  _test_functional_assertEqualsParametersAsync(TypeGuardError)(
-    "DynamicConstant",
-  )(DynamicConstant)(
-    (p: (input: DynamicConstant) => Promise<DynamicConstant>) =>
-      typia.functional.assertEqualsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsParametersAsync(TypeGuardError)(
+      "DynamicConstant",
+    )(DynamicConstant)(
+      (p: (input: DynamicConstant) => Promise<DynamicConstant>) =>
+        typia.functional.assertEqualsParameters(p),
+    );

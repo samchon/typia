@@ -5,9 +5,10 @@ import { _test_functional_assertEqualsFunction } from "../../internal/_test_func
 import { ObjectHttpUndefindable } from "../../structures/ObjectHttpUndefindable";
 
 export const test_functional_assertEqualsFunction_ObjectHttpUndefindable =
-  _test_functional_assertEqualsFunction(TypeGuardError)(
-    "ObjectHttpUndefindable",
-  )(ObjectHttpUndefindable)(
-    (p: (input: ObjectHttpUndefindable) => ObjectHttpUndefindable) =>
-      typia.functional.assertEqualsFunction(p),
-  );
+  (): void =>
+    _test_functional_assertEqualsFunction(TypeGuardError)(
+      "ObjectHttpUndefindable",
+    )(ObjectHttpUndefindable)(
+      (p: (input: ObjectHttpUndefindable) => ObjectHttpUndefindable) =>
+        typia.functional.assertEqualsFunction(p),
+    );

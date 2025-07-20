@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { ToJsonAtomicUnion } from "../../../structures/ToJsonAtomicUnion";
 
-export const test_llm_application_llama_ToJsonAtomicUnion =
+export const test_llm_applicationEquals_llama_ToJsonAtomicUnion = (): void =>
   _test_llm_applicationEquals({
     model: "llama",
     name: "ToJsonAtomicUnion",

@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { ArrayRepeatedNullable } from "../../../structures/ArrayRepeatedNullable";
 
-export const test_llm_application_3_0_ArrayRepeatedNullable =
+export const test_llm_applicationEquals_3_0_ArrayRepeatedNullable = (): void =>
   _test_llm_applicationEquals({
     model: "3.0",
     name: "ArrayRepeatedNullable",

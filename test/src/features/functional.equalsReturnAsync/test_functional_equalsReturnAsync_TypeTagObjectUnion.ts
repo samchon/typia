@@ -4,7 +4,9 @@ import { _test_functional_equalsReturnAsync } from "../../internal/_test_functio
 import { TypeTagObjectUnion } from "../../structures/TypeTagObjectUnion";
 
 export const test_functional_equalsReturnAsync_TypeTagObjectUnion =
-  _test_functional_equalsReturnAsync("TypeTagObjectUnion")(TypeTagObjectUnion)(
-    (p: (input: TypeTagObjectUnion) => Promise<TypeTagObjectUnion>) =>
+  (): Promise<void> =>
+    _test_functional_equalsReturnAsync("TypeTagObjectUnion")(
+      TypeTagObjectUnion,
+    )((p: (input: TypeTagObjectUnion) => Promise<TypeTagObjectUnion>) =>
       typia.functional.equalsReturn(p),
-  );
+    );

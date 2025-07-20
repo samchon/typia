@@ -10,8 +10,7 @@ export const _test_protobuf_isEncode =
     message: string;
     encode: (input: T) => Uint8Array | null;
     decode: (input: Uint8Array) => typia.Resolved<T>;
-  }) =>
-  () => {
+  }): void => {
     _test_protobuf_encode(name)(factory)({
       message: functor.message,
       decode: functor.decode,
@@ -23,7 +22,7 @@ export const _test_protobuf_isEncode =
           );
         return binary;
       },
-    })();
+    });
     for (const spoil of factory.SPOILERS ?? []) {
       const elem: T = factory.generate();
       spoil(elem);

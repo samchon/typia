@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsParameters } from "../../internal/_test_fu
 import { ObjectHttpAtomic } from "../../structures/ObjectHttpAtomic";
 
 export const test_functional_assertEqualsParameters_ObjectHttpAtomic =
-  _test_functional_assertEqualsParameters(TypeGuardError)("ObjectHttpAtomic")(
-    ObjectHttpAtomic,
-  )((p: (input: ObjectHttpAtomic) => ObjectHttpAtomic) =>
-    typia.functional.assertEqualsParameters(p),
-  );
+  (): void =>
+    _test_functional_assertEqualsParameters(TypeGuardError)("ObjectHttpAtomic")(
+      ObjectHttpAtomic,
+    )((p: (input: ObjectHttpAtomic) => ObjectHttpAtomic) =>
+      typia.functional.assertEqualsParameters(p),
+    );

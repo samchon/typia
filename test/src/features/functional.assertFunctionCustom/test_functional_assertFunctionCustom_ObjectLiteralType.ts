@@ -5,8 +5,9 @@ import { _test_functional_assertFunction } from "../../internal/_test_functional
 import { ObjectLiteralType } from "../../structures/ObjectLiteralType";
 
 export const test_functional_assertFunctionCustom_ObjectLiteralType =
-  _test_functional_assertFunction(CustomGuardError)("ObjectLiteralType")(
-    ObjectLiteralType,
-  )((p: (input: ObjectLiteralType) => ObjectLiteralType) =>
-    typia.functional.assertFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertFunction(CustomGuardError)("ObjectLiteralType")(
+      ObjectLiteralType,
+    )((p: (input: ObjectLiteralType) => ObjectLiteralType) =>
+      typia.functional.assertFunction(p, (p) => new CustomGuardError(p)),
+    );

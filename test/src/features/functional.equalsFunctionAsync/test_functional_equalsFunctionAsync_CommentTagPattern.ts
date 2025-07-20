@@ -4,7 +4,9 @@ import { _test_functional_equalsFunctionAsync } from "../../internal/_test_funct
 import { CommentTagPattern } from "../../structures/CommentTagPattern";
 
 export const test_functional_equalsFunctionAsync_CommentTagPattern =
-  _test_functional_equalsFunctionAsync("CommentTagPattern")(CommentTagPattern)(
-    (p: (input: CommentTagPattern) => Promise<CommentTagPattern>) =>
+  (): Promise<void> =>
+    _test_functional_equalsFunctionAsync("CommentTagPattern")(
+      CommentTagPattern,
+    )((p: (input: CommentTagPattern) => Promise<CommentTagPattern>) =>
       typia.functional.equalsFunction(p),
-  );
+    );

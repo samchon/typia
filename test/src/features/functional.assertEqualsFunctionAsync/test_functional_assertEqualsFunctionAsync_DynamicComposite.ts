@@ -5,9 +5,10 @@ import { _test_functional_assertEqualsFunctionAsync } from "../../internal/_test
 import { DynamicComposite } from "../../structures/DynamicComposite";
 
 export const test_functional_assertEqualsFunctionAsync_DynamicComposite =
-  _test_functional_assertEqualsFunctionAsync(TypeGuardError)(
-    "DynamicComposite",
-  )(DynamicComposite)(
-    (p: (input: DynamicComposite) => Promise<DynamicComposite>) =>
-      typia.functional.assertEqualsFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsFunctionAsync(TypeGuardError)(
+      "DynamicComposite",
+    )(DynamicComposite)(
+      (p: (input: DynamicComposite) => Promise<DynamicComposite>) =>
+        typia.functional.assertEqualsFunction(p),
+    );

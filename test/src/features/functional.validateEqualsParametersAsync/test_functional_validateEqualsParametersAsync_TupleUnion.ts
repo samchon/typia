@@ -4,7 +4,8 @@ import { _test_functional_validateEqualsParametersAsync } from "../../internal/_
 import { TupleUnion } from "../../structures/TupleUnion";
 
 export const test_functional_validateEqualsParametersAsync_TupleUnion =
-  _test_functional_validateEqualsParametersAsync("TupleUnion")(TupleUnion)(
-    (p: (input: TupleUnion) => Promise<TupleUnion>) =>
-      typia.functional.validateEqualsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsParametersAsync("TupleUnion")(TupleUnion)(
+      (p: (input: TupleUnion) => Promise<TupleUnion>) =>
+        typia.functional.validateEqualsParameters(p),
+    );

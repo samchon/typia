@@ -4,7 +4,8 @@ import { _test_functional_isReturnAsync } from "../../internal/_test_functional_
 import { TupleRestAtomic } from "../../structures/TupleRestAtomic";
 
 export const test_functional_isReturnAsync_TupleRestAtomic =
-  _test_functional_isReturnAsync("TupleRestAtomic")(TupleRestAtomic)(
-    (p: (input: TupleRestAtomic) => Promise<TupleRestAtomic>) =>
-      typia.functional.isReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_isReturnAsync("TupleRestAtomic")(TupleRestAtomic)(
+      (p: (input: TupleRestAtomic) => Promise<TupleRestAtomic>) =>
+        typia.functional.isReturn(p),
+    );

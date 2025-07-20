@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_misc_assertPrune } from "../../internal/_test_misc_assertPrune";
 import { ArrayRecursiveUnionImplicit } from "../../structures/ArrayRecursiveUnionImplicit";
 
-export const test_misc_assertPrune_ArrayRecursiveUnionImplicit =
+export const test_misc_assertPrune_ArrayRecursiveUnionImplicit = (): void =>
   _test_misc_assertPrune(TypeGuardError)(
     "ArrayRecursiveUnionImplicit",
   )<ArrayRecursiveUnionImplicit>(ArrayRecursiveUnionImplicit)((input) =>

@@ -5,8 +5,10 @@ import { _test_functional_assertParametersAsync } from "../../internal/_test_fun
 import { ArraySimpleProtobuf } from "../../structures/ArraySimpleProtobuf";
 
 export const test_functional_assertParametersAsync_ArraySimpleProtobuf =
-  _test_functional_assertParametersAsync(TypeGuardError)("ArraySimpleProtobuf")(
-    ArraySimpleProtobuf,
-  )((p: (input: ArraySimpleProtobuf) => Promise<ArraySimpleProtobuf>) =>
-    typia.functional.assertParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertParametersAsync(TypeGuardError)(
+      "ArraySimpleProtobuf",
+    )(ArraySimpleProtobuf)(
+      (p: (input: ArraySimpleProtobuf) => Promise<ArraySimpleProtobuf>) =>
+        typia.functional.assertParameters(p),
+    );

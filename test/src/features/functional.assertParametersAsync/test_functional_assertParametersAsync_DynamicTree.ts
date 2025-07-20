@@ -5,8 +5,9 @@ import { _test_functional_assertParametersAsync } from "../../internal/_test_fun
 import { DynamicTree } from "../../structures/DynamicTree";
 
 export const test_functional_assertParametersAsync_DynamicTree =
-  _test_functional_assertParametersAsync(TypeGuardError)("DynamicTree")(
-    DynamicTree,
-  )((p: (input: DynamicTree) => Promise<DynamicTree>) =>
-    typia.functional.assertParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertParametersAsync(TypeGuardError)("DynamicTree")(
+      DynamicTree,
+    )((p: (input: DynamicTree) => Promise<DynamicTree>) =>
+      typia.functional.assertParameters(p),
+    );

@@ -4,8 +4,9 @@ import { _test_standardSchema_validate } from "../../internal/_test_standardSche
 import { ArrayRepeatedUnionWithTuple } from "../../structures/ArrayRepeatedUnionWithTuple";
 
 export const test_standardSchema_createValidate_ArrayRepeatedUnionWithTuple =
-  _test_standardSchema_validate(
-    "ArrayRepeatedUnionWithTuple",
-  )<ArrayRepeatedUnionWithTuple>(ArrayRepeatedUnionWithTuple)(
-    typia.createValidate<ArrayRepeatedUnionWithTuple>(),
-  );
+  (): void =>
+    _test_standardSchema_validate(
+      "ArrayRepeatedUnionWithTuple",
+    )<ArrayRepeatedUnionWithTuple>(ArrayRepeatedUnionWithTuple)(
+      typia.createValidate<ArrayRepeatedUnionWithTuple>(),
+    );

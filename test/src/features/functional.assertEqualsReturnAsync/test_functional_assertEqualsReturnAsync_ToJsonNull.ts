@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsReturnAsync } from "../../internal/_test_f
 import { ToJsonNull } from "../../structures/ToJsonNull";
 
 export const test_functional_assertEqualsReturnAsync_ToJsonNull =
-  _test_functional_assertEqualsReturnAsync(TypeGuardError)("ToJsonNull")(
-    ToJsonNull,
-  )((p: (input: ToJsonNull) => Promise<ToJsonNull>) =>
-    typia.functional.assertEqualsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsReturnAsync(TypeGuardError)("ToJsonNull")(
+      ToJsonNull,
+    )((p: (input: ToJsonNull) => Promise<ToJsonNull>) =>
+      typia.functional.assertEqualsReturn(p),
+    );

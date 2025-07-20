@@ -4,8 +4,9 @@ import { _test_functional_isReturnAsync } from "../../internal/_test_functional_
 import { CommentTagRangeBigInt } from "../../structures/CommentTagRangeBigInt";
 
 export const test_functional_isReturnAsync_CommentTagRangeBigInt =
-  _test_functional_isReturnAsync("CommentTagRangeBigInt")(
-    CommentTagRangeBigInt,
-  )((p: (input: CommentTagRangeBigInt) => Promise<CommentTagRangeBigInt>) =>
-    typia.functional.isReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_isReturnAsync("CommentTagRangeBigInt")(
+      CommentTagRangeBigInt,
+    )((p: (input: CommentTagRangeBigInt) => Promise<CommentTagRangeBigInt>) =>
+      typia.functional.isReturn(p),
+    );

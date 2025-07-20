@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_protobuf_assertDecode } from "../../internal/_test_protobuf_assertDecode";
 import { ObjectHttpNullable } from "../../structures/ObjectHttpNullable";
 
-export const test_protobuf_assertDecode_ObjectHttpNullable =
+export const test_protobuf_assertDecode_ObjectHttpNullable = (): void =>
   _test_protobuf_assertDecode(TypeGuardError)(
     "ObjectHttpNullable",
   )<ObjectHttpNullable>(ObjectHttpNullable)({

@@ -5,10 +5,11 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { ObjectUnionDouble } from "../../structures/ObjectUnionDouble";
 
 export const test_json_createAssertStringifyCustom_ObjectUnionDouble =
-  _test_json_assertStringify(CustomGuardError)(
-    "ObjectUnionDouble",
-  )<ObjectUnionDouble>(ObjectUnionDouble)(
-    typia.json.createAssertStringify<ObjectUnionDouble>(
-      (p) => new CustomGuardError(p),
-    ),
-  );
+  (): void =>
+    _test_json_assertStringify(CustomGuardError)(
+      "ObjectUnionDouble",
+    )<ObjectUnionDouble>(ObjectUnionDouble)(
+      typia.json.createAssertStringify<ObjectUnionDouble>(
+        (p) => new CustomGuardError(p),
+      ),
+    );

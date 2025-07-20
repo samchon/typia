@@ -4,8 +4,9 @@ import { _test_functional_equalsParametersAsync } from "../../internal/_test_fun
 import { CommentTagInfinite } from "../../structures/CommentTagInfinite";
 
 export const test_functional_equalsParametersAsync_CommentTagInfinite =
-  _test_functional_equalsParametersAsync("CommentTagInfinite")(
-    CommentTagInfinite,
-  )((p: (input: CommentTagInfinite) => Promise<CommentTagInfinite>) =>
-    typia.functional.equalsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_equalsParametersAsync("CommentTagInfinite")(
+      CommentTagInfinite,
+    )((p: (input: CommentTagInfinite) => Promise<CommentTagInfinite>) =>
+      typia.functional.equalsParameters(p),
+    );

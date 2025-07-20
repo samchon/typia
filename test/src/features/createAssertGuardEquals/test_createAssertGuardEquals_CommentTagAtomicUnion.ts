@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_assertGuardEquals } from "../../internal/_test_assertGuardEquals";
 import { CommentTagAtomicUnion } from "../../structures/CommentTagAtomicUnion";
 
-export const test_createAssertGuardEquals_CommentTagAtomicUnion =
+export const test_createAssertGuardEquals_CommentTagAtomicUnion = (): void =>
   _test_assertGuardEquals(TypeGuardError)(
     "CommentTagAtomicUnion",
   )<CommentTagAtomicUnion>(CommentTagAtomicUnion)(

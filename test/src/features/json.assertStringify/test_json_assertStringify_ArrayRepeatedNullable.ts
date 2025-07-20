@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_json_assertStringify } from "../../internal/_test_json_assertStringify";
 import { ArrayRepeatedNullable } from "../../structures/ArrayRepeatedNullable";
 
-export const test_json_assertStringify_ArrayRepeatedNullable =
+export const test_json_assertStringify_ArrayRepeatedNullable = (): void =>
   _test_json_assertStringify(TypeGuardError)(
     "ArrayRepeatedNullable",
   )<ArrayRepeatedNullable>(ArrayRepeatedNullable)((input) =>

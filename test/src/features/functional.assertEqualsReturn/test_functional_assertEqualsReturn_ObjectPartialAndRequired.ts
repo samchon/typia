@@ -5,9 +5,10 @@ import { _test_functional_assertEqualsReturn } from "../../internal/_test_functi
 import { ObjectPartialAndRequired } from "../../structures/ObjectPartialAndRequired";
 
 export const test_functional_assertEqualsReturn_ObjectPartialAndRequired =
-  _test_functional_assertEqualsReturn(TypeGuardError)(
-    "ObjectPartialAndRequired",
-  )(ObjectPartialAndRequired)(
-    (p: (input: ObjectPartialAndRequired) => ObjectPartialAndRequired) =>
-      typia.functional.assertEqualsReturn(p),
-  );
+  (): void =>
+    _test_functional_assertEqualsReturn(TypeGuardError)(
+      "ObjectPartialAndRequired",
+    )(ObjectPartialAndRequired)(
+      (p: (input: ObjectPartialAndRequired) => ObjectPartialAndRequired) =>
+        typia.functional.assertEqualsReturn(p),
+    );

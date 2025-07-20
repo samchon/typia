@@ -5,8 +5,9 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { NativeUnion } from "../../structures/NativeUnion";
 
 export const test_functional_assertReturnAsync_NativeUnion =
-  _test_functional_assertReturnAsync(TypeGuardError)("NativeUnion")(
-    NativeUnion,
-  )((p: (input: NativeUnion) => Promise<NativeUnion>) =>
-    typia.functional.assertReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(TypeGuardError)("NativeUnion")(
+      NativeUnion,
+    )((p: (input: NativeUnion) => Promise<NativeUnion>) =>
+      typia.functional.assertReturn(p),
+    );

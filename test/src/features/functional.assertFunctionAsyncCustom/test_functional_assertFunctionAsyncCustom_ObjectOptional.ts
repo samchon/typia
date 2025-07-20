@@ -5,8 +5,9 @@ import { _test_functional_assertFunctionAsync } from "../../internal/_test_funct
 import { ObjectOptional } from "../../structures/ObjectOptional";
 
 export const test_functional_assertFunctionAsyncCustom_ObjectOptional =
-  _test_functional_assertFunctionAsync(CustomGuardError)("ObjectOptional")(
-    ObjectOptional,
-  )((p: (input: ObjectOptional) => Promise<ObjectOptional>) =>
-    typia.functional.assertFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertFunctionAsync(CustomGuardError)("ObjectOptional")(
+      ObjectOptional,
+    )((p: (input: ObjectOptional) => Promise<ObjectOptional>) =>
+      typia.functional.assertFunction(p, (p) => new CustomGuardError(p)),
+    );

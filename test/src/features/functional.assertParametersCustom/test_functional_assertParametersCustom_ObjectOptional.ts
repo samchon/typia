@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_functional_assertParameters } from "../../internal/_test_functional_assertParameters";
 import { ObjectOptional } from "../../structures/ObjectOptional";
 
-export const test_functional_assertParametersCustom_ObjectOptional =
+export const test_functional_assertParametersCustom_ObjectOptional = (): void =>
   _test_functional_assertParameters(CustomGuardError)("ObjectOptional")(
     ObjectOptional,
   )((p: (input: ObjectOptional) => ObjectOptional) =>

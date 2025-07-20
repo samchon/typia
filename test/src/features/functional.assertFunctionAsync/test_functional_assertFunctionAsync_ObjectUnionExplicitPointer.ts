@@ -5,12 +5,13 @@ import { _test_functional_assertFunctionAsync } from "../../internal/_test_funct
 import { ObjectUnionExplicitPointer } from "../../structures/ObjectUnionExplicitPointer";
 
 export const test_functional_assertFunctionAsync_ObjectUnionExplicitPointer =
-  _test_functional_assertFunctionAsync(TypeGuardError)(
-    "ObjectUnionExplicitPointer",
-  )(ObjectUnionExplicitPointer)(
-    (
-      p: (
-        input: ObjectUnionExplicitPointer,
-      ) => Promise<ObjectUnionExplicitPointer>,
-    ) => typia.functional.assertFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertFunctionAsync(TypeGuardError)(
+      "ObjectUnionExplicitPointer",
+    )(ObjectUnionExplicitPointer)(
+      (
+        p: (
+          input: ObjectUnionExplicitPointer,
+        ) => Promise<ObjectUnionExplicitPointer>,
+      ) => typia.functional.assertFunction(p),
+    );

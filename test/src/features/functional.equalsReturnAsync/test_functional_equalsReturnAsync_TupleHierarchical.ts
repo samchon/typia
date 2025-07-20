@@ -4,7 +4,8 @@ import { _test_functional_equalsReturnAsync } from "../../internal/_test_functio
 import { TupleHierarchical } from "../../structures/TupleHierarchical";
 
 export const test_functional_equalsReturnAsync_TupleHierarchical =
-  _test_functional_equalsReturnAsync("TupleHierarchical")(TupleHierarchical)(
-    (p: (input: TupleHierarchical) => Promise<TupleHierarchical>) =>
-      typia.functional.equalsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_equalsReturnAsync("TupleHierarchical")(TupleHierarchical)(
+      (p: (input: TupleHierarchical) => Promise<TupleHierarchical>) =>
+        typia.functional.equalsReturn(p),
+    );

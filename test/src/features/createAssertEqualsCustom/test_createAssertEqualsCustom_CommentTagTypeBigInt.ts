@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_assertEquals } from "../../internal/_test_assertEquals";
 import { CommentTagTypeBigInt } from "../../structures/CommentTagTypeBigInt";
 
-export const test_createAssertEqualsCustom_CommentTagTypeBigInt =
+export const test_createAssertEqualsCustom_CommentTagTypeBigInt = (): void =>
   _test_assertEquals(CustomGuardError)(
     "CommentTagTypeBigInt",
   )<CommentTagTypeBigInt>(CommentTagTypeBigInt)(

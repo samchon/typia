@@ -5,8 +5,9 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { TypeTagRange } from "../../structures/TypeTagRange";
 
 export const test_functional_assertReturnAsync_TypeTagRange =
-  _test_functional_assertReturnAsync(TypeGuardError)("TypeTagRange")(
-    TypeTagRange,
-  )((p: (input: TypeTagRange) => Promise<TypeTagRange>) =>
-    typia.functional.assertReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(TypeGuardError)("TypeTagRange")(
+      TypeTagRange,
+    )((p: (input: TypeTagRange) => Promise<TypeTagRange>) =>
+      typia.functional.assertReturn(p),
+    );

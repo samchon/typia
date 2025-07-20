@@ -17,7 +17,7 @@ import { _${file({
     })(false)}";
 import { ${structure} } from "../../structures/${structure}";
 
-export const ${file(p)(create)}_${structure} =
+export const ${file(p)(create)}_${structure} = (): void =>
     _${file({
       ...p,
       method: "general",

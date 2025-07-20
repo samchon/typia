@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { DynamicTree } from "../../../structures/DynamicTree";
 
-export const test_llm_application_chatgpt_DynamicTree =
+export const test_llm_applicationEquals_chatgpt_DynamicTree = (): void =>
   _test_llm_applicationEquals({
     model: "chatgpt",
     name: "DynamicTree",

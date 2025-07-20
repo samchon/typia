@@ -5,8 +5,9 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { UltimateUnion } from "../../structures/UltimateUnion";
 
 export const test_functional_assertReturnAsyncCustom_UltimateUnion =
-  _test_functional_assertReturnAsync(CustomGuardError)("UltimateUnion")(
-    UltimateUnion,
-  )((p: (input: UltimateUnion) => Promise<UltimateUnion>) =>
-    typia.functional.assertReturn(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(CustomGuardError)("UltimateUnion")(
+      UltimateUnion,
+    )((p: (input: UltimateUnion) => Promise<UltimateUnion>) =>
+      typia.functional.assertReturn(p, (p) => new CustomGuardError(p)),
+    );

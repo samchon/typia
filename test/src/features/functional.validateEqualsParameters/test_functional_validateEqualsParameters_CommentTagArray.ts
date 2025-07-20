@@ -4,7 +4,9 @@ import { _test_functional_validateEqualsParameters } from "../../internal/_test_
 import { CommentTagArray } from "../../structures/CommentTagArray";
 
 export const test_functional_validateEqualsParameters_CommentTagArray =
-  _test_functional_validateEqualsParameters("CommentTagArray")(CommentTagArray)(
-    (p: (input: CommentTagArray) => CommentTagArray) =>
+  (): void =>
+    _test_functional_validateEqualsParameters("CommentTagArray")(
+      CommentTagArray,
+    )((p: (input: CommentTagArray) => CommentTagArray) =>
       typia.functional.validateEqualsParameters(p),
-  );
+    );

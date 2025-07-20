@@ -4,10 +4,11 @@ import { _test_protobuf_validateDecode } from "../../internal/_test_protobuf_val
 import { ObjectUnionCompositePointer } from "../../structures/ObjectUnionCompositePointer";
 
 export const test_protobuf_validateDecode_ObjectUnionCompositePointer =
-  _test_protobuf_validateDecode(
-    "ObjectUnionCompositePointer",
-  )<ObjectUnionCompositePointer>(ObjectUnionCompositePointer)({
-    decode: (input) =>
-      typia.protobuf.validateDecode<ObjectUnionCompositePointer>(input),
-    encode: typia.protobuf.createEncode<ObjectUnionCompositePointer>(),
-  });
+  (): void =>
+    _test_protobuf_validateDecode(
+      "ObjectUnionCompositePointer",
+    )<ObjectUnionCompositePointer>(ObjectUnionCompositePointer)({
+      decode: (input) =>
+        typia.protobuf.validateDecode<ObjectUnionCompositePointer>(input),
+      encode: typia.protobuf.createEncode<ObjectUnionCompositePointer>(),
+    });

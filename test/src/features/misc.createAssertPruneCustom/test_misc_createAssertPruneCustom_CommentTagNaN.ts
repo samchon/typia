@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_misc_assertPrune } from "../../internal/_test_misc_assertPrune";
 import { CommentTagNaN } from "../../structures/CommentTagNaN";
 
-export const test_misc_createAssertPruneCustom_CommentTagNaN =
+export const test_misc_createAssertPruneCustom_CommentTagNaN = (): void =>
   _test_misc_assertPrune(CustomGuardError)("CommentTagNaN")<CommentTagNaN>(
     CommentTagNaN,
   )(

@@ -4,8 +4,9 @@ import { _test_functional_validateFunction } from "../../internal/_test_function
 import { CommentTagObjectUnion } from "../../structures/CommentTagObjectUnion";
 
 export const test_functional_validateFunction_CommentTagObjectUnion =
-  _test_functional_validateFunction("CommentTagObjectUnion")(
-    CommentTagObjectUnion,
-  )((p: (input: CommentTagObjectUnion) => CommentTagObjectUnion) =>
-    typia.functional.validateFunction(p),
-  );
+  (): void =>
+    _test_functional_validateFunction("CommentTagObjectUnion")(
+      CommentTagObjectUnion,
+    )((p: (input: CommentTagObjectUnion) => CommentTagObjectUnion) =>
+      typia.functional.validateFunction(p),
+    );

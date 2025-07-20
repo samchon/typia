@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_assertEquals } from "../../internal/_test_assertEquals";
 import { ArrayHierarchical } from "../../structures/ArrayHierarchical";
 
-export const test_createAssertEqualsCustom_ArrayHierarchical =
+export const test_createAssertEqualsCustom_ArrayHierarchical = (): void =>
   _test_assertEquals(CustomGuardError)("ArrayHierarchical")<ArrayHierarchical>(
     ArrayHierarchical,
   )(

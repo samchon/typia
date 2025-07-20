@@ -5,10 +5,13 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { ObjectPartialAndRequired } from "../../structures/ObjectPartialAndRequired";
 
 export const test_functional_assertReturnAsync_ObjectPartialAndRequired =
-  _test_functional_assertReturnAsync(TypeGuardError)(
-    "ObjectPartialAndRequired",
-  )(ObjectPartialAndRequired)(
-    (
-      p: (input: ObjectPartialAndRequired) => Promise<ObjectPartialAndRequired>,
-    ) => typia.functional.assertReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(TypeGuardError)(
+      "ObjectPartialAndRequired",
+    )(ObjectPartialAndRequired)(
+      (
+        p: (
+          input: ObjectPartialAndRequired,
+        ) => Promise<ObjectPartialAndRequired>,
+      ) => typia.functional.assertReturn(p),
+    );

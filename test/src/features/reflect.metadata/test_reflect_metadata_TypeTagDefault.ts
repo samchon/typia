@@ -3,6 +3,7 @@ import typia from "typia";
 import { _test_reflect_metadata } from "../../internal/_test_reflect_metadata";
 import { TypeTagDefault } from "../../structures/TypeTagDefault";
 
-export const test_reflect_metadata_TypeTagDefault = _test_reflect_metadata(
-  "TypeTagDefault",
-)(typia.reflect.metadata<[TypeTagDefault]>());
+export const test_reflect_metadata_TypeTagDefault = (): void =>
+  _test_reflect_metadata("TypeTagDefault")(
+    typia.reflect.metadata<[TypeTagDefault]>(),
+  );

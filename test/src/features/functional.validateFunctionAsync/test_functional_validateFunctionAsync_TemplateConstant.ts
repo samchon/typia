@@ -4,7 +4,9 @@ import { _test_functional_validateFunctionAsync } from "../../internal/_test_fun
 import { TemplateConstant } from "../../structures/TemplateConstant";
 
 export const test_functional_validateFunctionAsync_TemplateConstant =
-  _test_functional_validateFunctionAsync("TemplateConstant")(TemplateConstant)(
-    (p: (input: TemplateConstant) => Promise<TemplateConstant>) =>
+  (): Promise<void> =>
+    _test_functional_validateFunctionAsync("TemplateConstant")(
+      TemplateConstant,
+    )((p: (input: TemplateConstant) => Promise<TemplateConstant>) =>
       typia.functional.validateFunction(p),
-  );
+    );

@@ -5,9 +5,10 @@ import { _test_functional_assertEqualsFunctionAsync } from "../../internal/_test
 import { TemplateConstant } from "../../structures/TemplateConstant";
 
 export const test_functional_assertEqualsFunctionAsync_TemplateConstant =
-  _test_functional_assertEqualsFunctionAsync(TypeGuardError)(
-    "TemplateConstant",
-  )(TemplateConstant)(
-    (p: (input: TemplateConstant) => Promise<TemplateConstant>) =>
-      typia.functional.assertEqualsFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsFunctionAsync(TypeGuardError)(
+      "TemplateConstant",
+    )(TemplateConstant)(
+      (p: (input: TemplateConstant) => Promise<TemplateConstant>) =>
+        typia.functional.assertEqualsFunction(p),
+    );

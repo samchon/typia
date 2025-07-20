@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_protobuf_assertDecode } from "../../internal/_test_protobuf_assertDecode";
 import { DynamicSimple } from "../../structures/DynamicSimple";
 
-export const test_protobuf_assertDecode_DynamicSimple =
+export const test_protobuf_assertDecode_DynamicSimple = (): void =>
   _test_protobuf_assertDecode(TypeGuardError)("DynamicSimple")<DynamicSimple>(
     DynamicSimple,
   )({

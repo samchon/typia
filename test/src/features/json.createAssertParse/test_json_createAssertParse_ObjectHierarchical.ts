@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_json_assertParse } from "../../internal/_test_json_assertParse";
 import { ObjectHierarchical } from "../../structures/ObjectHierarchical";
 
-export const test_json_createAssertParse_ObjectHierarchical =
+export const test_json_createAssertParse_ObjectHierarchical = (): void =>
   _test_json_assertParse(TypeGuardError)(
     "ObjectHierarchical",
   )<ObjectHierarchical>(ObjectHierarchical)(

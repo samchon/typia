@@ -5,8 +5,12 @@ import { _test_functional_assertEqualsParameters } from "../../internal/_test_fu
 import { TupleOptional } from "../../structures/TupleOptional";
 
 export const test_functional_assertEqualsParametersCustom_TupleOptional =
-  _test_functional_assertEqualsParameters(CustomGuardError)("TupleOptional")(
-    TupleOptional,
-  )((p: (input: TupleOptional) => TupleOptional) =>
-    typia.functional.assertEqualsParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertEqualsParameters(CustomGuardError)("TupleOptional")(
+      TupleOptional,
+    )((p: (input: TupleOptional) => TupleOptional) =>
+      typia.functional.assertEqualsParameters(
+        p,
+        (p) => new CustomGuardError(p),
+      ),
+    );

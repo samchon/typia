@@ -5,12 +5,13 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { ObjectSimpleProtobufNullable } from "../../structures/ObjectSimpleProtobufNullable";
 
 export const test_functional_assertReturnAsync_ObjectSimpleProtobufNullable =
-  _test_functional_assertReturnAsync(TypeGuardError)(
-    "ObjectSimpleProtobufNullable",
-  )(ObjectSimpleProtobufNullable)(
-    (
-      p: (
-        input: ObjectSimpleProtobufNullable,
-      ) => Promise<ObjectSimpleProtobufNullable>,
-    ) => typia.functional.assertReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(TypeGuardError)(
+      "ObjectSimpleProtobufNullable",
+    )(ObjectSimpleProtobufNullable)(
+      (
+        p: (
+          input: ObjectSimpleProtobufNullable,
+        ) => Promise<ObjectSimpleProtobufNullable>,
+      ) => typia.functional.assertReturn(p),
+    );

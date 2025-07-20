@@ -3,13 +3,12 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ObjectOptional } from "../../../structures/ObjectOptional";
 
-export const test_llm_application_gemini_ObjectOptional = _test_llm_application(
-  {
+export const test_llm_application_gemini_ObjectOptional = (): void =>
+  _test_llm_application({
     model: "gemini",
     name: "ObjectOptional",
     factory: ObjectOptional,
-  },
-)(typia.llm.application<ObjectOptionalApplication, "gemini">());
+  })(typia.llm.application<ObjectOptionalApplication, "gemini">());
 
 interface ObjectOptionalApplication {
   insert(p: { first: ObjectOptional }): Promise<void>;

@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_functional_assertParameters } from "../../internal/_test_functional_assertParameters";
 import { ObjectGenericUnion } from "../../structures/ObjectGenericUnion";
 
-export const test_functional_assertParameters_ObjectGenericUnion =
+export const test_functional_assertParameters_ObjectGenericUnion = (): void =>
   _test_functional_assertParameters(TypeGuardError)("ObjectGenericUnion")(
     ObjectGenericUnion,
   )((p: (input: ObjectGenericUnion) => ObjectGenericUnion) =>

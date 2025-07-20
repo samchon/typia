@@ -4,7 +4,8 @@ import { _test_functional_validateFunctionAsync } from "../../internal/_test_fun
 import { MapSimple } from "../../structures/MapSimple";
 
 export const test_functional_validateFunctionAsync_MapSimple =
-  _test_functional_validateFunctionAsync("MapSimple")(MapSimple)(
-    (p: (input: MapSimple) => Promise<MapSimple>) =>
-      typia.functional.validateFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateFunctionAsync("MapSimple")(MapSimple)(
+      (p: (input: MapSimple) => Promise<MapSimple>) =>
+        typia.functional.validateFunction(p),
+    );

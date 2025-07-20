@@ -4,8 +4,11 @@ import { _test_functional_equalsParametersAsync } from "../../internal/_test_fun
 import { ClassPropertyAssignment } from "../../structures/ClassPropertyAssignment";
 
 export const test_functional_equalsParametersAsync_ClassPropertyAssignment =
-  _test_functional_equalsParametersAsync("ClassPropertyAssignment")(
-    ClassPropertyAssignment,
-  )((p: (input: ClassPropertyAssignment) => Promise<ClassPropertyAssignment>) =>
-    typia.functional.equalsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_equalsParametersAsync("ClassPropertyAssignment")(
+      ClassPropertyAssignment,
+    )(
+      (
+        p: (input: ClassPropertyAssignment) => Promise<ClassPropertyAssignment>,
+      ) => typia.functional.equalsParameters(p),
+    );

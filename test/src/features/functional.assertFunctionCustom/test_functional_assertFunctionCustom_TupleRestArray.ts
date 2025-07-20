@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_functional_assertFunction } from "../../internal/_test_functional_assertFunction";
 import { TupleRestArray } from "../../structures/TupleRestArray";
 
-export const test_functional_assertFunctionCustom_TupleRestArray =
+export const test_functional_assertFunctionCustom_TupleRestArray = (): void =>
   _test_functional_assertFunction(CustomGuardError)("TupleRestArray")(
     TupleRestArray,
   )((p: (input: TupleRestArray) => TupleRestArray) =>

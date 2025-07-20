@@ -30,7 +30,7 @@ export namespace TestLlmApplicationEqualsGenerator {
         `import { ${s.name} } from "../../../structures/${s.name}";`,
         `import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";`,
         "",
-        `export const test_llm_application_${model.replace(".", "_")}_${s.name} = `,
+        `export const test_llm_applicationEquals_${model.replace(".", "_")}_${s.name} = (): void =>`,
         `  _test_llm_applicationEquals({`,
         `    model: ${JSON.stringify(model)},`,
         `    name: ${JSON.stringify(s.name)},`,

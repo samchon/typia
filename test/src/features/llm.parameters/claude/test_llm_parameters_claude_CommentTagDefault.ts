@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 import { CommentTagDefault } from "../../../structures/CommentTagDefault";
 
-export const test_llm_parameters_claude_CommentTagDefault =
+export const test_llm_parameters_claude_CommentTagDefault = (): void =>
   _test_llm_parameters({
     model: "claude",
     name: "CommentTagDefault",

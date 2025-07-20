@@ -5,10 +5,11 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { ObjectGenericAlias } from "../../structures/ObjectGenericAlias";
 
 export const test_json_createAssertStringifyCustom_ObjectGenericAlias =
-  _test_json_assertStringify(CustomGuardError)(
-    "ObjectGenericAlias",
-  )<ObjectGenericAlias>(ObjectGenericAlias)(
-    typia.json.createAssertStringify<ObjectGenericAlias>(
-      (p) => new CustomGuardError(p),
-    ),
-  );
+  (): void =>
+    _test_json_assertStringify(CustomGuardError)(
+      "ObjectGenericAlias",
+    )<ObjectGenericAlias>(ObjectGenericAlias)(
+      typia.json.createAssertStringify<ObjectGenericAlias>(
+        (p) => new CustomGuardError(p),
+      ),
+    );

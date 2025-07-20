@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_misc_assertPrune } from "../../internal/_test_misc_assertPrune";
 import { ArrayAtomicSimple } from "../../structures/ArrayAtomicSimple";
 
-export const test_misc_createAssertPrune_ArrayAtomicSimple =
+export const test_misc_createAssertPrune_ArrayAtomicSimple = (): void =>
   _test_misc_assertPrune(TypeGuardError)(
     "ArrayAtomicSimple",
   )<ArrayAtomicSimple>(ArrayAtomicSimple)(

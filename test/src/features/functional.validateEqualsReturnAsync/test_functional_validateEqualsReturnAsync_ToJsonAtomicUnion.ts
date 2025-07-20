@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsReturnAsync } from "../../internal/_test
 import { ToJsonAtomicUnion } from "../../structures/ToJsonAtomicUnion";
 
 export const test_functional_validateEqualsReturnAsync_ToJsonAtomicUnion =
-  _test_functional_validateEqualsReturnAsync("ToJsonAtomicUnion")(
-    ToJsonAtomicUnion,
-  )((p: (input: ToJsonAtomicUnion) => Promise<ToJsonAtomicUnion>) =>
-    typia.functional.validateEqualsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsReturnAsync("ToJsonAtomicUnion")(
+      ToJsonAtomicUnion,
+    )((p: (input: ToJsonAtomicUnion) => Promise<ToJsonAtomicUnion>) =>
+      typia.functional.validateEqualsReturn(p),
+    );

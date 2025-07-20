@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { ClassMethod } from "../../../structures/ClassMethod";
 
-export const test_llm_application_claude_ClassMethod =
+export const test_llm_applicationEquals_claude_ClassMethod = (): void =>
   _test_llm_applicationEquals({
     model: "claude",
     name: "ClassMethod",

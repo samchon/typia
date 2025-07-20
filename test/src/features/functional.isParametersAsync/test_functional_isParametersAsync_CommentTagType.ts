@@ -4,7 +4,8 @@ import { _test_functional_isParametersAsync } from "../../internal/_test_functio
 import { CommentTagType } from "../../structures/CommentTagType";
 
 export const test_functional_isParametersAsync_CommentTagType =
-  _test_functional_isParametersAsync("CommentTagType")(CommentTagType)(
-    (p: (input: CommentTagType) => Promise<CommentTagType>) =>
-      typia.functional.isParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_isParametersAsync("CommentTagType")(CommentTagType)(
+      (p: (input: CommentTagType) => Promise<CommentTagType>) =>
+        typia.functional.isParameters(p),
+    );

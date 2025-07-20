@@ -5,8 +5,9 @@ import { _test_functional_assertParameters } from "../../internal/_test_function
 import { ObjectPropertyNullable } from "../../structures/ObjectPropertyNullable";
 
 export const test_functional_assertParameters_ObjectPropertyNullable =
-  _test_functional_assertParameters(TypeGuardError)("ObjectPropertyNullable")(
-    ObjectPropertyNullable,
-  )((p: (input: ObjectPropertyNullable) => ObjectPropertyNullable) =>
-    typia.functional.assertParameters(p),
-  );
+  (): void =>
+    _test_functional_assertParameters(TypeGuardError)("ObjectPropertyNullable")(
+      ObjectPropertyNullable,
+    )((p: (input: ObjectPropertyNullable) => ObjectPropertyNullable) =>
+      typia.functional.assertParameters(p),
+    );

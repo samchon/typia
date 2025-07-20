@@ -7,8 +7,7 @@ import { resolved_equal_to } from "../helpers/resolved_equal_to";
 export const _test_http_isQuery =
   (name: string) =>
   <T extends object>(factory: TestStructure<T>) =>
-  (decode: (input: URLSearchParams) => typia.Resolved<T> | null) =>
-  () => {
+  (decode: (input: URLSearchParams) => typia.Resolved<T> | null): void => {
     const data: T = factory.generate();
     const encoded: URLSearchParams = create_query(data);
     const decoded: typia.Resolved<T> | null = decode(encoded);

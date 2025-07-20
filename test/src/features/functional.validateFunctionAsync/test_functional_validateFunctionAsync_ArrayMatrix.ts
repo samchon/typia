@@ -4,7 +4,8 @@ import { _test_functional_validateFunctionAsync } from "../../internal/_test_fun
 import { ArrayMatrix } from "../../structures/ArrayMatrix";
 
 export const test_functional_validateFunctionAsync_ArrayMatrix =
-  _test_functional_validateFunctionAsync("ArrayMatrix")(ArrayMatrix)(
-    (p: (input: ArrayMatrix) => Promise<ArrayMatrix>) =>
-      typia.functional.validateFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateFunctionAsync("ArrayMatrix")(ArrayMatrix)(
+      (p: (input: ArrayMatrix) => Promise<ArrayMatrix>) =>
+        typia.functional.validateFunction(p),
+    );

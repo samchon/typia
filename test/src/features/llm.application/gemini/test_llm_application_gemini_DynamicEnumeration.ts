@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { DynamicEnumeration } from "../../../structures/DynamicEnumeration";
 
-export const test_llm_application_gemini_DynamicEnumeration =
+export const test_llm_application_gemini_DynamicEnumeration = (): void =>
   _test_llm_application({
     model: "gemini",
     name: "DynamicEnumeration",

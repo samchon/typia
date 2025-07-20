@@ -7,9 +7,8 @@ export const _test_notation_assertGeneral =
   (ErrorClass: Function) =>
   (name: string) =>
   <T>(factory: TestStructure<T>) =>
-  <U>(functor: { convert: (input: T) => U; assert: (input: U) => U }) =>
-  () => {
-    _test_notation_general(name)(factory)(functor)();
+  <U>(functor: { convert: (input: T) => U; assert: (input: U) => U }): void => {
+    _test_notation_general(name)(factory)(functor) satisfies void;
 
     for (const spoil of factory.SPOILERS ?? []) {
       const elem: T = factory.generate();

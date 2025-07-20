@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { TypeTagMatrix } from "../../../structures/TypeTagMatrix";
 
-export const test_llm_application_gemini_TypeTagMatrix =
+export const test_llm_applicationEquals_gemini_TypeTagMatrix = (): void =>
   _test_llm_applicationEquals({
     model: "gemini",
     name: "TypeTagMatrix",

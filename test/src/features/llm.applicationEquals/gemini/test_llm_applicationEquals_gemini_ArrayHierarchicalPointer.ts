@@ -3,18 +3,19 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { ArrayHierarchicalPointer } from "../../../structures/ArrayHierarchicalPointer";
 
-export const test_llm_application_gemini_ArrayHierarchicalPointer =
-  _test_llm_applicationEquals({
-    model: "gemini",
-    name: "ArrayHierarchicalPointer",
-    factory: ArrayHierarchicalPointer,
-  })(
-    typia.llm.application<
-      ArrayHierarchicalPointerApplication,
-      "gemini",
-      { equal: true }
-    >(),
-  );
+export const test_llm_applicationEquals_gemini_ArrayHierarchicalPointer =
+  (): void =>
+    _test_llm_applicationEquals({
+      model: "gemini",
+      name: "ArrayHierarchicalPointer",
+      factory: ArrayHierarchicalPointer,
+    })(
+      typia.llm.application<
+        ArrayHierarchicalPointerApplication,
+        "gemini",
+        { equal: true }
+      >(),
+    );
 
 interface ArrayHierarchicalPointerApplication {
   insert(p: { first: ArrayHierarchicalPointer }): Promise<void>;

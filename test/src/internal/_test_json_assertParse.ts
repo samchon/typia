@@ -8,8 +8,7 @@ export const _test_json_assertParse =
   (ErrorClass: Function) =>
   (name: string) =>
   <T>(factory: TestStructure<T>) =>
-  (parse: (input: string) => Primitive<T>) =>
-  () => {
+  (parse: (input: string) => Primitive<T>): void => {
     const data: T = factory.generate();
     const string: string = JSON.stringify(data);
     const expected: Primitive<T> = JSON.parse(string);

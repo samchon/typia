@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_json_assertStringify } from "../../internal/_test_json_assertStringify";
 import { ObjectGenericUnion } from "../../structures/ObjectGenericUnion";
 
-export const test_json_createAssertStringify_ObjectGenericUnion =
+export const test_json_createAssertStringify_ObjectGenericUnion = (): void =>
   _test_json_assertStringify(TypeGuardError)(
     "ObjectGenericUnion",
   )<ObjectGenericUnion>(ObjectGenericUnion)(

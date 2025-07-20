@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_functional_assertFunction } from "../../internal/_test_functional_assertFunction";
 import { FunctionalValue } from "../../structures/FunctionalValue";
 
-export const test_functional_assertFunctionCustom_FunctionalValue =
+export const test_functional_assertFunctionCustom_FunctionalValue = (): void =>
   _test_functional_assertFunction(CustomGuardError)("FunctionalValue")(
     FunctionalValue,
   )((p: (input: FunctionalValue) => FunctionalValue) =>

@@ -5,10 +5,11 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { ClassPropertyAssignment } from "../../structures/ClassPropertyAssignment";
 
 export const test_json_createAssertStringifyCustom_ClassPropertyAssignment =
-  _test_json_assertStringify(CustomGuardError)(
-    "ClassPropertyAssignment",
-  )<ClassPropertyAssignment>(ClassPropertyAssignment)(
-    typia.json.createAssertStringify<ClassPropertyAssignment>(
-      (p) => new CustomGuardError(p),
-    ),
-  );
+  (): void =>
+    _test_json_assertStringify(CustomGuardError)(
+      "ClassPropertyAssignment",
+    )<ClassPropertyAssignment>(ClassPropertyAssignment)(
+      typia.json.createAssertStringify<ClassPropertyAssignment>(
+        (p) => new CustomGuardError(p),
+      ),
+    );

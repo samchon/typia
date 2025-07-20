@@ -3,13 +3,12 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { ArrayMatrix } from "../../../structures/ArrayMatrix";
 
-export const test_llm_application_3_1_ArrayMatrix = _test_llm_applicationEquals(
-  {
+export const test_llm_applicationEquals_3_1_ArrayMatrix = (): void =>
+  _test_llm_applicationEquals({
     model: "3.1",
     name: "ArrayMatrix",
     factory: ArrayMatrix,
-  },
-)(typia.llm.application<ArrayMatrixApplication, "3.1", { equal: true }>());
+  })(typia.llm.application<ArrayMatrixApplication, "3.1", { equal: true }>());
 
 interface ArrayMatrixApplication {
   insert(p: { first: ArrayMatrix }): Promise<void>;

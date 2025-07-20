@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_json_assertStringify } from "../../internal/_test_json_assertStringify";
 import { ObjectUndefined } from "../../structures/ObjectUndefined";
 
-export const test_json_createAssertStringify_ObjectUndefined =
+export const test_json_createAssertStringify_ObjectUndefined = (): void =>
   _test_json_assertStringify(TypeGuardError)(
     "ObjectUndefined",
   )<ObjectUndefined>(ObjectUndefined)(

@@ -4,7 +4,8 @@ import { _test_functional_isParametersAsync } from "../../internal/_test_functio
 import { FunctionalTuple } from "../../structures/FunctionalTuple";
 
 export const test_functional_isParametersAsync_FunctionalTuple =
-  _test_functional_isParametersAsync("FunctionalTuple")(FunctionalTuple)(
-    (p: (input: FunctionalTuple) => Promise<FunctionalTuple>) =>
-      typia.functional.isParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_isParametersAsync("FunctionalTuple")(FunctionalTuple)(
+      (p: (input: FunctionalTuple) => Promise<FunctionalTuple>) =>
+        typia.functional.isParameters(p),
+    );

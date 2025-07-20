@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_protobuf_assertDecode } from "../../internal/_test_protobuf_assertDecode";
 import { DynamicSimple } from "../../structures/DynamicSimple";
 
-export const test_protobuf_assertDecodeCustom_DynamicSimple =
+export const test_protobuf_assertDecodeCustom_DynamicSimple = (): void =>
   _test_protobuf_assertDecode(CustomGuardError)("DynamicSimple")<DynamicSimple>(
     DynamicSimple,
   )({

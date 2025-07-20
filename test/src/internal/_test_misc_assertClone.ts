@@ -7,8 +7,7 @@ export const _test_misc_assertClone =
   (ErrorClass: Function) =>
   (name: string) =>
   <T>(factory: TestStructure<T>) =>
-  (clone: (input: T) => Resolved<T>) =>
-  () => {
+  (clone: (input: T) => Resolved<T>): void => {
     const input: T = factory.generate();
     const cloned: Resolved<T> = clone(input);
 

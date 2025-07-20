@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_json_assertParse } from "../../internal/_test_json_assertParse";
 import { ObjectPrimitive } from "../../structures/ObjectPrimitive";
 
-export const test_json_assertParseCustom_ObjectPrimitive =
+export const test_json_assertParseCustom_ObjectPrimitive = (): void =>
   _test_json_assertParse(CustomGuardError)("ObjectPrimitive")<ObjectPrimitive>(
     ObjectPrimitive,
   )((input) =>

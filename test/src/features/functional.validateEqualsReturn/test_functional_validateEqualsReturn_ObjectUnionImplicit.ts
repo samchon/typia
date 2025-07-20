@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsReturn } from "../../internal/_test_func
 import { ObjectUnionImplicit } from "../../structures/ObjectUnionImplicit";
 
 export const test_functional_validateEqualsReturn_ObjectUnionImplicit =
-  _test_functional_validateEqualsReturn("ObjectUnionImplicit")(
-    ObjectUnionImplicit,
-  )((p: (input: ObjectUnionImplicit) => ObjectUnionImplicit) =>
-    typia.functional.validateEqualsReturn(p),
-  );
+  (): void =>
+    _test_functional_validateEqualsReturn("ObjectUnionImplicit")(
+      ObjectUnionImplicit,
+    )((p: (input: ObjectUnionImplicit) => ObjectUnionImplicit) =>
+      typia.functional.validateEqualsReturn(p),
+    );

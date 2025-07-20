@@ -6,8 +6,7 @@ export const _test_functional_assertReturn =
   (ErrorClass: Function) =>
   (name: string) =>
   <T>(factory: TestStructure<T>) =>
-  (assert: (p: (input: T) => T) => (input: T) => T) =>
-  () => {
+  (assert: (p: (input: T) => T) => (input: T) => T): void => {
     const validate = (replacer: string) => (callback: (input: T) => [T, T]) => {
       try {
         const [x, y] = callback(factory.generate());

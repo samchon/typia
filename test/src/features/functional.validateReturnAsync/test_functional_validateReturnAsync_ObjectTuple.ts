@@ -4,7 +4,8 @@ import { _test_functional_validateReturnAsync } from "../../internal/_test_funct
 import { ObjectTuple } from "../../structures/ObjectTuple";
 
 export const test_functional_validateReturnAsync_ObjectTuple =
-  _test_functional_validateReturnAsync("ObjectTuple")(ObjectTuple)(
-    (p: (input: ObjectTuple) => Promise<ObjectTuple>) =>
-      typia.functional.validateReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateReturnAsync("ObjectTuple")(ObjectTuple)(
+      (p: (input: ObjectTuple) => Promise<ObjectTuple>) =>
+        typia.functional.validateReturn(p),
+    );

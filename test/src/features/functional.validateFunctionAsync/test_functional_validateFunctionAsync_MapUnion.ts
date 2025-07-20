@@ -4,7 +4,8 @@ import { _test_functional_validateFunctionAsync } from "../../internal/_test_fun
 import { MapUnion } from "../../structures/MapUnion";
 
 export const test_functional_validateFunctionAsync_MapUnion =
-  _test_functional_validateFunctionAsync("MapUnion")(MapUnion)(
-    (p: (input: MapUnion) => Promise<MapUnion>) =>
-      typia.functional.validateFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateFunctionAsync("MapUnion")(MapUnion)(
+      (p: (input: MapUnion) => Promise<MapUnion>) =>
+        typia.functional.validateFunction(p),
+    );

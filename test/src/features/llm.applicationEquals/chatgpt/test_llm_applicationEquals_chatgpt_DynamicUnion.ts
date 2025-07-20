@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { DynamicUnion } from "../../../structures/DynamicUnion";
 
-export const test_llm_application_chatgpt_DynamicUnion =
+export const test_llm_applicationEquals_chatgpt_DynamicUnion = (): void =>
   _test_llm_applicationEquals({
     model: "chatgpt",
     name: "DynamicUnion",

@@ -5,10 +5,11 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { ArrayRepeatedRequired } from "../../structures/ArrayRepeatedRequired";
 
 export const test_json_createAssertStringifyCustom_ArrayRepeatedRequired =
-  _test_json_assertStringify(CustomGuardError)(
-    "ArrayRepeatedRequired",
-  )<ArrayRepeatedRequired>(ArrayRepeatedRequired)(
-    typia.json.createAssertStringify<ArrayRepeatedRequired>(
-      (p) => new CustomGuardError(p),
-    ),
-  );
+  (): void =>
+    _test_json_assertStringify(CustomGuardError)(
+      "ArrayRepeatedRequired",
+    )<ArrayRepeatedRequired>(ArrayRepeatedRequired)(
+      typia.json.createAssertStringify<ArrayRepeatedRequired>(
+        (p) => new CustomGuardError(p),
+      ),
+    );

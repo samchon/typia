@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_misc_assertClone } from "../../internal/_test_misc_assertClone";
 import { CommentTagType } from "../../structures/CommentTagType";
 
-export const test_misc_assertCloneCustom_CommentTagType =
+export const test_misc_assertCloneCustom_CommentTagType = (): void =>
   _test_misc_assertClone(CustomGuardError)("CommentTagType")<CommentTagType>(
     CommentTagType,
   )((input) =>

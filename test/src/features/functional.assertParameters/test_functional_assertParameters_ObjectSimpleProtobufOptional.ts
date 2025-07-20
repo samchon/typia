@@ -5,10 +5,13 @@ import { _test_functional_assertParameters } from "../../internal/_test_function
 import { ObjectSimpleProtobufOptional } from "../../structures/ObjectSimpleProtobufOptional";
 
 export const test_functional_assertParameters_ObjectSimpleProtobufOptional =
-  _test_functional_assertParameters(TypeGuardError)(
-    "ObjectSimpleProtobufOptional",
-  )(ObjectSimpleProtobufOptional)(
-    (
-      p: (input: ObjectSimpleProtobufOptional) => ObjectSimpleProtobufOptional,
-    ) => typia.functional.assertParameters(p),
-  );
+  (): void =>
+    _test_functional_assertParameters(TypeGuardError)(
+      "ObjectSimpleProtobufOptional",
+    )(ObjectSimpleProtobufOptional)(
+      (
+        p: (
+          input: ObjectSimpleProtobufOptional,
+        ) => ObjectSimpleProtobufOptional,
+      ) => typia.functional.assertParameters(p),
+    );

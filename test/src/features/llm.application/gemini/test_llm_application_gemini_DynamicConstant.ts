@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { DynamicConstant } from "../../../structures/DynamicConstant";
 
-export const test_llm_application_gemini_DynamicConstant =
+export const test_llm_application_gemini_DynamicConstant = (): void =>
   _test_llm_application({
     model: "gemini",
     name: "DynamicConstant",

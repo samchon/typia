@@ -4,7 +4,8 @@ import { _test_functional_isFunctionAsync } from "../../internal/_test_functiona
 import { ArrayHierarchical } from "../../structures/ArrayHierarchical";
 
 export const test_functional_isFunctionAsync_ArrayHierarchical =
-  _test_functional_isFunctionAsync("ArrayHierarchical")(ArrayHierarchical)(
-    (p: (input: ArrayHierarchical) => Promise<ArrayHierarchical>) =>
-      typia.functional.isFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_isFunctionAsync("ArrayHierarchical")(ArrayHierarchical)(
+      (p: (input: ArrayHierarchical) => Promise<ArrayHierarchical>) =>
+        typia.functional.isFunction(p),
+    );

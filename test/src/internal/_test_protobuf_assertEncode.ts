@@ -11,13 +11,12 @@ export const _test_protobuf_assertEncode =
     message: string;
     encode: (input: T) => Uint8Array;
     decode: (input: Uint8Array) => typia.Resolved<T>;
-  }) =>
-  () => {
+  }): void => {
     _test_protobuf_encode(name)(factory)({
       message: functor.message,
       decode: functor.decode,
       encode: functor.encode,
-    })();
+    }) satisfies void;
 
     for (const spoil of factory.SPOILERS ?? []) {
       const elem: T = factory.generate();

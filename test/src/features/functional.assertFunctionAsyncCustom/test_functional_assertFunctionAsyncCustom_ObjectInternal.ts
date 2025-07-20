@@ -5,8 +5,9 @@ import { _test_functional_assertFunctionAsync } from "../../internal/_test_funct
 import { ObjectInternal } from "../../structures/ObjectInternal";
 
 export const test_functional_assertFunctionAsyncCustom_ObjectInternal =
-  _test_functional_assertFunctionAsync(CustomGuardError)("ObjectInternal")(
-    ObjectInternal,
-  )((p: (input: ObjectInternal) => Promise<ObjectInternal>) =>
-    typia.functional.assertFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertFunctionAsync(CustomGuardError)("ObjectInternal")(
+      ObjectInternal,
+    )((p: (input: ObjectInternal) => Promise<ObjectInternal>) =>
+      typia.functional.assertFunction(p, (p) => new CustomGuardError(p)),
+    );

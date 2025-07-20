@@ -4,8 +4,11 @@ import { _test_functional_isParameters } from "../../internal/_test_functional_i
 import { ArrayRecursiveUnionImplicit } from "../../structures/ArrayRecursiveUnionImplicit";
 
 export const test_functional_isParameters_ArrayRecursiveUnionImplicit =
-  _test_functional_isParameters("ArrayRecursiveUnionImplicit")(
-    ArrayRecursiveUnionImplicit,
-  )((p: (input: ArrayRecursiveUnionImplicit) => ArrayRecursiveUnionImplicit) =>
-    typia.functional.isParameters(p),
-  );
+  (): void =>
+    _test_functional_isParameters("ArrayRecursiveUnionImplicit")(
+      ArrayRecursiveUnionImplicit,
+    )(
+      (
+        p: (input: ArrayRecursiveUnionImplicit) => ArrayRecursiveUnionImplicit,
+      ) => typia.functional.isParameters(p),
+    );

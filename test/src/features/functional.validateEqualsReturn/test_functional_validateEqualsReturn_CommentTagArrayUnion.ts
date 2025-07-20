@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsReturn } from "../../internal/_test_func
 import { CommentTagArrayUnion } from "../../structures/CommentTagArrayUnion";
 
 export const test_functional_validateEqualsReturn_CommentTagArrayUnion =
-  _test_functional_validateEqualsReturn("CommentTagArrayUnion")(
-    CommentTagArrayUnion,
-  )((p: (input: CommentTagArrayUnion) => CommentTagArrayUnion) =>
-    typia.functional.validateEqualsReturn(p),
-  );
+  (): void =>
+    _test_functional_validateEqualsReturn("CommentTagArrayUnion")(
+      CommentTagArrayUnion,
+    )((p: (input: CommentTagArrayUnion) => CommentTagArrayUnion) =>
+      typia.functional.validateEqualsReturn(p),
+    );

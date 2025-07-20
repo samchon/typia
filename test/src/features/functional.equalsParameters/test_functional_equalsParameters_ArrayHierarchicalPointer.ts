@@ -4,8 +4,9 @@ import { _test_functional_equalsParameters } from "../../internal/_test_function
 import { ArrayHierarchicalPointer } from "../../structures/ArrayHierarchicalPointer";
 
 export const test_functional_equalsParameters_ArrayHierarchicalPointer =
-  _test_functional_equalsParameters("ArrayHierarchicalPointer")(
-    ArrayHierarchicalPointer,
-  )((p: (input: ArrayHierarchicalPointer) => ArrayHierarchicalPointer) =>
-    typia.functional.equalsParameters(p),
-  );
+  (): void =>
+    _test_functional_equalsParameters("ArrayHierarchicalPointer")(
+      ArrayHierarchicalPointer,
+    )((p: (input: ArrayHierarchicalPointer) => ArrayHierarchicalPointer) =>
+      typia.functional.equalsParameters(p),
+    );

@@ -4,8 +4,9 @@ import { _test_functional_validateReturn } from "../../internal/_test_functional
 import { ObjectUnionExplicitPointer } from "../../structures/ObjectUnionExplicitPointer";
 
 export const test_functional_validateReturn_ObjectUnionExplicitPointer =
-  _test_functional_validateReturn("ObjectUnionExplicitPointer")(
-    ObjectUnionExplicitPointer,
-  )((p: (input: ObjectUnionExplicitPointer) => ObjectUnionExplicitPointer) =>
-    typia.functional.validateReturn(p),
-  );
+  (): void =>
+    _test_functional_validateReturn("ObjectUnionExplicitPointer")(
+      ObjectUnionExplicitPointer,
+    )((p: (input: ObjectUnionExplicitPointer) => ObjectUnionExplicitPointer) =>
+      typia.functional.validateReturn(p),
+    );

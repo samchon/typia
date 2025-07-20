@@ -4,11 +4,12 @@ import { _test_notation_validateGeneral } from "../../internal/_test_notation_va
 import { CommentTagObjectUnion } from "../../structures/CommentTagObjectUnion";
 
 export const test_notation_createValidateCamel_CommentTagObjectUnion =
-  _test_notation_validateGeneral(
-    "CommentTagObjectUnion",
-  )<CommentTagObjectUnion>(CommentTagObjectUnion)<
-    typia.CamelCase<CommentTagObjectUnion>
-  >({
-    convert: typia.notations.createValidateCamel<CommentTagObjectUnion>(),
-    assert: typia.createAssert<typia.CamelCase<CommentTagObjectUnion>>(),
-  });
+  (): void =>
+    _test_notation_validateGeneral(
+      "CommentTagObjectUnion",
+    )<CommentTagObjectUnion>(CommentTagObjectUnion)<
+      typia.CamelCase<CommentTagObjectUnion>
+    >({
+      convert: typia.notations.createValidateCamel<CommentTagObjectUnion>(),
+      assert: typia.createAssert<typia.CamelCase<CommentTagObjectUnion>>(),
+    });

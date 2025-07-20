@@ -4,7 +4,8 @@ import { _test_functional_validateEqualsFunctionAsync } from "../../internal/_te
 import { ArrayMatrix } from "../../structures/ArrayMatrix";
 
 export const test_functional_validateEqualsFunctionAsync_ArrayMatrix =
-  _test_functional_validateEqualsFunctionAsync("ArrayMatrix")(ArrayMatrix)(
-    (p: (input: ArrayMatrix) => Promise<ArrayMatrix>) =>
-      typia.functional.validateEqualsFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsFunctionAsync("ArrayMatrix")(ArrayMatrix)(
+      (p: (input: ArrayMatrix) => Promise<ArrayMatrix>) =>
+        typia.functional.validateEqualsFunction(p),
+    );

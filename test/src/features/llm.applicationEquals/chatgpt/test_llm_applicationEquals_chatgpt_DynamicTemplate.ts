@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { DynamicTemplate } from "../../../structures/DynamicTemplate";
 
-export const test_llm_application_chatgpt_DynamicTemplate =
+export const test_llm_applicationEquals_chatgpt_DynamicTemplate = (): void =>
   _test_llm_applicationEquals({
     model: "chatgpt",
     name: "DynamicTemplate",

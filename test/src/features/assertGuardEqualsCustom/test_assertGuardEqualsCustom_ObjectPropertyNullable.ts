@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_assertGuardEquals } from "../../internal/_test_assertGuardEquals";
 import { ObjectPropertyNullable } from "../../structures/ObjectPropertyNullable";
 
-export const test_assertGuardEqualsCustom_ObjectPropertyNullable =
+export const test_assertGuardEqualsCustom_ObjectPropertyNullable = (): void =>
   _test_assertGuardEquals(CustomGuardError)(
     "ObjectPropertyNullable",
   )<ObjectPropertyNullable>(ObjectPropertyNullable)((input) =>

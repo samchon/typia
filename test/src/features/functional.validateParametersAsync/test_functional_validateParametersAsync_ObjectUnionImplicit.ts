@@ -4,8 +4,9 @@ import { _test_functional_validateParametersAsync } from "../../internal/_test_f
 import { ObjectUnionImplicit } from "../../structures/ObjectUnionImplicit";
 
 export const test_functional_validateParametersAsync_ObjectUnionImplicit =
-  _test_functional_validateParametersAsync("ObjectUnionImplicit")(
-    ObjectUnionImplicit,
-  )((p: (input: ObjectUnionImplicit) => Promise<ObjectUnionImplicit>) =>
-    typia.functional.validateParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateParametersAsync("ObjectUnionImplicit")(
+      ObjectUnionImplicit,
+    )((p: (input: ObjectUnionImplicit) => Promise<ObjectUnionImplicit>) =>
+      typia.functional.validateParameters(p),
+    );

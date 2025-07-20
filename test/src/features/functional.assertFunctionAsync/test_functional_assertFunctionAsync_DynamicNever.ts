@@ -5,8 +5,9 @@ import { _test_functional_assertFunctionAsync } from "../../internal/_test_funct
 import { DynamicNever } from "../../structures/DynamicNever";
 
 export const test_functional_assertFunctionAsync_DynamicNever =
-  _test_functional_assertFunctionAsync(TypeGuardError)("DynamicNever")(
-    DynamicNever,
-  )((p: (input: DynamicNever) => Promise<DynamicNever>) =>
-    typia.functional.assertFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertFunctionAsync(TypeGuardError)("DynamicNever")(
+      DynamicNever,
+    )((p: (input: DynamicNever) => Promise<DynamicNever>) =>
+      typia.functional.assertFunction(p),
+    );

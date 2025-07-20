@@ -4,7 +4,8 @@ import { _test_functional_equalsParametersAsync } from "../../internal/_test_fun
 import { ObjectGeneric } from "../../structures/ObjectGeneric";
 
 export const test_functional_equalsParametersAsync_ObjectGeneric =
-  _test_functional_equalsParametersAsync("ObjectGeneric")(ObjectGeneric)(
-    (p: (input: ObjectGeneric) => Promise<ObjectGeneric>) =>
-      typia.functional.equalsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_equalsParametersAsync("ObjectGeneric")(ObjectGeneric)(
+      (p: (input: ObjectGeneric) => Promise<ObjectGeneric>) =>
+        typia.functional.equalsParameters(p),
+    );

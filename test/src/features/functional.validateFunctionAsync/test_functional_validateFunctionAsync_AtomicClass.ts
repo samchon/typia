@@ -4,7 +4,8 @@ import { _test_functional_validateFunctionAsync } from "../../internal/_test_fun
 import { AtomicClass } from "../../structures/AtomicClass";
 
 export const test_functional_validateFunctionAsync_AtomicClass =
-  _test_functional_validateFunctionAsync("AtomicClass")(AtomicClass)(
-    (p: (input: AtomicClass) => Promise<AtomicClass>) =>
-      typia.functional.validateFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateFunctionAsync("AtomicClass")(AtomicClass)(
+      (p: (input: AtomicClass) => Promise<AtomicClass>) =>
+        typia.functional.validateFunction(p),
+    );

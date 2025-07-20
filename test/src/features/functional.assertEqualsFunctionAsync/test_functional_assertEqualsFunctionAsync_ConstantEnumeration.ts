@@ -5,9 +5,10 @@ import { _test_functional_assertEqualsFunctionAsync } from "../../internal/_test
 import { ConstantEnumeration } from "../../structures/ConstantEnumeration";
 
 export const test_functional_assertEqualsFunctionAsync_ConstantEnumeration =
-  _test_functional_assertEqualsFunctionAsync(TypeGuardError)(
-    "ConstantEnumeration",
-  )(ConstantEnumeration)(
-    (p: (input: ConstantEnumeration) => Promise<ConstantEnumeration>) =>
-      typia.functional.assertEqualsFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsFunctionAsync(TypeGuardError)(
+      "ConstantEnumeration",
+    )(ConstantEnumeration)(
+      (p: (input: ConstantEnumeration) => Promise<ConstantEnumeration>) =>
+        typia.functional.assertEqualsFunction(p),
+    );

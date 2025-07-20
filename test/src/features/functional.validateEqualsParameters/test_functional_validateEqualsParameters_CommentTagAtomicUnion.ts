@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsParameters } from "../../internal/_test_
 import { CommentTagAtomicUnion } from "../../structures/CommentTagAtomicUnion";
 
 export const test_functional_validateEqualsParameters_CommentTagAtomicUnion =
-  _test_functional_validateEqualsParameters("CommentTagAtomicUnion")(
-    CommentTagAtomicUnion,
-  )((p: (input: CommentTagAtomicUnion) => CommentTagAtomicUnion) =>
-    typia.functional.validateEqualsParameters(p),
-  );
+  (): void =>
+    _test_functional_validateEqualsParameters("CommentTagAtomicUnion")(
+      CommentTagAtomicUnion,
+    )((p: (input: CommentTagAtomicUnion) => CommentTagAtomicUnion) =>
+      typia.functional.validateEqualsParameters(p),
+    );

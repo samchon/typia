@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { ObjectUnionComposite } from "../../../structures/ObjectUnionComposite";
 
-export const test_llm_application_llama_ObjectUnionComposite =
+export const test_llm_applicationEquals_llama_ObjectUnionComposite = (): void =>
   _test_llm_applicationEquals({
     model: "llama",
     name: "ObjectUnionComposite",

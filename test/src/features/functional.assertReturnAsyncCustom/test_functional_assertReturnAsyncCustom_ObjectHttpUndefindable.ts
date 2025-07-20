@@ -5,9 +5,10 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { ObjectHttpUndefindable } from "../../structures/ObjectHttpUndefindable";
 
 export const test_functional_assertReturnAsyncCustom_ObjectHttpUndefindable =
-  _test_functional_assertReturnAsync(CustomGuardError)(
-    "ObjectHttpUndefindable",
-  )(ObjectHttpUndefindable)(
-    (p: (input: ObjectHttpUndefindable) => Promise<ObjectHttpUndefindable>) =>
-      typia.functional.assertReturn(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(CustomGuardError)(
+      "ObjectHttpUndefindable",
+    )(ObjectHttpUndefindable)(
+      (p: (input: ObjectHttpUndefindable) => Promise<ObjectHttpUndefindable>) =>
+        typia.functional.assertReturn(p, (p) => new CustomGuardError(p)),
+    );

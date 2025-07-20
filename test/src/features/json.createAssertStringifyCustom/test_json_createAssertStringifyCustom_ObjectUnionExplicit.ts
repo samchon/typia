@@ -5,10 +5,11 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { ObjectUnionExplicit } from "../../structures/ObjectUnionExplicit";
 
 export const test_json_createAssertStringifyCustom_ObjectUnionExplicit =
-  _test_json_assertStringify(CustomGuardError)(
-    "ObjectUnionExplicit",
-  )<ObjectUnionExplicit>(ObjectUnionExplicit)(
-    typia.json.createAssertStringify<ObjectUnionExplicit>(
-      (p) => new CustomGuardError(p),
-    ),
-  );
+  (): void =>
+    _test_json_assertStringify(CustomGuardError)(
+      "ObjectUnionExplicit",
+    )<ObjectUnionExplicit>(ObjectUnionExplicit)(
+      typia.json.createAssertStringify<ObjectUnionExplicit>(
+        (p) => new CustomGuardError(p),
+      ),
+    );

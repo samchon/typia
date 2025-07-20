@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { TypeTagAtomicUnion } from "../../../structures/TypeTagAtomicUnion";
 
-export const test_llm_application_llama_TypeTagAtomicUnion =
+export const test_llm_applicationEquals_llama_TypeTagAtomicUnion = (): void =>
   _test_llm_applicationEquals({
     model: "llama",
     name: "TypeTagAtomicUnion",

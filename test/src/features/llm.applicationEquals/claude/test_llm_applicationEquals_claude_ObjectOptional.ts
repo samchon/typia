@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { ObjectOptional } from "../../../structures/ObjectOptional";
 
-export const test_llm_application_claude_ObjectOptional =
+export const test_llm_applicationEquals_claude_ObjectOptional = (): void =>
   _test_llm_applicationEquals({
     model: "claude",
     name: "ObjectOptional",

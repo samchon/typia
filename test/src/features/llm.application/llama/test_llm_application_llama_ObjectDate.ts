@@ -3,11 +3,12 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ObjectDate } from "../../../structures/ObjectDate";
 
-export const test_llm_application_llama_ObjectDate = _test_llm_application({
-  model: "llama",
-  name: "ObjectDate",
-  factory: ObjectDate,
-})(typia.llm.application<ObjectDateApplication, "llama">());
+export const test_llm_application_llama_ObjectDate = (): void =>
+  _test_llm_application({
+    model: "llama",
+    name: "ObjectDate",
+    factory: ObjectDate,
+  })(typia.llm.application<ObjectDateApplication, "llama">());
 
 interface ObjectDateApplication {
   insert(p: { first: ObjectDate }): Promise<void>;

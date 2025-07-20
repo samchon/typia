@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsParameters } from "../../internal/_test_
 import { DynamicEnumeration } from "../../structures/DynamicEnumeration";
 
 export const test_functional_validateEqualsParameters_DynamicEnumeration =
-  _test_functional_validateEqualsParameters("DynamicEnumeration")(
-    DynamicEnumeration,
-  )((p: (input: DynamicEnumeration) => DynamicEnumeration) =>
-    typia.functional.validateEqualsParameters(p),
-  );
+  (): void =>
+    _test_functional_validateEqualsParameters("DynamicEnumeration")(
+      DynamicEnumeration,
+    )((p: (input: DynamicEnumeration) => DynamicEnumeration) =>
+      typia.functional.validateEqualsParameters(p),
+    );

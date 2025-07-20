@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_assertGuardEquals } from "../../internal/_test_assertGuardEquals";
 import { ObjectUnionExplicit } from "../../structures/ObjectUnionExplicit";
 
-export const test_assertGuardEqualsCustom_ObjectUnionExplicit =
+export const test_assertGuardEqualsCustom_ObjectUnionExplicit = (): void =>
   _test_assertGuardEquals(CustomGuardError)(
     "ObjectUnionExplicit",
   )<ObjectUnionExplicit>(ObjectUnionExplicit)((input) =>

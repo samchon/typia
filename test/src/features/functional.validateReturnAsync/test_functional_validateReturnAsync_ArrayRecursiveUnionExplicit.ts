@@ -4,12 +4,13 @@ import { _test_functional_validateReturnAsync } from "../../internal/_test_funct
 import { ArrayRecursiveUnionExplicit } from "../../structures/ArrayRecursiveUnionExplicit";
 
 export const test_functional_validateReturnAsync_ArrayRecursiveUnionExplicit =
-  _test_functional_validateReturnAsync("ArrayRecursiveUnionExplicit")(
-    ArrayRecursiveUnionExplicit,
-  )(
-    (
-      p: (
-        input: ArrayRecursiveUnionExplicit,
-      ) => Promise<ArrayRecursiveUnionExplicit>,
-    ) => typia.functional.validateReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateReturnAsync("ArrayRecursiveUnionExplicit")(
+      ArrayRecursiveUnionExplicit,
+    )(
+      (
+        p: (
+          input: ArrayRecursiveUnionExplicit,
+        ) => Promise<ArrayRecursiveUnionExplicit>,
+      ) => typia.functional.validateReturn(p),
+    );

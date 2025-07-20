@@ -5,8 +5,9 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { ToJsonArray } from "../../structures/ToJsonArray";
 
 export const test_functional_assertReturnAsync_ToJsonArray =
-  _test_functional_assertReturnAsync(TypeGuardError)("ToJsonArray")(
-    ToJsonArray,
-  )((p: (input: ToJsonArray) => Promise<ToJsonArray>) =>
-    typia.functional.assertReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(TypeGuardError)("ToJsonArray")(
+      ToJsonArray,
+    )((p: (input: ToJsonArray) => Promise<ToJsonArray>) =>
+      typia.functional.assertReturn(p),
+    );

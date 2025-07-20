@@ -6,8 +6,7 @@ import { resolved_equal_to } from "../helpers/resolved_equal_to";
 export const _test_misc_validateClone =
   (name: string) =>
   <T>(factory: TestStructure<T>) =>
-  (clone: (input: T) => typia.IValidation<typia.Resolved<T>>) =>
-  () => {
+  (clone: (input: T) => typia.IValidation<typia.Resolved<T>>): void => {
     const input: T = factory.generate();
     const valid: typia.IValidation<typia.Resolved<T>> = clone(input);
     if (valid.success === false)

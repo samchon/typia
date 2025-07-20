@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_protobuf_assertEncode } from "../../internal/_test_protobuf_assertEncode";
 import { CommentTagInfinite } from "../../structures/CommentTagInfinite";
 
-export const test_protobuf_assertEncodeCustom_CommentTagInfinite =
+export const test_protobuf_assertEncodeCustom_CommentTagInfinite = (): void =>
   _test_protobuf_assertEncode(CustomGuardError)(
     "CommentTagInfinite",
   )<CommentTagInfinite>(CommentTagInfinite)({

@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_assertEquals } from "../../internal/_test_assertEquals";
 import { ObjectUnionCompositePointer } from "../../structures/ObjectUnionCompositePointer";
 
-export const test_assertEqualsCustom_ObjectUnionCompositePointer =
+export const test_assertEqualsCustom_ObjectUnionCompositePointer = (): void =>
   _test_assertEquals(CustomGuardError)(
     "ObjectUnionCompositePointer",
   )<ObjectUnionCompositePointer>(ObjectUnionCompositePointer)((input) =>

@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_functional_assertEqualsFunction } from "../../internal/_test_functional_assertEqualsFunction";
 import { ObjectAlias } from "../../structures/ObjectAlias";
 
-export const test_functional_assertEqualsFunction_ObjectAlias =
+export const test_functional_assertEqualsFunction_ObjectAlias = (): void =>
   _test_functional_assertEqualsFunction(TypeGuardError)("ObjectAlias")(
     ObjectAlias,
   )((p: (input: ObjectAlias) => ObjectAlias) =>

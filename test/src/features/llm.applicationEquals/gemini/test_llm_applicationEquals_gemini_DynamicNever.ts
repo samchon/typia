@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { DynamicNever } from "../../../structures/DynamicNever";
 
-export const test_llm_application_gemini_DynamicNever =
+export const test_llm_applicationEquals_gemini_DynamicNever = (): void =>
   _test_llm_applicationEquals({
     model: "gemini",
     name: "DynamicNever",

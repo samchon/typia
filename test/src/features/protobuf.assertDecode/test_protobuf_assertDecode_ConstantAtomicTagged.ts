@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_protobuf_assertDecode } from "../../internal/_test_protobuf_assertDecode";
 import { ConstantAtomicTagged } from "../../structures/ConstantAtomicTagged";
 
-export const test_protobuf_assertDecode_ConstantAtomicTagged =
+export const test_protobuf_assertDecode_ConstantAtomicTagged = (): void =>
   _test_protobuf_assertDecode(TypeGuardError)(
     "ConstantAtomicTagged",
   )<ConstantAtomicTagged>(ConstantAtomicTagged)({

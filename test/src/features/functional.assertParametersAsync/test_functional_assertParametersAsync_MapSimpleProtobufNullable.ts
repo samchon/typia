@@ -5,12 +5,13 @@ import { _test_functional_assertParametersAsync } from "../../internal/_test_fun
 import { MapSimpleProtobufNullable } from "../../structures/MapSimpleProtobufNullable";
 
 export const test_functional_assertParametersAsync_MapSimpleProtobufNullable =
-  _test_functional_assertParametersAsync(TypeGuardError)(
-    "MapSimpleProtobufNullable",
-  )(MapSimpleProtobufNullable)(
-    (
-      p: (
-        input: MapSimpleProtobufNullable,
-      ) => Promise<MapSimpleProtobufNullable>,
-    ) => typia.functional.assertParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertParametersAsync(TypeGuardError)(
+      "MapSimpleProtobufNullable",
+    )(MapSimpleProtobufNullable)(
+      (
+        p: (
+          input: MapSimpleProtobufNullable,
+        ) => Promise<MapSimpleProtobufNullable>,
+      ) => typia.functional.assertParameters(p),
+    );

@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_applicationEquals } from "../../../internal/_test_llm_applicationEquals";
 import { CommentTagPattern } from "../../../structures/CommentTagPattern";
 
-export const test_llm_application_gemini_CommentTagPattern =
+export const test_llm_applicationEquals_gemini_CommentTagPattern = (): void =>
   _test_llm_applicationEquals({
     model: "gemini",
     name: "CommentTagPattern",
