@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_claude_ConstantEnumeration = (): void =>
     typia.llm.application<
       ConstantEnumerationApplication,
       "claude",
-      { equal: true }
+      { equals:; true }
     >(),
   );
 

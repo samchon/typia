@@ -13,7 +13,7 @@ export const test_llm_applicationEquals_llama_ClassPropertyAssignment =
       typia.llm.application<
         ClassPropertyAssignmentApplication,
         "llama",
-        { equal: true }
+        { equals:; true }
       >(),
     );
 

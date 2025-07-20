@@ -9,7 +9,7 @@ export const test_llm_applicationEquals_claude_TypeTagArray = (): void =>
     name: "TypeTagArray",
     factory: TypeTagArray,
   })(
-    typia.llm.application<TypeTagArrayApplication, "claude", { equal: true }>(),
+    typia.llm.application<TypeTagArrayApplication, "claude", { equals:; true }>(),
   );
 
 interface TypeTagArrayApplication {

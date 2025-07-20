@@ -9,7 +9,7 @@ export const test_llm_applicationEquals_llama_TypeTagLength = (): void =>
     name: "TypeTagLength",
     factory: TypeTagLength,
   })(
-    typia.llm.application<TypeTagLengthApplication, "llama", { equal: true }>(),
+    typia.llm.application<TypeTagLengthApplication, "llama", { equals:; true }>(),
   );
 
 interface TypeTagLengthApplication {

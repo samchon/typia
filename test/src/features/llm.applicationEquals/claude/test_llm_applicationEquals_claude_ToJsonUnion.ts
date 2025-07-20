@@ -9,7 +9,7 @@ export const test_llm_applicationEquals_claude_ToJsonUnion = (): void =>
     name: "ToJsonUnion",
     factory: ToJsonUnion,
   })(
-    typia.llm.application<ToJsonUnionApplication, "claude", { equal: true }>(),
+    typia.llm.application<ToJsonUnionApplication, "claude", { equals:; true }>(),
   );
 
 interface ToJsonUnionApplication {

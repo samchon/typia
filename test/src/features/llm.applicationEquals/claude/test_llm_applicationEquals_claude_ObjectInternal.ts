@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_claude_ObjectInternal = (): void =>
     typia.llm.application<
       ObjectInternalApplication,
       "claude",
-      { equal: true }
+      { equals:; true }
     >(),
   );
 

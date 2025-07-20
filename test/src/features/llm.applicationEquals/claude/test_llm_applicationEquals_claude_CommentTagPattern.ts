@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_claude_CommentTagPattern = (): void =>
     typia.llm.application<
       CommentTagPatternApplication,
       "claude",
-      { equal: true }
+      { equals:; true }
     >(),
   );
 

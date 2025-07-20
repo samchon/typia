@@ -9,7 +9,7 @@ export const test_llm_applicationEquals_3_0_CommentTagArray = (): void =>
     name: "CommentTagArray",
     factory: CommentTagArray,
   })(
-    typia.llm.application<CommentTagArrayApplication, "3.0", { equal: true }>(),
+    typia.llm.application<CommentTagArrayApplication, "3.0", { equals:; true }>(),
   );
 
 interface CommentTagArrayApplication {

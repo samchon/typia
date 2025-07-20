@@ -9,7 +9,7 @@ export const test_llm_applicationEquals_3_0_TypeTagDefault = (): void =>
     name: "TypeTagDefault",
     factory: TypeTagDefault,
   })(
-    typia.llm.application<TypeTagDefaultApplication, "3.0", { equal: true }>(),
+    typia.llm.application<TypeTagDefaultApplication, "3.0", { equals:; true }>(),
   );
 
 interface TypeTagDefaultApplication {

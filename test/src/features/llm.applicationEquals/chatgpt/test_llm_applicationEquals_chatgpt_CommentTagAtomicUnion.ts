@@ -13,7 +13,7 @@ export const test_llm_applicationEquals_chatgpt_CommentTagAtomicUnion =
       typia.llm.application<
         CommentTagAtomicUnionApplication,
         "chatgpt",
-        { equal: true }
+        { equals:; true }
       >(),
     );
 

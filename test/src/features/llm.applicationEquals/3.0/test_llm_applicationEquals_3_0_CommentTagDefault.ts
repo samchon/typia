@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_3_0_CommentTagDefault = (): void =>
     typia.llm.application<
       CommentTagDefaultApplication,
       "3.0",
-      { equal: true }
+      { equals:; true }
     >(),
   );
 

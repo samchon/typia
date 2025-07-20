@@ -13,7 +13,7 @@ export const test_llm_applicationEquals_3_1_ArrayRecursiveUnionExplicit =
       typia.llm.application<
         ArrayRecursiveUnionExplicitApplication,
         "3.1",
-        { equal: true }
+        { equals:; true }
       >(),
     );
 

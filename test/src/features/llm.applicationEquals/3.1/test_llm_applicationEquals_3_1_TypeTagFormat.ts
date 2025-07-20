@@ -8,7 +8,7 @@ export const test_llm_applicationEquals_3_1_TypeTagFormat = (): void =>
     model: "3.1",
     name: "TypeTagFormat",
     factory: TypeTagFormat,
-  })(typia.llm.application<TypeTagFormatApplication, "3.1", { equal: true }>());
+  })(typia.llm.application<TypeTagFormatApplication, "3.1", { equals:; true }>());
 
 interface TypeTagFormatApplication {
   insert(p: { first: TypeTagFormat }): Promise<void>;

@@ -13,7 +13,7 @@ export const test_llm_applicationEquals_gemini_ArrayHierarchicalPointer =
       typia.llm.application<
         ArrayHierarchicalPointerApplication,
         "gemini",
-        { equal: true }
+        { equals:; true }
       >(),
     );
 

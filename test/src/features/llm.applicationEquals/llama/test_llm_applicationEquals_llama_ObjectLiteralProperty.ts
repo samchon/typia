@@ -13,7 +13,7 @@ export const test_llm_applicationEquals_llama_ObjectLiteralProperty =
       typia.llm.application<
         ObjectLiteralPropertyApplication,
         "llama",
-        { equal: true }
+        { equals:; true }
       >(),
     );
 

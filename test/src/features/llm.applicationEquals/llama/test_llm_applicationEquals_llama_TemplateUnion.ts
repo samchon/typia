@@ -9,7 +9,7 @@ export const test_llm_applicationEquals_llama_TemplateUnion = (): void =>
     name: "TemplateUnion",
     factory: TemplateUnion,
   })(
-    typia.llm.application<TemplateUnionApplication, "llama", { equal: true }>(),
+    typia.llm.application<TemplateUnionApplication, "llama", { equals:; true }>(),
   );
 
 interface TemplateUnionApplication {

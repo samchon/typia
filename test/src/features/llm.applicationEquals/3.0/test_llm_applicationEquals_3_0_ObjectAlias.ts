@@ -8,7 +8,7 @@ export const test_llm_applicationEquals_3_0_ObjectAlias = (): void =>
     model: "3.0",
     name: "ObjectAlias",
     factory: ObjectAlias,
-  })(typia.llm.application<ObjectAliasApplication, "3.0", { equal: true }>());
+  })(typia.llm.application<ObjectAliasApplication, "3.0", { equals:; true }>());
 
 interface ObjectAliasApplication {
   insert(p: { first: ObjectAlias }): Promise<void>;

@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_llama_ObjectUndefined = (): void =>
     typia.llm.application<
       ObjectUndefinedApplication,
       "llama",
-      { equal: true }
+      { equals:; true }
     >(),
   );
 

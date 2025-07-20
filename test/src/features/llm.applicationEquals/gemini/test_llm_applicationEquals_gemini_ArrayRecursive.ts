@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_gemini_ArrayRecursive = (): void =>
     typia.llm.application<
       ArrayRecursiveApplication,
       "gemini",
-      { equal: true }
+      { equals:; true }
     >(),
   );
 

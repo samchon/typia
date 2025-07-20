@@ -13,7 +13,7 @@ export const test_llm_applicationEquals_chatgpt_ObjectUnionExplicitPointer =
       typia.llm.application<
         ObjectUnionExplicitPointerApplication,
         "chatgpt",
-        { equal: true }
+        { equals:; true }
       >(),
     );
 

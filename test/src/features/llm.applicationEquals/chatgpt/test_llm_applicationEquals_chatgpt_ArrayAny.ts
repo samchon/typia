@@ -8,7 +8,7 @@ export const test_llm_applicationEquals_chatgpt_ArrayAny = (): void =>
     model: "chatgpt",
     name: "ArrayAny",
     factory: ArrayAny,
-  })(typia.llm.application<ArrayAnyApplication, "chatgpt", { equal: true }>());
+  })(typia.llm.application<ArrayAnyApplication, "chatgpt", { equals:; true }>());
 
 interface ArrayAnyApplication {
   insert(p: { first: ArrayAny }): Promise<void>;

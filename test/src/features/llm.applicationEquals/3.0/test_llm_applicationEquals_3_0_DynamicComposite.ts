@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_3_0_DynamicComposite = (): void =>
     typia.llm.application<
       DynamicCompositeApplication,
       "3.0",
-      { equal: true }
+      { equals:; true }
     >(),
   );
 

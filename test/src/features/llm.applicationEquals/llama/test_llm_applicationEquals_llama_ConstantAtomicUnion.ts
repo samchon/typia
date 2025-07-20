@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_llama_ConstantAtomicUnion = (): void =>
     typia.llm.application<
       ConstantAtomicUnionApplication,
       "llama",
-      { equal: true }
+      { equals:; true }
     >(),
   );
 

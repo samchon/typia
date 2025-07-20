@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_chatgpt_ObjectGenericUnion = (): void =>
     typia.llm.application<
       ObjectGenericUnionApplication,
       "chatgpt",
-      { equal: true }
+      { equals:; true }
     >(),
   );
 

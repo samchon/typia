@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_chatgpt_ObjectUndefined = (): void =>
     typia.llm.application<
       ObjectUndefinedApplication,
       "chatgpt",
-      { equal: true }
+      { equals:; true }
     >(),
   );
 

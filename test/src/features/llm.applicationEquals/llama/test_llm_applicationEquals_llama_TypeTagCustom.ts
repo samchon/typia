@@ -9,7 +9,7 @@ export const test_llm_applicationEquals_llama_TypeTagCustom = (): void =>
     name: "TypeTagCustom",
     factory: TypeTagCustom,
   })(
-    typia.llm.application<TypeTagCustomApplication, "llama", { equal: true }>(),
+    typia.llm.application<TypeTagCustomApplication, "llama", { equals:; true }>(),
   );
 
 interface TypeTagCustomApplication {

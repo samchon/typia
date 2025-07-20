@@ -36,7 +36,7 @@ export namespace TestLlmApplicationEqualsGenerator {
         `    name: ${JSON.stringify(s.name)},`,
         `    factory: ${s.name}`,
         `  })(`,
-        `    typia.llm.application<${s.name}Application, ${JSON.stringify(model)}, { equal: true }>(),`,
+        `    typia.llm.application<${s.name}Application, ${JSON.stringify(model)}, { equals: true }>(),`,
         `  );`,
         ``,
         `interface ${s.name}Application {`,

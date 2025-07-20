@@ -9,7 +9,7 @@ export const test_llm_applicationEquals_chatgpt_ToJsonNull = (): void =>
     name: "ToJsonNull",
     factory: ToJsonNull,
   })(
-    typia.llm.application<ToJsonNullApplication, "chatgpt", { equal: true }>(),
+    typia.llm.application<ToJsonNullApplication, "chatgpt", { equals:; true }>(),
   );
 
 interface ToJsonNullApplication {

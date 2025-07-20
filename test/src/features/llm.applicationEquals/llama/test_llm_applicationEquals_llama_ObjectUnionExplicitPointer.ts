@@ -13,7 +13,7 @@ export const test_llm_applicationEquals_llama_ObjectUnionExplicitPointer =
       typia.llm.application<
         ObjectUnionExplicitPointerApplication,
         "llama",
-        { equal: true }
+        { equals:; true }
       >(),
     );
 

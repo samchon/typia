@@ -9,7 +9,7 @@ export const test_llm_applicationEquals_3_1_TypeTagPattern = (): void =>
     name: "TypeTagPattern",
     factory: TypeTagPattern,
   })(
-    typia.llm.application<TypeTagPatternApplication, "3.1", { equal: true }>(),
+    typia.llm.application<TypeTagPatternApplication, "3.1", { equals:; true }>(),
   );
 
 interface TypeTagPatternApplication {

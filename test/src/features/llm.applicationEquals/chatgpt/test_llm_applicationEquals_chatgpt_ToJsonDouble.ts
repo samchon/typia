@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_chatgpt_ToJsonDouble = (): void =>
     typia.llm.application<
       ToJsonDoubleApplication,
       "chatgpt",
-      { equal: true }
+      { equals:; true }
     >(),
   );
 

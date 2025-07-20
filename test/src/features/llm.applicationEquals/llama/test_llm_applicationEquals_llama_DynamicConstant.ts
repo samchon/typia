@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_llama_DynamicConstant = (): void =>
     typia.llm.application<
       DynamicConstantApplication,
       "llama",
-      { equal: true }
+      { equals:; true }
     >(),
   );
 

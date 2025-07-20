@@ -9,7 +9,7 @@ export const test_llm_applicationEquals_llama_TypeTagFormat = (): void =>
     name: "TypeTagFormat",
     factory: TypeTagFormat,
   })(
-    typia.llm.application<TypeTagFormatApplication, "llama", { equal: true }>(),
+    typia.llm.application<TypeTagFormatApplication, "llama", { equals:; true }>(),
   );
 
 interface TypeTagFormatApplication {

@@ -13,7 +13,7 @@ export const test_llm_applicationEquals_chatgpt_ArrayRepeatedNullable =
       typia.llm.application<
         ArrayRepeatedNullableApplication,
         "chatgpt",
-        { equal: true }
+        { equals:; true }
       >(),
     );
 

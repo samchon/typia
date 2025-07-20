@@ -13,7 +13,7 @@ export const test_llm_applicationEquals_chatgpt_ObjectUnionNonPredictable =
       typia.llm.application<
         ObjectUnionNonPredictableApplication,
         "chatgpt",
-        { equal: true }
+        { equals:; true }
       >(),
     );
 

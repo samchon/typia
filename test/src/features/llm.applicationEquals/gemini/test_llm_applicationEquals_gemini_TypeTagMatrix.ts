@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_gemini_TypeTagMatrix = (): void =>
     typia.llm.application<
       TypeTagMatrixApplication,
       "gemini",
-      { equal: true }
+      { equals:; true }
     >(),
   );
 

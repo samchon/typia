@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_claude_TypeTagCustom = (): void =>
     typia.llm.application<
       TypeTagCustomApplication,
       "claude",
-      { equal: true }
+      { equals:; true }
     >(),
   );
 

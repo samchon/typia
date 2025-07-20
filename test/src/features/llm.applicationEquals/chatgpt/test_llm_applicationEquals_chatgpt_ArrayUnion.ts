@@ -9,7 +9,7 @@ export const test_llm_applicationEquals_chatgpt_ArrayUnion = (): void =>
     name: "ArrayUnion",
     factory: ArrayUnion,
   })(
-    typia.llm.application<ArrayUnionApplication, "chatgpt", { equal: true }>(),
+    typia.llm.application<ArrayUnionApplication, "chatgpt", { equals:; true }>(),
   );
 
 interface ArrayUnionApplication {

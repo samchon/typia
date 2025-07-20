@@ -8,7 +8,7 @@ export const test_llm_applicationEquals_3_0_DynamicUnion = (): void =>
     model: "3.0",
     name: "DynamicUnion",
     factory: DynamicUnion,
-  })(typia.llm.application<DynamicUnionApplication, "3.0", { equal: true }>());
+  })(typia.llm.application<DynamicUnionApplication, "3.0", { equals:; true }>());
 
 interface DynamicUnionApplication {
   insert(p: { first: DynamicUnion }): Promise<void>;

@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_claude_TypeTagLength = (): void =>
     typia.llm.application<
       TypeTagLengthApplication,
       "claude",
-      { equal: true }
+      { equals:; true }
     >(),
   );
 

@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_chatgpt_ArrayHierarchical = (): void =>
     typia.llm.application<
       ArrayHierarchicalApplication,
       "chatgpt",
-      { equal: true }
+      { equals:; true }
     >(),
   );
 

@@ -9,7 +9,7 @@ export const test_llm_applicationEquals_chatgpt_ObjectAlias = (): void =>
     name: "ObjectAlias",
     factory: ObjectAlias,
   })(
-    typia.llm.application<ObjectAliasApplication, "chatgpt", { equal: true }>(),
+    typia.llm.application<ObjectAliasApplication, "chatgpt", { equals:; true }>(),
   );
 
 interface ObjectAliasApplication {

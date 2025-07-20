@@ -13,7 +13,7 @@ export const test_llm_applicationEquals_claude_CommentTagObjectUnion =
       typia.llm.application<
         CommentTagObjectUnionApplication,
         "claude",
-        { equal: true }
+        { equals:; true }
       >(),
     );
 

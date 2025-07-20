@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_3_1_CommentTagFormat = (): void =>
     typia.llm.application<
       CommentTagFormatApplication,
       "3.1",
-      { equal: true }
+      { equals:; true }
     >(),
   );
 

@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_gemini_DynamicConstant = (): void =>
     typia.llm.application<
       DynamicConstantApplication,
       "gemini",
-      { equal: true }
+      { equals:; true }
     >(),
   );
 

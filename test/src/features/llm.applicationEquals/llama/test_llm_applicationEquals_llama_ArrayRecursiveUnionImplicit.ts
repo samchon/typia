@@ -13,7 +13,7 @@ export const test_llm_applicationEquals_llama_ArrayRecursiveUnionImplicit =
       typia.llm.application<
         ArrayRecursiveUnionImplicitApplication,
         "llama",
-        { equal: true }
+        { equals:; true }
       >(),
     );
 

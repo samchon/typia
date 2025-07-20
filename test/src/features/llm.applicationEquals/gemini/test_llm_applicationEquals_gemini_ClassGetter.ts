@@ -9,7 +9,7 @@ export const test_llm_applicationEquals_gemini_ClassGetter = (): void =>
     name: "ClassGetter",
     factory: ClassGetter,
   })(
-    typia.llm.application<ClassGetterApplication, "gemini", { equal: true }>(),
+    typia.llm.application<ClassGetterApplication, "gemini", { equals:; true }>(),
   );
 
 interface ClassGetterApplication {

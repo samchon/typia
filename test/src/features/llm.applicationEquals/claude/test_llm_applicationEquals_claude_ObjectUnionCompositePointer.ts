@@ -13,7 +13,7 @@ export const test_llm_applicationEquals_claude_ObjectUnionCompositePointer =
       typia.llm.application<
         ObjectUnionCompositePointerApplication,
         "claude",
-        { equal: true }
+        { equals:; true }
       >(),
     );
 

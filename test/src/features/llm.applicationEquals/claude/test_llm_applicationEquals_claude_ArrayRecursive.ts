@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_claude_ArrayRecursive = (): void =>
     typia.llm.application<
       ArrayRecursiveApplication,
       "claude",
-      { equal: true }
+      { equals:; true }
     >(),
   );
 

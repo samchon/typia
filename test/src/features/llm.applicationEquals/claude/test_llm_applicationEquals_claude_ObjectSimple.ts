@@ -9,7 +9,7 @@ export const test_llm_applicationEquals_claude_ObjectSimple = (): void =>
     name: "ObjectSimple",
     factory: ObjectSimple,
   })(
-    typia.llm.application<ObjectSimpleApplication, "claude", { equal: true }>(),
+    typia.llm.application<ObjectSimpleApplication, "claude", { equals:; true }>(),
   );
 
 interface ObjectSimpleApplication {

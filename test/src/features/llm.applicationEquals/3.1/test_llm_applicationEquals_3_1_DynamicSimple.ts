@@ -8,7 +8,7 @@ export const test_llm_applicationEquals_3_1_DynamicSimple = (): void =>
     model: "3.1",
     name: "DynamicSimple",
     factory: DynamicSimple,
-  })(typia.llm.application<DynamicSimpleApplication, "3.1", { equal: true }>());
+  })(typia.llm.application<DynamicSimpleApplication, "3.1", { equals:; true }>());
 
 interface DynamicSimpleApplication {
   insert(p: { first: DynamicSimple }): Promise<void>;

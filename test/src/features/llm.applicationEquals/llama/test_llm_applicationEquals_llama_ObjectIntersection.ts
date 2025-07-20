@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_llama_ObjectIntersection = (): void =>
     typia.llm.application<
       ObjectIntersectionApplication,
       "llama",
-      { equal: true }
+      { equals:; true }
     >(),
   );
 

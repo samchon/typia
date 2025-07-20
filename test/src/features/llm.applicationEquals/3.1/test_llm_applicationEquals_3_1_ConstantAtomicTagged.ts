@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_3_1_ConstantAtomicTagged = (): void =>
     typia.llm.application<
       ConstantAtomicTaggedApplication,
       "3.1",
-      { equal: true }
+      { equals:; true }
     >(),
   );
 

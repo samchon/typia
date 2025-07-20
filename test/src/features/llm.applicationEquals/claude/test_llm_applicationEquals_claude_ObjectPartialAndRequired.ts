@@ -13,7 +13,7 @@ export const test_llm_applicationEquals_claude_ObjectPartialAndRequired =
       typia.llm.application<
         ObjectPartialAndRequiredApplication,
         "claude",
-        { equal: true }
+        { equals:; true }
       >(),
     );
 

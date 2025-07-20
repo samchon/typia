@@ -9,7 +9,7 @@ export const test_llm_applicationEquals_3_0_ObjectUndefined = (): void =>
     name: "ObjectUndefined",
     factory: ObjectUndefined,
   })(
-    typia.llm.application<ObjectUndefinedApplication, "3.0", { equal: true }>(),
+    typia.llm.application<ObjectUndefinedApplication, "3.0", { equals:; true }>(),
   );
 
 interface ObjectUndefinedApplication {

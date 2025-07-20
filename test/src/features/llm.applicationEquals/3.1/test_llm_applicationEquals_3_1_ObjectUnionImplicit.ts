@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_3_1_ObjectUnionImplicit = (): void =>
     typia.llm.application<
       ObjectUnionImplicitApplication,
       "3.1",
-      { equal: true }
+      { equals:; true }
     >(),
   );
 

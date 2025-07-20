@@ -13,7 +13,7 @@ export const test_llm_applicationEquals_chatgpt_ClassPropertyAssignment =
       typia.llm.application<
         ClassPropertyAssignmentApplication,
         "chatgpt",
-        { equal: true }
+        { equals:; true }
       >(),
     );
 

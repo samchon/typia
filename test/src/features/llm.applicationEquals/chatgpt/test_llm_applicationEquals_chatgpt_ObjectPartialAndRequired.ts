@@ -13,7 +13,7 @@ export const test_llm_applicationEquals_chatgpt_ObjectPartialAndRequired =
       typia.llm.application<
         ObjectPartialAndRequiredApplication,
         "chatgpt",
-        { equal: true }
+        { equals:; true }
       >(),
     );
 

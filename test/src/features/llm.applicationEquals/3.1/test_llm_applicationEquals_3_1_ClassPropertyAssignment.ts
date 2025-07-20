@@ -13,7 +13,7 @@ export const test_llm_applicationEquals_3_1_ClassPropertyAssignment =
       typia.llm.application<
         ClassPropertyAssignmentApplication,
         "3.1",
-        { equal: true }
+        { equals:; true }
       >(),
     );
 

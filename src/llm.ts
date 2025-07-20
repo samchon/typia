@@ -155,7 +155,16 @@ export function controller<
   Model extends ILlmSchema.Model,
   Config extends Partial<
     ILlmSchema.ModelConfig[Model] & {
-      equal: boolean;
+      /**
+       * Whether to disallow superfluous properties or not.
+       *
+       * If configure as `true`, {@link validateEquals} function would be
+       * used for validation feedback, which is more strict than
+       * {@link validate} function.
+       *
+       * @default false
+       */
+      equals: boolean;
     }
   > = {},
 >(
@@ -295,7 +304,7 @@ export function application<
        *
        * @default false
        */
-      equal: boolean;
+      equals: boolean;
     } & ILlmSchema.ModelConfig[Model]
   > = {},
 >(

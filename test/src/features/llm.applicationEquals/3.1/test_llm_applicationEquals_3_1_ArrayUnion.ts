@@ -8,7 +8,7 @@ export const test_llm_applicationEquals_3_1_ArrayUnion = (): void =>
     model: "3.1",
     name: "ArrayUnion",
     factory: ArrayUnion,
-  })(typia.llm.application<ArrayUnionApplication, "3.1", { equal: true }>());
+  })(typia.llm.application<ArrayUnionApplication, "3.1", { equals:; true }>());
 
 interface ArrayUnionApplication {
   insert(p: { first: ArrayUnion }): Promise<void>;

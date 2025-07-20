@@ -13,7 +13,7 @@ export const test_llm_applicationEquals_chatgpt_ArrayRecursiveUnionExplicitPoint
       typia.llm.application<
         ArrayRecursiveUnionExplicitPointerApplication,
         "chatgpt",
-        { equal: true }
+        { equals:; true }
       >(),
     );
 

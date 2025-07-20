@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_gemini_ObjectJsonTag = (): void =>
     typia.llm.application<
       ObjectJsonTagApplication,
       "gemini",
-      { equal: true }
+      { equals:; true }
     >(),
   );
 

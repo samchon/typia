@@ -9,7 +9,7 @@ export const test_llm_applicationEquals_3_1_DynamicTemplate = (): void =>
     name: "DynamicTemplate",
     factory: DynamicTemplate,
   })(
-    typia.llm.application<DynamicTemplateApplication, "3.1", { equal: true }>(),
+    typia.llm.application<DynamicTemplateApplication, "3.1", { equals:; true }>(),
   );
 
 interface DynamicTemplateApplication {

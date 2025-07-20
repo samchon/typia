@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_llama_ObjectPrimitive = (): void =>
     typia.llm.application<
       ObjectPrimitiveApplication,
       "llama",
-      { equal: true }
+      { equals:; true }
     >(),
   );
 

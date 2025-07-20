@@ -9,7 +9,7 @@ export const test_llm_applicationEquals_claude_DynamicTree = (): void =>
     name: "DynamicTree",
     factory: DynamicTree,
   })(
-    typia.llm.application<DynamicTreeApplication, "claude", { equal: true }>(),
+    typia.llm.application<DynamicTreeApplication, "claude", { equals:; true }>(),
   );
 
 interface DynamicTreeApplication {

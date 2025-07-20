@@ -9,7 +9,7 @@ export const test_llm_applicationEquals_gemini_DynamicNever = (): void =>
     name: "DynamicNever",
     factory: DynamicNever,
   })(
-    typia.llm.application<DynamicNeverApplication, "gemini", { equal: true }>(),
+    typia.llm.application<DynamicNeverApplication, "gemini", { equals:; true }>(),
   );
 
 interface DynamicNeverApplication {

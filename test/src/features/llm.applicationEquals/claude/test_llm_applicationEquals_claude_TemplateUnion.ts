@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_claude_TemplateUnion = (): void =>
     typia.llm.application<
       TemplateUnionApplication,
       "claude",
-      { equal: true }
+      { equals:; true }
     >(),
   );
 

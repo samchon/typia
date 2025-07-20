@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_llama_TemplateAtomic = (): void =>
     typia.llm.application<
       TemplateAtomicApplication,
       "llama",
-      { equal: true }
+      { equals:; true }
     >(),
   );
 

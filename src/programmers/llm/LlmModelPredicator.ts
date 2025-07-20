@@ -22,7 +22,7 @@ export namespace LlmModelPredicator {
   }):
     | Partial<
         ILlmSchema.ModelConfig[ILlmSchema.Model] & {
-          strict: boolean;
+          equals: boolean;
         }
       >
     | undefined => {

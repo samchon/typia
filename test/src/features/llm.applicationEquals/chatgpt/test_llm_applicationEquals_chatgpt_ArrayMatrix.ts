@@ -9,7 +9,7 @@ export const test_llm_applicationEquals_chatgpt_ArrayMatrix = (): void =>
     name: "ArrayMatrix",
     factory: ArrayMatrix,
   })(
-    typia.llm.application<ArrayMatrixApplication, "chatgpt", { equal: true }>(),
+    typia.llm.application<ArrayMatrixApplication, "chatgpt", { equals:; true }>(),
   );
 
 interface ArrayMatrixApplication {

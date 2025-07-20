@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_chatgpt_CommentTagLength = (): void =>
     typia.llm.application<
       CommentTagLengthApplication,
       "chatgpt",
-      { equal: true }
+      { equals:; true }
     >(),
   );
 

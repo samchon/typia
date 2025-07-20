@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_claude_ObjectRecursive = (): void =>
     typia.llm.application<
       ObjectRecursiveApplication,
       "claude",
-      { equal: true }
+      { equals:; true }
     >(),
   );
 

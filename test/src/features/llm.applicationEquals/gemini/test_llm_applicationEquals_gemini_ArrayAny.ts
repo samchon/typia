@@ -8,7 +8,7 @@ export const test_llm_applicationEquals_gemini_ArrayAny = (): void =>
     model: "gemini",
     name: "ArrayAny",
     factory: ArrayAny,
-  })(typia.llm.application<ArrayAnyApplication, "gemini", { equal: true }>());
+  })(typia.llm.application<ArrayAnyApplication, "gemini", { equals:; true }>());
 
 interface ArrayAnyApplication {
   insert(p: { first: ArrayAny }): Promise<void>;

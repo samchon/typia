@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_chatgpt_ObjectNullable = (): void =>
     typia.llm.application<
       ObjectNullableApplication,
       "chatgpt",
-      { equal: true }
+      { equals:; true }
     >(),
   );
 

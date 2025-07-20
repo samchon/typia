@@ -8,7 +8,7 @@ export const test_llm_applicationEquals_3_0_ObjectDynamic = (): void =>
     model: "3.0",
     name: "ObjectDynamic",
     factory: ObjectDynamic,
-  })(typia.llm.application<ObjectDynamicApplication, "3.0", { equal: true }>());
+  })(typia.llm.application<ObjectDynamicApplication, "3.0", { equals:; true }>());
 
 interface ObjectDynamicApplication {
   insert(p: { first: ObjectDynamic }): Promise<void>;

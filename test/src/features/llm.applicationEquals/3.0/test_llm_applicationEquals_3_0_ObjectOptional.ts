@@ -9,7 +9,7 @@ export const test_llm_applicationEquals_3_0_ObjectOptional = (): void =>
     name: "ObjectOptional",
     factory: ObjectOptional,
   })(
-    typia.llm.application<ObjectOptionalApplication, "3.0", { equal: true }>(),
+    typia.llm.application<ObjectOptionalApplication, "3.0", { equals:; true }>(),
   );
 
 interface ObjectOptionalApplication {

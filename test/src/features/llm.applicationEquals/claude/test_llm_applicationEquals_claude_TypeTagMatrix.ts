@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_claude_TypeTagMatrix = (): void =>
     typia.llm.application<
       TypeTagMatrixApplication,
       "claude",
-      { equal: true }
+      { equals:; true }
     >(),
   );
 

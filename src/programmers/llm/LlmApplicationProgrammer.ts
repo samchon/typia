@@ -158,7 +158,7 @@ export namespace LlmApplicationProgrammer {
     metadata: Metadata;
     config?: Partial<
       ILlmSchema.ModelConfig[Model] & {
-        equal: boolean;
+        equals: boolean;
       }
     >;
     name?: string;
@@ -236,7 +236,7 @@ export namespace LlmApplicationProgrammer {
     config:
       | Partial<
           ILlmSchema.ModelConfig[Model] & {
-            equal: boolean;
+            equals: boolean;
           }
         >
       | undefined;
@@ -290,7 +290,7 @@ export namespace LlmApplicationProgrammer {
         parameter: props.parameter,
         name: props.function.name,
         className: props.className,
-        equal: props.config?.equal ?? false,
+        equals: props.config?.equals ?? false,
       }),
     };
   };
@@ -364,7 +364,7 @@ export namespace LlmApplicationProgrammer {
     modulo: ts.LeftHandSideExpression;
     parameter: MetadataParameter | null;
     name: string;
-    equal: boolean;
+    equals: boolean;
     className?: string;
   }): ((props: unknown) => IValidation<unknown>) => {
     if (props.parameter === null)
@@ -374,7 +374,7 @@ export namespace LlmApplicationProgrammer {
           TypeFactory.keyword("any"),
         ),
         config: {
-          equals: props.equal,
+          equals: props.equals,
         },
         name: undefined,
       }) as any;
@@ -389,7 +389,7 @@ export namespace LlmApplicationProgrammer {
       ...props,
       type: props.parameter.tsType!,
       config: {
-        equals: props.equal,
+        equals: props.equals,
       },
       name: props.className
         ? `Parameters<${props.className}[${JSON.stringify(props.name)}]>[0]`

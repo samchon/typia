@@ -13,7 +13,7 @@ export const test_llm_applicationEquals_llama_ArrayRepeatedNullable =
       typia.llm.application<
         ArrayRepeatedNullableApplication,
         "llama",
-        { equal: true }
+        { equals:; true }
       >(),
     );
 

@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_claude_ObjectJsonTag = (): void =>
     typia.llm.application<
       ObjectJsonTagApplication,
       "claude",
-      { equal: true }
+      { equals:; true }
     >(),
   );
 

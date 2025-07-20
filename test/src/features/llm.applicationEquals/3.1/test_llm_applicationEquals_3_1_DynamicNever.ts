@@ -8,7 +8,7 @@ export const test_llm_applicationEquals_3_1_DynamicNever = (): void =>
     model: "3.1",
     name: "DynamicNever",
     factory: DynamicNever,
-  })(typia.llm.application<DynamicNeverApplication, "3.1", { equal: true }>());
+  })(typia.llm.application<DynamicNeverApplication, "3.1", { equals:; true }>());
 
 interface DynamicNeverApplication {
   insert(p: { first: DynamicNever }): Promise<void>;

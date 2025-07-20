@@ -9,7 +9,7 @@ export const test_llm_applicationEquals_gemini_ToJsonDouble = (): void =>
     name: "ToJsonDouble",
     factory: ToJsonDouble,
   })(
-    typia.llm.application<ToJsonDoubleApplication, "gemini", { equal: true }>(),
+    typia.llm.application<ToJsonDoubleApplication, "gemini", { equals:; true }>(),
   );
 
 interface ToJsonDoubleApplication {

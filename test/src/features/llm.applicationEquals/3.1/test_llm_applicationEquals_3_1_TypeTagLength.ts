@@ -8,7 +8,7 @@ export const test_llm_applicationEquals_3_1_TypeTagLength = (): void =>
     model: "3.1",
     name: "TypeTagLength",
     factory: TypeTagLength,
-  })(typia.llm.application<TypeTagLengthApplication, "3.1", { equal: true }>());
+  })(typia.llm.application<TypeTagLengthApplication, "3.1", { equals:; true }>());
 
 interface TypeTagLengthApplication {
   insert(p: { first: TypeTagLength }): Promise<void>;

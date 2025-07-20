@@ -13,7 +13,7 @@ export const test_llm_applicationEquals_chatgpt_ConstantEnumeration =
       typia.llm.application<
         ConstantEnumerationApplication,
         "chatgpt",
-        { equal: true }
+        { equals:; true }
       >(),
     );
 

@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_claude_ToJsonAtomicUnion = (): void =>
     typia.llm.application<
       ToJsonAtomicUnionApplication,
       "claude",
-      { equal: true }
+      { equals:; true }
     >(),
   );
 

@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_chatgpt_ObjectInternal = (): void =>
     typia.llm.application<
       ObjectInternalApplication,
       "chatgpt",
-      { equal: true }
+      { equals:; true }
     >(),
   );
 

@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_claude_TypeTagArrayUnion = (): void =>
     typia.llm.application<
       TypeTagArrayUnionApplication,
       "claude",
-      { equal: true }
+      { equals:; true }
     >(),
   );
 

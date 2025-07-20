@@ -9,7 +9,7 @@ export const test_llm_applicationEquals_claude_ArraySimple = (): void =>
     name: "ArraySimple",
     factory: ArraySimple,
   })(
-    typia.llm.application<ArraySimpleApplication, "claude", { equal: true }>(),
+    typia.llm.application<ArraySimpleApplication, "claude", { equals:; true }>(),
   );
 
 interface ArraySimpleApplication {

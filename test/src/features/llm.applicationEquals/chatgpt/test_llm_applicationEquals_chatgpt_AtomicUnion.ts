@@ -9,7 +9,7 @@ export const test_llm_applicationEquals_chatgpt_AtomicUnion = (): void =>
     name: "AtomicUnion",
     factory: AtomicUnion,
   })(
-    typia.llm.application<AtomicUnionApplication, "chatgpt", { equal: true }>(),
+    typia.llm.application<AtomicUnionApplication, "chatgpt", { equals:; true }>(),
   );
 
 interface AtomicUnionApplication {

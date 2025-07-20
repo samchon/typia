@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_gemini_ObjectLiteralType = (): void =>
     typia.llm.application<
       ObjectLiteralTypeApplication,
       "gemini",
-      { equal: true }
+      { equals:; true }
     >(),
   );
 

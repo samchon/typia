@@ -8,7 +8,7 @@ export const test_llm_applicationEquals_3_1_TypeTagRange = (): void =>
     model: "3.1",
     name: "TypeTagRange",
     factory: TypeTagRange,
-  })(typia.llm.application<TypeTagRangeApplication, "3.1", { equal: true }>());
+  })(typia.llm.application<TypeTagRangeApplication, "3.1", { equals:; true }>());
 
 interface TypeTagRangeApplication {
   insert(p: { first: TypeTagRange }): Promise<void>;

@@ -9,7 +9,7 @@ export const test_llm_applicationEquals_gemini_ArrayMatrix = (): void =>
     name: "ArrayMatrix",
     factory: ArrayMatrix,
   })(
-    typia.llm.application<ArrayMatrixApplication, "gemini", { equal: true }>(),
+    typia.llm.application<ArrayMatrixApplication, "gemini", { equals:; true }>(),
   );
 
 interface ArrayMatrixApplication {

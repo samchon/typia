@@ -9,7 +9,7 @@ export const test_llm_applicationEquals_chatgpt_ClassGetter = (): void =>
     name: "ClassGetter",
     factory: ClassGetter,
   })(
-    typia.llm.application<ClassGetterApplication, "chatgpt", { equal: true }>(),
+    typia.llm.application<ClassGetterApplication, "chatgpt", { equals:; true }>(),
   );
 
 interface ClassGetterApplication {

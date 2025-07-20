@@ -8,7 +8,7 @@ export const test_llm_applicationEquals_3_0_ObjectSimple = (): void =>
     model: "3.0",
     name: "ObjectSimple",
     factory: ObjectSimple,
-  })(typia.llm.application<ObjectSimpleApplication, "3.0", { equal: true }>());
+  })(typia.llm.application<ObjectSimpleApplication, "3.0", { equals:; true }>());
 
 interface ObjectSimpleApplication {
   insert(p: { first: ObjectSimple }): Promise<void>;

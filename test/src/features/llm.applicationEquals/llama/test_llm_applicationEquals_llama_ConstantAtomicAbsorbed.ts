@@ -13,7 +13,7 @@ export const test_llm_applicationEquals_llama_ConstantAtomicAbsorbed =
       typia.llm.application<
         ConstantAtomicAbsorbedApplication,
         "llama",
-        { equal: true }
+        { equals:; true }
       >(),
     );
 

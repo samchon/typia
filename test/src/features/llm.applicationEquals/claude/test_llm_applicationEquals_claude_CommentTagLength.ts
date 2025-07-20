@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_claude_CommentTagLength = (): void =>
     typia.llm.application<
       CommentTagLengthApplication,
       "claude",
-      { equal: true }
+      { equals:; true }
     >(),
   );
 

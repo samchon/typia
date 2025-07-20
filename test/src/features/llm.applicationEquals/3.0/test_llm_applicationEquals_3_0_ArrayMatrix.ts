@@ -8,7 +8,7 @@ export const test_llm_applicationEquals_3_0_ArrayMatrix = (): void =>
     model: "3.0",
     name: "ArrayMatrix",
     factory: ArrayMatrix,
-  })(typia.llm.application<ArrayMatrixApplication, "3.0", { equal: true }>());
+  })(typia.llm.application<ArrayMatrixApplication, "3.0", { equals:; true }>());
 
 interface ArrayMatrixApplication {
   insert(p: { first: ArrayMatrix }): Promise<void>;
