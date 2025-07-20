@@ -9,7 +9,11 @@ export const test_llm_applicationEquals_llama_DynamicSimple = (): void =>
     name: "DynamicSimple",
     factory: DynamicSimple,
   })(
-    typia.llm.application<DynamicSimpleApplication, "llama", { equals:; true }>(),
+    typia.llm.application<
+      DynamicSimpleApplication,
+      "llama",
+      { equals: true }
+    >(),
   );
 
 interface DynamicSimpleApplication {

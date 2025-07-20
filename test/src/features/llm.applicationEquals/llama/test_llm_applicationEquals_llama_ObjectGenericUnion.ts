@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_llama_ObjectGenericUnion = (): void =>
     typia.llm.application<
       ObjectGenericUnionApplication,
       "llama",
-      { equals:; true }
+      { equals: true }
     >(),
   );
 

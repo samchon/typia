@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_claude_ObjectPartial = (): void =>
     typia.llm.application<
       ObjectPartialApplication,
       "claude",
-      { equals:; true }
+      { equals: true }
     >(),
   );
 

@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_chatgpt_ObjectGenericAlias = (): void =>
     typia.llm.application<
       ObjectGenericAliasApplication,
       "chatgpt",
-      { equals:; true }
+      { equals: true }
     >(),
   );
 

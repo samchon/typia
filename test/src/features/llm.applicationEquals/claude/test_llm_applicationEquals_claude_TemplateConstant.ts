@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_claude_TemplateConstant = (): void =>
     typia.llm.application<
       TemplateConstantApplication,
       "claude",
-      { equals:; true }
+      { equals: true }
     >(),
   );
 

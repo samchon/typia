@@ -8,7 +8,7 @@ export const test_llm_applicationEquals_3_1_AtomicUnion = (): void =>
     model: "3.1",
     name: "AtomicUnion",
     factory: AtomicUnion,
-  })(typia.llm.application<AtomicUnionApplication, "3.1", { equals:; true }>());
+  })(typia.llm.application<AtomicUnionApplication, "3.1", { equals: true }>());
 
 interface AtomicUnionApplication {
   insert(p: { first: AtomicUnion }): Promise<void>;

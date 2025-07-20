@@ -9,7 +9,11 @@ export const test_llm_applicationEquals_llama_ObjectJsonTag = (): void =>
     name: "ObjectJsonTag",
     factory: ObjectJsonTag,
   })(
-    typia.llm.application<ObjectJsonTagApplication, "llama", { equals:; true }>(),
+    typia.llm.application<
+      ObjectJsonTagApplication,
+      "llama",
+      { equals: true }
+    >(),
   );
 
 interface ObjectJsonTagApplication {

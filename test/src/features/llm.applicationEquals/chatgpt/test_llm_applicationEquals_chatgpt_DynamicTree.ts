@@ -9,7 +9,11 @@ export const test_llm_applicationEquals_chatgpt_DynamicTree = (): void =>
     name: "DynamicTree",
     factory: DynamicTree,
   })(
-    typia.llm.application<DynamicTreeApplication, "chatgpt", { equals:; true }>(),
+    typia.llm.application<
+      DynamicTreeApplication,
+      "chatgpt",
+      { equals: true }
+    >(),
   );
 
 interface DynamicTreeApplication {

@@ -9,7 +9,11 @@ export const test_llm_applicationEquals_llama_ObjectDynamic = (): void =>
     name: "ObjectDynamic",
     factory: ObjectDynamic,
   })(
-    typia.llm.application<ObjectDynamicApplication, "llama", { equals:; true }>(),
+    typia.llm.application<
+      ObjectDynamicApplication,
+      "llama",
+      { equals: true }
+    >(),
   );
 
 interface ObjectDynamicApplication {

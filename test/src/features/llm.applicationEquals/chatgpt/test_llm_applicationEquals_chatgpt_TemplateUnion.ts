@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_chatgpt_TemplateUnion = (): void =>
     typia.llm.application<
       TemplateUnionApplication,
       "chatgpt",
-      { equals:; true }
+      { equals: true }
     >(),
   );
 

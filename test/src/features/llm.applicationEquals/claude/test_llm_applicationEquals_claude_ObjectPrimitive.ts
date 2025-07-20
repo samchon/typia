@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_claude_ObjectPrimitive = (): void =>
     typia.llm.application<
       ObjectPrimitiveApplication,
       "claude",
-      { equals:; true }
+      { equals: true }
     >(),
   );
 

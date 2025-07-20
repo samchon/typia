@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_chatgpt_TypeTagPattern = (): void =>
     typia.llm.application<
       TypeTagPatternApplication,
       "chatgpt",
-      { equals:; true }
+      { equals: true }
     >(),
   );
 

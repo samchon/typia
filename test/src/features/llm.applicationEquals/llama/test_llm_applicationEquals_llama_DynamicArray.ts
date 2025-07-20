@@ -9,7 +9,7 @@ export const test_llm_applicationEquals_llama_DynamicArray = (): void =>
     name: "DynamicArray",
     factory: DynamicArray,
   })(
-    typia.llm.application<DynamicArrayApplication, "llama", { equals:; true }>(),
+    typia.llm.application<DynamicArrayApplication, "llama", { equals: true }>(),
   );
 
 interface DynamicArrayApplication {

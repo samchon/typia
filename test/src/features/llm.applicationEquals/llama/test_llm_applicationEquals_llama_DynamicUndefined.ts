@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_llama_DynamicUndefined = (): void =>
     typia.llm.application<
       DynamicUndefinedApplication,
       "llama",
-      { equals:; true }
+      { equals: true }
     >(),
   );
 

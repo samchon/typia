@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_claude_ArrayRepeatedUnion = (): void =>
     typia.llm.application<
       ArrayRepeatedUnionApplication,
       "claude",
-      { equals:; true }
+      { equals: true }
     >(),
   );
 

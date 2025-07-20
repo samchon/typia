@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_claude_DynamicUndefined = (): void =>
     typia.llm.application<
       DynamicUndefinedApplication,
       "claude",
-      { equals:; true }
+      { equals: true }
     >(),
   );
 

@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_llama_ObjectGenericAlias = (): void =>
     typia.llm.application<
       ObjectGenericAliasApplication,
       "llama",
-      { equals:; true }
+      { equals: true }
     >(),
   );
 

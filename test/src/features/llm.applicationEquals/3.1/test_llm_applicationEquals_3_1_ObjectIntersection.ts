@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_3_1_ObjectIntersection = (): void =>
     typia.llm.application<
       ObjectIntersectionApplication,
       "3.1",
-      { equals:; true }
+      { equals: true }
     >(),
   );
 

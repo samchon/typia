@@ -13,7 +13,7 @@ export const test_llm_applicationEquals_claude_ConstantAtomicAbsorbed =
       typia.llm.application<
         ConstantAtomicAbsorbedApplication,
         "claude",
-        { equals:; true }
+        { equals: true }
       >(),
     );
 

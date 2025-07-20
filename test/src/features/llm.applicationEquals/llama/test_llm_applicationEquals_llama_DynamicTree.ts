@@ -8,7 +8,9 @@ export const test_llm_applicationEquals_llama_DynamicTree = (): void =>
     model: "llama",
     name: "DynamicTree",
     factory: DynamicTree,
-  })(typia.llm.application<DynamicTreeApplication, "llama", { equals:; true }>());
+  })(
+    typia.llm.application<DynamicTreeApplication, "llama", { equals: true }>(),
+  );
 
 interface DynamicTreeApplication {
   insert(p: { first: DynamicTree }): Promise<void>;

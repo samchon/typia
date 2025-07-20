@@ -13,7 +13,7 @@ export const test_llm_applicationEquals_3_1_ObjectUnionNonPredictable =
       typia.llm.application<
         ObjectUnionNonPredictableApplication,
         "3.1",
-        { equals:; true }
+        { equals: true }
       >(),
     );
 

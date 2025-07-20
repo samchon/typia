@@ -8,7 +8,9 @@ export const test_llm_applicationEquals_llama_ArraySimple = (): void =>
     model: "llama",
     name: "ArraySimple",
     factory: ArraySimple,
-  })(typia.llm.application<ArraySimpleApplication, "llama", { equals:; true }>());
+  })(
+    typia.llm.application<ArraySimpleApplication, "llama", { equals: true }>(),
+  );
 
 interface ArraySimpleApplication {
   insert(p: { first: ArraySimple }): Promise<void>;

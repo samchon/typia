@@ -9,7 +9,11 @@ export const test_llm_applicationEquals_3_1_CommentTagRange = (): void =>
     name: "CommentTagRange",
     factory: CommentTagRange,
   })(
-    typia.llm.application<CommentTagRangeApplication, "3.1", { equals:; true }>(),
+    typia.llm.application<
+      CommentTagRangeApplication,
+      "3.1",
+      { equals: true }
+    >(),
   );
 
 interface CommentTagRangeApplication {

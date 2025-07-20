@@ -8,7 +8,7 @@ export const test_llm_applicationEquals_3_0_DynamicArray = (): void =>
     model: "3.0",
     name: "DynamicArray",
     factory: DynamicArray,
-  })(typia.llm.application<DynamicArrayApplication, "3.0", { equals:; true }>());
+  })(typia.llm.application<DynamicArrayApplication, "3.0", { equals: true }>());
 
 interface DynamicArrayApplication {
   insert(p: { first: DynamicArray }): Promise<void>;

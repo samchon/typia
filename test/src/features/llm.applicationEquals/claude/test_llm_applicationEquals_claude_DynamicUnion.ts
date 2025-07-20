@@ -9,7 +9,11 @@ export const test_llm_applicationEquals_claude_DynamicUnion = (): void =>
     name: "DynamicUnion",
     factory: DynamicUnion,
   })(
-    typia.llm.application<DynamicUnionApplication, "claude", { equals:; true }>(),
+    typia.llm.application<
+      DynamicUnionApplication,
+      "claude",
+      { equals: true }
+    >(),
   );
 
 interface DynamicUnionApplication {

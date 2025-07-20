@@ -9,7 +9,11 @@ export const test_llm_applicationEquals_llama_ObjectPartial = (): void =>
     name: "ObjectPartial",
     factory: ObjectPartial,
   })(
-    typia.llm.application<ObjectPartialApplication, "llama", { equals:; true }>(),
+    typia.llm.application<
+      ObjectPartialApplication,
+      "llama",
+      { equals: true }
+    >(),
   );
 
 interface ObjectPartialApplication {

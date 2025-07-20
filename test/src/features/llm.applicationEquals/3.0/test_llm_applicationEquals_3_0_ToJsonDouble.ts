@@ -8,7 +8,7 @@ export const test_llm_applicationEquals_3_0_ToJsonDouble = (): void =>
     model: "3.0",
     name: "ToJsonDouble",
     factory: ToJsonDouble,
-  })(typia.llm.application<ToJsonDoubleApplication, "3.0", { equals:; true }>());
+  })(typia.llm.application<ToJsonDoubleApplication, "3.0", { equals: true }>());
 
 interface ToJsonDoubleApplication {
   insert(p: { first: ToJsonDouble }): Promise<void>;

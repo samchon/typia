@@ -9,7 +9,11 @@ export const test_llm_applicationEquals_3_0_DynamicConstant = (): void =>
     name: "DynamicConstant",
     factory: DynamicConstant,
   })(
-    typia.llm.application<DynamicConstantApplication, "3.0", { equals:; true }>(),
+    typia.llm.application<
+      DynamicConstantApplication,
+      "3.0",
+      { equals: true }
+    >(),
   );
 
 interface DynamicConstantApplication {

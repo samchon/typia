@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_chatgpt_DynamicUnion = (): void =>
     typia.llm.application<
       DynamicUnionApplication,
       "chatgpt",
-      { equals:; true }
+      { equals: true }
     >(),
   );
 

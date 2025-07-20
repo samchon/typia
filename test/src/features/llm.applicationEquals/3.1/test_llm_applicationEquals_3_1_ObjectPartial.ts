@@ -8,7 +8,9 @@ export const test_llm_applicationEquals_3_1_ObjectPartial = (): void =>
     model: "3.1",
     name: "ObjectPartial",
     factory: ObjectPartial,
-  })(typia.llm.application<ObjectPartialApplication, "3.1", { equals:; true }>());
+  })(
+    typia.llm.application<ObjectPartialApplication, "3.1", { equals: true }>(),
+  );
 
 interface ObjectPartialApplication {
   insert(p: { first: ObjectPartial }): Promise<void>;

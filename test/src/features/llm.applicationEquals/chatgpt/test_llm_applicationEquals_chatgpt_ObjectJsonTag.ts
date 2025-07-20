@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_chatgpt_ObjectJsonTag = (): void =>
     typia.llm.application<
       ObjectJsonTagApplication,
       "chatgpt",
-      { equals:; true }
+      { equals: true }
     >(),
   );
 

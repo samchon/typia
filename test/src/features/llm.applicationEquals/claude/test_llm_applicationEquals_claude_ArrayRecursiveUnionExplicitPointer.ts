@@ -13,7 +13,7 @@ export const test_llm_applicationEquals_claude_ArrayRecursiveUnionExplicitPointe
       typia.llm.application<
         ArrayRecursiveUnionExplicitPointerApplication,
         "claude",
-        { equals:; true }
+        { equals: true }
       >(),
     );
 

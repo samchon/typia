@@ -9,7 +9,7 @@ export const test_llm_applicationEquals_claude_ObjectAlias = (): void =>
     name: "ObjectAlias",
     factory: ObjectAlias,
   })(
-    typia.llm.application<ObjectAliasApplication, "claude", { equals:; true }>(),
+    typia.llm.application<ObjectAliasApplication, "claude", { equals: true }>(),
   );
 
 interface ObjectAliasApplication {

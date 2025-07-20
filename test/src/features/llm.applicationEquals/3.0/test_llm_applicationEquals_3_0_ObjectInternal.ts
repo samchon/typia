@@ -9,7 +9,7 @@ export const test_llm_applicationEquals_3_0_ObjectInternal = (): void =>
     name: "ObjectInternal",
     factory: ObjectInternal,
   })(
-    typia.llm.application<ObjectInternalApplication, "3.0", { equals:; true }>(),
+    typia.llm.application<ObjectInternalApplication, "3.0", { equals: true }>(),
   );
 
 interface ObjectInternalApplication {

@@ -8,7 +8,9 @@ export const test_llm_applicationEquals_3_1_TemplateUnion = (): void =>
     model: "3.1",
     name: "TemplateUnion",
     factory: TemplateUnion,
-  })(typia.llm.application<TemplateUnionApplication, "3.1", { equals:; true }>());
+  })(
+    typia.llm.application<TemplateUnionApplication, "3.1", { equals: true }>(),
+  );
 
 interface TemplateUnionApplication {
   insert(p: { first: TemplateUnion }): Promise<void>;

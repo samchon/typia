@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_llama_ObjectOptional = (): void =>
     typia.llm.application<
       ObjectOptionalApplication,
       "llama",
-      { equals:; true }
+      { equals: true }
     >(),
   );
 

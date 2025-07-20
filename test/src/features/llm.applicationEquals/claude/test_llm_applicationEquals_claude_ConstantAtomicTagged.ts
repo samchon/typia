@@ -13,7 +13,7 @@ export const test_llm_applicationEquals_claude_ConstantAtomicTagged =
       typia.llm.application<
         ConstantAtomicTaggedApplication,
         "claude",
-        { equals:; true }
+        { equals: true }
       >(),
     );
 

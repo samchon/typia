@@ -9,7 +9,11 @@ export const test_llm_applicationEquals_3_0_ObjectPrimitive = (): void =>
     name: "ObjectPrimitive",
     factory: ObjectPrimitive,
   })(
-    typia.llm.application<ObjectPrimitiveApplication, "3.0", { equals:; true }>(),
+    typia.llm.application<
+      ObjectPrimitiveApplication,
+      "3.0",
+      { equals: true }
+    >(),
   );
 
 interface ObjectPrimitiveApplication {

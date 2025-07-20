@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_llama_ObjectDescription = (): void =>
     typia.llm.application<
       ObjectDescriptionApplication,
       "llama",
-      { equals:; true }
+      { equals: true }
     >(),
   );
 

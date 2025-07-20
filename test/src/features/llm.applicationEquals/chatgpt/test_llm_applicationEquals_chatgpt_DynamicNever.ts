@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_chatgpt_DynamicNever = (): void =>
     typia.llm.application<
       DynamicNeverApplication,
       "chatgpt",
-      { equals:; true }
+      { equals: true }
     >(),
   );
 

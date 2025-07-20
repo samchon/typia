@@ -9,7 +9,11 @@ export const test_llm_applicationEquals_chatgpt_ToJsonUnion = (): void =>
     name: "ToJsonUnion",
     factory: ToJsonUnion,
   })(
-    typia.llm.application<ToJsonUnionApplication, "chatgpt", { equals:; true }>(),
+    typia.llm.application<
+      ToJsonUnionApplication,
+      "chatgpt",
+      { equals: true }
+    >(),
   );
 
 interface ToJsonUnionApplication {

@@ -8,7 +8,7 @@ export const test_llm_applicationEquals_claude_ArrayAny = (): void =>
     model: "claude",
     name: "ArrayAny",
     factory: ArrayAny,
-  })(typia.llm.application<ArrayAnyApplication, "claude", { equals:; true }>());
+  })(typia.llm.application<ArrayAnyApplication, "claude", { equals: true }>());
 
 interface ArrayAnyApplication {
   insert(p: { first: ArrayAny }): Promise<void>;

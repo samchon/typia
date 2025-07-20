@@ -8,7 +8,7 @@ export const test_llm_applicationEquals_3_0_ClassGetter = (): void =>
     model: "3.0",
     name: "ClassGetter",
     factory: ClassGetter,
-  })(typia.llm.application<ClassGetterApplication, "3.0", { equals:; true }>());
+  })(typia.llm.application<ClassGetterApplication, "3.0", { equals: true }>());
 
 interface ClassGetterApplication {
   insert(p: { first: ClassGetter }): Promise<void>;

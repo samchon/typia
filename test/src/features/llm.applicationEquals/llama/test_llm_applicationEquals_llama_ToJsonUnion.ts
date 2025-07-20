@@ -8,7 +8,9 @@ export const test_llm_applicationEquals_llama_ToJsonUnion = (): void =>
     model: "llama",
     name: "ToJsonUnion",
     factory: ToJsonUnion,
-  })(typia.llm.application<ToJsonUnionApplication, "llama", { equals:; true }>());
+  })(
+    typia.llm.application<ToJsonUnionApplication, "llama", { equals: true }>(),
+  );
 
 interface ToJsonUnionApplication {
   insert(p: { first: ToJsonUnion }): Promise<void>;

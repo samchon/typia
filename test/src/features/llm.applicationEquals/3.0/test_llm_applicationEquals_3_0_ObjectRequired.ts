@@ -9,7 +9,7 @@ export const test_llm_applicationEquals_3_0_ObjectRequired = (): void =>
     name: "ObjectRequired",
     factory: ObjectRequired,
   })(
-    typia.llm.application<ObjectRequiredApplication, "3.0", { equals:; true }>(),
+    typia.llm.application<ObjectRequiredApplication, "3.0", { equals: true }>(),
   );
 
 interface ObjectRequiredApplication {

@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_chatgpt_ObjectLiteralType = (): void =>
     typia.llm.application<
       ObjectLiteralTypeApplication,
       "chatgpt",
-      { equals:; true }
+      { equals: true }
     >(),
   );
 

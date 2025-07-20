@@ -9,7 +9,11 @@ export const test_llm_applicationEquals_llama_TypeTagMatrix = (): void =>
     name: "TypeTagMatrix",
     factory: TypeTagMatrix,
   })(
-    typia.llm.application<TypeTagMatrixApplication, "llama", { equals:; true }>(),
+    typia.llm.application<
+      TypeTagMatrixApplication,
+      "llama",
+      { equals: true }
+    >(),
   );
 
 interface TypeTagMatrixApplication {

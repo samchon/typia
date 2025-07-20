@@ -13,7 +13,7 @@ export const test_llm_applicationEquals_claude_ArrayRepeatedRequired =
       typia.llm.application<
         ArrayRepeatedRequiredApplication,
         "claude",
-        { equals:; true }
+        { equals: true }
       >(),
     );
 

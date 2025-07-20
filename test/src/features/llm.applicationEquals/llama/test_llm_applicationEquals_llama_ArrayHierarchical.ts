@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_llama_ArrayHierarchical = (): void =>
     typia.llm.application<
       ArrayHierarchicalApplication,
       "llama",
-      { equals:; true }
+      { equals: true }
     >(),
   );
 

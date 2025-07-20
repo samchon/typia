@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_llama_TypeTagPattern = (): void =>
     typia.llm.application<
       TypeTagPatternApplication,
       "llama",
-      { equals:; true }
+      { equals: true }
     >(),
   );
 

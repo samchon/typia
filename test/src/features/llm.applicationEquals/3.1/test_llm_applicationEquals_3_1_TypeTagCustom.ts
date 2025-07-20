@@ -8,7 +8,9 @@ export const test_llm_applicationEquals_3_1_TypeTagCustom = (): void =>
     model: "3.1",
     name: "TypeTagCustom",
     factory: TypeTagCustom,
-  })(typia.llm.application<TypeTagCustomApplication, "3.1", { equals:; true }>());
+  })(
+    typia.llm.application<TypeTagCustomApplication, "3.1", { equals: true }>(),
+  );
 
 interface TypeTagCustomApplication {
   insert(p: { first: TypeTagCustom }): Promise<void>;

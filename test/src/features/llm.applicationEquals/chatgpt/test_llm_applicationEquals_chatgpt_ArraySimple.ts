@@ -9,7 +9,11 @@ export const test_llm_applicationEquals_chatgpt_ArraySimple = (): void =>
     name: "ArraySimple",
     factory: ArraySimple,
   })(
-    typia.llm.application<ArraySimpleApplication, "chatgpt", { equals:; true }>(),
+    typia.llm.application<
+      ArraySimpleApplication,
+      "chatgpt",
+      { equals: true }
+    >(),
   );
 
 interface ArraySimpleApplication {

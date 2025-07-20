@@ -13,7 +13,7 @@ export const test_llm_applicationEquals_chatgpt_ConstantAtomicTagged =
       typia.llm.application<
         ConstantAtomicTaggedApplication,
         "chatgpt",
-        { equals:; true }
+        { equals: true }
       >(),
     );
 

@@ -8,7 +8,9 @@ export const test_llm_applicationEquals_3_1_ObjectJsonTag = (): void =>
     model: "3.1",
     name: "ObjectJsonTag",
     factory: ObjectJsonTag,
-  })(typia.llm.application<ObjectJsonTagApplication, "3.1", { equals:; true }>());
+  })(
+    typia.llm.application<ObjectJsonTagApplication, "3.1", { equals: true }>(),
+  );
 
 interface ObjectJsonTagApplication {
   insert(p: { first: ObjectJsonTag }): Promise<void>;

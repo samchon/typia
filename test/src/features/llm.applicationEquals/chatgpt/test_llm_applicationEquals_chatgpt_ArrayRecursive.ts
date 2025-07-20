@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_chatgpt_ArrayRecursive = (): void =>
     typia.llm.application<
       ArrayRecursiveApplication,
       "chatgpt",
-      { equals:; true }
+      { equals: true }
     >(),
   );
 

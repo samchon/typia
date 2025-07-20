@@ -13,7 +13,7 @@ export const test_llm_applicationEquals_claude_ArrayHierarchicalPointer =
       typia.llm.application<
         ArrayHierarchicalPointerApplication,
         "claude",
-        { equals:; true }
+        { equals: true }
       >(),
     );
 

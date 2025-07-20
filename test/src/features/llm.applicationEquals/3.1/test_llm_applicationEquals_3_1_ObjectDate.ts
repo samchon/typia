@@ -8,7 +8,7 @@ export const test_llm_applicationEquals_3_1_ObjectDate = (): void =>
     model: "3.1",
     name: "ObjectDate",
     factory: ObjectDate,
-  })(typia.llm.application<ObjectDateApplication, "3.1", { equals:; true }>());
+  })(typia.llm.application<ObjectDateApplication, "3.1", { equals: true }>());
 
 interface ObjectDateApplication {
   insert(p: { first: ObjectDate }): Promise<void>;

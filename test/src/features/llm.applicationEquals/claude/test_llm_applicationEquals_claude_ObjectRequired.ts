@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_claude_ObjectRequired = (): void =>
     typia.llm.application<
       ObjectRequiredApplication,
       "claude",
-      { equals:; true }
+      { equals: true }
     >(),
   );
 

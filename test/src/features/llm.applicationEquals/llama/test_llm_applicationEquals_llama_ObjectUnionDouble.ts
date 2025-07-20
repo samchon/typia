@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_llama_ObjectUnionDouble = (): void =>
     typia.llm.application<
       ObjectUnionDoubleApplication,
       "llama",
-      { equals:; true }
+      { equals: true }
     >(),
   );
 

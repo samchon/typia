@@ -9,7 +9,7 @@ export const test_llm_applicationEquals_3_1_TemplateAtomic = (): void =>
     name: "TemplateAtomic",
     factory: TemplateAtomic,
   })(
-    typia.llm.application<TemplateAtomicApplication, "3.1", { equals:; true }>(),
+    typia.llm.application<TemplateAtomicApplication, "3.1", { equals: true }>(),
   );
 
 interface TemplateAtomicApplication {

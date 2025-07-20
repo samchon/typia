@@ -9,7 +9,7 @@ export const test_llm_applicationEquals_chatgpt_ObjectDate = (): void =>
     name: "ObjectDate",
     factory: ObjectDate,
   })(
-    typia.llm.application<ObjectDateApplication, "chatgpt", { equals:; true }>(),
+    typia.llm.application<ObjectDateApplication, "chatgpt", { equals: true }>(),
   );
 
 interface ObjectDateApplication {

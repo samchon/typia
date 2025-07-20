@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_claude_ObjectLiteralType = (): void =>
     typia.llm.application<
       ObjectLiteralTypeApplication,
       "claude",
-      { equals:; true }
+      { equals: true }
     >(),
   );
 

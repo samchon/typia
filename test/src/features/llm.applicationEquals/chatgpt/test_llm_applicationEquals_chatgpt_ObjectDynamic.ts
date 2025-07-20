@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_chatgpt_ObjectDynamic = (): void =>
     typia.llm.application<
       ObjectDynamicApplication,
       "chatgpt",
-      { equals:; true }
+      { equals: true }
     >(),
   );
 

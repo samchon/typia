@@ -13,7 +13,7 @@ export const test_llm_applicationEquals_llama_CommentTagAtomicUnion =
       typia.llm.application<
         CommentTagAtomicUnionApplication,
         "llama",
-        { equals:; true }
+        { equals: true }
       >(),
     );
 

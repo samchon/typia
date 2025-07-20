@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_claude_ObjectDynamic = (): void =>
     typia.llm.application<
       ObjectDynamicApplication,
       "claude",
-      { equals:; true }
+      { equals: true }
     >(),
   );
 

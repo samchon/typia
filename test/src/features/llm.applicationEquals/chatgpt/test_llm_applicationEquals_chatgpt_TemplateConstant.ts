@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_chatgpt_TemplateConstant = (): void =>
     typia.llm.application<
       TemplateConstantApplication,
       "chatgpt",
-      { equals:; true }
+      { equals: true }
     >(),
   );
 

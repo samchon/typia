@@ -13,7 +13,7 @@ export const test_llm_applicationEquals_chatgpt_ArrayRepeatedRequired =
       typia.llm.application<
         ArrayRepeatedRequiredApplication,
         "chatgpt",
-        { equals:; true }
+        { equals: true }
       >(),
     );
 

@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_chatgpt_ObjectIntersection = (): void =>
     typia.llm.application<
       ObjectIntersectionApplication,
       "chatgpt",
-      { equals:; true }
+      { equals: true }
     >(),
   );
 

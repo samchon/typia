@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_chatgpt_ObjectOptional = (): void =>
     typia.llm.application<
       ObjectOptionalApplication,
       "chatgpt",
-      { equals:; true }
+      { equals: true }
     >(),
   );
 

@@ -9,7 +9,11 @@ export const test_llm_applicationEquals_3_0_ObjectRecursive = (): void =>
     name: "ObjectRecursive",
     factory: ObjectRecursive,
   })(
-    typia.llm.application<ObjectRecursiveApplication, "3.0", { equals:; true }>(),
+    typia.llm.application<
+      ObjectRecursiveApplication,
+      "3.0",
+      { equals: true }
+    >(),
   );
 
 interface ObjectRecursiveApplication {

@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_chatgpt_ToJsonAtomicUnion = (): void =>
     typia.llm.application<
       ToJsonAtomicUnionApplication,
       "chatgpt",
-      { equals:; true }
+      { equals: true }
     >(),
   );
 

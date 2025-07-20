@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_3_0_ObjectLiteralType = (): void =>
     typia.llm.application<
       ObjectLiteralTypeApplication,
       "3.0",
-      { equals:; true }
+      { equals: true }
     >(),
   );
 

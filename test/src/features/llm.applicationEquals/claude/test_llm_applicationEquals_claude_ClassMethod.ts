@@ -9,7 +9,7 @@ export const test_llm_applicationEquals_claude_ClassMethod = (): void =>
     name: "ClassMethod",
     factory: ClassMethod,
   })(
-    typia.llm.application<ClassMethodApplication, "claude", { equals:; true }>(),
+    typia.llm.application<ClassMethodApplication, "claude", { equals: true }>(),
   );
 
 interface ClassMethodApplication {

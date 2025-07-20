@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_chatgpt_ObjectUnionDouble = (): void =>
     typia.llm.application<
       ObjectUnionDoubleApplication,
       "chatgpt",
-      { equals:; true }
+      { equals: true }
     >(),
   );
 

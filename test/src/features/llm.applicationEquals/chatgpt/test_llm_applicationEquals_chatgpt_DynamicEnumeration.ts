@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_chatgpt_DynamicEnumeration = (): void =>
     typia.llm.application<
       DynamicEnumerationApplication,
       "chatgpt",
-      { equals:; true }
+      { equals: true }
     >(),
   );
 

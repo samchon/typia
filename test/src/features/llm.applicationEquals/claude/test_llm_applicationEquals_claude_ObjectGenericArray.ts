@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_claude_ObjectGenericArray = (): void =>
     typia.llm.application<
       ObjectGenericArrayApplication,
       "claude",
-      { equals:; true }
+      { equals: true }
     >(),
   );
 

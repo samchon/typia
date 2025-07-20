@@ -8,7 +8,9 @@ export const test_llm_applicationEquals_3_0_TypeTagMatrix = (): void =>
     model: "3.0",
     name: "TypeTagMatrix",
     factory: TypeTagMatrix,
-  })(typia.llm.application<TypeTagMatrixApplication, "3.0", { equals:; true }>());
+  })(
+    typia.llm.application<TypeTagMatrixApplication, "3.0", { equals: true }>(),
+  );
 
 interface TypeTagMatrixApplication {
   insert(p: { first: TypeTagMatrix }): Promise<void>;

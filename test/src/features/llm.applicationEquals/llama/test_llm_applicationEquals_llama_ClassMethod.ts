@@ -8,7 +8,9 @@ export const test_llm_applicationEquals_llama_ClassMethod = (): void =>
     model: "llama",
     name: "ClassMethod",
     factory: ClassMethod,
-  })(typia.llm.application<ClassMethodApplication, "llama", { equals:; true }>());
+  })(
+    typia.llm.application<ClassMethodApplication, "llama", { equals: true }>(),
+  );
 
 interface ClassMethodApplication {
   insert(p: { first: ClassMethod }): Promise<void>;

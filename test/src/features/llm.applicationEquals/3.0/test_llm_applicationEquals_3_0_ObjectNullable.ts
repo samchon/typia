@@ -9,7 +9,7 @@ export const test_llm_applicationEquals_3_0_ObjectNullable = (): void =>
     name: "ObjectNullable",
     factory: ObjectNullable,
   })(
-    typia.llm.application<ObjectNullableApplication, "3.0", { equals:; true }>(),
+    typia.llm.application<ObjectNullableApplication, "3.0", { equals: true }>(),
   );
 
 interface ObjectNullableApplication {

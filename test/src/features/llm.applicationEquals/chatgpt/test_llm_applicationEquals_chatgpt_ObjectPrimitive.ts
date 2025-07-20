@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_chatgpt_ObjectPrimitive = (): void =>
     typia.llm.application<
       ObjectPrimitiveApplication,
       "chatgpt",
-      { equals:; true }
+      { equals: true }
     >(),
   );
 

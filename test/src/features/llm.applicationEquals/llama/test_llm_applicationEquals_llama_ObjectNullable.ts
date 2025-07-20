@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_llama_ObjectNullable = (): void =>
     typia.llm.application<
       ObjectNullableApplication,
       "llama",
-      { equals:; true }
+      { equals: true }
     >(),
   );
 

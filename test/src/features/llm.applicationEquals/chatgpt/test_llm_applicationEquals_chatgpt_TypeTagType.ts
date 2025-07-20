@@ -9,7 +9,11 @@ export const test_llm_applicationEquals_chatgpt_TypeTagType = (): void =>
     name: "TypeTagType",
     factory: TypeTagType,
   })(
-    typia.llm.application<TypeTagTypeApplication, "chatgpt", { equals:; true }>(),
+    typia.llm.application<
+      TypeTagTypeApplication,
+      "chatgpt",
+      { equals: true }
+    >(),
   );
 
 interface TypeTagTypeApplication {

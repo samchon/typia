@@ -9,7 +9,7 @@ export const test_llm_applicationEquals_claude_AtomicUnion = (): void =>
     name: "AtomicUnion",
     factory: AtomicUnion,
   })(
-    typia.llm.application<AtomicUnionApplication, "claude", { equals:; true }>(),
+    typia.llm.application<AtomicUnionApplication, "claude", { equals: true }>(),
   );
 
 interface AtomicUnionApplication {

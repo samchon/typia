@@ -12,7 +12,7 @@ export const test_llm_applicationEquals_3_1_DynamicEnumeration = (): void =>
     typia.llm.application<
       DynamicEnumerationApplication,
       "3.1",
-      { equals:; true }
+      { equals: true }
     >(),
   );
 
