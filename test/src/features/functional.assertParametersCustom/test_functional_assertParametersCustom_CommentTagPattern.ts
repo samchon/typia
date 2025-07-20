@@ -5,8 +5,9 @@ import { _test_functional_assertParameters } from "../../internal/_test_function
 import { CommentTagPattern } from "../../structures/CommentTagPattern";
 
 export const test_functional_assertParametersCustom_CommentTagPattern =
-  _test_functional_assertParameters(CustomGuardError)("CommentTagPattern")(
-    CommentTagPattern,
-  )((p: (input: CommentTagPattern) => CommentTagPattern) =>
-    typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertParameters(CustomGuardError)("CommentTagPattern")(
+      CommentTagPattern,
+    )((p: (input: CommentTagPattern) => CommentTagPattern) =>
+      typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
+    );

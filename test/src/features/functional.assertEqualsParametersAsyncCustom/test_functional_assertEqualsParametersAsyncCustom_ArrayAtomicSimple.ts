@@ -5,12 +5,13 @@ import { _test_functional_assertEqualsParametersAsync } from "../../internal/_te
 import { ArrayAtomicSimple } from "../../structures/ArrayAtomicSimple";
 
 export const test_functional_assertEqualsParametersAsyncCustom_ArrayAtomicSimple =
-  _test_functional_assertEqualsParametersAsync(CustomGuardError)(
-    "ArrayAtomicSimple",
-  )(ArrayAtomicSimple)(
-    (p: (input: ArrayAtomicSimple) => Promise<ArrayAtomicSimple>) =>
-      typia.functional.assertEqualsParameters(
-        p,
-        (p) => new CustomGuardError(p),
-      ),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsParametersAsync(CustomGuardError)(
+      "ArrayAtomicSimple",
+    )(ArrayAtomicSimple)(
+      (p: (input: ArrayAtomicSimple) => Promise<ArrayAtomicSimple>) =>
+        typia.functional.assertEqualsParameters(
+          p,
+          (p) => new CustomGuardError(p),
+        ),
+    );

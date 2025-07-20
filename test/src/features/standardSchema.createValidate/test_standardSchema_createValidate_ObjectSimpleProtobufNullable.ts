@@ -4,8 +4,9 @@ import { _test_standardSchema_validate } from "../../internal/_test_standardSche
 import { ObjectSimpleProtobufNullable } from "../../structures/ObjectSimpleProtobufNullable";
 
 export const test_standardSchema_createValidate_ObjectSimpleProtobufNullable =
-  _test_standardSchema_validate(
-    "ObjectSimpleProtobufNullable",
-  )<ObjectSimpleProtobufNullable>(ObjectSimpleProtobufNullable)(
-    typia.createValidate<ObjectSimpleProtobufNullable>(),
-  );
+  (): void =>
+    _test_standardSchema_validate(
+      "ObjectSimpleProtobufNullable",
+    )<ObjectSimpleProtobufNullable>(ObjectSimpleProtobufNullable)(
+      typia.createValidate<ObjectSimpleProtobufNullable>(),
+    );

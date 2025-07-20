@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_functional_assertParameters } from "../../internal/_test_functional_assertParameters";
 import { ObjectDynamic } from "../../structures/ObjectDynamic";
 
-export const test_functional_assertParameters_ObjectDynamic =
+export const test_functional_assertParameters_ObjectDynamic = (): void =>
   _test_functional_assertParameters(TypeGuardError)("ObjectDynamic")(
     ObjectDynamic,
   )((p: (input: ObjectDynamic) => ObjectDynamic) =>

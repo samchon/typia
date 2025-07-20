@@ -5,8 +5,9 @@ import { _test_functional_assertFunctionAsync } from "../../internal/_test_funct
 import { TypeTagArrayUnion } from "../../structures/TypeTagArrayUnion";
 
 export const test_functional_assertFunctionAsync_TypeTagArrayUnion =
-  _test_functional_assertFunctionAsync(TypeGuardError)("TypeTagArrayUnion")(
-    TypeTagArrayUnion,
-  )((p: (input: TypeTagArrayUnion) => Promise<TypeTagArrayUnion>) =>
-    typia.functional.assertFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertFunctionAsync(TypeGuardError)("TypeTagArrayUnion")(
+      TypeTagArrayUnion,
+    )((p: (input: TypeTagArrayUnion) => Promise<TypeTagArrayUnion>) =>
+      typia.functional.assertFunction(p),
+    );

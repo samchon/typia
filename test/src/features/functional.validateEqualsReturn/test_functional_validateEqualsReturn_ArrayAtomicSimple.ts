@@ -4,7 +4,9 @@ import { _test_functional_validateEqualsReturn } from "../../internal/_test_func
 import { ArrayAtomicSimple } from "../../structures/ArrayAtomicSimple";
 
 export const test_functional_validateEqualsReturn_ArrayAtomicSimple =
-  _test_functional_validateEqualsReturn("ArrayAtomicSimple")(ArrayAtomicSimple)(
-    (p: (input: ArrayAtomicSimple) => ArrayAtomicSimple) =>
+  (): void =>
+    _test_functional_validateEqualsReturn("ArrayAtomicSimple")(
+      ArrayAtomicSimple,
+    )((p: (input: ArrayAtomicSimple) => ArrayAtomicSimple) =>
       typia.functional.validateEqualsReturn(p),
-  );
+    );

@@ -5,12 +5,13 @@ import { _test_functional_assertParametersAsync } from "../../internal/_test_fun
 import { ArrayRepeatedUnionWithTuple } from "../../structures/ArrayRepeatedUnionWithTuple";
 
 export const test_functional_assertParametersAsyncCustom_ArrayRepeatedUnionWithTuple =
-  _test_functional_assertParametersAsync(CustomGuardError)(
-    "ArrayRepeatedUnionWithTuple",
-  )(ArrayRepeatedUnionWithTuple)(
-    (
-      p: (
-        input: ArrayRepeatedUnionWithTuple,
-      ) => Promise<ArrayRepeatedUnionWithTuple>,
-    ) => typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertParametersAsync(CustomGuardError)(
+      "ArrayRepeatedUnionWithTuple",
+    )(ArrayRepeatedUnionWithTuple)(
+      (
+        p: (
+          input: ArrayRepeatedUnionWithTuple,
+        ) => Promise<ArrayRepeatedUnionWithTuple>,
+      ) => typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
+    );

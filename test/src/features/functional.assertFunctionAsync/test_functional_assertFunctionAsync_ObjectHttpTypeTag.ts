@@ -5,8 +5,9 @@ import { _test_functional_assertFunctionAsync } from "../../internal/_test_funct
 import { ObjectHttpTypeTag } from "../../structures/ObjectHttpTypeTag";
 
 export const test_functional_assertFunctionAsync_ObjectHttpTypeTag =
-  _test_functional_assertFunctionAsync(TypeGuardError)("ObjectHttpTypeTag")(
-    ObjectHttpTypeTag,
-  )((p: (input: ObjectHttpTypeTag) => Promise<ObjectHttpTypeTag>) =>
-    typia.functional.assertFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertFunctionAsync(TypeGuardError)("ObjectHttpTypeTag")(
+      ObjectHttpTypeTag,
+    )((p: (input: ObjectHttpTypeTag) => Promise<ObjectHttpTypeTag>) =>
+      typia.functional.assertFunction(p),
+    );

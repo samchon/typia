@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_assertGuardEquals } from "../../internal/_test_assertGuardEquals";
 import { ArrayHierarchicalPointer } from "../../structures/ArrayHierarchicalPointer";
 
-export const test_assertGuardEquals_ArrayHierarchicalPointer =
+export const test_assertGuardEquals_ArrayHierarchicalPointer = (): void =>
   _test_assertGuardEquals(TypeGuardError)(
     "ArrayHierarchicalPointer",
   )<ArrayHierarchicalPointer>(ArrayHierarchicalPointer)((input) =>

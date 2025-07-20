@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_json_assertStringify } from "../../internal/_test_json_assertStringify";
 import { ObjectJsonTag } from "../../structures/ObjectJsonTag";
 
-export const test_json_assertStringifyCustom_ObjectJsonTag =
+export const test_json_assertStringifyCustom_ObjectJsonTag = (): void =>
   _test_json_assertStringify(CustomGuardError)("ObjectJsonTag")<ObjectJsonTag>(
     ObjectJsonTag,
   )((input) =>

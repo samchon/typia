@@ -4,7 +4,9 @@ import { _test_functional_validateEqualsParameters } from "../../internal/_test_
 import { ObjectPrimitive } from "../../structures/ObjectPrimitive";
 
 export const test_functional_validateEqualsParameters_ObjectPrimitive =
-  _test_functional_validateEqualsParameters("ObjectPrimitive")(ObjectPrimitive)(
-    (p: (input: ObjectPrimitive) => ObjectPrimitive) =>
+  (): void =>
+    _test_functional_validateEqualsParameters("ObjectPrimitive")(
+      ObjectPrimitive,
+    )((p: (input: ObjectPrimitive) => ObjectPrimitive) =>
       typia.functional.validateEqualsParameters(p),
-  );
+    );

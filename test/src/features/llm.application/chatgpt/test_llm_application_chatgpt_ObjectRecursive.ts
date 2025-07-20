@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ObjectRecursive } from "../../../structures/ObjectRecursive";
 
-export const test_llm_application_chatgpt_ObjectRecursive =
+export const test_llm_application_chatgpt_ObjectRecursive = (): void =>
   _test_llm_application({
     model: "chatgpt",
     name: "ObjectRecursive",

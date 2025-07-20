@@ -5,8 +5,9 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { TypeTagAtomicUnion } from "../../structures/TypeTagAtomicUnion";
 
 export const test_functional_assertReturnAsyncCustom_TypeTagAtomicUnion =
-  _test_functional_assertReturnAsync(CustomGuardError)("TypeTagAtomicUnion")(
-    TypeTagAtomicUnion,
-  )((p: (input: TypeTagAtomicUnion) => Promise<TypeTagAtomicUnion>) =>
-    typia.functional.assertReturn(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(CustomGuardError)("TypeTagAtomicUnion")(
+      TypeTagAtomicUnion,
+    )((p: (input: TypeTagAtomicUnion) => Promise<TypeTagAtomicUnion>) =>
+      typia.functional.assertReturn(p, (p) => new CustomGuardError(p)),
+    );

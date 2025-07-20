@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_notation_validateGeneral } from "../../internal/_test_notation_validateGeneral";
 import { ObjectUndefined } from "../../structures/ObjectUndefined";
 
-export const test_notation_validateSnake_ObjectUndefined =
+export const test_notation_validateSnake_ObjectUndefined = (): void =>
   _test_notation_validateGeneral("ObjectUndefined")<ObjectUndefined>(
     ObjectUndefined,
   )<typia.SnakeCase<ObjectUndefined>>({

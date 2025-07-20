@@ -6,8 +6,7 @@ export const _test_assert =
   (ErrorClass: Function) =>
   (name: string) =>
   <T>(factory: TestStructure<T>) =>
-  (assert: (input: T) => T) =>
-  () => {
+  (assert: (input: T) => T): void => {
     try {
       const input: T = factory.generate();
       const output: T = assert(input);

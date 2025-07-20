@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 import { ConstantAtomicAbsorbed } from "../../../structures/ConstantAtomicAbsorbed";
 
-export const test_llm_parameters_3_1_ConstantAtomicAbsorbed =
+export const test_llm_parameters_3_1_ConstantAtomicAbsorbed = (): void =>
   _test_llm_parameters({
     model: "3.1",
     name: "ConstantAtomicAbsorbed",

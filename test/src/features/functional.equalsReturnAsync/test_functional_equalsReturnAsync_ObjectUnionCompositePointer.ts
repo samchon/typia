@@ -4,12 +4,13 @@ import { _test_functional_equalsReturnAsync } from "../../internal/_test_functio
 import { ObjectUnionCompositePointer } from "../../structures/ObjectUnionCompositePointer";
 
 export const test_functional_equalsReturnAsync_ObjectUnionCompositePointer =
-  _test_functional_equalsReturnAsync("ObjectUnionCompositePointer")(
-    ObjectUnionCompositePointer,
-  )(
-    (
-      p: (
-        input: ObjectUnionCompositePointer,
-      ) => Promise<ObjectUnionCompositePointer>,
-    ) => typia.functional.equalsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_equalsReturnAsync("ObjectUnionCompositePointer")(
+      ObjectUnionCompositePointer,
+    )(
+      (
+        p: (
+          input: ObjectUnionCompositePointer,
+        ) => Promise<ObjectUnionCompositePointer>,
+      ) => typia.functional.equalsReturn(p),
+    );

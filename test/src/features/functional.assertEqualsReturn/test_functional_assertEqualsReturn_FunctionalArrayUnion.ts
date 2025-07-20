@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsReturn } from "../../internal/_test_functi
 import { FunctionalArrayUnion } from "../../structures/FunctionalArrayUnion";
 
 export const test_functional_assertEqualsReturn_FunctionalArrayUnion =
-  _test_functional_assertEqualsReturn(TypeGuardError)("FunctionalArrayUnion")(
-    FunctionalArrayUnion,
-  )((p: (input: FunctionalArrayUnion) => FunctionalArrayUnion) =>
-    typia.functional.assertEqualsReturn(p),
-  );
+  (): void =>
+    _test_functional_assertEqualsReturn(TypeGuardError)("FunctionalArrayUnion")(
+      FunctionalArrayUnion,
+    )((p: (input: FunctionalArrayUnion) => FunctionalArrayUnion) =>
+      typia.functional.assertEqualsReturn(p),
+    );

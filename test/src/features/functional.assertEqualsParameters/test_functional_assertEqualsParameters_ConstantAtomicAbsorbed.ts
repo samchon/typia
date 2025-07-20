@@ -5,9 +5,10 @@ import { _test_functional_assertEqualsParameters } from "../../internal/_test_fu
 import { ConstantAtomicAbsorbed } from "../../structures/ConstantAtomicAbsorbed";
 
 export const test_functional_assertEqualsParameters_ConstantAtomicAbsorbed =
-  _test_functional_assertEqualsParameters(TypeGuardError)(
-    "ConstantAtomicAbsorbed",
-  )(ConstantAtomicAbsorbed)(
-    (p: (input: ConstantAtomicAbsorbed) => ConstantAtomicAbsorbed) =>
-      typia.functional.assertEqualsParameters(p),
-  );
+  (): void =>
+    _test_functional_assertEqualsParameters(TypeGuardError)(
+      "ConstantAtomicAbsorbed",
+    )(ConstantAtomicAbsorbed)(
+      (p: (input: ConstantAtomicAbsorbed) => ConstantAtomicAbsorbed) =>
+        typia.functional.assertEqualsParameters(p),
+    );

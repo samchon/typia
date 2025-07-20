@@ -4,7 +4,8 @@ import { _test_functional_equalsReturnAsync } from "../../internal/_test_functio
 import { ObjectDescription } from "../../structures/ObjectDescription";
 
 export const test_functional_equalsReturnAsync_ObjectDescription =
-  _test_functional_equalsReturnAsync("ObjectDescription")(ObjectDescription)(
-    (p: (input: ObjectDescription) => Promise<ObjectDescription>) =>
-      typia.functional.equalsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_equalsReturnAsync("ObjectDescription")(ObjectDescription)(
+      (p: (input: ObjectDescription) => Promise<ObjectDescription>) =>
+        typia.functional.equalsReturn(p),
+    );

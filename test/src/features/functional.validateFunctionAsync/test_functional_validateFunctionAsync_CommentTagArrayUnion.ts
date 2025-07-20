@@ -4,8 +4,9 @@ import { _test_functional_validateFunctionAsync } from "../../internal/_test_fun
 import { CommentTagArrayUnion } from "../../structures/CommentTagArrayUnion";
 
 export const test_functional_validateFunctionAsync_CommentTagArrayUnion =
-  _test_functional_validateFunctionAsync("CommentTagArrayUnion")(
-    CommentTagArrayUnion,
-  )((p: (input: CommentTagArrayUnion) => Promise<CommentTagArrayUnion>) =>
-    typia.functional.validateFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateFunctionAsync("CommentTagArrayUnion")(
+      CommentTagArrayUnion,
+    )((p: (input: CommentTagArrayUnion) => Promise<CommentTagArrayUnion>) =>
+      typia.functional.validateFunction(p),
+    );

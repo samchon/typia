@@ -4,7 +4,8 @@ import { _test_functional_equalsParametersAsync } from "../../internal/_test_fun
 import { ObjectInternal } from "../../structures/ObjectInternal";
 
 export const test_functional_equalsParametersAsync_ObjectInternal =
-  _test_functional_equalsParametersAsync("ObjectInternal")(ObjectInternal)(
-    (p: (input: ObjectInternal) => Promise<ObjectInternal>) =>
-      typia.functional.equalsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_equalsParametersAsync("ObjectInternal")(ObjectInternal)(
+      (p: (input: ObjectInternal) => Promise<ObjectInternal>) =>
+        typia.functional.equalsParameters(p),
+    );

@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_functional_assertParameters } from "../../internal/_test_functional_assertParameters";
 import { NativeUnion } from "../../structures/NativeUnion";
 
-export const test_functional_assertParametersCustom_NativeUnion =
+export const test_functional_assertParametersCustom_NativeUnion = (): void =>
   _test_functional_assertParameters(CustomGuardError)("NativeUnion")(
     NativeUnion,
   )((p: (input: NativeUnion) => NativeUnion) =>

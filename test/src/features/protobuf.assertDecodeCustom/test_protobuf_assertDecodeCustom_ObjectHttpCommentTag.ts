@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_protobuf_assertDecode } from "../../internal/_test_protobuf_assertDecode";
 import { ObjectHttpCommentTag } from "../../structures/ObjectHttpCommentTag";
 
-export const test_protobuf_assertDecodeCustom_ObjectHttpCommentTag =
+export const test_protobuf_assertDecodeCustom_ObjectHttpCommentTag = (): void =>
   _test_protobuf_assertDecode(CustomGuardError)(
     "ObjectHttpCommentTag",
   )<ObjectHttpCommentTag>(ObjectHttpCommentTag)({

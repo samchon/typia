@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ConstantConstEnumeration } from "../../../structures/ConstantConstEnumeration";
 
-export const test_llm_application_chatgpt_ConstantConstEnumeration =
+export const test_llm_application_chatgpt_ConstantConstEnumeration = (): void =>
   _test_llm_application({
     model: "chatgpt",
     name: "ConstantConstEnumeration",

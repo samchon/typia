@@ -5,8 +5,10 @@ import { _test_functional_assertParametersAsync } from "../../internal/_test_fun
 import { FunctionalProperty } from "../../structures/FunctionalProperty";
 
 export const test_functional_assertParametersAsync_FunctionalProperty =
-  _test_functional_assertParametersAsync(TypeGuardError)("FunctionalProperty")(
-    FunctionalProperty,
-  )((p: (input: FunctionalProperty) => Promise<FunctionalProperty>) =>
-    typia.functional.assertParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertParametersAsync(TypeGuardError)(
+      "FunctionalProperty",
+    )(FunctionalProperty)(
+      (p: (input: FunctionalProperty) => Promise<FunctionalProperty>) =>
+        typia.functional.assertParameters(p),
+    );

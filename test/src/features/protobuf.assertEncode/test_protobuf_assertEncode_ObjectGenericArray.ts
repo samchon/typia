@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_protobuf_assertEncode } from "../../internal/_test_protobuf_assertEncode";
 import { ObjectGenericArray } from "../../structures/ObjectGenericArray";
 
-export const test_protobuf_assertEncode_ObjectGenericArray =
+export const test_protobuf_assertEncode_ObjectGenericArray = (): void =>
   _test_protobuf_assertEncode(TypeGuardError)(
     "ObjectGenericArray",
   )<ObjectGenericArray>(ObjectGenericArray)({

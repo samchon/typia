@@ -4,7 +4,8 @@ import { _test_functional_equalsParametersAsync } from "../../internal/_test_fun
 import { CommentTagNaN } from "../../structures/CommentTagNaN";
 
 export const test_functional_equalsParametersAsync_CommentTagNaN =
-  _test_functional_equalsParametersAsync("CommentTagNaN")(CommentTagNaN)(
-    (p: (input: CommentTagNaN) => Promise<CommentTagNaN>) =>
-      typia.functional.equalsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_equalsParametersAsync("CommentTagNaN")(CommentTagNaN)(
+      (p: (input: CommentTagNaN) => Promise<CommentTagNaN>) =>
+        typia.functional.equalsParameters(p),
+    );

@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_functional_assertEqualsReturn } from "../../internal/_test_functional_assertEqualsReturn";
 import { ArrayHierarchical } from "../../structures/ArrayHierarchical";
 
-export const test_functional_assertEqualsReturn_ArrayHierarchical =
+export const test_functional_assertEqualsReturn_ArrayHierarchical = (): void =>
   _test_functional_assertEqualsReturn(TypeGuardError)("ArrayHierarchical")(
     ArrayHierarchical,
   )((p: (input: ArrayHierarchical) => ArrayHierarchical) =>

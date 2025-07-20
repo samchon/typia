@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_protobuf_assertEncode } from "../../internal/_test_protobuf_assertEncode";
 import { ObjectLiteralType } from "../../structures/ObjectLiteralType";
 
-export const test_protobuf_createAssertEncode_ObjectLiteralType =
+export const test_protobuf_createAssertEncode_ObjectLiteralType = (): void =>
   _test_protobuf_assertEncode(TypeGuardError)(
     "ObjectLiteralType",
   )<ObjectLiteralType>(ObjectLiteralType)({

@@ -5,8 +5,9 @@ import { _test_functional_assertParametersAsync } from "../../internal/_test_fun
 import { ArrayRecursive } from "../../structures/ArrayRecursive";
 
 export const test_functional_assertParametersAsync_ArrayRecursive =
-  _test_functional_assertParametersAsync(TypeGuardError)("ArrayRecursive")(
-    ArrayRecursive,
-  )((p: (input: ArrayRecursive) => Promise<ArrayRecursive>) =>
-    typia.functional.assertParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertParametersAsync(TypeGuardError)("ArrayRecursive")(
+      ArrayRecursive,
+    )((p: (input: ArrayRecursive) => Promise<ArrayRecursive>) =>
+      typia.functional.assertParameters(p),
+    );

@@ -5,12 +5,13 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { ObjectUnionCompositePointer } from "../../structures/ObjectUnionCompositePointer";
 
 export const test_functional_assertReturnAsync_ObjectUnionCompositePointer =
-  _test_functional_assertReturnAsync(TypeGuardError)(
-    "ObjectUnionCompositePointer",
-  )(ObjectUnionCompositePointer)(
-    (
-      p: (
-        input: ObjectUnionCompositePointer,
-      ) => Promise<ObjectUnionCompositePointer>,
-    ) => typia.functional.assertReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(TypeGuardError)(
+      "ObjectUnionCompositePointer",
+    )(ObjectUnionCompositePointer)(
+      (
+        p: (
+          input: ObjectUnionCompositePointer,
+        ) => Promise<ObjectUnionCompositePointer>,
+      ) => typia.functional.assertReturn(p),
+    );

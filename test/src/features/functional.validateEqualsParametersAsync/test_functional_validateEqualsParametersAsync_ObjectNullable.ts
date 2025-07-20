@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsParametersAsync } from "../../internal/_
 import { ObjectNullable } from "../../structures/ObjectNullable";
 
 export const test_functional_validateEqualsParametersAsync_ObjectNullable =
-  _test_functional_validateEqualsParametersAsync("ObjectNullable")(
-    ObjectNullable,
-  )((p: (input: ObjectNullable) => Promise<ObjectNullable>) =>
-    typia.functional.validateEqualsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsParametersAsync("ObjectNullable")(
+      ObjectNullable,
+    )((p: (input: ObjectNullable) => Promise<ObjectNullable>) =>
+      typia.functional.validateEqualsParameters(p),
+    );

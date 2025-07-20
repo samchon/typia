@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_functional_assertReturn } from "../../internal/_test_functional_assertReturn";
 import { ArrayRepeatedNullable } from "../../structures/ArrayRepeatedNullable";
 
-export const test_functional_assertReturn_ArrayRepeatedNullable =
+export const test_functional_assertReturn_ArrayRepeatedNullable = (): void =>
   _test_functional_assertReturn(TypeGuardError)("ArrayRepeatedNullable")(
     ArrayRepeatedNullable,
   )((p: (input: ArrayRepeatedNullable) => ArrayRepeatedNullable) =>

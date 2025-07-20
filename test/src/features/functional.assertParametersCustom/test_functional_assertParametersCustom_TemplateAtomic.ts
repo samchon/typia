@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_functional_assertParameters } from "../../internal/_test_functional_assertParameters";
 import { TemplateAtomic } from "../../structures/TemplateAtomic";
 
-export const test_functional_assertParametersCustom_TemplateAtomic =
+export const test_functional_assertParametersCustom_TemplateAtomic = (): void =>
   _test_functional_assertParameters(CustomGuardError)("TemplateAtomic")(
     TemplateAtomic,
   )((p: (input: TemplateAtomic) => TemplateAtomic) =>

@@ -5,8 +5,9 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { ArrayHierarchical } from "../../structures/ArrayHierarchical";
 
 export const test_functional_assertReturnAsync_ArrayHierarchical =
-  _test_functional_assertReturnAsync(TypeGuardError)("ArrayHierarchical")(
-    ArrayHierarchical,
-  )((p: (input: ArrayHierarchical) => Promise<ArrayHierarchical>) =>
-    typia.functional.assertReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(TypeGuardError)("ArrayHierarchical")(
+      ArrayHierarchical,
+    )((p: (input: ArrayHierarchical) => Promise<ArrayHierarchical>) =>
+      typia.functional.assertReturn(p),
+    );

@@ -4,7 +4,8 @@ import { _test_functional_validateReturnAsync } from "../../internal/_test_funct
 import { TupleRestArray } from "../../structures/TupleRestArray";
 
 export const test_functional_validateReturnAsync_TupleRestArray =
-  _test_functional_validateReturnAsync("TupleRestArray")(TupleRestArray)(
-    (p: (input: TupleRestArray) => Promise<TupleRestArray>) =>
-      typia.functional.validateReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateReturnAsync("TupleRestArray")(TupleRestArray)(
+      (p: (input: TupleRestArray) => Promise<TupleRestArray>) =>
+        typia.functional.validateReturn(p),
+    );

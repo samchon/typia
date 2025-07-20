@@ -4,8 +4,11 @@ import { _test_functional_isFunctionAsync } from "../../internal/_test_functiona
 import { FunctionalPropertyUnion } from "../../structures/FunctionalPropertyUnion";
 
 export const test_functional_isFunctionAsync_FunctionalPropertyUnion =
-  _test_functional_isFunctionAsync("FunctionalPropertyUnion")(
-    FunctionalPropertyUnion,
-  )((p: (input: FunctionalPropertyUnion) => Promise<FunctionalPropertyUnion>) =>
-    typia.functional.isFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_isFunctionAsync("FunctionalPropertyUnion")(
+      FunctionalPropertyUnion,
+    )(
+      (
+        p: (input: FunctionalPropertyUnion) => Promise<FunctionalPropertyUnion>,
+      ) => typia.functional.isFunction(p),
+    );

@@ -5,8 +5,9 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { ArrayRepeatedRequired } from "../../structures/ArrayRepeatedRequired";
 
 export const test_functional_assertReturnAsync_ArrayRepeatedRequired =
-  _test_functional_assertReturnAsync(TypeGuardError)("ArrayRepeatedRequired")(
-    ArrayRepeatedRequired,
-  )((p: (input: ArrayRepeatedRequired) => Promise<ArrayRepeatedRequired>) =>
-    typia.functional.assertReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(TypeGuardError)("ArrayRepeatedRequired")(
+      ArrayRepeatedRequired,
+    )((p: (input: ArrayRepeatedRequired) => Promise<ArrayRepeatedRequired>) =>
+      typia.functional.assertReturn(p),
+    );

@@ -5,8 +5,9 @@ import { _test_functional_assertParameters } from "../../internal/_test_function
 import { ObjectUnionImplicit } from "../../structures/ObjectUnionImplicit";
 
 export const test_functional_assertParametersCustom_ObjectUnionImplicit =
-  _test_functional_assertParameters(CustomGuardError)("ObjectUnionImplicit")(
-    ObjectUnionImplicit,
-  )((p: (input: ObjectUnionImplicit) => ObjectUnionImplicit) =>
-    typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertParameters(CustomGuardError)("ObjectUnionImplicit")(
+      ObjectUnionImplicit,
+    )((p: (input: ObjectUnionImplicit) => ObjectUnionImplicit) =>
+      typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
+    );

@@ -3,11 +3,12 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { DynamicTree } from "../../../structures/DynamicTree";
 
-export const test_llm_application_3_0_DynamicTree = _test_llm_application({
-  model: "3.0",
-  name: "DynamicTree",
-  factory: DynamicTree,
-})(typia.llm.application<DynamicTreeApplication, "3.0">());
+export const test_llm_application_3_0_DynamicTree = (): void =>
+  _test_llm_application({
+    model: "3.0",
+    name: "DynamicTree",
+    factory: DynamicTree,
+  })(typia.llm.application<DynamicTreeApplication, "3.0">());
 
 interface DynamicTreeApplication {
   insert(p: { first: DynamicTree }): Promise<void>;

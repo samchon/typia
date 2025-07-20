@@ -156,7 +156,11 @@ export namespace LlmApplicationProgrammer {
     context: ITypiaContext;
     modulo: ts.LeftHandSideExpression;
     metadata: Metadata;
-    config?: Partial<ILlmSchema.ModelConfig[Model]>;
+    config?: Partial<
+      ILlmSchema.ModelConfig[Model] & {
+        equals: boolean;
+      }
+    >;
     name?: string;
   }): ILlmApplication<Model> => {
     const metadata: Metadata = Metadata.unalias(props.metadata);
@@ -197,6 +201,7 @@ export namespace LlmApplicationProgrammer {
           context: props.context,
           modulo: props.modulo,
           className: props.name,
+          config: props.config,
           components: application.components,
           function: func,
           errors: errorMessages,
@@ -228,6 +233,13 @@ export namespace LlmApplicationProgrammer {
     parameter: MetadataParameter | null;
     errors: string[];
     className?: string;
+    config:
+      | Partial<
+          ILlmSchema.ModelConfig[Model] & {
+            equals: boolean;
+          }
+        >
+      | undefined;
   }): ILlmFunction<Model> | null => {
     const parameters: ILlmSchema.ModelParameters[Model] | null =
       writeParameters({
@@ -272,12 +284,13 @@ export namespace LlmApplicationProgrammer {
       })(),
       deprecated: props.function.deprecated,
       tags: props.function.tags,
-      validate: writeValidadtor({
+      validate: writeValidator({
         context: props.context,
         modulo: props.modulo,
         parameter: props.parameter,
         name: props.function.name,
         className: props.className,
+        equals: props.config?.equals ?? false,
       }),
     };
   };
@@ -346,11 +359,12 @@ export namespace LlmApplicationProgrammer {
     return result.value;
   };
 
-  const writeValidadtor = (props: {
+  const writeValidator = (props: {
     context: ITypiaContext;
     modulo: ts.LeftHandSideExpression;
     parameter: MetadataParameter | null;
     name: string;
+    equals: boolean;
     className?: string;
   }): ((props: unknown) => IValidation<unknown>) => {
     if (props.parameter === null)
@@ -360,7 +374,7 @@ export namespace LlmApplicationProgrammer {
           TypeFactory.keyword("any"),
         ),
         config: {
-          equals: false,
+          equals: props.equals,
         },
         name: undefined,
       }) as any;
@@ -375,7 +389,7 @@ export namespace LlmApplicationProgrammer {
       ...props,
       type: props.parameter.tsType!,
       config: {
-        equals: false,
+        equals: props.equals,
       },
       name: props.className
         ? `Parameters<${props.className}[${JSON.stringify(props.name)}]>[0]`

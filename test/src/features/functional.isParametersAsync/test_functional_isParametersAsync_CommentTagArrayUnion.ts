@@ -4,8 +4,9 @@ import { _test_functional_isParametersAsync } from "../../internal/_test_functio
 import { CommentTagArrayUnion } from "../../structures/CommentTagArrayUnion";
 
 export const test_functional_isParametersAsync_CommentTagArrayUnion =
-  _test_functional_isParametersAsync("CommentTagArrayUnion")(
-    CommentTagArrayUnion,
-  )((p: (input: CommentTagArrayUnion) => Promise<CommentTagArrayUnion>) =>
-    typia.functional.isParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_isParametersAsync("CommentTagArrayUnion")(
+      CommentTagArrayUnion,
+    )((p: (input: CommentTagArrayUnion) => Promise<CommentTagArrayUnion>) =>
+      typia.functional.isParameters(p),
+    );

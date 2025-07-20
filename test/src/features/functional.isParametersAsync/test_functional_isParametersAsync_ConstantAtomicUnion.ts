@@ -4,8 +4,9 @@ import { _test_functional_isParametersAsync } from "../../internal/_test_functio
 import { ConstantAtomicUnion } from "../../structures/ConstantAtomicUnion";
 
 export const test_functional_isParametersAsync_ConstantAtomicUnion =
-  _test_functional_isParametersAsync("ConstantAtomicUnion")(
-    ConstantAtomicUnion,
-  )((p: (input: ConstantAtomicUnion) => Promise<ConstantAtomicUnion>) =>
-    typia.functional.isParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_isParametersAsync("ConstantAtomicUnion")(
+      ConstantAtomicUnion,
+    )((p: (input: ConstantAtomicUnion) => Promise<ConstantAtomicUnion>) =>
+      typia.functional.isParameters(p),
+    );

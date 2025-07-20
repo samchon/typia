@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsFunction } from "../../internal/_test_fu
 import { TypeTagAtomicUnion } from "../../structures/TypeTagAtomicUnion";
 
 export const test_functional_validateEqualsFunction_TypeTagAtomicUnion =
-  _test_functional_validateEqualsFunction("TypeTagAtomicUnion")(
-    TypeTagAtomicUnion,
-  )((p: (input: TypeTagAtomicUnion) => TypeTagAtomicUnion) =>
-    typia.functional.validateEqualsFunction(p),
-  );
+  (): void =>
+    _test_functional_validateEqualsFunction("TypeTagAtomicUnion")(
+      TypeTagAtomicUnion,
+    )((p: (input: TypeTagAtomicUnion) => TypeTagAtomicUnion) =>
+      typia.functional.validateEqualsFunction(p),
+    );

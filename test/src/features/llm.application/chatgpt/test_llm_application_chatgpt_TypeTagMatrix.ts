@@ -3,13 +3,12 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { TypeTagMatrix } from "../../../structures/TypeTagMatrix";
 
-export const test_llm_application_chatgpt_TypeTagMatrix = _test_llm_application(
-  {
+export const test_llm_application_chatgpt_TypeTagMatrix = (): void =>
+  _test_llm_application({
     model: "chatgpt",
     name: "TypeTagMatrix",
     factory: TypeTagMatrix,
-  },
-)(typia.llm.application<TypeTagMatrixApplication, "chatgpt">());
+  })(typia.llm.application<TypeTagMatrixApplication, "chatgpt">());
 
 interface TypeTagMatrixApplication {
   insert(p: { first: TypeTagMatrix }): Promise<void>;

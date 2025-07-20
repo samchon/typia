@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsParametersAsync } from "../../internal/_
 import { ObjectUnionComposite } from "../../structures/ObjectUnionComposite";
 
 export const test_functional_validateEqualsParametersAsync_ObjectUnionComposite =
-  _test_functional_validateEqualsParametersAsync("ObjectUnionComposite")(
-    ObjectUnionComposite,
-  )((p: (input: ObjectUnionComposite) => Promise<ObjectUnionComposite>) =>
-    typia.functional.validateEqualsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsParametersAsync("ObjectUnionComposite")(
+      ObjectUnionComposite,
+    )((p: (input: ObjectUnionComposite) => Promise<ObjectUnionComposite>) =>
+      typia.functional.validateEqualsParameters(p),
+    );

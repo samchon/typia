@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsParametersAsync } from "../../internal/_
 import { ObjectHttpTypeTag } from "../../structures/ObjectHttpTypeTag";
 
 export const test_functional_validateEqualsParametersAsync_ObjectHttpTypeTag =
-  _test_functional_validateEqualsParametersAsync("ObjectHttpTypeTag")(
-    ObjectHttpTypeTag,
-  )((p: (input: ObjectHttpTypeTag) => Promise<ObjectHttpTypeTag>) =>
-    typia.functional.validateEqualsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsParametersAsync("ObjectHttpTypeTag")(
+      ObjectHttpTypeTag,
+    )((p: (input: ObjectHttpTypeTag) => Promise<ObjectHttpTypeTag>) =>
+      typia.functional.validateEqualsParameters(p),
+    );

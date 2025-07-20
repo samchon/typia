@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_json_assertStringify } from "../../internal/_test_json_assertStringify";
 import { ObjectGenericArray } from "../../structures/ObjectGenericArray";
 
-export const test_json_assertStringify_ObjectGenericArray =
+export const test_json_assertStringify_ObjectGenericArray = (): void =>
   _test_json_assertStringify(TypeGuardError)(
     "ObjectGenericArray",
   )<ObjectGenericArray>(ObjectGenericArray)((input) =>

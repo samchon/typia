@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsParametersAsync } from "../../internal/_
 import { CommentTagFormat } from "../../structures/CommentTagFormat";
 
 export const test_functional_validateEqualsParametersAsync_CommentTagFormat =
-  _test_functional_validateEqualsParametersAsync("CommentTagFormat")(
-    CommentTagFormat,
-  )((p: (input: CommentTagFormat) => Promise<CommentTagFormat>) =>
-    typia.functional.validateEqualsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsParametersAsync("CommentTagFormat")(
+      CommentTagFormat,
+    )((p: (input: CommentTagFormat) => Promise<CommentTagFormat>) =>
+      typia.functional.validateEqualsParameters(p),
+    );

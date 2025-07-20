@@ -4,6 +4,9 @@ import { _test_standardSchema_validate } from "../../internal/_test_standardSche
 import { ArrayRepeatedOptional } from "../../structures/ArrayRepeatedOptional";
 
 export const test_standardSchema_createValidate_ArrayRepeatedOptional =
-  _test_standardSchema_validate("ArrayRepeatedOptional")<ArrayRepeatedOptional>(
-    ArrayRepeatedOptional,
-  )(typia.createValidate<ArrayRepeatedOptional>());
+  (): void =>
+    _test_standardSchema_validate(
+      "ArrayRepeatedOptional",
+    )<ArrayRepeatedOptional>(ArrayRepeatedOptional)(
+      typia.createValidate<ArrayRepeatedOptional>(),
+    );

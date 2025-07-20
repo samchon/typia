@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsReturn } from "../../internal/_test_func
 import { ObjectHttpNullable } from "../../structures/ObjectHttpNullable";
 
 export const test_functional_validateEqualsReturn_ObjectHttpNullable =
-  _test_functional_validateEqualsReturn("ObjectHttpNullable")(
-    ObjectHttpNullable,
-  )((p: (input: ObjectHttpNullable) => ObjectHttpNullable) =>
-    typia.functional.validateEqualsReturn(p),
-  );
+  (): void =>
+    _test_functional_validateEqualsReturn("ObjectHttpNullable")(
+      ObjectHttpNullable,
+    )((p: (input: ObjectHttpNullable) => ObjectHttpNullable) =>
+      typia.functional.validateEqualsReturn(p),
+    );

@@ -5,8 +5,9 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { TemplateUnion } from "../../structures/TemplateUnion";
 
 export const test_functional_assertReturnAsyncCustom_TemplateUnion =
-  _test_functional_assertReturnAsync(CustomGuardError)("TemplateUnion")(
-    TemplateUnion,
-  )((p: (input: TemplateUnion) => Promise<TemplateUnion>) =>
-    typia.functional.assertReturn(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(CustomGuardError)("TemplateUnion")(
+      TemplateUnion,
+    )((p: (input: TemplateUnion) => Promise<TemplateUnion>) =>
+      typia.functional.assertReturn(p, (p) => new CustomGuardError(p)),
+    );

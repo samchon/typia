@@ -5,10 +5,11 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { ObjectUnionCompositePointer } from "../../structures/ObjectUnionCompositePointer";
 
 export const test_json_createAssertStringifyCustom_ObjectUnionCompositePointer =
-  _test_json_assertStringify(CustomGuardError)(
-    "ObjectUnionCompositePointer",
-  )<ObjectUnionCompositePointer>(ObjectUnionCompositePointer)(
-    typia.json.createAssertStringify<ObjectUnionCompositePointer>(
-      (p) => new CustomGuardError(p),
-    ),
-  );
+  (): void =>
+    _test_json_assertStringify(CustomGuardError)(
+      "ObjectUnionCompositePointer",
+    )<ObjectUnionCompositePointer>(ObjectUnionCompositePointer)(
+      typia.json.createAssertStringify<ObjectUnionCompositePointer>(
+        (p) => new CustomGuardError(p),
+      ),
+    );

@@ -4,7 +4,9 @@ import { _test_functional_validateReturnAsync } from "../../internal/_test_funct
 import { ToJsonAtomicUnion } from "../../structures/ToJsonAtomicUnion";
 
 export const test_functional_validateReturnAsync_ToJsonAtomicUnion =
-  _test_functional_validateReturnAsync("ToJsonAtomicUnion")(ToJsonAtomicUnion)(
-    (p: (input: ToJsonAtomicUnion) => Promise<ToJsonAtomicUnion>) =>
+  (): Promise<void> =>
+    _test_functional_validateReturnAsync("ToJsonAtomicUnion")(
+      ToJsonAtomicUnion,
+    )((p: (input: ToJsonAtomicUnion) => Promise<ToJsonAtomicUnion>) =>
       typia.functional.validateReturn(p),
-  );
+    );

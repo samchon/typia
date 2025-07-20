@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_functional_assertReturn } from "../../internal/_test_functional_assertReturn";
 import { TypeTagFormat } from "../../structures/TypeTagFormat";
 
-export const test_functional_assertReturnCustom_TypeTagFormat =
+export const test_functional_assertReturnCustom_TypeTagFormat = (): void =>
   _test_functional_assertReturn(CustomGuardError)("TypeTagFormat")(
     TypeTagFormat,
   )((p: (input: TypeTagFormat) => TypeTagFormat) =>

@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_protobuf_assertEncode } from "../../internal/_test_protobuf_assertEncode";
 import { ObjectRequired } from "../../structures/ObjectRequired";
 
-export const test_protobuf_assertEncode_ObjectRequired =
+export const test_protobuf_assertEncode_ObjectRequired = (): void =>
   _test_protobuf_assertEncode(TypeGuardError)("ObjectRequired")<ObjectRequired>(
     ObjectRequired,
   )({

@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_notation_validateGeneral } from "../../internal/_test_notation_validateGeneral";
 import { TypeTagArray } from "../../structures/TypeTagArray";
 
-export const test_notation_createValidateCamel_TypeTagArray =
+export const test_notation_createValidateCamel_TypeTagArray = (): void =>
   _test_notation_validateGeneral("TypeTagArray")<TypeTagArray>(TypeTagArray)<
     typia.CamelCase<TypeTagArray>
   >({

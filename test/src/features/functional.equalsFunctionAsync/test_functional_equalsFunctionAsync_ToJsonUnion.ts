@@ -4,7 +4,8 @@ import { _test_functional_equalsFunctionAsync } from "../../internal/_test_funct
 import { ToJsonUnion } from "../../structures/ToJsonUnion";
 
 export const test_functional_equalsFunctionAsync_ToJsonUnion =
-  _test_functional_equalsFunctionAsync("ToJsonUnion")(ToJsonUnion)(
-    (p: (input: ToJsonUnion) => Promise<ToJsonUnion>) =>
-      typia.functional.equalsFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_equalsFunctionAsync("ToJsonUnion")(ToJsonUnion)(
+      (p: (input: ToJsonUnion) => Promise<ToJsonUnion>) =>
+        typia.functional.equalsFunction(p),
+    );

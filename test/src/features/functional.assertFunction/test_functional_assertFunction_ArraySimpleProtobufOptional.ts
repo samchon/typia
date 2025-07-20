@@ -5,9 +5,11 @@ import { _test_functional_assertFunction } from "../../internal/_test_functional
 import { ArraySimpleProtobufOptional } from "../../structures/ArraySimpleProtobufOptional";
 
 export const test_functional_assertFunction_ArraySimpleProtobufOptional =
-  _test_functional_assertFunction(TypeGuardError)(
-    "ArraySimpleProtobufOptional",
-  )(ArraySimpleProtobufOptional)(
-    (p: (input: ArraySimpleProtobufOptional) => ArraySimpleProtobufOptional) =>
-      typia.functional.assertFunction(p),
-  );
+  (): void =>
+    _test_functional_assertFunction(TypeGuardError)(
+      "ArraySimpleProtobufOptional",
+    )(ArraySimpleProtobufOptional)(
+      (
+        p: (input: ArraySimpleProtobufOptional) => ArraySimpleProtobufOptional,
+      ) => typia.functional.assertFunction(p),
+    );

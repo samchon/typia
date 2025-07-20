@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_functional_assertReturn } from "../../internal/_test_functional_assertReturn";
 import { ObjectSimpleProtobuf } from "../../structures/ObjectSimpleProtobuf";
 
-export const test_functional_assertReturn_ObjectSimpleProtobuf =
+export const test_functional_assertReturn_ObjectSimpleProtobuf = (): void =>
   _test_functional_assertReturn(TypeGuardError)("ObjectSimpleProtobuf")(
     ObjectSimpleProtobuf,
   )((p: (input: ObjectSimpleProtobuf) => ObjectSimpleProtobuf) =>

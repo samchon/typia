@@ -5,12 +5,13 @@ import { _test_functional_assertEqualsParameters } from "../../internal/_test_fu
 import { DynamicEnumeration } from "../../structures/DynamicEnumeration";
 
 export const test_functional_assertEqualsParametersCustom_DynamicEnumeration =
-  _test_functional_assertEqualsParameters(CustomGuardError)(
-    "DynamicEnumeration",
-  )(DynamicEnumeration)(
-    (p: (input: DynamicEnumeration) => DynamicEnumeration) =>
-      typia.functional.assertEqualsParameters(
-        p,
-        (p) => new CustomGuardError(p),
-      ),
-  );
+  (): void =>
+    _test_functional_assertEqualsParameters(CustomGuardError)(
+      "DynamicEnumeration",
+    )(DynamicEnumeration)(
+      (p: (input: DynamicEnumeration) => DynamicEnumeration) =>
+        typia.functional.assertEqualsParameters(
+          p,
+          (p) => new CustomGuardError(p),
+        ),
+    );

@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_protobuf_assertEncode } from "../../internal/_test_protobuf_assertEncode";
 import { ObjectSimpleProtobuf } from "../../structures/ObjectSimpleProtobuf";
 
-export const test_protobuf_assertEncodeCustom_ObjectSimpleProtobuf =
+export const test_protobuf_assertEncodeCustom_ObjectSimpleProtobuf = (): void =>
   _test_protobuf_assertEncode(CustomGuardError)(
     "ObjectSimpleProtobuf",
   )<ObjectSimpleProtobuf>(ObjectSimpleProtobuf)({

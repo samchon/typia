@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_notation_validateGeneral } from "../../internal/_test_notation_validateGeneral";
 import { TypeTagRange } from "../../structures/TypeTagRange";
 
-export const test_notation_createValidatePascal_TypeTagRange =
+export const test_notation_createValidatePascal_TypeTagRange = (): void =>
   _test_notation_validateGeneral("TypeTagRange")<TypeTagRange>(TypeTagRange)<
     typia.PascalCase<TypeTagRange>
   >({

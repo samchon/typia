@@ -4,7 +4,9 @@ import { _test_functional_validateReturnAsync } from "../../internal/_test_funct
 import { CommentTagDefault } from "../../structures/CommentTagDefault";
 
 export const test_functional_validateReturnAsync_CommentTagDefault =
-  _test_functional_validateReturnAsync("CommentTagDefault")(CommentTagDefault)(
-    (p: (input: CommentTagDefault) => Promise<CommentTagDefault>) =>
+  (): Promise<void> =>
+    _test_functional_validateReturnAsync("CommentTagDefault")(
+      CommentTagDefault,
+    )((p: (input: CommentTagDefault) => Promise<CommentTagDefault>) =>
       typia.functional.validateReturn(p),
-  );
+    );

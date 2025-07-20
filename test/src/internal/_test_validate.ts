@@ -5,8 +5,7 @@ import { TestStructure } from "../helpers/TestStructure";
 export const _test_validate =
   (name: string) =>
   <T>(factory: TestStructure<T>) =>
-  (validate: (input: T) => typia.IValidation<T>) =>
-  () => {
+  (validate: (input: T) => typia.IValidation<T>): void => {
     const input: T = factory.generate();
     const valid: typia.IValidation<unknown> = validate(input);
     if (valid.success === false)

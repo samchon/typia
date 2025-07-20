@@ -4,7 +4,8 @@ import { _test_functional_equalsReturnAsync } from "../../internal/_test_functio
 import { ObjectGeneric } from "../../structures/ObjectGeneric";
 
 export const test_functional_equalsReturnAsync_ObjectGeneric =
-  _test_functional_equalsReturnAsync("ObjectGeneric")(ObjectGeneric)(
-    (p: (input: ObjectGeneric) => Promise<ObjectGeneric>) =>
-      typia.functional.equalsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_equalsReturnAsync("ObjectGeneric")(ObjectGeneric)(
+      (p: (input: ObjectGeneric) => Promise<ObjectGeneric>) =>
+        typia.functional.equalsReturn(p),
+    );

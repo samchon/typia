@@ -4,7 +4,8 @@ import { _test_functional_equalsParametersAsync } from "../../internal/_test_fun
 import { TypeTagMatrix } from "../../structures/TypeTagMatrix";
 
 export const test_functional_equalsParametersAsync_TypeTagMatrix =
-  _test_functional_equalsParametersAsync("TypeTagMatrix")(TypeTagMatrix)(
-    (p: (input: TypeTagMatrix) => Promise<TypeTagMatrix>) =>
-      typia.functional.equalsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_equalsParametersAsync("TypeTagMatrix")(TypeTagMatrix)(
+      (p: (input: TypeTagMatrix) => Promise<TypeTagMatrix>) =>
+        typia.functional.equalsParameters(p),
+    );

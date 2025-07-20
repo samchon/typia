@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsFunctionAsync } from "../../internal/_te
 import { TupleRestArray } from "../../structures/TupleRestArray";
 
 export const test_functional_validateEqualsFunctionAsync_TupleRestArray =
-  _test_functional_validateEqualsFunctionAsync("TupleRestArray")(
-    TupleRestArray,
-  )((p: (input: TupleRestArray) => Promise<TupleRestArray>) =>
-    typia.functional.validateEqualsFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsFunctionAsync("TupleRestArray")(
+      TupleRestArray,
+    )((p: (input: TupleRestArray) => Promise<TupleRestArray>) =>
+      typia.functional.validateEqualsFunction(p),
+    );

@@ -4,7 +4,9 @@ import { _test_functional_validateEqualsReturn } from "../../internal/_test_func
 import { TupleHierarchical } from "../../structures/TupleHierarchical";
 
 export const test_functional_validateEqualsReturn_TupleHierarchical =
-  _test_functional_validateEqualsReturn("TupleHierarchical")(TupleHierarchical)(
-    (p: (input: TupleHierarchical) => TupleHierarchical) =>
+  (): void =>
+    _test_functional_validateEqualsReturn("TupleHierarchical")(
+      TupleHierarchical,
+    )((p: (input: TupleHierarchical) => TupleHierarchical) =>
       typia.functional.validateEqualsReturn(p),
-  );
+    );

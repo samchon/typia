@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_json_assertStringify } from "../../internal/_test_json_assertStringify";
 import { ClassPropertyAssignment } from "../../structures/ClassPropertyAssignment";
 
-export const test_json_assertStringify_ClassPropertyAssignment =
+export const test_json_assertStringify_ClassPropertyAssignment = (): void =>
   _test_json_assertStringify(TypeGuardError)(
     "ClassPropertyAssignment",
   )<ClassPropertyAssignment>(ClassPropertyAssignment)((input) =>

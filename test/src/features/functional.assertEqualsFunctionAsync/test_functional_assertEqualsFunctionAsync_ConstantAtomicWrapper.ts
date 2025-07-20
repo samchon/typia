@@ -5,9 +5,10 @@ import { _test_functional_assertEqualsFunctionAsync } from "../../internal/_test
 import { ConstantAtomicWrapper } from "../../structures/ConstantAtomicWrapper";
 
 export const test_functional_assertEqualsFunctionAsync_ConstantAtomicWrapper =
-  _test_functional_assertEqualsFunctionAsync(TypeGuardError)(
-    "ConstantAtomicWrapper",
-  )(ConstantAtomicWrapper)(
-    (p: (input: ConstantAtomicWrapper) => Promise<ConstantAtomicWrapper>) =>
-      typia.functional.assertEqualsFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsFunctionAsync(TypeGuardError)(
+      "ConstantAtomicWrapper",
+    )(ConstantAtomicWrapper)(
+      (p: (input: ConstantAtomicWrapper) => Promise<ConstantAtomicWrapper>) =>
+        typia.functional.assertEqualsFunction(p),
+    );

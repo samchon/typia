@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsFunction } from "../../internal/_test_func
 import { AtomicClass } from "../../structures/AtomicClass";
 
 export const test_functional_assertEqualsFunctionCustom_AtomicClass =
-  _test_functional_assertEqualsFunction(CustomGuardError)("AtomicClass")(
-    AtomicClass,
-  )((p: (input: AtomicClass) => AtomicClass) =>
-    typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertEqualsFunction(CustomGuardError)("AtomicClass")(
+      AtomicClass,
+    )((p: (input: AtomicClass) => AtomicClass) =>
+      typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
+    );

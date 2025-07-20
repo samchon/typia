@@ -4,7 +4,8 @@ import { _test_functional_validateFunctionAsync } from "../../internal/_test_fun
 import { ObjectClosure } from "../../structures/ObjectClosure";
 
 export const test_functional_validateFunctionAsync_ObjectClosure =
-  _test_functional_validateFunctionAsync("ObjectClosure")(ObjectClosure)(
-    (p: (input: ObjectClosure) => Promise<ObjectClosure>) =>
-      typia.functional.validateFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateFunctionAsync("ObjectClosure")(ObjectClosure)(
+      (p: (input: ObjectClosure) => Promise<ObjectClosure>) =>
+        typia.functional.validateFunction(p),
+    );

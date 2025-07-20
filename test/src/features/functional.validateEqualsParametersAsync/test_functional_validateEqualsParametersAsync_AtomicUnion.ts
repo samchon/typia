@@ -4,7 +4,8 @@ import { _test_functional_validateEqualsParametersAsync } from "../../internal/_
 import { AtomicUnion } from "../../structures/AtomicUnion";
 
 export const test_functional_validateEqualsParametersAsync_AtomicUnion =
-  _test_functional_validateEqualsParametersAsync("AtomicUnion")(AtomicUnion)(
-    (p: (input: AtomicUnion) => Promise<AtomicUnion>) =>
-      typia.functional.validateEqualsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsParametersAsync("AtomicUnion")(AtomicUnion)(
+      (p: (input: AtomicUnion) => Promise<AtomicUnion>) =>
+        typia.functional.validateEqualsParameters(p),
+    );

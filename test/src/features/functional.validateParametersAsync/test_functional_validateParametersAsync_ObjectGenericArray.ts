@@ -4,8 +4,9 @@ import { _test_functional_validateParametersAsync } from "../../internal/_test_f
 import { ObjectGenericArray } from "../../structures/ObjectGenericArray";
 
 export const test_functional_validateParametersAsync_ObjectGenericArray =
-  _test_functional_validateParametersAsync("ObjectGenericArray")(
-    ObjectGenericArray,
-  )((p: (input: ObjectGenericArray) => Promise<ObjectGenericArray>) =>
-    typia.functional.validateParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateParametersAsync("ObjectGenericArray")(
+      ObjectGenericArray,
+    )((p: (input: ObjectGenericArray) => Promise<ObjectGenericArray>) =>
+      typia.functional.validateParameters(p),
+    );

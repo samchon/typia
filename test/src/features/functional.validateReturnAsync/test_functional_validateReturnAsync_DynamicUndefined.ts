@@ -4,7 +4,8 @@ import { _test_functional_validateReturnAsync } from "../../internal/_test_funct
 import { DynamicUndefined } from "../../structures/DynamicUndefined";
 
 export const test_functional_validateReturnAsync_DynamicUndefined =
-  _test_functional_validateReturnAsync("DynamicUndefined")(DynamicUndefined)(
-    (p: (input: DynamicUndefined) => Promise<DynamicUndefined>) =>
-      typia.functional.validateReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateReturnAsync("DynamicUndefined")(DynamicUndefined)(
+      (p: (input: DynamicUndefined) => Promise<DynamicUndefined>) =>
+        typia.functional.validateReturn(p),
+    );

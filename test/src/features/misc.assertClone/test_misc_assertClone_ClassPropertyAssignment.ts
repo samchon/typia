@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_misc_assertClone } from "../../internal/_test_misc_assertClone";
 import { ClassPropertyAssignment } from "../../structures/ClassPropertyAssignment";
 
-export const test_misc_assertClone_ClassPropertyAssignment =
+export const test_misc_assertClone_ClassPropertyAssignment = (): void =>
   _test_misc_assertClone(TypeGuardError)(
     "ClassPropertyAssignment",
   )<ClassPropertyAssignment>(ClassPropertyAssignment)((input) =>

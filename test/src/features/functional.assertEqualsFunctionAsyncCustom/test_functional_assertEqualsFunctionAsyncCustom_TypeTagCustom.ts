@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsFunctionAsync } from "../../internal/_test
 import { TypeTagCustom } from "../../structures/TypeTagCustom";
 
 export const test_functional_assertEqualsFunctionAsyncCustom_TypeTagCustom =
-  _test_functional_assertEqualsFunctionAsync(CustomGuardError)("TypeTagCustom")(
-    TypeTagCustom,
-  )((p: (input: TypeTagCustom) => Promise<TypeTagCustom>) =>
-    typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsFunctionAsync(CustomGuardError)(
+      "TypeTagCustom",
+    )(TypeTagCustom)((p: (input: TypeTagCustom) => Promise<TypeTagCustom>) =>
+      typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
+    );

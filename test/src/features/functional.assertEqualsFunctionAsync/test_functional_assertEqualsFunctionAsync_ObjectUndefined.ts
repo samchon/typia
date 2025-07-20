@@ -5,8 +5,10 @@ import { _test_functional_assertEqualsFunctionAsync } from "../../internal/_test
 import { ObjectUndefined } from "../../structures/ObjectUndefined";
 
 export const test_functional_assertEqualsFunctionAsync_ObjectUndefined =
-  _test_functional_assertEqualsFunctionAsync(TypeGuardError)("ObjectUndefined")(
-    ObjectUndefined,
-  )((p: (input: ObjectUndefined) => Promise<ObjectUndefined>) =>
-    typia.functional.assertEqualsFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsFunctionAsync(TypeGuardError)(
+      "ObjectUndefined",
+    )(ObjectUndefined)(
+      (p: (input: ObjectUndefined) => Promise<ObjectUndefined>) =>
+        typia.functional.assertEqualsFunction(p),
+    );

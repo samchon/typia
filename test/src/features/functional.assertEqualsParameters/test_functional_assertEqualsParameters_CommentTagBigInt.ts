@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsParameters } from "../../internal/_test_fu
 import { CommentTagBigInt } from "../../structures/CommentTagBigInt";
 
 export const test_functional_assertEqualsParameters_CommentTagBigInt =
-  _test_functional_assertEqualsParameters(TypeGuardError)("CommentTagBigInt")(
-    CommentTagBigInt,
-  )((p: (input: CommentTagBigInt) => CommentTagBigInt) =>
-    typia.functional.assertEqualsParameters(p),
-  );
+  (): void =>
+    _test_functional_assertEqualsParameters(TypeGuardError)("CommentTagBigInt")(
+      CommentTagBigInt,
+    )((p: (input: CommentTagBigInt) => CommentTagBigInt) =>
+      typia.functional.assertEqualsParameters(p),
+    );

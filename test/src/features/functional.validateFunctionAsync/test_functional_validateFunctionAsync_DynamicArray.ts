@@ -4,7 +4,8 @@ import { _test_functional_validateFunctionAsync } from "../../internal/_test_fun
 import { DynamicArray } from "../../structures/DynamicArray";
 
 export const test_functional_validateFunctionAsync_DynamicArray =
-  _test_functional_validateFunctionAsync("DynamicArray")(DynamicArray)(
-    (p: (input: DynamicArray) => Promise<DynamicArray>) =>
-      typia.functional.validateFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateFunctionAsync("DynamicArray")(DynamicArray)(
+      (p: (input: DynamicArray) => Promise<DynamicArray>) =>
+        typia.functional.validateFunction(p),
+    );

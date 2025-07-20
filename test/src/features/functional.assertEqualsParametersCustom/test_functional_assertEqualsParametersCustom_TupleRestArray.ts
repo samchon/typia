@@ -5,8 +5,12 @@ import { _test_functional_assertEqualsParameters } from "../../internal/_test_fu
 import { TupleRestArray } from "../../structures/TupleRestArray";
 
 export const test_functional_assertEqualsParametersCustom_TupleRestArray =
-  _test_functional_assertEqualsParameters(CustomGuardError)("TupleRestArray")(
-    TupleRestArray,
-  )((p: (input: TupleRestArray) => TupleRestArray) =>
-    typia.functional.assertEqualsParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertEqualsParameters(CustomGuardError)("TupleRestArray")(
+      TupleRestArray,
+    )((p: (input: TupleRestArray) => TupleRestArray) =>
+      typia.functional.assertEqualsParameters(
+        p,
+        (p) => new CustomGuardError(p),
+      ),
+    );

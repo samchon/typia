@@ -4,7 +4,9 @@ import { _test_functional_equalsReturnAsync } from "../../internal/_test_functio
 import { ObjectHttpConstant } from "../../structures/ObjectHttpConstant";
 
 export const test_functional_equalsReturnAsync_ObjectHttpConstant =
-  _test_functional_equalsReturnAsync("ObjectHttpConstant")(ObjectHttpConstant)(
-    (p: (input: ObjectHttpConstant) => Promise<ObjectHttpConstant>) =>
+  (): Promise<void> =>
+    _test_functional_equalsReturnAsync("ObjectHttpConstant")(
+      ObjectHttpConstant,
+    )((p: (input: ObjectHttpConstant) => Promise<ObjectHttpConstant>) =>
       typia.functional.equalsReturn(p),
-  );
+    );

@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsReturnAsync } from "../../internal/_test_f
 import { ClassGetter } from "../../structures/ClassGetter";
 
 export const test_functional_assertEqualsReturnAsync_ClassGetter =
-  _test_functional_assertEqualsReturnAsync(TypeGuardError)("ClassGetter")(
-    ClassGetter,
-  )((p: (input: ClassGetter) => Promise<ClassGetter>) =>
-    typia.functional.assertEqualsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsReturnAsync(TypeGuardError)("ClassGetter")(
+      ClassGetter,
+    )((p: (input: ClassGetter) => Promise<ClassGetter>) =>
+      typia.functional.assertEqualsReturn(p),
+    );

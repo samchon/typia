@@ -4,8 +4,11 @@ import { _test_functional_isParameters } from "../../internal/_test_functional_i
 import { ArraySimpleProtobufOptional } from "../../structures/ArraySimpleProtobufOptional";
 
 export const test_functional_isParameters_ArraySimpleProtobufOptional =
-  _test_functional_isParameters("ArraySimpleProtobufOptional")(
-    ArraySimpleProtobufOptional,
-  )((p: (input: ArraySimpleProtobufOptional) => ArraySimpleProtobufOptional) =>
-    typia.functional.isParameters(p),
-  );
+  (): void =>
+    _test_functional_isParameters("ArraySimpleProtobufOptional")(
+      ArraySimpleProtobufOptional,
+    )(
+      (
+        p: (input: ArraySimpleProtobufOptional) => ArraySimpleProtobufOptional,
+      ) => typia.functional.isParameters(p),
+    );

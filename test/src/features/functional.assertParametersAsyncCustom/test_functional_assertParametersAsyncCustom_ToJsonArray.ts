@@ -5,8 +5,9 @@ import { _test_functional_assertParametersAsync } from "../../internal/_test_fun
 import { ToJsonArray } from "../../structures/ToJsonArray";
 
 export const test_functional_assertParametersAsyncCustom_ToJsonArray =
-  _test_functional_assertParametersAsync(CustomGuardError)("ToJsonArray")(
-    ToJsonArray,
-  )((p: (input: ToJsonArray) => Promise<ToJsonArray>) =>
-    typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertParametersAsync(CustomGuardError)("ToJsonArray")(
+      ToJsonArray,
+    )((p: (input: ToJsonArray) => Promise<ToJsonArray>) =>
+      typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
+    );

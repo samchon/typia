@@ -4,7 +4,8 @@ import { _test_functional_validateFunctionAsync } from "../../internal/_test_fun
 import { DynamicNever } from "../../structures/DynamicNever";
 
 export const test_functional_validateFunctionAsync_DynamicNever =
-  _test_functional_validateFunctionAsync("DynamicNever")(DynamicNever)(
-    (p: (input: DynamicNever) => Promise<DynamicNever>) =>
-      typia.functional.validateFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateFunctionAsync("DynamicNever")(DynamicNever)(
+      (p: (input: DynamicNever) => Promise<DynamicNever>) =>
+        typia.functional.validateFunction(p),
+    );

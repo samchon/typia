@@ -4,7 +4,8 @@ import { _test_functional_validateEqualsParameters } from "../../internal/_test_
 import { TemplateUnion } from "../../structures/TemplateUnion";
 
 export const test_functional_validateEqualsParameters_TemplateUnion =
-  _test_functional_validateEqualsParameters("TemplateUnion")(TemplateUnion)(
-    (p: (input: TemplateUnion) => TemplateUnion) =>
-      typia.functional.validateEqualsParameters(p),
-  );
+  (): void =>
+    _test_functional_validateEqualsParameters("TemplateUnion")(TemplateUnion)(
+      (p: (input: TemplateUnion) => TemplateUnion) =>
+        typia.functional.validateEqualsParameters(p),
+    );

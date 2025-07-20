@@ -3,10 +3,11 @@ import typia from "typia";
 import { _test_protobuf_encode } from "../../internal/_test_protobuf_encode";
 import { TypeTagTypeUnion } from "../../structures/TypeTagTypeUnion";
 
-export const test_protobuf_encode_TypeTagTypeUnion = _test_protobuf_encode(
-  "TypeTagTypeUnion",
-)<TypeTagTypeUnion>(TypeTagTypeUnion)({
-  encode: (input) => typia.protobuf.encode<TypeTagTypeUnion>(input),
-  decode: typia.protobuf.createDecode<TypeTagTypeUnion>(),
-  message: typia.protobuf.message<TypeTagTypeUnion>(),
-});
+export const test_protobuf_encode_TypeTagTypeUnion = (): void =>
+  _test_protobuf_encode("TypeTagTypeUnion")<TypeTagTypeUnion>(TypeTagTypeUnion)(
+    {
+      encode: (input) => typia.protobuf.encode<TypeTagTypeUnion>(input),
+      decode: typia.protobuf.createDecode<TypeTagTypeUnion>(),
+      message: typia.protobuf.message<TypeTagTypeUnion>(),
+    },
+  );

@@ -5,9 +5,10 @@ import { _test_functional_assertParametersAsync } from "../../internal/_test_fun
 import { CommentTagArrayUnion } from "../../structures/CommentTagArrayUnion";
 
 export const test_functional_assertParametersAsync_CommentTagArrayUnion =
-  _test_functional_assertParametersAsync(TypeGuardError)(
-    "CommentTagArrayUnion",
-  )(CommentTagArrayUnion)(
-    (p: (input: CommentTagArrayUnion) => Promise<CommentTagArrayUnion>) =>
-      typia.functional.assertParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertParametersAsync(TypeGuardError)(
+      "CommentTagArrayUnion",
+    )(CommentTagArrayUnion)(
+      (p: (input: CommentTagArrayUnion) => Promise<CommentTagArrayUnion>) =>
+        typia.functional.assertParameters(p),
+    );

@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_misc_assertClone } from "../../internal/_test_misc_assertClone";
 import { ObjectGeneric } from "../../structures/ObjectGeneric";
 
-export const test_misc_createAssertCloneCustom_ObjectGeneric =
+export const test_misc_createAssertCloneCustom_ObjectGeneric = (): void =>
   _test_misc_assertClone(CustomGuardError)("ObjectGeneric")<ObjectGeneric>(
     ObjectGeneric,
   )(

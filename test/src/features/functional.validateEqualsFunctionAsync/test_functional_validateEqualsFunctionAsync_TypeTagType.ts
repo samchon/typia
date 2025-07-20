@@ -4,7 +4,8 @@ import { _test_functional_validateEqualsFunctionAsync } from "../../internal/_te
 import { TypeTagType } from "../../structures/TypeTagType";
 
 export const test_functional_validateEqualsFunctionAsync_TypeTagType =
-  _test_functional_validateEqualsFunctionAsync("TypeTagType")(TypeTagType)(
-    (p: (input: TypeTagType) => Promise<TypeTagType>) =>
-      typia.functional.validateEqualsFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsFunctionAsync("TypeTagType")(TypeTagType)(
+      (p: (input: TypeTagType) => Promise<TypeTagType>) =>
+        typia.functional.validateEqualsFunction(p),
+    );

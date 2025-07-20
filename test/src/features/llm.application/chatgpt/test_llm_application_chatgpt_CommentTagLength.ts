@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { CommentTagLength } from "../../../structures/CommentTagLength";
 
-export const test_llm_application_chatgpt_CommentTagLength =
+export const test_llm_application_chatgpt_CommentTagLength = (): void =>
   _test_llm_application({
     model: "chatgpt",
     name: "CommentTagLength",

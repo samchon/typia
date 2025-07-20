@@ -4,8 +4,9 @@ import { _test_functional_validateReturnAsync } from "../../internal/_test_funct
 import { ObjectSimpleProtobuf } from "../../structures/ObjectSimpleProtobuf";
 
 export const test_functional_validateReturnAsync_ObjectSimpleProtobuf =
-  _test_functional_validateReturnAsync("ObjectSimpleProtobuf")(
-    ObjectSimpleProtobuf,
-  )((p: (input: ObjectSimpleProtobuf) => Promise<ObjectSimpleProtobuf>) =>
-    typia.functional.validateReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateReturnAsync("ObjectSimpleProtobuf")(
+      ObjectSimpleProtobuf,
+    )((p: (input: ObjectSimpleProtobuf) => Promise<ObjectSimpleProtobuf>) =>
+      typia.functional.validateReturn(p),
+    );

@@ -6,8 +6,9 @@ export const _test_functional_assertReturnAsync =
   (ErrorClass: Function) =>
   (name: string) =>
   <T>(factory: TestStructure<T>) =>
-  (assert: (p: (input: T) => Promise<T>) => (input: T) => Promise<T>) =>
-  async () => {
+  async (
+    assert: (p: (input: T) => Promise<T>) => (input: T) => Promise<T>,
+  ): Promise<void> => {
     const validate =
       (replacer: string) => async (callback: (input: T) => [T, T]) => {
         try {

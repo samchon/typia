@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsReturn } from "../../internal/_test_functi
 import { ConstantIntersection } from "../../structures/ConstantIntersection";
 
 export const test_functional_assertEqualsReturn_ConstantIntersection =
-  _test_functional_assertEqualsReturn(TypeGuardError)("ConstantIntersection")(
-    ConstantIntersection,
-  )((p: (input: ConstantIntersection) => ConstantIntersection) =>
-    typia.functional.assertEqualsReturn(p),
-  );
+  (): void =>
+    _test_functional_assertEqualsReturn(TypeGuardError)("ConstantIntersection")(
+      ConstantIntersection,
+    )((p: (input: ConstantIntersection) => ConstantIntersection) =>
+      typia.functional.assertEqualsReturn(p),
+    );

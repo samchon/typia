@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 import { ArrayHierarchical } from "../../../structures/ArrayHierarchical";
 
-export const test_llm_parameters_chatgpt_ArrayHierarchical =
+export const test_llm_parameters_chatgpt_ArrayHierarchical = (): void =>
   _test_llm_parameters({
     model: "chatgpt",
     name: "ArrayHierarchical",

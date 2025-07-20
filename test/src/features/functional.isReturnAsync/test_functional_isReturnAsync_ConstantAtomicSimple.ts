@@ -4,7 +4,9 @@ import { _test_functional_isReturnAsync } from "../../internal/_test_functional_
 import { ConstantAtomicSimple } from "../../structures/ConstantAtomicSimple";
 
 export const test_functional_isReturnAsync_ConstantAtomicSimple =
-  _test_functional_isReturnAsync("ConstantAtomicSimple")(ConstantAtomicSimple)(
-    (p: (input: ConstantAtomicSimple) => Promise<ConstantAtomicSimple>) =>
+  (): Promise<void> =>
+    _test_functional_isReturnAsync("ConstantAtomicSimple")(
+      ConstantAtomicSimple,
+    )((p: (input: ConstantAtomicSimple) => Promise<ConstantAtomicSimple>) =>
       typia.functional.isReturn(p),
-  );
+    );

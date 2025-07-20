@@ -4,8 +4,9 @@ import { _test_functional_validateReturnAsync } from "../../internal/_test_funct
 import { ArrayRepeatedNullable } from "../../structures/ArrayRepeatedNullable";
 
 export const test_functional_validateReturnAsync_ArrayRepeatedNullable =
-  _test_functional_validateReturnAsync("ArrayRepeatedNullable")(
-    ArrayRepeatedNullable,
-  )((p: (input: ArrayRepeatedNullable) => Promise<ArrayRepeatedNullable>) =>
-    typia.functional.validateReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateReturnAsync("ArrayRepeatedNullable")(
+      ArrayRepeatedNullable,
+    )((p: (input: ArrayRepeatedNullable) => Promise<ArrayRepeatedNullable>) =>
+      typia.functional.validateReturn(p),
+    );

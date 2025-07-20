@@ -5,10 +5,11 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { ObjectDescription } from "../../structures/ObjectDescription";
 
 export const test_json_createAssertStringifyCustom_ObjectDescription =
-  _test_json_assertStringify(CustomGuardError)(
-    "ObjectDescription",
-  )<ObjectDescription>(ObjectDescription)(
-    typia.json.createAssertStringify<ObjectDescription>(
-      (p) => new CustomGuardError(p),
-    ),
-  );
+  (): void =>
+    _test_json_assertStringify(CustomGuardError)(
+      "ObjectDescription",
+    )<ObjectDescription>(ObjectDescription)(
+      typia.json.createAssertStringify<ObjectDescription>(
+        (p) => new CustomGuardError(p),
+      ),
+    );

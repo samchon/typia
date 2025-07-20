@@ -4,7 +4,8 @@ import { _test_functional_isFunctionAsync } from "../../internal/_test_functiona
 import { ObjectInternal } from "../../structures/ObjectInternal";
 
 export const test_functional_isFunctionAsync_ObjectInternal =
-  _test_functional_isFunctionAsync("ObjectInternal")(ObjectInternal)(
-    (p: (input: ObjectInternal) => Promise<ObjectInternal>) =>
-      typia.functional.isFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_isFunctionAsync("ObjectInternal")(ObjectInternal)(
+      (p: (input: ObjectInternal) => Promise<ObjectInternal>) =>
+        typia.functional.isFunction(p),
+    );

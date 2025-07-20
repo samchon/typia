@@ -5,9 +5,13 @@ import { _test_functional_assertEqualsFunctionAsync } from "../../internal/_test
 import { ToJsonAtomicUnion } from "../../structures/ToJsonAtomicUnion";
 
 export const test_functional_assertEqualsFunctionAsyncCustom_ToJsonAtomicUnion =
-  _test_functional_assertEqualsFunctionAsync(CustomGuardError)(
-    "ToJsonAtomicUnion",
-  )(ToJsonAtomicUnion)(
-    (p: (input: ToJsonAtomicUnion) => Promise<ToJsonAtomicUnion>) =>
-      typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsFunctionAsync(CustomGuardError)(
+      "ToJsonAtomicUnion",
+    )(ToJsonAtomicUnion)(
+      (p: (input: ToJsonAtomicUnion) => Promise<ToJsonAtomicUnion>) =>
+        typia.functional.assertEqualsFunction(
+          p,
+          (p) => new CustomGuardError(p),
+        ),
+    );

@@ -4,7 +4,8 @@ import { _test_functional_isFunctionAsync } from "../../internal/_test_functiona
 import { ObjectRecursive } from "../../structures/ObjectRecursive";
 
 export const test_functional_isFunctionAsync_ObjectRecursive =
-  _test_functional_isFunctionAsync("ObjectRecursive")(ObjectRecursive)(
-    (p: (input: ObjectRecursive) => Promise<ObjectRecursive>) =>
-      typia.functional.isFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_isFunctionAsync("ObjectRecursive")(ObjectRecursive)(
+      (p: (input: ObjectRecursive) => Promise<ObjectRecursive>) =>
+        typia.functional.isFunction(p),
+    );

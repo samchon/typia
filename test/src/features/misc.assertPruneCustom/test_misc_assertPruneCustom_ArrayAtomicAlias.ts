@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_misc_assertPrune } from "../../internal/_test_misc_assertPrune";
 import { ArrayAtomicAlias } from "../../structures/ArrayAtomicAlias";
 
-export const test_misc_assertPruneCustom_ArrayAtomicAlias =
+export const test_misc_assertPruneCustom_ArrayAtomicAlias = (): void =>
   _test_misc_assertPrune(CustomGuardError)(
     "ArrayAtomicAlias",
   )<ArrayAtomicAlias>(ArrayAtomicAlias)((input) =>

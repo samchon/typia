@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsFunction } from "../../internal/_test_func
 import { ObjectHttpConstant } from "../../structures/ObjectHttpConstant";
 
 export const test_functional_assertEqualsFunction_ObjectHttpConstant =
-  _test_functional_assertEqualsFunction(TypeGuardError)("ObjectHttpConstant")(
-    ObjectHttpConstant,
-  )((p: (input: ObjectHttpConstant) => ObjectHttpConstant) =>
-    typia.functional.assertEqualsFunction(p),
-  );
+  (): void =>
+    _test_functional_assertEqualsFunction(TypeGuardError)("ObjectHttpConstant")(
+      ObjectHttpConstant,
+    )((p: (input: ObjectHttpConstant) => ObjectHttpConstant) =>
+      typia.functional.assertEqualsFunction(p),
+    );

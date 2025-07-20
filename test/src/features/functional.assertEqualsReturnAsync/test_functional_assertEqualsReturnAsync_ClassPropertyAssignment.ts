@@ -5,9 +5,11 @@ import { _test_functional_assertEqualsReturnAsync } from "../../internal/_test_f
 import { ClassPropertyAssignment } from "../../structures/ClassPropertyAssignment";
 
 export const test_functional_assertEqualsReturnAsync_ClassPropertyAssignment =
-  _test_functional_assertEqualsReturnAsync(TypeGuardError)(
-    "ClassPropertyAssignment",
-  )(ClassPropertyAssignment)(
-    (p: (input: ClassPropertyAssignment) => Promise<ClassPropertyAssignment>) =>
-      typia.functional.assertEqualsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsReturnAsync(TypeGuardError)(
+      "ClassPropertyAssignment",
+    )(ClassPropertyAssignment)(
+      (
+        p: (input: ClassPropertyAssignment) => Promise<ClassPropertyAssignment>,
+      ) => typia.functional.assertEqualsReturn(p),
+    );

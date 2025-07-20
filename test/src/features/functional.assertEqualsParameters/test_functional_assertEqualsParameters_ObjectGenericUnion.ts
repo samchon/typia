@@ -5,8 +5,10 @@ import { _test_functional_assertEqualsParameters } from "../../internal/_test_fu
 import { ObjectGenericUnion } from "../../structures/ObjectGenericUnion";
 
 export const test_functional_assertEqualsParameters_ObjectGenericUnion =
-  _test_functional_assertEqualsParameters(TypeGuardError)("ObjectGenericUnion")(
-    ObjectGenericUnion,
-  )((p: (input: ObjectGenericUnion) => ObjectGenericUnion) =>
-    typia.functional.assertEqualsParameters(p),
-  );
+  (): void =>
+    _test_functional_assertEqualsParameters(TypeGuardError)(
+      "ObjectGenericUnion",
+    )(ObjectGenericUnion)(
+      (p: (input: ObjectGenericUnion) => ObjectGenericUnion) =>
+        typia.functional.assertEqualsParameters(p),
+    );

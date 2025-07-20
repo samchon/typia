@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_notation_validateGeneral } from "../../internal/_test_notation_validateGeneral";
 import { ConstantAtomicWrapper } from "../../structures/ConstantAtomicWrapper";
 
-export const test_notation_validatePascal_ConstantAtomicWrapper =
+export const test_notation_validatePascal_ConstantAtomicWrapper = (): void =>
   _test_notation_validateGeneral(
     "ConstantAtomicWrapper",
   )<ConstantAtomicWrapper>(ConstantAtomicWrapper)<

@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_assertGuardEquals } from "../../internal/_test_assertGuardEquals";
 import { TypeTagBigInt } from "../../structures/TypeTagBigInt";
 
-export const test_createAssertGuardEqualsCustom_TypeTagBigInt =
+export const test_createAssertGuardEqualsCustom_TypeTagBigInt = (): void =>
   _test_assertGuardEquals(CustomGuardError)("TypeTagBigInt")<TypeTagBigInt>(
     TypeTagBigInt,
   )(

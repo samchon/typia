@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_protobuf_isEncode } from "../../internal/_test_protobuf_isEncode";
 import { MapSimpleProtobufNullable } from "../../structures/MapSimpleProtobufNullable";
 
-export const test_protobuf_isEncode_MapSimpleProtobufNullable =
+export const test_protobuf_isEncode_MapSimpleProtobufNullable = (): void =>
   _test_protobuf_isEncode(
     "MapSimpleProtobufNullable",
   )<MapSimpleProtobufNullable>(MapSimpleProtobufNullable)({

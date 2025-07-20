@@ -5,8 +5,9 @@ import { _test_functional_assertParametersAsync } from "../../internal/_test_fun
 import { ObjectLiteralType } from "../../structures/ObjectLiteralType";
 
 export const test_functional_assertParametersAsync_ObjectLiteralType =
-  _test_functional_assertParametersAsync(TypeGuardError)("ObjectLiteralType")(
-    ObjectLiteralType,
-  )((p: (input: ObjectLiteralType) => Promise<ObjectLiteralType>) =>
-    typia.functional.assertParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertParametersAsync(TypeGuardError)("ObjectLiteralType")(
+      ObjectLiteralType,
+    )((p: (input: ObjectLiteralType) => Promise<ObjectLiteralType>) =>
+      typia.functional.assertParameters(p),
+    );

@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ObjectDescription } from "../../../structures/ObjectDescription";
 
-export const test_llm_application_claude_ObjectDescription =
+export const test_llm_application_claude_ObjectDescription = (): void =>
   _test_llm_application({
     model: "claude",
     name: "ObjectDescription",

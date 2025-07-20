@@ -27,7 +27,7 @@ export namespace TestJsonSchemasGenerator {
         `import { ${s.name} } from "../../../structures/${s.name}";`,
         `import { _test_json_schemas } from "../../../internal/_test_json_schemas";`,
         "",
-        `export const test_json_schemas_${title}_${s.name} = `,
+        `export const test_json_schemas_${title}_${s.name} = (): void =>`,
         `  _test_json_schemas({`,
         `    version: "${version}",`,
         `    name: "${s.name}", `,

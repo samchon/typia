@@ -5,9 +5,10 @@ import { _test_protobuf_assertDecode } from "../../internal/_test_protobuf_asser
 import { ObjectUnionNonPredictable } from "../../structures/ObjectUnionNonPredictable";
 
 export const test_protobuf_createAssertDecode_ObjectUnionNonPredictable =
-  _test_protobuf_assertDecode(TypeGuardError)(
-    "ObjectUnionNonPredictable",
-  )<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)({
-    decode: typia.protobuf.createAssertDecode<ObjectUnionNonPredictable>(),
-    encode: typia.protobuf.createEncode<ObjectUnionNonPredictable>(),
-  });
+  (): void =>
+    _test_protobuf_assertDecode(TypeGuardError)(
+      "ObjectUnionNonPredictable",
+    )<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)({
+      decode: typia.protobuf.createAssertDecode<ObjectUnionNonPredictable>(),
+      encode: typia.protobuf.createEncode<ObjectUnionNonPredictable>(),
+    });

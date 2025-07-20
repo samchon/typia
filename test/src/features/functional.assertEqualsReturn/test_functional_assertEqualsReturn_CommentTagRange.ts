@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_functional_assertEqualsReturn } from "../../internal/_test_functional_assertEqualsReturn";
 import { CommentTagRange } from "../../structures/CommentTagRange";
 
-export const test_functional_assertEqualsReturn_CommentTagRange =
+export const test_functional_assertEqualsReturn_CommentTagRange = (): void =>
   _test_functional_assertEqualsReturn(TypeGuardError)("CommentTagRange")(
     CommentTagRange,
   )((p: (input: CommentTagRange) => CommentTagRange) =>

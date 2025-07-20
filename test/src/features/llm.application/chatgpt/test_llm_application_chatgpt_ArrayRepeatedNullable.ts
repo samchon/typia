@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ArrayRepeatedNullable } from "../../../structures/ArrayRepeatedNullable";
 
-export const test_llm_application_chatgpt_ArrayRepeatedNullable =
+export const test_llm_application_chatgpt_ArrayRepeatedNullable = (): void =>
   _test_llm_application({
     model: "chatgpt",
     name: "ArrayRepeatedNullable",

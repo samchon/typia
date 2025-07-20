@@ -5,9 +5,10 @@ import { _test_functional_assertParametersAsync } from "../../internal/_test_fun
 import { ArrayRepeatedOptional } from "../../structures/ArrayRepeatedOptional";
 
 export const test_functional_assertParametersAsyncCustom_ArrayRepeatedOptional =
-  _test_functional_assertParametersAsync(CustomGuardError)(
-    "ArrayRepeatedOptional",
-  )(ArrayRepeatedOptional)(
-    (p: (input: ArrayRepeatedOptional) => Promise<ArrayRepeatedOptional>) =>
-      typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertParametersAsync(CustomGuardError)(
+      "ArrayRepeatedOptional",
+    )(ArrayRepeatedOptional)(
+      (p: (input: ArrayRepeatedOptional) => Promise<ArrayRepeatedOptional>) =>
+        typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
+    );

@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_misc_assertClone } from "../../internal/_test_misc_assertClone";
 import { ArrayHierarchical } from "../../structures/ArrayHierarchical";
 
-export const test_misc_createAssertCloneCustom_ArrayHierarchical =
+export const test_misc_createAssertCloneCustom_ArrayHierarchical = (): void =>
   _test_misc_assertClone(CustomGuardError)(
     "ArrayHierarchical",
   )<ArrayHierarchical>(ArrayHierarchical)(

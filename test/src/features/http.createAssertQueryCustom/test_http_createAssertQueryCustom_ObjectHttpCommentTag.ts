@@ -5,10 +5,11 @@ import { _test_http_assertQuery } from "../../internal/_test_http_assertQuery";
 import { ObjectHttpCommentTag } from "../../structures/ObjectHttpCommentTag";
 
 export const test_http_createAssertQueryCustom_ObjectHttpCommentTag =
-  _test_http_assertQuery(CustomGuardError)(
-    "ObjectHttpCommentTag",
-  )<ObjectHttpCommentTag>(ObjectHttpCommentTag)(
-    typia.http.createAssertQuery<ObjectHttpCommentTag>(
-      (p) => new CustomGuardError(p),
-    ),
-  );
+  (): void =>
+    _test_http_assertQuery(CustomGuardError)(
+      "ObjectHttpCommentTag",
+    )<ObjectHttpCommentTag>(ObjectHttpCommentTag)(
+      typia.http.createAssertQuery<ObjectHttpCommentTag>(
+        (p) => new CustomGuardError(p),
+      ),
+    );

@@ -5,8 +5,9 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { ArrayRecursiveUnionImplicit } from "../../structures/ArrayRecursiveUnionImplicit";
 
 export const test_json_createAssertStringify_ArrayRecursiveUnionImplicit =
-  _test_json_assertStringify(TypeGuardError)(
-    "ArrayRecursiveUnionImplicit",
-  )<ArrayRecursiveUnionImplicit>(ArrayRecursiveUnionImplicit)(
-    typia.json.createAssertStringify<ArrayRecursiveUnionImplicit>(),
-  );
+  (): void =>
+    _test_json_assertStringify(TypeGuardError)(
+      "ArrayRecursiveUnionImplicit",
+    )<ArrayRecursiveUnionImplicit>(ArrayRecursiveUnionImplicit)(
+      typia.json.createAssertStringify<ArrayRecursiveUnionImplicit>(),
+    );

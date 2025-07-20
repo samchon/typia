@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsFunction } from "../../internal/_test_func
 import { TemplateUnion } from "../../structures/TemplateUnion";
 
 export const test_functional_assertEqualsFunctionCustom_TemplateUnion =
-  _test_functional_assertEqualsFunction(CustomGuardError)("TemplateUnion")(
-    TemplateUnion,
-  )((p: (input: TemplateUnion) => TemplateUnion) =>
-    typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertEqualsFunction(CustomGuardError)("TemplateUnion")(
+      TemplateUnion,
+    )((p: (input: TemplateUnion) => TemplateUnion) =>
+      typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
+    );

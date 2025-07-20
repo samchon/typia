@@ -5,8 +5,9 @@ import { _test_functional_assertParameters } from "../../internal/_test_function
 import { ArrayRepeatedOptional } from "../../structures/ArrayRepeatedOptional";
 
 export const test_functional_assertParameters_ArrayRepeatedOptional =
-  _test_functional_assertParameters(TypeGuardError)("ArrayRepeatedOptional")(
-    ArrayRepeatedOptional,
-  )((p: (input: ArrayRepeatedOptional) => ArrayRepeatedOptional) =>
-    typia.functional.assertParameters(p),
-  );
+  (): void =>
+    _test_functional_assertParameters(TypeGuardError)("ArrayRepeatedOptional")(
+      ArrayRepeatedOptional,
+    )((p: (input: ArrayRepeatedOptional) => ArrayRepeatedOptional) =>
+      typia.functional.assertParameters(p),
+    );

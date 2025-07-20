@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsParametersAsync } from "../../internal/_te
 import { TupleOptional } from "../../structures/TupleOptional";
 
 export const test_functional_assertEqualsParametersAsync_TupleOptional =
-  _test_functional_assertEqualsParametersAsync(TypeGuardError)("TupleOptional")(
-    TupleOptional,
-  )((p: (input: TupleOptional) => Promise<TupleOptional>) =>
-    typia.functional.assertEqualsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsParametersAsync(TypeGuardError)(
+      "TupleOptional",
+    )(TupleOptional)((p: (input: TupleOptional) => Promise<TupleOptional>) =>
+      typia.functional.assertEqualsParameters(p),
+    );

@@ -5,8 +5,10 @@ import { _test_functional_assertEqualsParameters } from "../../internal/_test_fu
 import { TypeTagRangeBigInt } from "../../structures/TypeTagRangeBigInt";
 
 export const test_functional_assertEqualsParameters_TypeTagRangeBigInt =
-  _test_functional_assertEqualsParameters(TypeGuardError)("TypeTagRangeBigInt")(
-    TypeTagRangeBigInt,
-  )((p: (input: TypeTagRangeBigInt) => TypeTagRangeBigInt) =>
-    typia.functional.assertEqualsParameters(p),
-  );
+  (): void =>
+    _test_functional_assertEqualsParameters(TypeGuardError)(
+      "TypeTagRangeBigInt",
+    )(TypeTagRangeBigInt)(
+      (p: (input: TypeTagRangeBigInt) => TypeTagRangeBigInt) =>
+        typia.functional.assertEqualsParameters(p),
+    );

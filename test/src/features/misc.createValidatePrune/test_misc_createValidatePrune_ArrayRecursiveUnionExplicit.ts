@@ -4,8 +4,9 @@ import { _test_misc_validatePrune } from "../../internal/_test_misc_validatePrun
 import { ArrayRecursiveUnionExplicit } from "../../structures/ArrayRecursiveUnionExplicit";
 
 export const test_misc_createValidatePrune_ArrayRecursiveUnionExplicit =
-  _test_misc_validatePrune(
-    "ArrayRecursiveUnionExplicit",
-  )<ArrayRecursiveUnionExplicit>(ArrayRecursiveUnionExplicit)(
-    typia.misc.createValidatePrune<ArrayRecursiveUnionExplicit>(),
-  );
+  (): void =>
+    _test_misc_validatePrune(
+      "ArrayRecursiveUnionExplicit",
+    )<ArrayRecursiveUnionExplicit>(ArrayRecursiveUnionExplicit)(
+      typia.misc.createValidatePrune<ArrayRecursiveUnionExplicit>(),
+    );

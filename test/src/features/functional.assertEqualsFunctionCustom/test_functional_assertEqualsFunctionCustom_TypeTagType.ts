@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsFunction } from "../../internal/_test_func
 import { TypeTagType } from "../../structures/TypeTagType";
 
 export const test_functional_assertEqualsFunctionCustom_TypeTagType =
-  _test_functional_assertEqualsFunction(CustomGuardError)("TypeTagType")(
-    TypeTagType,
-  )((p: (input: TypeTagType) => TypeTagType) =>
-    typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertEqualsFunction(CustomGuardError)("TypeTagType")(
+      TypeTagType,
+    )((p: (input: TypeTagType) => TypeTagType) =>
+      typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
+    );

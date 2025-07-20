@@ -5,8 +5,12 @@ import { _test_functional_assertEqualsParameters } from "../../internal/_test_fu
 import { ArraySimple } from "../../structures/ArraySimple";
 
 export const test_functional_assertEqualsParametersCustom_ArraySimple =
-  _test_functional_assertEqualsParameters(CustomGuardError)("ArraySimple")(
-    ArraySimple,
-  )((p: (input: ArraySimple) => ArraySimple) =>
-    typia.functional.assertEqualsParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertEqualsParameters(CustomGuardError)("ArraySimple")(
+      ArraySimple,
+    )((p: (input: ArraySimple) => ArraySimple) =>
+      typia.functional.assertEqualsParameters(
+        p,
+        (p) => new CustomGuardError(p),
+      ),
+    );

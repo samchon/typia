@@ -5,9 +5,10 @@ import { _test_functional_assertParametersAsync } from "../../internal/_test_fun
 import { ArrayRepeatedUnion } from "../../structures/ArrayRepeatedUnion";
 
 export const test_functional_assertParametersAsyncCustom_ArrayRepeatedUnion =
-  _test_functional_assertParametersAsync(CustomGuardError)(
-    "ArrayRepeatedUnion",
-  )(ArrayRepeatedUnion)(
-    (p: (input: ArrayRepeatedUnion) => Promise<ArrayRepeatedUnion>) =>
-      typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertParametersAsync(CustomGuardError)(
+      "ArrayRepeatedUnion",
+    )(ArrayRepeatedUnion)(
+      (p: (input: ArrayRepeatedUnion) => Promise<ArrayRepeatedUnion>) =>
+        typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
+    );

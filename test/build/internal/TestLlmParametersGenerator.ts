@@ -30,7 +30,7 @@ export namespace TestLlmParametersGenerator {
         `import { ${s.name} } from "../../../structures/${s.name}";`,
         `import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";`,
         "",
-        `export const test_llm_parameters_${model.replace(".", "_")}_${s.name} = `,
+        `export const test_llm_parameters_${model.replace(".", "_")}_${s.name} = (): void =>`,
         `  _test_llm_parameters({`,
         `    model: ${JSON.stringify(model)},`,
         `    name: ${JSON.stringify(s.name)},`,

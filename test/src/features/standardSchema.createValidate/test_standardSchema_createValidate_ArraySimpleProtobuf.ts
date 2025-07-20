@@ -4,6 +4,7 @@ import { _test_standardSchema_validate } from "../../internal/_test_standardSche
 import { ArraySimpleProtobuf } from "../../structures/ArraySimpleProtobuf";
 
 export const test_standardSchema_createValidate_ArraySimpleProtobuf =
-  _test_standardSchema_validate("ArraySimpleProtobuf")<ArraySimpleProtobuf>(
-    ArraySimpleProtobuf,
-  )(typia.createValidate<ArraySimpleProtobuf>());
+  (): void =>
+    _test_standardSchema_validate("ArraySimpleProtobuf")<ArraySimpleProtobuf>(
+      ArraySimpleProtobuf,
+    )(typia.createValidate<ArraySimpleProtobuf>());

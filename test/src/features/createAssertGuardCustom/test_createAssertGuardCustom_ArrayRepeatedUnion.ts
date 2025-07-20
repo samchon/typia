@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_assertGuard } from "../../internal/_test_assertGuard";
 import { ArrayRepeatedUnion } from "../../structures/ArrayRepeatedUnion";
 
-export const test_createAssertGuardCustom_ArrayRepeatedUnion =
+export const test_createAssertGuardCustom_ArrayRepeatedUnion = (): void =>
   _test_assertGuard(CustomGuardError)("ArrayRepeatedUnion")<ArrayRepeatedUnion>(
     ArrayRepeatedUnion,
   )(

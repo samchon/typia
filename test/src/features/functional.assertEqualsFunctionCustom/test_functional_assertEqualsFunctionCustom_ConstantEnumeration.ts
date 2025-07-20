@@ -5,9 +5,13 @@ import { _test_functional_assertEqualsFunction } from "../../internal/_test_func
 import { ConstantEnumeration } from "../../structures/ConstantEnumeration";
 
 export const test_functional_assertEqualsFunctionCustom_ConstantEnumeration =
-  _test_functional_assertEqualsFunction(CustomGuardError)(
-    "ConstantEnumeration",
-  )(ConstantEnumeration)(
-    (p: (input: ConstantEnumeration) => ConstantEnumeration) =>
-      typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertEqualsFunction(CustomGuardError)(
+      "ConstantEnumeration",
+    )(ConstantEnumeration)(
+      (p: (input: ConstantEnumeration) => ConstantEnumeration) =>
+        typia.functional.assertEqualsFunction(
+          p,
+          (p) => new CustomGuardError(p),
+        ),
+    );

@@ -5,8 +5,12 @@ import { _test_functional_assertEqualsParameters } from "../../internal/_test_fu
 import { ObjectRequired } from "../../structures/ObjectRequired";
 
 export const test_functional_assertEqualsParametersCustom_ObjectRequired =
-  _test_functional_assertEqualsParameters(CustomGuardError)("ObjectRequired")(
-    ObjectRequired,
-  )((p: (input: ObjectRequired) => ObjectRequired) =>
-    typia.functional.assertEqualsParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertEqualsParameters(CustomGuardError)("ObjectRequired")(
+      ObjectRequired,
+    )((p: (input: ObjectRequired) => ObjectRequired) =>
+      typia.functional.assertEqualsParameters(
+        p,
+        (p) => new CustomGuardError(p),
+      ),
+    );

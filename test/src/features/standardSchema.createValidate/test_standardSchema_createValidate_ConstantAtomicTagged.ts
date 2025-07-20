@@ -4,6 +4,7 @@ import { _test_standardSchema_validate } from "../../internal/_test_standardSche
 import { ConstantAtomicTagged } from "../../structures/ConstantAtomicTagged";
 
 export const test_standardSchema_createValidate_ConstantAtomicTagged =
-  _test_standardSchema_validate("ConstantAtomicTagged")<ConstantAtomicTagged>(
-    ConstantAtomicTagged,
-  )(typia.createValidate<ConstantAtomicTagged>());
+  (): void =>
+    _test_standardSchema_validate("ConstantAtomicTagged")<ConstantAtomicTagged>(
+      ConstantAtomicTagged,
+    )(typia.createValidate<ConstantAtomicTagged>());

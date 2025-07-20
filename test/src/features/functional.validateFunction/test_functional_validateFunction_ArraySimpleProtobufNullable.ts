@@ -4,8 +4,11 @@ import { _test_functional_validateFunction } from "../../internal/_test_function
 import { ArraySimpleProtobufNullable } from "../../structures/ArraySimpleProtobufNullable";
 
 export const test_functional_validateFunction_ArraySimpleProtobufNullable =
-  _test_functional_validateFunction("ArraySimpleProtobufNullable")(
-    ArraySimpleProtobufNullable,
-  )((p: (input: ArraySimpleProtobufNullable) => ArraySimpleProtobufNullable) =>
-    typia.functional.validateFunction(p),
-  );
+  (): void =>
+    _test_functional_validateFunction("ArraySimpleProtobufNullable")(
+      ArraySimpleProtobufNullable,
+    )(
+      (
+        p: (input: ArraySimpleProtobufNullable) => ArraySimpleProtobufNullable,
+      ) => typia.functional.validateFunction(p),
+    );

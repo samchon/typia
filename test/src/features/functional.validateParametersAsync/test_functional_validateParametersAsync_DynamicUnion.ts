@@ -4,7 +4,8 @@ import { _test_functional_validateParametersAsync } from "../../internal/_test_f
 import { DynamicUnion } from "../../structures/DynamicUnion";
 
 export const test_functional_validateParametersAsync_DynamicUnion =
-  _test_functional_validateParametersAsync("DynamicUnion")(DynamicUnion)(
-    (p: (input: DynamicUnion) => Promise<DynamicUnion>) =>
-      typia.functional.validateParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateParametersAsync("DynamicUnion")(DynamicUnion)(
+      (p: (input: DynamicUnion) => Promise<DynamicUnion>) =>
+        typia.functional.validateParameters(p),
+    );

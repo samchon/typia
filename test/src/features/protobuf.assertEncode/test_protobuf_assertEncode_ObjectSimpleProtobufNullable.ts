@@ -5,11 +5,12 @@ import { _test_protobuf_assertEncode } from "../../internal/_test_protobuf_asser
 import { ObjectSimpleProtobufNullable } from "../../structures/ObjectSimpleProtobufNullable";
 
 export const test_protobuf_assertEncode_ObjectSimpleProtobufNullable =
-  _test_protobuf_assertEncode(TypeGuardError)(
-    "ObjectSimpleProtobufNullable",
-  )<ObjectSimpleProtobufNullable>(ObjectSimpleProtobufNullable)({
-    encode: (input) =>
-      typia.protobuf.assertEncode<ObjectSimpleProtobufNullable>(input),
-    decode: typia.protobuf.createDecode<ObjectSimpleProtobufNullable>(),
-    message: typia.protobuf.message<ObjectSimpleProtobufNullable>(),
-  });
+  (): void =>
+    _test_protobuf_assertEncode(TypeGuardError)(
+      "ObjectSimpleProtobufNullable",
+    )<ObjectSimpleProtobufNullable>(ObjectSimpleProtobufNullable)({
+      encode: (input) =>
+        typia.protobuf.assertEncode<ObjectSimpleProtobufNullable>(input),
+      decode: typia.protobuf.createDecode<ObjectSimpleProtobufNullable>(),
+      message: typia.protobuf.message<ObjectSimpleProtobufNullable>(),
+    });

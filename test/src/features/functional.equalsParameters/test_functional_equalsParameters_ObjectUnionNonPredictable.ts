@@ -4,8 +4,9 @@ import { _test_functional_equalsParameters } from "../../internal/_test_function
 import { ObjectUnionNonPredictable } from "../../structures/ObjectUnionNonPredictable";
 
 export const test_functional_equalsParameters_ObjectUnionNonPredictable =
-  _test_functional_equalsParameters("ObjectUnionNonPredictable")(
-    ObjectUnionNonPredictable,
-  )((p: (input: ObjectUnionNonPredictable) => ObjectUnionNonPredictable) =>
-    typia.functional.equalsParameters(p),
-  );
+  (): void =>
+    _test_functional_equalsParameters("ObjectUnionNonPredictable")(
+      ObjectUnionNonPredictable,
+    )((p: (input: ObjectUnionNonPredictable) => ObjectUnionNonPredictable) =>
+      typia.functional.equalsParameters(p),
+    );

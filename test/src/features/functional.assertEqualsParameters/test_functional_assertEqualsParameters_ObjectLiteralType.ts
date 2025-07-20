@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsParameters } from "../../internal/_test_fu
 import { ObjectLiteralType } from "../../structures/ObjectLiteralType";
 
 export const test_functional_assertEqualsParameters_ObjectLiteralType =
-  _test_functional_assertEqualsParameters(TypeGuardError)("ObjectLiteralType")(
-    ObjectLiteralType,
-  )((p: (input: ObjectLiteralType) => ObjectLiteralType) =>
-    typia.functional.assertEqualsParameters(p),
-  );
+  (): void =>
+    _test_functional_assertEqualsParameters(TypeGuardError)(
+      "ObjectLiteralType",
+    )(ObjectLiteralType)((p: (input: ObjectLiteralType) => ObjectLiteralType) =>
+      typia.functional.assertEqualsParameters(p),
+    );

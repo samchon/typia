@@ -5,8 +5,9 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { ArrayRepeatedNullable } from "../../structures/ArrayRepeatedNullable";
 
 export const test_functional_assertReturnAsync_ArrayRepeatedNullable =
-  _test_functional_assertReturnAsync(TypeGuardError)("ArrayRepeatedNullable")(
-    ArrayRepeatedNullable,
-  )((p: (input: ArrayRepeatedNullable) => Promise<ArrayRepeatedNullable>) =>
-    typia.functional.assertReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(TypeGuardError)("ArrayRepeatedNullable")(
+      ArrayRepeatedNullable,
+    )((p: (input: ArrayRepeatedNullable) => Promise<ArrayRepeatedNullable>) =>
+      typia.functional.assertReturn(p),
+    );

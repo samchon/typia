@@ -5,8 +5,9 @@ import { _test_functional_assertParametersAsync } from "../../internal/_test_fun
 import { SetSimple } from "../../structures/SetSimple";
 
 export const test_functional_assertParametersAsyncCustom_SetSimple =
-  _test_functional_assertParametersAsync(CustomGuardError)("SetSimple")(
-    SetSimple,
-  )((p: (input: SetSimple) => Promise<SetSimple>) =>
-    typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertParametersAsync(CustomGuardError)("SetSimple")(
+      SetSimple,
+    )((p: (input: SetSimple) => Promise<SetSimple>) =>
+      typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
+    );

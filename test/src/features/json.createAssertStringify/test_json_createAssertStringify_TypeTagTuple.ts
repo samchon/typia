@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_json_assertStringify } from "../../internal/_test_json_assertStringify";
 import { TypeTagTuple } from "../../structures/TypeTagTuple";
 
-export const test_json_createAssertStringify_TypeTagTuple =
+export const test_json_createAssertStringify_TypeTagTuple = (): void =>
   _test_json_assertStringify(TypeGuardError)("TypeTagTuple")<TypeTagTuple>(
     TypeTagTuple,
   )(typia.json.createAssertStringify<TypeTagTuple>());

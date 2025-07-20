@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_assertGuard } from "../../internal/_test_assertGuard";
 import { ArrayRecursiveUnionExplicit } from "../../structures/ArrayRecursiveUnionExplicit";
 
-export const test_createAssertGuard_ArrayRecursiveUnionExplicit =
+export const test_createAssertGuard_ArrayRecursiveUnionExplicit = (): void =>
   _test_assertGuard(TypeGuardError)(
     "ArrayRecursiveUnionExplicit",
   )<ArrayRecursiveUnionExplicit>(ArrayRecursiveUnionExplicit)(

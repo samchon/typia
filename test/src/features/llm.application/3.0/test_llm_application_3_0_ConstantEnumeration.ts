@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ConstantEnumeration } from "../../../structures/ConstantEnumeration";
 
-export const test_llm_application_3_0_ConstantEnumeration =
+export const test_llm_application_3_0_ConstantEnumeration = (): void =>
   _test_llm_application({
     model: "3.0",
     name: "ConstantEnumeration",

@@ -4,7 +4,8 @@ import { _test_functional_validateParametersAsync } from "../../internal/_test_f
 import { ObjectInternal } from "../../structures/ObjectInternal";
 
 export const test_functional_validateParametersAsync_ObjectInternal =
-  _test_functional_validateParametersAsync("ObjectInternal")(ObjectInternal)(
-    (p: (input: ObjectInternal) => Promise<ObjectInternal>) =>
-      typia.functional.validateParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateParametersAsync("ObjectInternal")(ObjectInternal)(
+      (p: (input: ObjectInternal) => Promise<ObjectInternal>) =>
+        typia.functional.validateParameters(p),
+    );

@@ -8,7 +8,7 @@ export const write_functional =
       `import { _${prefix} } from "../../internal/_${prefix}";`,
       `import { ${structure} } from "../../structures/${structure}";`,
       "",
-      `export const ${prefix}_${structure} = _${prefix}(`,
+      `export const ${prefix}_${structure} = (): void => _${prefix}(`,
       `  ${JSON.stringify(structure)}`,
       `)(${structure})(`,
       `  (p: (input: ${structure}) => ${structure}) => typia.functional.${method}(p),`,

@@ -5,9 +5,13 @@ import { _test_functional_assertEqualsFunction } from "../../internal/_test_func
 import { FunctionalObjectUnion } from "../../structures/FunctionalObjectUnion";
 
 export const test_functional_assertEqualsFunctionCustom_FunctionalObjectUnion =
-  _test_functional_assertEqualsFunction(CustomGuardError)(
-    "FunctionalObjectUnion",
-  )(FunctionalObjectUnion)(
-    (p: (input: FunctionalObjectUnion) => FunctionalObjectUnion) =>
-      typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertEqualsFunction(CustomGuardError)(
+      "FunctionalObjectUnion",
+    )(FunctionalObjectUnion)(
+      (p: (input: FunctionalObjectUnion) => FunctionalObjectUnion) =>
+        typia.functional.assertEqualsFunction(
+          p,
+          (p) => new CustomGuardError(p),
+        ),
+    );

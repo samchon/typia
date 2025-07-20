@@ -4,13 +4,17 @@ import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ObjectUnionCompositePointer } from "../../../structures/ObjectUnionCompositePointer";
 
 export const test_llm_application_chatgpt_ObjectUnionCompositePointer =
-  _test_llm_application({
-    model: "chatgpt",
-    name: "ObjectUnionCompositePointer",
-    factory: ObjectUnionCompositePointer,
-  })(
-    typia.llm.application<ObjectUnionCompositePointerApplication, "chatgpt">(),
-  );
+  (): void =>
+    _test_llm_application({
+      model: "chatgpt",
+      name: "ObjectUnionCompositePointer",
+      factory: ObjectUnionCompositePointer,
+    })(
+      typia.llm.application<
+        ObjectUnionCompositePointerApplication,
+        "chatgpt"
+      >(),
+    );
 
 interface ObjectUnionCompositePointerApplication {
   insert(p: { first: ObjectUnionCompositePointer }): Promise<void>;

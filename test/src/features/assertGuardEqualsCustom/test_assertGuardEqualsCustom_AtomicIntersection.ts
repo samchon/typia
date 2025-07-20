@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_assertGuardEquals } from "../../internal/_test_assertGuardEquals";
 import { AtomicIntersection } from "../../structures/AtomicIntersection";
 
-export const test_assertGuardEqualsCustom_AtomicIntersection =
+export const test_assertGuardEqualsCustom_AtomicIntersection = (): void =>
   _test_assertGuardEquals(CustomGuardError)(
     "AtomicIntersection",
   )<AtomicIntersection>(AtomicIntersection)((input) =>

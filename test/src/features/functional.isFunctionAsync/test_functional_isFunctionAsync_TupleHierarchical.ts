@@ -4,7 +4,8 @@ import { _test_functional_isFunctionAsync } from "../../internal/_test_functiona
 import { TupleHierarchical } from "../../structures/TupleHierarchical";
 
 export const test_functional_isFunctionAsync_TupleHierarchical =
-  _test_functional_isFunctionAsync("TupleHierarchical")(TupleHierarchical)(
-    (p: (input: TupleHierarchical) => Promise<TupleHierarchical>) =>
-      typia.functional.isFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_isFunctionAsync("TupleHierarchical")(TupleHierarchical)(
+      (p: (input: TupleHierarchical) => Promise<TupleHierarchical>) =>
+        typia.functional.isFunction(p),
+    );

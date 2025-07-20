@@ -3,11 +3,12 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { TemplateAtomic } from "../../../structures/TemplateAtomic";
 
-export const test_llm_application_3_0_TemplateAtomic = _test_llm_application({
-  model: "3.0",
-  name: "TemplateAtomic",
-  factory: TemplateAtomic,
-})(typia.llm.application<TemplateAtomicApplication, "3.0">());
+export const test_llm_application_3_0_TemplateAtomic = (): void =>
+  _test_llm_application({
+    model: "3.0",
+    name: "TemplateAtomic",
+    factory: TemplateAtomic,
+  })(typia.llm.application<TemplateAtomicApplication, "3.0">());
 
 interface TemplateAtomicApplication {
   insert(p: { first: TemplateAtomic }): Promise<void>;

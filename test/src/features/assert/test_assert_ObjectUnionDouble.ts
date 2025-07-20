@@ -4,8 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_assert } from "../../internal/_test_assert";
 import { ObjectUnionDouble } from "../../structures/ObjectUnionDouble";
 
-export const test_assert_ObjectUnionDouble = _test_assert(TypeGuardError)(
-  "ObjectUnionDouble",
-)<ObjectUnionDouble>(ObjectUnionDouble)((input) =>
-  typia.assert<ObjectUnionDouble>(input),
-);
+export const test_assert_ObjectUnionDouble = (): void =>
+  _test_assert(TypeGuardError)("ObjectUnionDouble")<ObjectUnionDouble>(
+    ObjectUnionDouble,
+  )((input) => typia.assert<ObjectUnionDouble>(input));

@@ -4,7 +4,8 @@ import { _test_functional_validateEqualsFunctionAsync } from "../../internal/_te
 import { ToJsonNull } from "../../structures/ToJsonNull";
 
 export const test_functional_validateEqualsFunctionAsync_ToJsonNull =
-  _test_functional_validateEqualsFunctionAsync("ToJsonNull")(ToJsonNull)(
-    (p: (input: ToJsonNull) => Promise<ToJsonNull>) =>
-      typia.functional.validateEqualsFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsFunctionAsync("ToJsonNull")(ToJsonNull)(
+      (p: (input: ToJsonNull) => Promise<ToJsonNull>) =>
+        typia.functional.validateEqualsFunction(p),
+    );

@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_assertGuardEquals } from "../../internal/_test_assertGuardEquals";
 import { ObjectClosure } from "../../structures/ObjectClosure";
 
-export const test_createAssertGuardEqualsCustom_ObjectClosure =
+export const test_createAssertGuardEqualsCustom_ObjectClosure = (): void =>
   _test_assertGuardEquals(CustomGuardError)("ObjectClosure")<ObjectClosure>(
     ObjectClosure,
   )(

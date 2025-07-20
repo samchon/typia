@@ -5,8 +5,9 @@ import { _test_functional_assertReturn } from "../../internal/_test_functional_a
 import { ObjectPartialAndRequired } from "../../structures/ObjectPartialAndRequired";
 
 export const test_functional_assertReturnCustom_ObjectPartialAndRequired =
-  _test_functional_assertReturn(CustomGuardError)("ObjectPartialAndRequired")(
-    ObjectPartialAndRequired,
-  )((p: (input: ObjectPartialAndRequired) => ObjectPartialAndRequired) =>
-    typia.functional.assertReturn(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertReturn(CustomGuardError)("ObjectPartialAndRequired")(
+      ObjectPartialAndRequired,
+    )((p: (input: ObjectPartialAndRequired) => ObjectPartialAndRequired) =>
+      typia.functional.assertReturn(p, (p) => new CustomGuardError(p)),
+    );

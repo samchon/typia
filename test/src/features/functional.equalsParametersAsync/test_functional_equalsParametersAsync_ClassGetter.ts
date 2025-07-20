@@ -4,7 +4,8 @@ import { _test_functional_equalsParametersAsync } from "../../internal/_test_fun
 import { ClassGetter } from "../../structures/ClassGetter";
 
 export const test_functional_equalsParametersAsync_ClassGetter =
-  _test_functional_equalsParametersAsync("ClassGetter")(ClassGetter)(
-    (p: (input: ClassGetter) => Promise<ClassGetter>) =>
-      typia.functional.equalsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_equalsParametersAsync("ClassGetter")(ClassGetter)(
+      (p: (input: ClassGetter) => Promise<ClassGetter>) =>
+        typia.functional.equalsParameters(p),
+    );

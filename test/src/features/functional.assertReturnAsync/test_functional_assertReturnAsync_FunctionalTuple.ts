@@ -5,8 +5,9 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { FunctionalTuple } from "../../structures/FunctionalTuple";
 
 export const test_functional_assertReturnAsync_FunctionalTuple =
-  _test_functional_assertReturnAsync(TypeGuardError)("FunctionalTuple")(
-    FunctionalTuple,
-  )((p: (input: FunctionalTuple) => Promise<FunctionalTuple>) =>
-    typia.functional.assertReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(TypeGuardError)("FunctionalTuple")(
+      FunctionalTuple,
+    )((p: (input: FunctionalTuple) => Promise<FunctionalTuple>) =>
+      typia.functional.assertReturn(p),
+    );

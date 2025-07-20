@@ -4,7 +4,8 @@ import { _test_functional_equalsFunctionAsync } from "../../internal/_test_funct
 import { ClassClosure } from "../../structures/ClassClosure";
 
 export const test_functional_equalsFunctionAsync_ClassClosure =
-  _test_functional_equalsFunctionAsync("ClassClosure")(ClassClosure)(
-    (p: (input: ClassClosure) => Promise<ClassClosure>) =>
-      typia.functional.equalsFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_equalsFunctionAsync("ClassClosure")(ClassClosure)(
+      (p: (input: ClassClosure) => Promise<ClassClosure>) =>
+        typia.functional.equalsFunction(p),
+    );

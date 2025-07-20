@@ -5,9 +5,10 @@ import { _test_functional_assertFunctionAsync } from "../../internal/_test_funct
 import { ConstantAtomicAbsorbed } from "../../structures/ConstantAtomicAbsorbed";
 
 export const test_functional_assertFunctionAsyncCustom_ConstantAtomicAbsorbed =
-  _test_functional_assertFunctionAsync(CustomGuardError)(
-    "ConstantAtomicAbsorbed",
-  )(ConstantAtomicAbsorbed)(
-    (p: (input: ConstantAtomicAbsorbed) => Promise<ConstantAtomicAbsorbed>) =>
-      typia.functional.assertFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertFunctionAsync(CustomGuardError)(
+      "ConstantAtomicAbsorbed",
+    )(ConstantAtomicAbsorbed)(
+      (p: (input: ConstantAtomicAbsorbed) => Promise<ConstantAtomicAbsorbed>) =>
+        typia.functional.assertFunction(p, (p) => new CustomGuardError(p)),
+    );

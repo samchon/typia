@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_functional_assertEqualsReturn } from "../../internal/_test_functional_assertEqualsReturn";
 import { TupleRestObject } from "../../structures/TupleRestObject";
 
-export const test_functional_assertEqualsReturn_TupleRestObject =
+export const test_functional_assertEqualsReturn_TupleRestObject = (): void =>
   _test_functional_assertEqualsReturn(TypeGuardError)("TupleRestObject")(
     TupleRestObject,
   )((p: (input: TupleRestObject) => TupleRestObject) =>

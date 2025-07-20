@@ -5,11 +5,12 @@ import { _test_protobuf_assertDecode } from "../../internal/_test_protobuf_asser
 import { TypeTagTypeUnion } from "../../structures/TypeTagTypeUnion";
 
 export const test_protobuf_createAssertDecodeCustom_TypeTagTypeUnion =
-  _test_protobuf_assertDecode(CustomGuardError)(
-    "TypeTagTypeUnion",
-  )<TypeTagTypeUnion>(TypeTagTypeUnion)({
-    decode: typia.protobuf.createAssertDecode<TypeTagTypeUnion>(
-      (p) => new CustomGuardError(p),
-    ),
-    encode: typia.protobuf.createEncode<TypeTagTypeUnion>(),
-  });
+  (): void =>
+    _test_protobuf_assertDecode(CustomGuardError)(
+      "TypeTagTypeUnion",
+    )<TypeTagTypeUnion>(TypeTagTypeUnion)({
+      decode: typia.protobuf.createAssertDecode<TypeTagTypeUnion>(
+        (p) => new CustomGuardError(p),
+      ),
+      encode: typia.protobuf.createEncode<TypeTagTypeUnion>(),
+    });

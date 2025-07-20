@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsFunctionAsync } from "../../internal/_test
 import { ArraySimple } from "../../structures/ArraySimple";
 
 export const test_functional_assertEqualsFunctionAsyncCustom_ArraySimple =
-  _test_functional_assertEqualsFunctionAsync(CustomGuardError)("ArraySimple")(
-    ArraySimple,
-  )((p: (input: ArraySimple) => Promise<ArraySimple>) =>
-    typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsFunctionAsync(CustomGuardError)("ArraySimple")(
+      ArraySimple,
+    )((p: (input: ArraySimple) => Promise<ArraySimple>) =>
+      typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
+    );

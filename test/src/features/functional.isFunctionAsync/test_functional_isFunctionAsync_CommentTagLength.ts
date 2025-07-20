@@ -4,7 +4,8 @@ import { _test_functional_isFunctionAsync } from "../../internal/_test_functiona
 import { CommentTagLength } from "../../structures/CommentTagLength";
 
 export const test_functional_isFunctionAsync_CommentTagLength =
-  _test_functional_isFunctionAsync("CommentTagLength")(CommentTagLength)(
-    (p: (input: CommentTagLength) => Promise<CommentTagLength>) =>
-      typia.functional.isFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_isFunctionAsync("CommentTagLength")(CommentTagLength)(
+      (p: (input: CommentTagLength) => Promise<CommentTagLength>) =>
+        typia.functional.isFunction(p),
+    );

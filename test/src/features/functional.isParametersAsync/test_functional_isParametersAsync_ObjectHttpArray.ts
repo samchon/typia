@@ -4,7 +4,8 @@ import { _test_functional_isParametersAsync } from "../../internal/_test_functio
 import { ObjectHttpArray } from "../../structures/ObjectHttpArray";
 
 export const test_functional_isParametersAsync_ObjectHttpArray =
-  _test_functional_isParametersAsync("ObjectHttpArray")(ObjectHttpArray)(
-    (p: (input: ObjectHttpArray) => Promise<ObjectHttpArray>) =>
-      typia.functional.isParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_isParametersAsync("ObjectHttpArray")(ObjectHttpArray)(
+      (p: (input: ObjectHttpArray) => Promise<ObjectHttpArray>) =>
+        typia.functional.isParameters(p),
+    );

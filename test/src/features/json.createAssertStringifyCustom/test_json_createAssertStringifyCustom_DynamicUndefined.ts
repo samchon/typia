@@ -5,10 +5,11 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { DynamicUndefined } from "../../structures/DynamicUndefined";
 
 export const test_json_createAssertStringifyCustom_DynamicUndefined =
-  _test_json_assertStringify(CustomGuardError)(
-    "DynamicUndefined",
-  )<DynamicUndefined>(DynamicUndefined)(
-    typia.json.createAssertStringify<DynamicUndefined>(
-      (p) => new CustomGuardError(p),
-    ),
-  );
+  (): void =>
+    _test_json_assertStringify(CustomGuardError)(
+      "DynamicUndefined",
+    )<DynamicUndefined>(DynamicUndefined)(
+      typia.json.createAssertStringify<DynamicUndefined>(
+        (p) => new CustomGuardError(p),
+      ),
+    );

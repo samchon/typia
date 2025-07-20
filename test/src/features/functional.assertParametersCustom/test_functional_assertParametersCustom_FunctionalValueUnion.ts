@@ -5,8 +5,9 @@ import { _test_functional_assertParameters } from "../../internal/_test_function
 import { FunctionalValueUnion } from "../../structures/FunctionalValueUnion";
 
 export const test_functional_assertParametersCustom_FunctionalValueUnion =
-  _test_functional_assertParameters(CustomGuardError)("FunctionalValueUnion")(
-    FunctionalValueUnion,
-  )((p: (input: FunctionalValueUnion) => FunctionalValueUnion) =>
-    typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertParameters(CustomGuardError)("FunctionalValueUnion")(
+      FunctionalValueUnion,
+    )((p: (input: FunctionalValueUnion) => FunctionalValueUnion) =>
+      typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
+    );

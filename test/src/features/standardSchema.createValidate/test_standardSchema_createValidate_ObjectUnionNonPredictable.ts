@@ -4,8 +4,9 @@ import { _test_standardSchema_validate } from "../../internal/_test_standardSche
 import { ObjectUnionNonPredictable } from "../../structures/ObjectUnionNonPredictable";
 
 export const test_standardSchema_createValidate_ObjectUnionNonPredictable =
-  _test_standardSchema_validate(
-    "ObjectUnionNonPredictable",
-  )<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)(
-    typia.createValidate<ObjectUnionNonPredictable>(),
-  );
+  (): void =>
+    _test_standardSchema_validate(
+      "ObjectUnionNonPredictable",
+    )<ObjectUnionNonPredictable>(ObjectUnionNonPredictable)(
+      typia.createValidate<ObjectUnionNonPredictable>(),
+    );

@@ -4,8 +4,9 @@ import { _test_functional_equalsParameters } from "../../internal/_test_function
 import { ConstantAtomicWrapper } from "../../structures/ConstantAtomicWrapper";
 
 export const test_functional_equalsParameters_ConstantAtomicWrapper =
-  _test_functional_equalsParameters("ConstantAtomicWrapper")(
-    ConstantAtomicWrapper,
-  )((p: (input: ConstantAtomicWrapper) => ConstantAtomicWrapper) =>
-    typia.functional.equalsParameters(p),
-  );
+  (): void =>
+    _test_functional_equalsParameters("ConstantAtomicWrapper")(
+      ConstantAtomicWrapper,
+    )((p: (input: ConstantAtomicWrapper) => ConstantAtomicWrapper) =>
+      typia.functional.equalsParameters(p),
+    );

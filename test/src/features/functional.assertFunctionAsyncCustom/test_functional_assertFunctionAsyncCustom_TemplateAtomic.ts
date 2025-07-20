@@ -5,8 +5,9 @@ import { _test_functional_assertFunctionAsync } from "../../internal/_test_funct
 import { TemplateAtomic } from "../../structures/TemplateAtomic";
 
 export const test_functional_assertFunctionAsyncCustom_TemplateAtomic =
-  _test_functional_assertFunctionAsync(CustomGuardError)("TemplateAtomic")(
-    TemplateAtomic,
-  )((p: (input: TemplateAtomic) => Promise<TemplateAtomic>) =>
-    typia.functional.assertFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertFunctionAsync(CustomGuardError)("TemplateAtomic")(
+      TemplateAtomic,
+    )((p: (input: TemplateAtomic) => Promise<TemplateAtomic>) =>
+      typia.functional.assertFunction(p, (p) => new CustomGuardError(p)),
+    );

@@ -4,8 +4,11 @@ import { _test_functional_isFunction } from "../../internal/_test_functional_isF
 import { ArraySimpleProtobufNullable } from "../../structures/ArraySimpleProtobufNullable";
 
 export const test_functional_isFunction_ArraySimpleProtobufNullable =
-  _test_functional_isFunction("ArraySimpleProtobufNullable")(
-    ArraySimpleProtobufNullable,
-  )((p: (input: ArraySimpleProtobufNullable) => ArraySimpleProtobufNullable) =>
-    typia.functional.isFunction(p),
-  );
+  (): void =>
+    _test_functional_isFunction("ArraySimpleProtobufNullable")(
+      ArraySimpleProtobufNullable,
+    )(
+      (
+        p: (input: ArraySimpleProtobufNullable) => ArraySimpleProtobufNullable,
+      ) => typia.functional.isFunction(p),
+    );

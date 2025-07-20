@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsParametersAsync } from "../../internal/_
 import { FunctionalArray } from "../../structures/FunctionalArray";
 
 export const test_functional_validateEqualsParametersAsync_FunctionalArray =
-  _test_functional_validateEqualsParametersAsync("FunctionalArray")(
-    FunctionalArray,
-  )((p: (input: FunctionalArray) => Promise<FunctionalArray>) =>
-    typia.functional.validateEqualsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsParametersAsync("FunctionalArray")(
+      FunctionalArray,
+    )((p: (input: FunctionalArray) => Promise<FunctionalArray>) =>
+      typia.functional.validateEqualsParameters(p),
+    );

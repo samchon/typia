@@ -5,8 +5,12 @@ import { _test_functional_assertEqualsParameters } from "../../internal/_test_fu
 import { FunctionalArray } from "../../structures/FunctionalArray";
 
 export const test_functional_assertEqualsParametersCustom_FunctionalArray =
-  _test_functional_assertEqualsParameters(CustomGuardError)("FunctionalArray")(
-    FunctionalArray,
-  )((p: (input: FunctionalArray) => FunctionalArray) =>
-    typia.functional.assertEqualsParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertEqualsParameters(CustomGuardError)(
+      "FunctionalArray",
+    )(FunctionalArray)((p: (input: FunctionalArray) => FunctionalArray) =>
+      typia.functional.assertEqualsParameters(
+        p,
+        (p) => new CustomGuardError(p),
+      ),
+    );

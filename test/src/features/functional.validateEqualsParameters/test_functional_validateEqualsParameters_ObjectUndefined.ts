@@ -4,7 +4,9 @@ import { _test_functional_validateEqualsParameters } from "../../internal/_test_
 import { ObjectUndefined } from "../../structures/ObjectUndefined";
 
 export const test_functional_validateEqualsParameters_ObjectUndefined =
-  _test_functional_validateEqualsParameters("ObjectUndefined")(ObjectUndefined)(
-    (p: (input: ObjectUndefined) => ObjectUndefined) =>
+  (): void =>
+    _test_functional_validateEqualsParameters("ObjectUndefined")(
+      ObjectUndefined,
+    )((p: (input: ObjectUndefined) => ObjectUndefined) =>
       typia.functional.validateEqualsParameters(p),
-  );
+    );

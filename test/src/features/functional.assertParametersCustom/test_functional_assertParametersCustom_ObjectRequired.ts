@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_functional_assertParameters } from "../../internal/_test_functional_assertParameters";
 import { ObjectRequired } from "../../structures/ObjectRequired";
 
-export const test_functional_assertParametersCustom_ObjectRequired =
+export const test_functional_assertParametersCustom_ObjectRequired = (): void =>
   _test_functional_assertParameters(CustomGuardError)("ObjectRequired")(
     ObjectRequired,
   )((p: (input: ObjectRequired) => ObjectRequired) =>

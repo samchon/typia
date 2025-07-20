@@ -5,8 +5,9 @@ import { _test_functional_assertFunctionAsync } from "../../internal/_test_funct
 import { ObjectDate } from "../../structures/ObjectDate";
 
 export const test_functional_assertFunctionAsync_ObjectDate =
-  _test_functional_assertFunctionAsync(TypeGuardError)("ObjectDate")(
-    ObjectDate,
-  )((p: (input: ObjectDate) => Promise<ObjectDate>) =>
-    typia.functional.assertFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertFunctionAsync(TypeGuardError)("ObjectDate")(
+      ObjectDate,
+    )((p: (input: ObjectDate) => Promise<ObjectDate>) =>
+      typia.functional.assertFunction(p),
+    );

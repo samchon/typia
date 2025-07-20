@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsParametersAsync } from "../../internal/_
 import { TemplateConstant } from "../../structures/TemplateConstant";
 
 export const test_functional_validateEqualsParametersAsync_TemplateConstant =
-  _test_functional_validateEqualsParametersAsync("TemplateConstant")(
-    TemplateConstant,
-  )((p: (input: TemplateConstant) => Promise<TemplateConstant>) =>
-    typia.functional.validateEqualsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsParametersAsync("TemplateConstant")(
+      TemplateConstant,
+    )((p: (input: TemplateConstant) => Promise<TemplateConstant>) =>
+      typia.functional.validateEqualsParameters(p),
+    );

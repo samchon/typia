@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_functional_assertReturn } from "../../internal/_test_functional_assertReturn";
 import { ObjectDescription } from "../../structures/ObjectDescription";
 
-export const test_functional_assertReturn_ObjectDescription =
+export const test_functional_assertReturn_ObjectDescription = (): void =>
   _test_functional_assertReturn(TypeGuardError)("ObjectDescription")(
     ObjectDescription,
   )((p: (input: ObjectDescription) => ObjectDescription) =>

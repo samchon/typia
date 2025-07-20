@@ -4,7 +4,8 @@ import { _test_functional_equalsReturnAsync } from "../../internal/_test_functio
 import { ObjectOptional } from "../../structures/ObjectOptional";
 
 export const test_functional_equalsReturnAsync_ObjectOptional =
-  _test_functional_equalsReturnAsync("ObjectOptional")(ObjectOptional)(
-    (p: (input: ObjectOptional) => Promise<ObjectOptional>) =>
-      typia.functional.equalsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_equalsReturnAsync("ObjectOptional")(ObjectOptional)(
+      (p: (input: ObjectOptional) => Promise<ObjectOptional>) =>
+        typia.functional.equalsReturn(p),
+    );

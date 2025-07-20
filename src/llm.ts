@@ -153,7 +153,20 @@ export function controller(
 export function controller<
   Class extends Record<string, any>,
   Model extends ILlmSchema.Model,
-  Config extends Partial<ILlmSchema.ModelConfig[Model]> = {},
+  Config extends Partial<
+    ILlmSchema.ModelConfig[Model] & {
+      /**
+       * Whether to disallow superfluous properties or not.
+       *
+       * If configure as `true`, {@link validateEquals} function would be
+       * used for validation feedback, which is more strict than
+       * {@link validate} function.
+       *
+       * @default false
+       */
+      equals: boolean;
+    }
+  > = {},
 >(
   name: string,
   execute: Class,
@@ -280,7 +293,20 @@ export function application(
 export function application<
   Class extends Record<string, any>,
   Model extends ILlmSchema.Model,
-  Config extends Partial<ILlmSchema.ModelConfig[Model]> = {},
+  Config extends Partial<
+    {
+      /**
+       * Whether to disallow superfluous properties or not.
+       *
+       * If configure as `true`, {@link validateEquals} function would be
+       * used for validation feedback, which is more strict than
+       * {@link validate} function.
+       *
+       * @default false
+       */
+      equals: boolean;
+    } & ILlmSchema.ModelConfig[Model]
+  > = {},
 >(
   options?: Partial<Pick<ILlmApplication.IOptions<Model>, "separate">>,
 ): ILlmApplication<Model, Class>;

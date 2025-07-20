@@ -7,8 +7,7 @@ import { _check_invalidate_json_value } from "./_check_invalidate_json_value";
 export const _test_json_isParse =
   (name: string) =>
   <T>(factory: TestStructure<T>) =>
-  (parse: (input: string) => Primitive<T> | null) =>
-  () => {
+  (parse: (input: string) => Primitive<T> | null): void => {
     const data: T = factory.generate();
     const string: string = JSON.stringify(data);
     const expected: Primitive<T> = JSON.parse(string);

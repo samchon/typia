@@ -5,8 +5,9 @@ import { _test_functional_assertFunctionAsync } from "../../internal/_test_funct
 import { ObjectRecursive } from "../../structures/ObjectRecursive";
 
 export const test_functional_assertFunctionAsyncCustom_ObjectRecursive =
-  _test_functional_assertFunctionAsync(CustomGuardError)("ObjectRecursive")(
-    ObjectRecursive,
-  )((p: (input: ObjectRecursive) => Promise<ObjectRecursive>) =>
-    typia.functional.assertFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertFunctionAsync(CustomGuardError)("ObjectRecursive")(
+      ObjectRecursive,
+    )((p: (input: ObjectRecursive) => Promise<ObjectRecursive>) =>
+      typia.functional.assertFunction(p, (p) => new CustomGuardError(p)),
+    );

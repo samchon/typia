@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsReturnAsync } from "../../internal/_test_f
 import { ObjectClosure } from "../../structures/ObjectClosure";
 
 export const test_functional_assertEqualsReturnAsyncCustom_ObjectClosure =
-  _test_functional_assertEqualsReturnAsync(CustomGuardError)("ObjectClosure")(
-    ObjectClosure,
-  )((p: (input: ObjectClosure) => Promise<ObjectClosure>) =>
-    typia.functional.assertEqualsReturn(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsReturnAsync(CustomGuardError)("ObjectClosure")(
+      ObjectClosure,
+    )((p: (input: ObjectClosure) => Promise<ObjectClosure>) =>
+      typia.functional.assertEqualsReturn(p, (p) => new CustomGuardError(p)),
+    );

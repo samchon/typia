@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_assertGuardEquals } from "../../internal/_test_assertGuardEquals";
 import { ObjectGenericAlias } from "../../structures/ObjectGenericAlias";
 
-export const test_createAssertGuardEquals_ObjectGenericAlias =
+export const test_createAssertGuardEquals_ObjectGenericAlias = (): void =>
   _test_assertGuardEquals(TypeGuardError)(
     "ObjectGenericAlias",
   )<ObjectGenericAlias>(ObjectGenericAlias)(

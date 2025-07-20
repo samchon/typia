@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_functional_assertParameters } from "../../internal/_test_functional_assertParameters";
 import { ArrayRepeatedUnion } from "../../structures/ArrayRepeatedUnion";
 
-export const test_functional_assertParameters_ArrayRepeatedUnion =
+export const test_functional_assertParameters_ArrayRepeatedUnion = (): void =>
   _test_functional_assertParameters(TypeGuardError)("ArrayRepeatedUnion")(
     ArrayRepeatedUnion,
   )((p: (input: ArrayRepeatedUnion) => ArrayRepeatedUnion) =>

@@ -5,12 +5,13 @@ import { _test_functional_assertEqualsParametersAsync } from "../../internal/_te
 import { TupleRestObject } from "../../structures/TupleRestObject";
 
 export const test_functional_assertEqualsParametersAsyncCustom_TupleRestObject =
-  _test_functional_assertEqualsParametersAsync(CustomGuardError)(
-    "TupleRestObject",
-  )(TupleRestObject)(
-    (p: (input: TupleRestObject) => Promise<TupleRestObject>) =>
-      typia.functional.assertEqualsParameters(
-        p,
-        (p) => new CustomGuardError(p),
-      ),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsParametersAsync(CustomGuardError)(
+      "TupleRestObject",
+    )(TupleRestObject)(
+      (p: (input: TupleRestObject) => Promise<TupleRestObject>) =>
+        typia.functional.assertEqualsParameters(
+          p,
+          (p) => new CustomGuardError(p),
+        ),
+    );

@@ -5,8 +5,10 @@ import { _test_functional_assertParametersAsync } from "../../internal/_test_fun
 import { AtomicIntersection } from "../../structures/AtomicIntersection";
 
 export const test_functional_assertParametersAsync_AtomicIntersection =
-  _test_functional_assertParametersAsync(TypeGuardError)("AtomicIntersection")(
-    AtomicIntersection,
-  )((p: (input: AtomicIntersection) => Promise<AtomicIntersection>) =>
-    typia.functional.assertParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertParametersAsync(TypeGuardError)(
+      "AtomicIntersection",
+    )(AtomicIntersection)(
+      (p: (input: AtomicIntersection) => Promise<AtomicIntersection>) =>
+        typia.functional.assertParameters(p),
+    );

@@ -5,9 +5,10 @@ import { _test_functional_assertParametersAsync } from "../../internal/_test_fun
 import { FunctionalValueUnion } from "../../structures/FunctionalValueUnion";
 
 export const test_functional_assertParametersAsyncCustom_FunctionalValueUnion =
-  _test_functional_assertParametersAsync(CustomGuardError)(
-    "FunctionalValueUnion",
-  )(FunctionalValueUnion)(
-    (p: (input: FunctionalValueUnion) => Promise<FunctionalValueUnion>) =>
-      typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertParametersAsync(CustomGuardError)(
+      "FunctionalValueUnion",
+    )(FunctionalValueUnion)(
+      (p: (input: FunctionalValueUnion) => Promise<FunctionalValueUnion>) =>
+        typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
+    );

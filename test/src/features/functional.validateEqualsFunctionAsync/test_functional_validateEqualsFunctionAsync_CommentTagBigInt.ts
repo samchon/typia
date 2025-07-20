@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsFunctionAsync } from "../../internal/_te
 import { CommentTagBigInt } from "../../structures/CommentTagBigInt";
 
 export const test_functional_validateEqualsFunctionAsync_CommentTagBigInt =
-  _test_functional_validateEqualsFunctionAsync("CommentTagBigInt")(
-    CommentTagBigInt,
-  )((p: (input: CommentTagBigInt) => Promise<CommentTagBigInt>) =>
-    typia.functional.validateEqualsFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsFunctionAsync("CommentTagBigInt")(
+      CommentTagBigInt,
+    )((p: (input: CommentTagBigInt) => Promise<CommentTagBigInt>) =>
+      typia.functional.validateEqualsFunction(p),
+    );

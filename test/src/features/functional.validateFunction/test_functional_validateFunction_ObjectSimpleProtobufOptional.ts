@@ -4,10 +4,13 @@ import { _test_functional_validateFunction } from "../../internal/_test_function
 import { ObjectSimpleProtobufOptional } from "../../structures/ObjectSimpleProtobufOptional";
 
 export const test_functional_validateFunction_ObjectSimpleProtobufOptional =
-  _test_functional_validateFunction("ObjectSimpleProtobufOptional")(
-    ObjectSimpleProtobufOptional,
-  )(
-    (
-      p: (input: ObjectSimpleProtobufOptional) => ObjectSimpleProtobufOptional,
-    ) => typia.functional.validateFunction(p),
-  );
+  (): void =>
+    _test_functional_validateFunction("ObjectSimpleProtobufOptional")(
+      ObjectSimpleProtobufOptional,
+    )(
+      (
+        p: (
+          input: ObjectSimpleProtobufOptional,
+        ) => ObjectSimpleProtobufOptional,
+      ) => typia.functional.validateFunction(p),
+    );

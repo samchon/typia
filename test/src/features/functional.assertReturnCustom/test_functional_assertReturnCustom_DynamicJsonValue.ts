@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_functional_assertReturn } from "../../internal/_test_functional_assertReturn";
 import { DynamicJsonValue } from "../../structures/DynamicJsonValue";
 
-export const test_functional_assertReturnCustom_DynamicJsonValue =
+export const test_functional_assertReturnCustom_DynamicJsonValue = (): void =>
   _test_functional_assertReturn(CustomGuardError)("DynamicJsonValue")(
     DynamicJsonValue,
   )((p: (input: DynamicJsonValue) => DynamicJsonValue) =>

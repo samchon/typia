@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_functional_assertEqualsParameters } from "../../internal/_test_functional_assertEqualsParameters";
 import { TemplateAtomic } from "../../structures/TemplateAtomic";
 
-export const test_functional_assertEqualsParameters_TemplateAtomic =
+export const test_functional_assertEqualsParameters_TemplateAtomic = (): void =>
   _test_functional_assertEqualsParameters(TypeGuardError)("TemplateAtomic")(
     TemplateAtomic,
   )((p: (input: TemplateAtomic) => TemplateAtomic) =>

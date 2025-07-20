@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_functional_assertReturn } from "../../internal/_test_functional_assertReturn";
 import { TypeTagRangeBigInt } from "../../structures/TypeTagRangeBigInt";
 
-export const test_functional_assertReturnCustom_TypeTagRangeBigInt =
+export const test_functional_assertReturnCustom_TypeTagRangeBigInt = (): void =>
   _test_functional_assertReturn(CustomGuardError)("TypeTagRangeBigInt")(
     TypeTagRangeBigInt,
   )((p: (input: TypeTagRangeBigInt) => TypeTagRangeBigInt) =>

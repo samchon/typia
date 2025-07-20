@@ -5,8 +5,9 @@ import { _test_functional_assertFunctionAsync } from "../../internal/_test_funct
 import { CommentTagDefault } from "../../structures/CommentTagDefault";
 
 export const test_functional_assertFunctionAsync_CommentTagDefault =
-  _test_functional_assertFunctionAsync(TypeGuardError)("CommentTagDefault")(
-    CommentTagDefault,
-  )((p: (input: CommentTagDefault) => Promise<CommentTagDefault>) =>
-    typia.functional.assertFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertFunctionAsync(TypeGuardError)("CommentTagDefault")(
+      CommentTagDefault,
+    )((p: (input: CommentTagDefault) => Promise<CommentTagDefault>) =>
+      typia.functional.assertFunction(p),
+    );

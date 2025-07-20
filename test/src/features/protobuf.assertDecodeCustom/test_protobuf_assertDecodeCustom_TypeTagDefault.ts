@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_protobuf_assertDecode } from "../../internal/_test_protobuf_assertDecode";
 import { TypeTagDefault } from "../../structures/TypeTagDefault";
 
-export const test_protobuf_assertDecodeCustom_TypeTagDefault =
+export const test_protobuf_assertDecodeCustom_TypeTagDefault = (): void =>
   _test_protobuf_assertDecode(CustomGuardError)(
     "TypeTagDefault",
   )<TypeTagDefault>(TypeTagDefault)({

@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_functional_assertReturn } from "../../internal/_test_functional_assertReturn";
 import { ObjectHttpNullable } from "../../structures/ObjectHttpNullable";
 
-export const test_functional_assertReturnCustom_ObjectHttpNullable =
+export const test_functional_assertReturnCustom_ObjectHttpNullable = (): void =>
   _test_functional_assertReturn(CustomGuardError)("ObjectHttpNullable")(
     ObjectHttpNullable,
   )((p: (input: ObjectHttpNullable) => ObjectHttpNullable) =>

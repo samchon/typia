@@ -5,8 +5,10 @@ import { _test_functional_assertParametersAsync } from "../../internal/_test_fun
 import { ObjectUnionExplicit } from "../../structures/ObjectUnionExplicit";
 
 export const test_functional_assertParametersAsync_ObjectUnionExplicit =
-  _test_functional_assertParametersAsync(TypeGuardError)("ObjectUnionExplicit")(
-    ObjectUnionExplicit,
-  )((p: (input: ObjectUnionExplicit) => Promise<ObjectUnionExplicit>) =>
-    typia.functional.assertParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertParametersAsync(TypeGuardError)(
+      "ObjectUnionExplicit",
+    )(ObjectUnionExplicit)(
+      (p: (input: ObjectUnionExplicit) => Promise<ObjectUnionExplicit>) =>
+        typia.functional.assertParameters(p),
+    );

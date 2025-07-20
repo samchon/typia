@@ -5,9 +5,10 @@ import { _test_functional_assertEqualsParametersAsync } from "../../internal/_te
 import { TypeTagArrayUnion } from "../../structures/TypeTagArrayUnion";
 
 export const test_functional_assertEqualsParametersAsync_TypeTagArrayUnion =
-  _test_functional_assertEqualsParametersAsync(TypeGuardError)(
-    "TypeTagArrayUnion",
-  )(TypeTagArrayUnion)(
-    (p: (input: TypeTagArrayUnion) => Promise<TypeTagArrayUnion>) =>
-      typia.functional.assertEqualsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsParametersAsync(TypeGuardError)(
+      "TypeTagArrayUnion",
+    )(TypeTagArrayUnion)(
+      (p: (input: TypeTagArrayUnion) => Promise<TypeTagArrayUnion>) =>
+        typia.functional.assertEqualsParameters(p),
+    );

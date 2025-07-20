@@ -5,8 +5,9 @@ import { _test_functional_assertFunctionAsync } from "../../internal/_test_funct
 import { CommentTagInfinite } from "../../structures/CommentTagInfinite";
 
 export const test_functional_assertFunctionAsync_CommentTagInfinite =
-  _test_functional_assertFunctionAsync(TypeGuardError)("CommentTagInfinite")(
-    CommentTagInfinite,
-  )((p: (input: CommentTagInfinite) => Promise<CommentTagInfinite>) =>
-    typia.functional.assertFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertFunctionAsync(TypeGuardError)("CommentTagInfinite")(
+      CommentTagInfinite,
+    )((p: (input: CommentTagInfinite) => Promise<CommentTagInfinite>) =>
+      typia.functional.assertFunction(p),
+    );

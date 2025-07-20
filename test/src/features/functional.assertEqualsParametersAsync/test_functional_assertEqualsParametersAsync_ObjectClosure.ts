@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsParametersAsync } from "../../internal/_te
 import { ObjectClosure } from "../../structures/ObjectClosure";
 
 export const test_functional_assertEqualsParametersAsync_ObjectClosure =
-  _test_functional_assertEqualsParametersAsync(TypeGuardError)("ObjectClosure")(
-    ObjectClosure,
-  )((p: (input: ObjectClosure) => Promise<ObjectClosure>) =>
-    typia.functional.assertEqualsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsParametersAsync(TypeGuardError)(
+      "ObjectClosure",
+    )(ObjectClosure)((p: (input: ObjectClosure) => Promise<ObjectClosure>) =>
+      typia.functional.assertEqualsParameters(p),
+    );

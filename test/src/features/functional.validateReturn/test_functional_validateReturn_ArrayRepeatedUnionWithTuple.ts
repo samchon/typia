@@ -4,8 +4,11 @@ import { _test_functional_validateReturn } from "../../internal/_test_functional
 import { ArrayRepeatedUnionWithTuple } from "../../structures/ArrayRepeatedUnionWithTuple";
 
 export const test_functional_validateReturn_ArrayRepeatedUnionWithTuple =
-  _test_functional_validateReturn("ArrayRepeatedUnionWithTuple")(
-    ArrayRepeatedUnionWithTuple,
-  )((p: (input: ArrayRepeatedUnionWithTuple) => ArrayRepeatedUnionWithTuple) =>
-    typia.functional.validateReturn(p),
-  );
+  (): void =>
+    _test_functional_validateReturn("ArrayRepeatedUnionWithTuple")(
+      ArrayRepeatedUnionWithTuple,
+    )(
+      (
+        p: (input: ArrayRepeatedUnionWithTuple) => ArrayRepeatedUnionWithTuple,
+      ) => typia.functional.validateReturn(p),
+    );

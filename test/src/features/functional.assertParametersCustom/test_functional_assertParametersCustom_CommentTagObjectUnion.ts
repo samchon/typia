@@ -5,8 +5,10 @@ import { _test_functional_assertParameters } from "../../internal/_test_function
 import { CommentTagObjectUnion } from "../../structures/CommentTagObjectUnion";
 
 export const test_functional_assertParametersCustom_CommentTagObjectUnion =
-  _test_functional_assertParameters(CustomGuardError)("CommentTagObjectUnion")(
-    CommentTagObjectUnion,
-  )((p: (input: CommentTagObjectUnion) => CommentTagObjectUnion) =>
-    typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertParameters(CustomGuardError)(
+      "CommentTagObjectUnion",
+    )(CommentTagObjectUnion)(
+      (p: (input: CommentTagObjectUnion) => CommentTagObjectUnion) =>
+        typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
+    );

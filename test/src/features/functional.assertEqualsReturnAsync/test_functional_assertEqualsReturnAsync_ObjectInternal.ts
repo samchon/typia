@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsReturnAsync } from "../../internal/_test_f
 import { ObjectInternal } from "../../structures/ObjectInternal";
 
 export const test_functional_assertEqualsReturnAsync_ObjectInternal =
-  _test_functional_assertEqualsReturnAsync(TypeGuardError)("ObjectInternal")(
-    ObjectInternal,
-  )((p: (input: ObjectInternal) => Promise<ObjectInternal>) =>
-    typia.functional.assertEqualsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsReturnAsync(TypeGuardError)("ObjectInternal")(
+      ObjectInternal,
+    )((p: (input: ObjectInternal) => Promise<ObjectInternal>) =>
+      typia.functional.assertEqualsReturn(p),
+    );

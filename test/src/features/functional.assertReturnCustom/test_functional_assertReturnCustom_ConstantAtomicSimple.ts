@@ -5,8 +5,9 @@ import { _test_functional_assertReturn } from "../../internal/_test_functional_a
 import { ConstantAtomicSimple } from "../../structures/ConstantAtomicSimple";
 
 export const test_functional_assertReturnCustom_ConstantAtomicSimple =
-  _test_functional_assertReturn(CustomGuardError)("ConstantAtomicSimple")(
-    ConstantAtomicSimple,
-  )((p: (input: ConstantAtomicSimple) => ConstantAtomicSimple) =>
-    typia.functional.assertReturn(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertReturn(CustomGuardError)("ConstantAtomicSimple")(
+      ConstantAtomicSimple,
+    )((p: (input: ConstantAtomicSimple) => ConstantAtomicSimple) =>
+      typia.functional.assertReturn(p, (p) => new CustomGuardError(p)),
+    );

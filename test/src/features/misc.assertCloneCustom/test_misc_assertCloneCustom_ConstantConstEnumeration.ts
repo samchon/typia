@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_misc_assertClone } from "../../internal/_test_misc_assertClone";
 import { ConstantConstEnumeration } from "../../structures/ConstantConstEnumeration";
 
-export const test_misc_assertCloneCustom_ConstantConstEnumeration =
+export const test_misc_assertCloneCustom_ConstantConstEnumeration = (): void =>
   _test_misc_assertClone(CustomGuardError)(
     "ConstantConstEnumeration",
   )<ConstantConstEnumeration>(ConstantConstEnumeration)((input) =>

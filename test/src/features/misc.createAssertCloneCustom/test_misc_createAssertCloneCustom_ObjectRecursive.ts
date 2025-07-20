@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_misc_assertClone } from "../../internal/_test_misc_assertClone";
 import { ObjectRecursive } from "../../structures/ObjectRecursive";
 
-export const test_misc_createAssertCloneCustom_ObjectRecursive =
+export const test_misc_createAssertCloneCustom_ObjectRecursive = (): void =>
   _test_misc_assertClone(CustomGuardError)("ObjectRecursive")<ObjectRecursive>(
     ObjectRecursive,
   )(

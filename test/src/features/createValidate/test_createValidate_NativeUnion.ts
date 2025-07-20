@@ -3,6 +3,7 @@ import typia from "typia";
 import { _test_validate } from "../../internal/_test_validate";
 import { NativeUnion } from "../../structures/NativeUnion";
 
-export const test_createValidate_NativeUnion = _test_validate(
-  "NativeUnion",
-)<NativeUnion>(NativeUnion)(typia.createValidate<NativeUnion>());
+export const test_createValidate_NativeUnion = (): void =>
+  _test_validate("NativeUnion")<NativeUnion>(NativeUnion)(
+    typia.createValidate<NativeUnion>(),
+  );

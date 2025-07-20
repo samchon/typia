@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsFunctionAsync } from "../../internal/_test
 import { TypeTagMatrix } from "../../structures/TypeTagMatrix";
 
 export const test_functional_assertEqualsFunctionAsync_TypeTagMatrix =
-  _test_functional_assertEqualsFunctionAsync(TypeGuardError)("TypeTagMatrix")(
-    TypeTagMatrix,
-  )((p: (input: TypeTagMatrix) => Promise<TypeTagMatrix>) =>
-    typia.functional.assertEqualsFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsFunctionAsync(TypeGuardError)("TypeTagMatrix")(
+      TypeTagMatrix,
+    )((p: (input: TypeTagMatrix) => Promise<TypeTagMatrix>) =>
+      typia.functional.assertEqualsFunction(p),
+    );

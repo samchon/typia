@@ -5,9 +5,10 @@ import { _test_functional_assertEqualsParametersAsync } from "../../internal/_te
 import { TypeTagObjectUnion } from "../../structures/TypeTagObjectUnion";
 
 export const test_functional_assertEqualsParametersAsync_TypeTagObjectUnion =
-  _test_functional_assertEqualsParametersAsync(TypeGuardError)(
-    "TypeTagObjectUnion",
-  )(TypeTagObjectUnion)(
-    (p: (input: TypeTagObjectUnion) => Promise<TypeTagObjectUnion>) =>
-      typia.functional.assertEqualsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsParametersAsync(TypeGuardError)(
+      "TypeTagObjectUnion",
+    )(TypeTagObjectUnion)(
+      (p: (input: TypeTagObjectUnion) => Promise<TypeTagObjectUnion>) =>
+        typia.functional.assertEqualsParameters(p),
+    );

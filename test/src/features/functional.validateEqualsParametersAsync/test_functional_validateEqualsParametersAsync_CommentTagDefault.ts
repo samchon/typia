@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsParametersAsync } from "../../internal/_
 import { CommentTagDefault } from "../../structures/CommentTagDefault";
 
 export const test_functional_validateEqualsParametersAsync_CommentTagDefault =
-  _test_functional_validateEqualsParametersAsync("CommentTagDefault")(
-    CommentTagDefault,
-  )((p: (input: CommentTagDefault) => Promise<CommentTagDefault>) =>
-    typia.functional.validateEqualsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsParametersAsync("CommentTagDefault")(
+      CommentTagDefault,
+    )((p: (input: CommentTagDefault) => Promise<CommentTagDefault>) =>
+      typia.functional.validateEqualsParameters(p),
+    );

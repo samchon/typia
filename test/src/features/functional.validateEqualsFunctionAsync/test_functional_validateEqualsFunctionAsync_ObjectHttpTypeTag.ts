@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsFunctionAsync } from "../../internal/_te
 import { ObjectHttpTypeTag } from "../../structures/ObjectHttpTypeTag";
 
 export const test_functional_validateEqualsFunctionAsync_ObjectHttpTypeTag =
-  _test_functional_validateEqualsFunctionAsync("ObjectHttpTypeTag")(
-    ObjectHttpTypeTag,
-  )((p: (input: ObjectHttpTypeTag) => Promise<ObjectHttpTypeTag>) =>
-    typia.functional.validateEqualsFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsFunctionAsync("ObjectHttpTypeTag")(
+      ObjectHttpTypeTag,
+    )((p: (input: ObjectHttpTypeTag) => Promise<ObjectHttpTypeTag>) =>
+      typia.functional.validateEqualsFunction(p),
+    );

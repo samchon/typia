@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_assertEquals } from "../../internal/_test_assertEquals";
 import { ObjectUnionCompositePointer } from "../../structures/ObjectUnionCompositePointer";
 
-export const test_createAssertEquals_ObjectUnionCompositePointer =
+export const test_createAssertEquals_ObjectUnionCompositePointer = (): void =>
   _test_assertEquals(TypeGuardError)(
     "ObjectUnionCompositePointer",
   )<ObjectUnionCompositePointer>(ObjectUnionCompositePointer)(

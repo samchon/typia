@@ -5,9 +5,10 @@ import { _test_functional_assertEqualsFunctionAsync } from "../../internal/_test
 import { TupleHierarchical } from "../../structures/TupleHierarchical";
 
 export const test_functional_assertEqualsFunctionAsync_TupleHierarchical =
-  _test_functional_assertEqualsFunctionAsync(TypeGuardError)(
-    "TupleHierarchical",
-  )(TupleHierarchical)(
-    (p: (input: TupleHierarchical) => Promise<TupleHierarchical>) =>
-      typia.functional.assertEqualsFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsFunctionAsync(TypeGuardError)(
+      "TupleHierarchical",
+    )(TupleHierarchical)(
+      (p: (input: TupleHierarchical) => Promise<TupleHierarchical>) =>
+        typia.functional.assertEqualsFunction(p),
+    );

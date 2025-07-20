@@ -4,8 +4,9 @@ import { _test_functional_equalsFunctionAsync } from "../../internal/_test_funct
 import { TypeTagRangeBigInt } from "../../structures/TypeTagRangeBigInt";
 
 export const test_functional_equalsFunctionAsync_TypeTagRangeBigInt =
-  _test_functional_equalsFunctionAsync("TypeTagRangeBigInt")(
-    TypeTagRangeBigInt,
-  )((p: (input: TypeTagRangeBigInt) => Promise<TypeTagRangeBigInt>) =>
-    typia.functional.equalsFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_equalsFunctionAsync("TypeTagRangeBigInt")(
+      TypeTagRangeBigInt,
+    )((p: (input: TypeTagRangeBigInt) => Promise<TypeTagRangeBigInt>) =>
+      typia.functional.equalsFunction(p),
+    );

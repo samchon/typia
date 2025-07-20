@@ -4,7 +4,8 @@ import { _test_functional_isParametersAsync } from "../../internal/_test_functio
 import { DynamicUndefined } from "../../structures/DynamicUndefined";
 
 export const test_functional_isParametersAsync_DynamicUndefined =
-  _test_functional_isParametersAsync("DynamicUndefined")(DynamicUndefined)(
-    (p: (input: DynamicUndefined) => Promise<DynamicUndefined>) =>
-      typia.functional.isParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_isParametersAsync("DynamicUndefined")(DynamicUndefined)(
+      (p: (input: DynamicUndefined) => Promise<DynamicUndefined>) =>
+        typia.functional.isParameters(p),
+    );

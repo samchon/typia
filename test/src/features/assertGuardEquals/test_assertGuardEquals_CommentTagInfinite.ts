@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_assertGuardEquals } from "../../internal/_test_assertGuardEquals";
 import { CommentTagInfinite } from "../../structures/CommentTagInfinite";
 
-export const test_assertGuardEquals_CommentTagInfinite =
+export const test_assertGuardEquals_CommentTagInfinite = (): void =>
   _test_assertGuardEquals(TypeGuardError)(
     "CommentTagInfinite",
   )<CommentTagInfinite>(CommentTagInfinite)((input) =>

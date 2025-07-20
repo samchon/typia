@@ -4,8 +4,9 @@ import { _test_functional_equalsFunctionAsync } from "../../internal/_test_funct
 import { ObjectHierarchical } from "../../structures/ObjectHierarchical";
 
 export const test_functional_equalsFunctionAsync_ObjectHierarchical =
-  _test_functional_equalsFunctionAsync("ObjectHierarchical")(
-    ObjectHierarchical,
-  )((p: (input: ObjectHierarchical) => Promise<ObjectHierarchical>) =>
-    typia.functional.equalsFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_equalsFunctionAsync("ObjectHierarchical")(
+      ObjectHierarchical,
+    )((p: (input: ObjectHierarchical) => Promise<ObjectHierarchical>) =>
+      typia.functional.equalsFunction(p),
+    );

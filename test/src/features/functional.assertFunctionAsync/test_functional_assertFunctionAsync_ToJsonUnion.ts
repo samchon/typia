@@ -5,8 +5,9 @@ import { _test_functional_assertFunctionAsync } from "../../internal/_test_funct
 import { ToJsonUnion } from "../../structures/ToJsonUnion";
 
 export const test_functional_assertFunctionAsync_ToJsonUnion =
-  _test_functional_assertFunctionAsync(TypeGuardError)("ToJsonUnion")(
-    ToJsonUnion,
-  )((p: (input: ToJsonUnion) => Promise<ToJsonUnion>) =>
-    typia.functional.assertFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertFunctionAsync(TypeGuardError)("ToJsonUnion")(
+      ToJsonUnion,
+    )((p: (input: ToJsonUnion) => Promise<ToJsonUnion>) =>
+      typia.functional.assertFunction(p),
+    );

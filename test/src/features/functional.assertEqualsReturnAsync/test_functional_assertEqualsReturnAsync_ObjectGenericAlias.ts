@@ -5,9 +5,10 @@ import { _test_functional_assertEqualsReturnAsync } from "../../internal/_test_f
 import { ObjectGenericAlias } from "../../structures/ObjectGenericAlias";
 
 export const test_functional_assertEqualsReturnAsync_ObjectGenericAlias =
-  _test_functional_assertEqualsReturnAsync(TypeGuardError)(
-    "ObjectGenericAlias",
-  )(ObjectGenericAlias)(
-    (p: (input: ObjectGenericAlias) => Promise<ObjectGenericAlias>) =>
-      typia.functional.assertEqualsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsReturnAsync(TypeGuardError)(
+      "ObjectGenericAlias",
+    )(ObjectGenericAlias)(
+      (p: (input: ObjectGenericAlias) => Promise<ObjectGenericAlias>) =>
+        typia.functional.assertEqualsReturn(p),
+    );

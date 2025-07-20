@@ -57,7 +57,7 @@ export namespace TestLlmApplicationGenerator {
         `import { ${s.name} } from "../../../structures/${s.name}";`,
         `import { _test_llm_application } from "../../../internal/_test_llm_application";`,
         "",
-        `export const test_llm_application_${model.replace(".", "_")}_${s.name} = `,
+        `export const test_llm_application_${model.replace(".", "_")}_${s.name} = (): void =>`,
         `  _test_llm_application({`,
         `    model: ${JSON.stringify(model)},`,
         `    name: ${JSON.stringify(s.name)},`,

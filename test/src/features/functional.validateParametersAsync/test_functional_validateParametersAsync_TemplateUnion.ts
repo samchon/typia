@@ -4,7 +4,8 @@ import { _test_functional_validateParametersAsync } from "../../internal/_test_f
 import { TemplateUnion } from "../../structures/TemplateUnion";
 
 export const test_functional_validateParametersAsync_TemplateUnion =
-  _test_functional_validateParametersAsync("TemplateUnion")(TemplateUnion)(
-    (p: (input: TemplateUnion) => Promise<TemplateUnion>) =>
-      typia.functional.validateParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateParametersAsync("TemplateUnion")(TemplateUnion)(
+      (p: (input: TemplateUnion) => Promise<TemplateUnion>) =>
+        typia.functional.validateParameters(p),
+    );

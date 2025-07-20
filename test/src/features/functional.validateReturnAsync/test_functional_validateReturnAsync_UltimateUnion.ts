@@ -4,7 +4,8 @@ import { _test_functional_validateReturnAsync } from "../../internal/_test_funct
 import { UltimateUnion } from "../../structures/UltimateUnion";
 
 export const test_functional_validateReturnAsync_UltimateUnion =
-  _test_functional_validateReturnAsync("UltimateUnion")(UltimateUnion)(
-    (p: (input: UltimateUnion) => Promise<UltimateUnion>) =>
-      typia.functional.validateReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateReturnAsync("UltimateUnion")(UltimateUnion)(
+      (p: (input: UltimateUnion) => Promise<UltimateUnion>) =>
+        typia.functional.validateReturn(p),
+    );

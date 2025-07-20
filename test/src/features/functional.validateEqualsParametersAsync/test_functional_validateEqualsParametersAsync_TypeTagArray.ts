@@ -4,7 +4,9 @@ import { _test_functional_validateEqualsParametersAsync } from "../../internal/_
 import { TypeTagArray } from "../../structures/TypeTagArray";
 
 export const test_functional_validateEqualsParametersAsync_TypeTagArray =
-  _test_functional_validateEqualsParametersAsync("TypeTagArray")(TypeTagArray)(
-    (p: (input: TypeTagArray) => Promise<TypeTagArray>) =>
+  (): Promise<void> =>
+    _test_functional_validateEqualsParametersAsync("TypeTagArray")(
+      TypeTagArray,
+    )((p: (input: TypeTagArray) => Promise<TypeTagArray>) =>
       typia.functional.validateEqualsParameters(p),
-  );
+    );

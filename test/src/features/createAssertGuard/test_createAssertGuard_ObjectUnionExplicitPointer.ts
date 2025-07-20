@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_assertGuard } from "../../internal/_test_assertGuard";
 import { ObjectUnionExplicitPointer } from "../../structures/ObjectUnionExplicitPointer";
 
-export const test_createAssertGuard_ObjectUnionExplicitPointer =
+export const test_createAssertGuard_ObjectUnionExplicitPointer = (): void =>
   _test_assertGuard(TypeGuardError)(
     "ObjectUnionExplicitPointer",
   )<ObjectUnionExplicitPointer>(ObjectUnionExplicitPointer)(

@@ -5,8 +5,9 @@ import { _test_functional_assertParameters } from "../../internal/_test_function
 import { DynamicComposite } from "../../structures/DynamicComposite";
 
 export const test_functional_assertParametersCustom_DynamicComposite =
-  _test_functional_assertParameters(CustomGuardError)("DynamicComposite")(
-    DynamicComposite,
-  )((p: (input: DynamicComposite) => DynamicComposite) =>
-    typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertParameters(CustomGuardError)("DynamicComposite")(
+      DynamicComposite,
+    )((p: (input: DynamicComposite) => DynamicComposite) =>
+      typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
+    );

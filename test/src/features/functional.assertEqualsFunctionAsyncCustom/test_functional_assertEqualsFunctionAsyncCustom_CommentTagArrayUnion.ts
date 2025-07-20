@@ -5,9 +5,13 @@ import { _test_functional_assertEqualsFunctionAsync } from "../../internal/_test
 import { CommentTagArrayUnion } from "../../structures/CommentTagArrayUnion";
 
 export const test_functional_assertEqualsFunctionAsyncCustom_CommentTagArrayUnion =
-  _test_functional_assertEqualsFunctionAsync(CustomGuardError)(
-    "CommentTagArrayUnion",
-  )(CommentTagArrayUnion)(
-    (p: (input: CommentTagArrayUnion) => Promise<CommentTagArrayUnion>) =>
-      typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsFunctionAsync(CustomGuardError)(
+      "CommentTagArrayUnion",
+    )(CommentTagArrayUnion)(
+      (p: (input: CommentTagArrayUnion) => Promise<CommentTagArrayUnion>) =>
+        typia.functional.assertEqualsFunction(
+          p,
+          (p) => new CustomGuardError(p),
+        ),
+    );

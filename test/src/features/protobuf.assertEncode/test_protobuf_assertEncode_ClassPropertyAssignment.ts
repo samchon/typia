@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_protobuf_assertEncode } from "../../internal/_test_protobuf_assertEncode";
 import { ClassPropertyAssignment } from "../../structures/ClassPropertyAssignment";
 
-export const test_protobuf_assertEncode_ClassPropertyAssignment =
+export const test_protobuf_assertEncode_ClassPropertyAssignment = (): void =>
   _test_protobuf_assertEncode(TypeGuardError)(
     "ClassPropertyAssignment",
   )<ClassPropertyAssignment>(ClassPropertyAssignment)({

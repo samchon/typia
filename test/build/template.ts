@@ -4,6 +4,7 @@ import fs from "fs";
 import { TestFeature } from "./internal/TestFeature";
 import { TestJsonSchemaGenerator } from "./internal/TestJsonSchemaGenerator";
 import { TestJsonSchemasGenerator } from "./internal/TestJsonSchemasGenerator";
+import { TestLlmApplicationEqualsGenerator } from "./internal/TestLlmApplicationEqualsGenerator";
 import { TestLlmApplicationGenerator } from "./internal/TestLlmApplicationGenerator";
 import { TestLlmParametersGenerator } from "./internal/TestLlmParametersGenerator";
 import { TestLlmSchemaGenerator } from "./internal/TestLlmSchemaGenerator";
@@ -103,7 +104,7 @@ function script(
 
   method = method.replace("Async", "");
   const from: number = content.indexOf("export const");
-  const to: number = content.indexOf("(", from + 1);
+  const to: number = content.indexOf("(", content.indexOf("_test", from + 1));
   const replacer =
     feat.custom === true
       ? create === true
@@ -187,6 +188,7 @@ async function main(): Promise<void> {
 
   // LLM SCHEMAS AGAIN
   await TestLlmApplicationGenerator.generate(structures);
+  await TestLlmApplicationEqualsGenerator.generate(structures);
   await TestLlmParametersGenerator.generate(structures);
   await TestLlmSchemaGenerator.generate(structures);
 

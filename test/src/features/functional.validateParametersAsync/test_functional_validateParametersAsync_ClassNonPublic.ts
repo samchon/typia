@@ -4,7 +4,8 @@ import { _test_functional_validateParametersAsync } from "../../internal/_test_f
 import { ClassNonPublic } from "../../structures/ClassNonPublic";
 
 export const test_functional_validateParametersAsync_ClassNonPublic =
-  _test_functional_validateParametersAsync("ClassNonPublic")(ClassNonPublic)(
-    (p: (input: ClassNonPublic) => Promise<ClassNonPublic>) =>
-      typia.functional.validateParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateParametersAsync("ClassNonPublic")(ClassNonPublic)(
+      (p: (input: ClassNonPublic) => Promise<ClassNonPublic>) =>
+        typia.functional.validateParameters(p),
+    );

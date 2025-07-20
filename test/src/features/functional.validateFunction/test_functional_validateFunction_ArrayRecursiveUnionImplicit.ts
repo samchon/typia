@@ -4,8 +4,11 @@ import { _test_functional_validateFunction } from "../../internal/_test_function
 import { ArrayRecursiveUnionImplicit } from "../../structures/ArrayRecursiveUnionImplicit";
 
 export const test_functional_validateFunction_ArrayRecursiveUnionImplicit =
-  _test_functional_validateFunction("ArrayRecursiveUnionImplicit")(
-    ArrayRecursiveUnionImplicit,
-  )((p: (input: ArrayRecursiveUnionImplicit) => ArrayRecursiveUnionImplicit) =>
-    typia.functional.validateFunction(p),
-  );
+  (): void =>
+    _test_functional_validateFunction("ArrayRecursiveUnionImplicit")(
+      ArrayRecursiveUnionImplicit,
+    )(
+      (
+        p: (input: ArrayRecursiveUnionImplicit) => ArrayRecursiveUnionImplicit,
+      ) => typia.functional.validateFunction(p),
+    );

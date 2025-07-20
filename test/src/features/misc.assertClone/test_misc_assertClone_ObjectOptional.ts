@@ -4,8 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_misc_assertClone } from "../../internal/_test_misc_assertClone";
 import { ObjectOptional } from "../../structures/ObjectOptional";
 
-export const test_misc_assertClone_ObjectOptional = _test_misc_assertClone(
-  TypeGuardError,
-)("ObjectOptional")<ObjectOptional>(ObjectOptional)((input) =>
-  typia.misc.assertClone<ObjectOptional>(input),
-);
+export const test_misc_assertClone_ObjectOptional = (): void =>
+  _test_misc_assertClone(TypeGuardError)("ObjectOptional")<ObjectOptional>(
+    ObjectOptional,
+  )((input) => typia.misc.assertClone<ObjectOptional>(input));

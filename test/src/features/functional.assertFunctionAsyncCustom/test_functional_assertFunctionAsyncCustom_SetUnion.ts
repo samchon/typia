@@ -5,7 +5,9 @@ import { _test_functional_assertFunctionAsync } from "../../internal/_test_funct
 import { SetUnion } from "../../structures/SetUnion";
 
 export const test_functional_assertFunctionAsyncCustom_SetUnion =
-  _test_functional_assertFunctionAsync(CustomGuardError)("SetUnion")(SetUnion)(
-    (p: (input: SetUnion) => Promise<SetUnion>) =>
+  (): Promise<void> =>
+    _test_functional_assertFunctionAsync(CustomGuardError)("SetUnion")(
+      SetUnion,
+    )((p: (input: SetUnion) => Promise<SetUnion>) =>
       typia.functional.assertFunction(p, (p) => new CustomGuardError(p)),
-  );
+    );

@@ -4,8 +4,9 @@ import { _test_standardSchema_validate } from "../../internal/_test_standardSche
 import { MapSimpleProtobufNullable } from "../../structures/MapSimpleProtobufNullable";
 
 export const test_standardSchema_createValidate_MapSimpleProtobufNullable =
-  _test_standardSchema_validate(
-    "MapSimpleProtobufNullable",
-  )<MapSimpleProtobufNullable>(MapSimpleProtobufNullable)(
-    typia.createValidate<MapSimpleProtobufNullable>(),
-  );
+  (): void =>
+    _test_standardSchema_validate(
+      "MapSimpleProtobufNullable",
+    )<MapSimpleProtobufNullable>(MapSimpleProtobufNullable)(
+      typia.createValidate<MapSimpleProtobufNullable>(),
+    );

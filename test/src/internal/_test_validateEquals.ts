@@ -7,8 +7,7 @@ import { TestStructure } from "../helpers/TestStructure";
 export const _test_validateEquals =
   (name: string) =>
   <T>(factory: TestStructure<T>) =>
-  (validateEquals: (input: T) => IValidation<T>) =>
-  () => {
+  (validateEquals: (input: T) => IValidation<T>): void => {
     const input: T = factory.generate();
 
     // EXACT TYPE

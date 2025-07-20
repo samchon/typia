@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_functional_assertReturn } from "../../internal/_test_functional_assertReturn";
 import { ObjectHttpAtomic } from "../../structures/ObjectHttpAtomic";
 
-export const test_functional_assertReturnCustom_ObjectHttpAtomic =
+export const test_functional_assertReturnCustom_ObjectHttpAtomic = (): void =>
   _test_functional_assertReturn(CustomGuardError)("ObjectHttpAtomic")(
     ObjectHttpAtomic,
   )((p: (input: ObjectHttpAtomic) => ObjectHttpAtomic) =>

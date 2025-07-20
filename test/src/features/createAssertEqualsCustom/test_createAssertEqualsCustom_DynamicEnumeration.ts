@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_assertEquals } from "../../internal/_test_assertEquals";
 import { DynamicEnumeration } from "../../structures/DynamicEnumeration";
 
-export const test_createAssertEqualsCustom_DynamicEnumeration =
+export const test_createAssertEqualsCustom_DynamicEnumeration = (): void =>
   _test_assertEquals(CustomGuardError)(
     "DynamicEnumeration",
   )<DynamicEnumeration>(DynamicEnumeration)(

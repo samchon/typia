@@ -4,7 +4,8 @@ import { _test_functional_validateEqualsParametersAsync } from "../../internal/_
 import { AtomicClass } from "../../structures/AtomicClass";
 
 export const test_functional_validateEqualsParametersAsync_AtomicClass =
-  _test_functional_validateEqualsParametersAsync("AtomicClass")(AtomicClass)(
-    (p: (input: AtomicClass) => Promise<AtomicClass>) =>
-      typia.functional.validateEqualsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsParametersAsync("AtomicClass")(AtomicClass)(
+      (p: (input: AtomicClass) => Promise<AtomicClass>) =>
+        typia.functional.validateEqualsParameters(p),
+    );

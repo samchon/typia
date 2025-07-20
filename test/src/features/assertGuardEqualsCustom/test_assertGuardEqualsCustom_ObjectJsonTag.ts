@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_assertGuardEquals } from "../../internal/_test_assertGuardEquals";
 import { ObjectJsonTag } from "../../structures/ObjectJsonTag";
 
-export const test_assertGuardEqualsCustom_ObjectJsonTag =
+export const test_assertGuardEqualsCustom_ObjectJsonTag = (): void =>
   _test_assertGuardEquals(CustomGuardError)("ObjectJsonTag")<ObjectJsonTag>(
     ObjectJsonTag,
   )((input) =>

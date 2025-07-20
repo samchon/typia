@@ -5,9 +5,10 @@ import { _test_functional_assertEqualsParameters } from "../../internal/_test_fu
 import { FunctionalArrayUnion } from "../../structures/FunctionalArrayUnion";
 
 export const test_functional_assertEqualsParameters_FunctionalArrayUnion =
-  _test_functional_assertEqualsParameters(TypeGuardError)(
-    "FunctionalArrayUnion",
-  )(FunctionalArrayUnion)(
-    (p: (input: FunctionalArrayUnion) => FunctionalArrayUnion) =>
-      typia.functional.assertEqualsParameters(p),
-  );
+  (): void =>
+    _test_functional_assertEqualsParameters(TypeGuardError)(
+      "FunctionalArrayUnion",
+    )(FunctionalArrayUnion)(
+      (p: (input: FunctionalArrayUnion) => FunctionalArrayUnion) =>
+        typia.functional.assertEqualsParameters(p),
+    );

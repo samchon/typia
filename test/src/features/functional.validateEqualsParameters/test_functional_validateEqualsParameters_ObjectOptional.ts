@@ -4,7 +4,8 @@ import { _test_functional_validateEqualsParameters } from "../../internal/_test_
 import { ObjectOptional } from "../../structures/ObjectOptional";
 
 export const test_functional_validateEqualsParameters_ObjectOptional =
-  _test_functional_validateEqualsParameters("ObjectOptional")(ObjectOptional)(
-    (p: (input: ObjectOptional) => ObjectOptional) =>
-      typia.functional.validateEqualsParameters(p),
-  );
+  (): void =>
+    _test_functional_validateEqualsParameters("ObjectOptional")(ObjectOptional)(
+      (p: (input: ObjectOptional) => ObjectOptional) =>
+        typia.functional.validateEqualsParameters(p),
+    );

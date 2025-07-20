@@ -5,8 +5,9 @@ import { _test_functional_assertFunctionAsync } from "../../internal/_test_funct
 import { MapSimple } from "../../structures/MapSimple";
 
 export const test_functional_assertFunctionAsyncCustom_MapSimple =
-  _test_functional_assertFunctionAsync(CustomGuardError)("MapSimple")(
-    MapSimple,
-  )((p: (input: MapSimple) => Promise<MapSimple>) =>
-    typia.functional.assertFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertFunctionAsync(CustomGuardError)("MapSimple")(
+      MapSimple,
+    )((p: (input: MapSimple) => Promise<MapSimple>) =>
+      typia.functional.assertFunction(p, (p) => new CustomGuardError(p)),
+    );

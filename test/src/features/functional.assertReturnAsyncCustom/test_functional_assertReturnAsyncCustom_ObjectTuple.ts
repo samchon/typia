@@ -5,8 +5,9 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { ObjectTuple } from "../../structures/ObjectTuple";
 
 export const test_functional_assertReturnAsyncCustom_ObjectTuple =
-  _test_functional_assertReturnAsync(CustomGuardError)("ObjectTuple")(
-    ObjectTuple,
-  )((p: (input: ObjectTuple) => Promise<ObjectTuple>) =>
-    typia.functional.assertReturn(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(CustomGuardError)("ObjectTuple")(
+      ObjectTuple,
+    )((p: (input: ObjectTuple) => Promise<ObjectTuple>) =>
+      typia.functional.assertReturn(p, (p) => new CustomGuardError(p)),
+    );

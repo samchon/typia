@@ -5,10 +5,11 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { ObjectIntersection } from "../../structures/ObjectIntersection";
 
 export const test_json_createAssertStringifyCustom_ObjectIntersection =
-  _test_json_assertStringify(CustomGuardError)(
-    "ObjectIntersection",
-  )<ObjectIntersection>(ObjectIntersection)(
-    typia.json.createAssertStringify<ObjectIntersection>(
-      (p) => new CustomGuardError(p),
-    ),
-  );
+  (): void =>
+    _test_json_assertStringify(CustomGuardError)(
+      "ObjectIntersection",
+    )<ObjectIntersection>(ObjectIntersection)(
+      typia.json.createAssertStringify<ObjectIntersection>(
+        (p) => new CustomGuardError(p),
+      ),
+    );

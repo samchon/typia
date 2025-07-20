@@ -5,11 +5,12 @@ import { _test_json_assertParse } from "../../internal/_test_json_assertParse";
 import { ArrayRepeatedUnionWithTuple } from "../../structures/ArrayRepeatedUnionWithTuple";
 
 export const test_json_assertParseCustom_ArrayRepeatedUnionWithTuple =
-  _test_json_assertParse(CustomGuardError)(
-    "ArrayRepeatedUnionWithTuple",
-  )<ArrayRepeatedUnionWithTuple>(ArrayRepeatedUnionWithTuple)((input) =>
-    typia.json.assertParse<ArrayRepeatedUnionWithTuple>(
-      input,
-      (p) => new CustomGuardError(p),
-    ),
-  );
+  (): void =>
+    _test_json_assertParse(CustomGuardError)(
+      "ArrayRepeatedUnionWithTuple",
+    )<ArrayRepeatedUnionWithTuple>(ArrayRepeatedUnionWithTuple)((input) =>
+      typia.json.assertParse<ArrayRepeatedUnionWithTuple>(
+        input,
+        (p) => new CustomGuardError(p),
+      ),
+    );

@@ -5,8 +5,9 @@ import { _test_functional_assertFunctionAsync } from "../../internal/_test_funct
 import { TupleRestAtomic } from "../../structures/TupleRestAtomic";
 
 export const test_functional_assertFunctionAsync_TupleRestAtomic =
-  _test_functional_assertFunctionAsync(TypeGuardError)("TupleRestAtomic")(
-    TupleRestAtomic,
-  )((p: (input: TupleRestAtomic) => Promise<TupleRestAtomic>) =>
-    typia.functional.assertFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertFunctionAsync(TypeGuardError)("TupleRestAtomic")(
+      TupleRestAtomic,
+    )((p: (input: TupleRestAtomic) => Promise<TupleRestAtomic>) =>
+      typia.functional.assertFunction(p),
+    );

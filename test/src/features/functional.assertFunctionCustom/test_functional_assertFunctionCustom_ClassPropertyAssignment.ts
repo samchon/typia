@@ -5,8 +5,10 @@ import { _test_functional_assertFunction } from "../../internal/_test_functional
 import { ClassPropertyAssignment } from "../../structures/ClassPropertyAssignment";
 
 export const test_functional_assertFunctionCustom_ClassPropertyAssignment =
-  _test_functional_assertFunction(CustomGuardError)("ClassPropertyAssignment")(
-    ClassPropertyAssignment,
-  )((p: (input: ClassPropertyAssignment) => ClassPropertyAssignment) =>
-    typia.functional.assertFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertFunction(CustomGuardError)(
+      "ClassPropertyAssignment",
+    )(ClassPropertyAssignment)(
+      (p: (input: ClassPropertyAssignment) => ClassPropertyAssignment) =>
+        typia.functional.assertFunction(p, (p) => new CustomGuardError(p)),
+    );

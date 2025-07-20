@@ -4,8 +4,9 @@ import { _test_functional_validateFunction } from "../../internal/_test_function
 import { ArrayHierarchicalPointer } from "../../structures/ArrayHierarchicalPointer";
 
 export const test_functional_validateFunction_ArrayHierarchicalPointer =
-  _test_functional_validateFunction("ArrayHierarchicalPointer")(
-    ArrayHierarchicalPointer,
-  )((p: (input: ArrayHierarchicalPointer) => ArrayHierarchicalPointer) =>
-    typia.functional.validateFunction(p),
-  );
+  (): void =>
+    _test_functional_validateFunction("ArrayHierarchicalPointer")(
+      ArrayHierarchicalPointer,
+    )((p: (input: ArrayHierarchicalPointer) => ArrayHierarchicalPointer) =>
+      typia.functional.validateFunction(p),
+    );

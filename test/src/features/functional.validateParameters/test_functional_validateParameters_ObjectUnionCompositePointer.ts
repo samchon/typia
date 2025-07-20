@@ -4,8 +4,11 @@ import { _test_functional_validateParameters } from "../../internal/_test_functi
 import { ObjectUnionCompositePointer } from "../../structures/ObjectUnionCompositePointer";
 
 export const test_functional_validateParameters_ObjectUnionCompositePointer =
-  _test_functional_validateParameters("ObjectUnionCompositePointer")(
-    ObjectUnionCompositePointer,
-  )((p: (input: ObjectUnionCompositePointer) => ObjectUnionCompositePointer) =>
-    typia.functional.validateParameters(p),
-  );
+  (): void =>
+    _test_functional_validateParameters("ObjectUnionCompositePointer")(
+      ObjectUnionCompositePointer,
+    )(
+      (
+        p: (input: ObjectUnionCompositePointer) => ObjectUnionCompositePointer,
+      ) => typia.functional.validateParameters(p),
+    );

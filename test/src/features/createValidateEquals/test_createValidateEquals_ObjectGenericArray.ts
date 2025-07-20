@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_validateEquals } from "../../internal/_test_validateEquals";
 import { ObjectGenericArray } from "../../structures/ObjectGenericArray";
 
-export const test_createValidateEquals_ObjectGenericArray =
+export const test_createValidateEquals_ObjectGenericArray = (): void =>
   _test_validateEquals("ObjectGenericArray")<ObjectGenericArray>(
     ObjectGenericArray,
   )(typia.createValidateEquals<ObjectGenericArray>());

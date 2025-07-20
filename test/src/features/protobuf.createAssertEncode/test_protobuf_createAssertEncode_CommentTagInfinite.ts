@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_protobuf_assertEncode } from "../../internal/_test_protobuf_assertEncode";
 import { CommentTagInfinite } from "../../structures/CommentTagInfinite";
 
-export const test_protobuf_createAssertEncode_CommentTagInfinite =
+export const test_protobuf_createAssertEncode_CommentTagInfinite = (): void =>
   _test_protobuf_assertEncode(TypeGuardError)(
     "CommentTagInfinite",
   )<CommentTagInfinite>(CommentTagInfinite)({

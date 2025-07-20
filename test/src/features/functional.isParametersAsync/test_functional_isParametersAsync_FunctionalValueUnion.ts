@@ -4,8 +4,9 @@ import { _test_functional_isParametersAsync } from "../../internal/_test_functio
 import { FunctionalValueUnion } from "../../structures/FunctionalValueUnion";
 
 export const test_functional_isParametersAsync_FunctionalValueUnion =
-  _test_functional_isParametersAsync("FunctionalValueUnion")(
-    FunctionalValueUnion,
-  )((p: (input: FunctionalValueUnion) => Promise<FunctionalValueUnion>) =>
-    typia.functional.isParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_isParametersAsync("FunctionalValueUnion")(
+      FunctionalValueUnion,
+    )((p: (input: FunctionalValueUnion) => Promise<FunctionalValueUnion>) =>
+      typia.functional.isParameters(p),
+    );

@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsFunction } from "../../internal/_test_func
 import { ObjectAlias } from "../../structures/ObjectAlias";
 
 export const test_functional_assertEqualsFunctionCustom_ObjectAlias =
-  _test_functional_assertEqualsFunction(CustomGuardError)("ObjectAlias")(
-    ObjectAlias,
-  )((p: (input: ObjectAlias) => ObjectAlias) =>
-    typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertEqualsFunction(CustomGuardError)("ObjectAlias")(
+      ObjectAlias,
+    )((p: (input: ObjectAlias) => ObjectAlias) =>
+      typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
+    );

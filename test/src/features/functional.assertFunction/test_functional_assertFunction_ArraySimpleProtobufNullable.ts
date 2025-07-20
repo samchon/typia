@@ -5,9 +5,11 @@ import { _test_functional_assertFunction } from "../../internal/_test_functional
 import { ArraySimpleProtobufNullable } from "../../structures/ArraySimpleProtobufNullable";
 
 export const test_functional_assertFunction_ArraySimpleProtobufNullable =
-  _test_functional_assertFunction(TypeGuardError)(
-    "ArraySimpleProtobufNullable",
-  )(ArraySimpleProtobufNullable)(
-    (p: (input: ArraySimpleProtobufNullable) => ArraySimpleProtobufNullable) =>
-      typia.functional.assertFunction(p),
-  );
+  (): void =>
+    _test_functional_assertFunction(TypeGuardError)(
+      "ArraySimpleProtobufNullable",
+    )(ArraySimpleProtobufNullable)(
+      (
+        p: (input: ArraySimpleProtobufNullable) => ArraySimpleProtobufNullable,
+      ) => typia.functional.assertFunction(p),
+    );

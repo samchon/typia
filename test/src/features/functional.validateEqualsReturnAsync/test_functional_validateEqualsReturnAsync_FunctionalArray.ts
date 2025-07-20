@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsReturnAsync } from "../../internal/_test
 import { FunctionalArray } from "../../structures/FunctionalArray";
 
 export const test_functional_validateEqualsReturnAsync_FunctionalArray =
-  _test_functional_validateEqualsReturnAsync("FunctionalArray")(
-    FunctionalArray,
-  )((p: (input: FunctionalArray) => Promise<FunctionalArray>) =>
-    typia.functional.validateEqualsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsReturnAsync("FunctionalArray")(
+      FunctionalArray,
+    )((p: (input: FunctionalArray) => Promise<FunctionalArray>) =>
+      typia.functional.validateEqualsReturn(p),
+    );

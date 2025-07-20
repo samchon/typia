@@ -4,8 +4,9 @@ import { _test_functional_validateFunction } from "../../internal/_test_function
 import { MapSimpleProtobufOptional } from "../../structures/MapSimpleProtobufOptional";
 
 export const test_functional_validateFunction_MapSimpleProtobufOptional =
-  _test_functional_validateFunction("MapSimpleProtobufOptional")(
-    MapSimpleProtobufOptional,
-  )((p: (input: MapSimpleProtobufOptional) => MapSimpleProtobufOptional) =>
-    typia.functional.validateFunction(p),
-  );
+  (): void =>
+    _test_functional_validateFunction("MapSimpleProtobufOptional")(
+      MapSimpleProtobufOptional,
+    )((p: (input: MapSimpleProtobufOptional) => MapSimpleProtobufOptional) =>
+      typia.functional.validateFunction(p),
+    );

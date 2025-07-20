@@ -17,7 +17,7 @@ import { _${file({
     })}";
 import { ${structure} } from "../../structures/${structure}";
 
-export const ${file(p)}_${structure} = _${file({
+export const ${file(p)}_${structure} = (): void => _${file({
       ...p,
       method: p.method.startsWith("create")
         ? StringUtil.localize(p.method.replace("create", ""))

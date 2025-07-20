@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsFunctionAsync } from "../../internal/_te
 import { ObjectUndefined } from "../../structures/ObjectUndefined";
 
 export const test_functional_validateEqualsFunctionAsync_ObjectUndefined =
-  _test_functional_validateEqualsFunctionAsync("ObjectUndefined")(
-    ObjectUndefined,
-  )((p: (input: ObjectUndefined) => Promise<ObjectUndefined>) =>
-    typia.functional.validateEqualsFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsFunctionAsync("ObjectUndefined")(
+      ObjectUndefined,
+    )((p: (input: ObjectUndefined) => Promise<ObjectUndefined>) =>
+      typia.functional.validateEqualsFunction(p),
+    );

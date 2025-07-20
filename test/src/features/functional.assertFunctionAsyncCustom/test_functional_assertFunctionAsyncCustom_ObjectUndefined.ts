@@ -5,8 +5,9 @@ import { _test_functional_assertFunctionAsync } from "../../internal/_test_funct
 import { ObjectUndefined } from "../../structures/ObjectUndefined";
 
 export const test_functional_assertFunctionAsyncCustom_ObjectUndefined =
-  _test_functional_assertFunctionAsync(CustomGuardError)("ObjectUndefined")(
-    ObjectUndefined,
-  )((p: (input: ObjectUndefined) => Promise<ObjectUndefined>) =>
-    typia.functional.assertFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertFunctionAsync(CustomGuardError)("ObjectUndefined")(
+      ObjectUndefined,
+    )((p: (input: ObjectUndefined) => Promise<ObjectUndefined>) =>
+      typia.functional.assertFunction(p, (p) => new CustomGuardError(p)),
+    );

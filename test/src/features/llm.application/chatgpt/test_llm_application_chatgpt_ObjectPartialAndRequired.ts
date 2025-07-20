@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ObjectPartialAndRequired } from "../../../structures/ObjectPartialAndRequired";
 
-export const test_llm_application_chatgpt_ObjectPartialAndRequired =
+export const test_llm_application_chatgpt_ObjectPartialAndRequired = (): void =>
   _test_llm_application({
     model: "chatgpt",
     name: "ObjectPartialAndRequired",

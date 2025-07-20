@@ -4,7 +4,8 @@ import { _test_functional_equalsReturnAsync } from "../../internal/_test_functio
 import { DynamicTemplate } from "../../structures/DynamicTemplate";
 
 export const test_functional_equalsReturnAsync_DynamicTemplate =
-  _test_functional_equalsReturnAsync("DynamicTemplate")(DynamicTemplate)(
-    (p: (input: DynamicTemplate) => Promise<DynamicTemplate>) =>
-      typia.functional.equalsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_equalsReturnAsync("DynamicTemplate")(DynamicTemplate)(
+      (p: (input: DynamicTemplate) => Promise<DynamicTemplate>) =>
+        typia.functional.equalsReturn(p),
+    );

@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_json_assertStringify } from "../../internal/_test_json_assertStringify";
 import { AtomicIntersection } from "../../structures/AtomicIntersection";
 
-export const test_json_assertStringifyCustom_AtomicIntersection =
+export const test_json_assertStringifyCustom_AtomicIntersection = (): void =>
   _test_json_assertStringify(CustomGuardError)(
     "AtomicIntersection",
   )<AtomicIntersection>(AtomicIntersection)((input) =>

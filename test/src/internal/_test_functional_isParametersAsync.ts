@@ -3,10 +3,9 @@ import { TestStructure } from "../helpers/TestStructure";
 export const _test_functional_isParametersAsync =
   (name: string) =>
   <T>(factory: TestStructure<T>) =>
-  (
+  async (
     validate: (p: (input: T) => Promise<T>) => (input: T) => Promise<T | null>,
-  ) =>
-  async () => {
+  ): Promise<void> => {
     const task = async (callback: (input: T) => [T, T]) => {
       const [x, y]: [T, T] = callback(factory.generate());
       if ((await validate(async () => y)(x)) === null)

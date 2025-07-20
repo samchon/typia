@@ -8,7 +8,7 @@ export const write_functionalAsync =
       `import { _${prefix} } from "../../internal/_${prefix}";`,
       `import { ${structure} } from "../../structures/${structure}";`,
       "",
-      `export const ${prefix}_${structure} = _${prefix}(`,
+      `export const ${prefix}_${structure} = (): Promise<void> => _${prefix}(`,
       `  ${JSON.stringify(structure)}`,
       `)(${structure})(`,
       `  (p: (input: ${structure}) => Promise<${structure}>) =>`,

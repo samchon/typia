@@ -4,12 +4,13 @@ import { _test_functional_validateParametersAsync } from "../../internal/_test_f
 import { ObjectUnionCompositePointer } from "../../structures/ObjectUnionCompositePointer";
 
 export const test_functional_validateParametersAsync_ObjectUnionCompositePointer =
-  _test_functional_validateParametersAsync("ObjectUnionCompositePointer")(
-    ObjectUnionCompositePointer,
-  )(
-    (
-      p: (
-        input: ObjectUnionCompositePointer,
-      ) => Promise<ObjectUnionCompositePointer>,
-    ) => typia.functional.validateParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateParametersAsync("ObjectUnionCompositePointer")(
+      ObjectUnionCompositePointer,
+    )(
+      (
+        p: (
+          input: ObjectUnionCompositePointer,
+        ) => Promise<ObjectUnionCompositePointer>,
+      ) => typia.functional.validateParameters(p),
+    );

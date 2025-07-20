@@ -4,7 +4,8 @@ import { _test_functional_validateEqualsParameters } from "../../internal/_test_
 import { TypeTagPattern } from "../../structures/TypeTagPattern";
 
 export const test_functional_validateEqualsParameters_TypeTagPattern =
-  _test_functional_validateEqualsParameters("TypeTagPattern")(TypeTagPattern)(
-    (p: (input: TypeTagPattern) => TypeTagPattern) =>
-      typia.functional.validateEqualsParameters(p),
-  );
+  (): void =>
+    _test_functional_validateEqualsParameters("TypeTagPattern")(TypeTagPattern)(
+      (p: (input: TypeTagPattern) => TypeTagPattern) =>
+        typia.functional.validateEqualsParameters(p),
+    );

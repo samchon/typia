@@ -3,11 +3,12 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { TypeTagDefault } from "../../../structures/TypeTagDefault";
 
-export const test_llm_application_llama_TypeTagDefault = _test_llm_application({
-  model: "llama",
-  name: "TypeTagDefault",
-  factory: TypeTagDefault,
-})(typia.llm.application<TypeTagDefaultApplication, "llama">());
+export const test_llm_application_llama_TypeTagDefault = (): void =>
+  _test_llm_application({
+    model: "llama",
+    name: "TypeTagDefault",
+    factory: TypeTagDefault,
+  })(typia.llm.application<TypeTagDefaultApplication, "llama">());
 
 interface TypeTagDefaultApplication {
   insert(p: { first: TypeTagDefault }): Promise<void>;

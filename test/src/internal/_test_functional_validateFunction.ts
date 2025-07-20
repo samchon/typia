@@ -5,8 +5,7 @@ import { TestStructure } from "../helpers/TestStructure";
 export const _test_functional_validateFunction =
   (name: string) =>
   <T>(factory: TestStructure<T>) =>
-  (validate: (p: (input: T) => T) => (input: T) => IValidation<T>) =>
-  () => {
+  (validate: (p: (input: T) => T) => (input: T) => IValidation<T>): void => {
     const task = (replacer: string) => (callback: (input: T) => [T, T]) => {
       const [x, y]: [T, T] = callback(factory.generate());
       if (validate(() => y)(x).success === false)

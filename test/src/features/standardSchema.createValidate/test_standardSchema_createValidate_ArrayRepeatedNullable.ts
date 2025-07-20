@@ -4,6 +4,9 @@ import { _test_standardSchema_validate } from "../../internal/_test_standardSche
 import { ArrayRepeatedNullable } from "../../structures/ArrayRepeatedNullable";
 
 export const test_standardSchema_createValidate_ArrayRepeatedNullable =
-  _test_standardSchema_validate("ArrayRepeatedNullable")<ArrayRepeatedNullable>(
-    ArrayRepeatedNullable,
-  )(typia.createValidate<ArrayRepeatedNullable>());
+  (): void =>
+    _test_standardSchema_validate(
+      "ArrayRepeatedNullable",
+    )<ArrayRepeatedNullable>(ArrayRepeatedNullable)(
+      typia.createValidate<ArrayRepeatedNullable>(),
+    );

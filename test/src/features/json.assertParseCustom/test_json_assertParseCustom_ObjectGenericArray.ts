@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_json_assertParse } from "../../internal/_test_json_assertParse";
 import { ObjectGenericArray } from "../../structures/ObjectGenericArray";
 
-export const test_json_assertParseCustom_ObjectGenericArray =
+export const test_json_assertParseCustom_ObjectGenericArray = (): void =>
   _test_json_assertParse(CustomGuardError)(
     "ObjectGenericArray",
   )<ObjectGenericArray>(ObjectGenericArray)((input) =>

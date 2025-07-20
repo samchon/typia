@@ -4,6 +4,7 @@ import { _test_standardSchema_validate } from "../../internal/_test_standardSche
 import { ObjectHttpCommentTag } from "../../structures/ObjectHttpCommentTag";
 
 export const test_standardSchema_createValidate_ObjectHttpCommentTag =
-  _test_standardSchema_validate("ObjectHttpCommentTag")<ObjectHttpCommentTag>(
-    ObjectHttpCommentTag,
-  )(typia.createValidate<ObjectHttpCommentTag>());
+  (): void =>
+    _test_standardSchema_validate("ObjectHttpCommentTag")<ObjectHttpCommentTag>(
+      ObjectHttpCommentTag,
+    )(typia.createValidate<ObjectHttpCommentTag>());

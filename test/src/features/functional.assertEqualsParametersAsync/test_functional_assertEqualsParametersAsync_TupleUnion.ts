@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsParametersAsync } from "../../internal/_te
 import { TupleUnion } from "../../structures/TupleUnion";
 
 export const test_functional_assertEqualsParametersAsync_TupleUnion =
-  _test_functional_assertEqualsParametersAsync(TypeGuardError)("TupleUnion")(
-    TupleUnion,
-  )((p: (input: TupleUnion) => Promise<TupleUnion>) =>
-    typia.functional.assertEqualsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsParametersAsync(TypeGuardError)("TupleUnion")(
+      TupleUnion,
+    )((p: (input: TupleUnion) => Promise<TupleUnion>) =>
+      typia.functional.assertEqualsParameters(p),
+    );

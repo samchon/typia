@@ -4,7 +4,9 @@ import { _test_functional_isParametersAsync } from "../../internal/_test_functio
 import { TypeTagRangeBigInt } from "../../structures/TypeTagRangeBigInt";
 
 export const test_functional_isParametersAsync_TypeTagRangeBigInt =
-  _test_functional_isParametersAsync("TypeTagRangeBigInt")(TypeTagRangeBigInt)(
-    (p: (input: TypeTagRangeBigInt) => Promise<TypeTagRangeBigInt>) =>
+  (): Promise<void> =>
+    _test_functional_isParametersAsync("TypeTagRangeBigInt")(
+      TypeTagRangeBigInt,
+    )((p: (input: TypeTagRangeBigInt) => Promise<TypeTagRangeBigInt>) =>
       typia.functional.isParameters(p),
-  );
+    );

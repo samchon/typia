@@ -5,8 +5,13 @@ import { _test_functional_assertEqualsFunction } from "../../internal/_test_func
 import { ToJsonAtomicSimple } from "../../structures/ToJsonAtomicSimple";
 
 export const test_functional_assertEqualsFunctionCustom_ToJsonAtomicSimple =
-  _test_functional_assertEqualsFunction(CustomGuardError)("ToJsonAtomicSimple")(
-    ToJsonAtomicSimple,
-  )((p: (input: ToJsonAtomicSimple) => ToJsonAtomicSimple) =>
-    typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertEqualsFunction(CustomGuardError)(
+      "ToJsonAtomicSimple",
+    )(ToJsonAtomicSimple)(
+      (p: (input: ToJsonAtomicSimple) => ToJsonAtomicSimple) =>
+        typia.functional.assertEqualsFunction(
+          p,
+          (p) => new CustomGuardError(p),
+        ),
+    );

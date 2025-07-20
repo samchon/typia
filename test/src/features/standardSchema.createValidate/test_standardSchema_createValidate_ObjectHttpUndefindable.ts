@@ -4,8 +4,9 @@ import { _test_standardSchema_validate } from "../../internal/_test_standardSche
 import { ObjectHttpUndefindable } from "../../structures/ObjectHttpUndefindable";
 
 export const test_standardSchema_createValidate_ObjectHttpUndefindable =
-  _test_standardSchema_validate(
-    "ObjectHttpUndefindable",
-  )<ObjectHttpUndefindable>(ObjectHttpUndefindable)(
-    typia.createValidate<ObjectHttpUndefindable>(),
-  );
+  (): void =>
+    _test_standardSchema_validate(
+      "ObjectHttpUndefindable",
+    )<ObjectHttpUndefindable>(ObjectHttpUndefindable)(
+      typia.createValidate<ObjectHttpUndefindable>(),
+    );

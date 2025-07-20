@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_functional_assertFunction } from "../../internal/_test_functional_assertFunction";
 import { AtomicIntersection } from "../../structures/AtomicIntersection";
 
-export const test_functional_assertFunction_AtomicIntersection =
+export const test_functional_assertFunction_AtomicIntersection = (): void =>
   _test_functional_assertFunction(TypeGuardError)("AtomicIntersection")(
     AtomicIntersection,
   )((p: (input: AtomicIntersection) => AtomicIntersection) =>

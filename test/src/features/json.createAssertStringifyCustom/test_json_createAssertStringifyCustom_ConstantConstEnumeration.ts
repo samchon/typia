@@ -5,10 +5,11 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { ConstantConstEnumeration } from "../../structures/ConstantConstEnumeration";
 
 export const test_json_createAssertStringifyCustom_ConstantConstEnumeration =
-  _test_json_assertStringify(CustomGuardError)(
-    "ConstantConstEnumeration",
-  )<ConstantConstEnumeration>(ConstantConstEnumeration)(
-    typia.json.createAssertStringify<ConstantConstEnumeration>(
-      (p) => new CustomGuardError(p),
-    ),
-  );
+  (): void =>
+    _test_json_assertStringify(CustomGuardError)(
+      "ConstantConstEnumeration",
+    )<ConstantConstEnumeration>(ConstantConstEnumeration)(
+      typia.json.createAssertStringify<ConstantConstEnumeration>(
+        (p) => new CustomGuardError(p),
+      ),
+    );

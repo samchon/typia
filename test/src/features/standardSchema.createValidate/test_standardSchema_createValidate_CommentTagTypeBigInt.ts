@@ -4,6 +4,7 @@ import { _test_standardSchema_validate } from "../../internal/_test_standardSche
 import { CommentTagTypeBigInt } from "../../structures/CommentTagTypeBigInt";
 
 export const test_standardSchema_createValidate_CommentTagTypeBigInt =
-  _test_standardSchema_validate("CommentTagTypeBigInt")<CommentTagTypeBigInt>(
-    CommentTagTypeBigInt,
-  )(typia.createValidate<CommentTagTypeBigInt>());
+  (): void =>
+    _test_standardSchema_validate("CommentTagTypeBigInt")<CommentTagTypeBigInt>(
+      CommentTagTypeBigInt,
+    )(typia.createValidate<CommentTagTypeBigInt>());

@@ -4,10 +4,13 @@ import { _test_functional_validateEqualsParametersAsync } from "../../internal/_
 import { ConstantConstEnumeration } from "../../structures/ConstantConstEnumeration";
 
 export const test_functional_validateEqualsParametersAsync_ConstantConstEnumeration =
-  _test_functional_validateEqualsParametersAsync("ConstantConstEnumeration")(
-    ConstantConstEnumeration,
-  )(
-    (
-      p: (input: ConstantConstEnumeration) => Promise<ConstantConstEnumeration>,
-    ) => typia.functional.validateEqualsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsParametersAsync("ConstantConstEnumeration")(
+      ConstantConstEnumeration,
+    )(
+      (
+        p: (
+          input: ConstantConstEnumeration,
+        ) => Promise<ConstantConstEnumeration>,
+      ) => typia.functional.validateEqualsParameters(p),
+    );

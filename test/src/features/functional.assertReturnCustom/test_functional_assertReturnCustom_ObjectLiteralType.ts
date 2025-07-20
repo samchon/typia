@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_functional_assertReturn } from "../../internal/_test_functional_assertReturn";
 import { ObjectLiteralType } from "../../structures/ObjectLiteralType";
 
-export const test_functional_assertReturnCustom_ObjectLiteralType =
+export const test_functional_assertReturnCustom_ObjectLiteralType = (): void =>
   _test_functional_assertReturn(CustomGuardError)("ObjectLiteralType")(
     ObjectLiteralType,
   )((p: (input: ObjectLiteralType) => ObjectLiteralType) =>

@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsParametersAsync } from "../../internal/_
 import { TypeTagBigInt } from "../../structures/TypeTagBigInt";
 
 export const test_functional_validateEqualsParametersAsync_TypeTagBigInt =
-  _test_functional_validateEqualsParametersAsync("TypeTagBigInt")(
-    TypeTagBigInt,
-  )((p: (input: TypeTagBigInt) => Promise<TypeTagBigInt>) =>
-    typia.functional.validateEqualsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsParametersAsync("TypeTagBigInt")(
+      TypeTagBigInt,
+    )((p: (input: TypeTagBigInt) => Promise<TypeTagBigInt>) =>
+      typia.functional.validateEqualsParameters(p),
+    );

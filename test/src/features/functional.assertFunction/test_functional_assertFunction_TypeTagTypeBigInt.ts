@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_functional_assertFunction } from "../../internal/_test_functional_assertFunction";
 import { TypeTagTypeBigInt } from "../../structures/TypeTagTypeBigInt";
 
-export const test_functional_assertFunction_TypeTagTypeBigInt =
+export const test_functional_assertFunction_TypeTagTypeBigInt = (): void =>
   _test_functional_assertFunction(TypeGuardError)("TypeTagTypeBigInt")(
     TypeTagTypeBigInt,
   )((p: (input: TypeTagTypeBigInt) => TypeTagTypeBigInt) =>

@@ -5,10 +5,11 @@ import { _test_json_assertStringify } from "../../internal/_test_json_assertStri
 import { TemplateConstant } from "../../structures/TemplateConstant";
 
 export const test_json_createAssertStringifyCustom_TemplateConstant =
-  _test_json_assertStringify(CustomGuardError)(
-    "TemplateConstant",
-  )<TemplateConstant>(TemplateConstant)(
-    typia.json.createAssertStringify<TemplateConstant>(
-      (p) => new CustomGuardError(p),
-    ),
-  );
+  (): void =>
+    _test_json_assertStringify(CustomGuardError)(
+      "TemplateConstant",
+    )<TemplateConstant>(TemplateConstant)(
+      typia.json.createAssertStringify<TemplateConstant>(
+        (p) => new CustomGuardError(p),
+      ),
+    );

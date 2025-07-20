@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsFunctionAsync } from "../../internal/_te
 import { CommentTagRange } from "../../structures/CommentTagRange";
 
 export const test_functional_validateEqualsFunctionAsync_CommentTagRange =
-  _test_functional_validateEqualsFunctionAsync("CommentTagRange")(
-    CommentTagRange,
-  )((p: (input: CommentTagRange) => Promise<CommentTagRange>) =>
-    typia.functional.validateEqualsFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsFunctionAsync("CommentTagRange")(
+      CommentTagRange,
+    )((p: (input: CommentTagRange) => Promise<CommentTagRange>) =>
+      typia.functional.validateEqualsFunction(p),
+    );

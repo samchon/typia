@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 import { ObjectUnionCompositePointer } from "../../../structures/ObjectUnionCompositePointer";
 
-export const test_llm_parameters_llama_ObjectUnionCompositePointer =
+export const test_llm_parameters_llama_ObjectUnionCompositePointer = (): void =>
   _test_llm_parameters({
     model: "llama",
     name: "ObjectUnionCompositePointer",

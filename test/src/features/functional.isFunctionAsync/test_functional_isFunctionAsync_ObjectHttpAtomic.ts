@@ -4,7 +4,8 @@ import { _test_functional_isFunctionAsync } from "../../internal/_test_functiona
 import { ObjectHttpAtomic } from "../../structures/ObjectHttpAtomic";
 
 export const test_functional_isFunctionAsync_ObjectHttpAtomic =
-  _test_functional_isFunctionAsync("ObjectHttpAtomic")(ObjectHttpAtomic)(
-    (p: (input: ObjectHttpAtomic) => Promise<ObjectHttpAtomic>) =>
-      typia.functional.isFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_isFunctionAsync("ObjectHttpAtomic")(ObjectHttpAtomic)(
+      (p: (input: ObjectHttpAtomic) => Promise<ObjectHttpAtomic>) =>
+        typia.functional.isFunction(p),
+    );

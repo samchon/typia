@@ -4,7 +4,8 @@ import { _test_functional_validateParametersAsync } from "../../internal/_test_f
 import { AtomicUnion } from "../../structures/AtomicUnion";
 
 export const test_functional_validateParametersAsync_AtomicUnion =
-  _test_functional_validateParametersAsync("AtomicUnion")(AtomicUnion)(
-    (p: (input: AtomicUnion) => Promise<AtomicUnion>) =>
-      typia.functional.validateParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateParametersAsync("AtomicUnion")(AtomicUnion)(
+      (p: (input: AtomicUnion) => Promise<AtomicUnion>) =>
+        typia.functional.validateParameters(p),
+    );

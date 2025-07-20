@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsFunction } from "../../internal/_test_fu
 import { ObjectPartialAndRequired } from "../../structures/ObjectPartialAndRequired";
 
 export const test_functional_validateEqualsFunction_ObjectPartialAndRequired =
-  _test_functional_validateEqualsFunction("ObjectPartialAndRequired")(
-    ObjectPartialAndRequired,
-  )((p: (input: ObjectPartialAndRequired) => ObjectPartialAndRequired) =>
-    typia.functional.validateEqualsFunction(p),
-  );
+  (): void =>
+    _test_functional_validateEqualsFunction("ObjectPartialAndRequired")(
+      ObjectPartialAndRequired,
+    )((p: (input: ObjectPartialAndRequired) => ObjectPartialAndRequired) =>
+      typia.functional.validateEqualsFunction(p),
+    );

@@ -4,6 +4,7 @@ import { _test_standardSchema_validate } from "../../internal/_test_standardSche
 import { ObjectUnionComposite } from "../../structures/ObjectUnionComposite";
 
 export const test_standardSchema_createValidate_ObjectUnionComposite =
-  _test_standardSchema_validate("ObjectUnionComposite")<ObjectUnionComposite>(
-    ObjectUnionComposite,
-  )(typia.createValidate<ObjectUnionComposite>());
+  (): void =>
+    _test_standardSchema_validate("ObjectUnionComposite")<ObjectUnionComposite>(
+      ObjectUnionComposite,
+    )(typia.createValidate<ObjectUnionComposite>());

@@ -3,11 +3,12 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ToJsonNull } from "../../../structures/ToJsonNull";
 
-export const test_llm_application_gemini_ToJsonNull = _test_llm_application({
-  model: "gemini",
-  name: "ToJsonNull",
-  factory: ToJsonNull,
-})(typia.llm.application<ToJsonNullApplication, "gemini">());
+export const test_llm_application_gemini_ToJsonNull = (): void =>
+  _test_llm_application({
+    model: "gemini",
+    name: "ToJsonNull",
+    factory: ToJsonNull,
+  })(typia.llm.application<ToJsonNullApplication, "gemini">());
 
 interface ToJsonNullApplication {
   insert(p: { first: ToJsonNull }): Promise<void>;

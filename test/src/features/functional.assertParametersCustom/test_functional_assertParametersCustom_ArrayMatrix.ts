@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_functional_assertParameters } from "../../internal/_test_functional_assertParameters";
 import { ArrayMatrix } from "../../structures/ArrayMatrix";
 
-export const test_functional_assertParametersCustom_ArrayMatrix =
+export const test_functional_assertParametersCustom_ArrayMatrix = (): void =>
   _test_functional_assertParameters(CustomGuardError)("ArrayMatrix")(
     ArrayMatrix,
   )((p: (input: ArrayMatrix) => ArrayMatrix) =>

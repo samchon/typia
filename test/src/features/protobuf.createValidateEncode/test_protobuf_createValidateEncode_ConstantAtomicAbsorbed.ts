@@ -4,10 +4,11 @@ import { _test_protobuf_validateEncode } from "../../internal/_test_protobuf_val
 import { ConstantAtomicAbsorbed } from "../../structures/ConstantAtomicAbsorbed";
 
 export const test_protobuf_createValidateEncode_ConstantAtomicAbsorbed =
-  _test_protobuf_validateEncode(
-    "ConstantAtomicAbsorbed",
-  )<ConstantAtomicAbsorbed>(ConstantAtomicAbsorbed)({
-    encode: typia.protobuf.createValidateEncode<ConstantAtomicAbsorbed>(),
-    decode: typia.protobuf.createDecode<ConstantAtomicAbsorbed>(),
-    message: typia.protobuf.message<ConstantAtomicAbsorbed>(),
-  });
+  (): void =>
+    _test_protobuf_validateEncode(
+      "ConstantAtomicAbsorbed",
+    )<ConstantAtomicAbsorbed>(ConstantAtomicAbsorbed)({
+      encode: typia.protobuf.createValidateEncode<ConstantAtomicAbsorbed>(),
+      decode: typia.protobuf.createDecode<ConstantAtomicAbsorbed>(),
+      message: typia.protobuf.message<ConstantAtomicAbsorbed>(),
+    });

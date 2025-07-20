@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_json_assertStringify } from "../../internal/_test_json_assertStringify";
 import { DynamicConstant } from "../../structures/DynamicConstant";
 
-export const test_json_assertStringify_DynamicConstant =
+export const test_json_assertStringify_DynamicConstant = (): void =>
   _test_json_assertStringify(TypeGuardError)(
     "DynamicConstant",
   )<DynamicConstant>(DynamicConstant)((input) =>

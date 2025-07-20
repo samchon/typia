@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_assertGuard } from "../../internal/_test_assertGuard";
 import { FunctionalArrayUnion } from "../../structures/FunctionalArrayUnion";
 
-export const test_createAssertGuardCustom_FunctionalArrayUnion =
+export const test_createAssertGuardCustom_FunctionalArrayUnion = (): void =>
   _test_assertGuard(CustomGuardError)(
     "FunctionalArrayUnion",
   )<FunctionalArrayUnion>(FunctionalArrayUnion)(

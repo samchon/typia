@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsReturnAsync } from "../../internal/_test
 import { TypeTagAtomicUnion } from "../../structures/TypeTagAtomicUnion";
 
 export const test_functional_validateEqualsReturnAsync_TypeTagAtomicUnion =
-  _test_functional_validateEqualsReturnAsync("TypeTagAtomicUnion")(
-    TypeTagAtomicUnion,
-  )((p: (input: TypeTagAtomicUnion) => Promise<TypeTagAtomicUnion>) =>
-    typia.functional.validateEqualsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsReturnAsync("TypeTagAtomicUnion")(
+      TypeTagAtomicUnion,
+    )((p: (input: TypeTagAtomicUnion) => Promise<TypeTagAtomicUnion>) =>
+      typia.functional.validateEqualsReturn(p),
+    );

@@ -4,12 +4,13 @@ import { _test_functional_validateEqualsFunctionAsync } from "../../internal/_te
 import { ObjectUnionCompositePointer } from "../../structures/ObjectUnionCompositePointer";
 
 export const test_functional_validateEqualsFunctionAsync_ObjectUnionCompositePointer =
-  _test_functional_validateEqualsFunctionAsync("ObjectUnionCompositePointer")(
-    ObjectUnionCompositePointer,
-  )(
-    (
-      p: (
-        input: ObjectUnionCompositePointer,
-      ) => Promise<ObjectUnionCompositePointer>,
-    ) => typia.functional.validateEqualsFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsFunctionAsync("ObjectUnionCompositePointer")(
+      ObjectUnionCompositePointer,
+    )(
+      (
+        p: (
+          input: ObjectUnionCompositePointer,
+        ) => Promise<ObjectUnionCompositePointer>,
+      ) => typia.functional.validateEqualsFunction(p),
+    );

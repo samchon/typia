@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_protobuf_assertEncode } from "../../internal/_test_protobuf_assertEncode";
 import { DynamicConstant } from "../../structures/DynamicConstant";
 
-export const test_protobuf_assertEncodeCustom_DynamicConstant =
+export const test_protobuf_assertEncodeCustom_DynamicConstant = (): void =>
   _test_protobuf_assertEncode(CustomGuardError)(
     "DynamicConstant",
   )<DynamicConstant>(DynamicConstant)({

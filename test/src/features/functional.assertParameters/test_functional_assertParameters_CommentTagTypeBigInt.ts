@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_functional_assertParameters } from "../../internal/_test_functional_assertParameters";
 import { CommentTagTypeBigInt } from "../../structures/CommentTagTypeBigInt";
 
-export const test_functional_assertParameters_CommentTagTypeBigInt =
+export const test_functional_assertParameters_CommentTagTypeBigInt = (): void =>
   _test_functional_assertParameters(TypeGuardError)("CommentTagTypeBigInt")(
     CommentTagTypeBigInt,
   )((p: (input: CommentTagTypeBigInt) => CommentTagTypeBigInt) =>

@@ -4,9 +4,10 @@ import { _test_protobuf_validateDecode } from "../../internal/_test_protobuf_val
 import { ConstantAtomicTagged } from "../../structures/ConstantAtomicTagged";
 
 export const test_protobuf_createValidateDecode_ConstantAtomicTagged =
-  _test_protobuf_validateDecode("ConstantAtomicTagged")<ConstantAtomicTagged>(
-    ConstantAtomicTagged,
-  )({
-    decode: typia.protobuf.createValidateDecode<ConstantAtomicTagged>(),
-    encode: typia.protobuf.createEncode<ConstantAtomicTagged>(),
-  });
+  (): void =>
+    _test_protobuf_validateDecode("ConstantAtomicTagged")<ConstantAtomicTagged>(
+      ConstantAtomicTagged,
+    )({
+      decode: typia.protobuf.createValidateDecode<ConstantAtomicTagged>(),
+      encode: typia.protobuf.createEncode<ConstantAtomicTagged>(),
+    });

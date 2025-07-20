@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsReturn } from "../../internal/_test_func
 import { ObjectUnionNonPredictable } from "../../structures/ObjectUnionNonPredictable";
 
 export const test_functional_validateEqualsReturn_ObjectUnionNonPredictable =
-  _test_functional_validateEqualsReturn("ObjectUnionNonPredictable")(
-    ObjectUnionNonPredictable,
-  )((p: (input: ObjectUnionNonPredictable) => ObjectUnionNonPredictable) =>
-    typia.functional.validateEqualsReturn(p),
-  );
+  (): void =>
+    _test_functional_validateEqualsReturn("ObjectUnionNonPredictable")(
+      ObjectUnionNonPredictable,
+    )((p: (input: ObjectUnionNonPredictable) => ObjectUnionNonPredictable) =>
+      typia.functional.validateEqualsReturn(p),
+    );

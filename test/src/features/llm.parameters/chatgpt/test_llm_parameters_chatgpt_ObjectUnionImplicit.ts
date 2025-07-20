@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 import { ObjectUnionImplicit } from "../../../structures/ObjectUnionImplicit";
 
-export const test_llm_parameters_chatgpt_ObjectUnionImplicit =
+export const test_llm_parameters_chatgpt_ObjectUnionImplicit = (): void =>
   _test_llm_parameters({
     model: "chatgpt",
     name: "ObjectUnionImplicit",

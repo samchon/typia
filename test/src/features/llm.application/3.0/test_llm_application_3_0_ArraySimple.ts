@@ -3,11 +3,12 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ArraySimple } from "../../../structures/ArraySimple";
 
-export const test_llm_application_3_0_ArraySimple = _test_llm_application({
-  model: "3.0",
-  name: "ArraySimple",
-  factory: ArraySimple,
-})(typia.llm.application<ArraySimpleApplication, "3.0">());
+export const test_llm_application_3_0_ArraySimple = (): void =>
+  _test_llm_application({
+    model: "3.0",
+    name: "ArraySimple",
+    factory: ArraySimple,
+  })(typia.llm.application<ArraySimpleApplication, "3.0">());
 
 interface ArraySimpleApplication {
   insert(p: { first: ArraySimple }): Promise<void>;

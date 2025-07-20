@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsFunctionAsync } from "../../internal/_test
 import { TypeTagBigInt } from "../../structures/TypeTagBigInt";
 
 export const test_functional_assertEqualsFunctionAsyncCustom_TypeTagBigInt =
-  _test_functional_assertEqualsFunctionAsync(CustomGuardError)("TypeTagBigInt")(
-    TypeTagBigInt,
-  )((p: (input: TypeTagBigInt) => Promise<TypeTagBigInt>) =>
-    typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsFunctionAsync(CustomGuardError)(
+      "TypeTagBigInt",
+    )(TypeTagBigInt)((p: (input: TypeTagBigInt) => Promise<TypeTagBigInt>) =>
+      typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
+    );

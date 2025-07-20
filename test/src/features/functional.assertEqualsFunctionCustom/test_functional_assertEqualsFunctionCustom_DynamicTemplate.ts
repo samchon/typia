@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsFunction } from "../../internal/_test_func
 import { DynamicTemplate } from "../../structures/DynamicTemplate";
 
 export const test_functional_assertEqualsFunctionCustom_DynamicTemplate =
-  _test_functional_assertEqualsFunction(CustomGuardError)("DynamicTemplate")(
-    DynamicTemplate,
-  )((p: (input: DynamicTemplate) => DynamicTemplate) =>
-    typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertEqualsFunction(CustomGuardError)("DynamicTemplate")(
+      DynamicTemplate,
+    )((p: (input: DynamicTemplate) => DynamicTemplate) =>
+      typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
+    );

@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_assertGuard } from "../../internal/_test_assertGuard";
 import { ObjectSimpleProtobufNullable } from "../../structures/ObjectSimpleProtobufNullable";
 
-export const test_assertGuardCustom_ObjectSimpleProtobufNullable =
+export const test_assertGuardCustom_ObjectSimpleProtobufNullable = (): void =>
   _test_assertGuard(CustomGuardError)(
     "ObjectSimpleProtobufNullable",
   )<ObjectSimpleProtobufNullable>(ObjectSimpleProtobufNullable)((input) =>

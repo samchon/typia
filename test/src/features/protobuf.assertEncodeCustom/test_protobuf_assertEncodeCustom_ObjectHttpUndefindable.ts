@@ -5,14 +5,15 @@ import { _test_protobuf_assertEncode } from "../../internal/_test_protobuf_asser
 import { ObjectHttpUndefindable } from "../../structures/ObjectHttpUndefindable";
 
 export const test_protobuf_assertEncodeCustom_ObjectHttpUndefindable =
-  _test_protobuf_assertEncode(CustomGuardError)(
-    "ObjectHttpUndefindable",
-  )<ObjectHttpUndefindable>(ObjectHttpUndefindable)({
-    encode: (input) =>
-      typia.protobuf.assertEncode<ObjectHttpUndefindable>(
-        input,
-        (p) => new CustomGuardError(p),
-      ),
-    decode: typia.protobuf.createDecode<ObjectHttpUndefindable>(),
-    message: typia.protobuf.message<ObjectHttpUndefindable>(),
-  });
+  (): void =>
+    _test_protobuf_assertEncode(CustomGuardError)(
+      "ObjectHttpUndefindable",
+    )<ObjectHttpUndefindable>(ObjectHttpUndefindable)({
+      encode: (input) =>
+        typia.protobuf.assertEncode<ObjectHttpUndefindable>(
+          input,
+          (p) => new CustomGuardError(p),
+        ),
+      decode: typia.protobuf.createDecode<ObjectHttpUndefindable>(),
+      message: typia.protobuf.message<ObjectHttpUndefindable>(),
+    });

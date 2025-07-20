@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_functional_assertParameters } from "../../internal/_test_functional_assertParameters";
 import { ObjectUndefined } from "../../structures/ObjectUndefined";
 
-export const test_functional_assertParameters_ObjectUndefined =
+export const test_functional_assertParameters_ObjectUndefined = (): void =>
   _test_functional_assertParameters(TypeGuardError)("ObjectUndefined")(
     ObjectUndefined,
   )((p: (input: ObjectUndefined) => ObjectUndefined) =>

@@ -5,8 +5,9 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { AtomicIntersection } from "../../structures/AtomicIntersection";
 
 export const test_functional_assertReturnAsync_AtomicIntersection =
-  _test_functional_assertReturnAsync(TypeGuardError)("AtomicIntersection")(
-    AtomicIntersection,
-  )((p: (input: AtomicIntersection) => Promise<AtomicIntersection>) =>
-    typia.functional.assertReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(TypeGuardError)("AtomicIntersection")(
+      AtomicIntersection,
+    )((p: (input: AtomicIntersection) => Promise<AtomicIntersection>) =>
+      typia.functional.assertReturn(p),
+    );

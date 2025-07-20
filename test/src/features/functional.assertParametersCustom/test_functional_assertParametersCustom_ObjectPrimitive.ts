@@ -5,8 +5,9 @@ import { _test_functional_assertParameters } from "../../internal/_test_function
 import { ObjectPrimitive } from "../../structures/ObjectPrimitive";
 
 export const test_functional_assertParametersCustom_ObjectPrimitive =
-  _test_functional_assertParameters(CustomGuardError)("ObjectPrimitive")(
-    ObjectPrimitive,
-  )((p: (input: ObjectPrimitive) => ObjectPrimitive) =>
-    typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertParameters(CustomGuardError)("ObjectPrimitive")(
+      ObjectPrimitive,
+    )((p: (input: ObjectPrimitive) => ObjectPrimitive) =>
+      typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
+    );

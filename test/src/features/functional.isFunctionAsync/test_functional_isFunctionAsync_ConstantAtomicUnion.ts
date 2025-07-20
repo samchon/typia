@@ -4,7 +4,9 @@ import { _test_functional_isFunctionAsync } from "../../internal/_test_functiona
 import { ConstantAtomicUnion } from "../../structures/ConstantAtomicUnion";
 
 export const test_functional_isFunctionAsync_ConstantAtomicUnion =
-  _test_functional_isFunctionAsync("ConstantAtomicUnion")(ConstantAtomicUnion)(
-    (p: (input: ConstantAtomicUnion) => Promise<ConstantAtomicUnion>) =>
+  (): Promise<void> =>
+    _test_functional_isFunctionAsync("ConstantAtomicUnion")(
+      ConstantAtomicUnion,
+    )((p: (input: ConstantAtomicUnion) => Promise<ConstantAtomicUnion>) =>
       typia.functional.isFunction(p),
-  );
+    );

@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_notation_validateGeneral } from "../../internal/_test_notation_validateGeneral";
 import { AtomicIntersection } from "../../structures/AtomicIntersection";
 
-export const test_notation_createValidateSnake_AtomicIntersection =
+export const test_notation_createValidateSnake_AtomicIntersection = (): void =>
   _test_notation_validateGeneral("AtomicIntersection")<AtomicIntersection>(
     AtomicIntersection,
   )<typia.SnakeCase<AtomicIntersection>>({

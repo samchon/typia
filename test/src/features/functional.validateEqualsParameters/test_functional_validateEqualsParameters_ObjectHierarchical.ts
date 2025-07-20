@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsParameters } from "../../internal/_test_
 import { ObjectHierarchical } from "../../structures/ObjectHierarchical";
 
 export const test_functional_validateEqualsParameters_ObjectHierarchical =
-  _test_functional_validateEqualsParameters("ObjectHierarchical")(
-    ObjectHierarchical,
-  )((p: (input: ObjectHierarchical) => ObjectHierarchical) =>
-    typia.functional.validateEqualsParameters(p),
-  );
+  (): void =>
+    _test_functional_validateEqualsParameters("ObjectHierarchical")(
+      ObjectHierarchical,
+    )((p: (input: ObjectHierarchical) => ObjectHierarchical) =>
+      typia.functional.validateEqualsParameters(p),
+    );

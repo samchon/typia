@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsFunction } from "../../internal/_test_func
 import { DynamicEnumeration } from "../../structures/DynamicEnumeration";
 
 export const test_functional_assertEqualsFunction_DynamicEnumeration =
-  _test_functional_assertEqualsFunction(TypeGuardError)("DynamicEnumeration")(
-    DynamicEnumeration,
-  )((p: (input: DynamicEnumeration) => DynamicEnumeration) =>
-    typia.functional.assertEqualsFunction(p),
-  );
+  (): void =>
+    _test_functional_assertEqualsFunction(TypeGuardError)("DynamicEnumeration")(
+      DynamicEnumeration,
+    )((p: (input: DynamicEnumeration) => DynamicEnumeration) =>
+      typia.functional.assertEqualsFunction(p),
+    );

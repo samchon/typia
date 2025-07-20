@@ -4,7 +4,9 @@ import { _test_functional_validateReturnAsync } from "../../internal/_test_funct
 import { ArrayHierarchical } from "../../structures/ArrayHierarchical";
 
 export const test_functional_validateReturnAsync_ArrayHierarchical =
-  _test_functional_validateReturnAsync("ArrayHierarchical")(ArrayHierarchical)(
-    (p: (input: ArrayHierarchical) => Promise<ArrayHierarchical>) =>
+  (): Promise<void> =>
+    _test_functional_validateReturnAsync("ArrayHierarchical")(
+      ArrayHierarchical,
+    )((p: (input: ArrayHierarchical) => Promise<ArrayHierarchical>) =>
       typia.functional.validateReturn(p),
-  );
+    );

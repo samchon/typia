@@ -5,12 +5,13 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { MapSimpleProtobufOptional } from "../../structures/MapSimpleProtobufOptional";
 
 export const test_functional_assertReturnAsyncCustom_MapSimpleProtobufOptional =
-  _test_functional_assertReturnAsync(CustomGuardError)(
-    "MapSimpleProtobufOptional",
-  )(MapSimpleProtobufOptional)(
-    (
-      p: (
-        input: MapSimpleProtobufOptional,
-      ) => Promise<MapSimpleProtobufOptional>,
-    ) => typia.functional.assertReturn(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(CustomGuardError)(
+      "MapSimpleProtobufOptional",
+    )(MapSimpleProtobufOptional)(
+      (
+        p: (
+          input: MapSimpleProtobufOptional,
+        ) => Promise<MapSimpleProtobufOptional>,
+      ) => typia.functional.assertReturn(p, (p) => new CustomGuardError(p)),
+    );

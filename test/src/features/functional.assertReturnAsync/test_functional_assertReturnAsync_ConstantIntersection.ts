@@ -5,8 +5,9 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { ConstantIntersection } from "../../structures/ConstantIntersection";
 
 export const test_functional_assertReturnAsync_ConstantIntersection =
-  _test_functional_assertReturnAsync(TypeGuardError)("ConstantIntersection")(
-    ConstantIntersection,
-  )((p: (input: ConstantIntersection) => Promise<ConstantIntersection>) =>
-    typia.functional.assertReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(TypeGuardError)("ConstantIntersection")(
+      ConstantIntersection,
+    )((p: (input: ConstantIntersection) => Promise<ConstantIntersection>) =>
+      typia.functional.assertReturn(p),
+    );

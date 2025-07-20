@@ -5,9 +5,13 @@ import { _test_functional_assertEqualsFunctionAsync } from "../../internal/_test
 import { FunctionalTupleUnion } from "../../structures/FunctionalTupleUnion";
 
 export const test_functional_assertEqualsFunctionAsyncCustom_FunctionalTupleUnion =
-  _test_functional_assertEqualsFunctionAsync(CustomGuardError)(
-    "FunctionalTupleUnion",
-  )(FunctionalTupleUnion)(
-    (p: (input: FunctionalTupleUnion) => Promise<FunctionalTupleUnion>) =>
-      typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsFunctionAsync(CustomGuardError)(
+      "FunctionalTupleUnion",
+    )(FunctionalTupleUnion)(
+      (p: (input: FunctionalTupleUnion) => Promise<FunctionalTupleUnion>) =>
+        typia.functional.assertEqualsFunction(
+          p,
+          (p) => new CustomGuardError(p),
+        ),
+    );

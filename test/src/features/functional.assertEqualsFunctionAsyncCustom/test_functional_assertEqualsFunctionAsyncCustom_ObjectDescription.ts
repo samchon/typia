@@ -5,9 +5,13 @@ import { _test_functional_assertEqualsFunctionAsync } from "../../internal/_test
 import { ObjectDescription } from "../../structures/ObjectDescription";
 
 export const test_functional_assertEqualsFunctionAsyncCustom_ObjectDescription =
-  _test_functional_assertEqualsFunctionAsync(CustomGuardError)(
-    "ObjectDescription",
-  )(ObjectDescription)(
-    (p: (input: ObjectDescription) => Promise<ObjectDescription>) =>
-      typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsFunctionAsync(CustomGuardError)(
+      "ObjectDescription",
+    )(ObjectDescription)(
+      (p: (input: ObjectDescription) => Promise<ObjectDescription>) =>
+        typia.functional.assertEqualsFunction(
+          p,
+          (p) => new CustomGuardError(p),
+        ),
+    );

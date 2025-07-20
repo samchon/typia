@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_json_assertStringify } from "../../internal/_test_json_assertStringify";
 import { ObjectDescription } from "../../structures/ObjectDescription";
 
-export const test_json_createAssertStringify_ObjectDescription =
+export const test_json_createAssertStringify_ObjectDescription = (): void =>
   _test_json_assertStringify(TypeGuardError)(
     "ObjectDescription",
   )<ObjectDescription>(ObjectDescription)(

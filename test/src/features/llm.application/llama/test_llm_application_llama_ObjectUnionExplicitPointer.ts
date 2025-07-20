@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ObjectUnionExplicitPointer } from "../../../structures/ObjectUnionExplicitPointer";
 
-export const test_llm_application_llama_ObjectUnionExplicitPointer =
+export const test_llm_application_llama_ObjectUnionExplicitPointer = (): void =>
   _test_llm_application({
     model: "llama",
     name: "ObjectUnionExplicitPointer",

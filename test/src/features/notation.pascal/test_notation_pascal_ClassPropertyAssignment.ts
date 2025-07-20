@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_notation_validateGeneral } from "../../internal/_test_notation_validateGeneral";
 import { ClassPropertyAssignment } from "../../structures/ClassPropertyAssignment";
 
-export const test_notation_validatePascal_ClassPropertyAssignment =
+export const test_notation_validatePascal_ClassPropertyAssignment = (): void =>
   _test_notation_validateGeneral(
     "ClassPropertyAssignment",
   )<ClassPropertyAssignment>(ClassPropertyAssignment)<

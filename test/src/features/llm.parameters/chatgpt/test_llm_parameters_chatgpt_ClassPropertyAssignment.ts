@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_parameters } from "../../../internal/_test_llm_parameters";
 import { ClassPropertyAssignment } from "../../../structures/ClassPropertyAssignment";
 
-export const test_llm_parameters_chatgpt_ClassPropertyAssignment =
+export const test_llm_parameters_chatgpt_ClassPropertyAssignment = (): void =>
   _test_llm_parameters({
     model: "chatgpt",
     name: "ClassPropertyAssignment",

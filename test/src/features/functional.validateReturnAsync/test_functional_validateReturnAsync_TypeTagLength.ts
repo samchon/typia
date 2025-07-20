@@ -4,7 +4,8 @@ import { _test_functional_validateReturnAsync } from "../../internal/_test_funct
 import { TypeTagLength } from "../../structures/TypeTagLength";
 
 export const test_functional_validateReturnAsync_TypeTagLength =
-  _test_functional_validateReturnAsync("TypeTagLength")(TypeTagLength)(
-    (p: (input: TypeTagLength) => Promise<TypeTagLength>) =>
-      typia.functional.validateReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateReturnAsync("TypeTagLength")(TypeTagLength)(
+      (p: (input: TypeTagLength) => Promise<TypeTagLength>) =>
+        typia.functional.validateReturn(p),
+    );

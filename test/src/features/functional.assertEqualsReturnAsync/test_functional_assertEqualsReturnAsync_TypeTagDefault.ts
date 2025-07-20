@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsReturnAsync } from "../../internal/_test_f
 import { TypeTagDefault } from "../../structures/TypeTagDefault";
 
 export const test_functional_assertEqualsReturnAsync_TypeTagDefault =
-  _test_functional_assertEqualsReturnAsync(TypeGuardError)("TypeTagDefault")(
-    TypeTagDefault,
-  )((p: (input: TypeTagDefault) => Promise<TypeTagDefault>) =>
-    typia.functional.assertEqualsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsReturnAsync(TypeGuardError)("TypeTagDefault")(
+      TypeTagDefault,
+    )((p: (input: TypeTagDefault) => Promise<TypeTagDefault>) =>
+      typia.functional.assertEqualsReturn(p),
+    );

@@ -5,9 +5,13 @@ import { _test_functional_assertEqualsFunctionAsync } from "../../internal/_test
 import { ObjectPropertyNullable } from "../../structures/ObjectPropertyNullable";
 
 export const test_functional_assertEqualsFunctionAsyncCustom_ObjectPropertyNullable =
-  _test_functional_assertEqualsFunctionAsync(CustomGuardError)(
-    "ObjectPropertyNullable",
-  )(ObjectPropertyNullable)(
-    (p: (input: ObjectPropertyNullable) => Promise<ObjectPropertyNullable>) =>
-      typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsFunctionAsync(CustomGuardError)(
+      "ObjectPropertyNullable",
+    )(ObjectPropertyNullable)(
+      (p: (input: ObjectPropertyNullable) => Promise<ObjectPropertyNullable>) =>
+        typia.functional.assertEqualsFunction(
+          p,
+          (p) => new CustomGuardError(p),
+        ),
+    );

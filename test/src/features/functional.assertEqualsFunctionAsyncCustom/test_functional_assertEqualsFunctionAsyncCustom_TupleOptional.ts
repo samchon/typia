@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsFunctionAsync } from "../../internal/_test
 import { TupleOptional } from "../../structures/TupleOptional";
 
 export const test_functional_assertEqualsFunctionAsyncCustom_TupleOptional =
-  _test_functional_assertEqualsFunctionAsync(CustomGuardError)("TupleOptional")(
-    TupleOptional,
-  )((p: (input: TupleOptional) => Promise<TupleOptional>) =>
-    typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsFunctionAsync(CustomGuardError)(
+      "TupleOptional",
+    )(TupleOptional)((p: (input: TupleOptional) => Promise<TupleOptional>) =>
+      typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
+    );

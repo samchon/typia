@@ -5,9 +5,10 @@ import { _test_functional_assertEqualsFunctionAsync } from "../../internal/_test
 import { ToJsonAtomicSimple } from "../../structures/ToJsonAtomicSimple";
 
 export const test_functional_assertEqualsFunctionAsync_ToJsonAtomicSimple =
-  _test_functional_assertEqualsFunctionAsync(TypeGuardError)(
-    "ToJsonAtomicSimple",
-  )(ToJsonAtomicSimple)(
-    (p: (input: ToJsonAtomicSimple) => Promise<ToJsonAtomicSimple>) =>
-      typia.functional.assertEqualsFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertEqualsFunctionAsync(TypeGuardError)(
+      "ToJsonAtomicSimple",
+    )(ToJsonAtomicSimple)(
+      (p: (input: ToJsonAtomicSimple) => Promise<ToJsonAtomicSimple>) =>
+        typia.functional.assertEqualsFunction(p),
+    );

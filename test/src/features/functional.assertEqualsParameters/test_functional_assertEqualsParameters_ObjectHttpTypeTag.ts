@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsParameters } from "../../internal/_test_fu
 import { ObjectHttpTypeTag } from "../../structures/ObjectHttpTypeTag";
 
 export const test_functional_assertEqualsParameters_ObjectHttpTypeTag =
-  _test_functional_assertEqualsParameters(TypeGuardError)("ObjectHttpTypeTag")(
-    ObjectHttpTypeTag,
-  )((p: (input: ObjectHttpTypeTag) => ObjectHttpTypeTag) =>
-    typia.functional.assertEqualsParameters(p),
-  );
+  (): void =>
+    _test_functional_assertEqualsParameters(TypeGuardError)(
+      "ObjectHttpTypeTag",
+    )(ObjectHttpTypeTag)((p: (input: ObjectHttpTypeTag) => ObjectHttpTypeTag) =>
+      typia.functional.assertEqualsParameters(p),
+    );

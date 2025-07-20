@@ -5,8 +5,9 @@ import { _test_functional_assertEqualsParameters } from "../../internal/_test_fu
 import { ObjectHttpArray } from "../../structures/ObjectHttpArray";
 
 export const test_functional_assertEqualsParameters_ObjectHttpArray =
-  _test_functional_assertEqualsParameters(TypeGuardError)("ObjectHttpArray")(
-    ObjectHttpArray,
-  )((p: (input: ObjectHttpArray) => ObjectHttpArray) =>
-    typia.functional.assertEqualsParameters(p),
-  );
+  (): void =>
+    _test_functional_assertEqualsParameters(TypeGuardError)("ObjectHttpArray")(
+      ObjectHttpArray,
+    )((p: (input: ObjectHttpArray) => ObjectHttpArray) =>
+      typia.functional.assertEqualsParameters(p),
+    );

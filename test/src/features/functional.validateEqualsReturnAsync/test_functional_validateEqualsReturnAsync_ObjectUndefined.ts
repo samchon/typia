@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsReturnAsync } from "../../internal/_test
 import { ObjectUndefined } from "../../structures/ObjectUndefined";
 
 export const test_functional_validateEqualsReturnAsync_ObjectUndefined =
-  _test_functional_validateEqualsReturnAsync("ObjectUndefined")(
-    ObjectUndefined,
-  )((p: (input: ObjectUndefined) => Promise<ObjectUndefined>) =>
-    typia.functional.validateEqualsReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateEqualsReturnAsync("ObjectUndefined")(
+      ObjectUndefined,
+    )((p: (input: ObjectUndefined) => Promise<ObjectUndefined>) =>
+      typia.functional.validateEqualsReturn(p),
+    );

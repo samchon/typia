@@ -4,8 +4,10 @@ import { _test_notation_general } from "./_test_notation_general";
 export const _test_notation_isGeneral =
   (name: string) =>
   <T>(factory: TestStructure<T>) =>
-  <U>(functor: { convert: (input: T) => U | null; assert: (input: U) => U }) =>
-  () => {
+  <U>(functor: {
+    convert: (input: T) => U | null;
+    assert: (input: U) => U;
+  }): void => {
     _test_notation_general(name)(factory)({
       assert: functor.assert,
       convert: (input) => {
@@ -16,7 +18,7 @@ export const _test_notation_isGeneral =
           );
         return output;
       },
-    })();
+    }) satisfies void;
 
     for (const spoil of factory.SPOILERS ?? []) {
       const elem: T = factory.generate();

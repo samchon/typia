@@ -4,11 +4,14 @@ import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ArrayRecursiveUnionImplicit } from "../../../structures/ArrayRecursiveUnionImplicit";
 
 export const test_llm_application_claude_ArrayRecursiveUnionImplicit =
-  _test_llm_application({
-    model: "claude",
-    name: "ArrayRecursiveUnionImplicit",
-    factory: ArrayRecursiveUnionImplicit,
-  })(typia.llm.application<ArrayRecursiveUnionImplicitApplication, "claude">());
+  (): void =>
+    _test_llm_application({
+      model: "claude",
+      name: "ArrayRecursiveUnionImplicit",
+      factory: ArrayRecursiveUnionImplicit,
+    })(
+      typia.llm.application<ArrayRecursiveUnionImplicitApplication, "claude">(),
+    );
 
 interface ArrayRecursiveUnionImplicitApplication {
   insert(p: { first: ArrayRecursiveUnionImplicit }): Promise<void>;

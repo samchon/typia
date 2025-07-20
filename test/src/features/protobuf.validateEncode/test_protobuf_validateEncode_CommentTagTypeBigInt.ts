@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_protobuf_validateEncode } from "../../internal/_test_protobuf_validateEncode";
 import { CommentTagTypeBigInt } from "../../structures/CommentTagTypeBigInt";
 
-export const test_protobuf_validateEncode_CommentTagTypeBigInt =
+export const test_protobuf_validateEncode_CommentTagTypeBigInt = (): void =>
   _test_protobuf_validateEncode("CommentTagTypeBigInt")<CommentTagTypeBigInt>(
     CommentTagTypeBigInt,
   )({

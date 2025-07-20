@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ConstantAtomicUnion } from "../../../structures/ConstantAtomicUnion";
 
-export const test_llm_application_claude_ConstantAtomicUnion =
+export const test_llm_application_claude_ConstantAtomicUnion = (): void =>
   _test_llm_application({
     model: "claude",
     name: "ConstantAtomicUnion",

@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_protobuf_assertDecode } from "../../internal/_test_protobuf_assertDecode";
 import { ObjectSequenceProtobuf } from "../../structures/ObjectSequenceProtobuf";
 
-export const test_protobuf_assertDecode_ObjectSequenceProtobuf =
+export const test_protobuf_assertDecode_ObjectSequenceProtobuf = (): void =>
   _test_protobuf_assertDecode(TypeGuardError)(
     "ObjectSequenceProtobuf",
   )<ObjectSequenceProtobuf>(ObjectSequenceProtobuf)({

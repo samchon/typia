@@ -4,7 +4,8 @@ import { IMetadataApplication } from "typia/lib/schemas/metadata/IMetadataApplic
 import { primitive_equal_to } from "../helpers/primitive_equal_to";
 
 export const _test_reflect_metadata =
-  (name: string) => (expected: IMetadataApplication) => {
+  (name: string) =>
+  (expected: IMetadataApplication): void => {
     const actual: IMetadataApplication = JSON.parse(
       fs.readFileSync(
         `${__dirname}/../../../test/schemas/reflect/metadata/${name}.json`,

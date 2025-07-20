@@ -4,8 +4,9 @@ import { _test_functional_equalsParametersAsync } from "../../internal/_test_fun
 import { ObjectUnionExplicit } from "../../structures/ObjectUnionExplicit";
 
 export const test_functional_equalsParametersAsync_ObjectUnionExplicit =
-  _test_functional_equalsParametersAsync("ObjectUnionExplicit")(
-    ObjectUnionExplicit,
-  )((p: (input: ObjectUnionExplicit) => Promise<ObjectUnionExplicit>) =>
-    typia.functional.equalsParameters(p),
-  );
+  (): Promise<void> =>
+    _test_functional_equalsParametersAsync("ObjectUnionExplicit")(
+      ObjectUnionExplicit,
+    )((p: (input: ObjectUnionExplicit) => Promise<ObjectUnionExplicit>) =>
+      typia.functional.equalsParameters(p),
+    );

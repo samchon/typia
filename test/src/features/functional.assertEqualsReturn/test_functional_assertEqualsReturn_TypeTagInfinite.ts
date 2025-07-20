@@ -4,7 +4,7 @@ import { TypeGuardError } from "typia";
 import { _test_functional_assertEqualsReturn } from "../../internal/_test_functional_assertEqualsReturn";
 import { TypeTagInfinite } from "../../structures/TypeTagInfinite";
 
-export const test_functional_assertEqualsReturn_TypeTagInfinite =
+export const test_functional_assertEqualsReturn_TypeTagInfinite = (): void =>
   _test_functional_assertEqualsReturn(TypeGuardError)("TypeTagInfinite")(
     TypeTagInfinite,
   )((p: (input: TypeTagInfinite) => TypeTagInfinite) =>

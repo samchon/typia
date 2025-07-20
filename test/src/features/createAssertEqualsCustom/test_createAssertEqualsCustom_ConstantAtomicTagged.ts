@@ -4,7 +4,7 @@ import { CustomGuardError } from "../../internal/CustomGuardError";
 import { _test_assertEquals } from "../../internal/_test_assertEquals";
 import { ConstantAtomicTagged } from "../../structures/ConstantAtomicTagged";
 
-export const test_createAssertEqualsCustom_ConstantAtomicTagged =
+export const test_createAssertEqualsCustom_ConstantAtomicTagged = (): void =>
   _test_assertEquals(CustomGuardError)(
     "ConstantAtomicTagged",
   )<ConstantAtomicTagged>(ConstantAtomicTagged)(

@@ -4,8 +4,9 @@ import { _test_functional_validateEqualsParameters } from "../../internal/_test_
 import { ClassPropertyAssignment } from "../../structures/ClassPropertyAssignment";
 
 export const test_functional_validateEqualsParameters_ClassPropertyAssignment =
-  _test_functional_validateEqualsParameters("ClassPropertyAssignment")(
-    ClassPropertyAssignment,
-  )((p: (input: ClassPropertyAssignment) => ClassPropertyAssignment) =>
-    typia.functional.validateEqualsParameters(p),
-  );
+  (): void =>
+    _test_functional_validateEqualsParameters("ClassPropertyAssignment")(
+      ClassPropertyAssignment,
+    )((p: (input: ClassPropertyAssignment) => ClassPropertyAssignment) =>
+      typia.functional.validateEqualsParameters(p),
+    );

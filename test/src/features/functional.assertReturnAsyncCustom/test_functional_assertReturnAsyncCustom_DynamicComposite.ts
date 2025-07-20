@@ -5,8 +5,9 @@ import { _test_functional_assertReturnAsync } from "../../internal/_test_functio
 import { DynamicComposite } from "../../structures/DynamicComposite";
 
 export const test_functional_assertReturnAsyncCustom_DynamicComposite =
-  _test_functional_assertReturnAsync(CustomGuardError)("DynamicComposite")(
-    DynamicComposite,
-  )((p: (input: DynamicComposite) => Promise<DynamicComposite>) =>
-    typia.functional.assertReturn(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertReturnAsync(CustomGuardError)("DynamicComposite")(
+      DynamicComposite,
+    )((p: (input: DynamicComposite) => Promise<DynamicComposite>) =>
+      typia.functional.assertReturn(p, (p) => new CustomGuardError(p)),
+    );

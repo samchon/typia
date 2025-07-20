@@ -5,8 +5,9 @@ import { _test_functional_assertParametersAsync } from "../../internal/_test_fun
 import { TupleUnion } from "../../structures/TupleUnion";
 
 export const test_functional_assertParametersAsyncCustom_TupleUnion =
-  _test_functional_assertParametersAsync(CustomGuardError)("TupleUnion")(
-    TupleUnion,
-  )((p: (input: TupleUnion) => Promise<TupleUnion>) =>
-    typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): Promise<void> =>
+    _test_functional_assertParametersAsync(CustomGuardError)("TupleUnion")(
+      TupleUnion,
+    )((p: (input: TupleUnion) => Promise<TupleUnion>) =>
+      typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
+    );

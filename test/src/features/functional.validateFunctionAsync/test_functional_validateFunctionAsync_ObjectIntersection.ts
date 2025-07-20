@@ -4,8 +4,9 @@ import { _test_functional_validateFunctionAsync } from "../../internal/_test_fun
 import { ObjectIntersection } from "../../structures/ObjectIntersection";
 
 export const test_functional_validateFunctionAsync_ObjectIntersection =
-  _test_functional_validateFunctionAsync("ObjectIntersection")(
-    ObjectIntersection,
-  )((p: (input: ObjectIntersection) => Promise<ObjectIntersection>) =>
-    typia.functional.validateFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateFunctionAsync("ObjectIntersection")(
+      ObjectIntersection,
+    )((p: (input: ObjectIntersection) => Promise<ObjectIntersection>) =>
+      typia.functional.validateFunction(p),
+    );

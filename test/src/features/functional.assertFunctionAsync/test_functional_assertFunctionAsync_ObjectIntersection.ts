@@ -5,8 +5,9 @@ import { _test_functional_assertFunctionAsync } from "../../internal/_test_funct
 import { ObjectIntersection } from "../../structures/ObjectIntersection";
 
 export const test_functional_assertFunctionAsync_ObjectIntersection =
-  _test_functional_assertFunctionAsync(TypeGuardError)("ObjectIntersection")(
-    ObjectIntersection,
-  )((p: (input: ObjectIntersection) => Promise<ObjectIntersection>) =>
-    typia.functional.assertFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertFunctionAsync(TypeGuardError)("ObjectIntersection")(
+      ObjectIntersection,
+    )((p: (input: ObjectIntersection) => Promise<ObjectIntersection>) =>
+      typia.functional.assertFunction(p),
+    );

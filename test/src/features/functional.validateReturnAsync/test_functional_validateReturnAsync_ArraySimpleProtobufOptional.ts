@@ -4,12 +4,13 @@ import { _test_functional_validateReturnAsync } from "../../internal/_test_funct
 import { ArraySimpleProtobufOptional } from "../../structures/ArraySimpleProtobufOptional";
 
 export const test_functional_validateReturnAsync_ArraySimpleProtobufOptional =
-  _test_functional_validateReturnAsync("ArraySimpleProtobufOptional")(
-    ArraySimpleProtobufOptional,
-  )(
-    (
-      p: (
-        input: ArraySimpleProtobufOptional,
-      ) => Promise<ArraySimpleProtobufOptional>,
-    ) => typia.functional.validateReturn(p),
-  );
+  (): Promise<void> =>
+    _test_functional_validateReturnAsync("ArraySimpleProtobufOptional")(
+      ArraySimpleProtobufOptional,
+    )(
+      (
+        p: (
+          input: ArraySimpleProtobufOptional,
+        ) => Promise<ArraySimpleProtobufOptional>,
+      ) => typia.functional.validateReturn(p),
+    );

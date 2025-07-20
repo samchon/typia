@@ -5,9 +5,13 @@ import { _test_functional_assertEqualsFunction } from "../../internal/_test_func
 import { ConstantAtomicSimple } from "../../structures/ConstantAtomicSimple";
 
 export const test_functional_assertEqualsFunctionCustom_ConstantAtomicSimple =
-  _test_functional_assertEqualsFunction(CustomGuardError)(
-    "ConstantAtomicSimple",
-  )(ConstantAtomicSimple)(
-    (p: (input: ConstantAtomicSimple) => ConstantAtomicSimple) =>
-      typia.functional.assertEqualsFunction(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertEqualsFunction(CustomGuardError)(
+      "ConstantAtomicSimple",
+    )(ConstantAtomicSimple)(
+      (p: (input: ConstantAtomicSimple) => ConstantAtomicSimple) =>
+        typia.functional.assertEqualsFunction(
+          p,
+          (p) => new CustomGuardError(p),
+        ),
+    );

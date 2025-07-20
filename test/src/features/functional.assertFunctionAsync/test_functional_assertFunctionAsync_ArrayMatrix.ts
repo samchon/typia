@@ -5,8 +5,9 @@ import { _test_functional_assertFunctionAsync } from "../../internal/_test_funct
 import { ArrayMatrix } from "../../structures/ArrayMatrix";
 
 export const test_functional_assertFunctionAsync_ArrayMatrix =
-  _test_functional_assertFunctionAsync(TypeGuardError)("ArrayMatrix")(
-    ArrayMatrix,
-  )((p: (input: ArrayMatrix) => Promise<ArrayMatrix>) =>
-    typia.functional.assertFunction(p),
-  );
+  (): Promise<void> =>
+    _test_functional_assertFunctionAsync(TypeGuardError)("ArrayMatrix")(
+      ArrayMatrix,
+    )((p: (input: ArrayMatrix) => Promise<ArrayMatrix>) =>
+      typia.functional.assertFunction(p),
+    );

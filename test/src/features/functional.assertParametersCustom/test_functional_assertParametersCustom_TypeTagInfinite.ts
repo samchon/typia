@@ -5,8 +5,9 @@ import { _test_functional_assertParameters } from "../../internal/_test_function
 import { TypeTagInfinite } from "../../structures/TypeTagInfinite";
 
 export const test_functional_assertParametersCustom_TypeTagInfinite =
-  _test_functional_assertParameters(CustomGuardError)("TypeTagInfinite")(
-    TypeTagInfinite,
-  )((p: (input: TypeTagInfinite) => TypeTagInfinite) =>
-    typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
-  );
+  (): void =>
+    _test_functional_assertParameters(CustomGuardError)("TypeTagInfinite")(
+      TypeTagInfinite,
+    )((p: (input: TypeTagInfinite) => TypeTagInfinite) =>
+      typia.functional.assertParameters(p, (p) => new CustomGuardError(p)),
+    );

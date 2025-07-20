@@ -5,8 +5,9 @@ import { _test_functional_assertFunction } from "../../internal/_test_functional
 import { FunctionalPropertyUnion } from "../../structures/FunctionalPropertyUnion";
 
 export const test_functional_assertFunction_FunctionalPropertyUnion =
-  _test_functional_assertFunction(TypeGuardError)("FunctionalPropertyUnion")(
-    FunctionalPropertyUnion,
-  )((p: (input: FunctionalPropertyUnion) => FunctionalPropertyUnion) =>
-    typia.functional.assertFunction(p),
-  );
+  (): void =>
+    _test_functional_assertFunction(TypeGuardError)("FunctionalPropertyUnion")(
+      FunctionalPropertyUnion,
+    )((p: (input: FunctionalPropertyUnion) => FunctionalPropertyUnion) =>
+      typia.functional.assertFunction(p),
+    );

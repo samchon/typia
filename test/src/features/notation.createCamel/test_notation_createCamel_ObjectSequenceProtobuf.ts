@@ -4,11 +4,12 @@ import { _test_notation_validateGeneral } from "../../internal/_test_notation_va
 import { ObjectSequenceProtobuf } from "../../structures/ObjectSequenceProtobuf";
 
 export const test_notation_createValidateCamel_ObjectSequenceProtobuf =
-  _test_notation_validateGeneral(
-    "ObjectSequenceProtobuf",
-  )<ObjectSequenceProtobuf>(ObjectSequenceProtobuf)<
-    typia.CamelCase<ObjectSequenceProtobuf>
-  >({
-    convert: typia.notations.createValidateCamel<ObjectSequenceProtobuf>(),
-    assert: typia.createAssert<typia.CamelCase<ObjectSequenceProtobuf>>(),
-  });
+  (): void =>
+    _test_notation_validateGeneral(
+      "ObjectSequenceProtobuf",
+    )<ObjectSequenceProtobuf>(ObjectSequenceProtobuf)<
+      typia.CamelCase<ObjectSequenceProtobuf>
+    >({
+      convert: typia.notations.createValidateCamel<ObjectSequenceProtobuf>(),
+      assert: typia.createAssert<typia.CamelCase<ObjectSequenceProtobuf>>(),
+    });

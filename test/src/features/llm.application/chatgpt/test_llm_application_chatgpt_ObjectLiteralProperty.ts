@@ -3,7 +3,7 @@ import typia from "typia";
 import { _test_llm_application } from "../../../internal/_test_llm_application";
 import { ObjectLiteralProperty } from "../../../structures/ObjectLiteralProperty";
 
-export const test_llm_application_chatgpt_ObjectLiteralProperty =
+export const test_llm_application_chatgpt_ObjectLiteralProperty = (): void =>
   _test_llm_application({
     model: "chatgpt",
     name: "ObjectLiteralProperty",

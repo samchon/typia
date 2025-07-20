@@ -4,8 +4,9 @@ import { _test_standardSchema_validate } from "../../internal/_test_standardSche
 import { ArrayRecursiveUnionImplicit } from "../../structures/ArrayRecursiveUnionImplicit";
 
 export const test_standardSchema_createValidate_ArrayRecursiveUnionImplicit =
-  _test_standardSchema_validate(
-    "ArrayRecursiveUnionImplicit",
-  )<ArrayRecursiveUnionImplicit>(ArrayRecursiveUnionImplicit)(
-    typia.createValidate<ArrayRecursiveUnionImplicit>(),
-  );
+  (): void =>
+    _test_standardSchema_validate(
+      "ArrayRecursiveUnionImplicit",
+    )<ArrayRecursiveUnionImplicit>(ArrayRecursiveUnionImplicit)(
+      typia.createValidate<ArrayRecursiveUnionImplicit>(),
+    );
