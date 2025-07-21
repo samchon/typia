@@ -159,7 +159,36 @@ const check_dynamic_property = (props: {
         : [
             ts.factory.createReturnStatement(
               props.config.equals === true
-                ? props.config.superfluous(value)
+                ? props.config.superfluous(
+                    value,
+                    ts.factory.createCallExpression(
+                      ts.factory.createPropertyAccessExpression(
+                        ts.factory.createArrayLiteralExpression(
+                          [
+                            ts.factory.createTemplateExpression(
+                              ts.factory.createTemplateHead("The property `"),
+                              [
+                                ts.factory.createTemplateSpan(
+                                  ts.factory.createIdentifier("key"),
+                                  ts.factory.createTemplateTail(
+                                    "` is not defined in the object type.",
+                                  ),
+                                ),
+                              ],
+                            ),
+                            ts.factory.createStringLiteral(""),
+                            ts.factory.createStringLiteral(
+                              "Please remove the property next time.",
+                            ),
+                          ],
+                          true,
+                        ),
+                        "join",
+                      ),
+                      undefined,
+                      [ts.factory.createStringLiteral("\n")],
+                    ),
+                  )
                 : props.config.positive,
             ),
           ]),

@@ -63,7 +63,7 @@ export namespace ValidateProgrammer {
                             : "_path",
                         ),
                         expected: cond.expected,
-                        input: next.input,
+                        value: next.input,
                       }),
                     ),
                   )
@@ -89,7 +89,7 @@ export namespace ValidateProgrammer {
                             : "_path",
                         ),
                         expected: next.entry.expected,
-                        input: next.input,
+                        value: next.input,
                       }),
                     ),
                   ]),
@@ -295,7 +295,7 @@ const combine =
                         : ts.factory.createIdentifier("_exceptionable"),
                     path: ts.factory.createIdentifier(path),
                     expected: next.expected,
-                    input: next.input,
+                    value: next.input,
                   }),
                 ),
           )
@@ -311,7 +311,7 @@ const combine =
                 : ts.factory.createIdentifier("_exceptionable"),
             path: ts.factory.createIdentifier(path),
             expected: next.expected,
-            input: next.input,
+            value: next.input,
           }),
         );
   };
@@ -330,7 +330,7 @@ const validate_object = (props: {
       assert: false,
       reduce: ts.factory.createLogicalAnd,
       positive: ts.factory.createTrue(),
-      superfluous: (input) =>
+      superfluous: (input, description) =>
         create_report_call({
           path: ts.factory.createAdd(
             ts.factory.createIdentifier("_path"),
@@ -341,7 +341,8 @@ const validate_object = (props: {
             ),
           ),
           expected: "undefined",
-          input,
+          value: input,
+          description,
         }),
       halt: (expr) =>
         ts.factory.createLogicalOr(
@@ -388,7 +389,7 @@ const joiner = (props: {
         next.explore?.postfix ? `_path + ${next.explore.postfix}` : "_path",
       ),
       expected: next.expected,
-      input: next.input,
+      value: next.input,
     }),
   tuple: (binaries) =>
     check_everything(ts.factory.createArrayLiteralExpression(binaries, true)),
@@ -426,7 +427,8 @@ const create_report_call = (props: {
   exceptionable?: ts.Expression;
   path: ts.Expression;
   expected: string;
-  input: ts.Expression;
+  value: ts.Expression;
+  description?: ts.Expression;
 }): ts.Expression =>
   ts.factory.createCallExpression(
     ts.factory.createIdentifier("_report"),
@@ -440,7 +442,15 @@ const create_report_call = (props: {
             "expected",
             ts.factory.createStringLiteral(props.expected),
           ),
-          ts.factory.createPropertyAssignment("value", props.input),
+          ts.factory.createPropertyAssignment("value", props.value),
+          ...(props.description
+            ? [
+                ts.factory.createPropertyAssignment(
+                  "description",
+                  props.description,
+                ),
+              ]
+            : []),
         ],
         true,
       ),
