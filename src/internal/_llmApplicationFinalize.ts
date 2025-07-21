@@ -3,7 +3,11 @@ import { LlmSchemaComposer } from "@samchon/openapi/lib/composers/LlmSchemaCompo
 
 export const _llmApplicationFinalize = <Model extends ILlmSchema.Model>(
   app: ILlmApplication<Model>,
-  options?: Partial<Pick<ILlmApplication.IOptions<Model>, "separate">>,
+  options?: Partial<
+    Pick<ILlmApplication.IOptions<Model>, "separate"> & {
+      equals?: boolean;
+    }
+  >,
 ): void => {
   app.options = {
     ...LlmSchemaComposer.defaultConfig(app.model),
@@ -16,5 +20,6 @@ export const _llmApplicationFinalize = <Model extends ILlmSchema.Model>(
         func.parameters satisfies ILlmSchema.IParameters<Model> as any,
       predicate: app.options
         .separate as ILlmApplication.IOptions<Model>["separate"] as any,
+      equals: options?.equals ?? false,
     }) as ILlmFunction.ISeparated<Model>;
 };

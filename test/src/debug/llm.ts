@@ -1,3 +1,28 @@
-import { test_llm_applicationEquals_gemini_ObjectSimple } from "../features/llm.applicationEquals/gemini/test_llm_applicationEquals_gemini_ObjectSimple";
+import {
+  ClaudeTypeChecker,
+  IChatGptSchema,
+  IClaudeSchema,
+  IGeminiSchema,
+} from "@samchon/openapi";
+import typia, { tags } from "typia";
 
-test_llm_applicationEquals_gemini_ObjectSimple();
+interface IMember {
+  name: string;
+  age: number & tags.Type<"uint32">;
+}
+class Membership {
+  public information(member: IMember): void {
+    member;
+  }
+}
+const separate = (
+  schema: IChatGptSchema | IClaudeSchema | IGeminiSchema,
+): boolean => ClaudeTypeChecker.isInteger(schema);
+
+typia.llm.controller<Membership, "claude", { equals: true }>(
+  "membership",
+  new Membership(),
+  {
+    separate,
+  },
+);
