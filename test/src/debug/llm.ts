@@ -1,3 +1,3 @@
-import { test_llm_applicationEquals_gemini_ObjectSimple } from "../features/llm.applicationEquals/gemini/test_llm_applicationEquals_gemini_ObjectSimple";
+import { test_llm_application_chatgpt_separateEquals } from "../features/llm.applicationSeparate/validate_llm_application_separateEquals";
 
-test_llm_applicationEquals_gemini_ObjectSimple();
+test_llm_application_chatgpt_separateEquals();

@@ -15,6 +15,7 @@ import { LlmModelPredicator } from "../../../programmers/llm/LlmModelPredicator"
 import { ValidationPipe } from "../../../typings/ValidationPipe";
 
 import { ITransformProps } from "../../ITransformProps";
+import { ITypiaContext } from "../../ITypiaContext";
 import { TransformerError } from "../../TransformerError";
 
 export namespace LlmApplicationTransformer {
@@ -43,14 +44,13 @@ export namespace LlmApplicationTransformer {
             value: literal,
           }),
           ts.factory.createExpressionStatement(
-            ts.factory.createCallExpression(
-              props.context.importer.internal("llmApplicationFinalize"),
-              undefined,
-              [
-                ts.factory.createIdentifier("application"),
-                props.expression.arguments[0],
-              ],
-            ),
+            finalize({
+              context: props.context,
+              value: ts.factory.createIdentifier("application"),
+              argument: props.expression.arguments[0]!,
+              equals: dec.config.equals,
+              model: dec.application.model,
+            }),
           ),
           ts.factory.createReturnStatement(
             ts.factory.createIdentifier("application"),
@@ -71,6 +71,11 @@ export namespace LlmApplicationTransformer {
     application: ILlmApplication<ILlmSchema.Model>;
     type: ts.Type;
     node: ts.TypeNode;
+    config: Partial<
+      ILlmSchema.IConfig & {
+        equals: boolean;
+      }
+    >;
   } | null => {
     // GET GENERIC ARGUMENT
     if (!props.expression.typeArguments?.length)
@@ -144,6 +149,78 @@ export namespace LlmApplicationTransformer {
       }),
       node: top,
       type,
+      config,
     };
+  };
+
+  export const finalize = (props: {
+    context: ITypiaContext;
+    value: ts.Expression;
+    argument: ts.Expression;
+    equals?: boolean;
+    model: ILlmSchema.Model;
+  }) => {
+    const satisfiesTypeNode: ts.TypeNode = ts.factory.createTypeReferenceNode(
+      ts.factory.createIdentifier("Partial"),
+      [
+        ts.factory.createTypeReferenceNode(
+          ts.factory.createIdentifier("Pick"),
+          [
+            ts.factory.createImportTypeNode(
+              ts.factory.createLiteralTypeNode(
+                ts.factory.createStringLiteral("@samchon/openapi"),
+              ),
+              undefined,
+              ts.factory.createQualifiedName(
+                ts.factory.createIdentifier("ILlmApplication"),
+                ts.factory.createIdentifier("IOptions"),
+              ),
+              [
+                ts.factory.createLiteralTypeNode(
+                  ts.factory.createStringLiteral(props.model),
+                ),
+              ],
+              false,
+            ),
+            ts.factory.createLiteralTypeNode(
+              ts.factory.createStringLiteral("separate"),
+            ),
+          ],
+        ),
+      ],
+    );
+    return ts.factory.createCallExpression(
+      props.context.importer.internal("llmApplicationFinalize"),
+      undefined,
+      [
+        props.value,
+        ts.factory.createObjectLiteralExpression(
+          [
+            ts.factory.createPropertyAssignment(
+              "separate",
+              ts.factory.createPropertyAccessChain(
+                ts.factory.createSatisfiesExpression(
+                  props.argument,
+                  satisfiesTypeNode,
+                ),
+                ts.factory.createToken(ts.SyntaxKind.QuestionDotToken),
+                "separate",
+              ),
+            ),
+            ...(typeof props.equals === "boolean"
+              ? [
+                  ts.factory.createPropertyAssignment(
+                    "equals",
+                    props.equals === true
+                      ? ts.factory.createTrue()
+                      : ts.factory.createFalse(),
+                  ),
+                ]
+              : []),
+          ],
+          true,
+        ),
+      ],
+    );
   };
 }

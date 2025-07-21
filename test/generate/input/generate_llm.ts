@@ -1,4 +1,4 @@
-import { LlmTypeCheckerV3_1 } from "@samchon/openapi";
+import { ILlmApplication, LlamaTypeChecker } from "@samchon/openapi";
 import typia, { tags } from "typia";
 
 export const schema = typia.llm.schema<
@@ -18,8 +18,13 @@ export const parameters = typia.llm.parameters<
 
 export const application = typia.llm.application<IApplication, "llama">({
   separate: (schema) =>
-    LlmTypeCheckerV3_1.isString(schema) && schema.format === "date-time",
+    LlamaTypeChecker.isString(schema) && schema.format === "date-time",
 });
+
+typia.llm.application<IApplication, "llama">({
+  separate: (schema) =>
+    LlamaTypeChecker.isString(schema) && schema.format === "date-time",
+} satisfies Partial<Pick<ILlmApplication.IOptions<"llama">, "separate">>);
 
 export const controller = typia.llm.controller<IApplication, "deepseek">(
   "company",
