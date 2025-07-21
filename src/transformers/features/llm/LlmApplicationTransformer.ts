@@ -48,7 +48,7 @@ export namespace LlmApplicationTransformer {
               context: props.context,
               value: ts.factory.createIdentifier("application"),
               argument: props.expression.arguments[0]!,
-              equals: dec.config.equals,
+              equals: dec.config?.equals,
               model: dec.application.model,
             }),
           ),
@@ -71,11 +71,13 @@ export namespace LlmApplicationTransformer {
     application: ILlmApplication<ILlmSchema.Model>;
     type: ts.Type;
     node: ts.TypeNode;
-    config: Partial<
-      ILlmSchema.IConfig & {
-        equals: boolean;
-      }
-    >;
+    config:
+      | Partial<
+          ILlmSchema.IConfig & {
+            equals: boolean;
+          }
+        >
+      | undefined;
   } | null => {
     // GET GENERIC ARGUMENT
     if (!props.expression.typeArguments?.length)
@@ -92,16 +94,18 @@ export namespace LlmApplicationTransformer {
       method,
       node: props.expression.typeArguments[1],
     });
-    const config: Partial<
-      ILlmSchema.IConfig & {
-        equals: boolean;
-      }
-    > = LlmModelPredicator.getConfig({
+    const config:
+      | Partial<
+          ILlmSchema.IConfig & {
+            equals: boolean;
+          }
+        >
+      | undefined = LlmModelPredicator.getConfig({
       context: props.context,
       method,
       model,
       node: props.expression.typeArguments[2],
-    }) as Partial<ILlmSchema.IConfig>;
+    });
     const type: ts.Type = props.context.checker.getTypeFromTypeNode(top);
 
     // VALIDATE TYPE

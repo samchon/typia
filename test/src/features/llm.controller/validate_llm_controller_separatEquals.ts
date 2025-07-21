@@ -14,7 +14,7 @@ import { TestValidator } from "../../helpers/TestValidator";
 
 export const test_llm_controller_chatgpt_separateEquals = (): void =>
   validate_llm_controller_separateEquals(
-    typia.llm.controller<Membership, "chatgpt">(
+    typia.llm.controller<Membership, "chatgpt", { equals: true }>(
       "membership",
       new Membership(),
       {
@@ -25,14 +25,18 @@ export const test_llm_controller_chatgpt_separateEquals = (): void =>
 
 export const test_llm_controller_claude_separateEquals = (): void =>
   validate_llm_controller_separateEquals(
-    typia.llm.controller<Membership, "claude">("membership", new Membership(), {
-      separate,
-    }),
+    typia.llm.controller<Membership, "claude", { equals: true }>(
+      "membership",
+      new Membership(),
+      {
+        separate,
+      },
+    ),
   );
 
 export const test_llm_controller_deepseek_separateEquals = (): void =>
   validate_llm_controller_separateEquals(
-    typia.llm.controller<Membership, "deepseek">(
+    typia.llm.controller<Membership, "deepseek", { equals: true }>(
       "membership",
       new Membership(),
       {
@@ -43,30 +47,46 @@ export const test_llm_controller_deepseek_separateEquals = (): void =>
 
 export const test_llm_controller_gemini_separateEquals = (): void =>
   validate_llm_controller_separateEquals(
-    typia.llm.controller<Membership, "gemini">("membership", new Membership(), {
-      separate,
-    }),
+    typia.llm.controller<Membership, "gemini", { equals: true }>(
+      "membership",
+      new Membership(),
+      {
+        separate,
+      },
+    ),
   );
 
 export const test_llm_controller_llama_separateEquals = (): void =>
   validate_llm_controller_separateEquals(
-    typia.llm.controller<Membership, "llama">("membership", new Membership(), {
-      separate,
-    }),
+    typia.llm.controller<Membership, "llama", { equals: true }>(
+      "membership",
+      new Membership(),
+      {
+        separate,
+      },
+    ),
   );
 
 export const test_llm_controller_llm_v30_separateEquals = (): void =>
   validate_llm_controller_separateEquals(
-    typia.llm.controller<Membership, "3.0">("membership", new Membership(), {
-      separate,
-    }),
+    typia.llm.controller<Membership, "3.0", { equals: true }>(
+      "membership",
+      new Membership(),
+      {
+        separate,
+      },
+    ),
   );
 
 export const test_llm_controller_v3_separateEquals = (): void =>
   validate_llm_controller_separateEquals(
-    typia.llm.controller<Membership, "3.1">("membership", new Membership(), {
-      separate,
-    }),
+    typia.llm.controller<Membership, "3.1", { equals: true }>(
+      "membership",
+      new Membership(),
+      {
+        separate,
+      },
+    ),
   );
 
 export const validate_llm_controller_separateEquals = <

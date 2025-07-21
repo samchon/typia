@@ -1,3 +1,28 @@
-import { test_llm_application_chatgpt_separateEquals } from "../features/llm.applicationSeparate/validate_llm_application_separateEquals";
+import {
+  ClaudeTypeChecker,
+  IChatGptSchema,
+  IClaudeSchema,
+  IGeminiSchema,
+} from "@samchon/openapi";
+import typia, { tags } from "typia";
 
-test_llm_application_chatgpt_separateEquals();
+interface IMember {
+  name: string;
+  age: number & tags.Type<"uint32">;
+}
+class Membership {
+  public information(member: IMember): void {
+    member;
+  }
+}
+const separate = (
+  schema: IChatGptSchema | IClaudeSchema | IGeminiSchema,
+): boolean => ClaudeTypeChecker.isInteger(schema);
+
+typia.llm.controller<Membership, "claude", { equals: true }>(
+  "membership",
+  new Membership(),
+  {
+    separate,
+  },
+);

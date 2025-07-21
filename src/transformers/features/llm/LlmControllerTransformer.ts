@@ -67,7 +67,7 @@ export namespace LlmControllerTransformer {
                     context: props.context,
                     value: ts.factory.createIdentifier("application"),
                     argument: props.expression.arguments[2]!,
-                    equals: dec.config.equals,
+                    equals: dec.config?.equals,
                     model: dec.application.model,
                   }),
                 ),
