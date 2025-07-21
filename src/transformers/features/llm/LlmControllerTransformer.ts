@@ -63,14 +63,13 @@ export namespace LlmControllerTransformer {
           ...(props.expression.arguments?.[2] !== undefined
             ? [
                 ts.factory.createExpressionStatement(
-                  ts.factory.createCallExpression(
-                    props.context.importer.internal("llmApplicationFinalize"),
-                    undefined,
-                    [
-                      ts.factory.createIdentifier("application"),
-                      props.expression.arguments[2],
-                    ],
-                  ),
+                  LlmApplicationTransformer.finalize({
+                    context: props.context,
+                    value: ts.factory.createIdentifier("application"),
+                    argument: props.expression.arguments[2]!,
+                    equals: dec.config?.equals,
+                    model: dec.application.model,
+                  }),
                 ),
               ]
             : []),
