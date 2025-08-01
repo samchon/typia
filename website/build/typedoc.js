@@ -6,8 +6,15 @@ const main = async () => {
     await fs.promises.mkdir(`${__dirname}/../typedoc-json`);
   await fs.promises.writeFile(
     `${__dirname}/../typedoc-json/openapi.json`,
-    await fetch("https://samchon.github.io/openapi/api/openapi.json").then(
-      (r) => r.text(),
+    JSON.stringify(
+      {
+        schemaVersion: "2.0",
+        ...(await fetch(
+          "https://samchon.github.io/openapi/api/openapi.json",
+        ).then((r) => r.json())),
+      },
+      null,
+      2,
     ),
     "utf8",
   );
