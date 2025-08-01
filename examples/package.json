@@ -27,7 +27,7 @@
     "prettier": "^3.2.5",
     "rimraf": "^5.0.5",
     "ts-patch": "^3.3.0",
-    "typescript": "~5.8.2"
+    "typescript": "~5.9.2"
   },
   "dependencies": {
     "openai": "^4.90.0",
