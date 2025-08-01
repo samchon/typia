@@ -32,7 +32,7 @@ jobs:
       - name: Build
         working-directory: website
         run: |
-          npm install
+          npm install --force
           npm run build
       - name: Deploy
         if: github.event_name == 'push' && github.ref == 'refs/heads/master'
