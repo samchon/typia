@@ -8,7 +8,7 @@ import { ValueOf } from "./typings/ValueOf";
  *
  * `CamelCase` type is a type that all keys of an object are camelized.
  *
- * It also erase every method properties like {@link Resolved} type.
+ * It also erases every method property like {@link Resolved} type.
  *
  * @template T Target type to be camelized
  * @author Jeongho Nam - https://github.com/samchon

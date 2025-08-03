@@ -1,4 +1,5 @@
 import { StandardSchemaV1 } from "@standard-schema/spec";
+
 import { NoTransformConfigurationError } from "./transformers/NoTransformConfigurationError";
 
 import { AssertionGuard } from "./AssertionGuard";
@@ -45,11 +46,11 @@ export * from "./IReadableURLSearchParams";
  *
  * If what you want is not asserting but just knowing whether the parametric value is
  * following the type `T` or not, you can choose the {@link is} function instead.
- * Otherwise you want to know all the errors, {@link validate} is the way to go.
+ * Otherwise, if you want to know all the errors, {@link validate} is the way to go.
  * Also, if you want to automatically cast the parametric value to the type `T`
  * when no problem (perform the assertion guard of type).
  *
- * On the other and, if you don't want to allow any superfluous property that is not
+ * On the other hand, if you don't want to allow any superfluous property that is not
  * enrolled to the type `T`, you can use {@link assertEquals} function instead.
  *
  * @template T Type of the input value
@@ -76,7 +77,7 @@ export function assert<T>(
  * following the type `T` or not, you can choose the {@link is} function instead.
  * Otherwise, you want to know all the errors, {@link validate} is the way to go.
  *
- * On the other and, if you don't want to allow any superfluous property that is not
+ * On the other hand, if you don't want to allow any superfluous property that is not
  * enrolled to the type `T`, you can use {@link assertEquals} function instead.
  *
  * @template T Type of the input value
@@ -110,11 +111,11 @@ export function assert(): never {
  *
  * If what you want is not asserting but just knowing whether the parametric value is
  * following the type `T` or not, you can choose the {@link is} function instead.
- * Otherwise you want to know all the errors, {@link validate} is the way to go.
+ * Otherwise, if you want to know all the errors, {@link validate} is the way to go.
  * Also, if you want to returns the parametric value when no problem, you can use
  * {@link assert} function instead.
  *
- * On the other and, if you don't want to allow any superfluous property that is not
+ * On the other hand, if you don't want to allow any superfluous property that is not
  * enrolled to the type `T`, you can use {@link assertGuardEquals} function instead.
  *
  * @template T Type of the input value
@@ -140,11 +141,11 @@ export function assertGuard<T>(
  *
  * If what you want is not asserting but just knowing whether the parametric value is
  * following the type `T` or not, you can choose the {@link is} function instead.
- * Otherwise you want to know all the errors, {@link validate} is the way to go.
+ * Otherwise, if you want to know all the errors, {@link validate} is the way to go.
  * Also, if you want to returns the parametric value when no problem, you can use
  * {@link assert} function instead.
  *
- * On the other and, if you don't want to allow any superfluous property that is not
+ * On the other hand, if you don't want to allow any superfluous property that is not
  * enrolled to the type `T`, you can use {@link assertGuardEquals} function instead.
  *
  * @template T Type of the input value
@@ -179,7 +180,7 @@ export function assertGuard(): never {
  * {@link assert} function instead. Also, if you want to know all the errors with
  * detailed reasons, {@link validate} function would be useful.
  *
- * On the other and, if you don't want to allow any superfluous property that is not
+ * On the other hand, if you don't want to allow any superfluous property that is not
  * enrolled to the type `T`, you can use {@link equals} function instead.
  *
  * @template T Type of the input value
@@ -204,7 +205,7 @@ export function is<T>(input: T): input is T;
  * {@link assert} function instead. Also, if you want to know all the errors with
  * detailed reasons, {@link validate} function would be useful.
  *
- * On the other and, if you don't want to allow any superfluous property that is not
+ * On the other hand, if you don't want to allow any superfluous property that is not
  * enrolled to the type `T`, you can use {@link equals} function instead.
  *
  * @template T Type of the input value
@@ -236,7 +237,7 @@ export function is(): never {
  * Otherwise, you just want to know whether the parametric value is matched with the
  * type `T`, {@link is} function is the way to go.
  *
- * On the other and, if you don't want to allow any superfluous property that is not
+ * On the other hand, if you don't want to allow any superfluous property that is not
  * enrolled to the type `T`, you can use {@link validateEquals} function instead.
  *
  * @template Type of the input value
@@ -261,7 +262,7 @@ export function validate<T>(input: T): IValidation<T>;
  * Otherwise, you just want to know whether the parametric value is matched with the
  * type `T`, {@link is} function is the way to go.
  *
- * On the other and, if you don't want to allow any superfluous property that is not
+ * On the other hand, if you don't want to allow any superfluous property that is not
  * enrolled to the type `T`, you can use {@link validateEquals} function instead.
  *
  * @template Type of the input value
@@ -492,7 +493,7 @@ export function equals(): never {
  * Otherwise, you just want to know whether the parametric value is matched with the
  * type `T`, {@link is} function is the way to go.
  *
- * On the other and, if you don't want to allow any superfluous property that is not
+ * On the other hand, if you don't want to allow any superfluous property that is not
  * enrolled to the type `T`, you can use {@link validateEquals} function instead.
  *
  * @template Type of the input value
@@ -518,7 +519,7 @@ export function validateEquals<T>(input: T): IValidation<T>;
  * Otherwise, you just want to know whether the parametric value is matched with the
  * type `T`, {@link is} function is the way to go.
  *
- * On the other and, if you don't want to allow any superfluous property that is not
+ * On the other hand, if you don't want to allow any superfluous property that is not
  * enrolled to the type `T`, you can use {@link validateEquals} function instead.
  *
  * @template Type of the input value

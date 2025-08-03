@@ -8,7 +8,7 @@ import { ValueOf } from "./typings/ValueOf";
  *
  * `PascalCase` type is a type that all keys of an object are pascalized.
  *
- * It also erase every method properties like {@link Resolved} type.
+ * It also erases every method property like {@link Resolved} type.
  *
  * @template T Target type to be pascalized
  * @author Jeongho Nam - https://github.com/samchon

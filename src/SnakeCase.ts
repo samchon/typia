@@ -7,7 +7,7 @@ import { ValueOf } from "./typings/ValueOf";
  *
  * `SnakeCase` type is a type that all keys of an object are converted to snake case.
  *
- * It also erase every method properties like {@link Resolved} type.
+ * It also erases every method property like {@link Resolved} type.
  *
  * @template T Target type to be snake cased
  * @author Jeongho Nam - https://github.com/samchon
