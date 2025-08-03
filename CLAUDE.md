@@ -244,7 +244,7 @@ interface ClaudeFunction {
 ## 🔗 Related Documentation
 
 - [Main Documentation](https://typia.io/docs/)
-- [LLM Function Calling Guide](https://typia.io/docs/llm/)
+- [LLM Function Calling Guide](https://typia.io/docs/llm/application/)
 - [API Reference](https://typia.io/api)
 - [Benchmark Results](https://github.com/samchon/typia/tree/master/benchmark/results)
 
