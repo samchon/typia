@@ -60,7 +60,7 @@ import { NoTransformConfigurationError } from "./transformers/NoTransformConfigu
  *   - `deepseek`: [`IDeepSeekSchema`](https://samchon.github.io/openapi/api/types/IClaudeSchema-1.html)
  *   - `gemini`: [`IGeminiSchema`](https://samchon.github.io/openapi/api/types/IGeminiSchema-1.html)
  *   - `llama`: [`ILlamaSchema`](https://samchon.github.io/openapi/api/types/ILlamaSchema-1.html)
- * - Midldle layer schemas
+ * - Middle layer schemas
  *   - `3.0`: [`ILlmSchemaV3`](https://samchon.github.io/openapi/api/types/ILlmSchemaV3-1.html)
  *   - `3.1`: [`ILlmSchemaV3_1`](https://samchon.github.io/openapi/api/types/ILlmSchemaV3_1-1.html)
  *
@@ -136,7 +136,7 @@ export function controller(
  *   - `deepseek`: [`IDeepSeekSchema`](https://samchon.github.io/openapi/api/types/IClaudeSchema-1.html)
  *   - `gemini`: [`IGeminiSchema`](https://samchon.github.io/openapi/api/types/IGeminiSchema-1.html)
  *   - `llama`: [`ILlamaSchema`](https://samchon.github.io/openapi/api/types/ILlamaSchema-1.html)
- * - Midldle layer schemas
+ * - Middle layer schemas
  *   - `3.0`: [`ILlmSchemaV3`](https://samchon.github.io/openapi/api/types/ILlmSchemaV3-1.html)
  *   - `3.1`: [`ILlmSchemaV3_1`](https://samchon.github.io/openapi/api/types/ILlmSchemaV3_1-1.html)
  *
@@ -209,7 +209,7 @@ export function controller(..._args: any[]): never {
  *
  * Additionally, if you've configured {@link ILlmApplication.IOptions.separate},
  * so that the parameters are separated to human and LLM sides, you can merge these
- * humand and LLM sides' parameters into one through {@link HttpLlm.mergeParameters}
+ * human and LLM sides' parameters into one through {@link HttpLlm.mergeParameters}
  * before the actual LLM function call execution.
  *
  * Here is the list of available `Model` types with their corresponding LLM schema.
@@ -222,7 +222,7 @@ export function controller(..._args: any[]): never {
  *   - `deepseek`: [`IDeepSeekSchema`](https://samchon.github.io/openapi/api/types/IClaudeSchema-1.html)
  *   - `gemini`: [`IGeminiSchema`](https://samchon.github.io/openapi/api/types/IGeminiSchema-1.html)
  *   - `llama`: [`ILlamaSchema`](https://samchon.github.io/openapi/api/types/ILlamaSchema-1.html)
- * - Midldle layer schemas
+ * - Middle layer schemas
  *   - `3.0`: [`ILlmSchemaV3`](https://samchon.github.io/openapi/api/types/ILlmSchemaV3-1.html)
  *   - `3.1`: [`ILlmSchemaV3_1`](https://samchon.github.io/openapi/api/types/ILlmSchemaV3_1-1.html)
  *
@@ -265,7 +265,7 @@ export function application(
  *
  * Additionally, if you've configured {@link ILlmApplication.IOptions.separate},
  * so that the parameters are separated to human and LLM sides, you can merge these
- * humand and LLM sides' parameters into one through {@link HttpLlm.mergeParameters}
+ * human and LLM sides' parameters into one through {@link HttpLlm.mergeParameters}
  * before the actual LLM function call execution.
  *
  * Here is the list of available `Model` types with their corresponding LLM schema.
@@ -278,7 +278,7 @@ export function application(
  *   - `deepseek`: [`IDeepSeekSchema`](https://samchon.github.io/openapi/api/types/IClaudeSchema-1.html)
  *   - `gemini`: [`IGeminiSchema`](https://samchon.github.io/openapi/api/types/IGeminiSchema-1.html)
  *   - `llama`: [`ILlamaSchema`](https://samchon.github.io/openapi/api/types/ILlamaSchema-1.html)
- * - Midldle layer schemas
+ * - Middle layer schemas
  *   - `3.0`: [`ILlmSchemaV3`](https://samchon.github.io/openapi/api/types/ILlmSchemaV3-1.html)
  *   - `3.1`: [`ILlmSchemaV3_1`](https://samchon.github.io/openapi/api/types/ILlmSchemaV3_1-1.html)
  *
@@ -348,7 +348,7 @@ export function application(): never {
  *   - `deepseek`: [`IDeepSeekSchema`](https://samchon.github.io/openapi/api/types/IClaudeSchema-1.html)
  *   - `gemini`: [`IGeminiSchema`](https://samchon.github.io/openapi/api/types/IGeminiSchema-1.html)
  *   - `llama`: [`ILlamaSchema`](https://samchon.github.io/openapi/api/types/ILlamaSchema-1.html)
- * - Midldle layer schemas
+ * - Middle layer schemas
  *   - `3.0`: [`ILlmSchemaV3`](https://samchon.github.io/openapi/api/types/ILlmSchemaV3-1.html)
  *   - `3.1`: [`ILlmSchemaV3_1`](https://samchon.github.io/openapi/api/types/ILlmSchemaV3_1-1.html)
  *
@@ -389,7 +389,7 @@ export function parameters(): never;
  *   - `deepseek`: [`IDeepSeekSchema`](https://samchon.github.io/openapi/api/types/IClaudeSchema-1.html)
  *   - `gemini`: [`IGeminiSchema`](https://samchon.github.io/openapi/api/types/IGeminiSchema-1.html)
  *   - `llama`: [`ILlamaSchema`](https://samchon.github.io/openapi/api/types/ILlamaSchema-1.html)
- * - Midldle layer schemas
+ * - Middle layer schemas
  *   - `3.0`: [`ILlmSchemaV3`](https://samchon.github.io/openapi/api/types/ILlmSchemaV3-1.html)
  *   - `3.1`: [`ILlmSchemaV3_1`](https://samchon.github.io/openapi/api/types/ILlmSchemaV3_1-1.html)
  *
@@ -433,7 +433,7 @@ export function parameters(): never {
  *   - `deepseek`: [`IDeepSeekSchema`](https://samchon.github.io/openapi/api/types/IClaudeSchema-1.html)
  *   - `gemini`: [`IGeminiSchema`](https://samchon.github.io/openapi/api/types/IGeminiSchema-1.html)
  *   - `llama`: [`ILlamaSchema`](https://samchon.github.io/openapi/api/types/ILlamaSchema-1.html)
- * - Midldle layer schemas
+ * - Middle layer schemas
  *   - `3.0`: [`ILlmSchemaV3`](https://samchon.github.io/openapi/api/types/ILlmSchemaV3-1.html)
  *   - `3.1`: [`ILlmSchemaV3_1`](https://samchon.github.io/openapi/api/types/ILlmSchemaV3_1-1.html)
  *
@@ -481,7 +481,7 @@ export function schema(): never;
  *   - `deepseek`: [`IDeepSeekSchema`](https://samchon.github.io/openapi/api/types/IClaudeSchema-1.html)
  *   - `gemini`: [`IGeminiSchema`](https://samchon.github.io/openapi/api/types/IGeminiSchema-1.html)
  *   - `llama`: [`ILlamaSchema`](https://samchon.github.io/openapi/api/types/ILlamaSchema-1.html)
- * - Midldle layer schemas
+ * - Middle layer schemas
  *   - `3.0`: [`ILlmSchemaV3`](https://samchon.github.io/openapi/api/types/ILlmSchemaV3-1.html)
  *   - `3.1`: [`ILlmSchemaV3_1`](https://samchon.github.io/openapi/api/types/ILlmSchemaV3_1-1.html)
  *

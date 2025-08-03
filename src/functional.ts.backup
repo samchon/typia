@@ -567,7 +567,7 @@ export function validateParameters<T extends (...args: any[]) => any>(
  * @internal
  */
 export function validateParameters(): never {
-  NoTransformConfigurationError("functional.validateParameters");
+  NoTransformConfigurationError("functional.validateReturn");
 }
 
 /**
