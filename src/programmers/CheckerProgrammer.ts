@@ -462,19 +462,41 @@ export namespace CheckerProgrammer {
         });
 
     // UNDEFINDABLE
-    if (checkOptional || !props.metadata.isRequired())
-      if (props.metadata.isRequired())
+    if (checkOptional || !props.metadata.isRequired()) {
+      if (props.metadata.isRequired()) {
+        // Required properties always reject undefined
         create_add({
           binaries: top,
           default: props.input,
           exact: false,
           left: ValueFactory.UNDEFINED(),
         });
-      else
-        add({
-          exact: true,
-          left: ValueFactory.UNDEFINED(),
-        });
+      } else {
+        // Optional properties: check exactOptionalPropertyTypes setting
+        const exactOptionalPropertyTypes = OptionPredicator.exactOptionalPropertyTypes(
+          props.context.options,
+          props.context,
+        );
+        
+        if (exactOptionalPropertyTypes && props.metadata.optional) {
+          // With exactOptionalPropertyTypes, optional properties should reject explicit undefined
+          // Add to 'top' to create a rejection condition
+          create_add({
+            binaries: top,
+            default: props.input,
+            exact: false, 
+            left: ValueFactory.UNDEFINED(),
+          });
+        } else {
+          // Normal behavior: optional properties accept undefined
+          // Add to 'binaries' to create an acceptance condition
+          add({
+            exact: true,
+            left: ValueFactory.UNDEFINED(),
+          });
+        }
+      }
+    }
 
     // FUNCTIONAL
     if (props.metadata.functions.length)

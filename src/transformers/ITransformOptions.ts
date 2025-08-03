@@ -59,4 +59,19 @@ export interface ITransformOptions {
    * @default true
    */
   undefined?: undefined | boolean;
+
+  /**
+   * Whether to respect TypeScript's exactOptionalPropertyTypes setting.
+   *
+   * When TypeScript's exactOptionalPropertyTypes is enabled, optional properties
+   * that don't explicitly include undefined in their type should not accept
+   * explicit undefined values. This option controls whether Typia should
+   * respect this TypeScript setting.
+   *
+   * If not specified, this will be automatically detected from the TypeScript
+   * compiler options.
+   *
+   * @default undefined (auto-detect from TypeScript compiler options)
+   */
+  exactOptionalPropertyTypes?: undefined | boolean;
 }

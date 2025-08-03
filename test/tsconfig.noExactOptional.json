@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "lib": [
+      "DOM",
+      "ESNext"
+    ],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "module": "commonjs",
+    "outDir": "./bin",
+    "newLine": "lf",
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+    "strict": true,
+    "exactOptionalPropertyTypes": false,
+    "noUncheckedIndexedAccess": true,
+    "skipLibCheck": true,
+    "plugins": [
+      { 
+        "transform": "typia/lib/transform", 
+        "functional": true, 
+        "numeric": true, 
+        "finite": true,
+      },
+    ]
+  },
+  "include": ["src"],
+}
