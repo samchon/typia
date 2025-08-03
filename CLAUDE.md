@@ -45,26 +45,25 @@ src/
 Typia provides first-class support for Claude AI through its LLM module (`src/llm.ts`):
 
 ### Supported LLM Providers
-- **ChatGPT**: `IChatGptSchema`
-- **Claude**: `IClaudeSchema` ⭐
-- **DeepSeek**: `IDeepSeekSchema` 
-- **Gemini**: `IGeminiSchema`
-- **Llama**: `ILlamaSchema`
+- **OpenAI GPT**: `IChatGptSchema`
+- **Anthropic Claude**: `IClaudeSchema` ⭐
+- **High-Flyer DeepSeek**: `IDeepSeekSchema` 
+- **Google Gemini**: `IGeminiSchema`
+- **Meta Llama**: `ILlamaSchema`
 
 ### Claude Function Calling Example
 ```typescript
 import typia from "typia";
 
-const claudeController = typia.llm.controller<MyAPI, "claude">(
-  "api-controller",
-  new MyAPI(),
-  { separate: true }
+const claudeController = typia.llm.controller<BbsArticleService, "claude">(
+  "bbs",
+  new BbsArticleService(),
 );
 
 // The controller automatically generates Claude-compatible schemas
 const application = claudeController.application;
 // Execute functions called by Claude
-const result = await claudeController.execute("functionName", parameters);
+const result = await claudeController.execute.create(parameters);
 ```
 
 ## 🔧 Key Components
