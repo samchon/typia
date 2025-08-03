@@ -21,7 +21,7 @@ import { TypeGuardError } from "./TypeGuardError";
  * Form data decoder.
  *
  * `typia.http.formData()` is a function decoding `FormData` instance, with
- * automatic type casting to the expected type. When roperty type be defined
+ * automatic type casting to the expected type. When property type is defined
  * as `boolean` or `Blob` type, `typia.http.formData()` will cast the value to
  * the expected type when decoding.
  *
@@ -32,7 +32,7 @@ import { TypeGuardError } from "./TypeGuardError";
  * 1. Type `T` must be an object type
  * 2. Do not allow dynamic property
  * 3. Only `boolean`, `bigint`, `number`, `string`, `Blob`, `File` or their array types are allowed
- * 4. By the way, union type never be not allowed
+ * 4. Union types are never allowed
  *
  * Also, `typia.http.formData()` function does not perform validation about the
  * decoded value. Therefore, if you can't sure that input data is following the
@@ -57,7 +57,7 @@ export function formData(): never {
  * Form data decoder with type assertion.
  *
  * `typia.http.assertFormData()` is a function decoding `FormData` instance, with
- * automatic type casting to the expected type. When roperty type be defined
+ * automatic type casting to the expected type. When property type is defined
  * as `boolean` or `Blob` type, `typia.http.assertFormData()` will cast the value
  * to the expected type when decoding.
  *
@@ -73,7 +73,7 @@ export function formData(): never {
  * 1. Type `T` must be an object type
  * 2. Do not allow dynamic property
  * 3. Only `boolean`, `bigint`, `number`, `string`, `Blob`, `File` or their array types are allowed
- * 4. By the way, union type never be not allowed
+ * 4. Union types are never allowed
  *
  * @template T Expected type of decoded value
  * @param input FormData instance
@@ -98,7 +98,7 @@ export function assertFormData(): never {
  * Form data decoder with type checking.
  *
  * `typia.http.isFormData()` is a function decoding `FormData` instance, with
- * automatic type casting to the expected type. When roperty type be defined
+ * automatic type casting to the expected type. When property type is defined
  * as `boolean` or `Blob` type, `typia.http.isFormData()` will cast the value
  * to the expected type when decoding.
  *
@@ -113,7 +113,7 @@ export function assertFormData(): never {
  * 1. Type `T` must be an object type
  * 2. Do not allow dynamic property
  * 3. Only `boolean`, `bigint`, `number`, `string`, `Blob`, `File` or their array types are allowed
- * 4. By the way, union type never be not allowed
+ * 4. Union types are never allowed
  *
  * @template T Expected type of decoded value
  * @param input FormData instance
@@ -136,7 +136,7 @@ export function isFormData(): never {
  * Form data decoder with type validation.
  *
  * `typia.http.validateFormData()` is a function decoding `FormData` instance,
- * with automatic type casting to the expected type. When roperty type be defined
+ * with automatic type casting to the expected type. When property type is defined
  * as `boolean` or `Blob` type, `typia.http.validateFormData()` will cast the
  * value to the expected type when decoding.
  *
@@ -153,7 +153,7 @@ export function isFormData(): never {
  * 1. Type `T` must be an object type
  * 2. Do not allow dynamic property
  * 3. Only `boolean`, `bigint`, `number`, `string`, `Blob`, `File` or their array types are allowed
- * 4. By the way, union type never be not allowed
+ * 4. Union types are never allowed
  *
  * @template T Expected type of decoded value
  * @param input FormData instance
@@ -190,7 +190,7 @@ export function validateFormData(): never {
  *  1. Type `T` must be an object type
  *  2. Do not allow dynamic property
  *  3. Only `boolean`, `bigint`, `number`, `string` or their array types are allowed
- *  4. By the way, union type never be not allowed
+ *  4. Union types are never allowed
  *
  * Also, `typia.http.query()` function does not perform validation about the decoded
  * value. Therefore, if you can't sure that input data is following the `T` type,
@@ -222,7 +222,7 @@ export function query(): never {
  *
  * `typia.http.assertQuery()` is a function decoding a query string or an
  * `URLSearchParams` instance, with automatic type casting to the expected type.
- * When property type be defined as `boolean` or `number` type,
+ * When property type is defined as `boolean` or `number` type,
  * `typia.http.assertQuery()` will cast the value to the expected type when decoding.
  *
  * Also, after decoding, `typia.http.assertQuery()` performs type assertion to the
@@ -237,7 +237,7 @@ export function query(): never {
  *  1. Type `T` must be an object type
  *  2. Do not allow dynamic property
  *  3. Only `boolean`, `bigint`, `number`, `string` or their array types are allowed
- *  4. By the way, union type never be not allowed
+ *  4. Union types are never allowed
  *
  * @template T Expected type of decoded value
  * @param input Query string or URLSearchParams instance
@@ -263,7 +263,7 @@ export function assertQuery(): never {
  *
  * `typia.http.isQuery()` is a function decoding a query string or an
  * `URLSearchParams` instance, with automatic type casting to the expected type.
- * When property type be defined as `boolean` or `number` type,
+ * When property type is defined as `boolean` or `number` type,
  * `typia.http.isQuery()` will cast the value to the expected type when decoding.
  *
  * Also, after decoding, `typia.http.isQuery()` performs type checking to the
@@ -277,7 +277,7 @@ export function assertQuery(): never {
  *  1. Type `T` must be an object type
  *  2. Do not allow dynamic property
  *  3. Only `boolean`, `bigint`, `number`, `string` or their array types are allowed
- *  4. By the way, union type never be not allowed
+ *  4. Union types are never allowed
  *
  * @template T Expected type of decoded value
  * @param input Query string or URLSearchParams instance
@@ -301,7 +301,7 @@ export function isQuery(): never {
  *
  * `typia.http.validateQuery()` is a function decoding a query string or an
  * `URLSearchParams` instance, with automatic type casting to the expected type.
- * When property type be defined as `boolean` or `number` type,
+ * When property type is defined as `boolean` or `number` type,
  * `typia.http.validateQuery()` will cast the value to the expected type when decoding.
  *
  * Also, after decoding, `typia.http.validateQuery()` performs type validation to the
@@ -316,7 +316,7 @@ export function isQuery(): never {
  *  1. Type `T` must be an object type
  *  2. Do not allow dynamic property
  *  3. Only `boolean`, `bigint`, `number`, `string` or their array types are allowed
- *  4. By the way, union type never be not allowed
+ *  4. Union types are never allowed
  *
  * @template T Expected type of decoded value
  * @param input Query string or URLSearchParams instance
@@ -342,7 +342,7 @@ export function validateQuery(): never {
  * Headers decoder (for express and fastify).
  *
  * `typia.http.headers()` is a function decoding an header instance, with automatic
- * type casting to the expected type. When property type be defined as `boolean` or
+ * type casting to the expected type. When property type is defined as `boolean` or
  * `number` type, `typia.http.headers()` will cast the value to the expected type.
  *
  * By the way, as HTTP headers are not enough to express complex data structures,
@@ -354,7 +354,7 @@ export function validateQuery(): never {
  *  3. Property key must be lower case
  *  4. Property value cannot be `null`, but `undefined` is possible
  *  5. Only `boolean`, `bigint`, `number`, `string` or their array types are allowed
- *  6. By the way, union type never be not allowed
+ *  6. Union types are never allowed
  *  7. Property `set-cookie` must be array type
  *  8. Those properties cannot be array type
  *    - age
@@ -405,7 +405,7 @@ export function headers(): never {
  * Headers decoder with type assertion (for express and fastify).
  *
  * `typia.http.assertHeaders()` is a function decoding an header instance, with
- * automatic type casting to the expected type. When property type be defined as
+ * automatic type casting to the expected type. When property type is defined as
  * `boolean` or `number` type, `typia.http.headers()` will cast the value to the
  * expected type.
  *
@@ -423,7 +423,7 @@ export function headers(): never {
  *  3. Property key must be lower case
  *  4. Property value cannot be `null`, but `undefined` is possible
  *  5. Only `boolean`, `bigint`, `number`, `string` or their array types are allowed
- *  6. By the way, union type never be not allowed
+ *  6. Union types are never allowed
  *  7. Property `set-cookie` must be array type
  *  8. Those properties cannot be array type
  *    - age
@@ -470,7 +470,7 @@ export function assertHeaders(): never {
  * Headers decoder with type checking (for express and fastify).
  *
  * `typia.http.isHeaders()` is a function decoding an header instance, with
- * automatic type casting to the expected type. When property type be defined as
+ * automatic type casting to the expected type. When property type is defined as
  * `boolean` or `number` type, `typia.http.headers()` will cast the value to the
  * expected type.
  *
@@ -487,7 +487,7 @@ export function assertHeaders(): never {
  *  3. Property key must be lower case
  *  4. Property value cannot be `null`, but `undefined` is possible
  *  5. Only `boolean`, `bigint`, `number`, `string` or their array types are allowed
- *  6. By the way, union type never be not allowed
+ *  6. Union types are never allowed
  *  7. Property `set-cookie` must be array type
  *  8. Those properties cannot be array type
  *    - age
@@ -530,7 +530,7 @@ export function isHeaders(): never {
  * Headers decoder with type validation (for express and fastify).
  *
  * `typia.http.validateHeaders()` is a function decoding an header instance, with
- * automatic type casting to the expected type. When property type be defined as
+ * automatic type casting to the expected type. When property type is defined as
  * `boolean` or `number` type, `typia.http.headers()` will cast the value to the
  * expected type.
  *
@@ -548,7 +548,7 @@ export function isHeaders(): never {
  *  3. Property key must be lower case
  *  4. Property value cannot be `null`, but `undefined` is possible
  *  5. Only `boolean`, `bigint`, `number`, `string` or their array types are allowed
- *  6. By the way, union type never be not allowed
+ *  6. Union types are never allowed
  *  7. Property `set-cookie` must be array type
  *  8. Those properties cannot be array type
  *    - age

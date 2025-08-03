@@ -4,19 +4,19 @@ import { NativeClass } from "./typings/NativeClass";
 import { ValueOf } from "./typings/ValueOf";
 
 /**
- * Resolved type erased every methods.
+ * Resolved type that erases every method.
  *
- * `Resolved` is a type of TMP (Type Meta Programming) type which converts
- * its argument as a resolved type that erased every method properties.
+ * `Resolved` is a TMP (Type Meta Programming) type which converts
+ * its argument as a resolved type that erases every method property.
  *
  * If the target argument is a built-in class which returns its origin primitive type
  * through the `valueOf()` method like the `String` or `Number`, its return type would
  * be the `string` or `number`. Otherwise, the built-in class does not have the
  * `valueOf()` method, the return type would be same with the target argument.
  *
- * Otherwise, the target argument is a type of custom class, all of its custom methods
+ * Otherwise, if the target argument is a type of custom class, all of its custom methods
  * would be erased and its prototype would be changed to the primitive `object`.
- * Therefore, return type of the TMP type finally be the resolved object.
+ * Therefore, the return type of the TMP type would finally be the resolved object.
  *
  * Before                  | After
  * ------------------------|----------------------------------------
