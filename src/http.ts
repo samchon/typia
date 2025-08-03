@@ -222,7 +222,7 @@ export function query(): never {
  *
  * `typia.http.assertQuery()` is a function decoding a query string or an
  * `URLSearchParams` instance, with automatic type casting to the expected type.
- * When pproperty type is defined as `boolean` or `number` type,
+ * When property type is defined as `boolean` or `number` type,
  * `typia.http.assertQuery()` will cast the value to the expected type when decoding.
  *
  * Also, after decoding, `typia.http.assertQuery()` performs type assertion to the
@@ -263,7 +263,7 @@ export function assertQuery(): never {
  *
  * `typia.http.isQuery()` is a function decoding a query string or an
  * `URLSearchParams` instance, with automatic type casting to the expected type.
- * When pproperty type is defined as `boolean` or `number` type,
+ * When property type is defined as `boolean` or `number` type,
  * `typia.http.isQuery()` will cast the value to the expected type when decoding.
  *
  * Also, after decoding, `typia.http.isQuery()` performs type checking to the
@@ -301,7 +301,7 @@ export function isQuery(): never {
  *
  * `typia.http.validateQuery()` is a function decoding a query string or an
  * `URLSearchParams` instance, with automatic type casting to the expected type.
- * When pproperty type is defined as `boolean` or `number` type,
+ * When property type is defined as `boolean` or `number` type,
  * `typia.http.validateQuery()` will cast the value to the expected type when decoding.
  *
  * Also, after decoding, `typia.http.validateQuery()` performs type validation to the
@@ -342,7 +342,7 @@ export function validateQuery(): never {
  * Headers decoder (for express and fastify).
  *
  * `typia.http.headers()` is a function decoding an header instance, with automatic
- * type casting to the expected type. When pproperty type is defined as `boolean` or
+ * type casting to the expected type. When property type is defined as `boolean` or
  * `number` type, `typia.http.headers()` will cast the value to the expected type.
  *
  * By the way, as HTTP headers are not enough to express complex data structures,
@@ -405,7 +405,7 @@ export function headers(): never {
  * Headers decoder with type assertion (for express and fastify).
  *
  * `typia.http.assertHeaders()` is a function decoding an header instance, with
- * automatic type casting to the expected type. When pproperty type is defined as
+ * automatic type casting to the expected type. When property type is defined as
  * `boolean` or `number` type, `typia.http.headers()` will cast the value to the
  * expected type.
  *
@@ -470,7 +470,7 @@ export function assertHeaders(): never {
  * Headers decoder with type checking (for express and fastify).
  *
  * `typia.http.isHeaders()` is a function decoding an header instance, with
- * automatic type casting to the expected type. When pproperty type is defined as
+ * automatic type casting to the expected type. When property type is defined as
  * `boolean` or `number` type, `typia.http.headers()` will cast the value to the
  * expected type.
  *
@@ -530,7 +530,7 @@ export function isHeaders(): never {
  * Headers decoder with type validation (for express and fastify).
  *
  * `typia.http.validateHeaders()` is a function decoding an header instance, with
- * automatic type casting to the expected type. When pproperty type is defined as
+ * automatic type casting to the expected type. When property type is defined as
  * `boolean` or `number` type, `typia.http.headers()` will cast the value to the
  * expected type.
  *
