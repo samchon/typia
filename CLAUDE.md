@@ -126,7 +126,6 @@ typia.assertGuard<T>(input)  // Type assertion guard
 typia.json.schema<T>()         // Generate JSON schema
 typia.json.stringify<T>(obj)   // Fast JSON serialization
 typia.json.parse<T>(str)       // Type-safe JSON parsing
-typia.json.application<T>()    // Complete JSON application
 ```
 
 ### 3. LLM Function Calling
