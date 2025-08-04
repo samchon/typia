@@ -18,31 +18,37 @@ import { TypeGuardError } from "./TypeGuardError";
     FORM-DATA
 ----------------------------------------------------------- */
 /**
- * Form data decoder.
+ * Decodes HTML form data into typed TypeScript objects.
  *
- * `typia.http.formData()` is a function decoding `FormData` instance, with
- * automatic type casting to the expected type. When property type is defined
- * as `boolean` or `Blob` type, `typia.http.formData()` will cast the value to
- * the expected type when decoding.
+ * Converts FormData instances (from HTML forms or fetch requests) into properly 
+ * typed TypeScript objects with automatic type casting. Handles primitive types, 
+ * arrays, and file uploads while maintaining type safety throughout the process.
  *
- * By the way, as `FormData` is not enough to express complex data structures,
- * `typia.http.formData()` function has some limitations. If target type `T` is
- * not following those restrictions, compilation errors would be occurred.
+ * Essential for web APIs that receive form submissions, file uploads, or 
+ * multipart data and need to work with structured TypeScript objects.
  *
- * 1. Type `T` must be an object type
- * 2. Do not allow dynamic property
- * 3. Only `boolean`, `bigint`, `number`, `string`, `Blob`, `File` or their array types are allowed
- * 4. Union types are never allowed
+ * @example
+ * ```typescript
+ * interface UserForm {
+ *   name: string;
+ *   age: number;
+ *   tags: string[];
+ *   avatar: File;
+ * }
+ * 
+ * const formData = new FormData();
+ * formData.append('name', 'Alice');
+ * formData.append('age', '30');
+ * formData.append('tags', 'developer');
+ * formData.append('tags', 'typescript');
+ * 
+ * const user = typia.http.formData<UserForm>(formData);
+ * // { name: "Alice", age: 30, tags: ["developer", "typescript"], avatar: File }
+ * ```
  *
- * Also, `typia.http.formData()` function does not perform validation about the
- * decoded value. Therefore, if you can't sure that input data is following the
- * `T` type, it would better to call one of below functions instead.
- *
- * @template T Expected type of decoded value
- * @param input FormData instance
- * @returns Decoded form FormData
- *
- * @author Jeongho Nam - https://github.com/samchon
+ * @template T Expected object type (must be simple structure)
+ * @param input FormData to decode and type
+ * @returns Typed object with automatic type casting applied
  */
 export function formData<T extends object>(input: FormData): Resolved<T>;
 
