@@ -426,14 +426,14 @@ export function assertGuardEquals(): never {
  *
  * Tests a parametric value type and returns whether it's equivalent to the type `T`
  * or not. If the parametric value is matched with the type `T` and there's not any
- * superfluous property that is not listed on the type `T`, `true` value would be
- * returned. Otherwise, the parametric value is not following the type `T` or some
- * superfluous property exists, `false` value would be returned.
+ * superfluous property that is not listed on the type `T`, `true` value will be
+ * returned. Otherwise, if the parametric value is not following the type `T` or some
+ * superfluous property exists, `false` value will be returned.
  *
  * If what you want is not just knowing whether the parametric value is following the
- * type `T` or not, but throwing an exception with detailed reason, you can choose
+ * type `T` or not, but throwing an exception with a detailed reason, you can choose
  * {@link assertEquals} function instead. Also, if you want to know all the errors with
- * detailed reasons, {@link validateEquals} function would be useful.
+ * detailed reasons, {@link validateEquals} function will be useful.
  *
  * On the other hand, if you want to allow superfluous property that is not enrolled
  * to the type `T`, you can use {@link is} function instead.
@@ -451,14 +451,14 @@ export function equals<T>(input: T): input is T;
  *
  * Tests a parametric value type and returns whether it's equivalent to the type `T`
  * or not. If the parametric value is matched with the type `T` and there's not any
- * superfluous property that is not listed on the type `T`, `true` value would be
- * returned. Otherwise, the parametric value is not following the type `T` or some
- * superfluous property exists, `false` value would be returned.
+ * superfluous property that is not listed on the type `T`, `true` value will be
+ * returned. Otherwise, if the parametric value is not following the type `T` or some
+ * superfluous property exists, `false` value will be returned.
  *
  * If what you want is not just knowing whether the parametric value is following the
- * type `T` or not, but throwing an exception with detailed reason, you can choose
+ * type `T` or not, but throwing an exception with a detailed reason, you can choose
  * {@link assertEquals} function instead. Also, if you want to know all the errors with
- * detailed reasons, {@link validateEquals} function would be useful.
+ * detailed reasons, {@link validateEquals} function will be useful.
  *
  * On the other hand, if you want to allow superfluous property that is not enrolled
  * to the type `T`, you can use {@link is} function instead.
