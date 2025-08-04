@@ -4,32 +4,33 @@ import { NativeClass } from "./typings/NativeClass";
 import { ValueOf } from "./typings/ValueOf";
 
 /**
- * Resolved type that erases every method.
+ * Strips methods from types, keeping only data properties.
  *
- * `Resolved` is a TMP (Type Meta Programming) type which converts
- * its argument as a resolved type that erases every method property.
+ * Removes all function properties from types while preserving the data structure. 
+ * Perfect for defining interfaces that represent data transfer objects, API responses, 
+ * or when you need the shape of a class without its behavior.
  *
- * If the target argument is a built-in class which returns its origin primitive type
- * through the `valueOf()` method like the `String` or `Number`, its return type would
- * be the `string` or `number`. Otherwise, the built-in class does not have the
- * `valueOf()` method, the return type would be same with the target argument.
+ * Also converts built-in wrapper types to their primitive equivalents, similar to 
+ * {@link Primitive} but without JSON serialization-specific transformations.
  *
- * Otherwise, if the target argument is a type of custom class, all of its custom methods
- * would be erased and its prototype would be changed to the primitive `object`.
- * Therefore, the return type of the TMP type would finally be the resolved object.
+ * @example
+ * ```typescript
+ * class User {
+ *   constructor(public name: string, public age: number) {}
+ *   
+ *   greet() { return `Hello, ${this.name}`; }
+ *   isAdult() { return this.age >= 18; }
+ * }
+ * 
+ * type UserData = Resolved<User>;
+ * // Result: { name: string; age: number; }
+ * // Methods greet() and isAdult() are removed
+ * 
+ * type ResolvedString = Resolved<String>;
+ * // Result: string (unwraps to primitive)
+ * ```
  *
- * Before                  | After
- * ------------------------|----------------------------------------
- * `Boolean`               | `boolean`
- * `Number`                | `number`
- * `BigInt`                | `bigint`
- * `String`                | `string`
- * `Class`                 | `interface`
- * Native Class or Others  | No change
- *
- * @template T Target argument type.
- * @author Jeongho Nam - https://github.com/samchon
- * @author Kyungsu Kang - https://github.com/kakasoo
+ * @template T Type to resolve by removing methods
  */
 export type Resolved<T> =
   Equal<T, ResolvedMain<T>> extends true ? T : ResolvedMain<T>;

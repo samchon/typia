@@ -1,39 +1,26 @@
 /**
- * Type definition for assertion guard functions in `typia`.
+ * Type signature for assertion guard functions that validate and narrow types.
  *
- * An assertion guard is a function that asserts an input value's type at runtime
- * and performs a TypeScript type assertion if validation passes. Unlike regular
- * assertion functions that return the validated value, assertion guards return
- * nothing but automatically cast the input parameter to the expected type `T`.
+ * Assertion guards check if data matches an expected type and tell TypeScript 
+ * the data is now that type. Unlike regular assertions, these don't return 
+ * anything - they just validate and enable type narrowing for the original variable.
  *
- * This type is used by `typia.createAssertGuard<T>()` and `typia.createAssertGuardEquals<T>()`
- * to generate reusable assertion guard functions.
- *
- * @template T - The expected type to validate and assert against
- * @param input - The value to validate (type unknown)
- * @throws {TypeGuardError} When the input value doesn't match the expected type T
- * @returns void - Returns nothing, but asserts that input is type T
+ * Used by `typia.createAssertGuard<T>()` to generate reusable type checking functions 
+ * that crash with detailed errors when data doesn't match your TypeScript types.
  *
  * @example
  * ```typescript
- * interface IMember {
- *   name: string;
- *   age: number;
- * }
- *
- * // Create reusable assertion guard
- * const assertMember: AssertionGuard<IMember> = typia.createAssertGuard<IMember>();
- *
- * // Usage - input will be automatically cast to IMember if validation passes
- * const unknownData: unknown = { name: "John", age: 25 };
- *
- * assertMember(unknownData);
- * // After this line, unknownData is automatically treated as IMember type
- * console.log(unknownData.name); // TypeScript knows this is safe
+ * interface User { name: string; age: number; }
+ * 
+ * const checkUser: AssertionGuard<User> = typia.createAssertGuard<User>();
+ * 
+ * let data: unknown = { name: "Alice", age: 30 };
+ * checkUser(data); // throws if invalid, enables type narrowing if valid
+ * console.log(data.name); // TypeScript now knows data is User
  * ```
  *
- * @see {@link https://github.com/samchon/typia#assertguard-functions} Typia assertion guards documentation
- * @see {@link TypeGuardError} Error thrown when assertion fails
- * @author Jeongho Nam - https://github.com/samchon
+ * @template T Expected type to validate against
+ * @param input Data to validate and narrow
+ * @throws Error with detailed validation failure information
  */
 export type AssertionGuard<T> = (input: unknown) => asserts input is T;

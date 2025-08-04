@@ -3,14 +3,33 @@ import { NativeClass } from "./typings/NativeClass";
 import { ValueOf } from "./typings/ValueOf";
 
 /**
- * Snake case type.
+ * Converts object property names to snake_case style.
  *
- * `SnakeCase` type is a type that all keys of an object are converted to snake case.
+ * Transforms all object keys from camelCase, PascalCase, or other naming 
+ * conventions to snake_case. Ideal for working with APIs, databases, or 
+ * systems that prefer snake_case naming conventions like Python or Ruby backends.
  *
- * It also erases every method property like {@link Resolved} type.
+ * @example
+ * ```typescript
+ * interface CamelData {
+ *   userName: string;
+ *   isActive: boolean;
+ *   profileData: {
+ *     firstName: string;
+ *   };
+ * }
+ * 
+ * type SnakeData = SnakeCase<CamelData>;
+ * // Result: {
+ * //   user_name: string;
+ * //   is_active: boolean;
+ * //   profile_data: {
+ * //     first_name: string;
+ * //   };
+ * // }
+ * ```
  *
- * @template T Target type to be snake cased
- * @author Jeongho Nam - https://github.com/samchon
+ * @template T Object type to transform property names
  */
 export type SnakeCase<T> =
   Equal<T, SnakageMain<T>> extends true ? T : SnakageMain<T>;

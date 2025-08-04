@@ -1,79 +1,56 @@
 /**
- * Custom error class thrown when runtime assertion fails in `typia.assert<T>()` function.
+ * Error thrown when runtime validation fails with detailed diagnostic information.
  *
- * This error is thrown by the `typia.assert<T>()` function when the input value
- * doesn't match the expected type.
+ * When typia's validation functions detect type mismatches, they throw this error 
+ * containing precise details about what went wrong and where. Much more helpful 
+ * than generic "validation failed" messages - you get the exact path, expected 
+ * type, and actual value.
  *
- * The error provides detailed information about the first assertion failure encountered,
- * including the access path where the error occurred, the expected type, and the actual value.
+ * Perfect for debugging API responses, user input validation, or any runtime 
+ * type checking scenario where you need to know exactly what's broken.
  *
- * @template T - The expected type (generic for type safety)
- * @author Jeongho Nam - https://github.com/samchon
  * @example
  * ```typescript
- * interface IMember {
- *   name: string;
- *   age: number & ExclusiveMinimum<19>;
- * }
- *
+ * interface User { name: string; age: number; }
+ * 
  * try {
- *   typia.assert<IMember>({ name: "John", age: 18 });
+ *   typia.assert<User>({ name: "John", age: "not-a-number" });
  * } catch (error) {
  *   if (error instanceof TypeGuardError) {
- *     console.log(error.method);   // "typia.assert"
  *     console.log(error.path);     // "input.age"
- *     console.log(error.expected); // "number & ExclusiveMinimum<19>"
- *     console.log(error.value);    // 18
+ *     console.log(error.expected); // "number"
+ *     console.log(error.value);    // "not-a-number"
  *   }
  * }
  * ```
+ *
+ * @template T Expected type for better type safety
  */
 export class TypeGuardError<T = any> extends Error {
   /**
-   * The name of the typia method that threw this error.
-   *
-   * @example "typia.assert"
+   * Which typia function threw this error.
    */
   public readonly method: string;
 
   /**
-   * The access path to the property where the assertion error occurred.
-   *
-   * Uses dot notation to indicate the path for nested object properties.
-   * May be `undefined` if the error occurred at the root level.
-   *
-   * @example
-   * - `"input.age"` - Error in the age property of the object
-   * - `"input.profile.email"` - Error in the email property of a nested object
-   * - `"input[0].name"` - Error in the name property of the first array element
-   * - `undefined` - Error occurred at the root level
+   * Dot-notation path to where the validation failed.
+   * 
+   * Shows exactly which property caused the error in nested objects.
+   * Undefined for root-level failures.
    */
   public readonly path: string | undefined;
 
   /**
-   * String representation of the expected type at the error location.
-   *
-   * Represents TypeScript types as strings, including detailed type information
-   * for complex types.
-   *
-   * @example
-   * - `"string"` - Expected string type
-   * - `"number & ExclusiveMinimum<19>"` - Expected number greater than 19
-   * - `"undefined"` - Expected undefined (when superfluous property found in assertion)
-   * - `"{ name: string; age: number }"` - Expected object type
+   * What type was expected at the failure location.
+   * 
+   * Human-readable representation of the TypeScript type.
    */
   public readonly expected: string;
 
   /**
-   * The actual value that failed assertion.
-   *
-   * Stores the actual value at the error path as-is.
-   * Useful for debugging by comparing the expected type with the actual value.
-   *
-   * @example
-   * - `18` - Numeric value
-   * - `"invalid"` - String value
-   * - `{ name: "John", age: 18, sex: 1 }` - Object value
+   * The actual value that failed validation.
+   * 
+   * Useful for debugging what you actually got vs what you expected.
    */
   public readonly value: unknown;
 
@@ -89,19 +66,9 @@ export class TypeGuardError<T = any> extends Error {
   protected readonly fake_expected_typed_value_?: T | undefined;
 
   /**
-   * Creates a new TypeGuardError instance.
+   * Creates a detailed validation error.
    *
-   * @param props - Object containing the properties needed to create the error
-   *
-   * @example
-   * ```typescript
-   * const error = new TypeGuardError({
-   *   method: "typia.assert",
-   *   path: "input.age",
-   *   expected: "number & ExclusiveMinimum<19>",
-   *   value: 18
-   * });
-   * ```
+   * @param props Error details including method, path, expected type, and actual value
    */
   public constructor(props: TypeGuardError.IProps) {
     // MESSAGE CONSTRUCTION
