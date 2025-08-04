@@ -38,27 +38,28 @@ export * from "./IReadableURLSearchParams";
     BASIC VALIDATORS
 ----------------------------------------------------------- */
 /**
- * Validates data at runtime and crashes with detailed error information if invalid.
+ * Asserts a value type.
  *
- * This function performs compile-time optimized runtime validation that's 20,000x faster 
- * than alternatives. When validation fails, you get a comprehensive error message showing 
- * exactly what went wrong and where. When validation succeeds, your data passes through unchanged.
+ * Asserts a parametric value type and throws a {@link TypeGuardError} with a detailed
+ * reason, if the parametric value is not following the type `T`. Otherwise, if the
+ * value is following the type `T`, the input parameter will be returned.
  *
- * Perfect for API boundaries, user input validation, and ensuring data integrity throughout 
- * your application. Use {@link is} for silent checks or {@link validate} for detailed error 
- * collection without throwing.
+ * If what you want is not asserting but just knowing whether the parametric value is
+ * following the type `T` or not, you can choose the {@link is} function instead.
+ * Otherwise, if you want to know all the errors, {@link validate} is the way to go.
+ * Also, if you want to automatically cast the parametric value to the type `T`
+ * when there is no problem (perform the assertion guard of type).
  *
- * @example
- * ```typescript
- * interface User { name: string; age: number; }
- * const user = assert<User>(someData); // throws if invalid, returns User if valid
- * ```
+ * On the other hand, if you don't want to allow any superfluous property that is not
+ * enrolled to the type `T`, you can use {@link assertEquals} function instead.
  *
- * @template T Expected data type
- * @param input Data to validate
- * @param errorFactory Custom error generator (optional)
- * @returns Validated data of type T
- * @throws Detailed validation error on mismatch
+ * @template T Type of the input value
+ * @param input A value to be asserted
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
+ * @returns Parametric input value
+ * @throws A {@link TypeGuardError} instance with a detailed reason
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export function assert<T>(
   input: T,
@@ -66,28 +67,26 @@ export function assert<T>(
 ): T;
 
 /**
- * Validates data at runtime and crashes with detailed error information if invalid.
+ * Asserts a value type.
  *
- * This function performs compile-time optimized runtime validation that's 20,000x faster 
- * than alternatives. When validation fails, you get a comprehensive error message showing 
- * exactly what went wrong and where. When validation succeeds, your data is cast to the 
- * target type.
+ * Asserts a parametric value type and throws a {@link TypeGuardError} with a detailed
+ * reason, if the parametric value is not following the type `T`. Otherwise, if the
+ * value is following the type `T`, the input parameter will be returned.
  *
- * Perfect for API boundaries, user input validation, and ensuring data integrity throughout 
- * your application. Use {@link is} for silent checks or {@link validate} for detailed error 
- * collection without throwing.
+ * If what you want is not asserting but just knowing whether the parametric value is
+ * following the type `T` or not, you can choose the {@link is} function instead.
+ * Otherwise, if you want to know all the errors, {@link validate} is the way to go.
  *
- * @example
- * ```typescript
- * interface User { name: string; age: number; }
- * const user = assert<User>(someUnknownData); // throws if invalid, returns User if valid
- * ```
+ * On the other hand, if you don't want to allow any superfluous property that is not
+ * enrolled to the type `T`, you can use {@link assertEquals} function instead.
  *
- * @template T Expected data type
- * @param input Data to validate (unknown type)
- * @param errorFactory Custom error generator (optional)
- * @returns Validated data cast to type T
- * @throws Detailed validation error on mismatch
+ * @template T Type of the input value
+ * @param input A value to be asserted
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
+ * @returns Parametric input value casted as `T`
+ * @throws A {@link TypeGuardError} instance with a detailed reason
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export function assert<T>(
   input: unknown,
@@ -102,28 +101,29 @@ export function assert(): never {
 }
 
 /**
- * Validates data and narrows TypeScript types automatically without returning values.
+ * Assertion guard of a value type.
  *
- * This assertion guard validates your data and tells TypeScript that it's definitely 
- * the expected type. Unlike {@link assert}, this doesn't return anything - it just 
- * makes TypeScript understand that your variable is now the validated type. Great for 
- * type narrowing in complex workflows.
+ * Asserts a parametric value type and throws a {@link TypeGuardError} with a detailed
+ * reason, if the parametric value is not following the type `T`. Otherwise, if the
+ * value is following the type `T`, nothing will be returned, but the input value
+ * will be automatically casted to the type `T`. This is the concept of
+ * "Assertion Guard" of a value type.
  *
- * Throws detailed error information on validation failure. Use this when you want to 
- * validate data in-place without reassignment.
+ * If what you want is not asserting but just knowing whether the parametric value is
+ * following the type `T` or not, you can choose the {@link is} function instead.
+ * Otherwise, if you want to know all the errors, {@link validate} is the way to go.
+ * Also, if you want to return the parametric value when there is no problem, you can use
+ * {@link assert} function instead.
  *
- * @example
- * ```typescript
- * interface User { name: string; age: number; }
- * let data: unknown = getUserData();
- * assertGuard<User>(data); // data is now known to be User type
- * console.log(data.name); // TypeScript knows this is safe
- * ```
+ * On the other hand, if you don't want to allow any superfluous property that is not
+ * enrolled to the type `T`, you can use {@link assertGuardEquals} function instead.
  *
- * @template T Expected data type
- * @param input Data to validate and narrow
- * @param errorFactory Custom error generator (optional)
- * @throws Detailed validation error on mismatch
+ * @template T Type of the input value
+ * @param input A value to be asserted
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
+ * @throws A {@link TypeGuardError} instance with a detailed reason
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export function assertGuard<T>(
   input: T,
@@ -131,28 +131,29 @@ export function assertGuard<T>(
 ): asserts input is T;
 
 /**
- * Validates data and narrows TypeScript types automatically without returning values.
+ * Assertion guard of a value type.
  *
- * This assertion guard validates your data and tells TypeScript that it's definitely 
- * the expected type. Unlike {@link assert}, this doesn't return anything - it just 
- * makes TypeScript understand that your variable is now the validated type. Great for 
- * type narrowing when working with unknown data.
+ * Asserts a parametric value type and throws a {@link TypeGuardError} with a detailed
+ * reason, if the parametric value is not following the type `T`. Otherwise, if the
+ * value is following the type `T`, nothing will be returned, but the input value
+ * will be automatically casted to the type `T`. This is the concept of
+ * "Assertion Guard" of a value type.
  *
- * Throws detailed error information on validation failure. Use this when you want to 
- * validate data in-place without reassignment.
+ * If what you want is not asserting but just knowing whether the parametric value is
+ * following the type `T` or not, you can choose the {@link is} function instead.
+ * Otherwise, if you want to know all the errors, {@link validate} is the way to go.
+ * Also, if you want to return the parametric value when there is no problem, you can use
+ * {@link assert} function instead.
  *
- * @example
- * ```typescript
- * interface User { name: string; age: number; }
- * let data: unknown = getUserData();
- * assertGuard<User>(data); // data is now known to be User type
- * console.log(data.name); // TypeScript knows this is safe
- * ```
+ * On the other hand, if you don't want to allow any superfluous property that is not
+ * enrolled to the type `T`, you can use {@link assertGuardEquals} function instead.
  *
- * @template T Expected data type
- * @param input Data to validate and narrow (unknown type)
- * @param errorFactory Custom error generator (optional)
- * @throws Detailed validation error on mismatch
+ * @template T Type of the input value
+ * @param input A value to be asserted
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
+ * @throws A {@link TypeGuardError} instance with a detailed reason
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export function assertGuard<T>(
   input: unknown,
@@ -167,54 +168,51 @@ export function assertGuard(): never {
 }
 
 /**
- * Checks if data matches a type without throwing errors.
+ * Tests a value type.
  *
- * Silent validation that returns true/false instead of throwing exceptions. This is 
- * perfect for conditional logic where you need to branch based on data shape. 
- * Extremely fast type checking with compile-time optimization.
+ * Tests a parametric value type and returns whether it's following the type `T` or not.
+ * If the parametric value is matched with the type `T`, `true` value will be returned.
+ * Otherwise, if the parametric value is not following the type `T`, `false` value will be
+ * returned.
  *
- * Returns true if data matches the expected type, false otherwise. Use {@link assert} 
- * when you need error details or {@link validate} for comprehensive error collection.
+ * If what you want is not just knowing whether the parametric value is following the
+ * type `T` or not, but throwing an exception with a detailed reason, you can choose
+ * {@link assert} function instead. Also, if you want to know all the errors with
+ * detailed reasons, {@link validate} function would be useful.
  *
- * @example
- * ```typescript
- * interface User { name: string; age: number; }
- * if (is<User>(data)) {
- *   console.log(data.name); // TypeScript knows data is User
- * } else {
- *   console.log("Not a valid user");
- * }
- * ```
+ * On the other hand, if you don't want to allow any superfluous property that is not
+ * enrolled to the type `T`, you can use {@link equals} function instead.
  *
- * @template T Expected data type
- * @param input Data to check
- * @returns True if data matches type T, false otherwise
+ * @template T Type of the input value
+ * @param input A value to be tested
+ * @param errorFactory Custom error factory. Default is `TypeGuardError`
+ * @returns Whether the parametric value is following the type `T` or not
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export function is<T>(input: T): input is T;
 
 /**
- * Checks if data matches a type without throwing errors.
+ * Tests a value type.
  *
- * Silent validation that returns true/false instead of throwing exceptions. This is 
- * perfect for conditional logic where you need to branch based on data shape. 
- * Extremely fast type checking with compile-time optimization.
+ * Tests a parametric value type and returns whether it's following the type `T` or not.
+ * If the parametric value is matched with the type `T`, `true` value will be returned.
+ * Otherwise, if the parametric value is not following the type `T`, `false` value will be
+ * returned.
  *
- * Returns true if data matches the expected type, false otherwise. Use {@link assert} 
- * when you need error details or {@link validate} for comprehensive error collection.
+ * If what you want is not just knowing whether the parametric value is following the
+ * type `T` or not, but throwing an exception with a detailed reason, you can choose
+ * {@link assert} function instead. Also, if you want to know all the errors with
+ * detailed reasons, {@link validate} function would be useful.
  *
- * @example
- * ```typescript
- * interface User { name: string; age: number; }
- * if (is<User>(unknownData)) {
- *   console.log(unknownData.name); // TypeScript knows data is User
- * } else {
- *   console.log("Not a valid user");
- * }
- * ```
+ * On the other hand, if you don't want to allow any superfluous property that is not
+ * enrolled to the type `T`, you can use {@link equals} function instead.
  *
- * @template T Expected data type
- * @param input Data to check (unknown type)
- * @returns True if data matches type T, false otherwise
+ * @template T Type of the input value
+ * @param input A value to be tested
+ * @returns Whether the parametric value is following the type `T` or not
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export function is<T>(input: unknown): input is T;
 
@@ -226,56 +224,52 @@ export function is(): never {
 }
 
 /**
- * Collects all validation errors without throwing exceptions.
+ * Validates a value type.
  *
- * Comprehensive validation that gathers every single error found in your data structure. 
- * Instead of stopping at the first problem like {@link assert}, this function continues 
- * checking everything and returns a detailed report of all issues found.
+ * Validates a parametric value type and archives all the type errors into an
+ * {@link IValidation.errors} array, if the parametric value is not following the
+ * type `T`. Of course, if the parametric value is following the type `T`, the
+ * {@link IValidation.errors} array will be empty and {@link IValidation.success}
+ * will have the `true` value.
  *
- * Perfect for form validation, API responses, or any scenario where you need to show 
- * users all the problems at once rather than making them fix issues one by one.
+ * If what you want is not finding all the errors, but asserting the parametric value
+ * type with exception throwing, you can choose {@link assert} function instead.
+ * Otherwise, if you just want to know whether the parametric value is matched with the
+ * type `T`, {@link is} function is the way to go.
  *
- * @example
- * ```typescript
- * interface User { name: string; age: number; email: string; }
- * const result = validate<User>(data);
- * if (result.success) {
- *   console.log("Valid user:", result.data);
- * } else {
- *   console.log("Errors found:", result.errors);
- * }
- * ```
+ * On the other hand, if you don't want to allow any superfluous property that is not
+ * enrolled to the type `T`, you can use {@link validateEquals} function instead.
  *
- * @template T Expected data type
- * @param input Data to validate
- * @returns Validation result with success flag and data or errors
+ * @template T Type of the input value
+ * @param input A value to be validated
+ * @returns Validation result
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export function validate<T>(input: T): IValidation<T>;
 
 /**
- * Collects all validation errors without throwing exceptions.
+ * Validates a value type.
  *
- * Comprehensive validation that gathers every single error found in your data structure. 
- * Instead of stopping at the first problem like {@link assert}, this function continues 
- * checking everything and returns a detailed report of all issues found.
+ * Validates a parametric value type and archives all the type errors into an
+ * {@link IValidation.errors} array, if the parametric value is not following the
+ * type `T`. Of course, if the parametric value is following the type `T`, the
+ * {@link IValidation.errors} array will be empty and {@link IValidation.success}
+ * will have the `true` value.
  *
- * Perfect for form validation, API responses, or any scenario where you need to show 
- * users all the problems at once rather than making them fix issues one by one.
+ * If what you want is not finding all the errors, but asserting the parametric value
+ * type with exception throwing, you can choose {@link assert} function instead.
+ * Otherwise, if you just want to know whether the parametric value is matched with the
+ * type `T`, {@link is} function is the way to go.
  *
- * @example
- * ```typescript
- * interface User { name: string; age: number; email: string; }
- * const result = validate<User>(unknownData);
- * if (result.success) {
- *   console.log("Valid user:", result.data);
- * } else {
- *   console.log("Errors found:", result.errors);
- * }
- * ```
+ * On the other hand, if you don't want to allow any superfluous property that is not
+ * enrolled to the type `T`, you can use {@link validateEquals} function instead.
  *
- * @template T Expected data type
- * @param input Data to validate (unknown type)
- * @returns Validation result with success flag and data or errors
+ * @template T Type of the input value
+ * @param input A value to be validated
+ * @returns Validation result
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export function validate<T>(input: unknown): IValidation<T>;
 

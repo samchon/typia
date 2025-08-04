@@ -1,42 +1,46 @@
 import { OpenApi } from "@samchon/openapi";
 
 /**
- * Contract for generating realistic random test data across all data types.
+ * Interface for generating random values for various data types.
  *
- * Provides the blueprint for creating random data generators that respect schema 
- * constraints. Used by typia's random data generation to create meaningful test 
- * data that matches your TypeScript types including validation rules, format 
- * constraints, and ranges.
+ * `IRandomGenerator` defines the contract for generating random values
+ * that can be used by typia for creating mock data, testing scenarios,
+ * and random value generation based on JSON schema constraints.
  *
- * Essential for generating mock APIs, test fixtures, and property-based testing 
- * scenarios where you need realistic data that actually fits your type definitions.
+ * This interface supports generating random values for:
+ * - Basic types (boolean, number, integer, bigint, string, array)
+ * - String format patterns (email, URL, UUID, etc.)
+ * - Date and time formats
+ * - Various address and identifier formats
  *
  * @example
  * ```typescript
  * const generator: IRandomGenerator = {
  *   boolean: () => Math.random() > 0.5,
- *   number: (schema) => {
- *     const min = schema.minimum ?? 0;
- *     const max = schema.maximum ?? 100;
- *     return Math.random() * (max - min) + min;
- *   },
- *   email: () => `user${Math.floor(Math.random() * 1000)}@example.com`,
+ *   number: (schema) => Math.random() * (schema.maximum ?? 100),
+ *   string: (schema) => "example-string",
+ *   email: () => "test@example.com",
  *   // ... implement other methods
  * };
- * 
- * const randomUser = typia.random<User>(generator);
  * ```
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export interface IRandomGenerator {
   // REGULAR DATA TYPES
 
   /**
-   * Generates random boolean values.
+   * Generates a random boolean value.
+   *
+   * @returns Random boolean value or undefined
    */
   boolean(): boolean | undefined;
 
   /**
-   * Generates random numbers respecting schema constraints like min/max values.
+   * Generates a random number based on JSON schema constraints.
+   *
+   * @param schema JSON schema with number constraints (min, max, etc.)
+   * @returns Random number within the specified constraints
    */
   number(schema: OpenApi.IJsonSchema.INumber): number;
 

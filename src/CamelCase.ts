@@ -4,33 +4,14 @@ import { NativeClass } from "./typings/NativeClass";
 import { ValueOf } from "./typings/ValueOf";
 
 /**
- * Converts object property names to camelCase style.
+ * Camel case type.
  *
- * Transforms all object keys from snake_case, PascalCase, or other naming 
- * conventions to camelCase. Useful for API data transformation where backends 
- * use different naming conventions than frontend JavaScript standards.
+ * `CamelCase` type is a type that all keys of an object are camelized.
  *
- * @example
- * ```typescript
- * interface SnakeData {
- *   user_name: string;
- *   is_active: boolean;
- *   profile_data: {
- *     first_name: string;
- *   };
- * }
- * 
- * type CamelData = CamelCase<SnakeData>;
- * // Result: {
- * //   userName: string;
- * //   isActive: boolean;
- * //   profileData: {
- * //     firstName: string;
- * //   };
- * // }
- * ```
+ * It also erases every method property like {@link Resolved} type.
  *
- * @template T Object type to transform property names
+ * @template T Target type to be camelized
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export type CamelCase<T> =
   Equal<T, CamelizeMain<T>> extends true ? T : CamelizeMain<T>;

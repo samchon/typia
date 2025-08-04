@@ -16,32 +16,23 @@ import { TypeGuardError } from "./TypeGuardError";
     CAMEL CASE
 ----------------------------------------------------------- */
 /**
- * Transforms object property names to camelCase at runtime.
+ * Convert to camel case.
  *
- * Recursively converts all property names in nested objects from any naming 
- * convention (snake_case, PascalCase, etc.) to camelCase. Perfect for transforming 
- * API responses or data from external systems that use different naming conventions.
+ * Convert every property names of nested objects to follow the camel case convention.
  *
- * Note: Assumes input data matches the expected type structure - no validation performed.
+ * For reference, this `typia.notations.camel()` function does not validate the input value
+ * type. It just believes that the input value is following the type `T`. Therefore,
+ * if you can't ensure the input value type, it would be better to call one of them below:
  *
- * @example
- * ```typescript
- * interface SnakeData {
- *   user_name: string;
- *   profile_info: {
- *     first_name: string;
- *     last_name: string;
- *   };
- * }
- * 
- * const snakeData = { user_name: "Alice", profile_info: { first_name: "Alice", last_name: "Smith" } };
- * const camelData = typia.notations.camel<SnakeData>(snakeData);
- * // Result: { userName: "Alice", profileInfo: { firstName: "Alice", lastName: "Smith" } }
- * ```
+ * - {@link assertCamel}
+ * - {@link isCamel}
+ * - {@link validateCamel}
  *
- * @template T Type of input data structure
- * @param input Object to transform property names
- * @returns Object with all property names in camelCase
+ * @template T Type of the input value
+ * @param input Target object
+ * @returns Camel case object
+ *
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export function camel<T>(input: T): CamelCase<T>;
 

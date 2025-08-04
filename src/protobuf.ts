@@ -37,30 +37,21 @@ import { TypeGuardError } from "./TypeGuardError";
 export function message(): never;
 
 /**
- * Generates Protocol Buffer schema definitions from TypeScript types.
+ * Protocol Buffer Message Schema.
  *
- * Creates .proto file message definitions that match your TypeScript types. 
- * Essential for cross-language communication, high-performance serialization, 
- * or systems that require Protocol Buffer compatibility.
+ * Creates a Protocol Buffer Message Schema from a TypeScript type. The message
+ * schema would be returned as a string value, and it can be used to share with
+ * other developers/languages/frameworks.
  *
- * The generated schema can be shared with other teams, languages, or services 
- * to ensure consistent data structures across your entire system.
+ * For reference, Protocol Buffer has lots of restrictions, so that expression power
+ * of Protocol Buffer is not enough strong to fully meet the TypeScript type specs.
+ * In such reason, if you put a TypeScript type that is not compatible with Protocol
+ * Buffer, this function would throw compilation errors.
  *
- * @example
- * ```typescript
- * interface User {
- *   id: number;
- *   name: string;
- *   email?: string;
- *   tags: string[];
- * }
- * 
- * const schema = typia.protobuf.message<User>();
- * // Generates: "message User { int32 id = 1; string name = 2; optional string email = 3; repeated string tags = 4; }"
- * ```
+ * @template T Target type
+ * @returns Protocol Buffer Message Schema.
  *
- * @template T TypeScript type to generate Protocol Buffer schema for
- * @returns Protocol Buffer message schema as string
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export function message<T>(): string;
 

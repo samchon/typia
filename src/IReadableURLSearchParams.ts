@@ -1,16 +1,9 @@
 /**
- * Simplified interface for reading URL search parameters.
+ * Interface for a readable URLSearchParams object.
  *
- * Provides just the essential read operations from URLSearchParams without 
- * modification methods. Perfect for frameworks like Hono.js that need type-safe 
- * query parameter access without the full URLSearchParams API surface.
+ * This interface is a subset of the {@link URLSearchParams} interface,
+ * designed especially for the [Hono.JS](https://hono.dev/) library.
  *
- * @example
- * ```typescript
- * function handleRequest(params: IReadableURLSearchParams) {
- *   const userId = params.get('userId');     // Get single value
- *   const tags = params.getAll('tag');      // Get all values for key
- * }
- * ```
+ * @author https://github.com/miyaji255
  */
 export type IReadableURLSearchParams = Pick<URLSearchParams, "get" | "getAll">;

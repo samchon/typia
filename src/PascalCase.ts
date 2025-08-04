@@ -4,34 +4,14 @@ import { NativeClass } from "./typings/NativeClass";
 import { ValueOf } from "./typings/ValueOf";
 
 /**
- * Converts object property names to PascalCase style.
+ * Pascal case type.
  *
- * Transforms all object keys from snake_case, camelCase, or other naming 
- * conventions to PascalCase. Useful when interfacing with APIs or systems 
- * that follow different naming conventions, especially C# or other languages 
- * that prefer PascalCase.
+ * `PascalCase` type is a type that all keys of an object are pascalized.
  *
- * @example
- * ```typescript
- * interface SnakeData {
- *   user_name: string;
- *   is_active: boolean;
- *   profile_data: {
- *     first_name: string;
- *   };
- * }
- * 
- * type PascalData = PascalCase<SnakeData>;
- * // Result: {
- * //   UserName: string;
- * //   IsActive: boolean;
- * //   ProfileData: {
- * //     FirstName: string;
- * //   };
- * // }
- * ```
+ * It also erases every method property like {@link Resolved} type.
  *
- * @template T Object type to transform property names
+ * @template T Target type to be pascalized
+ * @author Jeongho Nam - https://github.com/samchon
  */
 export type PascalCase<T> =
   Equal<T, PascalizeMain<T>> extends true ? T : PascalizeMain<T>;
