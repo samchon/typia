@@ -18,9 +18,7 @@ export const iterate_metadata_map = (
     type,
     symbol: type.getSymbol(),
   });
-  const generic: readonly ts.Type[] | undefined = type.aliasSymbol
-    ? type.aliasTypeArguments
-    : props.checker.getTypeArguments(type as ts.TypeReference);
+  const generic: readonly ts.Type[] | undefined = props.checker.getTypeArguments(type as ts.TypeReference);
   if (name.substring(0, 4) !== "Map<" || generic?.length !== 2) return false;
 
   const key: ts.Type = generic[0]!;
