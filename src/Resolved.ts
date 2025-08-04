@@ -10,13 +10,13 @@ import { ValueOf } from "./typings/ValueOf";
  * its argument as a resolved type that erases every method property.
  *
  * If the target argument is a built-in class which returns its origin primitive type
- * through the `valueOf()` method like the `String` or `Number`, its return type would
- * be the `string` or `number`. Otherwise, the built-in class does not have the
- * `valueOf()` method, the return type would be same with the target argument.
+ * through the `valueOf()` method like the `String` or `Number`, its return type will
+ * be the `string` or `number`. Otherwise, if the built-in class does not have the
+ * `valueOf()` method, the return type will be the same as the target argument.
  *
  * Otherwise, if the target argument is a type of custom class, all of its custom methods
- * would be erased and its prototype would be changed to the primitive `object`.
- * Therefore, the return type of the TMP type would finally be the resolved object.
+ * will be erased and its prototype will be changed to the primitive `object`.
+ * Therefore, the return type of the TMP type will finally be the resolved object.
  *
  * Before                  | After
  * ------------------------|----------------------------------------

@@ -40,15 +40,15 @@ export * from "./IReadableURLSearchParams";
 /**
  * Asserts a value type.
  *
- * Asserts a parametric value type and throws a {@link TypeGuardError} with detailed
- * reason, if the parametric value is not following the type `T`. Otherwise, the
- * value is following the type `T`, just input parameter would be returned.
+ * Asserts a parametric value type and throws a {@link TypeGuardError} with a detailed
+ * reason, if the parametric value is not following the type `T`. Otherwise, if the
+ * value is following the type `T`, the input parameter will be returned.
  *
  * If what you want is not asserting but just knowing whether the parametric value is
  * following the type `T` or not, you can choose the {@link is} function instead.
  * Otherwise, if you want to know all the errors, {@link validate} is the way to go.
  * Also, if you want to automatically cast the parametric value to the type `T`
- * when no problem (perform the assertion guard of type).
+ * when there is no problem (perform the assertion guard of type).
  *
  * On the other hand, if you don't want to allow any superfluous property that is not
  * enrolled to the type `T`, you can use {@link assertEquals} function instead.
@@ -57,7 +57,7 @@ export * from "./IReadableURLSearchParams";
  * @param input A value to be asserted
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Parametric input value
- * @throws A {@link TypeGuardError} instance with detailed reason
+ * @throws A {@link TypeGuardError} instance with a detailed reason
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
@@ -69,13 +69,13 @@ export function assert<T>(
 /**
  * Asserts a value type.
  *
- * Asserts a parametric value type and throws a {@link TypeGuardError} with detailed
- * reason, if the parametric value is not following the type `T`. Otherwise, the
- * value is following the type `T`, just input parameter would be returned.
+ * Asserts a parametric value type and throws a {@link TypeGuardError} with a detailed
+ * reason, if the parametric value is not following the type `T`. Otherwise, if the
+ * value is following the type `T`, the input parameter will be returned.
  *
  * If what you want is not asserting but just knowing whether the parametric value is
  * following the type `T` or not, you can choose the {@link is} function instead.
- * Otherwise, you want to know all the errors, {@link validate} is the way to go.
+ * Otherwise, if you want to know all the errors, {@link validate} is the way to go.
  *
  * On the other hand, if you don't want to allow any superfluous property that is not
  * enrolled to the type `T`, you can use {@link assertEquals} function instead.
@@ -84,7 +84,7 @@ export function assert<T>(
  * @param input A value to be asserted
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Parametric input value casted as `T`
- * @throws A {@link TypeGuardError} instance with detailed reason
+ * @throws A {@link TypeGuardError} instance with a detailed reason
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
@@ -103,16 +103,16 @@ export function assert(): never {
 /**
  * Assertion guard of a value type.
  *
- * Asserts a parametric value type and throws a {@link TypeGuardError} with detailed
- * reason, if the parametric value is not following the type `T`. Otherwise, the
- * value is following the type `T`, nothing would be returned, but the input value
- * would be automatically casted to the type `T`. This is the concept of
+ * Asserts a parametric value type and throws a {@link TypeGuardError} with a detailed
+ * reason, if the parametric value is not following the type `T`. Otherwise, if the
+ * value is following the type `T`, nothing will be returned, but the input value
+ * will be automatically casted to the type `T`. This is the concept of
  * "Assertion Guard" of a value type.
  *
  * If what you want is not asserting but just knowing whether the parametric value is
  * following the type `T` or not, you can choose the {@link is} function instead.
  * Otherwise, if you want to know all the errors, {@link validate} is the way to go.
- * Also, if you want to returns the parametric value when no problem, you can use
+ * Also, if you want to return the parametric value when there is no problem, you can use
  * {@link assert} function instead.
  *
  * On the other hand, if you don't want to allow any superfluous property that is not
@@ -121,7 +121,7 @@ export function assert(): never {
  * @template T Type of the input value
  * @param input A value to be asserted
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
- * @throws A {@link TypeGuardError} instance with detailed reason
+ * @throws A {@link TypeGuardError} instance with a detailed reason
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
@@ -133,16 +133,16 @@ export function assertGuard<T>(
 /**
  * Assertion guard of a value type.
  *
- * Asserts a parametric value type and throws a {@link TypeGuardError} with detailed
- * reason, if the parametric value is not following the type `T`. Otherwise, the
- * value is following the type `T`, nothing would be returned, but the input value
- * would be automatically casted to the type `T`. This is the concept of
+ * Asserts a parametric value type and throws a {@link TypeGuardError} with a detailed
+ * reason, if the parametric value is not following the type `T`. Otherwise, if the
+ * value is following the type `T`, nothing will be returned, but the input value
+ * will be automatically casted to the type `T`. This is the concept of
  * "Assertion Guard" of a value type.
  *
  * If what you want is not asserting but just knowing whether the parametric value is
  * following the type `T` or not, you can choose the {@link is} function instead.
  * Otherwise, if you want to know all the errors, {@link validate} is the way to go.
- * Also, if you want to returns the parametric value when no problem, you can use
+ * Also, if you want to return the parametric value when there is no problem, you can use
  * {@link assert} function instead.
  *
  * On the other hand, if you don't want to allow any superfluous property that is not
@@ -151,7 +151,7 @@ export function assertGuard<T>(
  * @template T Type of the input value
  * @param input A value to be asserted
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
- * @throws A {@link TypeGuardError} instance with detailed reason
+ * @throws A {@link TypeGuardError} instance with a detailed reason
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
@@ -171,14 +171,14 @@ export function assertGuard(): never {
  * Tests a value type.
  *
  * Tests a parametric value type and returns whether it's following the type `T` or not.
- * If the parametric value is matched with the type `T`, `true` value would be returned.
- * Otherwise, the parametric value is not following the type `T`, `false` value would be
+ * If the parametric value is matched with the type `T`, `true` value will be returned.
+ * Otherwise, if the parametric value is not following the type `T`, `false` value will be
  * returned.
  *
  * If what you want is not just knowing whether the parametric value is following the
- * type `T` or not, but throwing an exception with detailed reason, you can choose
+ * type `T` or not, but throwing an exception with a detailed reason, you can choose
  * {@link assert} function instead. Also, if you want to know all the errors with
- * detailed reasons, {@link validate} function would be useful.
+ * detailed reasons, {@link validate} function will be useful.
  *
  * On the other hand, if you don't want to allow any superfluous property that is not
  * enrolled to the type `T`, you can use {@link equals} function instead.
@@ -196,14 +196,14 @@ export function is<T>(input: T): input is T;
  * Tests a value type.
  *
  * Tests a parametric value type and returns whether it's following the type `T` or not.
- * If the parametric value is matched with the type `T`, `true` value would be returned.
- * Otherwise, the parametric value is not following the type `T`, `false` value would be
+ * If the parametric value is matched with the type `T`, `true` value will be returned.
+ * Otherwise, if the parametric value is not following the type `T`, `false` value will be
  * returned.
  *
  * If what you want is not just knowing whether the parametric value is following the
- * type `T` or not, but throwing an exception with detailed reason, you can choose
+ * type `T` or not, but throwing an exception with a detailed reason, you can choose
  * {@link assert} function instead. Also, if you want to know all the errors with
- * detailed reasons, {@link validate} function would be useful.
+ * detailed reasons, {@link validate} function will be useful.
  *
  * On the other hand, if you don't want to allow any superfluous property that is not
  * enrolled to the type `T`, you can use {@link equals} function instead.
@@ -229,18 +229,18 @@ export function is(): never {
  * Validates a parametric value type and archives all the type errors into an
  * {@link IValidation.errors} array, if the parametric value is not following the
  * type `T`. Of course, if the parametric value is following the type `T`, the
- * {@link IValidation.errors} array would be empty and {@link IValidation.success}
- * would have the `true` value.
+ * {@link IValidation.errors} array will be empty and {@link IValidation.success}
+ * will have the `true` value.
  *
- * If what you want is not finding all the error, but asserting the parametric value
+ * If what you want is not finding all the errors, but asserting the parametric value
  * type with exception throwing, you can choose {@link assert} function instead.
- * Otherwise, you just want to know whether the parametric value is matched with the
+ * Otherwise, if you just want to know whether the parametric value is matched with the
  * type `T`, {@link is} function is the way to go.
  *
  * On the other hand, if you don't want to allow any superfluous property that is not
  * enrolled to the type `T`, you can use {@link validateEquals} function instead.
  *
- * @template Type of the input value
+ * @template T Type of the input value
  * @param input A value to be validated
  * @returns Validation result
  *
@@ -254,18 +254,18 @@ export function validate<T>(input: T): IValidation<T>;
  * Validates a parametric value type and archives all the type errors into an
  * {@link IValidation.errors} array, if the parametric value is not following the
  * type `T`. Of course, if the parametric value is following the type `T`, the
- * {@link IValidation.errors} array would be empty and {@link IValidation.success}
- * would have the `true` value.
+ * {@link IValidation.errors} array will be empty and {@link IValidation.success}
+ * will have the `true` value.
  *
- * If what you want is not finding all the error, but asserting the parametric value
+ * If what you want is not finding all the errors, but asserting the parametric value
  * type with exception throwing, you can choose {@link assert} function instead.
- * Otherwise, you just want to know whether the parametric value is matched with the
+ * Otherwise, if you just want to know whether the parametric value is matched with the
  * type `T`, {@link is} function is the way to go.
  *
  * On the other hand, if you don't want to allow any superfluous property that is not
  * enrolled to the type `T`, you can use {@link validateEquals} function instead.
  *
- * @template Type of the input value
+ * @template T Type of the input value
  * @param input A value to be validated
  * @returns Validation result
  *
@@ -294,7 +294,7 @@ export function validate(): never {
  *
  * If what you want is not asserting but just knowing whether the parametric value is
  * following the type `T` or not, you can choose the {@link equals} function instead.
- * Otherwise, you want to know all the errors, {@link validateEquals} is the way to go.
+ * Otherwise, if you want to know all the errors, {@link validateEquals} is the way to go.
  *
  * On the other hand, if you want to allow superfluous property that is not enrolled
  * to the type `T`, you can use {@link assert} function instead.
@@ -303,7 +303,7 @@ export function validate(): never {
  * @param input A value to be asserted
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Parametric input value
- * @throws A {@link TypeGuardError} instance with detailed reason
+ * @throws A {@link TypeGuardError} instance with a detailed reason
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
@@ -323,7 +323,7 @@ export function assertEquals<T>(
  *
  * If what you want is not asserting but just knowing whether the parametric value is
  * following the type `T` or not, you can choose the {@link equals} function instead.
- * Otherwise, you want to know all the errors, {@link validateEquals} is the way to go.
+ * Otherwise, if you want to know all the errors, {@link validateEquals} is the way to go.
  *
  * On the other hand, if you want to allow superfluous property that is not enrolled
  * to the type `T`, you can use {@link assert} function instead.
@@ -332,7 +332,7 @@ export function assertEquals<T>(
  * @param input A value to be asserted
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Parametric input value casted as `T`
- * @throws A {@link TypeGuardError} instance with detailed reason
+ * @throws A {@link TypeGuardError} instance with a detailed reason
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
@@ -356,12 +356,12 @@ export function assertEquals(): never {
  * property that is not listed on the type `T` has been found.
  *
  * Otherwise, the value is following the type `T` without any superfluous property,
- * nothing would be returned, but the input value would be automatically casted to
+ * nothing will be returned, but the input value would be automatically casted to
  * the type `T`. This is the concept of "Assertion Guard" of a value type.
  *
  * If what you want is not asserting but just knowing whether the parametric value is
  * following the type `T` or not, you can choose the {@link equals} function instead.
- * Otherwise, you want to know all the errors, {@link validateEquals} is the way to go.
+ * Otherwise, if you want to know all the errors, {@link validateEquals} is the way to go.
  * Also, if you want to returns the parametric value when no problem, you can use
  * {@link assert} function instead.
  *
@@ -372,7 +372,7 @@ export function assertEquals(): never {
  * @param input A value to be asserted
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Parametric input value casted as `T`
- * @throws A {@link TypeGuardError} instance with detailed reason
+ * @throws A {@link TypeGuardError} instance with a detailed reason
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
@@ -389,12 +389,12 @@ export function assertGuardEquals<T>(
  * property that is not listed on the type `T` has been found.
  *
  * Otherwise, the value is following the type `T` without any superfluous property,
- * nothing would be returned, but the input value would be automatically casted to
+ * nothing will be returned, but the input value would be automatically casted to
  * the type `T`. This is the concept of "Assertion Guard" of a value type.
  *
  * If what you want is not asserting but just knowing whether the parametric value is
  * following the type `T` or not, you can choose the {@link equals} function instead.
- * Otherwise, you want to know all the errors, {@link validateEquals} is the way to go.
+ * Otherwise, if you want to know all the errors, {@link validateEquals} is the way to go.
  * Also, if you want to returns the parametric value when no problem, you can use
  * {@link assertEquals} function instead.
  *
@@ -405,7 +405,7 @@ export function assertGuardEquals<T>(
  * @param input A value to be asserted
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Parametric input value casted as `T`
- * @throws A {@link TypeGuardError} instance with detailed reason
+ * @throws A {@link TypeGuardError} instance with a detailed reason
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
@@ -426,14 +426,14 @@ export function assertGuardEquals(): never {
  *
  * Tests a parametric value type and returns whether it's equivalent to the type `T`
  * or not. If the parametric value is matched with the type `T` and there's not any
- * superfluous property that is not listed on the type `T`, `true` value would be
- * returned. Otherwise, the parametric value is not following the type `T` or some
- * superfluous property exists, `false` value would be returned.
+ * superfluous property that is not listed on the type `T`, `true` value will be
+ * returned. Otherwise, if the parametric value is not following the type `T` or some
+ * superfluous property exists, `false` value will be returned.
  *
  * If what you want is not just knowing whether the parametric value is following the
- * type `T` or not, but throwing an exception with detailed reason, you can choose
+ * type `T` or not, but throwing an exception with a detailed reason, you can choose
  * {@link assertEquals} function instead. Also, if you want to know all the errors with
- * detailed reasons, {@link validateEquals} function would be useful.
+ * detailed reasons, {@link validateEquals} function will be useful.
  *
  * On the other hand, if you want to allow superfluous property that is not enrolled
  * to the type `T`, you can use {@link is} function instead.
@@ -451,14 +451,14 @@ export function equals<T>(input: T): input is T;
  *
  * Tests a parametric value type and returns whether it's equivalent to the type `T`
  * or not. If the parametric value is matched with the type `T` and there's not any
- * superfluous property that is not listed on the type `T`, `true` value would be
- * returned. Otherwise, the parametric value is not following the type `T` or some
- * superfluous property exists, `false` value would be returned.
+ * superfluous property that is not listed on the type `T`, `true` value will be
+ * returned. Otherwise, if the parametric value is not following the type `T` or some
+ * superfluous property exists, `false` value will be returned.
  *
  * If what you want is not just knowing whether the parametric value is following the
- * type `T` or not, but throwing an exception with detailed reason, you can choose
+ * type `T` or not, but throwing an exception with a detailed reason, you can choose
  * {@link assertEquals} function instead. Also, if you want to know all the errors with
- * detailed reasons, {@link validateEquals} function would be useful.
+ * detailed reasons, {@link validateEquals} function will be useful.
  *
  * On the other hand, if you want to allow superfluous property that is not enrolled
  * to the type `T`, you can use {@link is} function instead.
@@ -550,7 +550,7 @@ export function validateEquals(): never {
  * For reference, this `typia.random()` function generates only primitive type.
  * If there're some methods in the type `T` or its nested instances, those would
  * be ignored. Also, when the type `T` has a `toJSON()` method, its return type
- * would be generated instead.
+ * will be generated instead.
  *
  * @template T Type of data to generate
  * @param generator Random data generator
@@ -568,7 +568,7 @@ export function random(generator?: Partial<IRandomGenerator>): never;
  * For reference, this `typia.random()` function generates only primitive type.
  * If there're some methods in the type `T` or its nested instances, those would
  * be ignored. Also, when the type `T` has a `toJSON()` method, its return type
- * would be generated instead.
+ * will be generated instead.
  *
  * @template T Type of data to generate
  * @param generator Random data generator
