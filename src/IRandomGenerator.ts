@@ -256,3 +256,72 @@ export interface IRandomGenerator {
    */
   relativeJsonPointer(): string;
 }
+
+export namespace IRandomGenerator {
+  /**
+   * Map of custom generators for different data types.
+   *
+   * This interface allows customization of random generation for specific
+   * types when they have certain schema properties or constraints.
+   *
+   * @example
+   * ```typescript
+   * const generator: Partial<IRandomGenerator> = {
+   *   string: (schema) => {
+   *     if ((schema as any)["x-typia-monetary"] === "dollar") {
+   *       return "$" + Math.floor(Math.random() * 1000);
+   *     }
+   *     return "default-string";
+   *   },
+   *   number: (schema) => {
+   *     if ((schema as any)["x-typia-powerOf"] !== undefined) {
+   *       const powerOf = (schema as any)["x-typia-powerOf"];
+   *       return Math.pow(powerOf, Math.random() * 10 + 1);
+   *     }
+   *     return Math.random() * 100;
+   *   }
+   * };
+   * ```
+   */
+  export interface CustomMap {
+    /**
+     * Custom string generator that can handle special string formats
+     * based on schema properties.
+     */
+    string?: (schema: OpenApi.IJsonSchema.IString & Record<string, any>) => string;
+
+    /**
+     * Custom number generator that can handle special number constraints
+     * based on schema properties.
+     */
+    number?: (schema: OpenApi.IJsonSchema.INumber & Record<string, any>) => number;
+
+    /**
+     * Custom integer generator that can handle special integer constraints
+     * based on schema properties.
+     */
+    integer?: (schema: OpenApi.IJsonSchema.IInteger & Record<string, any>) => number;
+
+    /**
+     * Custom bigint generator that can handle special bigint constraints
+     * based on schema properties.
+     */
+    bigint?: (schema: OpenApi.IJsonSchema.IInteger & Record<string, any>) => bigint;
+
+    /**
+     * Custom boolean generator that can handle special boolean constraints
+     * based on schema properties.
+     */
+    boolean?: (schema: Record<string, any>) => boolean | undefined;
+
+    /**
+     * Custom array generator that can handle special array constraints
+     * based on schema properties.
+     */
+    array?: <T>(
+      schema: Omit<OpenApi.IJsonSchema.IArray, "items"> & {
+        element: (index: number, count: number) => T;
+      } & Record<string, any>
+    ) => T[];
+  }
+}
