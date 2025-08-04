@@ -178,7 +178,7 @@ export function assertGuard(): never {
  * If what you want is not just knowing whether the parametric value is following the
  * type `T` or not, but throwing an exception with a detailed reason, you can choose
  * {@link assert} function instead. Also, if you want to know all the errors with
- * detailed reasons, {@link validate} function would be useful.
+ * detailed reasons, {@link validate} function will be useful.
  *
  * On the other hand, if you don't want to allow any superfluous property that is not
  * enrolled to the type `T`, you can use {@link equals} function instead.
@@ -203,7 +203,7 @@ export function is<T>(input: T): input is T;
  * If what you want is not just knowing whether the parametric value is following the
  * type `T` or not, but throwing an exception with a detailed reason, you can choose
  * {@link assert} function instead. Also, if you want to know all the errors with
- * detailed reasons, {@link validate} function would be useful.
+ * detailed reasons, {@link validate} function will be useful.
  *
  * On the other hand, if you don't want to allow any superfluous property that is not
  * enrolled to the type `T`, you can use {@link equals} function instead.
@@ -294,7 +294,7 @@ export function validate(): never {
  *
  * If what you want is not asserting but just knowing whether the parametric value is
  * following the type `T` or not, you can choose the {@link equals} function instead.
- * Otherwise, you want to know all the errors, {@link validateEquals} is the way to go.
+ * Otherwise, if you want to know all the errors, {@link validateEquals} is the way to go.
  *
  * On the other hand, if you want to allow superfluous property that is not enrolled
  * to the type `T`, you can use {@link assert} function instead.
@@ -303,7 +303,7 @@ export function validate(): never {
  * @param input A value to be asserted
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Parametric input value
- * @throws A {@link TypeGuardError} instance with detailed reason
+ * @throws A {@link TypeGuardError} instance with a detailed reason
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
@@ -323,7 +323,7 @@ export function assertEquals<T>(
  *
  * If what you want is not asserting but just knowing whether the parametric value is
  * following the type `T` or not, you can choose the {@link equals} function instead.
- * Otherwise, you want to know all the errors, {@link validateEquals} is the way to go.
+ * Otherwise, if you want to know all the errors, {@link validateEquals} is the way to go.
  *
  * On the other hand, if you want to allow superfluous property that is not enrolled
  * to the type `T`, you can use {@link assert} function instead.
@@ -332,7 +332,7 @@ export function assertEquals<T>(
  * @param input A value to be asserted
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Parametric input value casted as `T`
- * @throws A {@link TypeGuardError} instance with detailed reason
+ * @throws A {@link TypeGuardError} instance with a detailed reason
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
@@ -356,12 +356,12 @@ export function assertEquals(): never {
  * property that is not listed on the type `T` has been found.
  *
  * Otherwise, the value is following the type `T` without any superfluous property,
- * nothing would be returned, but the input value would be automatically casted to
+ * nothing will be returned, but the input value would be automatically casted to
  * the type `T`. This is the concept of "Assertion Guard" of a value type.
  *
  * If what you want is not asserting but just knowing whether the parametric value is
  * following the type `T` or not, you can choose the {@link equals} function instead.
- * Otherwise, you want to know all the errors, {@link validateEquals} is the way to go.
+ * Otherwise, if you want to know all the errors, {@link validateEquals} is the way to go.
  * Also, if you want to returns the parametric value when no problem, you can use
  * {@link assert} function instead.
  *
@@ -372,7 +372,7 @@ export function assertEquals(): never {
  * @param input A value to be asserted
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Parametric input value casted as `T`
- * @throws A {@link TypeGuardError} instance with detailed reason
+ * @throws A {@link TypeGuardError} instance with a detailed reason
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
@@ -389,12 +389,12 @@ export function assertGuardEquals<T>(
  * property that is not listed on the type `T` has been found.
  *
  * Otherwise, the value is following the type `T` without any superfluous property,
- * nothing would be returned, but the input value would be automatically casted to
+ * nothing will be returned, but the input value would be automatically casted to
  * the type `T`. This is the concept of "Assertion Guard" of a value type.
  *
  * If what you want is not asserting but just knowing whether the parametric value is
  * following the type `T` or not, you can choose the {@link equals} function instead.
- * Otherwise, you want to know all the errors, {@link validateEquals} is the way to go.
+ * Otherwise, if you want to know all the errors, {@link validateEquals} is the way to go.
  * Also, if you want to returns the parametric value when no problem, you can use
  * {@link assertEquals} function instead.
  *
@@ -405,7 +405,7 @@ export function assertGuardEquals<T>(
  * @param input A value to be asserted
  * @param errorFactory Custom error factory. Default is `TypeGuardError`
  * @returns Parametric input value casted as `T`
- * @throws A {@link TypeGuardError} instance with detailed reason
+ * @throws A {@link TypeGuardError} instance with a detailed reason
  *
  * @author Jeongho Nam - https://github.com/samchon
  */
@@ -550,7 +550,7 @@ export function validateEquals(): never {
  * For reference, this `typia.random()` function generates only primitive type.
  * If there're some methods in the type `T` or its nested instances, those would
  * be ignored. Also, when the type `T` has a `toJSON()` method, its return type
- * would be generated instead.
+ * will be generated instead.
  *
  * @template T Type of data to generate
  * @param generator Random data generator
@@ -568,7 +568,7 @@ export function random(generator?: Partial<IRandomGenerator>): never;
  * For reference, this `typia.random()` function generates only primitive type.
  * If there're some methods in the type `T` or its nested instances, those would
  * be ignored. Also, when the type `T` has a `toJSON()` method, its return type
- * would be generated instead.
+ * will be generated instead.
  *
  * @template T Type of data to generate
  * @param generator Random data generator

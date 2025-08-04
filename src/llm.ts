@@ -330,7 +330,7 @@ export function application(): never {
  *
  * For references, LLM identifies only keyworded arguments, not positional arguments.
  * Therefore, the TypeScript parameters type must be an object type, and its properties
- * must be static. If dynamic properties are, it would be compilation error.
+ * must be static. If dynamic properties are, it will be compilation error.
  *
  * Also, such parameters type can be utilized not only for the LLM function calling,
  * but also for the LLM structured outputs. The LLM structured outputs is a feature
@@ -371,7 +371,7 @@ export function parameters(): never;
  *
  * For references, LLM identifies only keyworded arguments, not positional arguments.
  * Therefore, the TypeScript parameters type must be an object type, and its properties
- * must be static. If dynamic properties are, it would be compilation error.
+ * must be static. If dynamic properties are, it will be compilation error.
  *
  * Also, such parameters type can be utilized not only for the LLM function calling,
  * but also for the LLM structured outputs. The LLM structured outputs is a feature
@@ -422,7 +422,7 @@ export function parameters(): never {
  * [LLM function calling](@reference https://platform.openai.com/docs/guides/function-calling),
  * from a TypeScript type.
  *
- * The returned {@link ILlmSchema} type would be specified by the `Model` argument,
+ * The returned {@link ILlmSchema} type will be specified by the `Model` argument,
  * and here is the list of available `Model` types with their corresponding LLM schema.
  * Reading the following list, and determine the `Model` type considering the
  * characteristics of the target LLM provider.
@@ -472,7 +472,7 @@ export function schema(): never;
  * [LLM function calling](@reference https://platform.openai.com/docs/guides/function-calling),
  * from a TypeScript type.
  *
- * The returned {@link ILlmSchema} type would be specified by the `Model` argument,
+ * The returned {@link ILlmSchema} type will be specified by the `Model` argument,
  * and here is the list of available `Model` types with their corresponding LLM schema:
  *
  * - LLM provider schemas
