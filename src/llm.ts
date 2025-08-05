@@ -77,7 +77,9 @@ import { NoTransformConfigurationError } from "./transformers/NoTransformConfigu
 export function controller(
   name: string,
   execute: object,
-  options?: Partial<Pick<ILlmApplication.IOptions<any>, "separate">>,
+  options?: Partial<
+    Pick<ILlmApplication.IOptions<any, any>, "separate" | "validate">
+  >,
 ): never;
 
 /**
@@ -170,7 +172,9 @@ export function controller<
 >(
   name: string,
   execute: Class,
-  options?: Partial<Pick<ILlmApplication.IOptions<Model>, "separate">>,
+  options?: Partial<
+    Pick<ILlmApplication.IOptions<Model, Class>, "separate" | "validate">
+  >,
 ): ILlmController<Model>;
 
 /**
@@ -235,7 +239,9 @@ export function controller(..._args: any[]): never {
  * @author Jeongho Nam - https://github.com/samchon
  */
 export function application(
-  options?: Partial<Pick<ILlmApplication.IOptions<any>, "separate">>,
+  options?: Partial<
+    Pick<ILlmApplication.IOptions<any, any>, "separate" | "validate">
+  >,
 ): never;
 
 /**
@@ -308,7 +314,9 @@ export function application<
     } & ILlmSchema.ModelConfig[Model]
   > = {},
 >(
-  options?: Partial<Pick<ILlmApplication.IOptions<Model>, "separate">>,
+  options?: Partial<
+    Pick<ILlmApplication.IOptions<Model, Class>, "separate" | "validate">
+  >,
 ): ILlmApplication<Model, Class>;
 
 /**

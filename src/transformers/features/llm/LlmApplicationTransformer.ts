@@ -186,9 +186,14 @@ export namespace LlmApplicationTransformer {
               ],
               false,
             ),
-            ts.factory.createLiteralTypeNode(
-              ts.factory.createStringLiteral("separate"),
-            ),
+            ts.factory.createUnionTypeNode([
+              ts.factory.createLiteralTypeNode(
+                ts.factory.createStringLiteral("separate"),
+              ),
+              ts.factory.createLiteralTypeNode(
+                ts.factory.createStringLiteral("validate"),
+              ),
+            ]),
           ],
         ),
       ],
@@ -200,27 +205,18 @@ export namespace LlmApplicationTransformer {
         props.value,
         ts.factory.createObjectLiteralExpression(
           [
-            ts.factory.createPropertyAssignment(
-              "separate",
-              ts.factory.createPropertyAccessChain(
-                ts.factory.createSatisfiesExpression(
-                  props.argument,
-                  satisfiesTypeNode,
-                ),
-                ts.factory.createToken(ts.SyntaxKind.QuestionDotToken),
-                "separate",
+            ts.factory.createSpreadAssignment(
+              ts.factory.createSatisfiesExpression(
+                props.argument,
+                satisfiesTypeNode,
               ),
             ),
-            ...(typeof props.equals === "boolean"
-              ? [
-                  ts.factory.createPropertyAssignment(
-                    "equals",
-                    props.equals === true
-                      ? ts.factory.createTrue()
-                      : ts.factory.createFalse(),
-                  ),
-                ]
-              : []),
+            ts.factory.createPropertyAssignment(
+              "equals",
+              props.equals === true
+                ? ts.factory.createTrue()
+                : ts.factory.createFalse(),
+            ),
           ],
           true,
         ),
