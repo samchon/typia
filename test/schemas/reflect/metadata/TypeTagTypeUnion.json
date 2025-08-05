@@ -73,19 +73,6 @@
                     [
                       {
                         "target": "number",
-                        "name": "Type<\"int32\">",
-                        "kind": "type",
-                        "value": "int32",
-                        "validate": "$importInternal(\"isTypeInt32\")($input)",
-                        "exclusive": true,
-                        "schema": {
-                          "type": "integer"
-                        }
-                      }
-                    ],
-                    [
-                      {
-                        "target": "number",
                         "name": "Type<\"uint32\">",
                         "kind": "type",
                         "value": "uint32",
@@ -94,6 +81,19 @@
                         "schema": {
                           "type": "integer",
                           "minimum": 0
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "target": "number",
+                        "name": "Type<\"int32\">",
+                        "kind": "type",
+                        "value": "int32",
+                        "validate": "$importInternal(\"isTypeInt32\")($input)",
+                        "exclusive": true,
+                        "schema": {
+                          "type": "integer"
                         }
                       }
                     ]
@@ -832,19 +832,6 @@
                     [
                       {
                         "target": "number",
-                        "name": "Type<\"int32\">",
-                        "kind": "type",
-                        "value": "int32",
-                        "validate": "$importInternal(\"isTypeInt32\")($input)",
-                        "exclusive": true,
-                        "schema": {
-                          "type": "integer"
-                        }
-                      }
-                    ],
-                    [
-                      {
-                        "target": "number",
                         "name": "Type<\"uint32\">",
                         "kind": "type",
                         "value": "uint32",
@@ -853,6 +840,19 @@
                         "schema": {
                           "type": "integer",
                           "minimum": 0
+                        }
+                      }
+                    ],
+                    [
+                      {
+                        "target": "number",
+                        "name": "Type<\"int32\">",
+                        "kind": "type",
+                        "value": "int32",
+                        "validate": "$importInternal(\"isTypeInt32\")($input)",
+                        "exclusive": true,
+                        "schema": {
+                          "type": "integer"
                         }
                       }
                     ],
