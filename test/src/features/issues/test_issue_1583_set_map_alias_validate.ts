@@ -1,6 +1,6 @@
 import typia from "typia";
 
-export const test_issue_1629_set_map_alias_validate = (): void => {
+export const test_issue_1583_set_map_alias_validate = (): void => {
   const m: M = new Map();
   m.set("first", 1);
 
