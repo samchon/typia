@@ -5,7 +5,7 @@ export const test_issue_1583_set_map_alias_validate = (): void => {
   m.set("first", 1);
 
   const s: S = new Set();
-  s.set("someothing");
+  s.add("someothing");
 
   typia.assert(m);
   typia.assert(s);
