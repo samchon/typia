@@ -42,7 +42,7 @@
   },
   "homepage": "https://typia.io",
   "dependencies": {
-    "@samchon/openapi": "^4.6.0",
+    "@samchon/openapi": "^4.7.1",
     "@standard-schema/spec": "^1.0.0",
     "commander": "^10.0.0",
     "comment-json": "^4.2.3",
