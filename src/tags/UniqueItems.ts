@@ -14,7 +14,7 @@ import { TagBase } from "./TagBase";
  * 
  * @example
  * // Prevent duplicate email addresses
- * type EmailList = string[] & UniqueItems<true>;
+ * type EmailList = string[] & UniqueItems;
  * 
  * @template Value - Boolean flag to enable/disable uniqueness validation (defaults to true)
  * @author Jeongho Nam - https://github.com/samchon
