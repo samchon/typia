@@ -45,6 +45,7 @@ export namespace TypeFactory {
     checker: ts.TypeChecker;
     type: ts.Type;
     symbol?: ts.Symbol;
+    aliasTypeArguments?: boolean; // default: true
   }): string => {
     // PRIMITIVE
     const symbol =
@@ -73,9 +74,10 @@ export namespace TypeFactory {
     const name: string = get_name(symbol);
 
     // CHECK GENERIC
-    const generic: readonly ts.Type[] = props.type.aliasSymbol
-      ? (props.type.aliasTypeArguments ?? [])
-      : props.checker.getTypeArguments(props.type as ts.TypeReference);
+    const generic: readonly ts.Type[] =
+      props.type.aliasSymbol && props.aliasTypeArguments !== false
+        ? (props.type.aliasTypeArguments ?? [])
+        : props.checker.getTypeArguments(props.type as ts.TypeReference);
     return generic.length
       ? name === "Promise"
         ? getFullName({
