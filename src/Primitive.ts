@@ -75,16 +75,35 @@ type PrimitiveObject<Instance extends object> =
         [P in keyof Instance]: PrimitiveMain<Instance[P]>;
       };
 
-type PrimitiveTuple<T extends readonly any[]> = T extends []
+type PrimitiveTuple<T extends readonly any[]> = HasRestElement<T> extends true
+  ? PreserveRestTuple<T>
+  : DecomposeRegularTuple<T>;
+
+type HasRestElement<T extends readonly any[]> = 
+  T extends readonly [any, ...any[], any]
+    ? true
+    : T extends readonly [...any[], any]
+      ? true
+      : T extends readonly [any, ...any[]]
+        ? number extends T["length"]
+          ? true
+          : false
+        : false;
+
+type PreserveRestTuple<T extends readonly any[]> = {
+  [K in keyof T]: PrimitiveMain<T[K]>;
+};
+
+type DecomposeRegularTuple<T extends readonly any[]> = T extends []
   ? []
   : T extends [infer F]
     ? [PrimitiveMain<F>]
     : T extends [infer F, ...infer Rest extends readonly any[]]
-      ? [PrimitiveMain<F>, ...PrimitiveTuple<Rest>]
+      ? [PrimitiveMain<F>, ...DecomposeRegularTuple<Rest>]
       : T extends [(infer F)?]
         ? [PrimitiveMain<F>?]
         : T extends [(infer F)?, ...infer Rest extends readonly any[]]
-          ? [PrimitiveMain<F>?, ...PrimitiveTuple<Rest>]
+          ? [PrimitiveMain<F>?, ...DecomposeRegularTuple<Rest>]
           : [];
 
 interface IJsonable<T> {
