@@ -30,6 +30,7 @@ export * from "./TypeGuardError";
 export * from "./Primitive";
 export * from "./Resolved";
 export * from "./CamelCase";
+export * from "./KebabCase";
 export * from "./PascalCase";
 export * from "./SnakeCase";
 export * from "./IReadableURLSearchParams";
