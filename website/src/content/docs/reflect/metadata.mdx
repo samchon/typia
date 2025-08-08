@@ -1,0 +1,634 @@
+---
+title: Metadata
+description: Extract comprehensive metadata about TypeScript types
+toc: true
+---
+
+import { Tabs, Tab } from 'nextra-theme-docs'
+import { Callout } from 'nextra-theme-docs'
+
+# Metadata
+
+The **`typia.reflect.metadata()`** function extracts comprehensive metadata about TypeScript types at compile-time. This metadata provides detailed structural information about your types, including properties, validation constraints, nested relationships, and more.
+
+## Overview
+
+Metadata extraction transforms TypeScript type definitions into rich, structured data that can be analyzed and used at runtime. This is particularly useful for:
+
+- **Code Generation**: Creating validators, serializers, and transformers
+- **Documentation**: Generating API docs and schema specifications  
+- **Analysis**: Understanding type structure and relationships
+- **Tool Development**: Building type-aware utilities and libraries
+
+## Basic Usage
+
+### Simple Metadata Extraction
+
+```typescript
+import typia from "typia";
+
+interface User {
+  id: number;
+  name: string;
+  email?: string;
+  isActive: boolean;
+}
+
+// Extract metadata for the User type
+const metadata = typia.reflect.metadata<[User]>();
+
+console.log(metadata);
+```
+
+<Callout type="info">
+The generic parameter must be a **tuple type** containing the types you want to analyze. For a single type, use `[YourType]`.
+</Callout>
+
+### Multiple Types
+
+```typescript
+interface Product {
+  id: string;
+  name: string;
+  price: number;
+}
+
+interface Order {
+  id: string;
+  products: Product[];
+  total: number;
+}
+
+// Extract metadata for multiple types
+const metadata = typia.reflect.metadata<[Product, Order]>();
+```
+
+## Metadata Structure
+
+The `typia.reflect.metadata()` function returns an `IMetadataApplication` object with the following structure:
+
+```typescript
+interface IMetadataApplication {
+  metadatas: IMetadata[];     // Root type metadata
+  components: IMetadataComponents; // Shared components
+}
+```
+
+### Root Metadata (`IMetadata`)
+
+Each metadata entry describes a single type and contains:
+
+```typescript
+interface IMetadata {
+  // Basic type information
+  any: boolean;        // true if type is 'any'
+  required: boolean;   // true if type is required
+  optional: boolean;   // true if type is optional
+  nullable: boolean;   // true if type can be null
+  
+  // Type categories
+  atomics: IMetadataAtomic[];     // Primitive types
+  constants: IMetadataConstant[];  // Literal values
+  templates: IMetadataTemplate[];  // Template literals
+  
+  // Complex types
+  arrays: IMetadataArray[];       // Array types
+  tuples: IMetadataTuple[];       // Tuple types
+  objects: IMetadataObject[];     // Object types
+  aliases: IMetadataAlias[];      // Type aliases
+  
+  // Special types
+  natives: IMetadataNative[];     // Built-in types (Date, RegExp, etc.)
+  sets: IMetadataSet[];          // Set types
+  maps: IMetadataMap[];          // Map types
+  functions: IMetadataFunction[]; // Function types
+  
+  // Advanced features
+  escaped: IMetadataEscaped | null; // Escaped/encoded types
+  rest: IMetadata | null;           // Rest parameters
+}
+```
+
+### Components (`IMetadataComponents`)
+
+Shared components store detailed information about complex types:
+
+```typescript
+interface IMetadataComponents {
+  objects: IMetadataObjectType[];  // Object type definitions
+  aliases: IMetadataAliasType[];   // Alias type definitions  
+  arrays: IMetadataArrayType[];    // Array type definitions
+  tuples: IMetadataTupleType[];    // Tuple type definitions
+}
+```
+
+## Understanding Type Categories
+
+### Atomic Types
+
+Atomic types represent TypeScript's primitive types:
+
+<Tabs items={['Example', 'Output']}>
+<Tab>
+
+```typescript
+interface Example {
+  text: string;
+  count: number;
+  flag: boolean;
+  value: bigint;
+}
+
+const metadata = typia.reflect.metadata<[Example]>();
+```
+
+</Tab>
+<Tab>
+
+```json
+{
+  "atomics": [
+    { "type": "string", "tags": [] },
+    { "type": "number", "tags": [] },
+    { "type": "boolean", "tags": [] },
+    { "type": "bigint", "tags": [] }
+  ]
+}
+```
+
+</Tab>
+</Tabs>
+
+### Constant Types
+
+Constant types represent literal values:
+
+<Tabs items={['Example', 'Output']}>
+<Tab>
+
+```typescript
+interface Status {
+  type: "active" | "inactive";
+  code: 200 | 404 | 500;
+  success: true;
+}
+
+const metadata = typia.reflect.metadata<[Status]>();
+```
+
+</Tab>
+<Tab>
+
+```json
+{
+  "constants": [
+    {
+      "type": "string",
+      "values": [
+        { "value": "active", "tags": [] },
+        { "value": "inactive", "tags": [] }
+      ]
+    },
+    {
+      "type": "number", 
+      "values": [
+        { "value": 200, "tags": [] },
+        { "value": 404, "tags": [] },
+        { "value": 500, "tags": [] }
+      ]
+    },
+    {
+      "type": "boolean",
+      "values": [
+        { "value": true, "tags": [] }
+      ]
+    }
+  ]
+}
+```
+
+</Tab>
+</Tabs>
+
+### Object Types
+
+Object types describe the structure of TypeScript interfaces and classes:
+
+<Tabs items={['Example', 'Output']}>
+<Tab>
+
+```typescript
+interface Person {
+  name: string;
+  age: number;
+  email?: string;
+}
+
+const metadata = typia.reflect.metadata<[Person]>();
+```
+
+</Tab>
+<Tab>
+
+```json
+{
+  "objects": [
+    {
+      "name": "Person",
+      "properties": [
+        {
+          "key": {
+            "constants": [
+              {
+                "type": "string",
+                "values": [{ "value": "name", "tags": [] }]
+              }
+            ]
+          },
+          "value": {
+            "atomics": [{ "type": "string", "tags": [] }],
+            "required": true,
+            "optional": false,
+            "nullable": false
+          }
+        },
+        {
+          "key": {
+            "constants": [
+              {
+                "type": "string", 
+                "values": [{ "value": "age", "tags": [] }]
+              }
+            ]
+          },
+          "value": {
+            "atomics": [{ "type": "number", "tags": [] }],
+            "required": true,
+            "optional": false,
+            "nullable": false
+          }
+        },
+        {
+          "key": {
+            "constants": [
+              {
+                "type": "string",
+                "values": [{ "value": "email", "tags": [] }]
+              }
+            ]
+          },
+          "value": {
+            "atomics": [{ "type": "string", "tags": [] }],
+            "required": false,
+            "optional": true,
+            "nullable": false
+          }
+        }
+      ]
+    }
+  ]
+}
+```
+
+</Tab>
+</Tabs>
+
+### Array Types
+
+Array types describe collections and their element types:
+
+<Tabs items={['Example', 'Output']}>
+<Tab>
+
+```typescript
+interface DataContainer {
+  items: string[];
+  matrix: number[][];
+  mixed: (string | number)[];
+}
+
+const metadata = typia.reflect.metadata<[DataContainer]>();
+```
+
+</Tab>
+<Tab>
+
+```json
+{
+  "arrays": [
+    {
+      "name": "Array<string>",
+      "value": {
+        "atomics": [{ "type": "string", "tags": [] }]
+      }
+    },
+    {
+      "name": "Array<Array<number>>",
+      "value": {
+        "arrays": [
+          { "name": "Array<number>", "tags": [] }
+        ]
+      }
+    },
+    {
+      "name": "Array<string | number>",
+      "value": {
+        "atomics": [
+          { "type": "string", "tags": [] },
+          { "type": "number", "tags": [] }
+        ]
+      }
+    }
+  ]
+}
+```
+
+</Tab>
+</Tabs>
+
+## Working with Validation Tags
+
+Typia's metadata system preserves validation constraints defined through comment tags:
+
+<Tabs items={['Example', 'Metadata']}>
+<Tab>
+
+```typescript
+import { tags } from "typia";
+
+interface UserProfile {
+  /**
+   * User's display name
+   * 
+   * @minLength 1
+   * @maxLength 50
+   */
+  name: string;
+  
+  /**
+   * User's age
+   *
+   * @minimum 0
+   * @maximum 150
+   */  
+  age: number & tags.Minimum<0> & tags.Maximum<150>;
+  
+  /**
+   * User's email address
+   *
+   * @format email
+   */
+  email: string & tags.Format<"email">;
+}
+
+const metadata = typia.reflect.metadata<[UserProfile]>();
+```
+
+</Tab>
+<Tab>
+
+The metadata will include the validation tags in the `tags` arrays:
+
+```json
+{
+  "objects": [{
+    "properties": [
+      {
+        "key": { "constants": [{ "value": "name" }] },
+        "value": {
+          "atomics": [{
+            "type": "string",
+            "tags": [[
+              { "kind": "minLength", "value": 1 },
+              { "kind": "maxLength", "value": 50 }
+            ]]
+          }]
+        }
+      },
+      {
+        "key": { "constants": [{ "value": "age" }] },
+        "value": {
+          "atomics": [{
+            "type": "number", 
+            "tags": [[
+              { "kind": "minimum", "value": 0 },
+              { "kind": "maximum", "value": 150 }
+            ]]
+          }]
+        }
+      },
+      {
+        "key": { "constants": [{ "value": "email" }] },
+        "value": {
+          "atomics": [{
+            "type": "string",
+            "tags": [[
+              { "kind": "format", "value": "email" }
+            ]]
+          }]
+        }
+      }
+    ]
+  }]
+}
+```
+
+</Tab>
+</Tabs>
+
+## Advanced Features
+
+### Union Types
+
+Union types create multiple possible type branches:
+
+```typescript
+interface Response {
+  status: "success" | "error";
+  data: string | { message: string };
+}
+
+const metadata = typia.reflect.metadata<[Response]>();
+// The metadata will contain separate entries for each union branch
+```
+
+### Generic Types
+
+Generic types are resolved to their concrete implementations:
+
+```typescript
+interface Container<T> {
+  value: T;
+  items: T[];
+}
+
+type StringContainer = Container<string>;
+type NumberContainer = Container<number>;
+
+const metadata = typia.reflect.metadata<[StringContainer, NumberContainer]>();
+// Each concrete type gets its own metadata entry
+```
+
+### Recursive Types
+
+Recursive types are properly handled with cycle detection:
+
+```typescript
+interface TreeNode {
+  value: string;
+  children: TreeNode[];
+}
+
+const metadata = typia.reflect.metadata<[TreeNode]>();
+// The metadata includes recursive relationship information
+```
+
+## Practical Examples
+
+### Building a Type Inspector
+
+```typescript
+import typia from "typia";
+
+function inspectType<T>(): void {
+  const metadata = typia.reflect.metadata<[T]>();
+  
+  console.log("=== Type Analysis ===");
+  
+  for (const meta of metadata.metadatas) {
+    console.log(`Required: ${meta.required}`);
+    console.log(`Optional: ${meta.optional}`);
+    console.log(`Nullable: ${meta.nullable}`);
+    
+    if (meta.atomics.length > 0) {
+      console.log("Atomic types:", meta.atomics.map(a => a.type));
+    }
+    
+    if (meta.objects.length > 0) {
+      console.log("Object types:", meta.objects.map(o => o.name));
+    }
+    
+    if (meta.arrays.length > 0) {
+      console.log("Array types:", meta.arrays.map(a => a.name));
+    }
+  }
+  
+  console.log("\n=== Components ===");
+  console.log(`Objects: ${metadata.components.objects.length}`);
+  console.log(`Arrays: ${metadata.components.arrays.length}`);
+  console.log(`Aliases: ${metadata.components.aliases.length}`);
+  console.log(`Tuples: ${metadata.components.tuples.length}`);
+}
+
+// Usage
+interface ComplexType {
+  id: string;
+  data: { values: number[] }[];
+  optional?: boolean;
+}
+
+inspectType<ComplexType>();
+```
+
+### Generating Documentation
+
+```typescript
+import typia from "typia";
+
+function generateDocs<T>(): string {
+  const metadata = typia.reflect.metadata<[T]>();
+  const docs: string[] = [];
+  
+  for (const obj of metadata.components.objects) {
+    docs.push(`## ${obj.name}\n`);
+    
+    for (const prop of obj.properties) {
+      const keyName = prop.key.constants?.[0]?.values?.[0]?.value;
+      if (keyName) {
+        const required = prop.value.required ? "" : " (optional)";
+        const nullable = prop.value.nullable ? " | null" : "";
+        
+        let typeDesc = "";
+        if (prop.value.atomics.length > 0) {
+          typeDesc = prop.value.atomics.map(a => a.type).join(" | ");
+        }
+        if (prop.value.objects.length > 0) {
+          typeDesc = prop.value.objects.map(o => o.name).join(" | ");
+        }
+        
+        docs.push(`- **${keyName}**${required}: \`${typeDesc}${nullable}\``);
+        
+        if (prop.description) {
+          docs.push(`  - ${prop.description}`);
+        }
+      }
+    }
+    docs.push("");
+  }
+  
+  return docs.join("\n");
+}
+
+// Usage with documented interface
+interface APIEndpoint {
+  /** Unique identifier for the endpoint */
+  id: string;
+  
+  /** HTTP method for the endpoint */
+  method: "GET" | "POST" | "PUT" | "DELETE";
+  
+  /** Optional request body schema */
+  body?: object;
+}
+
+console.log(generateDocs<APIEndpoint>());
+```
+
+## Performance Considerations
+
+### Compile-Time vs Runtime
+
+- **Metadata extraction happens at compile-time**, so there's no runtime performance cost for type analysis
+- **Generated metadata is serializable** and can be cached or stored
+- **Runtime usage** only involves traversing the pre-generated metadata structure
+
+### Memory Usage
+
+- Metadata structures are optimized and shared between types
+- Components are deduplicated to avoid redundant information
+- Large type structures generate correspondingly large metadata - consider this when working with very complex types
+
+## Error Handling
+
+### Common Issues
+
+<Callout type="error">
+**Type Resolution Errors**: If typia cannot resolve a type (e.g., due to circular imports), metadata extraction will fail at compile time.
+</Callout>
+
+<Callout type="warning">
+**Generic Type Constraints**: Some complex generic types might not be fully representable in metadata. Always test with your specific use cases.
+</Callout>
+
+### Debugging Tips
+
+1. **Start Simple**: Begin with basic types and gradually add complexity
+2. **Check Build Output**: Ensure typia's transformer is running correctly
+3. **Inspect Generated Metadata**: Use `JSON.stringify()` to examine the full metadata structure
+4. **Use Type Predicates**: Leverage the metadata to build type guards and validation logic
+
+## Integration with Other Features
+
+The metadata system integrates seamlessly with other typia features:
+
+- **Validators**: Use metadata to understand validation constraints
+- **JSON Schema**: Convert metadata to JSON Schema format  
+- **LLM Integration**: Generate function calling schemas from metadata
+- **Protocol Buffers**: Create protobuf definitions from type metadata
+
+## Next Steps
+
+- Explore [JSON Schema generation](/docs/json) using metadata
+- Learn about [LLM function calling](/docs/llm) powered by metadata
+- See [validation examples](/docs/validators) that leverage type metadata
+- Check the [API reference](/api) for detailed interface definitions

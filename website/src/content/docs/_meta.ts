@@ -13,6 +13,7 @@ export default {
   json: "Enhanced JSON",
   llm: "LLM Function Calling",
   protobuf: "Protocol Buffer",
+  reflect: "Reflection",
   random: "Random Generator",
   misc: "Miscellaneous",
 

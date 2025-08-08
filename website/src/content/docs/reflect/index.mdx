@@ -1,0 +1,111 @@
+---
+title: Reflection
+description: TypeScript type reflection at compile-time with typia
+toc: true
+---
+
+import { Cards, Card } from 'nextra-theme-docs'
+
+# Reflection
+
+Typia provides powerful **compile-time type reflection** capabilities that allow you to analyze TypeScript types at runtime. Through the reflection system, you can extract detailed structural information about your types, including their properties, validation constraints, nested structures, and more.
+
+The reflection system is the foundation that powers many of typia's advanced features like runtime validation, JSON schema generation, and LLM function calling.
+
+## Features
+
+<Cards>
+  <Card
+    icon={🔍}
+    title="Type Metadata"
+    href="/docs/reflect/metadata"
+  >
+    Extract comprehensive metadata about TypeScript types at compile-time
+  </Card>
+</Cards>
+
+## Overview
+
+Typia's reflection system works by analyzing TypeScript types during the compilation phase and generating rich metadata structures that can be used at runtime. This allows you to:
+
+- **Introspect Types**: Understand the structure and constraints of your types
+- **Generate Schemas**: Create JSON schemas, validation logic, and documentation
+- **Runtime Analysis**: Analyze type information that would normally be lost at runtime
+- **Tool Integration**: Build tools and libraries that work with type information
+
+## Key Concepts
+
+### Compile-Time Analysis
+Unlike traditional reflection systems that work at runtime, typia analyzes types during TypeScript compilation. This means:
+- Zero runtime overhead for type analysis
+- Full access to TypeScript's type system
+- Preservation of generic type information
+- Support for complex type constructs
+
+### Metadata Structure
+The reflection system generates structured metadata that describes:
+- **Atomic types**: `string`, `number`, `boolean`, etc.
+- **Complex types**: Objects, arrays, tuples, unions
+- **Validation constraints**: Type tags, comments, and decorators
+- **Relationships**: How types relate to each other
+- **Nullability**: Optional and nullable properties
+
+### Transformation Pipeline
+The reflection process involves:
+1. **Type Analysis**: TypeScript AST parsing and type checking
+2. **Metadata Generation**: Converting types to structured metadata
+3. **Optimization**: Removing redundant information and optimizing structure
+4. **Serialization**: Converting to JSON-serializable format
+
+## Use Cases
+
+### API Documentation
+Generate comprehensive API documentation directly from TypeScript types:
+
+```typescript
+// Your API types
+interface UserCreateRequest {
+  name: string;
+  email: string;
+  age?: number;
+}
+
+// Extract metadata for documentation
+const metadata = typia.reflect.metadata<[UserCreateRequest]>();
+// Use metadata to generate OpenAPI specs, docs, etc.
+```
+
+### Schema Generation
+Create validation schemas from your types:
+
+```typescript
+interface Product {
+  id: string;
+  name: string;
+  price: number & tags.Minimum<0>;
+  tags?: string[];
+}
+
+const metadata = typia.reflect.metadata<[Product]>();
+// Use metadata to generate JSON Schema, validation logic, etc.
+```
+
+### Tool Development
+Build development tools that understand your types:
+
+```typescript
+// Analyze a complex type structure
+const metadata = typia.reflect.metadata<[ComplexType]>();
+
+// Walk through the metadata to:
+// - Generate test data
+// - Create mock objects  
+// - Build type-safe utilities
+// - Perform static analysis
+```
+
+## Getting Started
+
+To start using typia's reflection capabilities, make sure you have typia properly configured in your TypeScript project. The reflection system requires compile-time transformation, so ensure your build pipeline includes typia's transformer.
+
+Continue to the [Metadata](/docs/reflect/metadata) section to learn about extracting and working with type metadata.
