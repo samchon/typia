@@ -8,6 +8,7 @@ import { IValidation } from "./IValidation";
 import { Resolved } from "./Resolved";
 import { TypeGuardError } from "./TypeGuardError";
 
+export * as decorators from "./decorators";
 export * as functional from "./functional";
 export * as http from "./http";
 export * as llm from "./llm";
