@@ -72,7 +72,9 @@ import { LlmControllerTransformer } from "./features/llm/LlmControllerTransforme
 import { LlmParametersTransformer } from "./features/llm/LlmParametersTransformer";
 import { LlmSchemaTransformer } from "./features/llm/LlmSchemaTransformer";
 import { MiscAssertCloneTransformer } from "./features/misc/MiscAssertCloneTransformer";
+import { MiscAssertClassTransformTransformer } from "./features/misc/MiscAssertClassTransformTransformer";
 import { MiscAssertPruneTransformer } from "./features/misc/MiscAssertPruneTransformer";
+import { MiscClassTransformTransformer } from "./features/misc/MiscClassTransformTransformer";
 import { MiscCloneTransformer } from "./features/misc/MiscCloneTransformer";
 import { MiscCreateAssertCloneTransformer } from "./features/misc/MiscCreateAssertCloneTransformer";
 import { MiscCreateAssertPruneTransformer } from "./features/misc/MiscCreateAssertPruneTransformer";
@@ -468,6 +470,10 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
   },
   misc: {
     literals: () => MiscLiteralsTransformer.transform,
+
+    // CLASS TRANSFORM
+    classTransform: () => MiscClassTransformTransformer.transform,
+    assertClassTransform: () => MiscAssertClassTransformTransformer.transform,
 
     // CLONE
     clone: () => MiscCloneTransformer.transform,
