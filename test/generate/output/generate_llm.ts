@@ -2219,17 +2219,16 @@ export const application = (() => {
   __typia_transform__llmApplicationFinalize._llmApplicationFinalize(
     application,
     {
-      separate: (
-        {
-          separate: (schema) =>
-            LlamaTypeChecker.isString(schema) && schema.format === "date-time",
-        } satisfies Partial<
-          Pick<
-            import("@samchon/openapi").ILlmApplication.IOptions<"llama">,
-            "separate"
-          >
+      ...({
+        separate: (schema) =>
+          LlamaTypeChecker.isString(schema) && schema.format === "date-time",
+      } satisfies Partial<
+        Pick<
+          import("@samchon/openapi").ILlmApplication.IOptions<"llama">,
+          "separate" | "validate"
         >
-      )?.separate,
+      >),
+      equals: false,
     },
   );
   return application;
@@ -4249,19 +4248,18 @@ export const application = (() => {
   __typia_transform__llmApplicationFinalize._llmApplicationFinalize(
     application,
     {
-      separate: (
-        {
-          separate: (schema) =>
-            LlamaTypeChecker.isString(schema) && schema.format === "date-time",
-        } satisfies Partial<
-          Pick<ILlmApplication.IOptions<"llama">, "separate">
-        > satisfies Partial<
-          Pick<
-            import("@samchon/openapi").ILlmApplication.IOptions<"llama">,
-            "separate"
-          >
+      ...({
+        separate: (schema) =>
+          LlamaTypeChecker.isString(schema) && schema.format === "date-time",
+      } satisfies Partial<
+        Pick<ILlmApplication.IOptions<"llama">, "separate">
+      > satisfies Partial<
+        Pick<
+          import("@samchon/openapi").ILlmApplication.IOptions<"llama">,
+          "separate" | "validate"
         >
-      )?.separate,
+      >),
+      equals: false,
     },
   );
   return application;

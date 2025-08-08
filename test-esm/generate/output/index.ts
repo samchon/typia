@@ -11,7 +11,7 @@ const controller: ILlmController<"chatgpt"> =
     const application = {
       model: "chatgpt",
       options: {
-        reference: false,
+        reference: true,
         strict: false,
         separate: null,
       },
