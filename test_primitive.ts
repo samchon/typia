@@ -1,36 +1,24 @@
 import { Primitive } from './src/Primitive';
 import { IsTuple } from './src/typings/IsTuple';
 
-// Test the issue reported
+// Focus on the specific issue from the bug report
 type X = ['asdf', ...string[], 'zxcv'];
-type ThisTypeIsOnlyStringArray = Primitive<X>;
 
-// Let's test some other edge cases too
-type TupleWithoutRest = ['asdf', 'qwer', 'zxcv'];
-type TupleWithoutRestPrimitive = Primitive<TupleWithoutRest>;
+// Debug step by step
+type Step1_IsTupleX = IsTuple<X>;
+type Step2_PrimitiveX = Primitive<X>;
 
-type TupleWithRestMiddle = ['asdf', ...string[], 'middle', 'zxcv'];
-type TupleWithRestMiddlePrimitive = Primitive<TupleWithRestMiddle>;
+// Check if our expected result matches
+type ExpectedResult = ['asdf', ...string[], 'zxcv'];
+type DoesMatch = Step2_PrimitiveX extends ExpectedResult ? true : false;
+type DoesMatchReverse = ExpectedResult extends Step2_PrimitiveX ? true : false;
 
-type TupleWithRestStart = [...string[], 'end'];
-type TupleWithRestStartPrimitive = Primitive<TupleWithRestStart>;
+// Test other cases that should work
+type TupleWithRestEnd = [...string[], 'end'];
+type TupleWithRestEndIsTuple = IsTuple<TupleWithRestEnd>;
+type TupleWithRestEndPrimitive = Primitive<TupleWithRestEnd>;
 
-type StringArray = string[];
-type StringArrayPrimitive = Primitive<StringArray>;
-
-// Debug IsTuple behavior
-type IsTupleX = IsTuple<X>;
-type IsTupleNormal = IsTuple<TupleWithoutRest>;
-type IsTupleStringArray = IsTuple<StringArray>;
-type IsTupleMiddle = IsTuple<TupleWithRestMiddle>;
-type IsTupleStart = IsTuple<TupleWithRestStart>;
-
-// Debug: check the length property
-type LengthX = X['length'];
-type LengthNormal = TupleWithoutRest['length'];
-type LengthStringArray = StringArray['length'];
-
-// These should show us what's happening
-const tupleTest1: IsTupleX = true; // Will this compile?
-const tupleTest2: IsTupleNormal = true;  // Will this compile?  
-const tupleTest3: IsTupleStringArray = false; // Will this compile?
+// Test assignments to see actual types
+const test1: Step1_IsTupleX = true;  // Should be true
+const test2: TupleWithRestEndIsTuple = true;  // Should be true  
+const test3: DoesMatch = true;        // Should be true if types match
