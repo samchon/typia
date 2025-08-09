@@ -1,12 +1,12 @@
 /**
  * Base type for all validation tags in typia.
- * 
+ *
  * TagBase provides the foundation for all typia's validation tags. It attaches
  * metadata to TypeScript types that typia's transformer processes at compile-time
  * to generate optimized runtime validation code.
- * 
+ *
  * @template Props - Tag properties that define validation behavior
- * 
+ *
  * @example
  * ```typescript
  * // Custom tag example
@@ -17,7 +17,7 @@
  *   validate: `$input === ${Value}`;
  * }>;
  * ```
- * 
+ *
  * @author Jeongho Nam - https://github.com/samchon
  */
 export type TagBase<
@@ -33,7 +33,7 @@ export type TagBase<
 export namespace TagBase {
   /**
    * Properties interface for validation tags.
-   * 
+   *
    * @author Jeongho Nam - https://github.com/samchon
    */
   export interface IProps<

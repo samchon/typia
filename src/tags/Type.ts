@@ -2,10 +2,10 @@ import { TagBase } from "./TagBase";
 
 /**
  * Type tag for specifying numeric bit-width representations.
- * 
+ *
  * Constrains numeric types to specific bit-width formats used in systems programming
  * and protocol buffers. Ensures numbers conform to platform-specific representations.
- * 
+ *
  * Supported types:
  * - `int32`: 32-bit signed integer (-2^31 to 2^31-1)
  * - `uint32`: 32-bit unsigned integer (0 to 2^32-1)
@@ -13,9 +13,9 @@ import { TagBase } from "./TagBase";
  * - `uint64`: 64-bit unsigned integer (supports both bigint and number)
  * - `float`: 32-bit floating point (single precision)
  * - `double`: 64-bit floating point (double precision, default JS number)
- * 
+ *
  * @template Value - The numeric type representation
- * 
+ *
  * @example
  * ```typescript
  * type Score = number & Type<"int32">;      // -2,147,483,648 to 2,147,483,647
@@ -23,7 +23,7 @@ import { TagBase } from "./TagBase";
  * type FileSize = bigint & Type<"int64">;   // Large file sizes
  * type Coordinate = number & Type<"double">; // High precision coordinates
  * ```
- * 
+ *
  * @author Jeongho Nam - https://github.com/samchon
  */
 export type Type<

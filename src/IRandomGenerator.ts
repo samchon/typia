@@ -288,25 +288,33 @@ export namespace IRandomGenerator {
      * Custom string generator that can handle special string formats
      * based on schema properties.
      */
-    string?: (schema: OpenApi.IJsonSchema.IString & Record<string, any>) => string;
+    string?: (
+      schema: OpenApi.IJsonSchema.IString & Record<string, any>,
+    ) => string;
 
     /**
      * Custom number generator that can handle special number constraints
      * based on schema properties.
      */
-    number?: (schema: OpenApi.IJsonSchema.INumber & Record<string, any>) => number;
+    number?: (
+      schema: OpenApi.IJsonSchema.INumber & Record<string, any>,
+    ) => number;
 
     /**
      * Custom integer generator that can handle special integer constraints
      * based on schema properties.
      */
-    integer?: (schema: OpenApi.IJsonSchema.IInteger & Record<string, any>) => number;
+    integer?: (
+      schema: OpenApi.IJsonSchema.IInteger & Record<string, any>,
+    ) => number;
 
     /**
      * Custom bigint generator that can handle special bigint constraints
      * based on schema properties.
      */
-    bigint?: (schema: OpenApi.IJsonSchema.IInteger & Record<string, any>) => bigint;
+    bigint?: (
+      schema: OpenApi.IJsonSchema.IInteger & Record<string, any>,
+    ) => bigint;
 
     /**
      * Custom boolean generator that can handle special boolean constraints
@@ -321,7 +329,7 @@ export namespace IRandomGenerator {
     array?: <T>(
       schema: Omit<OpenApi.IJsonSchema.IArray, "items"> & {
         element: (index: number, count: number) => T;
-      } & Record<string, any>
+      } & Record<string, any>,
     ) => T[];
   }
 }
