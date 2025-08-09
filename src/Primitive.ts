@@ -39,108 +39,95 @@ import { Format } from "./tags";
  * @author Michael - https://github.com/8471919
  */
 export type Primitive<T> =
-  Equal<T, PrimitiveMain<T>> extends true ? T : PrimitiveMain<T>;
+  Equal<T, PrimitiveMain<T, []>> extends true ? T : PrimitiveMain<T, []>;
 
-type PrimitiveMain<Instance> = Instance extends [never]
-  ? never // (special trick for jsonable | null) type
-  : ValueOf<Instance> extends bigint
-    ? never
-    : ValueOf<Instance> extends boolean | number | string
-      ? ValueOf<Instance>
-      : Instance extends Function
+type PrimitiveMain<Instance, _Depth extends readonly any[] = []> = 
+  _Depth['length'] extends 15 // Add global depth limit
+    ? any // Fallback to any for very deep recursion
+    : Instance extends [never]
+      ? never // (special trick for jsonable | null) type
+      : ValueOf<Instance> extends bigint
         ? never
-        : ValueOf<Instance> extends object
-          ? Instance extends object
-            ? Instance extends Date
-              ? string & Format<"date-time">
-              : Instance extends IJsonable<infer Raw>
-                ? ValueOf<Raw> extends object
-                  ? Raw extends object
-                    ? PrimitiveObject<Raw> // object would be primitified
-                    : never // cannot be
-                  : ValueOf<Raw> // atomic value
-                : Instance extends Exclude<NativeClass, Date>
-                  ? never
-                  : PrimitiveObject<Instance> // object would be primitified
-            : never // cannot be
-          : ValueOf<Instance>;
+        : ValueOf<Instance> extends boolean | number | string
+          ? ValueOf<Instance>
+          : Instance extends Function
+            ? never
+            : ValueOf<Instance> extends object
+              ? Instance extends object
+                ? Instance extends Date
+                  ? string & Format<"date-time">
+                  : Instance extends IJsonable<infer Raw>
+                    ? ValueOf<Raw> extends object
+                      ? Raw extends object
+                        ? PrimitiveObject<Raw, [..._Depth, any]> // object would be primitified
+                        : never // cannot be
+                      : ValueOf<Raw> // atomic value
+                    : Instance extends Exclude<NativeClass, Date>
+                      ? never
+                      : PrimitiveObject<Instance, [..._Depth, any]> // object would be primitified
+                : never // cannot be
+              : ValueOf<Instance>;
 
-type PrimitiveObject<Instance extends object> =
+type PrimitiveObject<Instance extends object, _Depth extends readonly any[] = []> =
   Instance extends Array<infer T>
-    ? IsPrimitiveTuple<Instance> extends true
-      ? PrimitiveTuple<Instance>
-      : PrimitiveMain<T>[]
+    ? IsPrimitiveTuple<Instance, _Depth> extends true
+      ? PrimitiveTuple<Instance, _Depth>
+      : PrimitiveMain<T, _Depth>[]
     : {
-        [P in keyof Instance]: PrimitiveMain<Instance[P]>;
+        [P in keyof Instance]: PrimitiveMain<Instance[P], _Depth>;
       };
 
 // Specialized tuple detection for Primitive type that handles rest tuples with literal elements
-type IsPrimitiveTuple<T extends readonly any[] | { length: number }> = [
-  T,
-] extends [never]
-  ? false
-  : T extends readonly any[]
-    ? number extends T["length"]
-      ? HasLiteralElements<T>  // For variable-length arrays, check if they have literal elements
-      : true  // Fixed-length tuples
-    : false;
-
-// Check if a variable-length array has literal elements (indicating it's a rest tuple, not a plain array)
-type HasLiteralElements<T extends readonly any[]> = 
-  T extends readonly [infer First, ...any[]]
-    ? IsLiteralType<First> extends true
-      ? true
-      : T extends readonly [...any[], infer Last]
-        ? IsLiteralType<Last>
-        : false
-    : T extends readonly [...any[], infer Last]
-      ? IsLiteralType<Last>
-      : false;
-
-type IsLiteralType<T> = T extends string
-  ? string extends T
-    ? false
-    : true
-  : T extends number
-    ? number extends T
+// Uses recursion depth limiting to prevent infinite type instantiation
+type IsPrimitiveTuple<T extends readonly any[] | { length: number }, _Depth extends readonly any[] = []> = 
+  _Depth['length'] extends 10 // Limit recursion depth to prevent infinite instantiation
+    ? false 
+    : [T] extends [never]
       ? false
-      : true
-    : T extends boolean
-      ? boolean extends T
-        ? false
-        : true
-      : true;
-
-type PrimitiveTuple<T extends readonly any[]> = HasRestElement<T> extends true
-  ? PreserveRestTuple<T>
-  : DecomposeRegularTuple<T>;
-
-type HasRestElement<T extends readonly any[]> = 
-  T extends readonly [any, ...any[], any]
-    ? true
-    : T extends readonly [...any[], any]
-      ? true
-      : T extends readonly [any, ...any[]]
+      : T extends readonly any[]
         ? number extends T["length"]
-          ? true
-          : false
+          ? IsRestTupleWithLiterals<T, _Depth>  // For variable-length arrays, check for rest tuple pattern
+          : true  // Fixed-length tuples
         : false;
 
-type PreserveRestTuple<T extends readonly any[]> = {
-  [K in keyof T]: PrimitiveMain<T[K]>;
-};
+// Simplified detection for the specific pattern: literals at start/end with rest in middle
+type IsRestTupleWithLiterals<T extends readonly any[], _Depth extends readonly any[] = []> =
+  _Depth['length'] extends 5 // Shallow depth limit for this check
+    ? false
+    : T extends readonly [infer First, ...any[], infer Last]
+      ? IsLiteralType<First> extends true
+        ? true
+        : IsLiteralType<Last> extends true
+          ? true
+          : false
+      : T extends readonly [infer Single, ...any[]]
+        ? IsLiteralType<Single>
+        : T extends readonly [...any[], infer Single]
+          ? IsLiteralType<Single>
+          : false;
 
-type DecomposeRegularTuple<T extends readonly any[]> = T extends []
-  ? []
-  : T extends [infer F]
-    ? [PrimitiveMain<F>]
-    : T extends [infer F, ...infer Rest extends readonly any[]]
-      ? [PrimitiveMain<F>, ...DecomposeRegularTuple<Rest>]
-      : T extends [(infer F)?]
-        ? [PrimitiveMain<F>?]
-        : T extends [(infer F)?, ...infer Rest extends readonly any[]]
-          ? [PrimitiveMain<F>?, ...DecomposeRegularTuple<Rest>]
-          : [];
+type IsLiteralType<T> = T extends string
+  ? string extends T ? false : true
+  : T extends number
+    ? number extends T ? false : true
+    : T extends boolean
+      ? boolean extends T ? false : true
+      : false;
+
+type PrimitiveTuple<T extends readonly any[], _Depth extends readonly any[] = []> = 
+  _Depth['length'] extends 8 // Limit recursion depth
+    ? PrimitiveMain<T[number], _Depth>[] // Fallback to array for deep recursion
+    : T extends readonly []
+      ? []
+      : T extends readonly [infer F]
+        ? [PrimitiveMain<F, _Depth>]
+        : T extends readonly [infer F, ...infer Rest extends readonly any[]]
+          ? [PrimitiveMain<F, _Depth>, ...PrimitiveTuple<Rest, [..._Depth, any]>]
+          : T extends readonly [(infer F)?]
+            ? [PrimitiveMain<F, _Depth>?]
+            : T extends readonly [(infer F)?, ...infer Rest extends readonly any[]]
+              ? [PrimitiveMain<F, _Depth>?, ...PrimitiveTuple<Rest, [..._Depth, any]>]
+              : PrimitiveMain<T[number], _Depth>[];
 
 interface IJsonable<T> {
   toJSON(): T;
