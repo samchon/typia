@@ -67,7 +67,10 @@ export namespace MiscAssertClassTransformProgrammer {
             ts.factory.createCallExpression(
               ts.factory.createIdentifier("__assert"),
               undefined,
-              [ts.factory.createIdentifier("input")],
+              [
+                ts.factory.createIdentifier("input"),
+                ts.factory.createIdentifier("errorFactory"),
+              ],
             ),
           ],
         ),

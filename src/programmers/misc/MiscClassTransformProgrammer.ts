@@ -166,8 +166,22 @@ export namespace MiscClassTransformProgrammer {
     metadata: Metadata;
     input: ts.Expression;
   }): ts.Expression => {
-    // For now, just return a simple object transformation
-    // This is a minimal implementation to get the structure working
+    // Check if this is an object type that represents a class
+    if (props.metadata.objects.length === 1) {
+      const obj = props.metadata.objects[0];
+      const objType = obj?.type;
+      
+      if (objType && objType.name && objType.name !== "object" && objType.name !== "Object") {
+        // This looks like a class - generate proper class instantiation
+        return createClassTransformExpression({
+          className: objType.name,
+          input: props.input,
+          properties: objType.properties,
+        });
+      }
+    }
+    
+    // Fallback to simple object assignment for non-class types
     return ts.factory.createCallExpression(
       ts.factory.createPropertyAccessExpression(
         ts.factory.createIdentifier("Object"),
@@ -178,6 +192,66 @@ export namespace MiscClassTransformProgrammer {
         ts.factory.createObjectLiteralExpression([]),
         props.input
       ]
+    );
+  };
+
+  const createClassTransformExpression = (props: {
+    className: string;
+    input: ts.Expression;
+    properties: any[];
+  }): ts.Expression => {
+    // Generate code that creates a new instance and assigns properties
+    const instanceVar = ts.factory.createIdentifier("instance");
+    
+    return ts.factory.createCallExpression(
+      ts.factory.createArrowFunction(
+        undefined,
+        undefined,
+        [],
+        undefined,
+        undefined,
+        ts.factory.createBlock([
+          // Create new instance: const instance = Object.create(ClassName.prototype);
+          ts.factory.createVariableStatement(
+            undefined,
+            ts.factory.createVariableDeclarationList([
+              ts.factory.createVariableDeclaration(
+                instanceVar,
+                undefined,
+                undefined,
+                ts.factory.createCallExpression(
+                  ts.factory.createPropertyAccessExpression(
+                    ts.factory.createIdentifier("Object"),
+                    "create"
+                  ),
+                  undefined,
+                  [
+                    ts.factory.createPropertyAccessExpression(
+                      ts.factory.createIdentifier(props.className),
+                      "prototype"
+                    )
+                  ]
+                )
+              )
+            ], ts.NodeFlags.Const)
+          ),
+          // Assign properties: Object.assign(instance, input);
+          ts.factory.createExpressionStatement(
+            ts.factory.createCallExpression(
+              ts.factory.createPropertyAccessExpression(
+                ts.factory.createIdentifier("Object"),
+                "assign"
+              ),
+              undefined,
+              [instanceVar, props.input]
+            )
+          ),
+          // Return the instance
+          ts.factory.createReturnStatement(instanceVar)
+        ])
+      ),
+      undefined,
+      []
     );
   };
 }
