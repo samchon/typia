@@ -17,6 +17,7 @@ export * as notations from "./notations";
 export * as protobuf from "./protobuf";
 export * as reflect from "./reflect";
 export * as tags from "./tags";
+export * as compare from "./compare";
 
 export * from "./schemas/metadata/IJsDocTagInfo";
 export * from "./schemas/json/IJsonApplication";
