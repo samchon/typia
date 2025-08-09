@@ -738,36 +738,3 @@ export function validateEqualsReturn<T extends (...args: any[]) => any>(
 export function validateEqualsReturn(): never {
   NoTransformConfigurationError("functional.validateEqualsReturn");
 }
-
-/* -----------------------------------------------------------
-  MATCH
------------------------------------------------------------ */
-/**
- * Pattern matching with types.
- *
- * Creates a pattern matching expression that validates input against TypeScript 
- * types and executes corresponding handlers. The function is transformed at 
- * compile-time to generate optimized conditional statements.
- *
- * @template T Union type to match against  
- * @template R Return type of the matching result
- * @param input Value to pattern match
- * @param cases Object with handler functions for different types
- * @param otherwise Optional error handler for unmatched cases
- * @returns Result of the matched handler or error handler
- * @throws {@link TypeGuardError} if no otherwise handler and no match is found
- *
- * @author Jeongho Nam - https://github.com/samchon
- */
-export function match<T, R>(
-  input: T,
-  cases: Record<string, (value: any) => R>,
-  otherwise?: (error: IValidation.IFailure) => R,
-): R;
-
-/**
- * @internal
- */
-export function match(): never {
-  NoTransformConfigurationError("functional.match");
-}

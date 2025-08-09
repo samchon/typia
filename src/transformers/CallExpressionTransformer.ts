@@ -11,7 +11,6 @@ import { FunctionalValidateFunctionProgrammer } from "../programmers/functional/
 import { FunctionalValidateParametersProgrammer } from "../programmers/functional/FunctionalValidateParametersProgrammer";
 import { FunctionalValidateReturnProgrammer } from "../programmers/functional/FunctionalValidateReturnProgrammer";
 import { FunctionalGenericTransformer } from "./features/functional/FunctionalGenericTransformer";
-import { FunctionalMatchTransformer } from "./features/functional/FunctionalMatchTransformer";
 
 import { NamingConvention } from "../utils/NamingConvention";
 
@@ -363,9 +362,6 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
         },
         programmer: FunctionalValidateReturnProgrammer.write,
       }),
-
-    // PATTERN MATCHING
-    match: () => FunctionalMatchTransformer.transform,
   },
   http: {
     // FORM-DATA
