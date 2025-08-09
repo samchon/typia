@@ -1,5 +1,4 @@
 import { Equal } from "./typings/Equal";
-import { IsTuple } from "./typings/IsTuple";
 import { NativeClass } from "./typings/NativeClass";
 import { ValueOf } from "./typings/ValueOf";
 
@@ -68,12 +67,49 @@ type PrimitiveMain<Instance> = Instance extends [never]
 
 type PrimitiveObject<Instance extends object> =
   Instance extends Array<infer T>
-    ? IsTuple<Instance> extends true
+    ? IsPrimitiveTuple<Instance> extends true
       ? PrimitiveTuple<Instance>
       : PrimitiveMain<T>[]
     : {
         [P in keyof Instance]: PrimitiveMain<Instance[P]>;
       };
+
+// Specialized tuple detection for Primitive type that handles rest tuples with literal elements
+type IsPrimitiveTuple<T extends readonly any[] | { length: number }> = [
+  T,
+] extends [never]
+  ? false
+  : T extends readonly any[]
+    ? number extends T["length"]
+      ? HasLiteralElements<T>  // For variable-length arrays, check if they have literal elements
+      : true  // Fixed-length tuples
+    : false;
+
+// Check if a variable-length array has literal elements (indicating it's a rest tuple, not a plain array)
+type HasLiteralElements<T extends readonly any[]> = 
+  T extends readonly [infer First, ...any[]]
+    ? IsLiteralType<First> extends true
+      ? true
+      : T extends readonly [...any[], infer Last]
+        ? IsLiteralType<Last>
+        : false
+    : T extends readonly [...any[], infer Last]
+      ? IsLiteralType<Last>
+      : false;
+
+type IsLiteralType<T> = T extends string
+  ? string extends T
+    ? false
+    : true
+  : T extends number
+    ? number extends T
+      ? false
+      : true
+    : T extends boolean
+      ? boolean extends T
+        ? false
+        : true
+      : true;
 
 type PrimitiveTuple<T extends readonly any[]> = HasRestElement<T> extends true
   ? PreserveRestTuple<T>
