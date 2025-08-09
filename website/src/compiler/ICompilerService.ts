@@ -1,7 +1,9 @@
+import { ITransformOptions } from "../../../src/transformers/ITransformOptions";
+
 export interface ICompilerService {
-  compile(source: string): Promise<ICompilerService.IOutput>;
-  transform(source: string): Promise<ICompilerService.IOutput>;
-  bundle(source: string): Promise<ICompilerService.IOutput>;
+  compile(source: string, options?: ITransformOptions): Promise<ICompilerService.IOutput>;
+  transform(source: string, options?: ITransformOptions): Promise<ICompilerService.IOutput>;
+  bundle(source: string, options?: ITransformOptions): Promise<ICompilerService.IOutput>;
 }
 export namespace ICompilerService {
   export type IOutput = ISuccess | IFailure | IError;

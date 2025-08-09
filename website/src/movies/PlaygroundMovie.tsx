@@ -18,7 +18,9 @@ import OutputViewer from "../components/playground/OutputViewer";
 import SourceEditor from "../components/playground/SourceEditor";
 import Splitter from "../components/playground/Splitter";
 import ConsoleViewer from "../components/playground/ConsoleViewer";
+import TransformOptionsEditor from "../components/playground/TransformOptionsEditor";
 import { ICompilerService } from "../compiler/ICompilerService";
+import { ITransformOptions } from "../../../src/transformers/ITransformOptions";
 import { Singleton } from "tstl";
 import { WorkerConnector } from "tgrid";
 import { COMPILER_OPTIONS } from "../compiler/COMPILER_OPTIONS";
@@ -34,37 +36,67 @@ const PlaygroundMovie = () => {
   const [consoleBox, setConsoleBox] = useState<ConsoleViewer.IProps>({
     messages: [],
   });
+  const [transformOptions, setTransformOptions] = useState<ITransformOptions>({
+    finite: false,
+    numeric: false,
+    functional: false,
+    undefined: true,
+  });
 
   useEffect(() => {
     // PARSE QUERY PARAMETER
     const params = Object.fromEntries(
       new URLSearchParams(window.location.search).entries(),
     );
+    
+    // Parse script
     if (params.script) {
       const normalized = decompressFromEncodedURIComponent(params.script);
       handleChange(normalized ?? PLAYGROUND_DEFAULT_SCRIPT);
     } else handleChange(PLAYGROUND_DEFAULT_SCRIPT);
+    
+    // Parse transform options
+    if (params.options) {
+      try {
+        const parsed = JSON.parse(decompressFromEncodedURIComponent(params.options) ?? "{}");
+        setTransformOptions({
+          finite: parsed.finite ?? false,
+          numeric: parsed.numeric ?? false,
+          functional: parsed.functional ?? false,
+          undefined: parsed.undefined ?? true,
+        });
+      } catch (error) {
+        console.warn("Failed to parse transform options from URL:", error);
+      }
+    }
   }, []);
+
+  const updateURL = (code?: string, options?: ITransformOptions) => {
+    const params = new URLSearchParams();
+    if (code && code !== PLAYGROUND_DEFAULT_SCRIPT) {
+      params.set("script", compressToEncodedURIComponent(code));
+    }
+    if (options && (options.finite || options.numeric || options.functional || options.undefined !== true)) {
+      params.set("options", compressToEncodedURIComponent(JSON.stringify(options)));
+    }
+    const queryString = params.toString();
+    window.history.replaceState(
+      null,
+      "Typia Playground",
+      `${location.origin}${location.pathname}${queryString ? `?${queryString}` : ""}`,
+    );
+  };
 
   const handleChange = async (code: string | undefined) => {
     setSource(code ?? "");
     const service = await createCompilerService.get();
     const output: ICompilerService.IOutput =
       target === "javascript"
-        ? await service.compile(code ?? "")
-        : await service.transform(code ?? "");
-    if (
-      code?.length &&
-      output.type === "success" &&
-      code !== PLAYGROUND_DEFAULT_SCRIPT
-    )
-      window.history.replaceState(
-        null,
-        "Typia Playground",
-        `${location.origin}${
-          location.pathname
-        }?script=${compressToEncodedURIComponent(code)}`,
-      );
+        ? await service.compile(code ?? "", transformOptions)
+        : await service.transform(code ?? "", transformOptions);
+    if (code?.length && output.type === "success") {
+      updateURL(code, transformOptions);
+    }
     setBeautifiedOutput(output);
   };
 
@@ -73,8 +105,19 @@ const PlaygroundMovie = () => {
     const service = await createCompilerService.get();
     const output: ICompilerService.IOutput =
       target === "javascript"
-        ? await service.compile(source ?? "")
-        : await service.transform(source ?? "");
+        ? await service.compile(source ?? "", transformOptions)
+        : await service.transform(source ?? "", transformOptions);
+    setBeautifiedOutput(output);
+  };
+
+  const handleTransformOptionsChange = async (options: ITransformOptions) => {
+    setTransformOptions(options);
+    const service = await createCompilerService.get();
+    const output: ICompilerService.IOutput =
+      target === "javascript"
+        ? await service.compile(source ?? "", options)
+        : await service.transform(source ?? "", options);
+    updateURL(source ?? "", options);
     setBeautifiedOutput(output);
   };
 
@@ -105,6 +148,7 @@ const PlaygroundMovie = () => {
     const service = await createCompilerService.get();
     const compiled: ICompilerService.IOutput = await service.bundle(
       source ?? "",
+      transformOptions,
     );
     if (compiled.type === "error")
       return setConsoleBox({
@@ -145,17 +189,30 @@ const PlaygroundMovie = () => {
   return (
     <div>
       <Splitter>
-        {source !== null && (
-          <SourceEditor
-            options={COMPILER_OPTIONS}
-            imports={Object.entries(external).map(([Key, value]) => [
-              `file:///${Key}`,
-              value,
-            ])}
-            script={source}
-            setScript={handleChange}
+        <div
+          style={{
+            display: "flex",
+            flexDirection: "column",
+            width: "50%",
+            height: "100%",
+          }}
+        >
+          <TransformOptionsEditor
+            options={transformOptions}
+            onChange={handleTransformOptionsChange}
           />
-        )}
+          {source !== null && (
+            <SourceEditor
+              options={COMPILER_OPTIONS}
+              imports={Object.entries(external).map(([Key, value]) => [
+                `file:///${Key}`,
+                value,
+              ])}
+              script={source}
+              setScript={handleChange}
+            />
+          )}
+        </div>
         <div
           style={{
             width: "100%",
