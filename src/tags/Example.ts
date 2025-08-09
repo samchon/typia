@@ -2,14 +2,14 @@ import { TagBase } from "./TagBase";
 
 /**
  * Example value tag that provides a single example value for documentation.
- * 
+ *
  * This tag adds an example value to your JSON Schema, which is useful for
  * API documentation, client code generation, and helping developers understand
  * expected data formats. The example doesn't affect runtime validation.
- * 
+ *
  * Use Example for a single representative value. For multiple named examples,
  * use the Examples tag instead.
- * 
+ *
  * @example
  * ```typescript
  * interface Product {
@@ -18,7 +18,7 @@ import { TagBase } from "./TagBase";
  *   inStock: boolean & Example<true>;
  * }
  * ```
- * 
+ *
  * @example
  * ```typescript
  * interface User {
@@ -28,7 +28,7 @@ import { TagBase } from "./TagBase";
  *   } & Example<{ bio: "Software engineer", tags: ["typescript", "react"] }>;
  * }
  * ```
- * 
+ *
  * @template Value The example value (primitives, objects, arrays, or null)
  * @author Jeongho Nam - https://github.com/samchon
  */

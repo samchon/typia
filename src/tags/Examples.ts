@@ -2,15 +2,15 @@ import { TagBase } from "./TagBase";
 
 /**
  * Multiple examples tag that provides named example values for documentation.
- * 
+ *
  * Unlike the Example tag which provides a single example, Examples allows you
  * to provide multiple labeled examples. This is particularly useful when you
  * want to show different scenarios or use cases for the same type.
- * 
+ *
  * The examples are added to JSON Schema as an object where keys are descriptive
  * names and values are the example data. This helps in API documentation and
  * test case generation.
- * 
+ *
  * @example
  * ```typescript
  * interface PaymentRequest {
@@ -21,7 +21,7 @@ import { TagBase } from "./TagBase";
  *   }>;
  * }
  * ```
- * 
+ *
  * @example
  * ```typescript
  * interface UserStatus {
@@ -36,7 +36,7 @@ import { TagBase } from "./TagBase";
  *   }>;
  * }
  * ```
- * 
+ *
  * @template Value A record object mapping example names to example values
  * @author Jeongho Nam - https://github.com/samchon
  */

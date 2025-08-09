@@ -263,7 +263,7 @@ export namespace JsonStringifyProgrammer {
     if (props.metadata.templates.length)
       if (AtomicPredicator.template(props.metadata)) {
         const partial = Metadata.initialize();
-        partial.atomics.push(
+        (partial.atomics.push(
           MetadataAtomic.create({ type: "string", tags: [] }),
         ),
           unions.push({
@@ -278,7 +278,7 @@ export namespace JsonStringifyProgrammer {
                 ...props,
                 type: "string",
               }),
-          });
+          }));
       }
 
     // CONSTANTS
