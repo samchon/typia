@@ -46,7 +46,8 @@ const validate = (collection: IJsonSchemaCollection<"3.0" | "3.1">): void => {
     description: name.description,
   })({
     title: "Name",
-    description: "This is the description of the name",
+    description:
+      "This is not the description.\n\nThis is the description of the name",
   });
   TestValidator.equals("Something.properties.description")({
     title: description.title,
@@ -58,11 +59,12 @@ const validate = (collection: IJsonSchemaCollection<"3.0" | "3.1">): void => {
 };
 
 /**
- * @title Something DTO
- * @description This is a description of the Something DTO.
+ * This is a description of the Something DTO.
  *
- *              Let's fill the content of it.
+ * Let's fill the content of it.
+ *
  * @author Samchon
+ * @title Something DTO
  */
 interface Something {
   /**
@@ -75,15 +77,16 @@ interface Something {
   /**
    * This is not the description.
    *
+   * This is the description of the name
+   *
    * @title Name
-   * @description This is the description of the name
    */
   name: string;
 
   /**
-   * @description No title.
+   * No title.
    *
-   *              Only description.
+   * Only description.
    */
   description: string;
 }

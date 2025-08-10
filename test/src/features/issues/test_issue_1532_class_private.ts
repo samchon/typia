@@ -27,23 +27,17 @@ export const test_issue_1532_class_private = (): void => {
 class Application {
   private private(): void {}
 
-  /**
-   * Some comment.
-   */
+  /** Some comment. */
   private privateButCommented(): void {}
 
   protected protected(): void {}
 
-  /**
-   * @inheritDoc
-   */
+  /** @inheritDoc */
   protected protectedButCommented(): void {}
 
   public public(): void {}
 
-  /**
-   * Hello world.
-   */
+  /** Hello world. */
   public publicButCommented(): void {}
 
   nothing(): void {
@@ -51,8 +45,6 @@ class Application {
     this.privateButCommented;
   }
 
-  /**
-   * @title nothing
-   */
+  /** @title nothing */
   nothingButCommented(): void {}
 }

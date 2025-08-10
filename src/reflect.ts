@@ -13,10 +13,9 @@ import { NoTransformConfigurationError } from "./transformers/NoTransformConfigu
  * stored in the {@link IMetadataApplication.components} property. Also, alias
  * types are stored in the {@link IMetadataApplication.aliases} property, too.
  *
+ * @author Jeongho Nam - https://github.com/samchon
  * @template Types Tuple of target types
  * @returns Metadata application
- *
- * @author Jeongho Nam - https://github.com/samchon
  */
 export function metadata(): never;
 
@@ -29,16 +28,13 @@ export function metadata(): never;
  * stored in the {@link IMetadataApplication.components} property. Also, alias
  * types are stored in the {@link IMetadataApplication.aliases} property, too.
  *
+ * @author Jeongho Nam - https://github.com/samchon
  * @template Types Tuple of target types
  * @returns Metadata application
- *
- * @author Jeongho Nam - https://github.com/samchon
  */
 export function metadata<Types extends unknown[]>(): IMetadataApplication;
 
-/**
- * @internal
- */
+/** @internal */
 export function metadata(): never {
   NoTransformConfigurationError("reflect.metadata");
 }

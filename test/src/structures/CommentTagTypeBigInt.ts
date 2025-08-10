@@ -3,9 +3,7 @@ import { Spoiler } from "../helpers/Spoiler";
 export interface CommentTagTypeBigInt {
   in64: bigint;
 
-  /**
-   * @type uint64
-   */
+  /** @type uint64 */
   uint64: bigint;
 }
 export namespace CommentTagTypeBigInt {

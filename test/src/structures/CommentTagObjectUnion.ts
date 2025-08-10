@@ -5,9 +5,7 @@ export type CommentTagObjectUnion = CommentTagObjectUnion.Type[];
 export namespace CommentTagObjectUnion {
   export type Type = Numeric | Literal;
   export interface Numeric {
-    /**
-     * @minimum 3
-     */
+    /** @minimum 3 */
     value: number;
   }
   export interface Literal {

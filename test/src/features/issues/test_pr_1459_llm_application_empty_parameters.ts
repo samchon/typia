@@ -9,8 +9,6 @@ export const test_pr_1459_llm_application_empty_parameters = (): void => {
 };
 
 interface Application {
-  /**
-   * Something interesting.
-   */
+  /** Something interesting. */
   something(): void;
 }

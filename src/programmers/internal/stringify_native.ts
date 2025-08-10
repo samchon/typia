@@ -1,7 +1,5 @@
 import ts from "typescript";
 
-/**
- * @internal
- */
+/** @internal */
 export const stringify_native = (): ts.Expression =>
   ts.factory.createStringLiteral("{}");

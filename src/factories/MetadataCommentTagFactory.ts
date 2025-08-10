@@ -9,9 +9,7 @@ import { FormatCheatSheet } from "../tags/internal/FormatCheatSheet";
 import { MetadataFactory } from "./MetadataFactory";
 import { MetadataTypeTagFactory } from "./MetadataTypeTagFactory";
 
-/**
- * @internal
- */
+/** @internal */
 export namespace MetadataCommentTagFactory {
   export const analyze = (props: {
     errors: MetadataFactory.IError[];
@@ -140,29 +138,21 @@ export namespace MetadataCommentTagFactory {
   };
 }
 
-/**
- * @internal
- */
+/** @internal */
 type TagRecord = {
   [P in Target]?: NotDeterminedTypeTag[];
 };
 
-/**
- * @internal
- */
+/** @internal */
 type Target = "bigint" | "number" | "string" | "array";
 
-/**
- * @internal
- */
+/** @internal */
 type NotDeterminedTypeTag = Omit<IMetadataTypeTag, "validate" | "schema"> & {
   validate: string | undefined;
   schema: object | undefined;
 };
 
-/**
- * @internal
- */
+/** @internal */
 const PARSER: Record<
   string,
   (props: { report: (msg: string) => null; value: string }) => {
@@ -607,9 +597,7 @@ const PARSER: Record<
   }),
 };
 
-/**
- * @internal
- */
+/** @internal */
 const parse_number = (props: {
   report: (msg: string) => null;
   value: string;
@@ -619,9 +607,7 @@ const parse_number = (props: {
   return parsed;
 };
 
-/**
- * @internal
- */
+/** @internal */
 const parse_integer = (props: {
   report: (msg: string) => null;
   unsigned: boolean;
@@ -636,9 +622,7 @@ const parse_integer = (props: {
   return parsed;
 };
 
-/**
- * @internal
- */
+/** @internal */
 const FORMATS: Map<string, [string, string]> = new Map([
   ...Object.entries(FormatCheatSheet).map(
     ([key, value]) => [key, [key, value]] as any,

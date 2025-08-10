@@ -4,9 +4,7 @@ export interface ObjectInternal {
   id: string;
   name: string;
 
-  /**
-   * @internal
-   */
+  /** @internal */
   __age: number;
 }
 export namespace ObjectInternal {

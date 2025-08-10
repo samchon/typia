@@ -36,9 +36,7 @@ export class MetadataTemplate {
     return (this.name_ ??= getName(this));
   }
 
-  /**
-   * @internal
-   */
+  /** @internal */
   public getBaseName(): string {
     return (
       "`" +

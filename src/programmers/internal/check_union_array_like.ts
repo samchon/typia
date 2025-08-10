@@ -15,9 +15,7 @@ import { CheckerProgrammer } from "../CheckerProgrammer";
 import { FeatureProgrammer } from "../FeatureProgrammer";
 import { UnionExplorer } from "../helpers/UnionExplorer";
 
-/**
- * @internal
- */
+/** @internal */
 export const check_union_array_like = <
   Origin extends Metadata | MetadataArray | MetadataTuple | MetadataMap,
   Category extends MetadataArray | MetadataTuple,
@@ -296,9 +294,7 @@ export const check_union_array_like = <
   );
 };
 
-/**
- * @internal
- */
+/** @internal */
 export namespace check_union_array_like {
   export interface IConfig<
     Category extends MetadataArray | MetadataTuple,

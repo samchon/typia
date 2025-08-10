@@ -6,19 +6,13 @@ import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 export type CommentTagArrayUnion = CommentTagArrayUnion.Type[];
 export namespace CommentTagArrayUnion {
   export interface Type {
-    /**
-     * @items 3
-     */
+    /** @items 3 */
     items: string[];
 
-    /**
-     * @minItems 3
-     */
+    /** @minItems 3 */
     minItems: number[];
 
-    /**
-     * @maxItems 7
-     */
+    /** @maxItems 7 */
     maxItems: Array<string | number>;
 
     /**

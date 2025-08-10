@@ -4,19 +4,13 @@ import { Spoiler } from "../helpers/Spoiler";
 import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 
 export interface ObjectHttpCommentTag {
-  /**
-   * @type int
-   */
+  /** @type int */
   int: number;
 
-  /**
-   * @type uint64
-   */
+  /** @type uint64 */
   uint64: bigint;
 
-  /**
-   * @format uuid
-   */
+  /** @format uuid */
   uuid: string;
 
   /**

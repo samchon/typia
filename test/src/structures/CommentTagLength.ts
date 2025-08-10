@@ -7,19 +7,13 @@ import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 export type CommentTagLength = IPointer<CommentTagLength.Type[]>;
 export namespace CommentTagLength {
   export interface Type {
-    /**
-     * @length 5
-     */
+    /** @length 5 */
     fixed: string;
 
-    /**
-     * @minLength 3
-     */
+    /** @minLength 3 */
     minimum: string;
 
-    /**
-     * @maxLength 7
-     */
+    /** @maxLength 7 */
     maximum: string;
 
     /**
