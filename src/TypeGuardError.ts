@@ -78,6 +78,17 @@ export class TypeGuardError<T = any> extends Error {
   public readonly value: unknown;
 
   /**
+   * Optional human-readable description of the type guard error
+   *
+   * This field is rarely populated in standard typia type assertion and is
+   * primarily intended for specialized AI agent libraries or custom
+   * validation scenarios that require additional context beyond the technical
+   * type information. Most assertion errors rely solely on the path,
+   * expected, and value fields for comprehensive error reporting.
+   */
+  public readonly description?: string | undefined;
+
+  /**
    * Phantom property for type safety purposes.
    *
    * This property is not actually used and exists only to maintain
@@ -124,6 +135,14 @@ export class TypeGuardError<T = any> extends Error {
     this.path = props.path;
     this.expected = props.expected;
     this.value = props.value;
+    if (props.description || props.value === undefined)
+      this.description =
+        props.description ??
+        [
+          "The value at this path is `undefined`.",
+          "",
+          `Please fill the \`${props.expected}\` typed value next time.`,
+        ].join("\n");
   }
 }
 
@@ -168,6 +187,17 @@ export namespace TypeGuardError {
      * The actual value that failed assertion.
      */
     value: unknown;
+
+    /**
+     * Optional human-readable description of the type guard error
+     *
+     * This field is rarely populated in standard typia type assertion and is
+     * primarily intended for specialized AI agent libraries or custom
+     * validation scenarios that require additional context beyond the technical
+     * type information. Most assertion errors rely solely on the path,
+     * expected, and value fields for comprehensive error reporting.
+     */
+    description?: string;
 
     /**
      * Custom error message (optional).
