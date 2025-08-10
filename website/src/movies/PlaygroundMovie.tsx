@@ -9,31 +9,41 @@ import prettierEsTreePlugin from "prettier/plugins/estree";
 import prettierTsPlugin from "prettier/plugins/typescript";
 import { format } from "prettier/standalone";
 import React, { useEffect, useState } from "react";
-import { Button } from "@mui/material";
+import { Button, IconButton, Tooltip } from "@mui/material";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
+import SettingsIcon from "@mui/icons-material/Settings";
 import { version } from "../../../package.json";
 
 import LanguageButton from "../components/playground/LanguageButton";
-import OutputViewer from "../components/playground/OutputViewer";
+import ResultViewer from "../components/playground/ResultViewer";
 import SourceEditor from "../components/playground/SourceEditor";
 import Splitter from "../components/playground/Splitter";
 import ConsoleViewer from "../components/playground/ConsoleViewer";
+import OptionsModal from "../components/playground/OptionsModal";
 import { ICompilerService } from "../compiler/ICompilerService";
 import { Singleton } from "tstl";
 import { WorkerConnector } from "tgrid";
 import { COMPILER_OPTIONS } from "../compiler/COMPILER_OPTIONS";
 import { PLAYGROUND_DEFAULT_SCRIPT } from "../components/playground/PLAYGROUND_DEFAULT_SCRIPT";
 import external from "../raw/external.json";
+import { ITransformOptions } from "typia/lib/transformers/ITransformOptions";
 
 const PlaygroundMovie = () => {
   const [source, setSource] = useState<string | null>(null);
+  const [options, setOptions] = useState<ITransformOptions>({
+    finite: false,
+    numeric: false,
+    functional: false,
+    undefined: true,
+  });
   const [target, setTarget] = useState<"typescript" | "javascript">(
     "javascript",
   );
-  const [output, setOutput] = useState<ICompilerService.IOutput | null>(null);
+  const [result, setResult] = useState<ICompilerService.IResult | null>(null);
   const [consoleBox, setConsoleBox] = useState<ConsoleViewer.IProps>({
     messages: [],
   });
+  const [optionsModalOpen, setOptionsModalOpen] = useState(false);
 
   useEffect(() => {
     // PARSE QUERY PARAMETER
@@ -46,43 +56,71 @@ const PlaygroundMovie = () => {
     } else handleChange(PLAYGROUND_DEFAULT_SCRIPT);
   }, []);
 
-  const handleChange = async (code: string | undefined) => {
-    setSource(code ?? "");
+  const handleChange = async (source: string | undefined) => {
+    setSource(source ?? "");
     const service = await createCompilerService.get();
-    const output: ICompilerService.IOutput =
+    const result: ICompilerService.IResult =
       target === "javascript"
-        ? await service.compile(code ?? "")
-        : await service.transform(code ?? "");
+        ? await service.compile({
+            source: source ?? "",
+            options,
+          })
+        : await service.transform({
+            source: source ?? "",
+            options,
+          });
     if (
-      code?.length &&
-      output.type === "success" &&
-      code !== PLAYGROUND_DEFAULT_SCRIPT
+      source?.length &&
+      result.type === "success" &&
+      source !== PLAYGROUND_DEFAULT_SCRIPT
     )
       window.history.replaceState(
         null,
         "Typia Playground",
         `${location.origin}${
           location.pathname
-        }?script=${compressToEncodedURIComponent(code)}`,
+        }?script=${compressToEncodedURIComponent(source)}`,
       );
-    setBeautifiedOutput(output);
+    setBeautifiedResult(result);
   };
 
   const handleTarget = async (target: "typescript" | "javascript") => {
     setTarget(target);
     const service = await createCompilerService.get();
-    const output: ICompilerService.IOutput =
+    const result: ICompilerService.IResult =
       target === "javascript"
-        ? await service.compile(source ?? "")
-        : await service.transform(source ?? "");
-    setBeautifiedOutput(output);
+        ? await service.compile({
+            source: source ?? "",
+            options,
+          })
+        : await service.transform({
+            source: source ?? "",
+            options,
+          });
+    setBeautifiedResult(result);
   };
 
-  const setBeautifiedOutput = (output: ICompilerService.IOutput) => {
-    if (output.type === "error") return setOutput(output);
+  const handleOptionsChange = async (newOptions: ITransformOptions) => {
+    setOptions(newOptions);
+    const service = await createCompilerService.get();
+    const result: ICompilerService.IResult =
+      target === "javascript"
+        ? await service.compile({
+            source: source ?? "",
+            options: newOptions,
+          })
+        : await service.transform({
+            source: source ?? "",
+            options: newOptions,
+          });
+    setBeautifiedResult(result);
+  };
+
+  const setBeautifiedResult = (result: ICompilerService.IResult) => {
+    if (result.type === "error") return setResult(result);
     format(
-      output.value,
-      output.target === "javascript"
+      result.value,
+      result.target === "javascript"
         ? {
             parser: "babel",
             plugins: [prettierBabelPlugin, prettierEsTreePlugin],
@@ -93,19 +131,19 @@ const PlaygroundMovie = () => {
           },
     )
       .then((value) => {
-        setOutput({
-          ...output,
+        setResult({
+          ...result,
           value,
         });
       })
-      .catch(() => setOutput(output));
+      .catch(() => setResult(result));
   };
 
   const execute = async () => {
     const service = await createCompilerService.get();
-    const compiled: ICompilerService.IOutput = await service.bundle(
-      source ?? "",
-    );
+    const compiled: ICompilerService.IResult = await service.bundle({
+      source: source ?? "",
+    });
     if (compiled.type === "error")
       return setConsoleBox({
         messages: [
@@ -183,6 +221,39 @@ const PlaygroundMovie = () => {
               selected={target === "typescript"}
               onClick={() => handleTarget("typescript")}
             />
+            <div
+              style={{
+                marginTop: 10,
+                marginLeft: 20,
+                marginRight: 10,
+                width: 50,
+              }}
+            >
+              <Tooltip title="Transform Options">
+                <div
+                  onClick={() => setOptionsModalOpen(true)}
+                  style={{
+                    width: 50,
+                    height: 50,
+                    border: "1px solid #666666",
+                    borderRadius: "5px",
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    cursor: "pointer",
+                    transition: "border-color 0.2s",
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.border = "1px solid #999999";
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.border = "1px solid #666666";
+                  }}
+                >
+                  <SettingsIcon sx={{ color: "white", fontSize: 28 }} />
+                </div>
+              </Tooltip>
+            </div>
           </div>
           <div
             style={{
@@ -206,14 +277,14 @@ const PlaygroundMovie = () => {
               overflowY: "hidden",
             }}
           >
-            <OutputViewer
-              language={output?.type === "error" ? "json" : target}
+            <ResultViewer
+              language={result?.type === "error" ? "json" : target}
               width="100%"
               height="60%"
               value={
-                output?.type === "error"
-                  ? JSON.stringify(output.value, null, 2)
-                  : (output?.value ?? "")
+                result?.type === "error"
+                  ? JSON.stringify(result.value, null, 2)
+                  : (result?.value ?? "")
               }
             />
             <div
@@ -239,6 +310,12 @@ const PlaygroundMovie = () => {
           </div>
         </div>
       </Splitter>
+      <OptionsModal
+        open={optionsModalOpen}
+        options={options}
+        onClose={() => setOptionsModalOpen(false)}
+        onSave={handleOptionsChange}
+      />
       <footer
         style={{
           display: "flex",
