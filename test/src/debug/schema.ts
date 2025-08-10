@@ -1,14 +1,10 @@
 import typia from "typia";
 
 interface Something {
-  /**
-   * @exclusiveMinimum 3
-   */
+  /** @exclusiveMinimum 3 */
   exclusiveMinimum: number;
 
-  /**
-   * @type uint32
-   */
+  /** @type uint32 */
   uint32: number;
 }
 

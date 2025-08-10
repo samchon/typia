@@ -1,6 +1,4 @@
-/**
- * @internal
- */
+/** @internal */
 export function NoTransformConfigurationError(name: string): never {
   throw new Error(
     [

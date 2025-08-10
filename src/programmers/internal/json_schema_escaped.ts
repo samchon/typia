@@ -5,9 +5,7 @@ import { MetadataEscaped } from "../../schemas/metadata/MetadataEscaped";
 
 import { json_schema_station } from "./json_schema_station";
 
-/**
- * @internal
- */
+/** @internal */
 export const json_schema_escaped = (props: {
   components: OpenApi.IComponents;
   escaped: MetadataEscaped;
@@ -46,9 +44,7 @@ export const json_schema_escaped = (props: {
     : [output];
 };
 
-/**
- * @internal
- */
+/** @internal */
 const is_date = (props: {
   visited: Set<Metadata>;
   metadata: Metadata;

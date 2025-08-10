@@ -2,24 +2,16 @@ import { _IProtobufWriter } from "./_IProtobufWriter";
 
 /// @reference https://github.com/piotr-oles/as-proto/blob/main/packages/as-proto/assembly/internal/FixedSizer.ts
 export class _ProtobufSizer implements _IProtobufWriter {
-  /**
-   * Total length.
-   */
+  /** Total length. */
   public len: number;
 
-  /**
-   * Position stack.
-   */
+  /** Position stack. */
   public readonly pos: Array<number>;
 
-  /**
-   * Variable length list.
-   */
+  /** Variable length list. */
   public readonly varlen: Array<number>;
 
-  /**
-   * Variable length index stack.
-   */
+  /** Variable length index stack. */
   public readonly varlenidx: Array<number>;
 
   public constructor(length: number = 0) {

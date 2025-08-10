@@ -1,23 +1,23 @@
 export const enum ProtobufWire {
   /**
-   * - integers
-   * - bool
-   * - enum
+   * - Integers
+   * - Bool
+   * - Enum
    */
   VARIANT = 0,
 
   /**
-   * - fixed64
-   * - sfixed64
-   * - double
+   * - Fixed64
+   * - Sfixed64
+   * - Double
    */
   I64 = 1,
 
   /**
-   * - string
-   * - bytes
-   * - mebedded messages
-   * - packed repeated fields
+   * - String
+   * - Bytes
+   * - Mebedded messages
+   * - Packed repeated fields
    */
   LEN = 2,
 
@@ -26,9 +26,9 @@ export const enum ProtobufWire {
   END_GROUP = 4,
 
   /**
-   * - fixed
-   * - sfixed32
-   * - float
+   * - Fixed
+   * - Sfixed32
+   * - Float
    */
   I32 = 5,
 }

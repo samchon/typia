@@ -14,7 +14,7 @@ export namespace TestValidator {
    * Test whether condition is satisfied.
    *
    * @param title Title of error message when condition is not satisfied
-   * @return Currying function
+   * @returns Currying function
    */
   export const predicate =
     (title: string) =>
@@ -51,8 +51,8 @@ export namespace TestValidator {
   /**
    * Test whether two values are equal.
    *
-   * If you want to validate `covers` relationship,
-   * call smaller first and then larger.
+   * If you want to validate `covers` relationship, call smaller first and then
+   * larger.
    *
    * Otherwise you wanna non equals validator, combine with {@link error}.
    *
@@ -162,10 +162,11 @@ export namespace TestValidator {
    *
    * If two values are different, then exception would be thrown.
    *
-   * @param title Title of error message when different
-   * @return Currying function
+   * @example
+   *   https://github.com/samchon/nestia-template/blob/master/src/test/features/api/bbs/test_api_bbs_article_index_search.ts
    *
-   * @example https://github.com/samchon/nestia-template/blob/master/src/test/features/api/bbs/test_api_bbs_article_index_search.ts
+   * @param title Title of error message when different
+   * @returns Currying function
    */
   export const index =
     (title: string) =>
@@ -200,16 +201,15 @@ export namespace TestValidator {
    *
    * Test a pagination API supporting search options.
    *
+   * @example
+   *   https://github.com/samchon/nestia-template/blob/master/src/test/features/api/bbs/test_api_bbs_article_index_search.ts
+   *
    * @param title Title of error message when searching is invalid
    * @returns Currying function
-   *
-   * @example https://github.com/samchon/nestia-template/blob/master/src/test/features/api/bbs/test_api_bbs_article_index_search.ts
    */
   export const search =
     (title: string) =>
-    /**
-     * @param getter A pagination API function to be called
-     */
+    /** @param getter A pagination API function to be called */
     <Entity extends IEntity<any>, Request>(
       getter: (input: Request) => Promise<Entity[]>,
     ) =>
@@ -218,9 +218,7 @@ export namespace TestValidator {
      * @param sampleCount Sampling count. Default is 1
      */
     (total: Entity[], sampleCount: number = 1) =>
-    /**
-     * @param props Search properties
-     */
+    /** @param props Search properties */
     async <Values extends any[]>(
       props: ISearchProps<Entity, Values, Request>,
     ): Promise<void> => {
@@ -254,18 +252,18 @@ export namespace TestValidator {
    *
    * Test a pagination API supporting sorting options.
    *
-   * You can validate detailed sorting options both ascending and descending orders
-   * with multiple fields. However, as it forms a complicate currying function,
-   * I recommend you to see below example code before using.
+   * You can validate detailed sorting options both ascending and descending
+   * orders with multiple fields. However, as it forms a complicate currying
+   * function, I recommend you to see below example code before using.
+   *
+   * @example
+   *   https://github.com/samchon/nestia-template/blob/master/src/test/features/api/bbs/test_api_bbs_article_index_sort.ts
    *
    * @param title Title of error message when sorting is invalid
-   * @example https://github.com/samchon/nestia-template/blob/master/src/test/features/api/bbs/test_api_bbs_article_index_sort.ts
    */
   export const sort =
     (title: string) =>
-    /**
-     * @param getter A pagination API function to be called
-     */
+    /** @param getter A pagination API function to be called */
     <
       T extends object,
       Fields extends string,
@@ -273,9 +271,7 @@ export namespace TestValidator {
     >(
       getter: (sortable: Sortable) => Promise<T[]>,
     ) =>
-    /**
-     * @param fields List of fields to be sorted
-     */
+    /** @param fields List of fields to be sorted */
     (...fields: Fields[]) =>
     /**
      * @param comp Comparator function for validation
@@ -283,7 +279,8 @@ export namespace TestValidator {
      */
     (comp: (x: T, y: T) => number, filter?: (elem: T) => boolean) =>
     /**
-     * @param direction "+" means ascending order, and "-" means descending order
+     * @param direction "+" means ascending order, and "-" means descending
+     *   order
      */
     async (direction: "+" | "-", trace: boolean = true) => {
       let data: T[] = await getter(

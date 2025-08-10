@@ -21,45 +21,52 @@ export const test_issue_1486_llm_type_alias_object = () => {
 
 type FinishEvaluateMessageType = {
   /**
+   * Tool names
+   *
    * @title type
-   * @description tool names
    */
   type: "finish_evaluation";
 
   /**
+   * The reason why you evaluate the agent's performance
+   *
    * @title reasoning
-   * @description the reason why you evaluate the agent's performance
    */
   reasoning: string;
 
   /**
+   * The evaluations of the agent's performance
+   *
    * @title evaluations
-   * @description the evaluations of the agent's performance
    */
   evaluations: {
     /**
+     * The criteria to be evaluated
+     *
      * @title criteria
-     * @description the criteria to be evaluated
      */
     criteria: string;
 
     /**
+     * The evaluation of the criteria
+     *
      * @title evaluation
-     * @description the evaluation of the criteria
      * @enum yes, no
      */
     evaluation: "yes" | "no";
   }[];
 
   /**
+   * The final decision of the evaluation
+   *
    * @title final_decision
-   * @description the final decision of the evaluation
    */
   final_decision: string;
 
   /**
+   * The score of the evaluation
+   *
    * @title score
-   * @description the score of the evaluation
    */
   score: number;
 };

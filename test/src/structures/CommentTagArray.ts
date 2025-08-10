@@ -7,14 +7,10 @@ import { TestRandomGenerator } from "../helpers/TestRandomGenerator";
 export type CommentTagArray = IPointer<CommentTagArray.Type[]>;
 export namespace CommentTagArray {
   export interface Type {
-    /**
-     * @items 3
-     */
+    /** @items 3 */
     items: string[];
 
-    /**
-     * @minItems 3
-     */
+    /** @minItems 3 */
     minItems: number[];
 
     /**
@@ -29,9 +25,7 @@ export namespace CommentTagArray {
      */
     equal: number[];
 
-    /**
-     * @uniqueItems
-     */
+    /** @uniqueItems */
     unique: string[];
   }
 

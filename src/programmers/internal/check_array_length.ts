@@ -8,9 +8,7 @@ import { ITypiaContext } from "../../transformers/ITypiaContext";
 
 import { ICheckEntry } from "../helpers/ICheckEntry";
 
-/**
- * @internal
- */
+/** @internal */
 export const check_array_length = (props: {
   context: ITypiaContext;
   array: MetadataArray;
@@ -24,9 +22,7 @@ export const check_array_length = (props: {
   };
 };
 
-/**
- * @internal
- */
+/** @internal */
 const check_array_type_tags = (props: {
   context: ITypiaContext;
   array: MetadataArray;
