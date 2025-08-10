@@ -1,10 +1,17 @@
+import { ITransformOptions } from "typia/lib/transformers/ITransformOptions";
+
 export interface ICompilerService {
-  compile(source: string): Promise<ICompilerService.IOutput>;
-  transform(source: string): Promise<ICompilerService.IOutput>;
-  bundle(source: string): Promise<ICompilerService.IOutput>;
+  compile(props: ICompilerService.IProps): Promise<ICompilerService.IResult>;
+  transform(props: ICompilerService.IProps): Promise<ICompilerService.IResult>;
+  bundle(props: ICompilerService.IProps): Promise<ICompilerService.IResult>;
 }
 export namespace ICompilerService {
-  export type IOutput = ISuccess | IFailure | IError;
+  export interface IProps {
+    source: string;
+    options?: ITransformOptions;
+  }
+  export type IResult = ISuccess | IFailure | IError;
+
   export interface ISuccess extends IBase<"success", string> {}
   export interface IFailure extends IBase<"failure", string> {
     diagnostics: object[];

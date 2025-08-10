@@ -1,6 +1,6 @@
 import Editor from "@monaco-editor/react";
 
-const OutputViewer = (props: OutputViewer.IProps) => (
+const ResultViewer = (props: ResultViewer.IProps) => (
   <Editor
     width={props.width}
     height={props.height}
@@ -26,7 +26,7 @@ const OutputViewer = (props: OutputViewer.IProps) => (
     value={props.value}
   />
 );
-namespace OutputViewer {
+namespace ResultViewer {
   export interface IProps {
     language: "typescript" | "javascript" | "json";
     value: string;
@@ -34,4 +34,4 @@ namespace OutputViewer {
     height: string;
   }
 }
-export default OutputViewer;
+export default ResultViewer;
