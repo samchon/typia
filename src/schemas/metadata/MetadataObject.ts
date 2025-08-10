@@ -9,9 +9,7 @@ export class MetadataObject {
   public readonly tags: IMetadataTypeTag[][];
   private name_?: string;
 
-  /**
-   * @hidden
-   */
+  /** @ignore */
   private constructor(props: ClassProperties<MetadataObject>) {
     this.type = props.type;
     this.tags = props.tags;

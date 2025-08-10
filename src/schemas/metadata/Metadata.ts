@@ -51,9 +51,7 @@ export class Metadata {
   /* -----------------------------------------------------------
     CONSTRUCTORS
   ----------------------------------------------------------- */
-  /**
-   * @hidden
-   */
+  /** @ignore */
   private constructor(props: ClassProperties<Metadata>) {
     this.any = props.any;
     this.required = props.required;
@@ -77,16 +75,12 @@ export class Metadata {
     this.maps = props.maps;
   }
 
-  /**
-   * @internal
-   */
+  /** @internal */
   public static create(props: ClassProperties<Metadata>): Metadata {
     return new Metadata(props);
   }
 
-  /**
-   * @internal
-   */
+  /** @internal */
   public static initialize(parentResolved: boolean = false): Metadata {
     const meta: Metadata = Metadata.create({
       any: false,
@@ -262,9 +256,7 @@ export class Metadata {
     );
   }
 
-  /**
-   * @internal
-   */
+  /** @internal */
   public isSequence(): boolean {
     return (this.is_sequence_ ??= (() => {
       const exists = (tags: IMetadataTypeTag[][]): boolean =>
@@ -303,9 +295,7 @@ export class Metadata {
     return this.required === true && this.optional === false;
   }
 
-  /**
-   * @internal
-   */
+  /** @internal */
   public isUnionBucket(): boolean {
     const size: number = this.bucket();
     const emended: number =
@@ -313,9 +303,7 @@ export class Metadata {
     return emended > 1;
   }
 
-  /**
-   * @internal
-   */
+  /** @internal */
   public getSoleLiteral(): string | null {
     if (
       this.size() === 1 &&
@@ -331,9 +319,7 @@ export class Metadata {
     return this.getSoleLiteral() !== null;
   }
 
-  /**
-   * @internal
-   */
+  /** @internal */
   public isParentResolved(): boolean {
     return this.parent_resolved_;
   }
@@ -513,9 +499,7 @@ export namespace Metadata {
     return true;
   };
 
-  /**
-   * @internal
-   */
+  /** @internal */
   export const merge = (x: Metadata, y: Metadata): Metadata => {
     const output: Metadata = Metadata.create({
       any: x.any || y.any,
@@ -595,9 +579,7 @@ export namespace Metadata {
     return output;
   };
 
-  /**
-   * @internal
-   */
+  /** @internal */
   export const unalias = (w: Metadata) => {
     const visited: Set<Metadata> = new Set();
     while (

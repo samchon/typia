@@ -3,12 +3,12 @@ import { IJsonSchemaCollection } from "./IJsonSchemaCollection";
 /**
  * Collection of JSON schemas.
  *
- * @deprecated Use {@link IJsonSchemaCollection} instead please.
- *             This interface type would be changed to {@link ILlmApplication} like
- *             structure in the future version (maybe next v8 major update).
+ * @author Jeongho Nam - https://github.com/samchon
+ * @deprecated Use {@link IJsonSchemaCollection} instead please. This interface
+ *   type would be changed to {@link ILlmApplication} like structure in the
+ *   future version (maybe next v8 major update).
  * @template Version Version of the OpenAPI specification.
  * @template Types Original TypeScript types used in the JSON schemas.
- * @author Jeongho Nam - https://github.com/samchon
  */
 export type IJsonApplication = IJsonSchemaCollection;
 export namespace IJsonApplication {

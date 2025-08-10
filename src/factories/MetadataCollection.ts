@@ -100,9 +100,7 @@ export class MetadataCollection {
     return addicted;
   }
 
-  /**
-   * @internal
-   */
+  /** @internal */
   public getUnionIndex(meta: Metadata): number {
     const key: string = meta.objects.map((obj) => obj.type.name).join(" | ");
     MapUtil.take(this.object_unions_, key, () =>
@@ -199,23 +197,17 @@ export class MetadataCollection {
     return [tuple, true, (elements) => (Writable(tuple).elements = elements)];
   }
 
-  /**
-   * @internal
-   */
+  /** @internal */
   public setObjectRecursive(obj: MetadataObjectType, recursive: boolean): void {
     Writable(obj).recursive = recursive;
   }
 
-  /**
-   * @internal
-   */
+  /** @internal */
   public setAliasRecursive(alias: MetadataAliasType, recursive: boolean): void {
     Writable(alias).recursive = recursive;
   }
 
-  /**
-   * @internal
-   */
+  /** @internal */
   public setArrayRecursive(array: MetadataArrayType, recursive: boolean): void {
     Writable(array).recursive = recursive;
     if (recursive) Writable(array).index = this.recursive_array_index_++;

@@ -4,19 +4,13 @@ import { Singleton } from "../utils/Singleton";
 
 /// @reference https://github.com/piotr-oles/as-proto/blob/main/packages/as-proto/assembly/internal/FixedReader.ts
 export class _ProtobufReader {
-  /**
-   * Read buffer
-   */
+  /** Read buffer */
   private buf: Uint8Array;
 
-  /**
-   * Read buffer pointer.
-   */
+  /** Read buffer pointer. */
   private ptr: number;
 
-  /**
-   * DataView for buffer.
-   */
+  /** DataView for buffer. */
   private view: DataView;
 
   public constructor(buf: Uint8Array) {

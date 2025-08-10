@@ -86,9 +86,7 @@ const get_directory_path = (file: string): string => {
   return path.resolve(split.join(path.sep));
 };
 
-/**
- * Remove unused typia imports that are only used in transformable calls
- */
+/** Remove unused typia imports that are only used in transformable calls */
 const removeUnusedTypiaImports = (file: ts.SourceFile): ts.SourceFile => {
   // Find typia imports and collect all identifiers
   interface ImportMetadata {
@@ -194,7 +192,8 @@ const removeUnusedTypiaImports = (file: ts.SourceFile): ts.SourceFile => {
 
 /**
  * Check if a property access expression looks like a transformable typia call
- * This uses heuristics to detect patterns like typia.xxx(), typia.namespace.xxx()
+ * This uses heuristics to detect patterns like typia.xxx(),
+ * typia.namespace.xxx()
  */
 const isLikelyTransformableCall = (
   node: ts.PropertyAccessExpression,
@@ -221,9 +220,7 @@ const isLikelyTransformableCall = (
   return false;
 };
 
-/**
- * Check if a property access expression is part of a typia.xxx.yyy chain
- */
+/** Check if a property access expression is part of a typia.xxx.yyy chain */
 const isTypiaPropertyChain = (node: ts.PropertyAccessExpression): boolean => {
   let current: ts.Expression = node;
 
@@ -234,9 +231,7 @@ const isTypiaPropertyChain = (node: ts.PropertyAccessExpression): boolean => {
   return ts.isIdentifier(current) && current.text === "typia";
 };
 
-/**
- * Filter import clause to remove unused default imports
- */
+/** Filter import clause to remove unused default imports */
 const filterTypiaImportClause = (
   importClause: ts.ImportClause,
   usedImports: Set<string>,

@@ -10,8 +10,8 @@ import { ValueOf } from "./typings/ValueOf";
  *
  * It also erases every method property like {@link Resolved} type.
  *
- * @template T Target type to be pascalized
  * @author Jeongho Nam - https://github.com/samchon
+ * @template T Target type to be pascalized
  */
 export type PascalCase<T> =
   Equal<T, PascalizeMain<T>> extends true ? T : PascalizeMain<T>;

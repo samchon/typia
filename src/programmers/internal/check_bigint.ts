@@ -8,9 +8,7 @@ import { ITypiaContext } from "../../transformers/ITypiaContext";
 
 import { ICheckEntry } from "../helpers/ICheckEntry";
 
-/**
- * @internal
- */
+/** @internal */
 export const check_bigint = (props: {
   context: ITypiaContext;
   atomic: MetadataAtomic;
@@ -27,9 +25,7 @@ export const check_bigint = (props: {
   };
 };
 
-/**
- * @internal
- */
+/** @internal */
 const check_bigint_type_tags = (props: {
   context: ITypiaContext;
   atomic: MetadataAtomic;

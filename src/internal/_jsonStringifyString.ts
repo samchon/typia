@@ -1,8 +1,8 @@
 /**
- * In the past, name of `typia` was `typescript-json`, and supported
- * JSON serialization by wrapping `fast-json-stringify. `typescript-json` was
- * a helper library of `fast-json-stringify`, which can skip manual JSON schema
- * definition just by putting pure TypeScript type.
+ * In the past, name of `typia` was `typescript-json`, and supported JSON
+ * serialization by wrapping `fast-json-stringify. `typescript-json`was a helper
+ * library of`fast-json-stringify`, which can skip manual JSON schema definition
+ * just by putting pure TypeScript type.
  *
  * This `$string` function is a part of `fast-json-stringify` at that time, and
  * still being used in `typia` for the string serialization.

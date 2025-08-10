@@ -15,9 +15,7 @@ export class MetadataAliasType {
   /* -----------------------------------------------------------
         CONSTRUCTORS
     ----------------------------------------------------------- */
-  /**
-   * @hidden
-   */
+  /** @ignore */
   private constructor(props: ClassProperties<MetadataAliasType>) {
     this.name = props.name;
     this.value = props.value;
@@ -27,18 +25,14 @@ export class MetadataAliasType {
     this.nullables = props.nullables;
   }
 
-  /**
-   * @internal
-   */
+  /** @internal */
   public static create(
     props: ClassProperties<MetadataAliasType>,
   ): MetadataAliasType {
     return new MetadataAliasType(props);
   }
 
-  /**
-   * @internal
-   */
+  /** @internal */
   public static _From_without_value(props: Omit<IMetadataAliasType, "value">) {
     return MetadataAliasType.create({
       name: props.name,

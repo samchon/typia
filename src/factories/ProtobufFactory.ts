@@ -51,9 +51,7 @@ export namespace ProtobufFactory {
     return result.data;
   };
 
-  /**
-   * @internal
-   */
+  /** @internal */
   export const emplaceObject = (object: MetadataObjectType): void => {
     for (const p of object.properties) emplaceProperty(p);
     const properties: IProtobufProperty[] = object.properties

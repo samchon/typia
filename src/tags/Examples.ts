@@ -11,34 +11,34 @@ import { TagBase } from "./TagBase";
  * names and values are the example data. This helps in API documentation and
  * test case generation.
  *
+ * @author Jeongho Nam - https://github.com/samchon
  * @example
- * ```typescript
- * interface PaymentRequest {
- *   amount: number & Examples<{
- *     small: 10.50,
- *     medium: 99.99,
- *     large: 1000.00
- *   }>;
- * }
- * ```
+ *   ```typescript
+ *   interface PaymentRequest {
+ *     amount: number & Examples<{
+ *       small: 10.50,
+ *       medium: 99.99,
+ *       large: 1000.00
+ *     }>;
+ *   }
+ *   ```;
  *
  * @example
- * ```typescript
- * interface UserStatus {
- *   state: string & Examples<{
- *     active: "active",
- *     inactive: "inactive",
- *     suspended: "suspended"
- *   }>;
- *   profile: object & Examples<{
- *     basic: { name: "John", age: 25 },
- *     detailed: { name: "Jane", age: 30, bio: "Developer", verified: true }
- *   }>;
- * }
- * ```
+ *   ```typescript
+ *   interface UserStatus {
+ *     state: string & Examples<{
+ *       active: "active",
+ *       inactive: "inactive",
+ *       suspended: "suspended"
+ *     }>;
+ *     profile: object & Examples<{
+ *       basic: { name: "John", age: 25 },
+ *       detailed: { name: "Jane", age: 30, bio: "Developer", verified: true }
+ *     }>;
+ *   }
+ *   ```;
  *
  * @template Value A record object mapping example names to example values
- * @author Jeongho Nam - https://github.com/samchon
  */
 export type Examples<
   Value extends Record<

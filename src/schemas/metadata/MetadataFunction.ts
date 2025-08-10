@@ -10,18 +10,14 @@ export class MetadataFunction {
   public output: Metadata;
   public async: boolean;
 
-  /**
-   * @hidden
-   */
+  /** @ignore */
   private constructor(props: ClassProperties<MetadataFunction>) {
     this.parameters = props.parameters;
     this.output = props.output;
     this.async = props.async;
   }
 
-  /**
-   * @internal
-   */
+  /** @internal */
   public static create(
     props: ClassProperties<MetadataFunction>,
   ): MetadataFunction {

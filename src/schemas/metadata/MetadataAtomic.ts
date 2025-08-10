@@ -9,9 +9,7 @@ export class MetadataAtomic {
 
   private name_?: string;
 
-  /**
-   * @internal
-   */
+  /** @internal */
   private constructor(props: ClassProperties<MetadataAtomic>) {
     this.type = props.type;
     this.tags = props.tags;

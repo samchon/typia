@@ -14,9 +14,7 @@ import { json_schema_station } from "./json_schema_station";
 import { json_schema_title } from "./json_schema_title";
 import { metadata_to_pattern } from "./metadata_to_pattern";
 
-/**
- * @internal
- */
+/** @internal */
 export const json_schema_object = (props: {
   components: OpenApi.IComponents;
   object: MetadataObject;
@@ -44,9 +42,7 @@ const emplace_object = (props: {
   return { $ref };
 };
 
-/**
- * @internal
- */
+/** @internal */
 const create_object_schema = (props: {
   components: OpenApi.IComponents;
   object: MetadataObject;
@@ -117,9 +113,7 @@ const create_object_schema = (props: {
   };
 };
 
-/**
- * @internal
- */
+/** @internal */
 const join = (props: {
   components: OpenApi.IComponents;
   extra: ISuperfluous;
@@ -149,9 +143,7 @@ const join = (props: {
   );
 };
 
-/**
- * @internal
- */
+/** @internal */
 interface ISuperfluous {
   additionalProperties?: undefined | [Metadata, OpenApi.IJsonSchema];
   patternProperties: Record<string, [Metadata, OpenApi.IJsonSchema]>;

@@ -5,12 +5,13 @@ import { ValueOf } from "./typings/ValueOf";
 /**
  * Snake case type.
  *
- * `SnakeCase` type is a type that all keys of an object are converted to snake case.
+ * `SnakeCase` type is a type that all keys of an object are converted to snake
+ * case.
  *
  * It also erases every method property like {@link Resolved} type.
  *
- * @template T Target type to be snake cased
  * @author Jeongho Nam - https://github.com/samchon
+ * @template T Target type to be snake cased
  */
 export type SnakeCase<T> =
   Equal<T, SnakageMain<T>> extends true ? T : SnakageMain<T>;

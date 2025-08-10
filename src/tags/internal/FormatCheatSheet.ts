@@ -1,9 +1,7 @@
 const RegexCall = <Text extends string>(text: Text) =>
   `${text}.test($input)` as const;
 
-/**
- * @reference https://github.dev/ajv-validator/ajv-formats/blob/master/src/formats.ts
- */
+/** @reference https://github.dev/ajv-validator/ajv-formats/blob/master/src/formats.ts */
 export const FormatCheatSheet = {
   // SPECIAL CHARACTERS
   byte: RegexCall(

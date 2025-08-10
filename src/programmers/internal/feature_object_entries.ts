@@ -10,9 +10,7 @@ import { Escaper } from "../../utils/Escaper";
 
 import { FeatureProgrammer } from "../FeatureProgrammer";
 
-/**
- * @internal
- */
+/** @internal */
 export const feature_object_entries = <Output extends ts.ConciseBody>(props: {
   config: Pick<FeatureProgrammer.IConfig<Output>, "decoder" | "path" | "trace">;
   context: ITypiaContext;

@@ -11,14 +11,10 @@ export class MetadataTupleType {
   public readonly recursive: boolean;
   public readonly nullables: boolean[];
 
-  /**
-   * @internal
-   */
+  /** @internal */
   public of_map?: boolean;
 
-  /**
-   * @internal
-   */
+  /** @internal */
   private constructor(props: ClassProperties<MetadataTupleType>) {
     this.name = props.name;
     this.elements = props.elements;
@@ -27,9 +23,7 @@ export class MetadataTupleType {
     this.nullables = props.nullables;
   }
 
-  /**
-   * @internal
-   */
+  /** @internal */
   public static _From_without_elements(
     props: Omit<IMetadataTupleType, "elements">,
   ): MetadataTupleType {

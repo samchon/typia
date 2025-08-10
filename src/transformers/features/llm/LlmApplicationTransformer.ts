@@ -61,9 +61,7 @@ export namespace LlmApplicationTransformer {
     );
   };
 
-  /**
-   * @internal
-   */
+  /** @internal */
   export const decompose = (
     method: string,
     props: ITransformProps,

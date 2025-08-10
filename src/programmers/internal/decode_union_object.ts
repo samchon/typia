@@ -4,9 +4,7 @@ import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 
 import { FeatureProgrammer } from "../FeatureProgrammer";
 
-/**
- * @internal
- */
+/** @internal */
 export const decode_union_object = (props: {
   checker: (next: {
     input: ts.Expression;
@@ -58,9 +56,7 @@ export const decode_union_object = (props: {
     undefined,
   );
 
-/**
- * @internal
- */
+/** @internal */
 const iterate = (props: {
   escaper: (next: { input: ts.Expression; expected: string }) => ts.Statement;
   unions: IUnion[];
@@ -106,9 +102,7 @@ const iterate = (props: {
   return ts.factory.createBlock(statements, true);
 };
 
-/**
- * @internal
- */
+/** @internal */
 interface IUnion {
   type: string;
   is: () => ts.Expression;

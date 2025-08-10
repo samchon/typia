@@ -2,9 +2,7 @@ import ts from "typescript";
 
 import { ExpressionFactory } from "../../factories/ExpressionFactory";
 
-/**
- * @internal
- */
+/** @internal */
 export const check_native = (props: {
   name: string;
   input: ts.Expression;
@@ -21,7 +19,5 @@ export const check_native = (props: {
     : instanceOf;
 };
 
-/**
- * @internal
- */
+/** @internal */
 const ATOMIC_LIKE = new Set(["Boolean", "Number", "String"]);

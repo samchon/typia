@@ -4,9 +4,7 @@ import { MetadataObjectType } from "../../schemas/metadata/MetadataObjectType";
 
 import { metadata_to_pattern } from "./metadata_to_pattern";
 
-/**
- * @internal
- */
+/** @internal */
 export const prune_object_properties = (object: MetadataObjectType) => {
   const input: ts.Expression = ts.factory.createIdentifier("input");
   const key: ts.Expression = ts.factory.createIdentifier("key");

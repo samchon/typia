@@ -15,22 +15,16 @@ export class MetadataObjectType {
   public recursive: boolean;
   public nullables: boolean[] = [];
 
-  /**
-   * @internal
-   */
+  /** @internal */
   public tagged_: boolean = false;
 
-  /**
-   * @internal
-   */
+  /** @internal */
   private literal_?: boolean;
 
   /* -----------------------------------------------------------
         CONSTRUCTORS
     ----------------------------------------------------------- */
-  /**
-   * @hidden
-   */
+  /** @ignore */
   private constructor(
     props: Omit<ClassProperties<MetadataObjectType>, "tagged_">,
   ) {
@@ -47,18 +41,14 @@ export class MetadataObjectType {
     this.tagged_ = false;
   }
 
-  /**
-   * @internal
-   */
+  /** @internal */
   public static create(
     props: Omit<ClassProperties<MetadataObjectType>, "tagged_">,
   ) {
     return new MetadataObjectType(props);
   }
 
-  /**
-   * @internal
-   */
+  /** @internal */
   public static _From_without_properties(
     obj: IMetadataObjectType,
   ): MetadataObjectType {
@@ -120,9 +110,7 @@ export class MetadataObjectType {
   }
 }
 
-/**
- * @internal
- */
+/** @internal */
 export namespace MetadataObjectType {
   export const intersects = (
     x: MetadataObjectType,

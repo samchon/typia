@@ -22,9 +22,7 @@ export class MetadataParameter {
     this.tsType = props.tsType;
   }
 
-  /**
-   * @internal
-   */
+  /** @internal */
   public static create(
     props: ClassProperties<MetadataParameter>,
   ): MetadataParameter {

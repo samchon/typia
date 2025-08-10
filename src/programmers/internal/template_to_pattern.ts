@@ -4,9 +4,7 @@ import { PatternUtil } from "../../utils/PatternUtil";
 
 import { metadata_to_pattern } from "./metadata_to_pattern";
 
-/**
- * @internal
- */
+/** @internal */
 export const template_to_pattern = (props: {
   top: boolean;
   template: Metadata[];

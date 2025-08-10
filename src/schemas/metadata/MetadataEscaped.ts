@@ -8,17 +8,13 @@ export class MetadataEscaped {
   public readonly original: Metadata;
   public readonly returns: Metadata;
 
-  /**
-   * @hidden
-   */
+  /** @ignore */
   private constructor(props: ClassProperties<MetadataEscaped>) {
     this.original = props.original;
     this.returns = props.returns;
   }
 
-  /**
-   * @internal
-   */
+  /** @internal */
   public static from(
     props: IMetadataEscaped,
     dict: IMetadataDictionary,
@@ -29,9 +25,7 @@ export class MetadataEscaped {
     });
   }
 
-  /**
-   * @internal
-   */
+  /** @internal */
   public static create(
     props: ClassProperties<MetadataEscaped>,
   ): MetadataEscaped {
