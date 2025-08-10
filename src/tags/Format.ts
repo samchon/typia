@@ -7,9 +7,13 @@ import type { TagBase } from "./TagBase";
  * provides built-in validation for standard string formats without needing to
  * write custom regular expressions.
  *
- * Examples: type Email = string & Format<"email">; // user@example.com type
- * WebURL = string & Format<"url">; // https://example.com type DateTime =
- * string & Format<"date-time">; // 2024-01-15T10:30:00Z
+ * Examples:
+ *
+ * ```ts
+ * Type Email = string & Format<"email">; // user@example.com
+ * Type WebURL = string & Format<"url">; // https://example.com
+ * Type DateTime = string & Format<"date-time">; // 2024-01-15T10:30:00Z
+ * ```
  *
  * Supported formats include:
  *
