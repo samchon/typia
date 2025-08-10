@@ -10,28 +10,27 @@ import { COMPILER_OPTIONS } from "./COMPILER_OPTIONS";
 import { ICompilerService } from "./ICompilerService";
 import external from "../raw/external.json";
 import { RollupBundler } from "./RollupBundler";
+import ts from "typescript";
 
 const main = async (): Promise<void> => {
   const worker = new WorkerServer();
-  const compiler: EmbedTypeScript = new EmbedTypeScript({
-    external: external as Record<string, string>,
-    compilerOptions: COMPILER_OPTIONS,
-    transformers: (program, diagnostics) => ({
-      before: [
-        typiaTransform(
-          program,
-          {},
-          {
-            addDiagnostic: (input) => diagnostics.push(input),
-          },
-        ),
-      ],
-    }),
-  });
   const provider: ICompilerService = {
-    compile: async (source: string): Promise<ICompilerService.IOutput> => {
+    compile: async (
+      props: ICompilerService.IProps,
+    ): Promise<ICompilerService.IResult> => {
+      const compiler: EmbedTypeScript = new EmbedTypeScript({
+        external: external as Record<string, string>,
+        compilerOptions: COMPILER_OPTIONS,
+        transformers: (program, diagnostics) => ({
+          before: [
+            typiaTransform(program, props.options ?? {}, {
+              addDiagnostic: (input) => diagnostics.push(input),
+            }),
+          ],
+        }),
+      });
       const result: IEmbedTypeScriptResult = compiler.compile({
-        "src/index.ts": source,
+        "src/index.ts": props.source,
       });
       return result.type === "success"
         ? {
@@ -52,9 +51,22 @@ const main = async (): Promise<void> => {
               value: result.error,
             };
     },
-    transform: async (source: string): Promise<ICompilerService.IOutput> => {
+    transform: async (
+      props: ICompilerService.IProps,
+    ): Promise<ICompilerService.IResult> => {
+      const compiler: EmbedTypeScript = new EmbedTypeScript({
+        external: external as Record<string, string>,
+        compilerOptions: COMPILER_OPTIONS,
+        transformers: (program, diagnostics) => ({
+          before: [
+            typiaTransform(program, props.options ?? {}, {
+              addDiagnostic: (input) => diagnostics.push(input),
+            }) satisfies ts.TransformerFactory<ts.SourceFile>,
+          ],
+        }),
+      });
       const result: IEmbedTypeScriptTransformation = compiler.transform({
-        "src/index.ts": source,
+        "src/index.ts": props.source,
       });
       return result.type === "success"
         ? {
@@ -75,8 +87,10 @@ const main = async (): Promise<void> => {
               value: result.error,
             };
     },
-    bundle: async (source: string): Promise<ICompilerService.IOutput> => {
-      const result: ICompilerService.IOutput = await provider.compile(source);
+    bundle: async (
+      props: ICompilerService.IProps,
+    ): Promise<ICompilerService.IResult> => {
+      const result: ICompilerService.IResult = await provider.compile(props);
       if (result.type !== "success") return result;
       try {
         const value: string = await RollupBundler.build(result.value);
