@@ -9,7 +9,7 @@ import prettierEsTreePlugin from "prettier/plugins/estree";
 import prettierTsPlugin from "prettier/plugins/typescript";
 import { format } from "prettier/standalone";
 import React, { useEffect, useState } from "react";
-import { Button, IconButton, Tooltip } from "@mui/material";
+import { Button, Tooltip } from "@mui/material";
 import PlayArrowIcon from "@mui/icons-material/PlayArrow";
 import SettingsIcon from "@mui/icons-material/Settings";
 import { version } from "../../../package.json";
