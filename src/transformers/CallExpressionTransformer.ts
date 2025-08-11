@@ -17,6 +17,7 @@ import { NamingConvention } from "../utils/NamingConvention";
 import { ITransformProps } from "./ITransformProps";
 import { ITypiaContext } from "./ITypiaContext";
 import { AssertTransformer } from "./features/AssertTransformer";
+import { CompareTransformer } from "./features/CompareTransformer";
 import { CreateAssertTransformer } from "./features/CreateAssertTransformer";
 import { CreateIsTransformer } from "./features/CreateIsTransformer";
 import { CreateRandomTransformer } from "./features/CreateRandomTransformer";
@@ -211,6 +212,12 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
         standardSchema: true,
       }),
     createRandom: () => CreateRandomTransformer.transform,
+  },
+  compare: {
+    // COMPARE FUNCTIONS
+    equals: () => CompareTransformer.transform({ equals: true }),
+    covers: () => CompareTransformer.transform({ equals: false, covers: true }),
+    less: () => CompareTransformer.transform({ equals: false, less: true }),
   },
   functional: {
     // ASSERTIONS
