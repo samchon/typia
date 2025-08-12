@@ -12,6 +12,8 @@ import { FunctionalValidateParametersProgrammer } from "../programmers/functiona
 import { FunctionalValidateReturnProgrammer } from "../programmers/functional/FunctionalValidateReturnProgrammer";
 import { FunctionalGenericTransformer } from "./features/functional/FunctionalGenericTransformer";
 
+import { DecoratorTransformer } from "./features/decorators/DecoratorTransformer";
+
 import { NamingConvention } from "../utils/NamingConvention";
 
 import { ITransformProps } from "./ITransformProps";
@@ -550,5 +552,56 @@ const FUNCTORS: Record<string, Record<string, () => Task>> = {
       NotationCreateValidateGeneralTransformer.transform(
         NamingConvention.snake,
       ),
+  },
+  decorators: {
+    // ASSERTIONS
+    assert: () =>
+      DecoratorTransformer.transform({
+        method: "assert",
+        config: {
+          equals: false,
+        },
+        programmer: () => ts.factory.createIdentifier("undefined"), // placeholder
+      }),
+    assertEquals: () =>
+      DecoratorTransformer.transform({
+        method: "assertEquals",
+        config: {
+          equals: true,
+        },
+        programmer: () => ts.factory.createIdentifier("undefined"), // placeholder
+      }),
+    is: () =>
+      DecoratorTransformer.transform({
+        method: "is",
+        config: {
+          equals: false,
+        },
+        programmer: () => ts.factory.createIdentifier("undefined"), // placeholder
+      }),
+    equals: () =>
+      DecoratorTransformer.transform({
+        method: "equals", 
+        config: {
+          equals: true,
+        },
+        programmer: () => ts.factory.createIdentifier("undefined"), // placeholder
+      }),
+    validate: () =>
+      DecoratorTransformer.transform({
+        method: "validate",
+        config: {
+          equals: false,
+        },
+        programmer: () => ts.factory.createIdentifier("undefined"), // placeholder
+      }),
+    validateEquals: () =>
+      DecoratorTransformer.transform({
+        method: "validateEquals",
+        config: {
+          equals: true,
+        },
+        programmer: () => ts.factory.createIdentifier("undefined"), // placeholder
+      }),
   },
 };
