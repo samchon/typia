@@ -10,6 +10,7 @@
 import { NoTransformConfigurationError } from "./transformers/NoTransformConfigurationError";
 
 import { Atomic } from "./typings/Atomic";
+import { UnionToTuple } from "./typings/UnionToTuple";
 
 import { IValidation } from "./IValidation";
 import { Resolved } from "./Resolved";
@@ -18,9 +19,9 @@ import { TypeGuardError } from "./TypeGuardError";
 /**
  * > You must configure the generic argument `T`.
  *
- * Union literal type to array.
+ * Union literal type to tuple.
  *
- * Converts a union literal type to an array of its members.
+ * Converts a union literal type to a tuple of its members.
  *
  * ```typescript
  * literals<"A" | "B" | 1>; // ["A", "B", 1]
@@ -28,14 +29,14 @@ import { TypeGuardError } from "./TypeGuardError";
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T Union literal type
- * @returns Array of union literal type's members
+ * @returns Tuple of union literal type's members
  */
 export function literals(): never;
 
 /**
- * Union literal type to array.
+ * Union literal type to tuple.
  *
- * Converts a union literal type to an array of its members.
+ * Converts a union literal type to a tuple of its members.
  *
  * ```typescript
  * literals<"A" | "B" | 1>; // ["A", "B", 1]
@@ -43,9 +44,9 @@ export function literals(): never;
  *
  * @author Jeongho Nam - https://github.com/samchon
  * @template T Union literal type
- * @returns Array of union literal type's members
+ * @returns Tuple of union literal type's members
  */
-export function literals<T extends Atomic.Type | null>(): T[];
+export function literals<T extends Atomic.Type | null>(): UnionToTuple<T>;
 
 /** @internal */
 export function literals(): never {

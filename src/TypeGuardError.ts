@@ -170,7 +170,7 @@ export namespace TypeGuardError {
      * The name of the typia method that threw the error.
      *
      * @example
-     *   typia.assert, "typia.assertEquals";
+     *   (typia.assert, "typia.assertEquals");
      */
     method: string;
 
@@ -179,7 +179,7 @@ export namespace TypeGuardError {
      * (optional).
      *
      * @example
-     *   input.age, "input.profile.email";
+     *   (input.age, "input.profile.email");
      */
     path?: undefined | string;
 
@@ -187,7 +187,7 @@ export namespace TypeGuardError {
      * String representation of the expected type at the error location.
      *
      * @example
-     *   string, "number & ExclusiveMinimum<19>";
+     *   (string, "number & ExclusiveMinimum<19>");
      */
     expected: string;
 
