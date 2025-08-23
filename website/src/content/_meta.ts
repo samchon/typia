@@ -5,6 +5,9 @@ export default {
     title: "Introduction",
     type: "page",
     display: "hidden",
+    theme: {
+      toc: false,
+    },
   },
   docs: {
     title: "📖 Guide Documents",
