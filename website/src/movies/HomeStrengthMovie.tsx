@@ -62,7 +62,7 @@ const sections: HomeStrengthSectionMovie.Props[] = [
     href: "/docs/json/stringify",
   },
   {
-    title: "LLM Function Calling App",
+    title: "LLM Function Calling",
     subTitle: (
       <HomeCodeBlock
         namespace="llm"
@@ -74,7 +74,7 @@ const sections: HomeStrengthSectionMovie.Props[] = [
     ),
     description: (
       <React.Fragment>
-        <p>LLM Function Calling Application Composer</p>
+        <p>LLM Function Calling Schema Composer</p>
         <br />
         <p>
           Creates LLM function call schemas from a native TypeScript class or
