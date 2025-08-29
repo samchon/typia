@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "typia",
-  "version": "9.7.1",
+  "version": "9.7.2",
   "description": "Superfast runtime validators with only one line",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
