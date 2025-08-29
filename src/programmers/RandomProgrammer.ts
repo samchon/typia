@@ -532,7 +532,12 @@ export namespace RandomProgrammer {
               internal: "randomInteger",
               arguments: [LiteralFactory.write(schema)],
             };
-        }
+        } else if (props.atomic.type === "boolean")
+          return {
+            method: props.atomic.type,
+            internal: "randomBoolean",
+            arguments: [],
+          };
         return {
           method: props.atomic.type,
           internal: `random${StringUtil.capitalize(props.atomic.type)}`,
